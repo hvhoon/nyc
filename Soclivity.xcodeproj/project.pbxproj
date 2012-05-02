@@ -17,11 +17,8 @@
 		680CE41A1551284800B8E937 /* BasicInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 680CE4041551284700B8E937 /* BasicInfoView.m */; };
 		680CE41B1551284800B8E937 /* CameraCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 680CE4061551284700B8E937 /* CameraCustom.m */; };
 		680CE41C1551284800B8E937 /* LocationCustomManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 680CE4081551284700B8E937 /* LocationCustomManager.m */; };
-		680CE41D1551284800B8E937 /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 680CE4091551284700B8E937 /* profile.png */; };
 		680CE41E1551284800B8E937 /* RegistrationViewControler.m in Sources */ = {isa = PBXBuildFile; fileRef = 680CE40B1551284700B8E937 /* RegistrationViewControler.m */; };
 		680CE41F1551284800B8E937 /* RegistrationViewControler.xib in Resources */ = {isa = PBXBuildFile; fileRef = 680CE40C1551284700B8E937 /* RegistrationViewControler.xib */; };
-		680CE4201551284800B8E937 /* SOC.png in Resources */ = {isa = PBXBuildFile; fileRef = 680CE40D1551284700B8E937 /* SOC.png */; };
-		680CE4211551284800B8E937 /* SOC@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 680CE40E1551284700B8E937 /* SOC@2x.png */; };
 		680CE4221551284800B8E937 /* SoclivityUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 680CE4101551284700B8E937 /* SoclivityUtilities.m */; };
 		680CE4231551284800B8E937 /* UIImage+ProportionalFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 680CE4121551284700B8E937 /* UIImage+ProportionalFill.m */; };
 		680CE4241551284800B8E937 /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = 680CE4141551284700B8E937 /* UIImage+Tint.m */; };
@@ -81,12 +78,9 @@
 		680CE4061551284700B8E937 /* CameraCustom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraCustom.m; sourceTree = "<group>"; };
 		680CE4071551284700B8E937 /* LocationCustomManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationCustomManager.h; sourceTree = "<group>"; };
 		680CE4081551284700B8E937 /* LocationCustomManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationCustomManager.m; sourceTree = "<group>"; };
-		680CE4091551284700B8E937 /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
 		680CE40A1551284700B8E937 /* RegistrationViewControler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrationViewControler.h; sourceTree = "<group>"; };
 		680CE40B1551284700B8E937 /* RegistrationViewControler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationViewControler.m; sourceTree = "<group>"; };
 		680CE40C1551284700B8E937 /* RegistrationViewControler.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegistrationViewControler.xib; sourceTree = "<group>"; };
-		680CE40D1551284700B8E937 /* SOC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SOC.png; sourceTree = "<group>"; };
-		680CE40E1551284700B8E937 /* SOC@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SOC@2x.png"; sourceTree = "<group>"; };
 		680CE40F1551284700B8E937 /* SoclivityUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoclivityUtilities.h; sourceTree = "<group>"; };
 		680CE4101551284700B8E937 /* SoclivityUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoclivityUtilities.m; sourceTree = "<group>"; };
 		680CE4111551284700B8E937 /* UIImage+ProportionalFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ProportionalFill.h"; sourceTree = "<group>"; };
@@ -190,12 +184,9 @@
 				680CE4061551284700B8E937 /* CameraCustom.m */,
 				680CE4071551284700B8E937 /* LocationCustomManager.h */,
 				680CE4081551284700B8E937 /* LocationCustomManager.m */,
-				680CE4091551284700B8E937 /* profile.png */,
 				680CE40A1551284700B8E937 /* RegistrationViewControler.h */,
 				680CE40B1551284700B8E937 /* RegistrationViewControler.m */,
 				680CE40C1551284700B8E937 /* RegistrationViewControler.xib */,
-				680CE40D1551284700B8E937 /* SOC.png */,
-				680CE40E1551284700B8E937 /* SOC@2x.png */,
 				680CE40F1551284700B8E937 /* SoclivityUtilities.h */,
 				680CE4101551284700B8E937 /* SoclivityUtilities.m */,
 				680CE4111551284700B8E937 /* UIImage+ProportionalFill.h */,
@@ -334,10 +325,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				680CE3ED1551258700B8E937 /* InfoPlist.strings in Resources */,
-				680CE41D1551284800B8E937 /* profile.png in Resources */,
 				680CE41F1551284800B8E937 /* RegistrationViewControler.xib in Resources */,
-				680CE4201551284800B8E937 /* SOC.png in Resources */,
-				680CE4211551284800B8E937 /* SOC@2x.png in Resources */,
 				680CE4261551284800B8E937 /* WelcomeScreenViewController.xib in Resources */,
 				680CE42C1551289000B8E937 /* SoclivityLoginViewController.xib in Resources */,
 				680CE430155128B800B8E937 /* profile.png in Resources */,
@@ -496,6 +484,7 @@
 				680CE3FE1551258700B8E937 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
