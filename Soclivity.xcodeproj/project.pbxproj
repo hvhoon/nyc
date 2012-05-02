@@ -58,6 +58,8 @@
 		680CE46C1551290100B8E937 /* see@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 680CE4501551290100B8E937 /* see@2x.png */; };
 		680CE46D1551290100B8E937 /* sign-up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 680CE4511551290100B8E937 /* sign-up@2x.png */; };
 		687F3A6615512CAF00B694DA /* README in Resources */ = {isa = PBXBuildFile; fileRef = 687F3A6515512CAF00B694DA /* README */; };
+		687F3A781551349F00B694DA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 687F3A771551349F00B694DA /* CoreLocation.framework */; };
+		687F3A7A155134AE00B694DA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 687F3A79155134AE00B694DA /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -126,6 +128,8 @@
 		680CE4501551290100B8E937 /* see@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "see@2x.png"; sourceTree = "<group>"; };
 		680CE4511551290100B8E937 /* sign-up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sign-up@2x.png"; sourceTree = "<group>"; };
 		687F3A6515512CAF00B694DA /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		687F3A771551349F00B694DA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		687F3A79155134AE00B694DA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +137,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				687F3A7A155134AE00B694DA /* QuartzCore.framework in Frameworks */,
+				687F3A781551349F00B694DA /* CoreLocation.framework in Frameworks */,
 				680CE3E31551258700B8E937 /* UIKit.framework in Frameworks */,
 				680CE3E51551258700B8E937 /* Foundation.framework in Frameworks */,
 				680CE3E71551258700B8E937 /* CoreGraphics.framework in Frameworks */,
@@ -164,6 +170,8 @@
 		680CE3E11551258700B8E937 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				687F3A79155134AE00B694DA /* QuartzCore.framework */,
+				687F3A771551349F00B694DA /* CoreLocation.framework */,
 				680CE3E21551258700B8E937 /* UIKit.framework */,
 				680CE3E41551258700B8E937 /* Foundation.framework */,
 				680CE3E61551258700B8E937 /* CoreGraphics.framework */,
@@ -174,31 +182,14 @@
 		680CE3E81551258700B8E937 /* Soclivity */ = {
 			isa = PBXGroup;
 			children = (
-				680CE4281551289000B8E937 /* SoclivityLoginViewController.h */,
-				680CE4291551289000B8E937 /* SoclivityLoginViewController.m */,
-				680CE42A1551289000B8E937 /* SoclivityLoginViewController.xib */,
-				680CE3FF1551284700B8E937 /* ActivityTypeSelectView.h */,
-				680CE4001551284700B8E937 /* ActivityTypeSelectView.m */,
 				680CE4011551284700B8E937 /* AppDelegate.h */,
 				680CE4021551284700B8E937 /* AppDelegate.m */,
-				680CE4031551284700B8E937 /* BasicInfoView.h */,
-				680CE4041551284700B8E937 /* BasicInfoView.m */,
-				680CE4051551284700B8E937 /* CameraCustom.h */,
-				680CE4061551284700B8E937 /* CameraCustom.m */,
-				680CE4071551284700B8E937 /* LocationCustomManager.h */,
-				680CE4081551284700B8E937 /* LocationCustomManager.m */,
-				680CE40A1551284700B8E937 /* RegistrationViewControler.h */,
-				680CE40B1551284700B8E937 /* RegistrationViewControler.m */,
-				680CE40C1551284700B8E937 /* RegistrationViewControler.xib */,
-				680CE40F1551284700B8E937 /* SoclivityUtilities.h */,
-				680CE4101551284700B8E937 /* SoclivityUtilities.m */,
-				680CE4111551284700B8E937 /* UIImage+ProportionalFill.h */,
-				680CE4121551284700B8E937 /* UIImage+ProportionalFill.m */,
-				680CE4131551284700B8E937 /* UIImage+Tint.h */,
-				680CE4141551284700B8E937 /* UIImage+Tint.m */,
-				680CE4151551284800B8E937 /* WelcomeScreenViewController.h */,
-				680CE4161551284800B8E937 /* WelcomeScreenViewController.m */,
-				680CE4171551284800B8E937 /* WelcomeScreenViewController.xib */,
+				687F3A701551300E00B694DA /* Welcome */,
+				687F3A721551301D00B694DA /* Registration */,
+				687F3A731551303600B694DA /* Login */,
+				687F3A751551307000B694DA /* Camera Custom */,
+				687F3A741551306500B694DA /* Location Manager */,
+				687F3A761551307C00B694DA /* Utilities */,
 				680CE3E91551258700B8E937 /* Supporting Files */,
 			);
 			path = Soclivity;
@@ -275,6 +266,71 @@
 				680CE4511551290100B8E937 /* sign-up@2x.png */,
 			);
 			path = 640x960;
+			sourceTree = "<group>";
+		};
+		687F3A701551300E00B694DA /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				680CE4151551284800B8E937 /* WelcomeScreenViewController.h */,
+				680CE4161551284800B8E937 /* WelcomeScreenViewController.m */,
+				680CE4171551284800B8E937 /* WelcomeScreenViewController.xib */,
+			);
+			name = Welcome;
+			sourceTree = "<group>";
+		};
+		687F3A721551301D00B694DA /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				680CE3FF1551284700B8E937 /* ActivityTypeSelectView.h */,
+				680CE4001551284700B8E937 /* ActivityTypeSelectView.m */,
+				680CE4031551284700B8E937 /* BasicInfoView.h */,
+				680CE4041551284700B8E937 /* BasicInfoView.m */,
+				680CE40A1551284700B8E937 /* RegistrationViewControler.h */,
+				680CE40B1551284700B8E937 /* RegistrationViewControler.m */,
+				680CE40C1551284700B8E937 /* RegistrationViewControler.xib */,
+			);
+			name = Registration;
+			sourceTree = "<group>";
+		};
+		687F3A731551303600B694DA /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				680CE4281551289000B8E937 /* SoclivityLoginViewController.h */,
+				680CE4291551289000B8E937 /* SoclivityLoginViewController.m */,
+				680CE42A1551289000B8E937 /* SoclivityLoginViewController.xib */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		687F3A741551306500B694DA /* Location Manager */ = {
+			isa = PBXGroup;
+			children = (
+				680CE4071551284700B8E937 /* LocationCustomManager.h */,
+				680CE4081551284700B8E937 /* LocationCustomManager.m */,
+			);
+			name = "Location Manager";
+			sourceTree = "<group>";
+		};
+		687F3A751551307000B694DA /* Camera Custom */ = {
+			isa = PBXGroup;
+			children = (
+				680CE4051551284700B8E937 /* CameraCustom.h */,
+				680CE4061551284700B8E937 /* CameraCustom.m */,
+			);
+			name = "Camera Custom";
+			sourceTree = "<group>";
+		};
+		687F3A761551307C00B694DA /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				680CE40F1551284700B8E937 /* SoclivityUtilities.h */,
+				680CE4101551284700B8E937 /* SoclivityUtilities.m */,
+				680CE4111551284700B8E937 /* UIImage+ProportionalFill.h */,
+				680CE4121551284700B8E937 /* UIImage+ProportionalFill.m */,
+				680CE4131551284700B8E937 /* UIImage+Tint.h */,
+				680CE4141551284700B8E937 /* UIImage+Tint.m */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -406,7 +462,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = (
+					armv7,
+					armv6,
+				);
 				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -431,7 +490,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = (
+					armv7,
+					armv6,
+				);
 				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
@@ -450,6 +512,7 @@
 		680CE3FD1551258700B8E937 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
@@ -461,6 +524,7 @@
 		680CE3FE1551258700B8E937 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
