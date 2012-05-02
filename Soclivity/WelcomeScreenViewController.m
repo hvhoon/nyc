@@ -34,7 +34,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     rootView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 460)];
     [self.view addSubview:rootView];
     
