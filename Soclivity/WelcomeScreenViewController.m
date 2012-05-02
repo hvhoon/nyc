@@ -37,49 +37,45 @@
     rootView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 460)];
     [self.view addSubview:rootView];
     
-    UIImageView *socLogoImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"logo@1x.png"]];
-    socLogoImageView.frame=CGRectMake(46.5, 80, 227, 64);
+    UIImageView *socLogoImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"logo.png"]];
+    socLogoImageView.frame=CGRectMake(50.5, 80, 219, 58);
     
-    
-    
-    playImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"green_play@1x.png"]];
+    playImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"green_play.png"]];
     playImageView.frame=CGRectMake(0, 0, 320, 460);
-    UIImageView*playHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"play@1x.png"]];
-    playHighlightImage.frame=CGRectMake(27.5, 150, 265, 15);
+    UIImageView*playHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"play.png"]];
+    playHighlightImage.frame=CGRectMake(33, 150, 254, 14);
     [playImageView addSubview:playHighlightImage];
     
     [rootView addSubview:playImageView];
     
-    
-    
-    eatImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"orange_eat@1x.png"]];
+    eatImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"orange_eat.png"]];
     eatImageView.frame=CGRectMake(0, 0, 320, 460);
-    UIImageView*eatHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"eat@1x.png"]];
-    eatHighlightImage.frame=CGRectMake(27.5, 150, 265, 15);
+    UIImageView*eatHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"eat.png"]];
+    eatHighlightImage.frame=CGRectMake(33, 150, 254, 14);
     [eatImageView addSubview:eatHighlightImage];
     
     [rootView addSubview:eatImageView];
     
-    seeImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"purple_see@1x.png"]];
+    seeImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"purple_see.png"]];
     seeImageView.frame=CGRectMake(0, 0, 320, 460);
     UIImageView*seeHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"see.png"]];
-    seeHighlightImage.frame=CGRectMake(27.5, 150, 265, 15);
+    seeHighlightImage.frame=CGRectMake(33, 150, 254, 14);
     [seeImageView addSubview:seeHighlightImage];
     
     [rootView addSubview:seeImageView];
     
-    createImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"red_create@1x.png"]];
+    createImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"red_create.png"]];
     createImageView.frame=CGRectMake(0, 0, 320, 460);
-    UIImageView*createHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"create@1x.png"]];
-    createHighlightImage.frame=CGRectMake(27.5, 150, 265, 15);
+    UIImageView*createHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"create.png"]];
+    createHighlightImage.frame=CGRectMake(33, 150, 254, 14);
     [createImageView addSubview:createHighlightImage];
     
     [rootView addSubview:createImageView];
     
-    learnImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"aqua_learn@1x.png"]];
+    learnImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"aqua_learn.png"]];
     learnImageView.frame=CGRectMake(0, 0, 320, 460);
-    UIImageView*learnHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"learn@1x.png"]];
-    learnHighlightImage.frame=CGRectMake(27.5, 150, 265, 15);
+    UIImageView*learnHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"learn.png"]];
+    learnHighlightImage.frame=CGRectMake(33, 150, 254, 14);
     [learnImageView addSubview:learnHighlightImage];
     
     [rootView addSubview:learnImageView];
@@ -90,7 +86,7 @@
     createImageView.hidden=YES;
     learnImageView.hidden=YES;
     [self.view addSubview:socLogoImageView];
-    UIImageView *socSignupImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sign-up@1x.png"]];
+    UIImageView *socSignupImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sign-up.png"]];
     socSignupImageView.frame=CGRectMake(26, 287, 268, 134);
     [self.view addSubview:socSignupImageView];
     
