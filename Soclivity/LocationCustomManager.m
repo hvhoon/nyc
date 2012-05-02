@@ -122,7 +122,7 @@
                 NSLog(@"location is=%@",object);
             }
             if(theTag==kNoLocation)
-             [delegate  LocationAcquired:placemark.country];
+             [delegate  LocationAcquired:[placemark.addressDictionary objectForKey:@"City"]];
 
 
         } 

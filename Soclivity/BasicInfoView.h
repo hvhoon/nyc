@@ -20,18 +20,28 @@
 
 
 
-@interface BasicInfoView : UIControl<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,CustomCameraUploadDelegate,UIActionSheetDelegate,CoreLocationDelegate>{
+@interface BasicInfoView : UIView<UITextFieldDelegate,CustomCameraUploadDelegate,UIActionSheetDelegate,CoreLocationDelegate>{
     
-    UITableView *basicInfoTableView;
     CameraCustom *cameraUpload;
     id <BasicRegistrationDelegate>delegate;
     LocationCustomManager *SocLocation;
-    UILabel *locationLabel;
+    UITextField *enterNameTextField;
+    UITextField *emailTextField;
+    UITextField *enterPasswordTextField;
+    UITextField *confirmPasswordTextField;
+    IBOutlet UIButton *locationBtnText;
 }
 @property (nonatomic,retain)id <BasicRegistrationDelegate>delegate;
+@property (nonatomic,retain)IBOutlet UITextField *enterNameTextField;
+@property (nonatomic,retain)IBOutlet UITextField *emailTextField;
+@property (nonatomic,retain)IBOutlet UITextField *enterPasswordTextField;
+@property (nonatomic,retain)IBOutlet UITextField *confirmPasswordTextField;
+
 -(void)showUploadCaptureSheet;
 -(void)PushImageGallery;
 -(void)PushCamera;
--(void)LocationButtonClicked;
+-(IBAction)LocationButtonClicked:(id)sender;
 -(IBAction)sectionViewChanged:(id)sender;
+-(IBAction)ProfileBtnClicked:(UIButton*)sender;
+-(IBAction)birthdayDateSelection:(id)sender;
 @end
