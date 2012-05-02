@@ -57,6 +57,7 @@
 		680CE46B1551290100B8E937 /* red_create@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 680CE44F1551290100B8E937 /* red_create@2x.png */; };
 		680CE46C1551290100B8E937 /* see@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 680CE4501551290100B8E937 /* see@2x.png */; };
 		680CE46D1551290100B8E937 /* sign-up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 680CE4511551290100B8E937 /* sign-up@2x.png */; };
+		687F3A6615512CAF00B694DA /* README in Resources */ = {isa = PBXBuildFile; fileRef = 687F3A6515512CAF00B694DA /* README */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -124,6 +125,7 @@
 		680CE44F1551290100B8E937 /* red_create@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red_create@2x.png"; sourceTree = "<group>"; };
 		680CE4501551290100B8E937 /* see@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "see@2x.png"; sourceTree = "<group>"; };
 		680CE4511551290100B8E937 /* sign-up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sign-up@2x.png"; sourceTree = "<group>"; };
+		687F3A6515512CAF00B694DA /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 		680CE3D31551258700B8E937 = {
 			isa = PBXGroup;
 			children = (
+				687F3A6515512CAF00B694DA /* README */,
 				680CE4271551286D00B8E937 /* Resources */,
 				680CE3E81551258700B8E937 /* Soclivity */,
 				680CE3E11551258700B8E937 /* Frameworks */,
@@ -359,6 +362,7 @@
 				680CE46B1551290100B8E937 /* red_create@2x.png in Resources */,
 				680CE46C1551290100B8E937 /* see@2x.png in Resources */,
 				680CE46D1551290100B8E937 /* sign-up@2x.png in Resources */,
+				687F3A6615512CAF00B694DA /* README in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
