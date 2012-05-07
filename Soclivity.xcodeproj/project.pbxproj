@@ -24,6 +24,7 @@
 		680CE4241551284800B8E937 /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = 680CE4141551284700B8E937 /* UIImage+Tint.m */; };
 		680CE4251551284800B8E937 /* WelcomeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 680CE4161551284800B8E937 /* WelcomeScreenViewController.m */; };
 		680CE4261551284800B8E937 /* WelcomeScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 680CE4171551284800B8E937 /* WelcomeScreenViewController.xib */; };
+		686C797F15579545001358E0 /* S02.1_getstarted.png in Resources */ = {isa = PBXBuildFile; fileRef = 686C797E15579545001358E0 /* S02.1_getstarted.png */; };
 		687F3A781551349F00B694DA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 687F3A771551349F00B694DA /* CoreLocation.framework */; };
 		687F3A7A155134AE00B694DA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 687F3A79155134AE00B694DA /* QuartzCore.framework */; };
 		EAB135B415545B3600C1607D /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB135B215545B3600C1607D /* ResetPasswordViewController.m */; };
@@ -110,7 +111,6 @@
 		EAED84A31554016200124D7D /* S02.1_create@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAED84271554016200124D7D /* S02.1_create@2x.png */; };
 		EAED84A41554016200124D7D /* S02.1_eat.png in Resources */ = {isa = PBXBuildFile; fileRef = EAED84281554016200124D7D /* S02.1_eat.png */; };
 		EAED84A51554016200124D7D /* S02.1_eat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAED84291554016200124D7D /* S02.1_eat@2x.png */; };
-		EAED84A61554016200124D7D /* S02.1_get-started.png in Resources */ = {isa = PBXBuildFile; fileRef = EAED842A1554016200124D7D /* S02.1_get-started.png */; };
 		EAED84A71554016200124D7D /* S02.1_getstarted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAED842B1554016200124D7D /* S02.1_getstarted@2x.png */; };
 		EAED84A81554016200124D7D /* S02.1_info.png in Resources */ = {isa = PBXBuildFile; fileRef = EAED842C1554016200124D7D /* S02.1_info.png */; };
 		EAED84A91554016200124D7D /* S02.1_info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAED842D1554016200124D7D /* S02.1_info@2x.png */; };
@@ -195,6 +195,7 @@
 		680CE4151551284800B8E937 /* WelcomeScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeScreenViewController.h; sourceTree = "<group>"; };
 		680CE4161551284800B8E937 /* WelcomeScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeScreenViewController.m; sourceTree = "<group>"; };
 		680CE4171551284800B8E937 /* WelcomeScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeScreenViewController.xib; sourceTree = "<group>"; };
+		686C797E15579545001358E0 /* S02.1_getstarted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S02.1_getstarted.png; sourceTree = "<group>"; };
 		687F3A771551349F00B694DA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		687F3A79155134AE00B694DA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		EAB135B115545B3600C1607D /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
@@ -295,7 +296,6 @@
 		EAED84271554016200124D7D /* S02.1_create@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S02.1_create@2x.png"; sourceTree = "<group>"; };
 		EAED84281554016200124D7D /* S02.1_eat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S02.1_eat.png; sourceTree = "<group>"; };
 		EAED84291554016200124D7D /* S02.1_eat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S02.1_eat@2x.png"; sourceTree = "<group>"; };
-		EAED842A1554016200124D7D /* S02.1_get-started.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S02.1_get-started.png"; sourceTree = "<group>"; };
 		EAED842B1554016200124D7D /* S02.1_getstarted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S02.1_getstarted@2x.png"; sourceTree = "<group>"; };
 		EAED842C1554016200124D7D /* S02.1_info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S02.1_info.png; sourceTree = "<group>"; };
 		EAED842D1554016200124D7D /* S02.1_info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S02.1_info@2x.png"; sourceTree = "<group>"; };
@@ -637,11 +637,11 @@
 		EAED84241554016200124D7D /* S02.1 Registration */ = {
 			isa = PBXGroup;
 			children = (
+				686C797E15579545001358E0 /* S02.1_getstarted.png */,
 				EAED84261554016200124D7D /* S02.1_create.png */,
 				EAED84271554016200124D7D /* S02.1_create@2x.png */,
 				EAED84281554016200124D7D /* S02.1_eat.png */,
 				EAED84291554016200124D7D /* S02.1_eat@2x.png */,
-				EAED842A1554016200124D7D /* S02.1_get-started.png */,
 				EAED842B1554016200124D7D /* S02.1_getstarted@2x.png */,
 				EAED842C1554016200124D7D /* S02.1_info.png */,
 				EAED842D1554016200124D7D /* S02.1_info@2x.png */,
@@ -841,7 +841,6 @@
 				EAED84A31554016200124D7D /* S02.1_create@2x.png in Resources */,
 				EAED84A41554016200124D7D /* S02.1_eat.png in Resources */,
 				EAED84A51554016200124D7D /* S02.1_eat@2x.png in Resources */,
-				EAED84A61554016200124D7D /* S02.1_get-started.png in Resources */,
 				EAED84A71554016200124D7D /* S02.1_getstarted@2x.png in Resources */,
 				EAED84A81554016200124D7D /* S02.1_info.png in Resources */,
 				EAED84A91554016200124D7D /* S02.1_info@2x.png in Resources */,
@@ -895,6 +894,7 @@
 				EAED84DA1554016200124D7D /* S01.2_tick@2x.png in Resources */,
 				EAB135B515545B3600C1607D /* ResetPasswordViewController.xib in Resources */,
 				EAB1366715546B6D00C1607D /* FBConnect.bundle in Resources */,
+				686C797F15579545001358E0 /* S02.1_getstarted.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
