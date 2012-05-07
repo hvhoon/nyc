@@ -30,13 +30,15 @@
     UITextField *enterPasswordTextField;
     UITextField *confirmPasswordTextField;
     IBOutlet UIButton *locationBtnText;
+    UIImageView *activeType;
+    IBOutlet UIButton *profileBtn;
 }
 @property (nonatomic,retain)id <BasicRegistrationDelegate>delegate;
 @property (nonatomic,retain)IBOutlet UITextField *enterNameTextField;
 @property (nonatomic,retain)IBOutlet UITextField *emailTextField;
 @property (nonatomic,retain)IBOutlet UITextField *enterPasswordTextField;
 @property (nonatomic,retain)IBOutlet UITextField *confirmPasswordTextField;
-
+@property (nonatomic,retain)IBOutlet UIImageView *activeType;
 -(void)showUploadCaptureSheet;
 -(void)PushImageGallery;
 -(void)PushCamera;

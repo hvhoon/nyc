@@ -9,7 +9,8 @@
 #import "WelcomeScreenViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "RegistrationViewControler.h"
-#import "SoclivityLoginViewController.h"
+#import "LoginViewController.h"
+#import "SoclivityManager.h"
 @implementation WelcomeScreenViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -212,12 +213,16 @@
 }
 -(void)SignInUsingFacebookButtonClicked{
     NSLog(@"SignInUsingFacebookButtonClicked");
+#if 1    
+    SoclivityManager *facebookManager=[SoclivityManager SharedInstance];
+    [facebookManager SetFacebookConnectObject:self fTag:0];
+#endif    
 }
 -(void)AlreadySignedUpButtonClicked{
      NSLog(@"AlreadySignedUpButtonClicked");
-    SoclivityLoginViewController *soclivityLoginViewController=[[SoclivityLoginViewController alloc] initWithNibName:@"SoclivityLoginViewController" bundle:nil];
+    LoginViewController *loginViewController=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     
-	[[self navigationController] pushViewController:soclivityLoginViewController animated:YES];
+	[[self navigationController] pushViewController:loginViewController animated:YES];
 
 }
 - (void)viewDidUnload

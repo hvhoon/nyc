@@ -31,6 +31,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    pageControlBeingUsed = NO;
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)]; 
     
     scrollView.indicatorStyle=UIScrollViewIndicatorStyleBlack;
@@ -40,6 +41,7 @@
     scrollView.showsVerticalScrollIndicator =NO;
     scrollView.alwaysBounceVertical= YES;
     scrollView.delegate = self;
+    scrollView.bounces=NO;
     [self.view addSubview:scrollView];
     basicSectionFirst.delegate=self;
     activitySectionSecond.delegate=self;
@@ -52,13 +54,24 @@
         switch (i) {
             case 0:
             {
-                basicSectionFirst.frame=frame;
+                basicSectionFirst.frame=CGRectMake(0, 0, 320, 414);
                 [self.scrollView addSubview:basicSectionFirst];
+                UIImageView *activeType=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S02_pickactivity.png"]];
+                activeType.frame=CGRectMake(0, 414, 320, 46);
+                UIButton *scrollUpDownButton=[UIButton buttonWithType:UIButtonTypeCustom];
+                scrollUpDownButton.frame=CGRectMake(276,422,29,30);
+                [scrollUpDownButton setBackgroundImage:[UIImage imageNamed:@"S02_downarrow.png"] forState:UIControlStateNormal];
+                [scrollUpDownButton addTarget:self action:@selector(timeToScrollDown) forControlEvents:UIControlEventTouchUpInside];
+                [self.scrollView addSubview:activeType];
+                [self.scrollView addSubview:scrollUpDownButton];
+
+                
             }
                 break;
             case 1:
             {
-                activitySectionSecond.frame=frame;
+                
+                activitySectionSecond.frame=CGRectMake(0, 460, 320, 460);
                 [self.scrollView addSubview:activitySectionSecond];
             }
                 break;
@@ -71,7 +84,7 @@
 		
 	}
 
-	self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,self.scrollView.frame.size.height* 2);
+	self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,874);
 
     
     //[self.view addSubview:basicSectionFirst];
@@ -81,14 +94,20 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
+    if (!pageControlBeingUsed) {
+		// Switch the indicator when more than 50% of the previous/next page is visible
+		CGFloat pageWidth = self.scrollView.frame.size.height;
+		page = floor((self.scrollView.contentOffset.y - pageWidth / 2) / pageWidth) + 1;
+        //NSLog(@"page=%d",page);
+	}
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-	
+	pageControlBeingUsed = NO;
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-	
+	pageControlBeingUsed = NO;
 }
 
 
@@ -107,7 +126,25 @@
 	frame.origin.x = 0;
 	frame.origin.y = self.scrollView.frame.size.height * 1;
 	frame.size = self.scrollView.frame.size;
-	[self.scrollView scrollRectToVisible:frame animated:YES];
+    CGRect frame1;
+    
+    switch (page) {
+        case 0:
+        {
+             frame1=CGRectMake(0, 460, 320, 460);
+        }
+            break;
+            
+        case 1:
+        {
+             frame1=CGRectMake(0, 0, 320, 460);
+        }
+            break;
+    }
+   
+	[self.scrollView scrollRectToVisible:frame1 animated:YES];
+    
+    //pageControlBeingUsed = YES;
 
 }
 -(void)timeToScrollUp{

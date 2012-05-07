@@ -8,6 +8,18 @@
 
 #import "AppDelegate.h"
 #import "WelcomeScreenViewController.h"
+#import "SocFacebookLogin.h"
+@implementation UINavigationBar (CustomImage)
+
+- (void)drawRect:(CGRect)rect {
+	UIColor *color = [UIColor clearColor];
+	UIImage *img;
+    img  = [UIImage imageNamed: @"S01.2_blackbar.png"];
+	[img drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+	self.tintColor  = color;
+}
+
+@end
 @implementation AppDelegate
 @synthesize navigationController;
 @synthesize window = _window;
@@ -18,14 +30,35 @@
     [super dealloc];
 }
 
+void uncaughtExceptionHandler(NSException *exception) {
+    NSLog(@"CRASH: %@", exception);
+    NSLog(@"Stack Trace: %@", [exception callStackSymbols]);
+    // Internal error reporting
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+    
      [application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     WelcomeScreenViewController *welcomeScreenViewController=[[WelcomeScreenViewController alloc]initWithNibName:@"WelcomeScreenViewController" bundle:nil];
     navigationController=[[UINavigationController alloc]initWithRootViewController:welcomeScreenViewController];
+    
+    UINavigationBar *NavBar = [navigationController navigationBar];
+    
+    if ([NavBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)])
+    {
+        // set globablly for all UINavBars
+        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed: @"S01.2_blackbar.png"] forBarMetrics:UIBarMetricsDefault];
+        
+        // could optionally set for just this navBar
+        //[navBar setBackgroundImage:...
+    }
+
 
     
     [navigationController setNavigationBarHidden:YES];
@@ -34,6 +67,7 @@
     [self.window makeKeyAndVisible];
     return YES;
 }
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

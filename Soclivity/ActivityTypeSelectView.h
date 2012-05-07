@@ -18,8 +18,26 @@
 
 @interface ActivityTypeSelectView : UIView{
     id <ActivitySelectDelegate>delegate;
+    IBOutlet UIImageView *playImageView;
+    IBOutlet UIImageView *eatImageView;
+    IBOutlet UIImageView *seeImageView;
+    IBOutlet UIImageView *createImageView;
+    IBOutlet UIImageView *learnImageView;
+    BOOL play;
+    BOOL eat;
+    BOOL see;
+    BOOL create;
+    BOOL learn;
+    
+
+
+    
 }
 @property (nonatomic,retain)id <ActivitySelectDelegate>delegate;
--(IBAction)sectionViewChanged:(id)sender;
 -(IBAction)getStartedClicked:(id)sender;
+-(IBAction)playActivityClicked:(id)sender;
+-(IBAction)eatActivityClicked:(id)sender;
+-(IBAction)seeActivityClicked:(id)sender;
+-(IBAction)createActivityClicked:(id)sender;
+-(IBAction)learnActivityClicked:(id)sender;
 @end

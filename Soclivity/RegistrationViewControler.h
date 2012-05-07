@@ -13,6 +13,8 @@
     UIScrollView* scrollView;
     BasicInfoView *basicSectionFirst;
     ActivityTypeSelectView*activitySectionSecond;
+    BOOL pageControlBeingUsed;
+    int page;
 }
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property(nonatomic,retain)IBOutlet BasicInfoView *basicSectionFirst;

@@ -1,23 +1,9 @@
-SCM Post-Commit Message Syntax
-==============================
+Please use the following syntax with your commits
+=================================================
+Using the syntax below will ensure that the appropriate comments are added to the referenced stories in Pivotaltracker.  This will help with management of the project overall.
 
-To associate an SCM commit with a specific Tracker story, you must include a special syntax in the commit message to indicate one or more story IDs and (optionally) a state change for the story. Your commit message should have square brackets containing a hash mark followed by the story ID. If a story was not already started (it was in the "not started" state), a commit message will automatically start it. For example, if Scotty uses the following message when committing SCM revision 54321:
+1. As you update user stories
+[#req.ID] <Description of change/update to the user story>
 
-  [#12345677 #12345678] Diverting power from warp drive to torpedoes.
-  
-...it will result in the following comment being added to Tracker stories 12345677 and 12345678, and the stories will be started if they were not yet started:
-
-  Commit: Scotty
-  54321
-
-  [#12345677 #12345678] Diverting power from warp drive to torpedoes.
-  
-
-To automatically finish a story by using a commit message, include "fixed", "completed" or "finished" in the square brackets in addition to the story ID. You may also use different cases or forms of these verbs, such as "Fix" or "FIXES", and they may appear before or after the story ID. Note: For features, this will put the story in the 'finished' state. For chores, it will put the story in the 'accepted' state. For example:
-
-  [Fixes #12345678] Torpedoes now sufficiently powered.
-  
-
-In some environments, code that is committed is automatically deployed. For this situation, include "delivers" and the story will be put in the 'delivered' state:
-
-  [Delivers #12345679] Scotty can beam up Captain Kirk.
+2. Once a user story is compplete
+[complete #req.ID] <Description of functionality added>

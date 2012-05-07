@@ -18,7 +18,7 @@
 #define kBirthday 5
 
 @implementation BasicInfoView
-@synthesize delegate,enterNameTextField,emailTextField,enterPasswordTextField,confirmPasswordTextField;
+@synthesize delegate,enterNameTextField,emailTextField,enterPasswordTextField,confirmPasswordTextField,activeType;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -124,8 +124,10 @@
     NSLog(@"UIimage from Gallery=%@",andUIImage);
     [delegate dismissPickerModalController];
     
-    CGRect bounds = CGRectMake(0,0,30, 30);
+    CGRect bounds = CGRectMake(0,0,56, 56);
     UIImage *capturedImg=[SoclivityUtilities updateResult:bounds.size originalImage:andUIImage switchCaseIndex:0];
+    [profileBtn setBackgroundImage:capturedImg forState:UIControlStateNormal];
+    NSLog(@"UIImage=%@",capturedImg);
 
 }
 
