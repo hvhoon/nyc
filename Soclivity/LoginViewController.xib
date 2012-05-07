@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1280</int>
-		<string key="IBDocument.SystemVersion">10K549</string>
-		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
-		<string key="IBDocument.AppKitVersion">1038.36</string>
-		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<int key="IBDocument.SystemTarget">1296</int>
+		<string key="IBDocument.SystemVersion">12A178q</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2488</string>
+		<string key="IBDocument.AppKitVersion">1166.3</string>
+		<string key="IBDocument.HIToolboxVersion">609.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">933</string>
+			<string key="NS.object.0">1468</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
+			<string>IBProxyObject</string>
 			<string>IBUIButton</string>
 			<string>IBUIImageView</string>
-			<string>IBUIView</string>
 			<string>IBUITextField</string>
-			<string>IBProxyObject</string>
+			<string>IBUIView</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -43,7 +43,7 @@
 						<string key="NSFrameSize">{320, 460}</string>
 						<reference key="NSSuperview" ref="1015676171"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="496648011"/>
+						<reference key="NSNextKeyView" ref="204891211"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
@@ -54,10 +54,10 @@
 					<object class="IBUIImageView" id="496648011">
 						<reference key="NSNextResponder" ref="1015676171"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{48, 7}, {225, 63}}</string>
+						<string key="NSFrame">{{48, 7}, {227, 64}}</string>
 						<reference key="NSSuperview" ref="1015676171"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="204891211"/>
+						<reference key="NSNextKeyView" ref="509333600"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
@@ -71,7 +71,7 @@
 						<string key="NSFrame">{{27, 69}, {266, 90}}</string>
 						<reference key="NSSuperview" ref="1015676171"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="509333600"/>
+						<reference key="NSNextKeyView" ref="496648011"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
@@ -219,6 +219,7 @@
 						<string key="NSFrame">{{0, 205}, {320, 41}}</string>
 						<reference key="NSSuperview" ref="1015676171"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="130418530"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -239,9 +240,10 @@
 					<object class="IBUIButton" id="130418530">
 						<reference key="NSNextResponder" ref="1015676171"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{278, 209}, {33, 32}}</string>
+						<string key="NSFrame">{{278, 211}, {29, 30}}</string>
 						<reference key="NSSuperview" ref="1015676171"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -254,7 +256,7 @@
 						<reference key="IBUINormalTitleShadowColor" ref="849384476"/>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">S01.1_arrow.png</string>
+							<string key="NSResourceName">S02.1_rightarrow.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="748262031"/>
 						<reference key="IBUIFont" ref="328058180"/>
@@ -525,18 +527,22 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
+		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
+			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
+			<real value="1296" key="NS.object.0"/>
+		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="S01.1_arrow.png">{33, 32}</string>
 			<string key="S01.1_details.png">{266, 90}</string>
 			<string key="S01.1_question.png">{23, 23}</string>
 			<string key="S01.1_remember.png">{75, 9}</string>
 			<string key="S01.1_signinbox.png">{320, 41}</string>
 			<string key="S01.1_tickbox.png">{25, 25}</string>
+			<string key="S02.1_rightarrow.png">{29, 30}</string>
 			<string key="green_play.png">{320, 460}</string>
 			<string key="logo.png">{227, 64}</string>
 		</dictionary>
-		<string key="IBCocoaTouchPluginVersion">933</string>
+		<string key="IBCocoaTouchPluginVersion">1468</string>
 	</data>
 </archive>
