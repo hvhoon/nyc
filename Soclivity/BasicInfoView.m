@@ -17,6 +17,9 @@
 #define kConfirm 4
 #define kBirthday 5
 
+#define kMale 6
+#define kFemale 7
+
 @implementation BasicInfoView
 @synthesize delegate,enterNameTextField,emailTextField,enterPasswordTextField,confirmPasswordTextField,activeType;
 - (id)initWithFrame:(CGRect)frame
@@ -48,12 +51,46 @@
     [locationBtnText setTitle:SoclivityLoc forState:UIControlStateNormal];
     }
 }
--(IBAction)sectionViewChanged:(id)sender{
-    [delegate timeToScrollDown];
+-(IBAction)genderChanged:(UIButton*)sender{
+    
+    switch (sender.tag) {
+        case kMale:
+        {
+            
+            b_Male=!b_Male;
+             [femaleButton setBackgroundImage:[UIImage imageNamed:@"S02_F_notselected.png"] forState:UIControlStateNormal];
+            
+            if(b_Male){
+            [maleButton setBackgroundImage:[UIImage imageNamed:@"S02_male.png"] forState:UIControlStateNormal];
+                b_Female=FALSE;
+            }else{
+                [maleButton setBackgroundImage:[UIImage imageNamed:@"S02_M_notselected.png"] forState:UIControlStateNormal];
+                
+            }
+           
+
+        }
+            break;
+            
+        case kFemale:
+        {
+            b_Female=!b_Female;
+            
+            [maleButton setBackgroundImage:[UIImage imageNamed:@"S02_M_notselected.png"] forState:UIControlStateNormal];
+
+            if(b_Female){
+            [femaleButton setBackgroundImage:[UIImage imageNamed:@"S02_female.png"] forState:UIControlStateNormal];
+                b_Male=FALSE;
+            }
+            else{
+                [femaleButton setBackgroundImage:[UIImage imageNamed:@"S02_F_notselected.png"] forState:UIControlStateNormal];
+            }
+        }
+            break;
+        default:
+            break;
+    }
 }
-
-
-
         
 -(void)showUploadCaptureSheet{
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Upload my profile picture"
@@ -124,9 +161,10 @@
     NSLog(@"UIimage from Gallery=%@",andUIImage);
     [delegate dismissPickerModalController];
     
-    CGRect bounds = CGRectMake(0,0,56, 56);
+    CGRect bounds = CGRectMake(0,0,55, 50);
     UIImage *capturedImg=[SoclivityUtilities updateResult:bounds.size originalImage:andUIImage switchCaseIndex:0];
     [profileBtn setBackgroundImage:capturedImg forState:UIControlStateNormal];
+    setYourPic.hidden=YES;
     NSLog(@"UIImage=%@",capturedImg);
 
 }

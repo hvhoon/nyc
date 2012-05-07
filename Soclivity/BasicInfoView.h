@@ -32,6 +32,11 @@
     IBOutlet UIButton *locationBtnText;
     UIImageView *activeType;
     IBOutlet UIButton *profileBtn;
+    IBOutlet UIButton *maleButton;
+    IBOutlet UIButton *femaleButton;
+    BOOL b_Male;
+    BOOL b_Female;
+    IBOutlet UIImageView *setYourPic;
 }
 @property (nonatomic,retain)id <BasicRegistrationDelegate>delegate;
 @property (nonatomic,retain)IBOutlet UITextField *enterNameTextField;
@@ -43,7 +48,7 @@
 -(void)PushImageGallery;
 -(void)PushCamera;
 -(IBAction)LocationButtonClicked:(id)sender;
--(IBAction)sectionViewChanged:(id)sender;
+-(IBAction)genderChanged:(UIButton*)sender;
 -(IBAction)ProfileBtnClicked:(UIButton*)sender;
 -(IBAction)birthdayDateSelection:(id)sender;
 @end
