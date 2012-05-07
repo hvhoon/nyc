@@ -746,7 +746,7 @@
 					<object class="IBUIImageView" id="93615746">
 						<reference key="NSNextResponder" ref="797170633"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 378}, {320, 42}}</string>
+						<string key="NSFrame">{{0, 372}, {320, 42}}</string>
 						<reference key="NSSuperview" ref="797170633"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="294799622"/>
@@ -760,7 +760,7 @@
 					<object class="IBUIButton" id="294799622">
 						<reference key="NSNextResponder" ref="797170633"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{276, 383}, {33, 32}}</string>
+						<string key="NSFrame">{{276, 378}, {29, 30}}</string>
 						<reference key="NSSuperview" ref="797170633"/>
 						<reference key="NSWindow"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -1430,6 +1430,7 @@
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="40.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="44.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="0.0" key="44.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="45.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="47.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="48.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1657,6 +1658,10 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
+		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
+			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
+			<real value="1296" key="NS.object.0"/>
+		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
 			<real value="1280" key="NS.object.0"/>
@@ -1670,7 +1675,7 @@
 			<string key="S02.1_info.png">{17, 17}</string>
 			<string key="S02.1_learn.png">{157, 121}</string>
 			<string key="S02.1_play.png">{157, 119}</string>
-			<string key="S02.1_rightarrow.png">{33, 32}</string>
+			<string key="S02.1_rightarrow.png">{29, 30}</string>
 			<string key="S02.1_see.png">{157, 121}</string>
 			<string key="S02.1_thingsilike.png">{160, 120}</string>
 			<string key="S02.1_tick.png">{37, 32}</string>
