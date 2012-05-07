@@ -64,6 +64,7 @@
                 [scrollUpDownButton addTarget:self action:@selector(timeToScrollDown) forControlEvents:UIControlEventTouchUpInside];
                 [self.scrollView addSubview:activeType];
                 [self.scrollView addSubview:scrollUpDownButton];
+                [activeType release];
 
                 
             }
@@ -123,26 +124,26 @@
 }
 -(void)timeToScrollDown{
     CGRect frame;
-	frame.origin.x = 0;
-	frame.origin.y = self.scrollView.frame.size.height * 1;
-	frame.size = self.scrollView.frame.size;
-    CGRect frame1;
+    frame.origin.x = 0;
+    frame.origin.y = self.scrollView.frame.size.height;
+    frame.size = self.scrollView.frame.size;
     
     switch (page) {
         case 0:
         {
-             frame1=CGRectMake(0, 460, 320, 460);
+            frame.origin.y = 460;
         }
             break;
             
         case 1:
         {
-             frame1=CGRectMake(0, 0, 320, 460);
+            frame.origin.y = 0;
+
         }
             break;
     }
    
-	[self.scrollView scrollRectToVisible:frame1 animated:YES];
+	[self.scrollView scrollRectToVisible:frame animated:YES];
     
     //pageControlBeingUsed = YES;
 

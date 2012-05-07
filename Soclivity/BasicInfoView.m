@@ -157,12 +157,12 @@
     
 }
 
--(void)imageCapture:(NSString*)photoUrl andUIImage:(UIImage*)andUIImage{
-    NSLog(@"UIimage from Gallery=%@",andUIImage);
+-(void)imageCapture:(UIImage*)Img{
+    NSLog(@"UIimage from Gallery=%@",Img);
     [delegate dismissPickerModalController];
     
     CGRect bounds = CGRectMake(0,0,55, 50);
-    UIImage *capturedImg=[SoclivityUtilities updateResult:bounds.size originalImage:andUIImage switchCaseIndex:0];
+    UIImage *capturedImg=[SoclivityUtilities updateResult:bounds.size originalImage:Img switchCaseIndex:0];
     [profileBtn setBackgroundImage:capturedImg forState:UIControlStateNormal];
     setYourPic.hidden=YES;
     NSLog(@"UIImage=%@",capturedImg);
@@ -215,7 +215,7 @@
 	
     [textField resignFirstResponder];
 	
-    if((textField==enterPasswordTextField)||(textField==confirmPasswordTextField)){
+    {
         
         [UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationBeginsFromCurrentState:YES];

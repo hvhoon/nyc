@@ -14,5 +14,4 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic,retain) UINavigationController *navigationController;
--(void)SetFacebookConnectObject:(id)parentDelegate fTag:(NSInteger)fTag;
 @end

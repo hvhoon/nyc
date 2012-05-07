@@ -64,7 +64,7 @@
 +(UIImage*)updateResult:(CGSize)sizeToFitTheImage originalImage:(UIImage*)originalImage switchCaseIndex:(int)switchCaseIndex
 {
 	UIImage *oldImage = originalImage;
-	UIImage *newImage;
+	UIImage *newImage=nil;
     //	CGSize newSize = resultView.frame.size;
 	CGSize newSize = sizeToFitTheImage;
 	

@@ -13,9 +13,9 @@
 
 -(id)init{
     
-    if(![super init]){
-		return nil;
-	}
+    self = [super init];
+    
+    if (self) {
 
     self.locationManager = [[[CLLocationManager alloc] init] autorelease];
     locationManager.delegate = self;
@@ -41,6 +41,7 @@
     [locationManager startUpdatingLocation];
     [self performSelector:@selector(stopUpdatingLocation:) withObject:@"Timed Out" afterDelay:30.0f];
     
+    }
     }
     return self;
 
@@ -128,10 +129,13 @@
         } 
         
     }];
+        [clGeoCoder release];
     }
     else{
         [delegate  LocationAcquired:@"Nowhere"];
     }
+    
+    
     
 }
 

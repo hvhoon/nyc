@@ -38,11 +38,10 @@
 	button.bounds = CGRectMake(0,0,button.imageView.image.size.width, 29);
 	[button addTarget:self action:@selector(CrossClicked:) forControlEvents:UIControlEventTouchUpInside];
 	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    
 	self.navigationItem.leftBarButtonItem = barButtonItem;
     
     [barButtonItem release];
-    [button release];
+    
     
     button = [UIButton buttonWithType:UIButtonTypeCustom];
 	[button setImage:[UIImage imageNamed:@"S01.2_tick.png"] forState:UIControlStateNormal];
@@ -51,11 +50,11 @@
 	barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     
 	self.navigationItem.rightBarButtonItem = barButtonItem;
-    
     [barButtonItem release];
-    [button release];
-    
-    self.navigationItem.titleView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S01.2_passwordreset.png"]];
+
+    UIImageView*passwordReset=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S01.2_passwordreset.png"]];
+    self.navigationItem.titleView=passwordReset;
+    [passwordReset release]; 
 
     // Do any additional setup after loading the view from its nib.
 }

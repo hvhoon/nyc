@@ -41,7 +41,6 @@
 @property (nonatomic,assign)	NSInteger   setFTag;
 @property (nonatomic,retain) NSMutableArray *facebookFriendsListArray;
 @property (nonatomic,retain) FBSession* _session;
--(void)FindContactsInFacebook;
 -(void)getFacebookName;
 -(void)postToWall;
 -(void)setUniqueTagForResults:(NSInteger)fTag;

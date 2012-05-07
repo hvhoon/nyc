@@ -39,6 +39,8 @@
 	
     
 	[self.navigationController presentModalViewController:addNavigationController animated:YES];
+    [resetPasswordViewController release];
+    [addNavigationController release];
 
 
 }

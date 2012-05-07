@@ -30,6 +30,14 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+-(void)dealloc{
+    [super dealloc];
+    [playImageView release];
+    [eatImageView release];
+    [seeImageView release];
+    [createImageView release];
+    [learnImageView release];
+}
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -48,6 +56,7 @@
     [playImageView addSubview:playHighlightImage];
     
     [rootView addSubview:playImageView];
+    [playHighlightImage release];
     
     eatImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"orange_eat.png"]];
     eatImageView.frame=CGRectMake(0, 0, 320, 460);
@@ -56,6 +65,7 @@
     [eatImageView addSubview:eatHighlightImage];
     
     [rootView addSubview:eatImageView];
+    [eatHighlightImage release];
     
     seeImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"purple_see.png"]];
     seeImageView.frame=CGRectMake(0, 0, 320, 460);
@@ -64,6 +74,7 @@
     [seeImageView addSubview:seeHighlightImage];
     
     [rootView addSubview:seeImageView];
+    [seeHighlightImage release];
     
     createImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"red_create.png"]];
     createImageView.frame=CGRectMake(0, 0, 320, 460);
@@ -72,13 +83,14 @@
     [createImageView addSubview:createHighlightImage];
     
     [rootView addSubview:createImageView];
+    [createHighlightImage release];
     
     learnImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"aqua_learn.png"]];
     learnImageView.frame=CGRectMake(0, 0, 320, 460);
     UIImageView*learnHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"learn.png"]];
     learnHighlightImage.frame=CGRectMake(33, 150, 254, 14);
     [learnImageView addSubview:learnHighlightImage];
-    
+    [learnHighlightImage release];
     [rootView addSubview:learnImageView];
     
     
@@ -87,9 +99,11 @@
     createImageView.hidden=YES;
     learnImageView.hidden=YES;
     [self.view addSubview:socLogoImageView];
+    [socLogoImageView release];
     UIImageView *socSignupImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sign-up.png"]];
     socSignupImageView.frame=CGRectMake(26, 287, 268, 134);
     [self.view addSubview:socSignupImageView];
+    [socSignupImageView release];
     
     
     UIButton *signUpButton=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -208,6 +222,7 @@
     RegistrationViewControler *registrationViewControler=[[RegistrationViewControler alloc] initWithNibName:@"RegistrationViewControler" bundle:nil];
     
 	[[self navigationController] pushViewController:registrationViewControler animated:YES];
+    [registrationViewControler release];
     
 #endif
 }
@@ -223,6 +238,7 @@
     LoginViewController *loginViewController=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     
 	[[self navigationController] pushViewController:loginViewController animated:YES];
+    [loginViewController release];
 
 }
 - (void)viewDidUnload

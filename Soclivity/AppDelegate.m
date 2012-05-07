@@ -47,7 +47,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     self.window.backgroundColor = [UIColor whiteColor];
     WelcomeScreenViewController *welcomeScreenViewController=[[WelcomeScreenViewController alloc]initWithNibName:@"WelcomeScreenViewController" bundle:nil];
     navigationController=[[UINavigationController alloc]initWithRootViewController:welcomeScreenViewController];
-    
+    [welcomeScreenViewController release];
     UINavigationBar *NavBar = [navigationController navigationBar];
     
     if ([NavBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)])

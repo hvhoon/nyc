@@ -13,12 +13,14 @@
 @synthesize m_picker,delegate,galleryImage;
 
 - (id)init{
-	if(![super init]){
-		return nil;
-	}
-	m_picker=[[UIImagePickerController alloc]init];
-    m_picker.allowsEditing = YES;
-	m_picker.delegate = self;
+	
+    self = [super init];
+    if (self) {
+        m_picker=[[UIImagePickerController alloc]init];
+        m_picker.allowsEditing = YES;
+        m_picker.delegate = self;
+        
+    }
 
 	return self;
 }
@@ -48,27 +50,7 @@
         original = shinked;
          //if(!galleryImage)
          UIImageWriteToSavedPhotosAlbum(original, nil, nil, nil);
-        
-		
-		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-		NSString *documentsDirectory = [paths objectAtIndex:0];
-		
-		
-		NSMutableString *imageName = [[[NSMutableString alloc] initWithCapacity:0] autorelease];
-		
-		CFUUIDRef theUUID = CFUUIDCreate(kCFAllocatorDefault);
-		if (theUUID) {
-			[imageName appendString:NSMakeCollectable(CFUUIDCreateString(kCFAllocatorDefault, theUUID))];
-            CFRelease(theUUID);
-		}
-		[imageName appendString:@".png"];
-		NSString *imagePath=[NSString stringWithFormat:@"%@/%@",documentsDirectory,imageName];
-		NSLog(@"ImagePath=%@",imagePath);
-		//extracting image from the picker and saving it
-		NSData *imageData = UIImagePNGRepresentation(original);
-		[imageData writeToFile:imagePath atomically:YES];
-
-        [delegate imageCapture:imagePath andUIImage:original];
+        [delegate imageCapture:original];
     }
     else if ([mediaType isEqualToString:@"public.movie"]){
         NSLog(@"found an Video");

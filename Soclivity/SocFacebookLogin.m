@@ -269,9 +269,7 @@
     //[uploadimgrequest call:@"photos.upload" params:args];
 	
     
-	
-	
-    
+	[args release];
 }
 
 - (void)dialogDidCancel:(FBDialog*)dialog{
