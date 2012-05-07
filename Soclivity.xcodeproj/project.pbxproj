@@ -25,6 +25,8 @@
 		680CE4251551284800B8E937 /* WelcomeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 680CE4161551284800B8E937 /* WelcomeScreenViewController.m */; };
 		680CE4261551284800B8E937 /* WelcomeScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 680CE4171551284800B8E937 /* WelcomeScreenViewController.xib */; };
 		686C797F15579545001358E0 /* S02.1_getstarted.png in Resources */ = {isa = PBXBuildFile; fileRef = 686C797E15579545001358E0 /* S02.1_getstarted.png */; };
+		686C79821557B0DA001358E0 /* S02_F_notselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 686C79801557B0DA001358E0 /* S02_F_notselected.png */; };
+		686C79831557B0DA001358E0 /* S02_M_notselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 686C79811557B0DA001358E0 /* S02_M_notselected.png */; };
 		687F3A781551349F00B694DA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 687F3A771551349F00B694DA /* CoreLocation.framework */; };
 		687F3A7A155134AE00B694DA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 687F3A79155134AE00B694DA /* QuartzCore.framework */; };
 		EAB135B415545B3600C1607D /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB135B215545B3600C1607D /* ResetPasswordViewController.m */; };
@@ -93,8 +95,6 @@
 		EAED848F1554016200124D7D /* S02_username@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAED84111554016200124D7D /* S02_username@2x.png */; };
 		EAED84901554016200124D7D /* S02_yourname.png in Resources */ = {isa = PBXBuildFile; fileRef = EAED84121554016200124D7D /* S02_yourname.png */; };
 		EAED84911554016200124D7D /* S02_yourname@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAED84131554016200124D7D /* S02_yourname@2x.png */; };
-		EAED84931554016200124D7D /* S01.1_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = EAED84161554016200124D7D /* S01.1_arrow.png */; };
-		EAED84941554016200124D7D /* S01.1_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAED84171554016200124D7D /* S01.1_arrow@2x.png */; };
 		EAED84951554016200124D7D /* S01.1_details.png in Resources */ = {isa = PBXBuildFile; fileRef = EAED84181554016200124D7D /* S01.1_details.png */; };
 		EAED84961554016200124D7D /* S01.1_details@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAED84191554016200124D7D /* S01.1_details@2x.png */; };
 		EAED84971554016200124D7D /* S01.1_question.png in Resources */ = {isa = PBXBuildFile; fileRef = EAED841A1554016200124D7D /* S01.1_question.png */; };
@@ -196,6 +196,8 @@
 		680CE4161551284800B8E937 /* WelcomeScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeScreenViewController.m; sourceTree = "<group>"; };
 		680CE4171551284800B8E937 /* WelcomeScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeScreenViewController.xib; sourceTree = "<group>"; };
 		686C797E15579545001358E0 /* S02.1_getstarted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S02.1_getstarted.png; sourceTree = "<group>"; };
+		686C79801557B0DA001358E0 /* S02_F_notselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S02_F_notselected.png; sourceTree = "<group>"; };
+		686C79811557B0DA001358E0 /* S02_M_notselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S02_M_notselected.png; sourceTree = "<group>"; };
 		687F3A771551349F00B694DA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		687F3A79155134AE00B694DA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		EAB135B115545B3600C1607D /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
@@ -278,8 +280,6 @@
 		EAED84111554016200124D7D /* S02_username@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S02_username@2x.png"; sourceTree = "<group>"; };
 		EAED84121554016200124D7D /* S02_yourname.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S02_yourname.png; sourceTree = "<group>"; };
 		EAED84131554016200124D7D /* S02_yourname@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S02_yourname@2x.png"; sourceTree = "<group>"; };
-		EAED84161554016200124D7D /* S01.1_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S01.1_arrow.png; sourceTree = "<group>"; };
-		EAED84171554016200124D7D /* S01.1_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S01.1_arrow@2x.png"; sourceTree = "<group>"; };
 		EAED84181554016200124D7D /* S01.1_details.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S01.1_details.png; sourceTree = "<group>"; };
 		EAED84191554016200124D7D /* S01.1_details@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S01.1_details@2x.png"; sourceTree = "<group>"; };
 		EAED841A1554016200124D7D /* S01.1_question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S01.1_question.png; sourceTree = "<group>"; };
@@ -560,6 +560,8 @@
 		EAED83E31554016200124D7D /* S02 Registration */ = {
 			isa = PBXGroup;
 			children = (
+				686C79801557B0DA001358E0 /* S02_F_notselected.png */,
+				686C79811557B0DA001358E0 /* S02_M_notselected.png */,
 				EAED83E51554016200124D7D /* S02_basicinfo.png */,
 				EAED83E61554016200124D7D /* S02_basicinfo@2x.png */,
 				EAED83E71554016200124D7D /* S02_birthday.png */,
@@ -615,8 +617,6 @@
 		EAED84141554016200124D7D /* S01.1 Login */ = {
 			isa = PBXGroup;
 			children = (
-				EAED84161554016200124D7D /* S01.1_arrow.png */,
-				EAED84171554016200124D7D /* S01.1_arrow@2x.png */,
 				EAED84181554016200124D7D /* S01.1_details.png */,
 				EAED84191554016200124D7D /* S01.1_details@2x.png */,
 				EAED841A1554016200124D7D /* S01.1_question.png */,
@@ -823,8 +823,6 @@
 				EAED848F1554016200124D7D /* S02_username@2x.png in Resources */,
 				EAED84901554016200124D7D /* S02_yourname.png in Resources */,
 				EAED84911554016200124D7D /* S02_yourname@2x.png in Resources */,
-				EAED84931554016200124D7D /* S01.1_arrow.png in Resources */,
-				EAED84941554016200124D7D /* S01.1_arrow@2x.png in Resources */,
 				EAED84951554016200124D7D /* S01.1_details.png in Resources */,
 				EAED84961554016200124D7D /* S01.1_details@2x.png in Resources */,
 				EAED84971554016200124D7D /* S01.1_question.png in Resources */,
@@ -895,6 +893,8 @@
 				EAB135B515545B3600C1607D /* ResetPasswordViewController.xib in Resources */,
 				EAB1366715546B6D00C1607D /* FBConnect.bundle in Resources */,
 				686C797F15579545001358E0 /* S02.1_getstarted.png in Resources */,
+				686C79821557B0DA001358E0 /* S02_F_notselected.png in Resources */,
+				686C79831557B0DA001358E0 /* S02_M_notselected.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1028,16 +1028,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Harish Hoon";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Harish Hoon";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "61729853-B3C5-443D-ABF0-2227BD422FB4";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "61729853-B3C5-443D-ABF0-2227BD422FB4";
+				PROVISIONING_PROFILE = "516228C2-7653-4731-8A76-4B2F682373C7";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "516228C2-7653-4731-8A76-4B2F682373C7";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
