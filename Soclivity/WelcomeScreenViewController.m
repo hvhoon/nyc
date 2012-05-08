@@ -101,27 +101,25 @@
     [self.view addSubview:socLogoImageView];
     [socLogoImageView release];
     UIImageView *socSignupImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sign-up.png"]];
-    socSignupImageView.frame=CGRectMake(26, 287, 268, 134);
+    socSignupImageView.frame=CGRectMake(26, 287, 265, 132);
     [self.view addSubview:socSignupImageView];
     [socSignupImageView release];
     
     
-    UIButton *signUpButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    signUpButton.frame=CGRectMake(26,287,268,44.6);
-    [signUpButton addTarget:self action:@selector(SignUpButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:signUpButton];
-    
     UIButton *signInUsingFacebbokButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    signInUsingFacebbokButton.frame=CGRectMake(26,331.6,268,44.6);
+    signInUsingFacebbokButton.frame=CGRectMake(26,287,265,44.6);
     [signInUsingFacebbokButton addTarget:self action:@selector(SignInUsingFacebookButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signInUsingFacebbokButton];
     
+    UIButton *signUpButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    signUpButton.frame=CGRectMake(26,331,265,44.6);
+    [signUpButton addTarget:self action:@selector(SignUpButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:signUpButton];
+    
     UIButton *alreadySignedUpButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    alreadySignedUpButton.frame=CGRectMake(26,376.2,268,44.6);
+    alreadySignedUpButton.frame=CGRectMake(26,376.2,265,44.6);
     [alreadySignedUpButton addTarget:self action:@selector(AlreadySignedUpButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:alreadySignedUpButton];
-
-
 
     
     [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(performTransition) userInfo:nil repeats:YES]; 
