@@ -47,7 +47,7 @@
     [self.view addSubview:rootView];
     
     UIImageView *socLogoImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"logo.png"]];
-    socLogoImageView.frame=CGRectMake(50.5, 80, 219, 58);
+    socLogoImageView.frame=CGRectMake(51, 80, 219, 58);
     
     playImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"green_play.png"]];
     playImageView.frame=CGRectMake(0, 0, 320, 460);
