@@ -195,6 +195,7 @@
 		680CE4151551284800B8E937 /* WelcomeScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeScreenViewController.h; sourceTree = "<group>"; };
 		680CE4161551284800B8E937 /* WelcomeScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeScreenViewController.m; sourceTree = "<group>"; };
 		680CE4171551284800B8E937 /* WelcomeScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeScreenViewController.xib; sourceTree = "<group>"; };
+		683459081559744900EC9321 /* Soclivity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Soclivity.entitlements; sourceTree = "<group>"; };
 		686C797E15579545001358E0 /* S02.1_getstarted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S02.1_getstarted.png; sourceTree = "<group>"; };
 		686C79801557B0DA001358E0 /* S02_F_notselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S02_F_notselected.png; sourceTree = "<group>"; };
 		686C79811557B0DA001358E0 /* S02_M_notselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S02_M_notselected.png; sourceTree = "<group>"; };
@@ -406,6 +407,7 @@
 		680CE3E81551258700B8E937 /* Soclivity */ = {
 			isa = PBXGroup;
 			children = (
+				683459081559744900EC9321 /* Soclivity.entitlements */,
 				EAB1365215546B6C00C1607D /* FBConnect */,
 				EAB135B91554608800C1607D /* Soclivity Manager */,
 				680CE4011551284700B8E937 /* AppDelegate.h */,
@@ -1006,6 +1008,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_ENTITLEMENTS = Soclivity/Soclivity.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COMPRESS_PNG_FILES = YES;
@@ -1026,8 +1029,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				CODE_SIGN_ENTITLEMENTS = Soclivity/Soclivity.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Harish Hoon";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Harish Hoon";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
@@ -1035,8 +1039,8 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "61729853-B3C5-443D-ABF0-2227BD422FB4";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "61729853-B3C5-443D-ABF0-2227BD422FB4";
+				PROVISIONING_PROFILE = "516228C2-7653-4731-8A76-4B2F682373C7";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "516228C2-7653-4731-8A76-4B2F682373C7";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
