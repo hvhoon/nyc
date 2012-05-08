@@ -16,6 +16,7 @@
     UIImageView *createImageView;
     UIImageView*learnImageView;
     int rnd;
+    int backgroundState;
 
 }
 -(void)performTransition;

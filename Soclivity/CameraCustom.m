@@ -8,7 +8,7 @@
 
 #import "CameraCustom.h"
 #include <CoreFoundation/CoreFoundation.h>
-
+#import "SoclivityUtilities.h"
 @implementation CameraCustom
 @synthesize m_picker,delegate,galleryImage;
 
@@ -34,8 +34,11 @@
     if([mediaType isEqualToString:@"public.image"]){
         UIImage*original=[editingInfo objectForKey:UIImagePickerControllerOriginalImage];
         NSLog(@"found an image");
+   
         
-        CGSize size = {320, 460-48};
+#if 0        
+#if 0        
+        CGSize size = {57, 57};
         UIGraphicsBeginImageContext(size);
         
         CGRect rect;
@@ -48,6 +51,12 @@
         UIGraphicsEndImageContext();
         
         original = shinked;
+        
+#else
+        CGRect bounds = CGRectMake(246,44,57, 57);
+        original=[SoclivityUtilities updateResult:bounds.size originalImage:original switchCaseIndex:0];
+#endif  
+#endif        
          //if(!galleryImage)
          UIImageWriteToSavedPhotosAlbum(original, nil, nil, nil);
         [delegate imageCapture:original];

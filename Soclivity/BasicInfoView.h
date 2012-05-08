@@ -30,7 +30,7 @@
     UITextField *enterPasswordTextField;
     UITextField *confirmPasswordTextField;
     IBOutlet UIButton *locationBtnText;
-    UIImageView *activeType;
+    IBOutlet UIImageView *profileImageView;
     IBOutlet UIButton *profileBtn;
     IBOutlet UIButton *maleButton;
     IBOutlet UIButton *femaleButton;
@@ -43,7 +43,6 @@
 @property (nonatomic,retain)IBOutlet UITextField *emailTextField;
 @property (nonatomic,retain)IBOutlet UITextField *enterPasswordTextField;
 @property (nonatomic,retain)IBOutlet UITextField *confirmPasswordTextField;
-@property (nonatomic,retain)IBOutlet UIImageView *activeType;
 -(void)showUploadCaptureSheet;
 -(void)PushImageGallery;
 -(void)PushCamera;
@@ -51,4 +50,5 @@
 -(IBAction)genderChanged:(UIButton*)sender;
 -(IBAction)ProfileBtnClicked:(UIButton*)sender;
 -(IBAction)birthdayDateSelection:(id)sender;
+-(UIImage*) resizeImage:(UIImage*) image size:(CGSize) size;
 @end

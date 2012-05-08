@@ -9,7 +9,7 @@
 #import "LoginViewController.h"
 #import "ResetPasswordViewController.h"
 @implementation LoginViewController
-@synthesize emailAddress,password,checkboxBtn;
+@synthesize emailAddress,password,checkboxBtn,backgroundState;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -56,6 +56,43 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    backgroundView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 460)];
+    UIImage *bgImage=nil;
+    switch (backgroundState) {
+        case 0:
+        {
+            bgImage=[UIImage imageNamed:@"green_play.png"];
+        }
+            break;
+        case 1:
+        {
+            bgImage=[UIImage imageNamed:@"orange_eat.png"];
+            
+        }
+            break;
+        case 2:
+        {
+            bgImage=[UIImage imageNamed:@"purple_see.png"];
+            
+        }
+            break;
+        case 3:
+        {
+            bgImage=[UIImage imageNamed:@"red_create.png"];
+            
+        }
+            break;
+        case 4:
+        {
+            bgImage=[UIImage imageNamed:@"aqua_learn.png"];
+            
+        }
+            break;
+            
+            
+    }
+    backgroundView.image=bgImage; 
+    [self.view insertSubview:backgroundView atIndex:0];
     checkBoxStatus=FALSE;
     [checkboxBtn setImage:nil forState:UIControlStateNormal];
     

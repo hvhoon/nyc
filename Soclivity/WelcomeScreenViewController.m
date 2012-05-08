@@ -164,10 +164,10 @@
 	
 	// Here we hide view1, and show view2, which will cause Core Animation to animate view1 away and view2 in.
 	
-	NSLog(@"print rnd=%d",rnd);
+	//NSLog(@"print rnd=%d",rnd);
 	switch (rnd) {
 		case 0:
-			
+			backgroundState=0;
 			playImageView.hidden = NO;
 			eatImageView.hidden = YES;
             seeImageView.hidden=YES;
@@ -175,7 +175,7 @@
             learnImageView.hidden=YES;
 			break;
 		case 1:
-			
+			backgroundState=1;
 			playImageView.hidden = YES;
 			eatImageView.hidden = NO;
             seeImageView.hidden=YES;
@@ -183,7 +183,7 @@
             learnImageView.hidden=YES;
 			break;
         case 2:
-			
+			backgroundState=2;
 			playImageView.hidden = YES;
 			eatImageView.hidden = YES;
             seeImageView.hidden=NO;
@@ -191,7 +191,7 @@
             learnImageView.hidden=YES;
 			break;
 		case 3:
-			
+			backgroundState=3;
 			playImageView.hidden = YES;
 			eatImageView.hidden = YES;
             seeImageView.hidden=YES;
@@ -200,6 +200,7 @@
 			break;
             
         case 4:
+            backgroundState=4;
 			playImageView.hidden = YES;
 			eatImageView.hidden = YES;
             seeImageView.hidden=YES;
@@ -238,7 +239,7 @@
 -(void)AlreadySignedUpButtonClicked{
      NSLog(@"AlreadySignedUpButtonClicked");
     LoginViewController *loginViewController=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-    
+    loginViewController.backgroundState=backgroundState;
 	[[self navigationController] pushViewController:loginViewController animated:YES];
     [loginViewController release];
 

@@ -122,10 +122,17 @@
                 
                 NSLog(@"location is=%@",object);
             }
-            if(theTag==kNoLocation)
-             [delegate  LocationAcquired:[placemark.addressDictionary objectForKey:@"City"]];
+            if(theTag==kNoLocation){
+                NSDictionary *states = [NSDictionary dictionaryWithObjectsAndKeys:
+                          @"AK", @"Alaska",
+                          @"FL", @"Florida",
+                          @"CA", @"California",
+                          nil];
+                NSString *stateAbbreviation = [states objectForKey:placemark.administrativeArea];
+                NSString *locString=[NSString stringWithFormat:@"%@,%@",[placemark.addressDictionary objectForKey:@"City"],stateAbbreviation];
+             [delegate  LocationAcquired:locString];
 
-
+            }
         } 
         
     }];

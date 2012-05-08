@@ -21,7 +21,7 @@
 #define kFemale 7
 
 @implementation BasicInfoView
-@synthesize delegate,enterNameTextField,emailTextField,enterPasswordTextField,confirmPasswordTextField,activeType;
+@synthesize delegate,enterNameTextField,emailTextField,enterPasswordTextField,confirmPasswordTextField;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -37,6 +37,7 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+    [self insertSubview:profileBtn aboveSubview:profileImageView];
 }
 -(IBAction)LocationButtonClicked:(id)sender{
     SocLocation=[[LocationCustomManager alloc]init];
@@ -161,12 +162,26 @@
     NSLog(@"UIimage from Gallery=%@",Img);
     [delegate dismissPickerModalController];
     
-    CGRect bounds = CGRectMake(0,0,55, 50);
-    UIImage *capturedImg=[SoclivityUtilities updateResult:bounds.size originalImage:Img switchCaseIndex:0];
-    [profileBtn setBackgroundImage:capturedImg forState:UIControlStateNormal];
+    //CGRect bounds = CGRectMake(0,0,57, 57);
+    UIImage* resizedImage = [self resizeImage:Img size:CGSizeMake(57, 57)];
+    //UIImage *capturedImg=[SoclivityUtilities updateResult:bounds.size originalImage:Img switchCaseIndex:0];
+    //[profileBtn setBackgroundImage:Img forState:UIControlStateNormal];
+     profileImageView.image=resizedImage;
+    profileImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [profileImageView sizeToFit];
     setYourPic.hidden=YES;
-    NSLog(@"UIImage=%@",capturedImg);
+    NSLog(@"UIImage=%@",resizedImage);
 
+}
+-(UIImage*) resizeImage:(UIImage*) image size:(CGSize) size {
+	if (image.size.width != size.width || image.size.height != size.height) {
+		UIGraphicsBeginImageContext(size);
+		CGRect imageRect = CGRectMake(0.0, 0.0, size.width, size.height);
+		[image drawInRect:imageRect];
+		image = UIGraphicsGetImageFromCurrentImageContext();
+		UIGraphicsEndImageContext();
+	}
+	return image;
 }
 
 -(void)dismissPickerModalController{
@@ -185,6 +200,17 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     //[sender resignFirstResponder];
      NSLog(@"touchesBegan");
+    [emailTextField resignFirstResponder];
+    [confirmPasswordTextField resignFirstResponder];
+    [enterNameTextField resignFirstResponder];
+    [enterPasswordTextField resignFirstResponder];
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:0.25];
+    CGRect rect = CGRectMake(0, 0, 320, 480);
+    self.frame = rect;
+    [UIView commitAnimations];
+    
 }
 #pragma mark -
 #pragma mark UITextFieldDelegate Methods
