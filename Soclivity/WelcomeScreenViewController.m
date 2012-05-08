@@ -146,7 +146,10 @@
 	NSString *types[5] = {kCATransitionFade, kCATransitionFade,kCATransitionFade,kCATransitionFade,kCATransitionFade};
 	NSString *subtypes[5] = {kCATransitionFromTop, kCATransitionFromTop,kCATransitionFromTop,kCATransitionFromTop,kCATransitionFromTop};
     
-	int rnd = random() % 5;
+	
+    //rnd=random() % 5;
+    rnd =rnd%5;
+    
 	transition.type = types[rnd];
 	if(rnd < 4) // if we didn't pick the fade transition, then we need to set a subtype too
 	{
@@ -163,9 +166,9 @@
 	
 	// Here we hide view1, and show view2, which will cause Core Animation to animate view1 away and view2 in.
 	
-	//NSLog(@"print rnd=%d",rnd);
+	NSLog(@"print rnd=%d",rnd);
 	switch (rnd) {
-		case 1:
+		case 0:
 			
 			playImageView.hidden = NO;
 			eatImageView.hidden = YES;
@@ -173,7 +176,7 @@
             createImageView.hidden=YES;
             learnImageView.hidden=YES;
 			break;
-		case 2:
+		case 1:
 			
 			playImageView.hidden = YES;
 			eatImageView.hidden = NO;
@@ -181,7 +184,7 @@
             createImageView.hidden=YES;
             learnImageView.hidden=YES;
 			break;
-        case 3:
+        case 2:
 			
 			playImageView.hidden = YES;
 			eatImageView.hidden = YES;
@@ -189,7 +192,7 @@
             createImageView.hidden=YES;
             learnImageView.hidden=YES;
 			break;
-		case 4:
+		case 3:
 			
 			playImageView.hidden = YES;
 			eatImageView.hidden = YES;
@@ -198,7 +201,7 @@
             learnImageView.hidden=YES;
 			break;
             
-        case 0:
+        case 4:
 			playImageView.hidden = YES;
 			eatImageView.hidden = YES;
             seeImageView.hidden=YES;
@@ -210,6 +213,7 @@
 		default:
 			break;
 	}
+    rnd++;
 	/*/ And so that we will continue to swap between our two images, we swap the instance variables referencing them.
 	 UIImageView *tmp = view2;
 	 view2 = view1;

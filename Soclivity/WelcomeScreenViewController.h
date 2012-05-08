@@ -15,6 +15,7 @@
     UIImageView *seeImageView;
     UIImageView *createImageView;
     UIImageView*learnImageView;
+    int rnd;
 
 }
 -(void)performTransition;
