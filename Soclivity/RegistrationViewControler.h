@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "BasicInfoView.h"
 #import "ActivityTypeSelectView.h"
+@class MainServiceManager;
 @interface RegistrationViewControler : UIViewController<BasicRegistrationDelegate,ActivitySelectDelegate,UIScrollViewDelegate>{
     UIScrollView* scrollView;
     BasicInfoView *basicSectionFirst;
     ActivityTypeSelectView*activitySectionSecond;
     BOOL pageControlBeingUsed;
     int page;
+    MainServiceManager *server;
 }
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property(nonatomic,retain)IBOutlet BasicInfoView *basicSectionFirst;

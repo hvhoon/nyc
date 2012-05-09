@@ -29,7 +29,7 @@
 	NSString		*kApiSecret;
 	NSInteger        setFTag;
 	NSMutableArray *facebookFriendsListArray;
-   FBSession* _session;
+    FBSession* _session;
     SoclivityManager *myManager;
 
 }

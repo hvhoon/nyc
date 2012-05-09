@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CameraCustom.h"
 #import "LocationCustomManager.h"
-
+#import "BirthdayPickerView.h"
 @protocol BasicRegistrationDelegate <NSObject>
 
 @optional
@@ -20,7 +20,7 @@
 
 
 
-@interface BasicInfoView : UIView<UITextFieldDelegate,CustomCameraUploadDelegate,UIActionSheetDelegate,CoreLocationDelegate>{
+@interface BasicInfoView : UIView<UITextFieldDelegate,CustomCameraUploadDelegate,UIActionSheetDelegate,CoreLocationDelegate,BirthdayPickerDelegate>{
     
     CameraCustom *cameraUpload;
     id <BasicRegistrationDelegate>delegate;
@@ -31,12 +31,17 @@
     UITextField *confirmPasswordTextField;
     IBOutlet UIButton *locationBtnText;
     IBOutlet UIImageView *profileImageView;
+    IBOutlet UIButton *birthdayBtn;
     IBOutlet UIButton *profileBtn;
     IBOutlet UIButton *maleButton;
     IBOutlet UIButton *femaleButton;
     BOOL b_Male;
     BOOL b_Female;
     IBOutlet UIImageView *setYourPic;
+    BirthdayPickerView *datePreview;
+    BOOL footerActivated;
+    
+
 }
 @property (nonatomic,retain)id <BasicRegistrationDelegate>delegate;
 @property (nonatomic,retain)IBOutlet UITextField *enterNameTextField;
@@ -51,4 +56,5 @@
 -(IBAction)ProfileBtnClicked:(UIButton*)sender;
 -(IBAction)birthdayDateSelection:(id)sender;
 -(UIImage*) resizeImage:(UIImage*) image size:(CGSize) size;
+-(void)hideBirthdayPicker;
 @end

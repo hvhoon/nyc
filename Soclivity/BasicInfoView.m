@@ -9,7 +9,6 @@
 #import "BasicInfoView.h"
 #import "SoclivityUtilities.h"
 #import <QuartzCore/QuartzCore.h>
-
 #define kPicture 0
 #define kName 1
 #define kEmail 2
@@ -38,6 +37,9 @@
 {
     // Drawing code
     [self insertSubview:profileBtn aboveSubview:profileImageView];
+    datePreview = [[BirthdayPickerView alloc] init];
+    datePreview.delegate=self;
+    [self addSubview:datePreview];
 }
 -(IBAction)LocationButtonClicked:(id)sender{
     SocLocation=[[LocationCustomManager alloc]init];
@@ -107,7 +109,47 @@
 
 
 -(IBAction)birthdayDateSelection:(id)sender{
-    
+
+	if (!footerActivated) {
+		[UIView beginAnimations:@"expandFooter" context:nil];
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationDuration:0.3];
+		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+		
+		
+		// Resize the view.
+        
+		[datePreview ShowBirthDayView:160];
+		// Annimate.
+		[UIView commitAnimations];
+		footerActivated = YES;
+	}
+
+}
+
+-(void)dateSelected:(NSString*)bDate{
+    //NSLog(@"bDate=%@",bDate);
+    [self hideBirthdayPicker];
+    [birthdayBtn setTitle:bDate forState:UIControlStateNormal];
+    [birthdayBtn setBackgroundImage:nil forState:UIControlStateNormal];
+}
+
+-(void)hideBirthdayPicker{
+    if (footerActivated) {
+		[UIView beginAnimations:@"collapseFooter" context:nil];
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationDuration:0.3];
+		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+		
+		
+		// Resize the view.
+		[datePreview HideView];
+		
+		// Annimate.
+		[UIView commitAnimations];
+		footerActivated = NO;
+	}
+
 }
 #pragma mark -
 #pragma mark UIActionSheet methods

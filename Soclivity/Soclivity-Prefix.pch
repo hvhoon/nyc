@@ -13,3 +13,4 @@
     #import <Foundation/Foundation.h>
 #endif
 #define kNoLocation 123
+#define kGetPlayers 30

@@ -7,6 +7,13 @@
 //
 
 #import "RegistrationViewControler.h"
+#import "MainServiceManager.h"
+#import "GetPlayersDetailInvocation.h"
+
+@interface RegistrationViewControler (private)<GetPlayersDetailDelegate>
+@end
+
+
 @implementation RegistrationViewControler
 @synthesize basicSectionFirst,activitySectionSecond,scrollView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -26,11 +33,25 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+
+-(void)SetUpServices{
+    server=[[MainServiceManager alloc]init];
+    
+    [server GetPlayersInvocation:self];
+}
+
+-(void)GetPlayersDetailInvocationDidFinish:(GetPlayersDetailInvocation*)invocation 
+                                withResult:(NSArray*)result
+                                 withError:(NSError*)error{
+    
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self SetUpServices];
     pageControlBeingUsed = NO;
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)]; 
     
