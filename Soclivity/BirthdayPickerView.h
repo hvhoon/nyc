@@ -13,7 +13,7 @@
 
 @optional
 -(void)hideBirthdayPicker;
--(void)dateSelected:(NSString*)bDate;
+-(void)dateSelected:(NSDate*)bDate;
 -(void)PostPhotoOnFacebookWall;
 @end
 
@@ -22,11 +22,8 @@
     NSDate *dateObject;
     id <BirthdayPickerDelegate> delegate;
     UIDatePicker *birthDayPicker;
-    NSString *birthdayDate;
-    BOOL dateChange;
 }
 @property (nonatomic,assign) id <BirthdayPickerDelegate> delegate;
-@property (nonatomic,retain)NSString *birthdayDate;
 - (void) ShowBirthDayView:(CGFloat)height;
 - (void) HideView;
 @end

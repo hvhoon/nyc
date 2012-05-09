@@ -32,7 +32,6 @@
         birthDayPicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0,0, 320, 216)];
         birthDayPicker.datePickerMode = UIDatePickerModeDate;
         birthDayPicker.tag=kDatePicker;
-        [birthDayPicker addTarget:self action:@selector(dateChanged) forControlEvents:UIControlEventValueChanged];
         [birthDayPicker setHidden:NO];
         [self addSubview:birthDayPicker];
         [birthDayPicker setEnabled:YES];
@@ -64,7 +63,6 @@
 }
 - (void) ShowBirthDayView:(CGFloat)height
 {
-     dateChange=FALSE;
 	[self setFrame:CGRectMake(0, height, 320, 260)];
 	[self setHidden:NO];
 	
@@ -73,19 +71,6 @@
 	UIToolbar *keyboardToolbar = (UIToolbar *)[self viewWithTag:kToolBar];
 	[keyboardToolbar setHidden:NO];
 	
-}
-
--(void)dateChanged{
-    
-    dateChange=TRUE;
-    dateObject = [birthDayPicker date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat=@"MMM/d/YYYY";
-	
-    NSString*date=[dateFormatter stringFromDate:dateObject];
-    birthdayDate=date;
-    NSLog(@"currentTime=%@",birthdayDate);   
-    [dateFormatter release];
 }
 
 - (void) HideView
@@ -102,15 +87,8 @@
 }
 
 -(void)hideKeyboard:(id)sender{
-    if(dateChange)
-    [delegate dateSelected:birthdayDate];
-    else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Select A Date"
-                                                        message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-        [alert show];
-        [alert release];
-        return;
-    }
+    
+    [delegate dateSelected:[birthDayPicker date]];
 }
 -(void)cancelPicker:(id)sender{
     [delegate hideBirthdayPicker];

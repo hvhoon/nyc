@@ -126,14 +126,26 @@
 	}
 
 }
+#if 1
+-(void)dateSelected:(NSDate*)bDate{
+    NSLog(@"bDate=%@",bDate);
+    [self hideBirthdayPicker];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	dateFormatter.dateFormat=@"MMM/d/YYYY";
+	NSString*date=[dateFormatter stringFromDate:bDate];
+    [birthdayBtn setTitle:date forState:UIControlStateNormal];
+    [birthdayBtn setBackgroundImage:nil forState:UIControlStateNormal];
+    [dateFormatter release];
 
+}
+#else
 -(void)dateSelected:(NSString*)bDate{
-    //NSLog(@"bDate=%@",bDate);
+    
     [self hideBirthdayPicker];
     [birthdayBtn setTitle:bDate forState:UIControlStateNormal];
     [birthdayBtn setBackgroundImage:nil forState:UIControlStateNormal];
 }
-
+#endif
 -(void)hideBirthdayPicker{
     if (footerActivated) {
 		[UIView beginAnimations:@"collapseFooter" context:nil];
