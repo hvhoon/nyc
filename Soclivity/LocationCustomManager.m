@@ -22,7 +22,7 @@
     
     // This is the most important property to set for the manager. It ultimately determines how the manager will
     // attempt to acquire location and thus, the amount of power that will be consumed.
-    locationManager.desiredAccuracy=kCLLocationAccuracyBest;
+        locationManager.desiredAccuracy=kCLLocationAccuracyThreeKilometers; //kCLLocationAccuracyBest;
     if(!CLLocationManager.locationServicesEnabled)
 	{
 		

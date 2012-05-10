@@ -49,5 +49,11 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Abduction.ttf</string>
+		<string>HelveticaLTStd-CondObl.otf</string>
+		<string>HelveticaLTS.otf</string>
+	</array>
 </dict>
 </plist>

@@ -10,11 +10,13 @@
 #import "CameraCustom.h"
 #import "LocationCustomManager.h"
 #import "BirthdayPickerView.h"
+@class CustomPlaceholder;
 @protocol BasicRegistrationDelegate <NSObject>
 
 @optional
 -(void)timeToScrollDown;
 -(void)dismissPickerModalController;
+-(void)BackButtonClicked;
 -(void)presentModal:(UIImagePickerController*)picker;
 @end
 
@@ -25,12 +27,11 @@
     CameraCustom *cameraUpload;
     id <BasicRegistrationDelegate>delegate;
     LocationCustomManager *SocLocation;
-    UITextField *enterNameTextField;
+    CustomPlaceholder *enterNameTextField;
     UITextField *emailTextField;
     UITextField *enterPasswordTextField;
     UITextField *confirmPasswordTextField;
     IBOutlet UIButton *locationBtnText;
-    IBOutlet UIImageView *profileImageView;
     IBOutlet UIButton *birthdayBtn;
     IBOutlet UIButton *profileBtn;
     IBOutlet UIButton *maleButton;
@@ -44,7 +45,7 @@
 
 }
 @property (nonatomic,retain)id <BasicRegistrationDelegate>delegate;
-@property (nonatomic,retain)IBOutlet UITextField *enterNameTextField;
+@property (nonatomic,retain)IBOutlet CustomPlaceholder *enterNameTextField;
 @property (nonatomic,retain)IBOutlet UITextField *emailTextField;
 @property (nonatomic,retain)IBOutlet UITextField *enterPasswordTextField;
 @property (nonatomic,retain)IBOutlet UITextField *confirmPasswordTextField;
@@ -55,6 +56,7 @@
 -(IBAction)genderChanged:(UIButton*)sender;
 -(IBAction)ProfileBtnClicked:(UIButton*)sender;
 -(IBAction)birthdayDateSelection:(id)sender;
+-(IBAction)BackButtonClicked:(id)sender;
 -(UIImage*) resizeImage:(UIImage*) image size:(CGSize) size;
 -(void)hideBirthdayPicker;
 @end

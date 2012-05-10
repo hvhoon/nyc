@@ -23,8 +23,8 @@
 -(void)submitLoginDetailInvocation:(NSString *)userName Pass:(NSString *)password delegate: (id<SubmitLoginDetailDelegate>)delegate{
     
     SubmitLoginDetailInvocation *invocation = [[[SubmitLoginDetailInvocation alloc] init] autorelease];
-    invocation.userName = userName;
-    invocation.usePassword = password;
+    invocation.password = userName;
+    invocation.password_confirmation = password;
     [self invoke:invocation withDelegate:delegate];
 }
 

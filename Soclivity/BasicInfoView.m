@@ -9,6 +9,7 @@
 #import "BasicInfoView.h"
 #import "SoclivityUtilities.h"
 #import <QuartzCore/QuartzCore.h>
+#import "CustomPlaceholder.h"
 #define kPicture 0
 #define kName 1
 #define kEmail 2
@@ -18,6 +19,7 @@
 
 #define kMale 6
 #define kFemale 7
+
 
 @implementation BasicInfoView
 @synthesize delegate,enterNameTextField,emailTextField,enterPasswordTextField,confirmPasswordTextField;
@@ -31,16 +33,33 @@
 }
 
 
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-    NSLog(@"Available Font Families: %@", [UIFont familyNames]);
-    [self insertSubview:profileBtn aboveSubview:profileImageView];
+    //NSLog(@"Available Font Families: %@", [UIFont familyNames]);
+    emailTextField.font = [UIFont fontWithName:@"Abduction" size:15.0f];
+    emailTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
+
+    enterNameTextField.font = [UIFont fontWithName:@"Abduction" size:15.0f];
+    enterNameTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
+
+    enterPasswordTextField.font = [UIFont fontWithName:@"Abduction" size:15.0f];
+    enterPasswordTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
+
+    confirmPasswordTextField.font = [UIFont fontWithName:@"Abduction" size:15.0f];
+    confirmPasswordTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
+
+
+
     datePreview = [[BirthdayPickerView alloc] init];
     datePreview.delegate=self;
     [self addSubview:datePreview];
+}
+-(IBAction)BackButtonClicked:(id)sender{
+    [delegate BackButtonClicked];
 }
 -(IBAction)LocationButtonClicked:(id)sender{
     SocLocation=[[LocationCustomManager alloc]init];
@@ -132,7 +151,7 @@
     NSLog(@"bDate=%@",bDate);
     [self hideBirthdayPicker];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat=@"MMM/d/YYYY";
+	dateFormatter.dateFormat=@"MMM/ d/YYYY";
 	NSString*date=[dateFormatter stringFromDate:bDate];
     [birthdayBtn setTitle:date forState:UIControlStateNormal];
     [birthdayBtn setBackgroundImage:nil forState:UIControlStateNormal];
@@ -218,12 +237,11 @@
     [delegate dismissPickerModalController];
     
     //CGRect bounds = CGRectMake(0,0,57, 57);
-    UIImage* resizedImage = [self resizeImage:Img size:CGSizeMake(57, 57)];
+    UIImage* resizedImage = [self resizeImage:Img size:CGSizeMake(52, 52)];
     //UIImage *capturedImg=[SoclivityUtilities updateResult:bounds.size originalImage:Img switchCaseIndex:0];
-    //[profileBtn setBackgroundImage:Img forState:UIControlStateNormal];
-     profileImageView.image=resizedImage;
-    profileImageView.contentMode = UIViewContentModeScaleAspectFit;
-    [profileImageView sizeToFit];
+      [profileBtn setBackgroundImage:Img forState:UIControlStateNormal];
+   // profileImageView.contentMode = UIViewContentModeScaleAspectFit;
+   // [profileImageView sizeToFit];
     setYourPic.hidden=YES;
     NSLog(@"UIImage=%@",resizedImage);
 
@@ -270,7 +288,12 @@
 #pragma mark -
 #pragma mark UITextFieldDelegate Methods
 
-
+- (BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    //set color for placeholder text
+    textField.textColor = [SoclivityUtilities returnTextFontColor:1];
+    return YES;
+}
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
 	
     NSLog(@"textFieldDidBeginEditing");

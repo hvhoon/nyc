@@ -10,7 +10,7 @@
 #import "MainServiceManager.h"
 #import "GetPlayersDetailInvocation.h"
 
-@interface RegistrationViewControler (private)<GetPlayersDetailDelegate>
+@interface RegistrationViewControler (private)<GetPlayersDetailDelegate,SubmitLoginDetailDelegate>
 @end
 
 
@@ -37,7 +37,9 @@
 -(void)SetUpServices{
     server=[[MainServiceManager alloc]init];
     
-    [server GetPlayersInvocation:self];
+    [server submitLoginDetailInvocation:@"1213" Pass:@"1213" delegate:self];
+    
+    //[server GetPlayersInvocation:self];
 }
 
 -(void)GetPlayersDetailInvocationDidFinish:(GetPlayersDetailInvocation*)invocation 
@@ -46,12 +48,18 @@
     
 }
 
+-(void)BackButtonClicked{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self SetUpServices];
+    //[self SetUpServices];
     pageControlBeingUsed = NO;
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)]; 
     

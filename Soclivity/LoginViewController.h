@@ -23,4 +23,5 @@
 -(IBAction)signUpButtonClicked:(id)sender;
 -(IBAction)resetPassword:(id)sender;
 -(IBAction)checkBoxClicked:(id)sender;
+-(IBAction)BackButtonClicked:(id)sender;
 @end
