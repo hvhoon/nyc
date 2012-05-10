@@ -72,9 +72,18 @@
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    //[textField resignFirstResponder];
+    if(textField ==newPassword) {
+        [confirmPassword becomeFirstResponder];
+		
+    } 
+	else if(textField==confirmPassword){
+		//[confirmPassword resignFirstResponder];
+		[self.navigationController dismissModalViewControllerAnimated:YES];
+		
+	}
 	
 	
-    //  [textField resignFirstResponder];
     return NO;
 }
 

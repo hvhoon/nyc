@@ -36,6 +36,7 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+    NSLog(@"Available Font Families: %@", [UIFont familyNames]);
     [self insertSubview:profileBtn aboveSubview:profileImageView];
     datePreview = [[BirthdayPickerView alloc] init];
     datePreview.delegate=self;

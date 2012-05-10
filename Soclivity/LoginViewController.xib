@@ -2,20 +2,20 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1280</int>
-		<string key="IBDocument.SystemVersion">12A178q</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2488</string>
-		<string key="IBDocument.AppKitVersion">1166.3</string>
-		<string key="IBDocument.HIToolboxVersion">609.00</string>
+		<string key="IBDocument.SystemVersion">10K549</string>
+		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
+		<string key="IBDocument.AppKitVersion">1038.36</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1468</string>
+			<string key="NS.object.0">933</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
-			<string>IBProxyObject</string>
 			<string>IBUIButton</string>
 			<string>IBUIImageView</string>
-			<string>IBUITextField</string>
 			<string>IBUIView</string>
+			<string>IBUITextField</string>
+			<string>IBProxyObject</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -87,23 +87,27 @@
 						<float key="IBUIMinimumFontSize">17</float>
 						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 							<int key="IBUIAutocorrectionType">1</int>
+							<int key="IBUIKeyboardType">7</int>
+							<int key="IBUIReturnKeyType">4</int>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						</object>
 						<int key="IBUIClearButtonMode">1</int>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="959777230">
-							<int key="type">1</int>
-							<double key="pointSize">14</double>
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="772514040">
+							<string key="name">Helvetica</string>
+							<string key="family">Helvetica</string>
+							<int key="traits">0</int>
+							<double key="pointSize">13</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="861426852">
+						<object class="NSFont" key="IBUIFont" id="148928820">
 							<string key="NSName">Helvetica</string>
-							<double key="NSSize">14</double>
+							<double key="NSSize">13</double>
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
 					<object class="IBUITextField" id="250159520">
 						<reference key="NSNextResponder" ref="1015676171"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{108, 120}, {148, 31}}</string>
+						<string key="NSFrame">{{118, 120}, {138, 31}}</string>
 						<reference key="NSSuperview" ref="1015676171"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="942950066"/>
@@ -116,14 +120,15 @@
 						<reference key="IBUITextColor" ref="1046010610"/>
 						<bool key="IBUIClearsOnBeginEditing">YES</bool>
 						<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
-						<float key="IBUIMinimumFontSize">17</float>
+						<float key="IBUIMinimumFontSize">14</float>
 						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+							<int key="IBUIReturnKeyType">1</int>
 							<bool key="IBUISecureTextEntry">YES</bool>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						</object>
 						<int key="IBUIClearButtonMode">1</int>
-						<reference key="IBUIFontDescription" ref="959777230"/>
-						<reference key="IBUIFont" ref="861426852"/>
+						<reference key="IBUIFontDescription" ref="772514040"/>
+						<reference key="IBUIFont" ref="148928820"/>
 					</object>
 					<object class="IBUIButton" id="942950066">
 						<reference key="NSNextResponder" ref="1015676171"/>
@@ -165,7 +170,7 @@
 					<object class="IBUIImageView" id="449633237">
 						<reference key="NSNextResponder" ref="1015676171"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{45, 169}, {75, 9}}</string>
+						<string key="NSFrame">{{39, 169}, {75, 9}}</string>
 						<reference key="NSSuperview" ref="1015676171"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1060833651"/>
@@ -179,7 +184,7 @@
 					<object class="IBUIButton" id="1060833651">
 						<reference key="NSNextResponder" ref="1015676171"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{132, 162}, {25, 25}}</string>
+						<string key="NSFrame">{{120, 162}, {25, 25}}</string>
 						<reference key="NSSuperview" ref="1015676171"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="105909026"/>
@@ -230,6 +235,7 @@
 						<string key="NSFrame">{{278, 211}, {29, 30}}</string>
 						<reference key="NSSuperview" ref="1015676171"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -521,6 +527,6 @@
 			<string key="S02.1_rightarrow.png">{29, 30}</string>
 			<string key="logo.png">{219, 58}</string>
 		</dictionary>
-		<string key="IBCocoaTouchPluginVersion">1468</string>
+		<string key="IBCocoaTouchPluginVersion">933</string>
 	</data>
 </archive>

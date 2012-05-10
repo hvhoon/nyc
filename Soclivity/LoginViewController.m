@@ -102,9 +102,17 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if(textField ==emailAddress ) {
+        [password becomeFirstResponder];
+		
+    } 
+	else if(textField==password){
+		//[password resignFirstResponder];
+		[self signUpButtonClicked:nil];
+		
+	}
 	
 	
-    //[textField resignFirstResponder];
     return NO;
 }
 
