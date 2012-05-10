@@ -54,11 +54,11 @@
         
 #else
         CGRect bounds = CGRectMake(246,44,57, 57);
-        original=[SoclivityUtilities updateResult:bounds.size originalImage:original switchCaseIndex:0];
+         original=[SoclivityUtilities updateResult:bounds.size originalImage:original switchCaseIndex:0];
 #endif  
 #endif        
-         //if(!galleryImage)
-         UIImageWriteToSavedPhotosAlbum(original, nil, nil, nil);
+         if(!galleryImage)
+             UIImageWriteToSavedPhotosAlbum(original, nil, nil, nil);
         [delegate imageCapture:original];
     }
     else if ([mediaType isEqualToString:@"public.movie"]){

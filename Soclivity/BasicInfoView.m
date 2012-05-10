@@ -214,7 +214,7 @@
     
     
 	if([UIImagePickerController isSourceTypeAvailable:sourceType]){
-        
+        cameraUpload.galleryImage=TRUE;
 		cameraUpload.m_picker.sourceType = sourceType;
         [delegate presentModal:cameraUpload.m_picker];
     }
@@ -225,6 +225,7 @@
 -(void)PushCamera{
     UIImagePickerControllerSourceType sourceType= UIImagePickerControllerSourceTypeCamera;
 	if([UIImagePickerController isSourceTypeAvailable:sourceType]){
+        cameraUpload.galleryImage=FALSE;
 		cameraUpload.m_picker.sourceType = sourceType;
         [delegate presentModal:cameraUpload.m_picker];
         
