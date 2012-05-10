@@ -69,8 +69,10 @@
 		EA91C348155A834000BE5BB1 /* ParseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C347155A833500BE5BB1 /* ParseOperation.m */; };
 		EA91C34B155A899900BE5BB1 /* GetPlayersClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C34A155A899800BE5BB1 /* GetPlayersClass.m */; };
 		EA9629A6155B9BDD00CDFDF6 /* CustomPlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9629A5155B9BDD00CDFDF6 /* CustomPlaceholder.m */; };
-		EA9629AA155BDEE700CDFDF6 /* HelveticaLTS.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA9629A9155BDEE700CDFDF6 /* HelveticaLTS.otf */; };
-		EA9629AC155BE28800CDFDF6 /* Abduction.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA9629AB155BE28800CDFDF6 /* Abduction.ttf */; };
+		EA9629B1155BECFB00CDFDF6 /* helveticaltstdcond.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA9629AD155BECFB00CDFDF6 /* helveticaltstdcond.ttf */; };
+		EA9629B2155BECFB00CDFDF6 /* helveticaltstdcondobl.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA9629AE155BECFB00CDFDF6 /* helveticaltstdcondobl.ttf */; };
+		EA9629B3155BECFB00CDFDF6 /* helveticaltstdlightcond.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA9629AF155BECFB00CDFDF6 /* helveticaltstdlightcond.ttf */; };
+		EA9629B4155BECFB00CDFDF6 /* helveticaltstdlightcondobl.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA9629B0155BECFB00CDFDF6 /* helveticaltstdlightcondobl.ttf */; };
 		EAB135B415545B3600C1607D /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB135B215545B3600C1607D /* ResetPasswordViewController.m */; };
 		EAB135B515545B3600C1607D /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAB135B315545B3600C1607D /* ResetPasswordViewController.xib */; };
 		EAB135BC155460A200C1607D /* SoclivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB135BB155460A200C1607D /* SoclivityManager.m */; };
@@ -320,8 +322,10 @@
 		EA91C34A155A899800BE5BB1 /* GetPlayersClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetPlayersClass.m; sourceTree = "<group>"; };
 		EA9629A4155B9BDD00CDFDF6 /* CustomPlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPlaceholder.h; sourceTree = "<group>"; };
 		EA9629A5155B9BDD00CDFDF6 /* CustomPlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPlaceholder.m; sourceTree = "<group>"; };
-		EA9629A9155BDEE700CDFDF6 /* HelveticaLTS.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = HelveticaLTS.otf; path = Soclivity/HelveticaLTS.otf; sourceTree = "<group>"; };
-		EA9629AB155BE28800CDFDF6 /* Abduction.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Abduction.ttf; path = Soclivity/Abduction.ttf; sourceTree = "<group>"; };
+		EA9629AD155BECFB00CDFDF6 /* helveticaltstdcond.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = helveticaltstdcond.ttf; path = Soclivity/helveticaltstdcond.ttf; sourceTree = "<group>"; };
+		EA9629AE155BECFB00CDFDF6 /* helveticaltstdcondobl.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = helveticaltstdcondobl.ttf; path = Soclivity/helveticaltstdcondobl.ttf; sourceTree = "<group>"; };
+		EA9629AF155BECFB00CDFDF6 /* helveticaltstdlightcond.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = helveticaltstdlightcond.ttf; path = Soclivity/helveticaltstdlightcond.ttf; sourceTree = "<group>"; };
+		EA9629B0155BECFB00CDFDF6 /* helveticaltstdlightcondobl.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = helveticaltstdlightcondobl.ttf; path = Soclivity/helveticaltstdlightcondobl.ttf; sourceTree = "<group>"; };
 		EAB135B115545B3600C1607D /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
 		EAB135B215545B3600C1607D /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
 		EAB135B315545B3600C1607D /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
@@ -564,8 +568,10 @@
 		680CE4271551286D00B8E937 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				EA9629AB155BE28800CDFDF6 /* Abduction.ttf */,
-				EA9629A9155BDEE700CDFDF6 /* HelveticaLTS.otf */,
+				EA9629AD155BECFB00CDFDF6 /* helveticaltstdcond.ttf */,
+				EA9629AE155BECFB00CDFDF6 /* helveticaltstdcondobl.ttf */,
+				EA9629AF155BECFB00CDFDF6 /* helveticaltstdlightcond.ttf */,
+				EA9629B0155BECFB00CDFDF6 /* helveticaltstdlightcondobl.ttf */,
 				686C79881557C471001358E0 /* Icon.png */,
 				686C798A1557C475001358E0 /* Icon@2x.png */,
 				EAED843D1554016200124D7D /* S01 Welcome */,
@@ -1177,8 +1183,10 @@
 				686C79831557B0DA001358E0 /* S02_M_notselected.png in Resources */,
 				686C79891557C471001358E0 /* Icon.png in Resources */,
 				686C798B1557C475001358E0 /* Icon@2x.png in Resources */,
-				EA9629AA155BDEE700CDFDF6 /* HelveticaLTS.otf in Resources */,
-				EA9629AC155BE28800CDFDF6 /* Abduction.ttf in Resources */,
+				EA9629B1155BECFB00CDFDF6 /* helveticaltstdcond.ttf in Resources */,
+				EA9629B2155BECFB00CDFDF6 /* helveticaltstdcondobl.ttf in Resources */,
+				EA9629B3155BECFB00CDFDF6 /* helveticaltstdlightcond.ttf in Resources */,
+				EA9629B4155BECFB00CDFDF6 /* helveticaltstdlightcondobl.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

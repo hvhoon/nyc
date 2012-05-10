@@ -51,9 +51,10 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Abduction.ttf</string>
-		<string>HelveticaLTStd-CondObl.otf</string>
-		<string>HelveticaLTS.otf</string>
+		<string>helveticaltstdlightcondobl.ttf</string>
+		<string>helveticaltstdcond.ttf</string>
+		<string>helveticaltstdcondobl.ttf</string>
+		<string>helveticaltstdlightcond.ttf</string>
 	</array>
 </dict>
 </plist>

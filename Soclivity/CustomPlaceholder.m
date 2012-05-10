@@ -15,6 +15,6 @@
 
 -(void) drawPlaceholderInRect:(CGRect)rect {
     [[UIColor darkGrayColor] setFill];
-    [[self placeholder] drawInRect:rect withFont:[UIFont fontWithName:@"Abduction" size:15.0]];
+    [[self placeholder] drawInRect:rect withFont:[UIFont fontWithName:@"helveticaltstdcond" size:15.0]];
 }
 @end

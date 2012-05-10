@@ -40,16 +40,16 @@
 {
     // Drawing code
     //NSLog(@"Available Font Families: %@", [UIFont familyNames]);
-    emailTextField.font = [UIFont fontWithName:@"Abduction" size:15.0f];
+    emailTextField.font = [UIFont fontWithName:@"helveticaltstdcond" size:15.0f];
     emailTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
 
-    enterNameTextField.font = [UIFont fontWithName:@"Abduction" size:15.0f];
+    enterNameTextField.font = [UIFont fontWithName:@"helveticaltstdcond" size:15.0f];
     enterNameTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
 
-    enterPasswordTextField.font = [UIFont fontWithName:@"Abduction" size:15.0f];
+    enterPasswordTextField.font = [UIFont fontWithName:@"helveticaltstdcond" size:15.0f];
     enterPasswordTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
 
-    confirmPasswordTextField.font = [UIFont fontWithName:@"Abduction" size:15.0f];
+    confirmPasswordTextField.font = [UIFont fontWithName:@"helveticaltstdcond" size:15.0f];
     confirmPasswordTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
 
 
