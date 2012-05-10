@@ -1,9 +1,15 @@
 Please use the following syntax with your commits
 =================================================
-Using the syntax below will ensure that the appropriate comments are added to the referenced stories in Pivotaltracker.  This will help with management of the project overall.
+Using the syntax below will ensure that the appropriate comments are added to the referenced stories in Pivotaltracker and the GitHub issues list.  This will help with management of the project overall.
 
 1. As you update user stories
 [#req.ID] <Description of change/update to the user story>
 
-2. Once a user story is compplete
+2. Once a user story is complete
 [complete #req.ID] <Description of functionality added>
+
+3. As you update issues
+#<issue number> <Description of what has been implemented>
+
+4. As you close issues
+Close #<issue number> <Description of what was done to close the issue>
