@@ -62,7 +62,7 @@
 		EA91C32A155A71B500BE5BB1 /* SAServiceAsyncInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C328155A71B500BE5BB1 /* SAServiceAsyncInvocation.m */; };
 		EA91C331155A71D000BE5BB1 /* MainServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C32C155A71D000BE5BB1 /* MainServiceManager.m */; };
 		EA91C332155A71D000BE5BB1 /* ProjectAsyncInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C32E155A71D000BE5BB1 /* ProjectAsyncInvocation.m */; };
-		EA91C333155A71D000BE5BB1 /* SubmitLoginDetailInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C330155A71D000BE5BB1 /* SubmitLoginDetailInvocation.m */; };
+		EA91C333155A71D000BE5BB1 /* RegistrationDetailInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C330155A71D000BE5BB1 /* RegistrationDetailInvocation.m */; };
 		EA91C335155A72F800BE5BB1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA91C334155A72F800BE5BB1 /* CFNetwork.framework */; };
 		EA91C337155A730200BE5BB1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA91C336155A730100BE5BB1 /* SystemConfiguration.framework */; };
 		EA91C33B155A749400BE5BB1 /* GetPlayersDetailInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C33A155A749400BE5BB1 /* GetPlayersDetailInvocation.m */; };
@@ -310,8 +310,8 @@
 		EA91C32C155A71D000BE5BB1 /* MainServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainServiceManager.m; sourceTree = "<group>"; };
 		EA91C32D155A71D000BE5BB1 /* ProjectAsyncInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectAsyncInvocation.h; sourceTree = "<group>"; };
 		EA91C32E155A71D000BE5BB1 /* ProjectAsyncInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectAsyncInvocation.m; sourceTree = "<group>"; };
-		EA91C32F155A71D000BE5BB1 /* SubmitLoginDetailInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitLoginDetailInvocation.h; sourceTree = "<group>"; };
-		EA91C330155A71D000BE5BB1 /* SubmitLoginDetailInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitLoginDetailInvocation.m; sourceTree = "<group>"; };
+		EA91C32F155A71D000BE5BB1 /* RegistrationDetailInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; path = RegistrationDetailInvocation.h; sourceTree = "<group>"; };
+		EA91C330155A71D000BE5BB1 /* RegistrationDetailInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationDetailInvocation.m; sourceTree = "<group>"; };
 		EA91C334155A72F800BE5BB1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		EA91C336155A730100BE5BB1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EA91C339155A749400BE5BB1 /* GetPlayersDetailInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetPlayersDetailInvocation.h; sourceTree = "<group>"; };
@@ -794,8 +794,8 @@
 		EA91C34E155A903000BE5BB1 /* Post Request services */ = {
 			isa = PBXGroup;
 			children = (
-				EA91C32F155A71D000BE5BB1 /* SubmitLoginDetailInvocation.h */,
-				EA91C330155A71D000BE5BB1 /* SubmitLoginDetailInvocation.m */,
+				EA91C32F155A71D000BE5BB1 /* RegistrationDetailInvocation.h */,
+				EA91C330155A71D000BE5BB1 /* RegistrationDetailInvocation.m */,
 			);
 			name = "Post Request services";
 			sourceTree = "<group>";
@@ -1252,7 +1252,7 @@
 				EA91C32A155A71B500BE5BB1 /* SAServiceAsyncInvocation.m in Sources */,
 				EA91C331155A71D000BE5BB1 /* MainServiceManager.m in Sources */,
 				EA91C332155A71D000BE5BB1 /* ProjectAsyncInvocation.m in Sources */,
-				EA91C333155A71D000BE5BB1 /* SubmitLoginDetailInvocation.m in Sources */,
+				EA91C333155A71D000BE5BB1 /* RegistrationDetailInvocation.m in Sources */,
 				EA91C33B155A749400BE5BB1 /* GetPlayersDetailInvocation.m in Sources */,
 				EA91C348155A834000BE5BB1 /* ParseOperation.m in Sources */,
 				EA91C34B155A899900BE5BB1 /* GetPlayersClass.m in Sources */,

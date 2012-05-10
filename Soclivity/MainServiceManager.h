@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "SAService.h"
-#import "SubmitLoginDetailInvocation.h"
+#import "RegistrationDetailInvocation.h"
 #import "GetPlayersDetailInvocation.h"
 @interface MainServiceManager : SAService{
     
 }
 
 
--(void)submitLoginDetailInvocation:(NSString *)userName Pass:(NSString *)password delegate: (id<SubmitLoginDetailDelegate>)delegate;
+-(void)registrationDetailInvocation:(NSString *)userName Pass:(NSString *)password delegate: (id<RegistrationDetailDelegate>)delegate;
 -(void)GetPlayersInvocation:(id<GetPlayersDetailDelegate>)delegate;
 @end

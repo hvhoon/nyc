@@ -10,7 +10,7 @@
 #import "MainServiceManager.h"
 #import "GetPlayersDetailInvocation.h"
 
-@interface RegistrationViewControler (private)<GetPlayersDetailDelegate,SubmitLoginDetailDelegate>
+@interface RegistrationViewControler (private)<GetPlayersDetailDelegate,RegistrationDetailDelegate>
 @end
 
 
@@ -37,7 +37,7 @@
 -(void)SetUpServices{
     server=[[MainServiceManager alloc]init];
     
-    [server submitLoginDetailInvocation:@"1213" Pass:@"1213" delegate:self];
+    [server registrationDetailInvocation:@"1213" Pass:@"1213" delegate:self];
     
     //[server GetPlayersInvocation:self];
 }
@@ -45,8 +45,16 @@
 -(void)GetPlayersDetailInvocationDidFinish:(GetPlayersDetailInvocation*)invocation 
                                 withResult:(NSArray*)result
                                  withError:(NSError*)error{
+    NSLog(@"GetPlayersDetailInvocationDidFinish");
     
 }
+
+-(void)RegistrationDetailInvocationDidFinish:(RegistrationDetailInvocation*)invocation 
+                                  withResult:(NSArray*)result
+                                   withError:(NSError*)error{
+    NSLog(@"RegistrationDetailInvocationDidFinish called");
+}
+
 
 -(void)BackButtonClicked{
     
