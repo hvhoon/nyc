@@ -38,9 +38,10 @@
     IBOutlet UIButton *femaleButton;
     BOOL b_Male;
     BOOL b_Female;
-    IBOutlet UIImageView *setYourPic;
     BirthdayPickerView *datePreview;
     BOOL footerActivated;
+    IBOutlet UILabel *setPictureLabel;
+    
     
 
 }
