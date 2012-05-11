@@ -56,6 +56,12 @@
     birthdayBtn.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
     birthdayBtn.titleLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
     
+    locationBtnText.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    locationBtnText.titleLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+
+    
+    
+    
     datePreview = [[BirthdayPickerView alloc] init];
     datePreview.delegate=self;
     datePreview.frame=CGRectMake(0, 480, 320, 260);
