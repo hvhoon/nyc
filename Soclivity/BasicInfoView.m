@@ -56,8 +56,15 @@
     birthdayBtn.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
     birthdayBtn.titleLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
     
+    locationBtnText.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    locationBtnText.titleLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+
+    
+    
+    
     datePreview = [[BirthdayPickerView alloc] init];
     datePreview.delegate=self;
+    datePreview.frame=CGRectMake(0, 480, 320, 260);
     [self addSubview:datePreview];
     
     
@@ -156,13 +163,13 @@
     //birthDayPicker.hidden=NO;
      if (!footerActivated) {
          
-    [datePreview   ShowBirthDayView:480];
+    //[datePreview   ShowBirthDayView:-960];
     //datePreview.hidden=NO;
     //datePreview.frame=CGRectMake(0, 480, 320, 260);
     
     CGRect basketTopFrame = datePreview.frame;
     basketTopFrame.origin.y = -basketTopFrame.size.height;
-    
+    //basketTopFrame.origin.y = 0;
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.2];
@@ -174,6 +181,7 @@
     CGRect rect = CGRectMake(0, -200, 320, 480);
     self.frame = rect;
     //datePreview.hidden=NO;
+    [datePreview   ShowBirthDayView:355];     
     datePreview.frame=CGRectMake(0, 355, 320, 260);
     [UIView commitAnimations];
          footerActivated = YES;

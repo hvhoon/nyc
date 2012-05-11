@@ -11,6 +11,9 @@
 #define kToolBar 124
 @implementation BirthdayPickerView
 @synthesize delegate;
+
+
+#if 0
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -19,7 +22,7 @@
     }
     return self;
 }
-
+#endif
 -(void)dealloc{
     [super dealloc];
     [birthDayPicker release];
