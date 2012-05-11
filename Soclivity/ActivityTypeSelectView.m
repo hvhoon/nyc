@@ -18,12 +18,9 @@
     }
     return self;
 }
--(IBAction)sectionViewChanged:(id)sender{
-    [delegate timeToScrollUp];
-}
 
 -(IBAction)getStartedClicked:(id)sender{
-    [delegate pushHomeViewCntrlr];
+    [delegate pushHomeMapViewController];
 }
 
 -(IBAction)playActivityClicked:(id)sender{

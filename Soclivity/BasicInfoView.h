@@ -40,6 +40,7 @@
     BOOL b_Female;
     BirthdayPickerView *datePreview;
     BOOL footerActivated;
+    
 
 }
 @property (nonatomic,retain)id <BasicRegistrationDelegate>delegate;

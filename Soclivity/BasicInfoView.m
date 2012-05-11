@@ -59,6 +59,8 @@
     datePreview = [[BirthdayPickerView alloc] init];
     datePreview.delegate=self;
     [self addSubview:datePreview];
+    
+    
 }
 -(IBAction)BackButtonClicked:(id)sender{
     [delegate BackButtonClicked];
@@ -129,7 +131,7 @@
     
 }
 
-
+#if 0
 -(IBAction)birthdayDateSelection:(id)sender{
 
 	if (!footerActivated) {
@@ -148,7 +150,36 @@
 	}
 
 }
-
+#else
+-(IBAction)birthdayDateSelection:(id)sender{
+    
+    //birthDayPicker.hidden=NO;
+     if (!footerActivated) {
+         
+    [datePreview   ShowBirthDayView:480];
+    //datePreview.hidden=NO;
+    //datePreview.frame=CGRectMake(0, 480, 320, 260);
+    
+    CGRect basketTopFrame = datePreview.frame;
+    basketTopFrame.origin.y = -basketTopFrame.size.height;
+    
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.2];
+    //[UIView setAnimationDelay:0.5];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    //[datePreview ShowBirthDayView:236];
+    //    fMCView.frame = basketTopFrame;
+    CGRect rect = CGRectMake(0, -200, 320, 480);
+    self.frame = rect;
+    //datePreview.hidden=NO;
+    datePreview.frame=CGRectMake(0, 355, 320, 260);
+    [UIView commitAnimations];
+         footerActivated = YES;
+     }
+}
+#endif
 -(void)dateSelected:(NSDate*)bDate{
     NSLog(@"bDate=%@",bDate);
     [self hideBirthdayPicker];
@@ -160,6 +191,7 @@
     [dateFormatter release];
 
 }
+#if 0
 -(void)hideBirthdayPicker{
     if (footerActivated) {
 		[UIView beginAnimations:@"collapseFooter" context:nil];
@@ -177,6 +209,30 @@
 	}
 
 }
+#else
+-(void)hideBirthdayPicker{
+    if (footerActivated) {
+        CGRect basketTopFrame = datePreview.frame;
+        basketTopFrame.origin.y = +basketTopFrame.size.height;
+        
+        
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.3];
+        //[UIView setAnimationDelay:1.0];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+        
+        //    fMCView.frame = basketTopFrame;
+        CGRect rect = CGRectMake(0, 0, 320, 480);
+        self.frame = rect;
+
+        datePreview.frame=CGRectMake(0, 480, 320, 260);
+        [UIView commitAnimations];
+        footerActivated=NO;
+    }
+    
+}
+
+#endif
 #pragma mark -
 #pragma mark UIActionSheet methods
 
@@ -234,9 +290,7 @@
     //CGRect bounds = CGRectMake(0,0,57, 57);
     UIImage* resizedImage = [self resizeImage:Img size:CGSizeMake(52, 52)];
     //UIImage *capturedImg=[SoclivityUtilities updateResult:bounds.size originalImage:Img switchCaseIndex:0];
-      [profileBtn setBackgroundImage:Img forState:UIControlStateNormal];
-   // profileImageView.contentMode = UIViewContentModeScaleAspectFit;
-   // [profileImageView sizeToFit];
+    [profileBtn setBackgroundImage:Img forState:UIControlStateNormal];
     setYourPic.hidden=YES;
     NSLog(@"UIImage=%@",resizedImage);
 
@@ -266,7 +320,6 @@
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    //[sender resignFirstResponder];
      NSLog(@"touchesBegan");
     [emailTextField resignFirstResponder];
     [confirmPasswordTextField resignFirstResponder];
@@ -313,19 +366,17 @@
 	
 	
     [textField resignFirstResponder];
-	
-    {
-        
-        [UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationBeginsFromCurrentState:YES];
-		[UIView setAnimationDuration:0.25];
-		CGRect rect = CGRectMake(0, 0, 320, 480);
-		self.frame = rect;
-		[UIView commitAnimations];
+    
+	[UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:0.25];
+    CGRect rect = CGRectMake(0, 0, 320, 480);
+    self.frame = rect;
+    [UIView commitAnimations];
         
 		
         
-    }
+    
 	return NO;
 }
 @end

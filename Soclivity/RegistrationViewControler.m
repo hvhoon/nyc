@@ -125,7 +125,6 @@
 	self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,874);
 
     
-    //[self.view addSubview:basicSectionFirst];
     
 
     // Do any additional setup after loading the view from its nib.
@@ -133,7 +132,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
     if (!pageControlBeingUsed) {
-		// Switch the indicator when more than 50% of the previous/next page is visible
+		// Switch the indicator when more than 50% of the previous/next view is visible
 		CGFloat pageWidth = self.scrollView.frame.size.height;
 		page = floor((self.scrollView.contentOffset.y - pageWidth / 2) / pageWidth) + 1;
         //NSLog(@"page=%d",page);
@@ -185,15 +184,8 @@
     //pageControlBeingUsed = YES;
 
 }
--(void)timeToScrollUp{
-    CGRect frame;
-	frame.origin.x = 0;
-	frame.origin.y = self.scrollView.frame.size.height * 0;
-	frame.size = self.scrollView.frame.size;
-	[self.scrollView scrollRectToVisible:frame animated:YES];
-    
-}
--(void)pushHomeViewCntrlr{
+
+-(void)pushHomeMapViewController{
     
 }
 - (void)viewDidUnload

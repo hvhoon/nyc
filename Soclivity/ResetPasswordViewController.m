@@ -61,11 +61,21 @@
 
     UIImageView*passwordReset=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S01.2_passwordreset.png"]];
     self.navigationItem.titleView=passwordReset;
-    [passwordReset release]; 
+    [passwordReset release];
+    
+    UITapGestureRecognizer *navSingleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navSingleTap)];
+    navSingleTap.numberOfTapsRequired = 1;
+    [[self.navigationController.navigationBar.subviews objectAtIndex:0] setUserInteractionEnabled:YES];
+    [[self.navigationController.navigationBar.subviews objectAtIndex:0] addGestureRecognizer:navSingleTap];
+    [navSingleTap release];
 
     // Do any additional setup after loading the view from its nib.
 }
 
+
+-(void)navSingleTap{
+    NSLog(@"navSingleTap");
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];

@@ -12,8 +12,7 @@
 @protocol ActivitySelectDelegate <NSObject>
 
 @optional
--(void)timeToScrollUp;
--(void)pushHomeViewCntrlr;
+-(void)pushHomeMapViewController;
 @end
 
 @interface ActivityTypeSelectView : UIView{
