@@ -2,20 +2,20 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12A178q</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2488</string>
-		<string key="IBDocument.AppKitVersion">1166.3</string>
-		<string key="IBDocument.HIToolboxVersion">609.00</string>
+		<string key="IBDocument.SystemVersion">10K549</string>
+		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
+		<string key="IBDocument.AppKitVersion">1038.36</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1468</string>
+			<string key="NS.object.0">933</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
-			<string>IBProxyObject</string>
 			<string>IBUIButton</string>
 			<string>IBUIImageView</string>
-			<string>IBUITextField</string>
 			<string>IBUIView</string>
+			<string>IBUITextField</string>
+			<string>IBProxyObject</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -68,7 +68,7 @@
 					<object class="IBUITextField" id="509333600">
 						<reference key="NSNextResponder" ref="1015676171"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{84, 99}, {200, 31}}</string>
+						<string key="NSFrame">{{84, 98}, {200, 31}}</string>
 						<reference key="NSSuperview" ref="1015676171"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="250159520"/>
@@ -195,7 +195,6 @@
 						<string key="NSFrame">{{278, 211}, {29, 30}}</string>
 						<reference key="NSSuperview" ref="1015676171"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -479,7 +478,7 @@
 		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
-			<real value="1296" key="NS.object.0"/>
+			<real value="1280" key="NS.object.0"/>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
@@ -490,6 +489,6 @@
 			<string key="S02.1_rightarrow.png">{29, 30}</string>
 			<string key="logo.png">{219, 58}</string>
 		</dictionary>
-		<string key="IBCocoaTouchPluginVersion">1468</string>
+		<string key="IBCocoaTouchPluginVersion">933</string>
 	</data>
 </archive>

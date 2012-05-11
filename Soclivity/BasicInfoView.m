@@ -53,7 +53,9 @@
     confirmPasswordTextField.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     confirmPasswordTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
 
-
+    birthdayBtn.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    birthdayBtn.titleLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+    
     datePreview = [[BirthdayPickerView alloc] init];
     datePreview.delegate=self;
     [self addSubview:datePreview];
@@ -146,26 +148,18 @@
 	}
 
 }
-#if 1
+
 -(void)dateSelected:(NSDate*)bDate{
     NSLog(@"bDate=%@",bDate);
     [self hideBirthdayPicker];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat=@"MMM/ d/YYYY";
+	dateFormatter.dateFormat=@"MMM/d/YYYY";
 	NSString*date=[dateFormatter stringFromDate:bDate];
     [birthdayBtn setTitle:date forState:UIControlStateNormal];
     [birthdayBtn setBackgroundImage:nil forState:UIControlStateNormal];
     [dateFormatter release];
 
 }
-#else
--(void)dateSelected:(NSString*)bDate{
-    
-    [self hideBirthdayPicker];
-    [birthdayBtn setTitle:bDate forState:UIControlStateNormal];
-    [birthdayBtn setBackgroundImage:nil forState:UIControlStateNormal];
-}
-#endif
 -(void)hideBirthdayPicker{
     if (footerActivated) {
 		[UIView beginAnimations:@"collapseFooter" context:nil];

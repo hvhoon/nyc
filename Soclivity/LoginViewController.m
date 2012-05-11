@@ -55,17 +55,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-#if 0    
-    UILabel *photosLoadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,2, 320, 150)];
-    photosLoadingLabel.backgroundColor = [UIColor clearColor];
-    photosLoadingLabel.font = [UIFont fontWithName:@"HelveticaLTStd-Cond" size:18.0f];
-    photosLoadingLabel.textAlignment = UITextAlignmentCenter;
-    photosLoadingLabel.text=@"Loading";
-    photosLoadingLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
-    
-    [self.view addSubview:photosLoadingLabel];
-    [photosLoadingLabel release];
-#endif
     backgroundView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 460)];
     UIImage *bgImage=nil;
     switch (backgroundState) {
