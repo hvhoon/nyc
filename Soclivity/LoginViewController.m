@@ -27,6 +27,13 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
+- (void)drawRect:(CGRect)rect
+{
+    // Customized fonts
+    emailAddress.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    password.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+}
+
 
 #pragma mark - View lifecycle
 -(IBAction)signUpButtonClicked:(id)sender{

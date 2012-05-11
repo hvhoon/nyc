@@ -10,7 +10,6 @@
 #import "CameraCustom.h"
 #import "LocationCustomManager.h"
 #import "BirthdayPickerView.h"
-@class CustomPlaceholder;
 @protocol BasicRegistrationDelegate <NSObject>
 
 @optional
@@ -27,7 +26,7 @@
     CameraCustom *cameraUpload;
     id <BasicRegistrationDelegate>delegate;
     LocationCustomManager *SocLocation;
-    CustomPlaceholder *enterNameTextField;
+    UITextField *enterNameTextField;
     UITextField *emailTextField;
     UITextField *enterPasswordTextField;
     UITextField *confirmPasswordTextField;
@@ -36,17 +35,15 @@
     IBOutlet UIButton *profileBtn;
     IBOutlet UIButton *maleButton;
     IBOutlet UIButton *femaleButton;
+    IBOutlet UIImageView *setYourPic;
     BOOL b_Male;
     BOOL b_Female;
     BirthdayPickerView *datePreview;
     BOOL footerActivated;
-    IBOutlet UILabel *setPictureLabel;
-    
-    
 
 }
 @property (nonatomic,retain)id <BasicRegistrationDelegate>delegate;
-@property (nonatomic,retain)IBOutlet CustomPlaceholder *enterNameTextField;
+@property (nonatomic,retain)IBOutlet UITextField *enterNameTextField;
 @property (nonatomic,retain)IBOutlet UITextField *emailTextField;
 @property (nonatomic,retain)IBOutlet UITextField *enterPasswordTextField;
 @property (nonatomic,retain)IBOutlet UITextField *confirmPasswordTextField;

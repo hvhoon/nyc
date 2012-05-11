@@ -51,10 +51,8 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
-		<string>helveticaltstdlightcondobl.ttf</string>
-		<string>helveticaltstdcond.ttf</string>
-		<string>helveticaltstdcondobl.ttf</string>
-		<string>helveticaltstdlightcond.ttf</string>
+		<string>Helvetica-Condensed.otf</string>
+		<string>Helvetica-Condensed-Black.otf</string>
 	</array>
 </dict>
 </plist>

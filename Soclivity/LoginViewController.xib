@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1280</int>
+		<int key="IBDocument.SystemTarget">1296</int>
 		<string key="IBDocument.SystemVersion">12A178q</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2488</string>
 		<string key="IBDocument.AppKitVersion">1166.3</string>
@@ -68,7 +68,7 @@
 					<object class="IBUITextField" id="509333600">
 						<reference key="NSNextResponder" ref="1015676171"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{86, 99}, {200, 31}}</string>
+						<string key="NSFrame">{{84, 99}, {200, 31}}</string>
 						<reference key="NSSuperview" ref="1015676171"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="250159520"/>
@@ -77,12 +77,10 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUIText"/>
-						<string key="IBUIPlaceholder">This Will be your username</string>
-						<object class="NSColor" key="IBUITextColor" id="1046010610">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
+						<object class="NSColor" key="IBUITextColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC40NjY2NjY2NjY3IDAuNDY2NjY2NjY2NyAwLjQ2NjY2NjY2NjcAA</bytes>
 						</object>
-						<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
 						<float key="IBUIMinimumFontSize">17</float>
 						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 							<int key="IBUIAutocorrectionType">1</int>
@@ -91,22 +89,22 @@
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						</object>
 						<int key="IBUIClearButtonMode">1</int>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="772514040">
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="196132210">
 							<string key="name">Helvetica</string>
 							<string key="family">Helvetica</string>
 							<int key="traits">0</int>
-							<double key="pointSize">13</double>
+							<double key="pointSize">15</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="148928820">
+						<object class="NSFont" key="IBUIFont" id="48736078">
 							<string key="NSName">Helvetica</string>
-							<double key="NSSize">13</double>
+							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
 					<object class="IBUITextField" id="250159520">
 						<reference key="NSNextResponder" ref="1015676171"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{112, 140}, {138, 31}}</string>
+						<string key="NSFrame">{{114, 140}, {138, 31}}</string>
 						<reference key="NSSuperview" ref="1015676171"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="942950066"/>
@@ -115,19 +113,20 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUIText"/>
-						<string key="IBUIPlaceholder">Your password please</string>
-						<reference key="IBUITextColor" ref="1046010610"/>
+						<object class="NSColor" key="IBUITextColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC40NjY2NjY2NjY3IDAuNDY2NjY2NjY2NyAwLjQ2NjY2NjY2NjcAA</bytes>
+						</object>
 						<bool key="IBUIClearsOnBeginEditing">YES</bool>
-						<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
-						<float key="IBUIMinimumFontSize">14</float>
+						<float key="IBUIMinimumFontSize">15</float>
 						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 							<int key="IBUIReturnKeyType">1</int>
 							<bool key="IBUISecureTextEntry">YES</bool>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						</object>
 						<int key="IBUIClearButtonMode">1</int>
-						<reference key="IBUIFontDescription" ref="772514040"/>
-						<reference key="IBUIFont" ref="148928820"/>
+						<reference key="IBUIFontDescription" ref="196132210"/>
+						<reference key="IBUIFont" ref="48736078"/>
 					</object>
 					<object class="IBUIButton" id="942950066">
 						<reference key="NSNextResponder" ref="1015676171"/>
@@ -355,12 +354,12 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="105909026"/>
 							<reference ref="250159520"/>
-							<reference ref="509333600"/>
 							<reference ref="204891211"/>
 							<reference ref="942950066"/>
 							<reference ref="130418530"/>
 							<reference ref="496648011"/>
 							<reference ref="207971444"/>
+							<reference ref="509333600"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -434,17 +433,12 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="BackButtonClicked:">id</string>
-						<string key="checkBoxClicked:">id</string>
 						<string key="resetPassword:">id</string>
 						<string key="signUpButtonClicked:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="BackButtonClicked:">
 							<string key="name">BackButtonClicked:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="checkBoxClicked:">
-							<string key="name">checkBoxClicked:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="resetPassword:">
@@ -457,15 +451,10 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="checkboxBtn">UIButton</string>
 						<string key="emailAddress">UITextField</string>
 						<string key="password">UITextField</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="checkboxBtn">
-							<string key="name">checkboxBtn</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="emailAddress">
 							<string key="name">emailAddress</string>
 							<string key="candidateClassName">UITextField</string>
@@ -486,7 +475,7 @@
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
-			<real value="1280" key="NS.object.0"/>
+			<real value="1296" key="NS.object.0"/>
 		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>

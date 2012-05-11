@@ -9,7 +9,6 @@
 #import "BasicInfoView.h"
 #import "SoclivityUtilities.h"
 #import <QuartzCore/QuartzCore.h>
-#import "CustomPlaceholder.h"
 #define kPicture 0
 #define kName 1
 #define kEmail 2
@@ -38,21 +37,21 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    // Drawing code
-    emailTextField.font = [UIFont fontWithName:@"HelveticaLTStd-Cond" size:15.0f];
+    // Customized fonts
+    enterNameTextField.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    enterNameTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
+    
+    emailTextField.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     emailTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
 
-    enterNameTextField.font = [UIFont fontWithName:@"HelveticaLTStd-Cond" size:15.0f];
+    enterNameTextField.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     enterNameTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
 
-    enterPasswordTextField.font = [UIFont fontWithName:@"HelveticaLTStd-Cond" size:15.0f];
+    enterPasswordTextField.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     enterPasswordTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
 
-    confirmPasswordTextField.font = [UIFont fontWithName:@"HelveticaLTStd-Cond" size:20];
+    confirmPasswordTextField.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     confirmPasswordTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
-    
-    setPictureLabel.font = [UIFont fontWithName:@"HelveticaLTStd-Cond" size:15];
-    setPictureLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
 
 
     datePreview = [[BirthdayPickerView alloc] init];
@@ -244,7 +243,7 @@
       [profileBtn setBackgroundImage:Img forState:UIControlStateNormal];
    // profileImageView.contentMode = UIViewContentModeScaleAspectFit;
    // [profileImageView sizeToFit];
-    setPictureLabel.hidden=YES;
+    setYourPic.hidden=YES;
     NSLog(@"UIImage=%@",resizedImage);
 
 }
@@ -334,11 +333,5 @@
         
     }
 	return NO;
-}
-
-
-- (void)dealloc {
-    [setPictureLabel release];
-    [super dealloc];
 }
 @end
