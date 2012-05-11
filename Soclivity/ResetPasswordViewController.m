@@ -27,6 +27,13 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (void)drawRect:(CGRect)rect
+{
+    // Customized fonts
+    newPassword.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    confirmPassword.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad

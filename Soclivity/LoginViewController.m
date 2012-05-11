@@ -10,7 +10,7 @@
 #import "ResetPasswordViewController.h"
 #import "SoclivityUtilities.h"
 @implementation LoginViewController
-@synthesize emailAddress,password,checkboxBtn,backgroundState;
+@synthesize emailAddress,password,backgroundState;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -27,6 +27,13 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
+- (void)drawRect:(CGRect)rect
+{
+    // Customized fonts
+    emailAddress.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    password.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+}
+
 
 #pragma mark - View lifecycle
 -(IBAction)signUpButtonClicked:(id)sender{
@@ -44,15 +51,6 @@
     [addNavigationController release];
 
 
-}
--(IBAction)checkBoxClicked:(id)sender{
-    checkBoxStatus=!checkBoxStatus;
-    if(checkBoxStatus){
-        [checkboxBtn setImage:[UIImage imageNamed:@"S01.1_tick.png"] forState:UIControlStateNormal];
-    }
-    else{
-        [checkboxBtn setImage:nil forState:UIControlStateNormal];
-    }
 }
 - (void)viewDidLoad
 {
@@ -105,11 +103,7 @@
     }
     backgroundView.image=bgImage; 
     [self.view insertSubview:backgroundView atIndex:0];
-    checkBoxStatus=FALSE;
-    [checkboxBtn setImage:nil forState:UIControlStateNormal];
-    
     [emailAddress becomeFirstResponder];
-
     // Do any additional setup after loading the view from its nib.
 }
 

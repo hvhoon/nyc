@@ -34,9 +34,14 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>12</string>
+	<string>13</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Helvetica-Condensed.otf</string>
+		<string>Helvetica-Condensed-Black.otf</string>
+	</array>
 	<key>UIMainStoryboardFile</key>
 	<string></string>
 	<key>UIPrerenderedIcon</key>
@@ -48,13 +53,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>helveticaltstdlightcondobl.ttf</string>
-		<string>helveticaltstdcond.ttf</string>
-		<string>helveticaltstdcondobl.ttf</string>
-		<string>helveticaltstdlightcond.ttf</string>
 	</array>
 </dict>
 </plist>

@@ -9,7 +9,6 @@
 #import "BasicInfoView.h"
 #import "SoclivityUtilities.h"
 #import <QuartzCore/QuartzCore.h>
-#import "CustomPlaceholder.h"
 #define kPicture 0
 #define kName 1
 #define kEmail 2
@@ -38,20 +37,21 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    // Drawing code
-    //NSLog(@"Available Font Families: %@", [UIFont familyNames]);
-    emailTextField.font = [UIFont fontWithName:@"helveticaltstdcond" size:15.0f];
+    // Customized fonts
+    enterNameTextField.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    enterNameTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
+    
+    emailTextField.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     emailTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
 
-    enterNameTextField.font = [UIFont fontWithName:@"helveticaltstdcond" size:15.0f];
+    enterNameTextField.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     enterNameTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
 
-    enterPasswordTextField.font = [UIFont fontWithName:@"helveticaltstdcond" size:15.0f];
+    enterPasswordTextField.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     enterPasswordTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
 
-    confirmPasswordTextField.font = [UIFont fontWithName:@"helveticaltstdcond" size:15.0f];
+    confirmPasswordTextField.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     confirmPasswordTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
-
 
 
     datePreview = [[BirthdayPickerView alloc] init];
@@ -334,6 +334,4 @@
     }
 	return NO;
 }
-
-
 @end

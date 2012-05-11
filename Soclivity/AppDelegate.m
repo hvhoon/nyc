@@ -30,15 +30,6 @@
     [super dealloc];
 }
 
-
-BOOL GSFontAddFromFile(const char * path);
-NSUInteger loadFonts()
-{
-    NSUInteger newFontCount = 0;
-    for (NSString *fontFile in [[NSBundle mainBundle] pathsForResourcesOfType:@"ttf" inDirectory:nil])
-        newFontCount += GSFontAddFromFile([fontFile UTF8String]);
-    return newFontCount;
-}
 void uncaughtExceptionHandler(NSException *exception) {
     NSLog(@"CRASH: %@", exception);
     NSLog(@"Stack Trace: %@", [exception callStackSymbols]);
