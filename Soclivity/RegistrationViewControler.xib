@@ -39,6 +39,7 @@
 				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
@@ -348,20 +349,16 @@
 					<object class="IBUIButton" id="201184876">
 						<reference key="NSNextResponder" ref="222031491"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{99, 328}, {83, 12}}</string>
+						<string key="NSFrame">{{99, 319}, {139, 31}}</string>
 						<reference key="NSSuperview" ref="222031491"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="865403642"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUINormalTitle">Enter your birthday</string>
 						<reference key="IBUIHighlightedTitleColor" ref="250219958"/>
-						<reference key="IBUINormalTitleColor" ref="796567365"/>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">S02_mmddyy.png</string>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="40434017"/>
 						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<string key="name">Helvetica</string>
 							<string key="family">Helvetica</string>
@@ -423,7 +420,7 @@
 					<object class="IBUIButton" id="623081720">
 						<reference key="NSNextResponder" ref="222031491"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{128, 379}, {129, 15}}</string>
+						<string key="NSFrame">{{137, 370}, {129, 30}}</string>
 						<reference key="NSSuperview" ref="222031491"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="429477265"/>
@@ -431,13 +428,10 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUINormalTitle">Set your location</string>
 						<reference key="IBUIHighlightedTitleColor" ref="250219958"/>
-						<reference key="IBUINormalTitleColor" ref="796567365"/>
+						<reference key="IBUINormalTitleColor" ref="40434017"/>
 						<reference key="IBUINormalTitleShadowColor" ref="796567365"/>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">S02_picklocation.png</string>
-						</object>
 						<reference key="IBUIFontDescription" ref="492460443"/>
 						<reference key="IBUIFont" ref="560986655"/>
 					</object>
@@ -447,6 +441,7 @@
 						<string key="NSFrame">{{275, 372}, {26, 26}}</string>
 						<reference key="NSSuperview" ref="222031491"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -806,6 +801,7 @@
 						<string key="NSFrame">{{276, 378}, {29, 30}}</string>
 						<reference key="NSSuperview" ref="797170633"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -1766,11 +1762,9 @@
 			<string key="S02_divider.png">{320, 261}</string>
 			<string key="S02_email.png">{35, 14}</string>
 			<string key="S02_location.png">{26, 26}</string>
-			<string key="S02_mmddyy.png">{84, 13}</string>
 			<string key="S02_name.png">{38, 14}</string>
 			<string key="S02_password.png">{64, 14}</string>
 			<string key="S02_picbox.png">{57, 57}</string>
-			<string key="S02_picklocation.png">{128, 15}</string>
 			<string key="S02_picture.png">{46, 14}</string>
 			<string key="S02_setpicture.png">{93, 15}</string>
 		</dictionary>
