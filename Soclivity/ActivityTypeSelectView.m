@@ -9,7 +9,13 @@
 #import "ActivityTypeSelectView.h"
 
 @implementation ActivityTypeSelectView
+
 @synthesize delegate;
+
+// Defining the transparency used to display the tick for activity categories selected
+#define HIDDEN 0.2
+#define SHOW 1.0
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -25,13 +31,12 @@
 
 -(IBAction)playActivityClicked:(id)sender{
     play=!play;
-    
+
     if(play){
-        playImageView.hidden=NO;
+        playImageView.alpha=SHOW;
     }
     else{
-        playImageView.hidden=YES;
-        
+        playImageView.alpha=HIDDEN;
     }
 }
                                           
@@ -39,10 +44,10 @@
     eat=!eat;
     
     if(eat){
-        eatImageView.hidden=NO;
+        eatImageView.alpha=SHOW;
     }
     else{
-        eatImageView.hidden=YES;
+        eatImageView.alpha=HIDDEN;
         
     }
 }
@@ -50,10 +55,10 @@
     see=!see;
     
     if(see){
-        seeImageView.hidden=NO;
+        seeImageView.alpha=SHOW;
     }
     else{
-        seeImageView.hidden=YES;
+        seeImageView.alpha=HIDDEN;
         
     }
 }
@@ -61,10 +66,10 @@
     create=!create;
     
     if(create){
-        createImageView.hidden=NO;
+        createImageView.alpha=SHOW;
     }
     else{
-        createImageView.hidden=YES;
+        createImageView.alpha=HIDDEN;
         
     }
 }
@@ -72,10 +77,10 @@
     learn=!learn;
     
     if(learn){
-        learnImageView.hidden=NO;
+        learnImageView.alpha=SHOW;
     }
     else{
-        learnImageView.hidden=YES;
+        learnImageView.alpha=HIDDEN;
         
     }
 }
