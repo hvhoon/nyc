@@ -54,13 +54,9 @@
     confirmPasswordTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
 
     birthdayBtn.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
-    birthdayBtn.titleLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
     
     locationBtnText.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
-    locationBtnText.titleLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
 
-    
-    
     
     datePreview = [[BirthdayPickerView alloc] init];
     datePreview.delegate=self;
@@ -80,9 +76,8 @@
 }
 -(void)LocationAcquired:(NSString*)SoclivityLoc{
     if(SoclivityLoc!=nil){
-        
-    [locationBtnText setBackgroundImage:nil forState:UIControlStateNormal];
-    [locationBtnText setTitle:SoclivityLoc forState:UIControlStateNormal];
+        [locationBtnText setTitle:SoclivityLoc forState:UIControlStateNormal];
+        [locationBtnText setTitleColor:[SoclivityUtilities returnTextFontColor:1] forState:UIControlStateNormal];
     }
 }
 -(IBAction)genderChanged:(UIButton*)sender{
@@ -195,7 +190,7 @@
 	dateFormatter.dateFormat=@"MMM/d/YYYY";
 	NSString*date=[dateFormatter stringFromDate:bDate];
     [birthdayBtn setTitle:date forState:UIControlStateNormal];
-    [birthdayBtn setBackgroundImage:nil forState:UIControlStateNormal];
+    [birthdayBtn setTitleColor:[SoclivityUtilities returnTextFontColor:1] forState:UIControlStateNormal];
     [dateFormatter release];
 
 }
