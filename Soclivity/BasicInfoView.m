@@ -291,11 +291,11 @@
     [delegate dismissPickerModalController];
     
     //CGRect bounds = CGRectMake(0,0,57, 57);
-    UIImage* resizedImage = [self resizeImage:Img size:CGSizeMake(52, 52)];
+    //UIImage* resizedImage = [self resizeImage:Img size:CGSizeMake(104, 104)];
     //UIImage *capturedImg=[SoclivityUtilities updateResult:bounds.size originalImage:Img switchCaseIndex:0];
     [profileBtn setBackgroundImage:Img forState:UIControlStateNormal];
     setYourPic.hidden=YES;
-    NSLog(@"UIImage=%@",resizedImage);
+    //NSLog(@"UIImage=%@",resizedImage);
 
 }
 -(UIImage*) resizeImage:(UIImage*) image size:(CGSize) size {

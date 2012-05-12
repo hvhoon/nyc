@@ -136,7 +136,7 @@
 					<object class="IBUIButton" id="57609435">
 						<reference key="NSNextResponder" ref="222031491"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{247, 45}, {57, 57}}</string>
+						<string key="NSFrame">{{247, 47}, {52, 52}}</string>
 						<reference key="NSSuperview" ref="222031491"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1067256744"/>
@@ -420,13 +420,13 @@
 					<object class="IBUIButton" id="623081720">
 						<reference key="NSNextResponder" ref="222031491"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{137, 370}, {129, 30}}</string>
+						<string key="NSFrame">{{108, 370}, {156, 30}}</string>
 						<reference key="NSSuperview" ref="222031491"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="429477265"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentHorizontalAlignment">2</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUINormalTitle">Set your location</string>
 						<reference key="IBUIHighlightedTitleColor" ref="250219958"/>
