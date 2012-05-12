@@ -187,7 +187,7 @@
     NSLog(@"bDate=%@",bDate);
     [self hideBirthdayPicker];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat=@"MMM/d/YYYY";
+	dateFormatter.dateFormat=@"MMMM d, YYYY";
 	NSString*date=[dateFormatter stringFromDate:bDate];
     [birthdayBtn setTitle:date forState:UIControlStateNormal];
     [birthdayBtn setTitleColor:[SoclivityUtilities returnTextFontColor:1] forState:UIControlStateNormal];
