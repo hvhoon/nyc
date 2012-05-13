@@ -298,6 +298,8 @@
         Img = [self compressImage:Img size:CGSizeMake(100,100)];
     
     [profileBtn setBackgroundImage:Img forState:UIControlStateNormal];
+    [[profileBtn layer] setBorderWidth:1.0];
+    [[profileBtn layer] setBorderColor:[SoclivityUtilities returnTextFontColor:4].CGColor];
     setYourPic.hidden=YES;
 
 

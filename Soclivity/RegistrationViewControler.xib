@@ -111,7 +111,7 @@
 						<string key="NSFrame">{{0, 99}, {320, 261}}</string>
 						<reference key="NSSuperview" ref="222031491"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="57609435"/>
+						<reference key="NSNextKeyView" ref="1067256744"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
@@ -136,10 +136,10 @@
 					<object class="IBUIButton" id="57609435">
 						<reference key="NSNextResponder" ref="222031491"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{247, 47}, {52, 52}}</string>
+						<string key="NSFrame">{{247, 49}, {50, 50}}</string>
 						<reference key="NSSuperview" ref="222031491"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1067256744"/>
+						<reference key="NSNextKeyView" ref="938306753"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -465,7 +465,7 @@
 						<string key="NSFrame">{{90, 71}, {93, 15}}</string>
 						<reference key="NSSuperview" ref="222031491"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="938306753"/>
+						<reference key="NSNextKeyView" ref="57609435"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
@@ -1764,7 +1764,7 @@
 			<string key="S02_location.png">{26, 26}</string>
 			<string key="S02_name.png">{38, 14}</string>
 			<string key="S02_password.png">{64, 14}</string>
-			<string key="S02_picbox.png">{57, 57}</string>
+			<string key="S02_picbox.png">{50, 50}</string>
 			<string key="S02_picture.png">{46, 14}</string>
 			<string key="S02_setpicture.png">{93, 15}</string>
 		</dictionary>
