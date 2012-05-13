@@ -25,20 +25,19 @@
 	return self;
 }
 
-
+// Pick the section of the image that you wish to use
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)editingInfo 
 {
-    
-    NSLog(@"didFinishPickingMediaWithInfo");
+    // Pull in the media type
     NSString *mediaType = [editingInfo objectForKey:UIImagePickerControllerMediaType];
+    
+    // Check if the mediatype is an image
     if([mediaType isEqualToString:@"public.image"]){
-        UIImage*original=[editingInfo objectForKey:UIImagePickerControllerOriginalImage];
-        NSLog(@"found an image");
-   
-        
-#if 0        
+        UIImage*cropped=[editingInfo objectForKey:UIImagePickerControllerEditedImage];
+/*
+#if 0
       
-        CGSize size = {57, 57};
+        CGSize size = {52, 52};
         UIGraphicsBeginImageContext(size);
         
         CGRect rect;
@@ -52,18 +51,20 @@
         
         original = shinked;
         
-#endif        
-         if(!galleryImage)
-             UIImageWriteToSavedPhotosAlbum(original, nil, nil, nil);
-        [delegate imageCapture:original];
-    }
+#endif    
+ */
+        // If the image doesn't already exist in the gallery, please add it.
+        if(!galleryImage)
+            UIImageWriteToSavedPhotosAlbum(cropped, nil, nil, nil);
+        
+        // Send the image back to the view controller
+        [delegate imageCapture:cropped];
+        }
+    
+    // If the image is a video
     else if ([mediaType isEqualToString:@"public.movie"]){
         NSLog(@"found an Video");
     }
-    
-    
-    
-	
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
