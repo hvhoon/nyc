@@ -287,26 +287,66 @@
 }
 
 -(void)imageCapture:(UIImage*)Img{
-    NSLog(@"UIimage from Gallery=%@",Img);
     [delegate dismissPickerModalController];
     
-    //CGRect bounds = CGRectMake(0,0,57, 57);
-    //UIImage* resizedImage = [self resizeImage:Img size:CGSizeMake(104, 104)];
-    //UIImage *capturedImg=[SoclivityUtilities updateResult:bounds.size originalImage:Img switchCaseIndex:0];
+    // If the image is not a square please auto crop
+    if(Img.size.height != Img.size.width)
+        Img = [self autoCrop:Img];
+    
+    // If the image needs to be compressed
+    if(Img.size.height > 100 || Img.size.width > 100)
+        Img = [self compressImage:Img size:CGSizeMake(100,100)];
+    
     [profileBtn setBackgroundImage:Img forState:UIControlStateNormal];
     setYourPic.hidden=YES;
-    //NSLog(@"UIImage=%@",resizedImage);
+
 
 }
--(UIImage*) resizeImage:(UIImage*) image size:(CGSize) size {
-	if (image.size.width != size.width || image.size.height != size.height) {
-		UIGraphicsBeginImageContext(size);
-		CGRect imageRect = CGRectMake(0.0, 0.0, size.width, size.height);
-		[image drawInRect:imageRect];
-		image = UIGraphicsGetImageFromCurrentImageContext();
-		UIGraphicsEndImageContext();
-	}
+// Function to auto-crop the image if user does not
+-(UIImage*) autoCrop:(UIImage*)image{
+    
+    CGSize dimensions = {0,0};
+    float x=0.0,y=0.0;
+    
+    // Check to see if the image layout is landscape or portrait
+    if(image.size.width > image.size.height)
+    {
+        // if landscape
+        x = (image.size.width - image.size.height)/2;
+        dimensions.width = image.size.height;
+        dimensions.height = image.size.height;
+        
+    }
+    else
+    {
+        // if portrait
+        y = (image.size.height - image.size.width)/2;
+        dimensions.height = image.size.width;
+        dimensions.width = image.size.width;
+                
+    }
+    
+    // Create the mask
+    CGRect imageRect = CGRectMake(x,y,dimensions.width,dimensions.height);
+    
+    // Create the image based on the mask created above
+    CGImageRef  imageRef = CGImageCreateWithImageInRect([image CGImage], imageRect);
+    image = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    
 	return image;
+}
+
+// Function to compress a large image
+-(UIImage*) compressImage:(UIImage *)image size:(CGSize)size{
+    
+    UIGraphicsBeginImageContext(size);
+    CGRect imageRect = CGRectMake(0.0, 0.0, size.width, size.height);
+    [image drawInRect:imageRect];
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 
 -(void)dismissPickerModalController{
