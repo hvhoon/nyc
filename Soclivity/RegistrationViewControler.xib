@@ -349,7 +349,7 @@
 					<object class="IBUIButton" id="201184876">
 						<reference key="NSNextResponder" ref="222031491"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{99, 319}, {139, 31}}</string>
+						<string key="NSFrame">{{99, 319}, {201, 31}}</string>
 						<reference key="NSSuperview" ref="222031491"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="865403642"/>
@@ -420,7 +420,7 @@
 					<object class="IBUIButton" id="623081720">
 						<reference key="NSNextResponder" ref="222031491"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{137, 370}, {129, 30}}</string>
+						<string key="NSFrame">{{108, 370}, {156, 30}}</string>
 						<reference key="NSSuperview" ref="222031491"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="429477265"/>
@@ -1764,7 +1764,7 @@
 			<string key="S02_location.png">{26, 26}</string>
 			<string key="S02_name.png">{38, 14}</string>
 			<string key="S02_password.png">{64, 14}</string>
-			<string key="S02_picbox.png">{57, 57}</string>
+			<string key="S02_picbox.png">{50, 50}</string>
 			<string key="S02_picture.png">{46, 14}</string>
 			<string key="S02_setpicture.png">{93, 15}</string>
 		</dictionary>
