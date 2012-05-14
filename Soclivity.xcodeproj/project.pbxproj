@@ -70,6 +70,15 @@
 		EA91C33B155A749400BE5BB1 /* GetPlayersDetailInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C33A155A749400BE5BB1 /* GetPlayersDetailInvocation.m */; };
 		EA91C348155A834000BE5BB1 /* ParseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C347155A833500BE5BB1 /* ParseOperation.m */; };
 		EA91C34B155A899900BE5BB1 /* GetPlayersClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C34A155A899800BE5BB1 /* GetPlayersClass.m */; };
+		EA96E840155E269500BE82DF /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA96E83E155E269500BE82DF /* SettingsViewController.m */; };
+		EA96E841155E269500BE82DF /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA96E83F155E269500BE82DF /* SettingsViewController.xib */; };
+		EA96E846155E2AAC00BE82DF /* UpComingEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA96E844155E2AAC00BE82DF /* UpComingEventsViewController.m */; };
+		EA96E847155E2AAC00BE82DF /* UpComingEventsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA96E845155E2AAC00BE82DF /* UpComingEventsViewController.xib */; };
+		EA96E852155E37A500BE82DF /* DDMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA96E851155E37A500BE82DF /* DDMenuController.m */; };
+		EA96E85A155E670800BE82DF /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA96E858155E670800BE82DF /* HomeViewController.m */; };
+		EA96E85B155E670800BE82DF /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA96E859155E670800BE82DF /* HomeViewController.xib */; };
+		EA96E861155E703700BE82DF /* Background_Search.png in Resources */ = {isa = PBXBuildFile; fileRef = EA96E85F155E703700BE82DF /* Background_Search.png */; };
+		EA96E862155E703700BE82DF /* Background_Search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA96E860155E703700BE82DF /* Background_Search@2x.png */; };
 		EAB135B415545B3600C1607D /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB135B215545B3600C1607D /* ResetPasswordViewController.m */; };
 		EAB135B515545B3600C1607D /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAB135B315545B3600C1607D /* ResetPasswordViewController.xib */; };
 		EAB135BC155460A200C1607D /* SoclivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB135BB155460A200C1607D /* SoclivityManager.m */; };
@@ -315,6 +324,19 @@
 		EA91C347155A833500BE5BB1 /* ParseOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseOperation.m; sourceTree = "<group>"; };
 		EA91C349155A899800BE5BB1 /* GetPlayersClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetPlayersClass.h; sourceTree = "<group>"; };
 		EA91C34A155A899800BE5BB1 /* GetPlayersClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetPlayersClass.m; sourceTree = "<group>"; };
+		EA96E83D155E269500BE82DF /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		EA96E83E155E269500BE82DF /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		EA96E83F155E269500BE82DF /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		EA96E843155E2AAC00BE82DF /* UpComingEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpComingEventsViewController.h; sourceTree = "<group>"; };
+		EA96E844155E2AAC00BE82DF /* UpComingEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpComingEventsViewController.m; sourceTree = "<group>"; };
+		EA96E845155E2AAC00BE82DF /* UpComingEventsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpComingEventsViewController.xib; sourceTree = "<group>"; };
+		EA96E850155E37A500BE82DF /* DDMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMenuController.h; sourceTree = "<group>"; };
+		EA96E851155E37A500BE82DF /* DDMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMenuController.m; sourceTree = "<group>"; };
+		EA96E857155E670800BE82DF /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		EA96E858155E670800BE82DF /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		EA96E859155E670800BE82DF /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		EA96E85F155E703700BE82DF /* Background_Search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Background_Search.png; path = Soclivity/Background_Search.png; sourceTree = "<group>"; };
+		EA96E860155E703700BE82DF /* Background_Search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Background_Search@2x.png"; path = "Soclivity/Background_Search@2x.png"; sourceTree = "<group>"; };
 		EAB135B115545B3600C1607D /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
 		EAB135B215545B3600C1607D /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
 		EAB135B315545B3600C1607D /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
@@ -517,6 +539,10 @@
 		680CE3E81551258700B8E937 /* Soclivity */ = {
 			isa = PBXGroup;
 			children = (
+				EA96E856155E66ED00BE82DF /* Home */,
+				EA96E84F155E378100BE82DF /* New Vendor */,
+				EA96E842155E2A8500BE82DF /* Upcoming */,
+				EA96E83C155E268000BE82DF /* Settings */,
 				EA91C324155A71A500BE5BB1 /* Service */,
 				EA91C2C5155A716300BE5BB1 /* App Delegate */,
 				687F3A701551300E00B694DA /* Welcome */,
@@ -553,6 +579,8 @@
 		680CE4271551286D00B8E937 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EA96E85F155E703700BE82DF /* Background_Search.png */,
+				EA96E860155E703700BE82DF /* Background_Search@2x.png */,
 				68BF4F6E155CAEF5005399B3 /* Fonts */,
 				686C79881557C471001358E0 /* Icon.png */,
 				686C798A1557C475001358E0 /* Icon@2x.png */,
@@ -797,6 +825,45 @@
 				EA91C2C9155A716F00BE5BB1 /* Reachability.m */,
 			);
 			name = Reachability;
+			sourceTree = "<group>";
+		};
+		EA96E83C155E268000BE82DF /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				EA96E83D155E269500BE82DF /* SettingsViewController.h */,
+				EA96E83E155E269500BE82DF /* SettingsViewController.m */,
+				EA96E83F155E269500BE82DF /* SettingsViewController.xib */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		EA96E842155E2A8500BE82DF /* Upcoming */ = {
+			isa = PBXGroup;
+			children = (
+				EA96E843155E2AAC00BE82DF /* UpComingEventsViewController.h */,
+				EA96E844155E2AAC00BE82DF /* UpComingEventsViewController.m */,
+				EA96E845155E2AAC00BE82DF /* UpComingEventsViewController.xib */,
+			);
+			name = Upcoming;
+			sourceTree = "<group>";
+		};
+		EA96E84F155E378100BE82DF /* New Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				EA96E850155E37A500BE82DF /* DDMenuController.h */,
+				EA96E851155E37A500BE82DF /* DDMenuController.m */,
+			);
+			name = "New Vendor";
+			sourceTree = "<group>";
+		};
+		EA96E856155E66ED00BE82DF /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				EA96E857155E670800BE82DF /* HomeViewController.h */,
+				EA96E858155E670800BE82DF /* HomeViewController.m */,
+				EA96E859155E670800BE82DF /* HomeViewController.xib */,
+			);
+			name = Home;
 			sourceTree = "<group>";
 		};
 		EAB135AF15545B1100C1607D /* Reset Password */ = {
@@ -1167,6 +1234,11 @@
 				686C798B1557C475001358E0 /* Icon@2x.png in Resources */,
 				68BF4F79155CB034005399B3 /* Helvetica-Condensed-Black.otf in Resources */,
 				68BF4F7A155CB034005399B3 /* Helvetica-Condensed.otf in Resources */,
+				EA96E841155E269500BE82DF /* SettingsViewController.xib in Resources */,
+				EA96E847155E2AAC00BE82DF /* UpComingEventsViewController.xib in Resources */,
+				EA96E85B155E670800BE82DF /* HomeViewController.xib in Resources */,
+				EA96E861155E703700BE82DF /* Background_Search.png in Resources */,
+				EA96E862155E703700BE82DF /* Background_Search@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1236,6 +1308,10 @@
 				EA91C33B155A749400BE5BB1 /* GetPlayersDetailInvocation.m in Sources */,
 				EA91C348155A834000BE5BB1 /* ParseOperation.m in Sources */,
 				EA91C34B155A899900BE5BB1 /* GetPlayersClass.m in Sources */,
+				EA96E840155E269500BE82DF /* SettingsViewController.m in Sources */,
+				EA96E846155E2AAC00BE82DF /* UpComingEventsViewController.m in Sources */,
+				EA96E852155E37A500BE82DF /* DDMenuController.m in Sources */,
+				EA96E85A155E670800BE82DF /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

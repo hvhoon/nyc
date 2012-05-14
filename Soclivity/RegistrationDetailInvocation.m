@@ -25,7 +25,7 @@
 
 
 -(void)invoke {
-    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/players"];
+    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/players?format=json"];
 	[self post:a
 		  body:[self body]];
 }

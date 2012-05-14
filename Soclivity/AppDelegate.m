@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "WelcomeScreenViewController.h"
 #import "SocFacebookLogin.h"
+
 @implementation UINavigationBar (CustomImage)
 
 - (void)drawRect:(CGRect)rect {
@@ -23,7 +24,7 @@
 @implementation AppDelegate
 @synthesize navigationController;
 @synthesize window = _window;
-
+@synthesize menuController;
 - (void)dealloc
 {
     [_window release];

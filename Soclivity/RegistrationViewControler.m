@@ -9,7 +9,11 @@
 #import "RegistrationViewControler.h"
 #import "MainServiceManager.h"
 #import "GetPlayersDetailInvocation.h"
-
+#import "HomeViewController.h"
+#import "DDMenuController.h"
+#import "SettingsViewController.h"
+#import "UpComingEventsViewController.h"
+#import "AppDelegate.h"
 @interface RegistrationViewControler (private)<GetPlayersDetailDelegate,RegistrationDetailDelegate>
 @end
 
@@ -186,7 +190,30 @@
 }
 
 -(void)pushHomeMapViewController{
+#if 0    
+    HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
     
+    DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
+    
+    
+    SettingsViewController *leftController = [[SettingsViewController alloc] init];
+    rootController.leftViewController = leftController;
+    
+    UpComingEventsViewController *rightController = [[UpComingEventsViewController alloc] init];
+    rootController.rightViewController = rightController;
+    
+    
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate.menuController=rootController;
+    [self.navigationController pushViewController:rootController animated:YES];
+    //[leftController release];
+    //[rightController release];
+    //[rootController release];
+    //[navController release];
+#endif    
 }
 - (void)viewDidUnload
 {
