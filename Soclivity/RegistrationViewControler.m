@@ -103,7 +103,7 @@
                 
                 
                 UIButton *crossPickerButton=[UIButton buttonWithType:UIButtonTypeCustom];
-                crossPickerButton.frame=CGRectMake(6,428,18,17);
+                crossPickerButton.frame=CGRectMake(6,428,19,18);
                 [crossPickerButton setBackgroundImage:[UIImage imageNamed:@"S02_cross_emb.png"] forState:UIControlStateNormal];
                 [crossPickerButton addTarget:self action:@selector(hidePickerView:) forControlEvents:UIControlEventTouchUpInside];
                 crossPickerButton.tag=234;
@@ -111,7 +111,7 @@
                 
                 
                 UIButton *tickPickerButton=[UIButton buttonWithType:UIButtonTypeCustom];
-                tickPickerButton.frame=CGRectMake(286,428,20,17);
+                tickPickerButton.frame=CGRectMake(286,428,19,18);
                 [tickPickerButton setBackgroundImage:[UIImage imageNamed:@"S02_tick_emb.png"] forState:UIControlStateNormal];
                 [tickPickerButton addTarget:self action:@selector(doneSelectDatePickerView:) forControlEvents:UIControlEventTouchUpInside];
                 tickPickerButton.tag=235;
