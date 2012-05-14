@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "BasicInfoView.h"
 #import "ActivityTypeSelectView.h"
+
 @class MainServiceManager;
+
 @interface RegistrationViewControler : UIViewController<BasicRegistrationDelegate,ActivitySelectDelegate,UIScrollViewDelegate>{
     UIScrollView* scrollView;
     BasicInfoView *basicSectionFirst;
@@ -21,4 +23,8 @@
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property(nonatomic,retain)IBOutlet BasicInfoView *basicSectionFirst;
 @property(nonatomic,retain)IBOutlet ActivityTypeSelectView*activitySectionSecond;
+-(void)hidePickerView:(id)sender;
+-(void)doneSelectDatePickerView:(id)sender;
 @end
+
+

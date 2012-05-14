@@ -99,11 +99,34 @@
                 [self.scrollView addSubview:basicSectionFirst];
                 UIImageView *activeType=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S02_pickactivity.png"]];
                 activeType.frame=CGRectMake(0, 414, 320, 46);
+                
+                
+                
+                UIButton *crossPickerButton=[UIButton buttonWithType:UIButtonTypeCustom];
+                crossPickerButton.frame=CGRectMake(6,428,18,17);
+                [crossPickerButton setBackgroundImage:[UIImage imageNamed:@"S02_cross_emb.png"] forState:UIControlStateNormal];
+                [crossPickerButton addTarget:self action:@selector(hidePickerView:) forControlEvents:UIControlEventTouchUpInside];
+                crossPickerButton.tag=234;
+                [crossPickerButton setHidden:YES];
+                
+                
+                UIButton *tickPickerButton=[UIButton buttonWithType:UIButtonTypeCustom];
+                tickPickerButton.frame=CGRectMake(286,428,20,17);
+                [tickPickerButton setBackgroundImage:[UIImage imageNamed:@"S02_tick_emb.png"] forState:UIControlStateNormal];
+                [tickPickerButton addTarget:self action:@selector(doneSelectDatePickerView:) forControlEvents:UIControlEventTouchUpInside];
+                tickPickerButton.tag=235;
+                [tickPickerButton setHidden:YES];
+                
+                
+                
                 UIButton *scrollUpDownButton=[UIButton buttonWithType:UIButtonTypeCustom];
                 scrollUpDownButton.frame=CGRectMake(276,422,29,30);
                 [scrollUpDownButton setBackgroundImage:[UIImage imageNamed:@"S02_downarrow.png"] forState:UIControlStateNormal];
                 [scrollUpDownButton addTarget:self action:@selector(timeToScrollDown) forControlEvents:UIControlEventTouchUpInside];
+                scrollUpDownButton.tag=236;
                 [self.scrollView addSubview:activeType];
+                [self.scrollView addSubview:crossPickerButton];
+                [self.scrollView addSubview:tickPickerButton];
                 [self.scrollView addSubview:scrollUpDownButton];
                 [activeType release];
 
@@ -134,6 +157,43 @@
     // Do any additional setup after loading the view from its nib.
 }
 
+-(void)doneSelectDatePickerView:(id)sender{
+    [basicSectionFirst dateSelected];
+    UIButton *crossBtn = (UIButton *)[self.scrollView viewWithTag:234];
+    [crossBtn setHidden:YES];
+    
+    UIButton *tickBtn = (UIButton *)[self.scrollView viewWithTag:235];
+    [tickBtn setHidden:YES];
+    
+    UIButton *downArrow = (UIButton *)[self.scrollView viewWithTag:236];
+    [downArrow setHidden:NO];
+    
+    self.scrollView.scrollEnabled = YES;
+}
+-(void)hidePickerView:(id)sender{
+    [basicSectionFirst hideBirthdayPicker];
+    UIButton *crossBtn = (UIButton *)[self.scrollView viewWithTag:234];
+    [crossBtn setHidden:YES];
+    
+    UIButton *tickBtn = (UIButton *)[self.scrollView viewWithTag:235];
+    [tickBtn setHidden:YES];
+    
+    UIButton *downArrow = (UIButton *)[self.scrollView viewWithTag:236];
+    [downArrow setHidden:NO];
+
+    self.scrollView.scrollEnabled = YES;
+}
+-(void)setPickerSettings{
+    UIButton *crossBtn = (UIButton *)[self.scrollView viewWithTag:234];
+    [crossBtn setHidden:NO];
+    UIButton *tickBtn = (UIButton *)[self.scrollView viewWithTag:235];
+    [tickBtn setHidden:NO];
+
+    UIButton *downArrow = (UIButton *)[self.scrollView viewWithTag:236];
+    [downArrow setHidden:YES];
+
+    self.scrollView.scrollEnabled = NO;
+}
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
     if (!pageControlBeingUsed) {
 		// Switch the indicator when more than 50% of the previous/next view is visible

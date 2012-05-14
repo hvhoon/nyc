@@ -32,14 +32,14 @@
     self = [super init];
     if (self) {
         
-        birthDayPicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0,44, 320, 216)];
+        birthDayPicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0,0, 320, 216)];
         birthDayPicker.datePickerMode = UIDatePickerModeDate;
         birthDayPicker.tag=kDatePicker;
         [birthDayPicker setHidden:YES];
         [self addSubview:birthDayPicker];
         [birthDayPicker setEnabled:YES];
         
-
+#if 0
         
         UIToolbar *keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0,0,320,44)];
         keyboardToolbar.barStyle = UIBarStyleDefault;
@@ -60,6 +60,7 @@
         [self insertSubview:birthDayPicker aboveSubview:keyboardToolbar];
         //[birthDayPicker release];
         [keyboardToolbar release];
+#endif        
 		[self setHidden:YES];
     }
     return self;

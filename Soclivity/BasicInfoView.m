@@ -19,7 +19,7 @@
 #define kMale 6
 #define kFemale 7
 
-
+#define kDatePicker 123
 @implementation BasicInfoView
 @synthesize delegate,enterNameTextField,emailTextField,enterPasswordTextField,confirmPasswordTextField;
 - (id)initWithFrame:(CGRect)frame
@@ -56,12 +56,17 @@
     birthdayBtn.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
     
     locationBtnText.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    
+    
+    
+    birthDayPicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0,480, 320, 216)];
+    birthDayPicker.datePickerMode = UIDatePickerModeDate;
+    birthDayPicker.tag=kDatePicker;
+    [birthDayPicker setHidden:YES];
+    [self addSubview:birthDayPicker];
+    [birthDayPicker setEnabled:YES];
 
     
-    datePreview = [[BirthdayPickerView alloc] init];
-    datePreview.delegate=self;
-    datePreview.frame=CGRectMake(0, 480, 320, 260);
-    [self addSubview:datePreview];
     
     
 }
@@ -133,109 +138,59 @@
     
 }
 
-#if 0
--(IBAction)birthdayDateSelection:(id)sender{
 
-	if (!footerActivated) {
-		[UIView beginAnimations:@"expandFooter" context:nil];
-		[UIView setAnimationDelegate:self];
-		[UIView setAnimationDuration:0.3];
-		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-		
-		
-		// Resize the view.
-        
-		[datePreview ShowBirthDayView:160];
-		// Annimate.
-		[UIView commitAnimations];
-		footerActivated = YES;
-	}
-
-}
-#else
 -(IBAction)birthdayDateSelection:(id)sender{
     
-    //birthDayPicker.hidden=NO;
+    
+    [delegate setPickerSettings];
+    birthDayPicker.hidden=NO;
      if (!footerActivated) {
          
-    //[datePreview   ShowBirthDayView:-960];
-    //datePreview.hidden=NO;
-    //datePreview.frame=CGRectMake(0, 480, 320, 260);
-    
-    CGRect basketTopFrame = datePreview.frame;
+    CGRect basketTopFrame = birthDayPicker.frame;
     basketTopFrame.origin.y = -basketTopFrame.size.height;
-    //basketTopFrame.origin.y = 0;
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.2];
-    //[UIView setAnimationDelay:0.5];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
     [UIView setAnimationBeginsFromCurrentState:YES];
-    //[datePreview ShowBirthDayView:236];
-    //    fMCView.frame = basketTopFrame;
-    CGRect rect = CGRectMake(0, -200, 320, 480);
+    CGRect rect = CGRectMake(0, -156, 320, 480);
     self.frame = rect;
-    //datePreview.hidden=NO;
-    [datePreview   ShowBirthDayView:355];     
-    datePreview.frame=CGRectMake(0, 355, 320, 260);
+    birthDayPicker.frame=CGRectMake(0, 355, 320, 260);//399
     [UIView commitAnimations];
          footerActivated = YES;
      }
 }
-#endif
--(void)dateSelected:(NSDate*)bDate{
-    NSLog(@"bDate=%@",bDate);
+
+-(void)dateSelected{
+    
     [self hideBirthdayPicker];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	dateFormatter.dateFormat=@"MMMM d, YYYY";
-	NSString*date=[dateFormatter stringFromDate:bDate];
+	NSString*date=[dateFormatter stringFromDate:[birthDayPicker date]];
     [birthdayBtn setTitle:date forState:UIControlStateNormal];
     [birthdayBtn setTitleColor:[SoclivityUtilities returnTextFontColor:1] forState:UIControlStateNormal];
     [dateFormatter release];
 
 }
-#if 0
 -(void)hideBirthdayPicker{
     if (footerActivated) {
-		[UIView beginAnimations:@"collapseFooter" context:nil];
-		[UIView setAnimationDelegate:self];
-		[UIView setAnimationDuration:0.3];
-		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-		
-		
-		// Resize the view.
-		[datePreview HideView];
-		
-		// Annimate.
-		[UIView commitAnimations];
-		footerActivated = NO;
-	}
-
-}
-#else
--(void)hideBirthdayPicker{
-    if (footerActivated) {
-        CGRect basketTopFrame = datePreview.frame;
+        CGRect basketTopFrame = birthDayPicker.frame;
         basketTopFrame.origin.y = +basketTopFrame.size.height;
         
         
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.3];
-        //[UIView setAnimationDelay:1.0];
         [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
         
-        //    fMCView.frame = basketTopFrame;
         CGRect rect = CGRectMake(0, 0, 320, 480);
         self.frame = rect;
 
-        datePreview.frame=CGRectMake(0, 480, 320, 260);
+        birthDayPicker.frame=CGRectMake(0, 480, 320, 260);
         [UIView commitAnimations];
         footerActivated=NO;
     }
     
 }
-
-#endif
 #pragma mark -
 #pragma mark UIActionSheet methods
 
@@ -366,6 +321,9 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
      NSLog(@"touchesBegan");
+    
+    
+    
     [emailTextField resignFirstResponder];
     [confirmPasswordTextField resignFirstResponder];
     [enterNameTextField resignFirstResponder];
@@ -376,6 +334,12 @@
     CGRect rect = CGRectMake(0, 0, 320, 480);
     self.frame = rect;
     [UIView commitAnimations];
+    
+    if(footerActivated){
+        
+        [delegate hidePickerView:nil];
+        
+    }
     
 }
 #pragma mark -
@@ -389,7 +353,13 @@
 }
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
 	
+    
+    
     NSLog(@"textFieldDidBeginEditing");
+    if(footerActivated){
+    
+        [delegate hidePickerView:nil];
+    }
     if((textField==enterPasswordTextField)||(textField==confirmPasswordTextField)){
         
         

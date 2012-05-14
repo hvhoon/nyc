@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "CameraCustom.h"
 #import "LocationCustomManager.h"
-#import "BirthdayPickerView.h"
 @protocol BasicRegistrationDelegate <NSObject>
 
 @optional
@@ -17,11 +16,13 @@
 -(void)dismissPickerModalController;
 -(void)BackButtonClicked;
 -(void)presentModal:(UIImagePickerController*)picker;
+-(void)setPickerSettings;
+-(void)hidePickerView:(id)sender;
 @end
 
 
 
-@interface BasicInfoView : UIView<UITextFieldDelegate,CustomCameraUploadDelegate,UIActionSheetDelegate,CoreLocationDelegate,BirthdayPickerDelegate>{
+@interface BasicInfoView : UIView<UITextFieldDelegate,CustomCameraUploadDelegate,UIActionSheetDelegate,CoreLocationDelegate>{
     
     CameraCustom *cameraUpload;
     id <BasicRegistrationDelegate>delegate;
@@ -38,8 +39,8 @@
     IBOutlet UIImageView *setYourPic;
     BOOL b_Male;
     BOOL b_Female;
-    BirthdayPickerView *datePreview;
     BOOL footerActivated;
+    UIDatePicker *birthDayPicker;
     
 
 }
@@ -59,4 +60,5 @@
 -(UIImage*) autoCrop:(UIImage*)image;
 -(UIImage*) compressImage:(UIImage*)image size:(CGSize)size;
 -(void)hideBirthdayPicker;
+-(void)dateSelected;
 @end
