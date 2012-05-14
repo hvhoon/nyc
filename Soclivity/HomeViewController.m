@@ -8,6 +8,7 @@
 
 #import "HomeViewController.h"
 #import "SoclivityUtilities.h"
+#import "SettingsViewController.h"
 @implementation HomeViewController
 @synthesize homeSearchBar;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -53,10 +54,23 @@
     [self.view addSubview:self.homeSearchBar];
     
     self.homeSearchBar.frame=CGRectMake(0, -44, 320, 44.0f);
+    
+    
+    UIButton *scrollUpDownButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    scrollUpDownButton.frame=CGRectMake(276,122,29,30);
+    [scrollUpDownButton setBackgroundImage:[UIImage imageNamed:@"S02_downarrow.png"] forState:UIControlStateNormal];
+    [scrollUpDownButton addTarget:self action:@selector(timeToScrollDown) forControlEvents:UIControlEventTouchUpInside];
+    scrollUpDownButton.tag=236;
+    [self.view addSubview:scrollUpDownButton];
 
     // Do any additional setup after loading the view from its nib.
 }
-
+-(void)timeToScrollDown{
+    SettingsViewController *settingsViewController=[[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
+    
+	[[self navigationController] pushViewController:settingsViewController animated:YES];
+    [settingsViewController release];
+}
 -(void)HideSearchBar{
     NSLog(@"CheckingTap");
     CGRect basketTopFrame = self.homeSearchBar.frame;

@@ -8,12 +8,8 @@
 
 #import "UpComingEventsViewController.h"
 
-@interface UpComingEventsViewController()
-@property (nonatomic, strong) NSArray *sampleItems;
-@end
 
 @implementation UpComingEventsViewController
-@synthesize sampleItems;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -46,13 +42,12 @@
     
     upcomingTableView.scrollEnabled=YES;
     [self.view addSubview:upcomingTableView];
-    self.sampleItems = [NSArray arrayWithObjects:@"One", @"Two", @"Three", nil];
         // Do any additional setup after loading the view from its nib.
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    return self.sampleItems.count;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -63,7 +58,7 @@
     static NSString *PlaceholderCellIdentifier = @"PlaceholderCell";
     
     // add a placeholder cell while waiting on table data
-    int nodeCount = [self.sampleItems count];
+    int nodeCount = 3;
 	
 	if (nodeCount == 0 && indexPath.row == 0)
 	{

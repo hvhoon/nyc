@@ -10,13 +10,9 @@
 #import "HomeViewController.h"
 #import "UpComingEventsViewController.h"
 #import "DDMenuController.h"
-@interface SettingsViewController()
-@property (nonatomic, retain) NSArray *menuItems;
-@end
 
 
 @implementation SettingsViewController
-@synthesize menuItems;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -50,13 +46,12 @@
     settingTableView.scrollEnabled=YES;
     [self.view addSubview:settingTableView];
     
-    self.menuItems = [NSArray arrayWithObjects:@"First", @"Second", @"Third", @"Navigation", nil];
     // Do any additional setup after loading the view from its nib.
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    return self.menuItems.count;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -67,7 +62,7 @@
     static NSString *PlaceholderCellIdentifier = @"PlaceholderCell";
     
     // add a placeholder cell while waiting on table data
-    int nodeCount = [self.menuItems count];
+    int nodeCount = 3;
 	
 	if (nodeCount == 0 && indexPath.row == 0)
 	{
