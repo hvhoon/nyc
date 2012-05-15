@@ -40,7 +40,7 @@
     BOOL b_Male;
     BOOL b_Female;
     BOOL footerActivated;
-    UIDatePicker *birthDayPicker;
+    
     
 
 }
@@ -60,5 +60,5 @@
 -(UIImage*) autoCrop:(UIImage*)image;
 -(UIImage*) compressImage:(UIImage*)image size:(CGSize)size;
 -(void)hideBirthdayPicker;
--(void)dateSelected;
+-(void)dateSelected:(NSDate*)bDate;
 @end

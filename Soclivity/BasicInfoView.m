@@ -19,7 +19,7 @@
 #define kMale 6
 #define kFemale 7
 
-#define kDatePicker 123
+
 @implementation BasicInfoView
 @synthesize delegate,enterNameTextField,emailTextField,enterPasswordTextField,confirmPasswordTextField;
 - (id)initWithFrame:(CGRect)frame
@@ -56,17 +56,6 @@
     birthdayBtn.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
     
     locationBtnText.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
-    
-    
-    
-    birthDayPicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0,480, 320, 216)];
-    birthDayPicker.datePickerMode = UIDatePickerModeDate;
-    birthDayPicker.tag=kDatePicker;
-    [birthDayPicker setHidden:YES];
-    [self addSubview:birthDayPicker];
-    [birthDayPicker setEnabled:YES];
-
-    
     
     
 }
@@ -143,30 +132,26 @@
     
     
     [delegate setPickerSettings];
-    birthDayPicker.hidden=NO;
-     if (!footerActivated) {
-         
-    CGRect basketTopFrame = birthDayPicker.frame;
-    basketTopFrame.origin.y = -basketTopFrame.size.height;
     
+    if (!footerActivated) {
+         
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.2];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
     [UIView setAnimationBeginsFromCurrentState:YES];
     CGRect rect = CGRectMake(0, -156, 320, 480);
     self.frame = rect;
-    birthDayPicker.frame=CGRectMake(0, 355, 320, 260);//399
     [UIView commitAnimations];
-         footerActivated = YES;
+        footerActivated = YES;
      }
 }
 
--(void)dateSelected{
+-(void)dateSelected:(NSDate*)bDate{
     
-    [self hideBirthdayPicker];
+    [delegate hidePickerView:nil];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	dateFormatter.dateFormat=@"MMMM d, YYYY";
-	NSString*date=[dateFormatter stringFromDate:[birthDayPicker date]];
+	NSString*date=[dateFormatter stringFromDate:bDate];
     [birthdayBtn setTitle:date forState:UIControlStateNormal];
     [birthdayBtn setTitleColor:[SoclivityUtilities returnTextFontColor:1] forState:UIControlStateNormal];
     [dateFormatter release];
@@ -174,8 +159,6 @@
 }
 -(void)hideBirthdayPicker{
     if (footerActivated) {
-        CGRect basketTopFrame = birthDayPicker.frame;
-        basketTopFrame.origin.y = +basketTopFrame.size.height;
         
         
         [UIView beginAnimations:nil context:nil];
@@ -185,12 +168,12 @@
         CGRect rect = CGRectMake(0, 0, 320, 480);
         self.frame = rect;
 
-        birthDayPicker.frame=CGRectMake(0, 480, 320, 260);
         [UIView commitAnimations];
         footerActivated=NO;
     }
     
 }
+
 #pragma mark -
 #pragma mark UIActionSheet methods
 

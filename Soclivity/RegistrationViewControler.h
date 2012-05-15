@@ -19,6 +19,8 @@
     BOOL pageControlBeingUsed;
     int page;
     MainServiceManager *server;
+    UIDatePicker *birthDayPicker;
+    BOOL footerActivated;
 }
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property(nonatomic,retain)IBOutlet BasicInfoView *basicSectionFirst;

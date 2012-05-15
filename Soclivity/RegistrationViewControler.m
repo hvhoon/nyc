@@ -14,6 +14,7 @@
 #import "SettingsViewController.h"
 #import "UpComingEventsViewController.h"
 #import "AppDelegate.h"
+#define kDatePicker 123
 @interface RegistrationViewControler (private)<GetPlayersDetailDelegate,RegistrationDetailDelegate>
 @end
 
@@ -72,6 +73,9 @@
 {
     [super viewDidLoad];
     //[self SetUpServices];
+    
+    
+
     pageControlBeingUsed = NO;
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)]; 
     
@@ -100,6 +104,9 @@
                 UIImageView *activeType=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S02_blackbar.png"]];
                 activeType.frame=CGRectMake(0, 414, 320, 46);
                 
+                UIImageView *letsSelectActiveType=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S02_pickactivity.png"]];
+                letsSelectActiveType.frame=CGRectMake(68, 14, 184, 18);
+                letsSelectActiveType.tag=237;
                 UIButton *crossPickerButton=[UIButton buttonWithType:UIButtonTypeCustom];
                 crossPickerButton.frame=CGRectMake(6,428,19,18);
                 [crossPickerButton setBackgroundImage:[UIImage imageNamed:@"S02_cross_emb.png"] forState:UIControlStateNormal];
@@ -122,11 +129,13 @@
                 [scrollUpDownButton setBackgroundImage:[UIImage imageNamed:@"S02_downarrow.png"] forState:UIControlStateNormal];
                 [scrollUpDownButton addTarget:self action:@selector(timeToScrollDown) forControlEvents:UIControlEventTouchUpInside];
                 scrollUpDownButton.tag=236;
-            
+                
+                [activeType addSubview:letsSelectActiveType];
                 [self.scrollView addSubview:activeType];
                 [self.scrollView addSubview:crossPickerButton];
                 [self.scrollView addSubview:tickPickerButton];
                 [self.scrollView addSubview:scrollUpDownButton];
+                [letsSelectActiveType release];
                 [activeType release];
 
                 
@@ -148,6 +157,13 @@
 		
 	}
 
+    
+    birthDayPicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0,480, 320, 216)];
+    birthDayPicker.datePickerMode = UIDatePickerModeDate;
+    birthDayPicker.tag=kDatePicker;
+    [self.scrollView addSubview:birthDayPicker];
+    [birthDayPicker setHidden:YES];
+    
 	self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,874);
 
     
@@ -157,7 +173,7 @@
 }
 
 -(void)doneSelectDatePickerView:(id)sender{
-    [basicSectionFirst dateSelected];
+    [basicSectionFirst dateSelected:[birthDayPicker date]];
     UIButton *crossBtn = (UIButton *)[self.scrollView viewWithTag:234];
     [crossBtn setHidden:YES];
     
@@ -167,10 +183,27 @@
     UIButton *downArrow = (UIButton *)[self.scrollView viewWithTag:236];
     [downArrow setHidden:NO];
     
+    UIImageView *selectActivityType = (UIImageView *)[self.scrollView viewWithTag:237];
+    [selectActivityType setHidden:NO];
+
     self.scrollView.scrollEnabled = YES;
 }
 -(void)hidePickerView:(id)sender{
     [basicSectionFirst hideBirthdayPicker];
+    
+    if (footerActivated) {
+        CGRect basketTopFrame = birthDayPicker.frame;
+        basketTopFrame.origin.y = +basketTopFrame.size.height;
+        
+        
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.3];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+        
+        birthDayPicker.frame=CGRectMake(0, 480, 320, 260);
+        [UIView commitAnimations];
+        footerActivated=NO;
+    }
     UIButton *crossBtn = (UIButton *)[self.scrollView viewWithTag:234];
     [crossBtn setHidden:YES];
     
@@ -179,6 +212,9 @@
     
     UIButton *downArrow = (UIButton *)[self.scrollView viewWithTag:236];
     [downArrow setHidden:NO];
+    
+    UIImageView *selectActivityType = (UIImageView *)[self.scrollView viewWithTag:237];
+    [selectActivityType setHidden:NO];
 
     self.scrollView.scrollEnabled = YES;
 }
@@ -190,10 +226,34 @@
 
     UIButton *downArrow = (UIButton *)[self.scrollView viewWithTag:236];
     [downArrow setHidden:YES];
+    
+    UIImageView *selectActivityType = (UIImageView *)[self.scrollView viewWithTag:237];
+    [selectActivityType setHidden:YES];
+    
+    birthDayPicker.hidden=NO;
+    
+    if (!footerActivated) {
+        
+        CGRect basketTopFrame = birthDayPicker.frame;
+        basketTopFrame.origin.y = -basketTopFrame.size.height;
+        
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.2];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        birthDayPicker.frame=CGRectMake(0, 199, 320, 260);
+        [UIView commitAnimations];
+        footerActivated = YES;
+    }
+
+
 
     self.scrollView.scrollEnabled = NO;
 }
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
+    
+    [birthDayPicker setHidden:YES];
+
     if (!pageControlBeingUsed) {
 		// Switch the indicator when more than 50% of the previous/next view is visible
 		CGFloat pageWidth = self.scrollView.frame.size.height;
@@ -222,6 +282,9 @@
     
 }
 -(void)timeToScrollDown{
+    
+    [birthDayPicker setHidden:YES];
+
     CGRect frame;
     frame.origin.x = 0;
     frame.origin.y = self.scrollView.frame.size.height;

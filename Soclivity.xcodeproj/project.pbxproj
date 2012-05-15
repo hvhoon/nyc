@@ -41,8 +41,6 @@
 		68B91467155EC32F00F2B780 /* S02_tick_emb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68B9145F155EC32F00F2B780 /* S02_tick_emb@2x.png */; };
 		68BF4F79155CB034005399B3 /* Helvetica-Condensed-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 68BF4F77155CB034005399B3 /* Helvetica-Condensed-Black.otf */; };
 		68BF4F7A155CB034005399B3 /* Helvetica-Condensed.otf in Resources */ = {isa = PBXBuildFile; fileRef = 68BF4F78155CB034005399B3 /* Helvetica-Condensed.otf */; };
-		68BFF8CC1561FA2000D73D7C /* S02_blackbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 68BFF8CA1561FA2000D73D7C /* S02_blackbar.png */; };
-		68BFF8CD1561FA2000D73D7C /* S02_blackbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68BFF8CB1561FA2000D73D7C /* S02_blackbar@2x.png */; };
 		EA91C26F155A36EA00BE5BB1 /* BirthdayPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C26E155A36EA00BE5BB1 /* BirthdayPickerView.m */; };
 		EA91C2DD155A716F00BE5BB1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C2C9155A716F00BE5BB1 /* Reachability.m */; };
 		EA91C2DE155A716F00BE5BB1 /* CAVNSArrayTypeCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C2CC155A716F00BE5BB1 /* CAVNSArrayTypeCategory.m */; };
@@ -87,6 +85,8 @@
 		EA96E852155E37A500BE82DF /* DDMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA96E851155E37A500BE82DF /* DDMenuController.m */; };
 		EA96E85A155E670800BE82DF /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA96E858155E670800BE82DF /* HomeViewController.m */; };
 		EA96E85B155E670800BE82DF /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA96E859155E670800BE82DF /* HomeViewController.xib */; };
+		EAB053D81562214F00771877 /* S02_blackbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68BFF8CB1561FA2000D73D7C /* S02_blackbar@2x.png */; };
+		EAB053DA1562215200771877 /* S02_blackbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 68BFF8CA1561FA2000D73D7C /* S02_blackbar.png */; };
 		EAB135B415545B3600C1607D /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB135B215545B3600C1607D /* ResetPasswordViewController.m */; };
 		EAB135B515545B3600C1607D /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAB135B315545B3600C1607D /* ResetPasswordViewController.xib */; };
 		EAB135BC155460A200C1607D /* SoclivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB135BB155460A200C1607D /* SoclivityManager.m */; };
@@ -1177,6 +1177,8 @@
 				EA96E841155E269500BE82DF /* SettingsViewController.xib in Resources */,
 				EA96E847155E2AAC00BE82DF /* UpComingEventsViewController.xib in Resources */,
 				EA96E85B155E670800BE82DF /* HomeViewController.xib in Resources */,
+				EAB053D81562214F00771877 /* S02_blackbar@2x.png in Resources */,
+				EAB053DA1562215200771877 /* S02_blackbar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1276,8 +1278,8 @@
 					armv6,
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1294,6 +1296,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				PROVISIONING_PROFILE = "61729853-B3C5-443D-ABF0-2227BD422FB4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "61729853-B3C5-443D-ABF0-2227BD422FB4";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -1309,8 +1313,8 @@
 					armv6,
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_THUMB_SUPPORT = NO;
@@ -1321,6 +1325,8 @@
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "61729853-B3C5-443D-ABF0-2227BD422FB4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "61729853-B3C5-443D-ABF0-2227BD422FB4";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -1333,8 +1339,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
@@ -1342,8 +1348,8 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6C6E88E1-82C0-495D-896E-0CF13ACCF403";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6C6E88E1-82C0-495D-896E-0CF13ACCF403";
+				PROVISIONING_PROFILE = "61729853-B3C5-443D-ABF0-2227BD422FB4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "61729853-B3C5-443D-ABF0-2227BD422FB4";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1354,8 +1360,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Harish Hoon";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Harish Hoon";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
@@ -1363,8 +1369,8 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F1E4325D-5905-4721-8EB6-06C6CBC24C8D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F1E4325D-5905-4721-8EB6-06C6CBC24C8D";
+				PROVISIONING_PROFILE = "61729853-B3C5-443D-ABF0-2227BD422FB4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "61729853-B3C5-443D-ABF0-2227BD422FB4";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
