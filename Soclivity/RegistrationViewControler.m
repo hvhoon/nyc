@@ -39,26 +39,7 @@
 }
 
 
--(void)SetUpServices{
-    server=[[MainServiceManager alloc]init];
-    
-    [server registrationDetailInvocation:@"1213" Pass:@"1213" delegate:self];
-    
-    //[server GetPlayersInvocation:self];
-}
 
--(void)GetPlayersDetailInvocationDidFinish:(GetPlayersDetailInvocation*)invocation 
-                                withResult:(NSArray*)result
-                                 withError:(NSError*)error{
-    NSLog(@"GetPlayersDetailInvocationDidFinish");
-    
-}
-
--(void)RegistrationDetailInvocationDidFinish:(RegistrationDetailInvocation*)invocation 
-                                  withResult:(NSArray*)result
-                                   withError:(NSError*)error{
-    NSLog(@"RegistrationDetailInvocationDidFinish called");
-}
 
 
 -(void)BackButtonClicked{
@@ -72,9 +53,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //[self SetUpServices];
     
-    
+    devServer=[[MainServiceManager alloc]init];
+    SOC=[SoclivityManager SharedInstance];
+
 
     pageControlBeingUsed = NO;
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)]; 
@@ -89,7 +71,9 @@
     scrollView.bounces=NO;
     [self.view addSubview:scrollView];
     basicSectionFirst.delegate=self;
+    basicSectionFirst.playerObj=SOC.registrationObject;
     activitySectionSecond.delegate=self;
+    activitySectionSecond.playerObj=SOC.registrationObject;
     for (int i = 0; i < 2; i++) {
 		CGRect frame;
 		frame.origin.x = 0;
@@ -312,9 +296,32 @@
 }
 
 -(void)pushHomeMapViewController{
+    
+    //[self RegisterUserForTheFirstTime];
+    
+}
+
+-(void)RegisterUserForTheFirstTime{
+    
+    [devServer registrationDetailInvocation:self];
+    
+    //[devServer GetPlayersInvocation:self];
+}
+
+-(void)GetPlayersDetailInvocationDidFinish:(GetPlayersDetailInvocation*)invocation 
+                                withResult:(NSArray*)result
+                                 withError:(NSError*)error{
+    NSLog(@"GetPlayersDetailInvocationDidFinish");
+    
+}
+
+-(void)RegistrationDetailInvocationDidFinish:(RegistrationDetailInvocation*)invocation 
+                                  withResult:(NSArray*)result
+                                   withError:(NSError*)error{
+    NSLog(@"RegistrationDetailInvocationDidFinish called");
 #if 0    
     HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
-
+    
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
     
     DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
@@ -335,7 +342,7 @@
     //[rightController release];
     //[rootController release];
     //[navController release];
-#endif    
+#endif
 }
 - (void)viewDidUnload
 {

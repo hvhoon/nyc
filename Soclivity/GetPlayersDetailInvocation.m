@@ -9,7 +9,6 @@
 #import "GetPlayersDetailInvocation.h"
 #import "JSON.h"
 #import <CFNetwork/CFNetwork.h>
-#import "ParseOperation.h"
 @implementation GetPlayersDetailInvocation
 @synthesize queue;
 
@@ -21,9 +20,6 @@
 -(void)invoke {
     NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/players?format=json"];
     [self get:a];
-}
-
--(NSString*)body {
 }
 
 -(BOOL)handleHttpOK:(NSMutableData *)data {

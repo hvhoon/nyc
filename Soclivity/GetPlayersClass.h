@@ -17,6 +17,8 @@
     NSNumber *idSoc;
     NSString *last_name;
     NSString *updated_at;
+    NSString *password;
+    NSString *password_confirmation;
 
     
 }
@@ -27,5 +29,7 @@
 @property(nonatomic,retain)NSNumber *idSoc;
 @property(nonatomic,retain)NSString *last_name;
 @property(nonatomic,retain)NSString *updated_at;
+@property(nonatomic,retain)NSString *password;
+@property(nonatomic,retain)NSString *password_confirmation;
 
 @end

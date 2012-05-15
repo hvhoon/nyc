@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CameraCustom.h"
 #import "LocationCustomManager.h"
+@class  GetPlayersClass;
 @protocol BasicRegistrationDelegate <NSObject>
 
 @optional
@@ -40,6 +41,7 @@
     BOOL b_Male;
     BOOL b_Female;
     BOOL footerActivated;
+    GetPlayersClass *playerObj;
     
     
 
@@ -49,6 +51,7 @@
 @property (nonatomic,retain)IBOutlet UITextField *emailTextField;
 @property (nonatomic,retain)IBOutlet UITextField *enterPasswordTextField;
 @property (nonatomic,retain)IBOutlet UITextField *confirmPasswordTextField;
+@property (nonatomic,retain) GetPlayersClass *playerObj;
 -(void)showUploadCaptureSheet;
 -(void)PushImageGallery;
 -(void)PushCamera;

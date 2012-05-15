@@ -7,10 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import "SAServiceAsyncInvocation.h"
 #import "ProjectAsyncInvocation.h"
-
+#import "ParseOperation.h"
 
 @class RegistrationDetailInvocation;
 
@@ -23,8 +22,8 @@
 @end
 
 
-@interface RegistrationDetailInvocation : ProjectAsyncInvocation{
-    
+@interface RegistrationDetailInvocation : ProjectAsyncInvocation<ParseOperationDelegate>{
+     NSOperationQueue*queue;
 }
 @property (nonatomic,retain)NSString *first_name;
 @property (nonatomic,retain)NSString *last_name;
@@ -33,5 +32,5 @@
 @property (nonatomic,retain)NSString *password;
 @property (nonatomic,retain)NSString *password_confirmation;
 @property (nonatomic,retain)NSString *activities;
-
+@property(nonatomic,retain) NSOperationQueue*queue;
 @end

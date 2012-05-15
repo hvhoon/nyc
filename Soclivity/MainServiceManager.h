@@ -14,7 +14,6 @@
     
 }
 
-
--(void)registrationDetailInvocation:(NSString *)userName Pass:(NSString *)password delegate: (id<RegistrationDetailDelegate>)delegate;
+-(void)registrationDetailInvocation:(id<RegistrationDetailDelegate>)delegate;
 -(void)GetPlayersInvocation:(id<GetPlayersDetailDelegate>)delegate;
 @end

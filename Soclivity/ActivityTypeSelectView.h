@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class GetPlayersClass;
 
 @protocol ActivitySelectDelegate <NSObject>
 
@@ -27,12 +27,14 @@
     BOOL see;
     BOOL create;
     BOOL learn;
+    GetPlayersClass *playerObj;
     
 
 
     
 }
 @property (nonatomic,retain)id <ActivitySelectDelegate>delegate;
+@property (nonatomic,retain)GetPlayersClass *playerObj;
 -(IBAction)getStartedClicked:(id)sender;
 -(IBAction)playActivityClicked:(id)sender;
 -(IBAction)eatActivityClicked:(id)sender;

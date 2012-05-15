@@ -8,8 +8,9 @@
 
 #import "SoclivityManager.h"
 #import "SocFacebookLogin.h"
+#import "GetPlayersClass.h"
 @implementation SoclivityManager
-@synthesize delegate,_session,FacebookLogin;
+@synthesize delegate,_session,FacebookLogin,registrationObject;
 
 
 + (id) SharedInstance {
@@ -24,7 +25,7 @@
 -(id)init{
     
     if(self=[super init]){
-        
+        registrationObject=[[GetPlayersClass alloc]init];
     }
     return self;
 }

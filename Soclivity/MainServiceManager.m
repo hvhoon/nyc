@@ -20,11 +20,9 @@
 	[super dealloc];
 }
 
--(void)registrationDetailInvocation:(NSString *)userName Pass:(NSString *)password delegate: (id<RegistrationDetailDelegate>)delegate{
+-(void)registrationDetailInvocation:(id<RegistrationDetailDelegate>)delegate{
     
     RegistrationDetailInvocation *invocation = [[[RegistrationDetailInvocation alloc] init] autorelease];
-    invocation.password = userName;
-    invocation.password_confirmation = password;
     [self invoke:invocation withDelegate:delegate];
 }
 

@@ -19,3 +19,4 @@
 #endif
 #define kNoLocation 123
 #define kGetPlayers 30
+#define kRegisterPlayer 31

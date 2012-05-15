@@ -16,8 +16,8 @@
 @synthesize idSoc;
 @synthesize last_name;
 @synthesize updated_at;
-
-
+@synthesize password;
+@synthesize password_confirmation;
 
 -(void)dealloc{
     [super dealloc];
@@ -28,6 +28,8 @@
     [idSoc release];
     [last_name release];
     [updated_at release];
+    [password release];
+    [password_confirmation release];
 
 }
 @end

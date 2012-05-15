@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "FBSession.h"
-
+@class GetPlayersClass;
 @class SocFacebookLogin;
 @protocol SoclivityManagerDelegate <NSObject>
 
@@ -20,12 +20,14 @@
     id <SoclivityManagerDelegate>delegate;
     FBSession *_session;
     SocFacebookLogin *FacebookLogin;
+    GetPlayersClass *registrationObject;
    
    
 }
 @property (nonatomic,retain)id <SoclivityManagerDelegate>delegate;
 @property (nonatomic,retain) FBSession *_session;
 @property (nonatomic,retain)SocFacebookLogin *FacebookLogin;
+@property (nonatomic,retain)GetPlayersClass *registrationObject;
 + (id)SharedInstance;
 -(void)SetFacebookConnectObject:(id)parentDelegate fTag:(NSInteger)fTag;
 @end

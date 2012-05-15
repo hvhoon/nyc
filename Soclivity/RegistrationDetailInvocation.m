@@ -7,8 +7,8 @@
 //
 
 #import "RegistrationDetailInvocation.h"
-
-
+#import "SoclivityManager.h"
+#import "GetPlayersClass.h"
 @interface RegistrationDetailInvocation (private)
 -(NSString*)body;
 @end
@@ -16,7 +16,7 @@
 @implementation RegistrationDetailInvocation
 
 
-@synthesize  first_name, last_name,email,birth_date,password,password_confirmation,activities;
+@synthesize  first_name, last_name,email,birth_date,password,password_confirmation,activities,queue;
 
 
 -(void)dealloc {	
@@ -25,47 +25,38 @@
 
 
 -(void)invoke {
-    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/players?format=json"];
+    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/players.json"];//dev.soclivity.com/players.json
 	[self post:a
 		  body:[self body]];
 }
 
 -(NSString*)body {
 #if 1    
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    GetPlayersClass *player=SOC.registrationObject;
 	NSMutableDictionary* bodyD = [[[NSMutableDictionary alloc] init] autorelease];
-    [bodyD setObject:@"kanav" forKey:@"player_first_name"];
-	[bodyD setObject:@"gupta" forKey:@"player_last_name"];
-    [bodyD setObject:@"kanav@relaystrategy.com" forKey:@"player_email"];
-	[bodyD setObject:@"12-02-2000" forKey:@"player_birth_date"];
-    [bodyD setObject:@"123456" forKey:@"player_password"];
-	[bodyD setObject:@"123456" forKey:@"player_password_confirmation"];
-    //[bodyD setObject:self.activities forKey:@"username"];
-    NSLog(@"body=%@",[bodyD JSONRepresentation]);
-	return [bodyD JSONRepresentation];
+    
+    [bodyD setObject:player.first_name forKey:@"first_name"];
+	[bodyD setObject:player.last_name forKey:@"last_name"];
+    [bodyD setObject:player.email forKey:@"email"];
+	[bodyD setObject:player.birth_date forKey:@"birth_date"];
+    [bodyD setObject:player.password forKey:@"password"];
+	[bodyD setObject:player.password_confirmation  forKey:@"password_confirmation"];
+    
+    NSString *bodyData = [NSString stringWithFormat:@"{\"player\":%@}",[bodyD JSONRepresentation]];
+     NSLog(@"bodyData=%@",bodyData);
+	return bodyData;
 #endif    
 }
 
 -(BOOL)handleHttpOK:(NSMutableData *)data {
-    NSArray *result = nil;
-    NSError* error = Nil;
-    NSDictionary* resultsd = [[[[NSString alloc] initWithData:data 
-													 encoding:NSUTF8StringEncoding] autorelease] JSONValue];
+    self.queue = [[NSOperationQueue alloc] init];
+    ParseOperation *parser = [[ParseOperation alloc] initWithData:data delegate:self tagJsonService:kRegisterPlayer];
     
-#if 0    
-	
-	// response dictionary
-	
-	NSDictionary *responsed = [SAServiceAsyncInvocation responseFromJSONDictionary:resultsd error:&error];
+    [queue addOperation:parser]; // this will start the "ParseOperation"
     
-    
-    
-	if (!error) 
-	{
-        result = [UserDetail userDetailsFromArray:[responsed objectForKey:@"result"]];
-		
-	}
-#endif	
-	[self.delegate RegistrationDetailInvocationDidFinish:self withResult:result withError:error];
+    [parser release];
+    [queue release];
 	return YES;
 }
 
@@ -74,8 +65,47 @@
                                              withResult:nil
         withError:[NSError errorWithDomain:@"UserId" 
         code:[[self response] statusCode]
-    userInfo:[NSDictionary dictionaryWithObject:@"Failed to submit user. Please try again later" forKey:@"message"]]];
+    userInfo:[NSDictionary dictionaryWithObject:@"Failed to register user. Please try again later" forKey:@"message"]]];
 	return YES;
 }
+- (void)handleLoadedMedia:(NSArray *)loadedMedia
+{
+    NSError* error = nil;
+    
+    
+    // tell our table view to reload its data, now that parsing has completed
+    [self.delegate RegistrationDetailInvocationDidFinish:self withResult:loadedMedia withError:error];
+}
 
+- (void)handleError:(NSString *)error
+{
+    
+    [self.delegate RegistrationDetailInvocationDidFinish:self 
+            withResult:nil
+                    withError:[NSError errorWithDomain:@"UserId" 
+        code:[[self response] statusCode]
+    userInfo:[NSDictionary dictionaryWithObject:@"Failed to Register user. Please try again later" forKey:@"message"]]];
+    
+    //NSString *errorMessage = [error localizedDescription];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Cannot jSon Parse"
+														message:error
+													   delegate:nil
+											  cancelButtonTitle:@"OK"
+											  otherButtonTitles:nil];
+    [alertView show];
+    [alertView release];
+}
+
+- (void)didFinishParsing:(NSArray *)mediaList
+{
+    [self performSelectorOnMainThread:@selector(handleLoadedMedia:) withObject:mediaList waitUntilDone:NO];
+    
+    self.queue = nil;   // we are finished with the queue and our ParseOperation
+    
+}
+
+- (void)parseErrorOccurred:(NSString *)error
+{
+    [self performSelectorOnMainThread:@selector(handleError:) withObject:error waitUntilDone:NO];
+}
 @end

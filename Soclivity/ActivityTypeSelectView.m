@@ -7,10 +7,10 @@
 //
 
 #import "ActivityTypeSelectView.h"
-
+#import "GetPlayersClass.h"
 @implementation ActivityTypeSelectView
 
-@synthesize delegate;
+@synthesize delegate,playerObj;
 
 // Defining the transparency used to display the tick for activity categories selected
 #define HIDDEN 0.2
