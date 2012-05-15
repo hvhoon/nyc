@@ -42,7 +42,7 @@
     [newPassword becomeFirstResponder];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 	[button setImage:[UIImage imageNamed:@"S02_cross_emb.png"] forState:UIControlStateNormal];
-	button.bounds = CGRectMake(0,0,18,17);
+	button.bounds = CGRectMake(0,0,19,18);
 	[button addTarget:self action:@selector(CrossClicked:) forControlEvents:UIControlEventTouchUpInside];
 	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 	self.navigationItem.leftBarButtonItem = barButtonItem;
@@ -52,7 +52,7 @@
     
     button = [UIButton buttonWithType:UIButtonTypeCustom];
 	[button setImage:[UIImage imageNamed:@"S02_tick_emb.png"] forState:UIControlStateNormal];
-	button.bounds = CGRectMake(0,0,18,17);
+	button.bounds = CGRectMake(0,0,19,18);
 	[button addTarget:self action:@selector(TickClicked:) forControlEvents:UIControlEventTouchUpInside];
 	barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     
