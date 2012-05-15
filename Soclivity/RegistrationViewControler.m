@@ -97,10 +97,8 @@
             {
                 basicSectionFirst.frame=CGRectMake(0, 0, 320, 414);
                 [self.scrollView addSubview:basicSectionFirst];
-                UIImageView *activeType=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S02_pickactivity.png"]];
+                UIImageView *activeType=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S02_blackbar.png"]];
                 activeType.frame=CGRectMake(0, 414, 320, 46);
-                
-                
                 
                 UIButton *crossPickerButton=[UIButton buttonWithType:UIButtonTypeCustom];
                 crossPickerButton.frame=CGRectMake(6,428,19,18);
@@ -124,6 +122,7 @@
                 [scrollUpDownButton setBackgroundImage:[UIImage imageNamed:@"S02_downarrow.png"] forState:UIControlStateNormal];
                 [scrollUpDownButton addTarget:self action:@selector(timeToScrollDown) forControlEvents:UIControlEventTouchUpInside];
                 scrollUpDownButton.tag=236;
+            
                 [self.scrollView addSubview:activeType];
                 [self.scrollView addSubview:crossPickerButton];
                 [self.scrollView addSubview:tickPickerButton];
