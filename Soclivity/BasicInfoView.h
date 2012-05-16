@@ -59,8 +59,8 @@
 -(IBAction)ProfileBtnClicked:(UIButton*)sender;
 -(IBAction)birthdayDateSelection:(id)sender;
 -(IBAction)BackButtonClicked:(id)sender;
--(UIImage*) autoCrop:(UIImage*)image;
--(UIImage*) compressImage:(UIImage*)image size:(CGSize)size;
+-(UIImage*)autoCrop:(UIImage*)image;
+-(UIImage*)compressImage:(UIImage*)image size:(CGSize)size;
 -(void)hideBirthdayPicker;
 -(void)dateSelected:(NSDate*)bDate;
 -(void)BasicInfoFields;

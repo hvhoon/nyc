@@ -154,26 +154,42 @@
      }
 }
 
--(void)dateSelected:(NSDate*)bDate{
+// Setting the birthday
+-(void)dateSelected:(NSDate*)bDate {
     
     NSLog(@"bDate=%@ and todayDate=%@",bDate,[NSDate date]);
-//    NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
-//	
-//	NSInteger destinationGMTOffset2 = [destinationTimeZone secondsFromGMTForDate:[NSDate date]];
-//    NSInteger destinationGMTOffset1 = [destinationTimeZone secondsFromGMTForDate:bDate];
-	
-//	NSTimeInterval interval2 = destinationGMTOffset2;
-//    
-//    NSTimeInterval interval1 = destinationGMTOffset1;
     
+    // Really not sure what this interval stuff is here for?
     NSTimeInterval interval = [bDate timeIntervalSinceDate: [NSDate date]];
-    
-     NSLog(@"interval=%f",interval);
+    NSLog(@"interval=%f",interval);
 
-    if ([bDate compare:[NSDate date]] == NSOrderedDescending) {
+    // Date selected must be less than today's date
+    if ([bDate compare:[NSDate date]] == NSOrderedAscending) {
+        
+        NSLog(@"date1 is earlier than date2");
+        [delegate hidePickerView:nil];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        
+        // Format and set date on the screen
+        dateFormatter.dateFormat=@"MMMM d, YYYY";
+        NSString*date=[dateFormatter stringFromDate:bDate];
+        [birthdayBtn setTitle:date forState:UIControlStateNormal];
+        [birthdayBtn setTitleColor:[SoclivityUtilities returnTextFontColor:1] forState:UIControlStateNormal];
+        
+        // Format and set date in the player object
+        dateFormatter.dateFormat=@"d/MM/YYYY";
+        NSString*postDate=[dateFormatter stringFromDate:bDate];
+        playerObj.birth_date=postDate;
+        [dateFormatter release];
+    }
+    
+    // if the date selected is today or in the future
+    else {
+        
+        // Present an alert to the user
         NSLog(@"date1 is later than date2");
         {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry,you can't choose a future birthday date"
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry you can't be born in the future."
 															message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
             alert.tag=kFutureBirthdayDate;
 			[alert show];
@@ -181,35 +197,19 @@
 			return;
 			
 		}
-        
-    } else if ([bDate compare:[NSDate date]] == NSOrderedAscending) {
-        NSLog(@"date1 is earlier than date2");
-        [delegate hidePickerView:nil];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat=@"MMMM d, YYYY";
-        NSString*date=[dateFormatter stringFromDate:bDate];
-        [birthdayBtn setTitle:date forState:UIControlStateNormal];
-        [birthdayBtn setTitleColor:[SoclivityUtilities returnTextFontColor:1] forState:UIControlStateNormal];
-        dateFormatter.dateFormat=@"d/MM/YYYY";
-        NSString*postDate=[dateFormatter stringFromDate:bDate];
-        playerObj.birth_date=postDate;
-        [dateFormatter release];
-        
-    } 
-    
-
+    }
 }
 
 -(void)BasicInfoFields{
-	
-        SoclivityManager *SOC=[SoclivityManager SharedInstance];
-	    SOC.basicInfoDone=FALSE;
-        NSMutableCharacterSet *alphaSetName = [NSMutableCharacterSet characterSetWithCharactersInString:@"_"];
-        [alphaSetName formUnionWithCharacterSet:[NSCharacterSet alphanumericCharacterSet]];
+    
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    SOC.basicInfoDone=FALSE;
+    NSMutableCharacterSet *alphaSetName = [NSMutableCharacterSet characterSetWithCharactersInString:@"_"];
+    [alphaSetName formUnionWithCharacterSet:[NSCharacterSet alphanumericCharacterSet]];
         
-        NSMutableCharacterSet *alphaSetEmail = [NSMutableCharacterSet characterSetWithCharactersInString:@"@"];
-        [alphaSetEmail formUnionWithCharacterSet:[NSCharacterSet characterSetWithCharactersInString:@"."]];
-		[alphaSetEmail formUnionWithCharacterSet:alphaSetName];
+    NSMutableCharacterSet *alphaSetEmail = [NSMutableCharacterSet characterSetWithCharactersInString:@"@"];
+    [alphaSetEmail formUnionWithCharacterSet:[NSCharacterSet characterSetWithCharactersInString:@"."]];
+    [alphaSetEmail formUnionWithCharacterSet:alphaSetName];
         
     NSLog(@"enterNameTextField=%@",enterNameTextField.text);
     NSLog(@"emailTextField=%@",emailTextField.text);
@@ -642,20 +642,16 @@
 }
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
 	
-    
-    
-     SoclivityManager *SOC=[SoclivityManager SharedInstance];
-     SOC.basicInfoDone=FALSE;
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    SOC.basicInfoDone=FALSE;
     
     NSLog(@"textFieldDidBeginEditing");
     if(footerActivated){
     
         [delegate hidePickerView:nil];
     }
+    
     if((textField==enterPasswordTextField)||(textField==confirmPasswordTextField)){
-        
-        
-        
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationBeginsFromCurrentState:YES];
         [UIView setAnimationDuration:0.25];
