@@ -41,4 +41,5 @@
 -(IBAction)seeActivityClicked:(id)sender;
 -(IBAction)createActivityClicked:(id)sender;
 -(IBAction)learnActivityClicked:(id)sender;
+-(void)MakeSureAtLeastOneActivitySelected;
 @end

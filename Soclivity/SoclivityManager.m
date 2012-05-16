@@ -10,7 +10,7 @@
 #import "SocFacebookLogin.h"
 #import "GetPlayersClass.h"
 @implementation SoclivityManager
-@synthesize delegate,_session,FacebookLogin,registrationObject;
+@synthesize delegate,_session,FacebookLogin,registrationObject,basicInfoDone;
 
 
 + (id) SharedInstance {

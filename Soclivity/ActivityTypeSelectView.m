@@ -26,7 +26,7 @@
 }
 
 -(IBAction)getStartedClicked:(id)sender{
-    [delegate pushHomeMapViewController];
+    [self MakeSureAtLeastOneActivitySelected];
 }
 
 -(IBAction)playActivityClicked:(id)sender{
@@ -85,7 +85,20 @@
     }
 }
 
-
+-(void)MakeSureAtLeastOneActivitySelected{
+    
+    if(!play && !eat && !create && !see && !learn){
+        NSLog(@"No Activity Selected");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please select at Least 1 activity type"
+                                                        message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        [alert show];
+        [alert release];
+        return;
+    }
+    else{
+        [delegate pushHomeMapViewController];
+    }
+}
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect

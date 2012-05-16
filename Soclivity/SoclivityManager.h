@@ -21,6 +21,7 @@
     FBSession *_session;
     SocFacebookLogin *FacebookLogin;
     GetPlayersClass *registrationObject;
+    BOOL basicInfoDone;
    
    
 }
@@ -28,6 +29,7 @@
 @property (nonatomic,retain) FBSession *_session;
 @property (nonatomic,retain)SocFacebookLogin *FacebookLogin;
 @property (nonatomic,retain)GetPlayersClass *registrationObject;
+@property (nonatomic,assign)BOOL basicInfoDone;
 + (id)SharedInstance;
 -(void)SetFacebookConnectObject:(id)parentDelegate fTag:(NSInteger)fTag;
 @end

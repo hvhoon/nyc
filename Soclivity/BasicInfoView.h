@@ -19,11 +19,12 @@
 -(void)presentModal:(UIImagePickerController*)picker;
 -(void)setPickerSettings;
 -(void)hidePickerView:(id)sender;
+-(void)DateisFineNoNeedToWorry;
 @end
 
 
 
-@interface BasicInfoView : UIView<UITextFieldDelegate,CustomCameraUploadDelegate,UIActionSheetDelegate,CoreLocationDelegate>{
+@interface BasicInfoView : UIView<UITextFieldDelegate,CustomCameraUploadDelegate,UIActionSheetDelegate,CoreLocationDelegate,UIAlertViewDelegate>{
     
     CameraCustom *cameraUpload;
     id <BasicRegistrationDelegate>delegate;
@@ -43,8 +44,6 @@
     BOOL footerActivated;
     GetPlayersClass *playerObj;
     
-    
-
 }
 @property (nonatomic,retain)id <BasicRegistrationDelegate>delegate;
 @property (nonatomic,retain)IBOutlet UITextField *enterNameTextField;
@@ -64,4 +63,5 @@
 -(UIImage*) compressImage:(UIImage*)image size:(CGSize)size;
 -(void)hideBirthdayPicker;
 -(void)dateSelected:(NSDate*)bDate;
+-(void)BasicInfoFields;
 @end

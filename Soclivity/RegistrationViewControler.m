@@ -56,7 +56,7 @@
     
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
-
+    //SOC.basicInfoDone=FALSE;
 
     pageControlBeingUsed = NO;
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)]; 
@@ -158,6 +158,9 @@
 
 -(void)doneSelectDatePickerView:(id)sender{
     [basicSectionFirst dateSelected:[birthDayPicker date]];
+}
+
+-(void)DateisFineNoNeedToWorry{
     UIButton *crossBtn = (UIButton *)[self.scrollView viewWithTag:234];
     [crossBtn setHidden:YES];
     
@@ -169,7 +172,7 @@
     
     UIImageView *selectActivityType = (UIImageView *)[self.scrollView viewWithTag:237];
     [selectActivityType setHidden:NO];
-
+    
     self.scrollView.scrollEnabled = YES;
 }
 -(void)hidePickerView:(id)sender{
@@ -236,6 +239,8 @@
 }
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
     
+    NSLog(@"scrollViewDidScroll");
+    
     [birthDayPicker setHidden:YES];
 
     if (!pageControlBeingUsed) {
@@ -243,15 +248,50 @@
 		CGFloat pageWidth = self.scrollView.frame.size.height;
 		page = floor((self.scrollView.contentOffset.y - pageWidth / 2) / pageWidth) + 1;
         //NSLog(@"page=%d",page);
+#if 1        
+        if(!SOC.basicInfoDone){
+        
+        switch (page) {
+            case 0:
+            {
+                //pageControlBeingUsed=TRUE;
+            }
+                break;
+                
+            case 1:
+            {
+                
+                
+                pageControlBeingUsed=TRUE;
+                [self timeToScrollDown];
+//                [basicSectionFirst BasicInfoFields];
+//                CGRect frame;
+//                frame.origin.x = 0;
+//                frame.size = self.scrollView.frame.size;
+//                frame.origin.y = 0;
+//                [self.scrollView scrollRectToVisible:frame animated:YES];
+
+                
+            }
+                break;
+
+                
+            default:
+                break;
+        }
+        }
+#endif        
 	}
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
 	pageControlBeingUsed = NO;
+    NSLog(@"scrollViewWillBeginDragging");
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-	pageControlBeingUsed = NO;
+	//pageControlBeingUsed = NO;
+    NSLog(@"scrollViewDidEndDecelerating");
 }
 
 
@@ -267,8 +307,12 @@
 }
 -(void)timeToScrollDown{
     
+    NSLog(@"timeToScrollDown");
     [birthDayPicker setHidden:YES];
 
+    [basicSectionFirst BasicInfoFields];
+    if(SOC.basicInfoDone){
+    
     CGRect frame;
     frame.origin.x = 0;
     frame.origin.y = self.scrollView.frame.size.height;
@@ -290,7 +334,7 @@
     }
    
 	[self.scrollView scrollRectToVisible:frame animated:YES];
-    
+    }
     //pageControlBeingUsed = YES;
 
 }

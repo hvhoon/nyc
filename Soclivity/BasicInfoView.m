@@ -10,6 +10,7 @@
 #import "SoclivityUtilities.h"
 #import <QuartzCore/QuartzCore.h>
 #import "GetPlayersClass.h"
+#import "SoclivityManager.h"
 #define kPicture 0
 #define kName 1
 #define kEmail 2
@@ -20,7 +21,13 @@
 #define kMale 6
 #define kFemale 7
 
-
+#define kAllEmptyFields 8
+#define kNameNot 9
+#define kEntryAdded 10
+#define kEmailNot 11
+#define kPasswordNot 12
+#define kConfirmPasswordNot 13
+#define kFutureBirthdayDate 14
 @implementation BasicInfoView
 @synthesize delegate,enterNameTextField,emailTextField,enterPasswordTextField,confirmPasswordTextField,playerObj;
 - (id)initWithFrame:(CGRect)frame
@@ -149,22 +156,54 @@
 
 -(void)dateSelected:(NSDate*)bDate{
     
-    [delegate hidePickerView:nil];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat=@"MMMM d, YYYY";
-	NSString*date=[dateFormatter stringFromDate:bDate];
-    [birthdayBtn setTitle:date forState:UIControlStateNormal];
-    [birthdayBtn setTitleColor:[SoclivityUtilities returnTextFontColor:1] forState:UIControlStateNormal];
-    dateFormatter.dateFormat=@"d/MM/YYYY";
-    NSString*postDate=[dateFormatter stringFromDate:bDate];
-    playerObj.birth_date=postDate;
-    [dateFormatter release];
+    NSLog(@"bDate=%@ and todayDate=%@",bDate,[NSDate date]);
+//    NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
+//	
+//	NSInteger destinationGMTOffset2 = [destinationTimeZone secondsFromGMTForDate:[NSDate date]];
+//    NSInteger destinationGMTOffset1 = [destinationTimeZone secondsFromGMTForDate:bDate];
+	
+//	NSTimeInterval interval2 = destinationGMTOffset2;
+//    
+//    NSTimeInterval interval1 = destinationGMTOffset1;
+    
+    NSTimeInterval interval = [bDate timeIntervalSinceDate: [NSDate date]];
+    
+     NSLog(@"interval=%f",interval);
+
+    if ([bDate compare:[NSDate date]] == NSOrderedDescending) {
+        NSLog(@"date1 is later than date2");
+        {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry,you can't choose a future birthday date"
+															message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+            alert.tag=kFutureBirthdayDate;
+			[alert show];
+			[alert release];
+			return;
+			
+		}
+        
+    } else if ([bDate compare:[NSDate date]] == NSOrderedAscending) {
+        NSLog(@"date1 is earlier than date2");
+        [delegate hidePickerView:nil];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat=@"MMMM d, YYYY";
+        NSString*date=[dateFormatter stringFromDate:bDate];
+        [birthdayBtn setTitle:date forState:UIControlStateNormal];
+        [birthdayBtn setTitleColor:[SoclivityUtilities returnTextFontColor:1] forState:UIControlStateNormal];
+        dateFormatter.dateFormat=@"d/MM/YYYY";
+        NSString*postDate=[dateFormatter stringFromDate:bDate];
+        playerObj.birth_date=postDate;
+        [dateFormatter release];
+        
+    } 
+    
 
 }
 
 -(void)BasicInfoFields{
 	
-	
+        SoclivityManager *SOC=[SoclivityManager SharedInstance];
+	    SOC.basicInfoDone=FALSE;
         NSMutableCharacterSet *alphaSetName = [NSMutableCharacterSet characterSetWithCharactersInString:@"_"];
         [alphaSetName formUnionWithCharacterSet:[NSCharacterSet alphanumericCharacterSet]];
         
@@ -172,79 +211,184 @@
         [alphaSetEmail formUnionWithCharacterSet:[NSCharacterSet characterSetWithCharactersInString:@"."]];
 		[alphaSetEmail formUnionWithCharacterSet:alphaSetName];
         
+    NSLog(@"enterNameTextField=%@",enterNameTextField.text);
+    NSLog(@"emailTextField=%@",emailTextField.text);
+    NSLog(@"enterPasswordTextField=%@",enterPasswordTextField.text);
+    NSLog(@"confirmPasswordTextField=%@",confirmPasswordTextField.text);
+    
+    
+    if(!enterNameTextField.text.length && !emailTextField.text.length && !enterPasswordTextField.text.length && !confirmPasswordTextField.text.length)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"All fields are required to register"
+                                                        message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kAllEmptyFields;
+        [alert show];
+        [alert release];
+        return;
+        
+    }
 		
-		
-		if([enterNameTextField.text isEqualToString:@""] && ![emailTextField.text isEqualToString:@""] && ![enterPasswordTextField.text isEqualToString:@""] && ![confirmPasswordTextField.text isEqualToString:@""])
+		if(([enterNameTextField.text isEqualToString:@""]) &&(!emailTextField.text.length||![emailTextField.text isEqualToString:@""]) && (!enterPasswordTextField.text.length||![enterPasswordTextField.text isEqualToString:@""]) && (!confirmPasswordTextField.text.length||![confirmPasswordTextField.text isEqualToString:@""]))
 		{
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"All fields are required"
 															message:@"Please Enter a name" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+            alert.tag=kNameNot;
 			[alert show];
 			[alert release];
 			return;
 			
 		}
+    
+    NSUInteger newLength = [enterNameTextField.text length]; 
+    if(newLength<2)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"name must be minimum 2 characters"
+                                                        message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kNameNot;
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+    
+    
+    
+    enterNameTextField.text= [enterNameTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    
+    BOOL userNameValid = [[enterNameTextField.text stringByTrimmingCharactersInSet:alphaSetName] isEqualToString:@""];
+    
+    
+    if(userNameValid==NO){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"name has invalid characters"
+                                                        message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kNameNot;
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
 		
-		if(![enterNameTextField.text isEqualToString:@""] && [emailTextField.text isEqualToString:@""] && ![enterPasswordTextField.text isEqualToString:@""] && ![confirmPasswordTextField.text isEqualToString:@""])
+		if((!enterNameTextField.text.length||![enterNameTextField.text isEqualToString:@""]) && ([emailTextField.text isEqualToString:@""]) && (!enterPasswordTextField.text.length||![enterPasswordTextField.text isEqualToString:@""]) && (!confirmPasswordTextField.text.length||![confirmPasswordTextField.text isEqualToString:@""]))
 		{
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"All fields are required"
 															message:@"please enter your email address" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+            alert.tag=kEmailNot;
 			[alert show];
 			[alert release];
 			return;
 			
 		}
-		if(![enterNameTextField.text isEqualToString:@""] && ![emailTextField.text isEqualToString:@""] && [enterPasswordTextField.text isEqualToString:@""] && ![confirmPasswordTextField.text isEqualToString:@""])
+    
+    NSString *searchForMe = @"@";
+    NSRange rangeCheckAtTheRate = [emailTextField.text rangeOfString : searchForMe];
+    
+    NSString *searchFor = @".";
+    NSRange rangeCheckFullStop = [emailTextField.text rangeOfString : searchFor];
+    
+    
+    if (rangeCheckAtTheRate.location != NSNotFound && rangeCheckFullStop.location !=NSNotFound) {
+        NSLog(@"I found @ and .");
+    }
+    
+    
+    //	BOOL emailAddressValid = [[emailAddress.text stringByTrimmingCharactersInSet:alphaSetEmail] isEqualToString:@"@"];
+    
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Enter a valid email address"
+                                                        message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kEmailNot;
+        [alert show];
+        [alert release];
+        return;
+    }
+
+    NSString * charToCount = @"@";
+    NSArray * array = [emailTextField.text componentsSeparatedByString:charToCount];
+    NSInteger numberOfChar=[array count]-1;
+    NSLog(@"Count is: %i",[array count] - 1);
+    
+    if(numberOfChar>1)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Enter a valid email address"
+                                                        message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kEmailNot;
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+    
+    BOOL emailAddressValid = [[emailTextField.text stringByTrimmingCharactersInSet:alphaSetEmail] isEqualToString:@""];
+    
+    
+    if(emailAddressValid==NO){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Email has invalid characters"
+                                                        message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kEmailNot;
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+		if((!enterNameTextField.text.length||![enterNameTextField.text isEqualToString:@""]) && (!emailTextField.text.length||![emailTextField.text isEqualToString:@""]) && ([enterPasswordTextField.text isEqualToString:@""]) && (!confirmPasswordTextField.text.length||![confirmPasswordTextField.text isEqualToString:@""]))
 		{
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"All fields are required"
 															message:@"please enter your password" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+          alert.tag=kPasswordNot;
+
 			[alert show];
 			[alert release];
 			return;
 			
 		}
-		if(![enterNameTextField.text isEqualToString:@""] && ![emailTextField.text isEqualToString:@""] && ![enterPasswordTextField.text isEqualToString:@""] && [confirmPasswordTextField.text isEqualToString:@""])
+    
+    BOOL passwordValid = [[enterPasswordTextField.text stringByTrimmingCharactersInSet:alphaSetName] isEqualToString:@""];
+    
+    if(passwordValid==NO)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Password has invalid characters"
+                                                        message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kPasswordNot;
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+
+    
+    if([enterPasswordTextField.text length]<6)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Password must be min of 6 characters"
+                                                        message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kPasswordNot;
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+
+		if((!enterNameTextField.text.length||![enterNameTextField.text isEqualToString:@""]) && (!emailTextField.text.length||![emailTextField.text isEqualToString:@""]) && (!enterPasswordTextField.text.length||![enterPasswordTextField.text isEqualToString:@""]) && [confirmPasswordTextField.text isEqualToString:@""])
 		{
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"All fields are required"
 															message:@"please confirm your password" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-			[alert show];
-			[alert release];
-			return;
-			
-		}
-		
-		
-		if([enterNameTextField.text isEqualToString:@""] || [emailTextField.text isEqualToString:@""] || [enterPasswordTextField.text isEqualToString:@""] || [confirmPasswordTextField.text isEqualToString:@""])
-		{
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"All fields are required to register"
-															message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-			[alert show];
-			[alert release];
-			return;
-			
-		}
-		
-        NSString *searchForMe = @"@";
-        NSRange rangeCheckAtTheRate = [emailTextField.text rangeOfString : searchForMe];
-        
-        NSString *searchFor = @".";
-        NSRange rangeCheckFullStop = [emailTextField.text rangeOfString : searchFor];
-        
-        
-        if (rangeCheckAtTheRate.location != NSNotFound && rangeCheckFullStop.location !=NSNotFound) {
-            NSLog(@"I found @ and .");
-        }
-        
-        
-		//	BOOL emailAddressValid = [[emailAddress.text stringByTrimmingCharactersInSet:alphaSetEmail] isEqualToString:@"@"];
-        
-        else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Enter a valid email address"
-                                                            message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+            alert.tag=kConfirmPasswordNot;
             [alert show];
-            [alert release];
-            return;
-        }
-        
+			[alert release];
+			return;
+			
+		}
+		
+		
+		
+		
+                
         
         //	NSScanner *mainScanner = [NSScanner scannerWithString:emailAddress.text];
         //		NSInteger numberOfChar=0;
@@ -255,103 +399,69 @@
         //		numberOfChar++;
         //	}
         
-        NSString * charToCount = @"@";
-        NSArray * array = [emailTextField.text componentsSeparatedByString:charToCount];
-        NSInteger numberOfChar=[array count]-1;
-        NSLog(@"Count is: %i",[array count] - 1);
-        
-        if(numberOfChar>1)
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Enter a valid email address"
-                                                            message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-            [alert show];
-            [alert release];
-            return;
-            
-            
-        }
-		
-        BOOL emailAddressValid = [[emailTextField.text stringByTrimmingCharactersInSet:alphaSetEmail] isEqualToString:@""];
-        
-        
-        if(emailAddressValid==NO){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Email has invalid characters"
-                                                            message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-            [alert show];
-            [alert release];
-            return;
-            
-            
-        }
-/*        
-		NSUInteger newLength = [enterNameTextField.text length]; 
-		if(newLength<6 || newLength>15 )
-		{
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Username is between 6-15 characters"
-															message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-			[alert show];
-			[alert release];
-			return;
-			
-			
-		}
-*/		
-		
-		
-		enterNameTextField.text= [enterNameTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
-		
-		
-		BOOL userNameValid = [[enterNameTextField.text stringByTrimmingCharactersInSet:alphaSetName] isEqualToString:@""];
-		
-		
-		if(userNameValid==NO){
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Username has invalid characters"
-															message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-			[alert show];
-			[alert release];
-			return;
-			
-			
-		}
-		
-        
-        if([enterPasswordTextField.text length]<6)
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Password must be more than 6 characters"
-                                                            message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-            [alert show];
-            [alert release];
-            return;
-            
-            
-        }
-        
-        BOOL passwordValid = [[enterPasswordTextField.text stringByTrimmingCharactersInSet:alphaSetName] isEqualToString:@""];
-        
-        if(passwordValid==NO)
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Password has invalid characters"
-                                                            message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-            [alert show];
-            [alert release];
-            return;
-            
-            
-        }
-        
-        if([enterPasswordTextField.text isEqualToString:confirmPasswordTextField.text])
+       if([enterPasswordTextField.text isEqualToString:confirmPasswordTextField.text])
         {
             NSLog(@"Password Matched");
+            
+            SOC.basicInfoDone=TRUE;
         }
         else {
+            
+           enterPasswordTextField.text=@"";
+           confirmPasswordTextField.text=@"";
+            
             UIAlertView *passwordAlert = [[UIAlertView alloc] initWithTitle:@"Password does not match" 
             message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+             passwordAlert.tag=kPasswordNot;
             [passwordAlert show];
             [passwordAlert release];
             
             return;
         }
         
+}
+#pragma mark -
+#pragma mark UIAlertView methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    
+    if (buttonIndex == 0) {
+ 
+    switch (alertView.tag) {
+        case kAllEmptyFields:
+        {
+            [enterNameTextField becomeFirstResponder];
+        }
+            break;
+            
+        case kNameNot:
+        {
+            [enterNameTextField becomeFirstResponder];
+        }
+            break;
+        case kEmailNot:
+        {
+            [emailTextField becomeFirstResponder];
+        }
+            
+            break;
+        case kPasswordNot:
+        {
+            [enterPasswordTextField becomeFirstResponder];
+        }
+            break;
+        case kConfirmPasswordNot:
+        {
+            [confirmPasswordTextField becomeFirstResponder];
+        }
+            break;
+         default:
+            break;
+    }
+    }
+    else{
+        NSLog(@"Clicked Cancel Button");
+    }
 }
 -(void)hideBirthdayPicker{
     if (footerActivated) {
@@ -534,6 +644,9 @@
 	
     
     
+     SoclivityManager *SOC=[SoclivityManager SharedInstance];
+     SOC.basicInfoDone=FALSE;
+    
     NSLog(@"textFieldDidBeginEditing");
     if(footerActivated){
     
@@ -553,12 +666,19 @@
     
 }
 -(void)textFieldDidEndEditing:(UITextField *)textField{
-    
+     NSLog(@"textFieldDidEndEditing");
+//    [UIView beginAnimations:nil context:NULL];
+//    [UIView setAnimationBeginsFromCurrentState:YES];
+//    [UIView setAnimationDuration:0.25];
+//    CGRect rect = CGRectMake(0, 0, 320, 480);
+//    self.frame = rect;
+//    [UIView commitAnimations];
+
     
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	
-	
+	 NSLog(@"textFieldShouldReturn");
     [textField resignFirstResponder];
     
 	[UIView beginAnimations:nil context:NULL];
