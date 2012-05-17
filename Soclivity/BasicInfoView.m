@@ -284,7 +284,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
 #pragma mark UIAlertView methods
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
-    
+    [alertView resignFirstResponder];
     if (buttonIndex == 0) {
  
     switch (alertView.tag) {
