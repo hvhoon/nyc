@@ -218,7 +218,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
     if(!enterNameTextField.text.length && !emailTextField.text.length && !enterPasswordTextField.text.length && !confirmPasswordTextField.text.length)
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Required Fields"
-                                                        message:@"We just need your name, email and password to register you."
+                                                        message:@"Just need a name, email and password to register."
                                                        delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
         alert.tag=kAllEmptyFields;
         [alert show];
@@ -241,7 +241,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
      // Alert if the email is not valid
     if(!validEmail){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Email"
-                                                        message:@"We promise not to send you spam!"
+                                                        message:@"Promise not to send you spam!"
                                                         delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
         alert.tag=kEmailNot;
         [alert show];
