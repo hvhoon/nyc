@@ -9,6 +9,7 @@
 #import "RegistrationDetailInvocation.h"
 #import "SoclivityManager.h"
 #import "GetPlayersClass.h"
+#import "Base64.h"
 @interface RegistrationDetailInvocation (private)
 -(NSString*)body;
 @end
@@ -34,6 +35,7 @@
 #if 1    
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     GetPlayersClass *player=SOC.registrationObject;
+    CLLocation *playerLoc=SOC.currentLocation;
 	NSMutableDictionary* bodyD = [[[NSMutableDictionary alloc] init] autorelease];
     
     [bodyD setObject:player.first_name forKey:@"first_name"];
@@ -47,11 +49,25 @@
 	[bodyD setObject:player.password_confirmation  forKey:@"password_confirmation"];
     if(player.gender!=nil)
     [bodyD setObject:player.gender  forKey:@"gender"];
-    //[bodyD setObject:[self generatePostDataForData:player.profileImageData fileName:@"icon.jpg"]  forKey:@"photo"];
+    [bodyD setObject:[NSString stringWithFormat:@"%f",playerLoc.coordinate.latitude]  forKey:@"location_lat"];
+    [bodyD setObject:[NSString stringWithFormat:@"%f",playerLoc.coordinate.longitude]  forKey:@"location_lng"];
     
-    //[bodyD setObject:player.profileImageData forKey:@"photo"];
+    //[bodyD setObject:[NSString stringWithFormat:@"%.5f",36.78]  forKey:@"location_lat"];
+    //[bodyD setObject:[NSString stringWithFormat:@"%.5f",78.98]  forKey:@"location_lng"];
 
+    
+     //NSString *stringType=[NSString stringWithFormat:@"[1,5]"];
+    //[bodyD setObject:stringType forKey:@"activity_type_ids"];
+
+
+
+    
+    //[bodyD setObject:[self generatePostDataForData:player.profileImageData fileName:@"icon.jpg"]  forKey:@"photo"];
     NSLog(@"bodyDataJSONRepresentation=%@",[bodyD JSONRepresentation]);
+    if(player.profileImageData!=nil)
+    [bodyD setObject:[Base64 encode:player.profileImageData] forKey:@"photo_data"];
+
+//    NSLog(@"bodyDataJSONRepresentation=%@",[bodyD JSONRepresentation]);
     NSString *bodyData = [NSString stringWithFormat:@"{\"player\":%@}",[bodyD JSONRepresentation]];
      NSLog(@"bodyData=%@",bodyData);
 	return bodyData;

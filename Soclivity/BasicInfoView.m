@@ -207,14 +207,8 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
 }
 
 -(void)BasicInfoFields{
-	
- 	    SOC.basicInfoDone=FALSE;
-        NSMutableCharacterSet *alphaSetName = [NSMutableCharacterSet characterSetWithCharactersInString:@"_"];
-        [alphaSetName formUnionWithCharacterSet:[NSCharacterSet alphanumericCharacterSet]];
-        
-        NSMutableCharacterSet *alphaSetEmail = [NSMutableCharacterSet characterSetWithCharactersInString:@"@"];
-        [alphaSetEmail formUnionWithCharacterSet:[NSCharacterSet characterSetWithCharactersInString:@"."]];
-		[alphaSetEmail formUnionWithCharacterSet:alphaSetName];
+    
+    SOC.basicInfoDone=FALSE;
         
     NSLog(@"enterNameTextField=%@",enterNameTextField.text);
     NSLog(@"emailTextField=%@",emailTextField.text);
@@ -233,12 +227,11 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
         
     }
     
-    BOOL userNameValid = [[enterNameTextField.text stringByTrimmingCharactersInSet:alphaSetName] isEqualToString:@""];
-    
-    
-    if(userNameValid==NO){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"name has invalid characters"
-                                                        message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+    // Alert if the name is not valid
+    if(!validName){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Really?"
+                                                        message:@"Your name must have at least 2 characters."
+                                                        delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
         alert.tag=kNameNot;
         [alert show];
         [alert release];
@@ -271,44 +264,28 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
         
         NSLog(@"Password Matched");
         SOC.basicInfoDone=TRUE;
+        playerObj.email=emailTextField.text;
+        playerObj.password=enterPasswordTextField.text;
+        playerObj.password_confirmation=confirmPasswordTextField.text;
+        NSArray *wordsAndEmptyStrings = [enterNameTextField.text componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        NSArray *words = [wordsAndEmptyStrings filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"length > 0"]];
+        if([words count]>=2){
+            playerObj.first_name=[words objectAtIndex:0];
+            playerObj.last_name=[words objectAtIndex:1];
+        }
+        else{
+            playerObj.first_name=[words objectAtIndex:0];
+        }
+
     }
     else {
         
         enterPasswordTextField.text=@"";
         confirmPasswordTextField.text=@"";
         
-       if([enterPasswordTextField.text isEqualToString:confirmPasswordTextField.text])
-        {
-            NSLog(@"Password Matched");
-            
-            SOC.basicInfoDone=TRUE;
-            playerObj.email=emailTextField.text;
-            playerObj.password=enterPasswordTextField.text;
-            playerObj.password_confirmation=confirmPasswordTextField.text;
-            NSArray *wordsAndEmptyStrings = [enterNameTextField.text componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            NSArray *words = [wordsAndEmptyStrings filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"length > 0"]];
-            if([words count]>=2){
-                playerObj.first_name=[words objectAtIndex:0];
-                playerObj.last_name=[words objectAtIndex:1];
-            }
-            else{
-                playerObj.first_name=[words objectAtIndex:0];
-            }
-
-        }
-        else {
-            
-           enterPasswordTextField.text=@"";
-           confirmPasswordTextField.text=@"";
-            
-            UIAlertView *passwordAlert = [[UIAlertView alloc] initWithTitle:@"Password does not match" 
-            message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-             passwordAlert.tag=kPasswordNot;
-            [passwordAlert show];
-            [passwordAlert release];
-            
-            return;
-        }
+        UIAlertView *passwordAlert = [[UIAlertView alloc] initWithTitle:@"Passwords do not match"
+                                                                message:@"Try again......slowly."
+                                                                delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
         
         passwordAlert.tag=kPasswordNot;
         [passwordAlert show];
@@ -532,8 +509,6 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
 }
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
 	
-    
-    
      SOC.basicInfoDone=FALSE;
     
     NSLog(@"textFieldDidBeginEditing");

@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "CameraCustom.h"
 #import "LocationCustomManager.h"
+
+#define kStopScrolling @"StopScrolling"
+#define kStartScrolling @"StartScrolling"
+
 #import "SoclivityManager.h"
 @class  GetPlayersClass;
 @protocol BasicRegistrationDelegate <NSObject>

@@ -158,7 +158,7 @@ NSDateFormatter* gJSONDateFormatter = nil;
 	[pool release];
 }
 
-#if 0
+#if 1
 -(void)execute:(NSString*)method path:(NSString*)path body:(NSString*)body {
 	
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
@@ -191,11 +191,20 @@ NSDateFormatter* gJSONDateFormatter = nil;
 	[request setURL:[NSURL URLWithString:url]];
 	[request setHTTPMethod:method];
 	if (body) {
-		NSData *data = [body dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:NO];
-		[request setHTTPBody:data];
-		[request setValue:[NSString stringWithFormat:@"%d", [data length]] forHTTPHeaderField:@"Content-Length"];
 		//[request setValue:@"text/x-json" forHTTPHeaderField:@"Content-Type"];
+       // NSMutableData *data = [body dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:NO];
+         NSMutableData *data=[NSMutableData dataWithCapacity:[body length]];
+
         [request setValue:@"multipart/form-data; boundary=AaB03x" forHTTPHeaderField:@"Content-Type"];
+        NSString *boundary = [NSString stringWithString:@"---------------------------14737809831466499882746641449"];
+        [data appendData:[[NSString stringWithFormat:@"--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]]; 
+        [data appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"photo_data\"; filename=\"logo1.png\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+        [data appendData:[[NSString stringWithString:@"Content-Type: application/octet-stream\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+        [data appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+		[request setHTTPBody:data];
+        [request setValue:[NSString stringWithFormat:@"%d", [data length]] forHTTPHeaderField:@"Content-Length"];
+
+
 
 	}
 	[self addHeaders:request];
@@ -233,6 +242,7 @@ NSDateFormatter* gJSONDateFormatter = nil;
 - (void)connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response {
 	
 	[self setResponse:(NSHTTPURLResponse*)response];
+    
 	
 	if (![[self response] isOK]) {
 		[self handleHttpError:[[self response] statusCode]];
@@ -242,6 +252,8 @@ NSDateFormatter* gJSONDateFormatter = nil;
 
 - (void)connection:(NSURLConnection*)connection didReceiveData:(NSData*)data {
 	
+    NSString *response1=[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+    NSLog(@"response=%@",response1);
 	if ([_response isOK]) {
 		[_receivedData appendData:data];
 	}
@@ -254,6 +266,8 @@ NSDateFormatter* gJSONDateFormatter = nil;
 
 - (void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error {
 	
+     NSString *response=[[NSString alloc] initWithData:_receivedData encoding:NSASCIIStringEncoding];
+    NSLog(@"response=%@",response);
 	[self handleHttpError:[[self response] statusCode]];
 	//[self.finalizer finalize:self];
 }
@@ -261,6 +275,7 @@ NSDateFormatter* gJSONDateFormatter = nil;
 - (void)connectionDidFinishLoading:(NSURLConnection*)connection {
 	
     BOOL finalize = YES;
+
 	if ([[self response] isOK]) {
 		finalize = [self handleHttpOK:self.receivedData];
 	} else {

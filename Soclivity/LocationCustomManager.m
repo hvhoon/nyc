@@ -7,6 +7,7 @@
 //
 
 #import "LocationCustomManager.h"
+#import "SoclivityManager.h"
 @implementation LocationCustomManager
 
 @synthesize delegate,locationManager,bestEffortAtLocation,theTag;
@@ -60,6 +61,10 @@
         // store the location as the "best effort"
 
         self.bestEffortAtLocation = newLocation;
+        SoclivityManager *SocInfo=[SoclivityManager SharedInstance];
+        
+        SocInfo.currentLocation=newLocation;
+
         // test the measurement to see if it meets the desired accuracy
         //
         // IMPORTANT!!! kCLLocationAccuracyBest should not be used for comparison with location coordinate or altitidue 
