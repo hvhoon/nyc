@@ -89,8 +89,8 @@
     
     if(!play && !eat && !create && !see && !learn){
         NSLog(@"No Activity Selected");
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please select at Least 1 activity type"
-                                                        message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Nothing here interests you?"
+                                                        message:@"C'mon, please select at least 1 activity type!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
         [alert show];
         [alert release];
         return;

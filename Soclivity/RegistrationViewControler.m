@@ -63,8 +63,15 @@
     
     scrollView.indicatorStyle=UIScrollViewIndicatorStyleBlack;
     scrollView.clipsToBounds = NO;
-    scrollView.scrollEnabled = YES;
-    scrollView.pagingEnabled = YES;            
+    
+    // Initially disabled scrolling. This is not enabled till all the fields on the basic info page have been filled.
+    scrollView.scrollEnabled = NO;
+    
+    // Enable or Disable scrolling
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enableScrolling) name:kStartScrolling object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableScrolling) name:kStopScrolling object:nil];
+    
+    scrollView.pagingEnabled = YES;
     scrollView.showsVerticalScrollIndicator =NO;
     scrollView.alwaysBounceVertical= YES;
     scrollView.delegate = self;
@@ -260,8 +267,6 @@
                 
             case 1:
             {
-                
-                
                 pageControlBeingUsed=TRUE;
                 [self timeToScrollDown];
 //                [basicSectionFirst BasicInfoFields];
@@ -270,8 +275,6 @@
 //                frame.size = self.scrollView.frame.size;
 //                frame.origin.y = 0;
 //                [self.scrollView scrollRectToVisible:frame animated:YES];
-
-                
             }
                 break;
 
@@ -305,6 +308,18 @@
     [self dismissModalViewControllerAnimated:YES];
     
 }
+
+// Disable scrolling
+-(void) disableScrolling {
+    [self.scrollView setScrollEnabled:NO];
+    
+}
+
+// Enable scrolling
+-(void) enableScrolling {
+    [self.scrollView setScrollEnabled:YES];
+}
+
 -(void)timeToScrollDown{
     
     NSLog(@"timeToScrollDown");
