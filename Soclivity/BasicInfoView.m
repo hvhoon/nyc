@@ -542,32 +542,8 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
     }
     
     // Checking the email field
-    if(textField == emailTextField) {
-        
-        // Make sure the field is no empty
-        if(![textField.text isEqualToString:@""]){
-            
-            // Make sure it contains an '@' and '.'
-            NSString *searchForMe = @"@";
-            NSRange rangeCheckAtTheRate = [textField.text rangeOfString : searchForMe];
-            
-            NSString *searchFor = @".";
-            NSRange rangeCheckFullStop = [textField.text rangeOfString : searchFor];
-            
-            if (rangeCheckAtTheRate.location != NSNotFound && rangeCheckFullStop.location !=NSNotFound){
-                
-                // Ensure it has enough characters
-                NSString * charToCount = @"@";
-                NSArray * array = [textField.text componentsSeparatedByString:charToCount];
-                NSInteger numberOfChar=[array count];
-                
-                if(numberOfChar==2)
-                    validEmail = YES;
-            }
-        }
-        else
-            validEmail = NO;
-    }
+    if(textField == emailTextField)
+        validEmail = [SoclivityUtilities validEmail:emailTextField.text];
     
     // Checking the password
     if(textField == enterPasswordTextField) {

@@ -91,7 +91,34 @@
 	
 	return newImage;
     
-#endif	
-	
+#endif
 }
+
+// Method to check whether the email address is valid
++(BOOL)validEmail:(NSString*)email {
+    
+    // Check for an empty email
+    if(![email isEqualToString:@""]){
+        
+        // Make sure it contains an '@' and '.'
+        NSString *searchForMe = @"@";
+        NSRange rangeCheckAtTheRate = [email rangeOfString : searchForMe];
+        
+        NSString *searchFor = @".";
+        NSRange rangeCheckFullStop = [email rangeOfString : searchFor];
+        
+        if (rangeCheckAtTheRate.location != NSNotFound && rangeCheckFullStop.location !=NSNotFound){
+            
+            // Ensure that there is something before and after the '@'
+            NSString * charToCount = @"@";
+            NSArray * array = [email componentsSeparatedByString:charToCount];
+            NSInteger numberOfChar=[array count];
+            
+            if(numberOfChar==2)
+                return YES;
+        }
+    }
+    return NO;
+}
+
 @end
