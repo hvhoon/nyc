@@ -29,6 +29,8 @@
 -(void)hidePickerView:(id)sender;
 -(void)doneSelectDatePickerView:(id)sender;
 -(void)RegisterUserForTheFirstTime;
+-(void)disableScrolling;
+-(void)enableScrolling;
 @end
 
 

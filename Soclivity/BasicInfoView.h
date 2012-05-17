@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "CameraCustom.h"
 #import "LocationCustomManager.h"
+
+#define kStopScrolling @"StopScrolling"
+#define kStartScrolling @"StartScrolling"
+
 @class  GetPlayersClass;
 @protocol BasicRegistrationDelegate <NSObject>
 
@@ -59,8 +63,8 @@
 -(IBAction)ProfileBtnClicked:(UIButton*)sender;
 -(IBAction)birthdayDateSelection:(id)sender;
 -(IBAction)BackButtonClicked:(id)sender;
--(UIImage*) autoCrop:(UIImage*)image;
--(UIImage*) compressImage:(UIImage*)image size:(CGSize)size;
+-(UIImage*)autoCrop:(UIImage*)image;
+-(UIImage*)compressImage:(UIImage*)image size:(CGSize)size;
 -(void)hideBirthdayPicker;
 -(void)dateSelected:(NSDate*)bDate;
 -(void)BasicInfoFields;
