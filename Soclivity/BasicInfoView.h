@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CameraCustom.h"
 #import "LocationCustomManager.h"
+#import "SoclivityManager.h"
 @class  GetPlayersClass;
 @protocol BasicRegistrationDelegate <NSObject>
 
@@ -43,6 +44,7 @@
     BOOL b_Female;
     BOOL footerActivated;
     GetPlayersClass *playerObj;
+    SoclivityManager *SOC;
     
 }
 @property (nonatomic,retain)id <BasicRegistrationDelegate>delegate;

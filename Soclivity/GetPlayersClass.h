@@ -19,6 +19,8 @@
     NSString *updated_at;
     NSString *password;
     NSString *password_confirmation;
+    NSData *profileImageData;
+    NSString *gender;
 
     
 }
@@ -31,5 +33,6 @@
 @property(nonatomic,retain)NSString *updated_at;
 @property(nonatomic,retain)NSString *password;
 @property(nonatomic,retain)NSString *password_confirmation;
-
+@property (nonatomic,retain)NSData *profileImageData;
+@property (nonatomic,retain)NSString *gender;
 @end

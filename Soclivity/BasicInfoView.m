@@ -10,7 +10,6 @@
 #import "SoclivityUtilities.h"
 #import <QuartzCore/QuartzCore.h>
 #import "GetPlayersClass.h"
-#import "SoclivityManager.h"
 #define kPicture 0
 #define kName 1
 #define kEmail 2
@@ -46,6 +45,8 @@
 - (void)drawRect:(CGRect)rect
 {
     // Customized fonts
+    SOC=[SoclivityManager SharedInstance];
+
     enterNameTextField.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     enterNameTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
     
@@ -94,6 +95,7 @@
             if(b_Male){
             [maleButton setBackgroundImage:[UIImage imageNamed:@"S02_male.png"] forState:UIControlStateNormal];
                 b_Female=FALSE;
+                 playerObj.gender=@"m";
             }else{
                 [maleButton setBackgroundImage:[UIImage imageNamed:@"S02_M_notselected.png"] forState:UIControlStateNormal];
                 
@@ -112,6 +114,7 @@
             if(b_Female){
             [femaleButton setBackgroundImage:[UIImage imageNamed:@"S02_female.png"] forState:UIControlStateNormal];
                 b_Male=FALSE;
+                 playerObj.gender=@"f";
             }
             else{
                 [femaleButton setBackgroundImage:[UIImage imageNamed:@"S02_F_notselected.png"] forState:UIControlStateNormal];
@@ -202,8 +205,7 @@
 
 -(void)BasicInfoFields{
 	
-        SoclivityManager *SOC=[SoclivityManager SharedInstance];
-	    SOC.basicInfoDone=FALSE;
+ 	    SOC.basicInfoDone=FALSE;
         NSMutableCharacterSet *alphaSetName = [NSMutableCharacterSet characterSetWithCharactersInString:@"_"];
         [alphaSetName formUnionWithCharacterSet:[NSCharacterSet alphanumericCharacterSet]];
         
@@ -215,7 +217,6 @@
     NSLog(@"emailTextField=%@",emailTextField.text);
     NSLog(@"enterPasswordTextField=%@",enterPasswordTextField.text);
     NSLog(@"confirmPasswordTextField=%@",confirmPasswordTextField.text);
-    
     
     if(!enterNameTextField.text.length && !emailTextField.text.length && !enterPasswordTextField.text.length && !confirmPasswordTextField.text.length)
     {
@@ -251,11 +252,6 @@
         
         
     }
-    
-    
-    
-    enterNameTextField.text= [enterNameTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
-    
     
     BOOL userNameValid = [[enterNameTextField.text stringByTrimmingCharactersInSet:alphaSetName] isEqualToString:@""];
     
@@ -404,6 +400,19 @@
             NSLog(@"Password Matched");
             
             SOC.basicInfoDone=TRUE;
+            playerObj.email=emailTextField.text;
+            playerObj.password=enterPasswordTextField.text;
+            playerObj.password_confirmation=confirmPasswordTextField.text;
+            NSArray *wordsAndEmptyStrings = [enterNameTextField.text componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            NSArray *words = [wordsAndEmptyStrings filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"length > 0"]];
+            if([words count]>=2){
+                playerObj.first_name=[words objectAtIndex:0];
+                playerObj.last_name=[words objectAtIndex:1];
+            }
+            else{
+                playerObj.first_name=[words objectAtIndex:0];
+            }
+
         }
         else {
             
@@ -541,6 +550,7 @@
     if(Img.size.height > 100 || Img.size.width > 100)
         Img = [self compressImage:Img size:CGSizeMake(100,100)];
     
+    playerObj.profileImageData=UIImagePNGRepresentation(Img);
     [profileBtn setBackgroundImage:Img forState:UIControlStateNormal];
     [[profileBtn layer] setBorderWidth:1.0];
     [[profileBtn layer] setBorderColor:[SoclivityUtilities returnTextFontColor:4].CGColor];
@@ -644,7 +654,6 @@
 	
     
     
-     SoclivityManager *SOC=[SoclivityManager SharedInstance];
      SOC.basicInfoDone=FALSE;
     
     NSLog(@"textFieldDidBeginEditing");

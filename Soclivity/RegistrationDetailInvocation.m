@@ -37,17 +37,53 @@
 	NSMutableDictionary* bodyD = [[[NSMutableDictionary alloc] init] autorelease];
     
     [bodyD setObject:player.first_name forKey:@"first_name"];
+    
+    if(player.last_name!=nil)
 	[bodyD setObject:player.last_name forKey:@"last_name"];
     [bodyD setObject:player.email forKey:@"email"];
+    if(player.birth_date!=nil)
 	[bodyD setObject:player.birth_date forKey:@"birth_date"];
     [bodyD setObject:player.password forKey:@"password"];
 	[bodyD setObject:player.password_confirmation  forKey:@"password_confirmation"];
+    if(player.gender!=nil)
+    [bodyD setObject:player.gender  forKey:@"gender"];
+    //[bodyD setObject:[self generatePostDataForData:player.profileImageData fileName:@"icon.jpg"]  forKey:@"photo"];
     
+    //[bodyD setObject:player.profileImageData forKey:@"photo"];
+
+    NSLog(@"bodyDataJSONRepresentation=%@",[bodyD JSONRepresentation]);
     NSString *bodyData = [NSString stringWithFormat:@"{\"player\":%@}",[bodyD JSONRepresentation]];
      NSLog(@"bodyData=%@",bodyData);
 	return bodyData;
 #endif    
 }
+
+-(NSData *)generatePostDataForData:(NSData *)uploadData fileName:(NSString *)fileName
+{
+	
+    // Generate the post header:
+	
+    NSString *post = [NSString stringWithFormat:@"--AaB03x\r\nContent-Disposition: form-data; name=\"Photo\"; filename=\"%@\"\r\nContent-Type: multipart\r\n\r\n", fileName];
+    
+    // Get the post header int ASCII format:
+    NSData *postHeaderData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    
+    // Generate the mutable data variable:
+    NSMutableData *postData = [[NSMutableData alloc] initWithLength:[postHeaderData length] ];
+    [postData setData:postHeaderData];
+    
+    // Add the image:
+    [postData appendData: uploadData];
+    
+    // Add the closing boundry:
+    [postData appendData: [@"\r\n--AaB03x--" dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES]];
+    
+    // Return the post data:
+	
+	
+    return postData;
+}
+
 
 -(BOOL)handleHttpOK:(NSMutableData *)data {
     self.queue = [[NSOperationQueue alloc] init];

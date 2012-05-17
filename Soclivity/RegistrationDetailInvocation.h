@@ -33,4 +33,5 @@
 @property (nonatomic,retain)NSString *password_confirmation;
 @property (nonatomic,retain)NSString *activities;
 @property(nonatomic,retain) NSOperationQueue*queue;
+-(NSData *)generatePostDataForData:(NSData *)uploadData fileName:(NSString *)fileName;
 @end

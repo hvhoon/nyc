@@ -158,7 +158,7 @@ NSDateFormatter* gJSONDateFormatter = nil;
 	[pool release];
 }
 
-
+#if 0
 -(void)execute:(NSString*)method path:(NSString*)path body:(NSString*)body {
 	
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
@@ -181,7 +181,33 @@ NSDateFormatter* gJSONDateFormatter = nil;
 	
 	[pool release];
 }
+#else
+-(void)execute:(NSString*)method path:(NSString*)path body:(NSString*)body {
+	
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	NSMutableURLRequest* request = [[[NSMutableURLRequest alloc] init] autorelease];
+	NSString* url = [NSMutableString stringWithFormat:@"http://%@", path];
+	NSLog(@"Url=%@",url);
+	[request setURL:[NSURL URLWithString:url]];
+	[request setHTTPMethod:method];
+	if (body) {
+		NSData *data = [body dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:NO];
+		[request setHTTPBody:data];
+		[request setValue:[NSString stringWithFormat:@"%d", [data length]] forHTTPHeaderField:@"Content-Length"];
+		//[request setValue:@"text/x-json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:@"multipart/form-data; boundary=AaB03x" forHTTPHeaderField:@"Content-Type"];
 
+	}
+	[self addHeaders:request];
+    
+    NSLog(@"request=%@",request);
+	
+	[NSURLConnection connectionWithRequest:request delegate:self];
+	
+	[pool release];
+}
+
+#endif
 
 -(void)post:(NSString*)path body:(NSString*)body {
 	[self execute:@"POST" path:path body:body];

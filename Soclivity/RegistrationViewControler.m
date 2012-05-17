@@ -341,7 +341,7 @@
 
 -(void)pushHomeMapViewController{
     
-    //[self RegisterUserForTheFirstTime];
+    [self RegisterUserForTheFirstTime];
     
 }
 
