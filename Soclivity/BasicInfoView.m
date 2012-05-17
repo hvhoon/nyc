@@ -546,15 +546,8 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
         validEmail = [SoclivityUtilities validEmail:emailTextField.text];
     
     // Checking the password
-    if(textField == enterPasswordTextField) {
-        // Check length of the password
-        NSInteger length;
-        length = [textField.text length];
-        if (length<6)
-            validPassword = NO;
-        else
-            validPassword = YES;
-    }
+    if(textField == enterPasswordTextField)
+        validPassword = [SoclivityUtilities validPassword:enterPasswordTextField.text];
     
     // Checking to see if the passwords match
     if(textField == confirmPasswordTextField){

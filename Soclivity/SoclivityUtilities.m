@@ -10,6 +10,8 @@
 #import "UIImage+ProportionalFill.h"
 #import "UIImage+Tint.h"
 
+#define PASSWORD_LENGTH 6
+
 @implementation SoclivityUtilities
 
 
@@ -94,6 +96,8 @@
 #endif
 }
 
+#pragma mark -
+#pragma mark Validation Utilities
 // Method to check whether the email address is valid
 +(BOOL)validEmail:(NSString*)email {
     
@@ -118,6 +122,18 @@
                 return YES;
         }
     }
+    return NO;
+}
+
+// Method to check whether the password is valid
++(BOOL)validPassword:(NSString*)password {
+    
+    // Checking the length
+    NSInteger length;
+    length = [password length];
+    if (length>=PASSWORD_LENGTH)
+        return YES;
+    
     return NO;
 }
 

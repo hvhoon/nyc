@@ -48,8 +48,8 @@
     if(![SoclivityUtilities validEmail:emailAddress.text]){
         
         // Setup an alert for the missing email address
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Email Address"
-                                                        message:@"We need your email address to log you in."
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Email Address"
+                                                        message:@"Please enter a valid email address to login."
                                                        delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
         alert.tag=kUsernameMissing;
         [alert show];

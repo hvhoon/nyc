@@ -86,6 +86,8 @@
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 -(void)TickClicked:(id)sender{
+    
+    // Check to see if the password is even valid
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -96,7 +98,7 @@
     } 
 	else if(textField==confirmPassword){
 		//[confirmPassword resignFirstResponder];
-		[self.navigationController dismissModalViewControllerAnimated:YES];
+		[self TickClicked:nil];
 		
 	}
 	
