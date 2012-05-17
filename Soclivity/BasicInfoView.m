@@ -24,7 +24,6 @@
 #define kEntryAdded 10
 #define kEmailNot 11
 #define kPasswordNot 12
-#define kConfirmPasswordNot 13
 #define kFutureBirthdayDate 14
 @implementation BasicInfoView
 
@@ -318,12 +317,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
             [enterPasswordTextField becomeFirstResponder];
         }
             break;
-        case kConfirmPasswordNot:
-        {
-            [confirmPasswordTextField becomeFirstResponder];
-        }
-            break;
-         default:
+        default:
             break;
     }
     }

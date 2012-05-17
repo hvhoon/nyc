@@ -7,6 +7,9 @@
 //
 
 #import "ResetPasswordViewController.h"
+#import "SoclivityUtilities.h"
+
+#define kNewPasswordNot 0
 
 @implementation ResetPasswordViewController
 
@@ -88,8 +91,39 @@
 -(void)TickClicked:(id)sender{
     
     // Check to see if the password is even valid
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    if(![SoclivityUtilities validPassword:newPassword.text]){
+        
+        // Setup an alert for the invalid password
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Security Alert!"
+                                                        message:@"Your password should have at least 6 characters."
+                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kNewPasswordNot;
+        [alert show];
+        [alert release];
+        return;
+
+    }
+    // Check to see the passwords match
+    else if(![confirmPassword.text isEqualToString:newPassword.text]){
+        
+        // if the passwords don't match, first clear the fields
+        newPassword.text = @"";
+        confirmPassword.text = @"";
+        
+        // Setup an alert for passwords that don't match
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Passwords do not match"
+                                                                message:@"Please try again!"
+                                                               delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kNewPasswordNot;
+        [alert show];
+        [alert release];
+        return;
+    }
+    // If the password is valid and the passwords match then please reset the user's password
+    else
+        [self.navigationController dismissModalViewControllerAnimated:YES];
 }
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     //[textField resignFirstResponder];
     if(textField ==newPassword) {
@@ -111,5 +145,25 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+#pragma mark -
+#pragma mark UIAlertView methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    [alertView resignFirstResponder];
+    if (buttonIndex == 0) {
+        
+        switch (alertView.tag) {
+            case kNewPasswordNot:
+                [newPassword becomeFirstResponder];
+                break;
+            default:
+                break;
+        }
+    }
+    else
+        NSLog(@"Clicked Cancel Button");
+}
+
 
 @end
