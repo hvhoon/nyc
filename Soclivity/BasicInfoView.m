@@ -21,7 +21,6 @@
 #define kMale 6
 #define kFemale 7
 
-#define kAllEmptyFields 8
 #define kNameNot 9
 #define kEntryAdded 10
 #define kEmailNot 11
@@ -220,7 +219,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Required Fields"
                                                         message:@"Just need a name, email and password to register."
                                                        delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-        alert.tag=kAllEmptyFields;
+        alert.tag=kNameNot;
         [alert show];
         [alert release];
         return;
@@ -271,7 +270,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
         confirmPasswordTextField.text=@"";
         
         UIAlertView *passwordAlert = [[UIAlertView alloc] initWithTitle:@"Passwords do not match"
-                                                                message:@"Trying again......slowly."
+                                                                message:@"Try again......slowly."
                                                                 delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
         
         passwordAlert.tag=kPasswordNot;
@@ -289,12 +288,6 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
     if (buttonIndex == 0) {
  
     switch (alertView.tag) {
-        case kAllEmptyFields:
-        {
-            [enterNameTextField becomeFirstResponder];
-        }
-            break;
-            
         case kNameNot:
         {
             [enterNameTextField becomeFirstResponder];
