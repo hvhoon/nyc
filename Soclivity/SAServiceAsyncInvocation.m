@@ -158,7 +158,7 @@ NSDateFormatter* gJSONDateFormatter = nil;
 	[pool release];
 }
 
-#if 1
+
 -(void)execute:(NSString*)method path:(NSString*)path body:(NSString*)body {
 	
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
@@ -181,42 +181,7 @@ NSDateFormatter* gJSONDateFormatter = nil;
 	
 	[pool release];
 }
-#else
--(void)execute:(NSString*)method path:(NSString*)path body:(NSString*)body {
-	
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-	NSMutableURLRequest* request = [[[NSMutableURLRequest alloc] init] autorelease];
-	NSString* url = [NSMutableString stringWithFormat:@"http://%@", path];
-	NSLog(@"Url=%@",url);
-	[request setURL:[NSURL URLWithString:url]];
-	[request setHTTPMethod:method];
-	if (body) {
-		//[request setValue:@"text/x-json" forHTTPHeaderField:@"Content-Type"];
-       // NSMutableData *data = [body dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:NO];
-         NSMutableData *data=[NSMutableData dataWithCapacity:[body length]];
 
-        [request setValue:@"multipart/form-data; boundary=AaB03x" forHTTPHeaderField:@"Content-Type"];
-        NSString *boundary = [NSString stringWithString:@"---------------------------14737809831466499882746641449"];
-        [data appendData:[[NSString stringWithFormat:@"--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]]; 
-        [data appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"photo_data\"; filename=\"logo1.png\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-        [data appendData:[[NSString stringWithString:@"Content-Type: application/octet-stream\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-        [data appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-		[request setHTTPBody:data];
-        [request setValue:[NSString stringWithFormat:@"%d", [data length]] forHTTPHeaderField:@"Content-Length"];
-
-
-
-	}
-	[self addHeaders:request];
-    
-    NSLog(@"request=%@",request);
-	
-	[NSURLConnection connectionWithRequest:request delegate:self];
-	
-	[pool release];
-}
-
-#endif
 
 -(void)post:(NSString*)path body:(NSString*)body {
 	[self execute:@"POST" path:path body:body];

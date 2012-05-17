@@ -260,7 +260,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
         return;
     }
         
-    if(passwordsMatched){
+    if(passwordsMatched && [enterPasswordTextField.text isEqualToString:confirmPasswordTextField.text]){
         
         NSLog(@"Password Matched");
         SOC.basicInfoDone=TRUE;

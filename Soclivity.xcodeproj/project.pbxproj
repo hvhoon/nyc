@@ -41,6 +41,9 @@
 		68B91467155EC32F00F2B780 /* S02_tick_emb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68B9145F155EC32F00F2B780 /* S02_tick_emb@2x.png */; };
 		68BF4F79155CB034005399B3 /* Helvetica-Condensed-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 68BF4F77155CB034005399B3 /* Helvetica-Condensed-Black.otf */; };
 		68BF4F7A155CB034005399B3 /* Helvetica-Condensed.otf in Resources */ = {isa = PBXBuildFile; fileRef = 68BF4F78155CB034005399B3 /* Helvetica-Condensed.otf */; };
+		EA3ABAE81565709100B262F7 /* GetLoginInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3ABAE71565709100B262F7 /* GetLoginInvocation.m */; };
+		EA3ABAED15657D3600B262F7 /* ResetPasswordInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3ABAEC15657D3600B262F7 /* ResetPasswordInvocation.m */; };
+		EA3ABAF115657FC800B262F7 /* ForgotPasswordInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3ABAF015657FC800B262F7 /* ForgotPasswordInvocation.m */; };
 		EA91C26F155A36EA00BE5BB1 /* BirthdayPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C26E155A36EA00BE5BB1 /* BirthdayPickerView.m */; };
 		EA91C2DD155A716F00BE5BB1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C2C9155A716F00BE5BB1 /* Reachability.m */; };
 		EA91C2DE155A716F00BE5BB1 /* CAVNSArrayTypeCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C2CC155A716F00BE5BB1 /* CAVNSArrayTypeCategory.m */; };
@@ -244,6 +247,12 @@
 		68BF4F78155CB034005399B3 /* Helvetica-Condensed.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Helvetica-Condensed.otf"; sourceTree = "<group>"; };
 		68BFF8CA1561FA2000D73D7C /* S02_blackbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S02_blackbar.png; sourceTree = "<group>"; };
 		68BFF8CB1561FA2000D73D7C /* S02_blackbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S02_blackbar@2x.png"; sourceTree = "<group>"; };
+		EA3ABAE61565709100B262F7 /* GetLoginInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetLoginInvocation.h; sourceTree = "<group>"; };
+		EA3ABAE71565709100B262F7 /* GetLoginInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetLoginInvocation.m; sourceTree = "<group>"; };
+		EA3ABAEB15657D3600B262F7 /* ResetPasswordInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordInvocation.h; sourceTree = "<group>"; };
+		EA3ABAEC15657D3600B262F7 /* ResetPasswordInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordInvocation.m; sourceTree = "<group>"; };
+		EA3ABAEF15657FC800B262F7 /* ForgotPasswordInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordInvocation.h; sourceTree = "<group>"; };
+		EA3ABAF015657FC800B262F7 /* ForgotPasswordInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordInvocation.m; sourceTree = "<group>"; };
 		EA91C26D155A36EA00BE5BB1 /* BirthdayPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BirthdayPickerView.h; sourceTree = "<group>"; };
 		EA91C26E155A36EA00BE5BB1 /* BirthdayPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BirthdayPickerView.m; sourceTree = "<group>"; };
 		EA91C2C8155A716F00BE5BB1 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = categories/Reachability.h; sourceTree = "<group>"; };
@@ -621,6 +630,8 @@
 		687F3A761551307C00B694DA /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				EAD44FF11564FA190075C8CA /* Base64.h */,
+				EAD44FF01564FA190075C8CA /* Base64.m */,
 				680CE40F1551284700B8E937 /* SoclivityUtilities.h */,
 				680CE4101551284700B8E937 /* SoclivityUtilities.m */,
 				680CE4111551284700B8E937 /* UIImage+ProportionalFill.h */,
@@ -639,6 +650,33 @@
 			);
 			name = Fonts;
 			path = Soclivity/Fonts;
+			sourceTree = "<group>";
+		};
+		EA3ABAE41565704C00B262F7 /* Login Service */ = {
+			isa = PBXGroup;
+			children = (
+				EA3ABAE61565709100B262F7 /* GetLoginInvocation.h */,
+				EA3ABAE71565709100B262F7 /* GetLoginInvocation.m */,
+			);
+			name = "Login Service";
+			sourceTree = "<group>";
+		};
+		EA3ABAE915657D0000B262F7 /* Reset Password Service */ = {
+			isa = PBXGroup;
+			children = (
+				EA3ABAEB15657D3600B262F7 /* ResetPasswordInvocation.h */,
+				EA3ABAEC15657D3600B262F7 /* ResetPasswordInvocation.m */,
+			);
+			name = "Reset Password Service";
+			sourceTree = "<group>";
+		};
+		EA3ABAEE15657F9600B262F7 /* Email Send For Forgot Password */ = {
+			isa = PBXGroup;
+			children = (
+				EA3ABAEF15657FC800B262F7 /* ForgotPasswordInvocation.h */,
+				EA3ABAF015657FC800B262F7 /* ForgotPasswordInvocation.m */,
+			);
+			name = "Email Send For Forgot Password";
 			sourceTree = "<group>";
 		};
 		EA91C2C5155A716300BE5BB1 /* App Delegate */ = {
@@ -737,9 +775,12 @@
 		EA91C324155A71A500BE5BB1 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				EA3ABAEE15657F9600B262F7 /* Email Send For Forgot Password */,
+				EA3ABAE915657D0000B262F7 /* Reset Password Service */,
 				EA91C34D155A901000BE5BB1 /* Json Parser */,
 				EA91C34C155A8FA700BE5BB1 /* Async Invocation */,
 				EA91C338155A747600BE5BB1 /* GetRequest Services */,
+				EA3ABAE41565704C00B262F7 /* Login Service */,
 				EA91C34E155A903000BE5BB1 /* Post Request services */,
 				EA91C32B155A71D000BE5BB1 /* MainServiceManager.h */,
 				EA91C32C155A71D000BE5BB1 /* MainServiceManager.m */,
@@ -750,8 +791,6 @@
 		EA91C338155A747600BE5BB1 /* GetRequest Services */ = {
 			isa = PBXGroup;
 			children = (
-				EAD44FF11564FA190075C8CA /* Base64.h */,
-				EAD44FF01564FA190075C8CA /* Base64.m */,
 				EA91C339155A749400BE5BB1 /* GetPlayersDetailInvocation.h */,
 				EA91C33A155A749400BE5BB1 /* GetPlayersDetailInvocation.m */,
 				EA91C349155A899800BE5BB1 /* GetPlayersClass.h */,
@@ -1258,6 +1297,9 @@
 				EA96E852155E37A500BE82DF /* DDMenuController.m in Sources */,
 				EA96E85A155E670800BE82DF /* HomeViewController.m in Sources */,
 				EAD44FF21564FA190075C8CA /* Base64.m in Sources */,
+				EA3ABAE81565709100B262F7 /* GetLoginInvocation.m in Sources */,
+				EA3ABAED15657D3600B262F7 /* ResetPasswordInvocation.m in Sources */,
+				EA3ABAF115657FC800B262F7 /* ForgotPasswordInvocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

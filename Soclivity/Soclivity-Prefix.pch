@@ -20,3 +20,6 @@
 #define kNoLocation 123
 #define kGetPlayers 30
 #define kRegisterPlayer 31
+#define kLoginPlayer 32
+#define kResetWithNewPassword 33
+#define kForgotPassword 34

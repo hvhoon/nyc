@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface ResetPasswordViewController : UIViewController<UITextFieldDelegate>{
+@class MainServiceManager;
+@interface ResetPasswordViewController : UIViewController<UITextFieldDelegate,UIAlertViewDelegate>{
     
     IBOutlet UITextField *newPassword;
     IBOutlet UITextField *confirmPassword;
+     MainServiceManager *devServer;
 }
 -(void)CrossClicked:(id)sender;
 -(void)TickClicked:(id)sender;

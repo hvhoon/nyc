@@ -14,6 +14,7 @@
 #import "SettingsViewController.h"
 #import "UpComingEventsViewController.h"
 #import "AppDelegate.h"
+#import "GetPlayersClass.h"
 #define kDatePicker 123
 @interface RegistrationViewControler (private)<GetPlayersDetailDelegate,RegistrationDetailDelegate>
 @end
@@ -255,7 +256,7 @@
 		CGFloat pageWidth = self.scrollView.frame.size.height;
 		page = floor((self.scrollView.contentOffset.y - pageWidth / 2) / pageWidth) + 1;
         //NSLog(@"page=%d",page);
-#if 1        
+#if 0        
         if(!SOC.basicInfoDone){
         
         switch (page) {
@@ -378,6 +379,8 @@
                                   withResult:(NSArray*)result
                                    withError:(NSError*)error{
     NSLog(@"RegistrationDetailInvocationDidFinish called");
+    GetPlayersClass *obj=[result objectAtIndex:0];
+    NSLog(@"SOC ID=%d",[obj.idSoc intValue]);
 #if 0    
     HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
     

@@ -25,13 +25,6 @@
 @interface RegistrationDetailInvocation : ProjectAsyncInvocation<ParseOperationDelegate>{
      NSOperationQueue*queue;
 }
-@property (nonatomic,retain)NSString *first_name;
-@property (nonatomic,retain)NSString *last_name;
-@property (nonatomic,retain)NSString *email;
-@property (nonatomic,retain)NSString *birth_date;
-@property (nonatomic,retain)NSString *password;
-@property (nonatomic,retain)NSString *password_confirmation;
-@property (nonatomic,retain)NSString *activities;
 @property(nonatomic,retain) NSOperationQueue*queue;
--(NSData *)generatePostDataForData:(NSData *)uploadData fileName:(NSString *)fileName;
+
 @end

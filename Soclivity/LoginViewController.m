@@ -9,6 +9,18 @@
 #import "LoginViewController.h"
 #import "ResetPasswordViewController.h"
 #import "SoclivityUtilities.h"
+#import "GetPlayersClass.h"
+#import "MainServiceManager.h"
+#import "GetLoginInvocation.h"
+#import "ForgotPasswordInvocation.h"
+#define kEmptyFields 1
+#define kNoEmail 2
+#define kPasswordNot 3
+
+@interface LoginViewController(private)<GetLoginInvocationDelegate,ForgotPasswordInvocationDelegate>
+
+@end
+
 @implementation LoginViewController
 @synthesize emailAddress,password,backgroundState;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -27,19 +39,125 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
-- (void)drawRect:(CGRect)rect
-{
-    // Customized fonts
-    emailAddress.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
-    password.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
-}
-
 
 #pragma mark - View lifecycle
 -(IBAction)signUpButtonClicked:(id)sender{
     
+    
+    NSLog(@"emailAddress=%@",emailAddress.text);
+    NSLog(@"password=%@",password.text);
+    
+    if(!emailAddress.text.length && !password.text.length)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Required Fields"
+                                                        message:@"Need a email and password to login."
+                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kEmptyFields;
+        [alert show];
+        [alert release];
+        return;
+        
+    }
+    
+    // Make sure the field is no empty
+    if(![emailAddress.text isEqualToString:@""]){
+        
+        // Make sure it contains an '@' and '.'
+        NSString *searchForMe = @"@";
+        NSRange rangeCheckAtTheRate = [emailAddress.text rangeOfString : searchForMe];
+        
+        NSString *searchFor = @".";
+        NSRange rangeCheckFullStop = [emailAddress.text rangeOfString : searchFor];
+        
+        if (rangeCheckAtTheRate.location != NSNotFound && rangeCheckFullStop.location !=NSNotFound){
+            
+            // Ensure it has enough characters
+            NSString * charToCount = @"@";
+            NSArray * array = [emailAddress.text componentsSeparatedByString:charToCount];
+            NSInteger numberOfChar=[array count];
+            
+            if(numberOfChar==2)
+                validEmail = YES;
+        }
+    }
+    else
+        validEmail = NO;
+
+        
+    NSInteger length;
+    length = [password.text length];
+    if (length<6)
+        validPassword = NO;
+    else
+        validPassword = YES;
+        
+        
+    
+    // Alert if the email is not valid
+    if(!validEmail){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Email"
+                                                        message:nil
+                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kNoEmail;
+        [alert show];
+        [alert release];
+        return;
+    }
+    
+    // Alert is the password is not valid
+    if(!validPassword){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Security Alert!"
+                                                        message:@"Your password should have at least 6 characters."
+                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kPasswordNot;
+        [alert show];
+        [alert release];
+        return;
+    }
+    
+    
+   // [devServer getLoginInvocation:self.emailAddress.text Password:self.password.text  delegate:self];
+}
+-(void)LoginInvocationDidFinish:(GetLoginInvocation*)invocation
+                   withResponse:(NSArray*)responses
+                      withError:(NSError*)error{
+    NSLog(@"Successful Login");
+}
+#pragma mark -
+#pragma mark UIAlertView methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    [alertView resignFirstResponder];
+    if (buttonIndex == 0) {
+        
+        switch (alertView.tag) {
+            case kNoEmail:
+            {
+                [emailAddress becomeFirstResponder];
+            }
+                
+                break;
+            case kPasswordNot:
+            {
+                [password becomeFirstResponder];
+            }
+                break;
+            case kEmptyFields:
+            {
+                [emailAddress becomeFirstResponder];
+            }
+                break;
+            default:
+                break;
+        }
+    }
+    else{
+        NSLog(@"Clicked Cancel Button");
+    }
 }
 -(IBAction)resetPassword:(id)sender{
+    
+    //[devServer postForgotPasswordInvocation:emailAddress.text delegate:self];
     
     ResetPasswordViewController *resetPasswordViewController=[[ResetPasswordViewController alloc] initWithNibName:@"ResetPasswordViewController" bundle:nil];
     
@@ -52,9 +170,19 @@
 
 
 }
+-(void)ForgotPasswordInvocationDelegate:(ForgotPasswordInvocation*)invocation
+                           withResponse:(NSArray*)responses
+                              withError:(NSError*)error{
+    
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    devServer=[[MainServiceManager alloc]init];
+    
+    emailAddress.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    password.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+
     backgroundView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 460)];
     UIImage *bgImage=nil;
     switch (backgroundState) {
@@ -96,13 +224,17 @@
     // Do any additional setup after loading the view from its nib.
 }
 
+-(void)textFieldDidEndEditing:(UITextField *)textField {
+    NSLog(@"textFieldDidEndEditing");
+}
+
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if(textField ==emailAddress ) {
         [password becomeFirstResponder];
 		
     } 
 	else if(textField==password){
-		//[password resignFirstResponder];
 		[self signUpButtonClicked:nil];
 		
 	}
@@ -121,10 +253,13 @@
     // e.g. self.myOutlet = nil;
 }
 
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
+-(void)dealloc{
+    [super dealloc];
+}
 @end

@@ -17,7 +17,7 @@
 @implementation RegistrationDetailInvocation
 
 
-@synthesize  first_name, last_name,email,birth_date,password,password_confirmation,activities,queue;
+@synthesize  queue;
 
 
 -(void)dealloc {	
@@ -52,9 +52,6 @@
     [bodyD setObject:[NSString stringWithFormat:@"%f",playerLoc.coordinate.latitude]  forKey:@"location_lat"];
     [bodyD setObject:[NSString stringWithFormat:@"%f",playerLoc.coordinate.longitude]  forKey:@"location_lng"];
     
-    //[bodyD setObject:[NSString stringWithFormat:@"%.5f",36.78]  forKey:@"location_lat"];
-    //[bodyD setObject:[NSString stringWithFormat:@"%.5f",78.98]  forKey:@"location_lng"];
-
     
      //NSString *stringType=[NSString stringWithFormat:@"[1,5]"];
     //[bodyD setObject:stringType forKey:@"activity_type_ids"];
@@ -62,43 +59,17 @@
 
 
     
-    //[bodyD setObject:[self generatePostDataForData:player.profileImageData fileName:@"icon.jpg"]  forKey:@"photo"];
     NSLog(@"bodyDataJSONRepresentation=%@",[bodyD JSONRepresentation]);
     if(player.profileImageData!=nil)
     [bodyD setObject:[Base64 encode:player.profileImageData] forKey:@"photo_data"];
 
-//    NSLog(@"bodyDataJSONRepresentation=%@",[bodyD JSONRepresentation]);
     NSString *bodyData = [NSString stringWithFormat:@"{\"player\":%@}",[bodyD JSONRepresentation]];
      NSLog(@"bodyData=%@",bodyData);
 	return bodyData;
 #endif    
 }
 
--(NSData *)generatePostDataForData:(NSData *)uploadData fileName:(NSString *)fileName
-{
-	
-    // Generate the post header:
-	
-    NSString *post = [NSString stringWithFormat:@"--AaB03x\r\nContent-Disposition: form-data; name=\"Photo\"; filename=\"%@\"\r\nContent-Type: multipart\r\n\r\n", fileName];
-    
-    // Get the post header int ASCII format:
-    NSData *postHeaderData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-    
-    // Generate the mutable data variable:
-    NSMutableData *postData = [[NSMutableData alloc] initWithLength:[postHeaderData length] ];
-    [postData setData:postHeaderData];
-    
-    // Add the image:
-    [postData appendData: uploadData];
-    
-    // Add the closing boundry:
-    [postData appendData: [@"\r\n--AaB03x--" dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES]];
-    
-    // Return the post data:
-	
-	
-    return postData;
-}
+
 
 
 -(BOOL)handleHttpOK:(NSMutableData *)data {

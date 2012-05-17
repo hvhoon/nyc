@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface LoginViewController : UIViewController<UITextFieldDelegate>{
+@class MainServiceManager;
+@interface LoginViewController : UIViewController<UITextFieldDelegate,UIAlertViewDelegate>{
     UITextField *emailAddress;
     UITextField *password;
     UIImageView *backgroundView;
     int backgroundState;
+    BOOL validEmail, validPassword;
+    MainServiceManager *devServer;
 }
 @property (nonatomic,retain)IBOutlet UITextField *emailAddress;
 @property (nonatomic,retain)IBOutlet UITextField *password;

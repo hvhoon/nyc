@@ -7,6 +7,14 @@
 //
 
 #import "ResetPasswordViewController.h"
+#import "MainServiceManager.h"
+#import "ResetPasswordInvocation.h"
+#define kPasswordNot 1
+#define kEmptyFields 2
+
+@interface ResetPasswordViewController(private)<ResetPasswordInvocationDelegate>
+
+@end
 
 @implementation ResetPasswordViewController
 
@@ -39,6 +47,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    devServer=[[MainServiceManager alloc]init];
     [newPassword becomeFirstResponder];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 	[button setImage:[UIImage imageNamed:@"S02_cross_emb.png"] forState:UIControlStateNormal];
@@ -63,11 +72,11 @@
     self.navigationItem.titleView=passwordReset;
     [passwordReset release];
     
-    UITapGestureRecognizer *navSingleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navSingleTap)];
-    navSingleTap.numberOfTapsRequired = 1;
-    [[self.navigationController.navigationBar.subviews objectAtIndex:0] setUserInteractionEnabled:YES];
-    [[self.navigationController.navigationBar.subviews objectAtIndex:0] addGestureRecognizer:navSingleTap];
-    [navSingleTap release];
+//    UITapGestureRecognizer *navSingleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navSingleTap)];
+//    navSingleTap.numberOfTapsRequired = 1;
+//    [[self.navigationController.navigationBar.subviews objectAtIndex:0] setUserInteractionEnabled:YES];
+//    [[self.navigationController.navigationBar.subviews objectAtIndex:0] addGestureRecognizer:navSingleTap];
+//    [navSingleTap release];
 
     // Do any additional setup after loading the view from its nib.
 }
@@ -86,16 +95,84 @@
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 -(void)TickClicked:(id)sender{
+    
+    NSLog(@"emailAddress=%@",newPassword.text);
+    NSLog(@"password=%@",confirmPassword.text);
+    
+    if(!newPassword.text.length && !confirmPassword.text.length)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Required Fields"
+                                                        message:@"Need a newPassword  to reset."
+                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kEmptyFields;
+        [alert show];
+        [alert release];
+        return;
+        
+    }
+
+    
+    
+        if([newPassword.text isEqualToString:confirmPassword.text]){
+            
+        }
+        else{
+            newPassword.text=@"";
+            confirmPassword.text=@"";
+            
+            UIAlertView *passwordAlert = [[UIAlertView alloc] initWithTitle:@"Passwords do not match"
+                                                                    message:@"Try again......slowly."
+                                                                   delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+            
+            passwordAlert.tag=kPasswordNot;
+            [passwordAlert show];
+            [passwordAlert release];
+            return;
+
+        }
+    
+    [devServer postResetAndConfirmNewPasswordInvocation:newPassword.text cPassword:confirmPassword.text  delegate:self];
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
+
+-(void)ResetPasswordInvocationDidFinish:(ResetPasswordInvocation*)invocation
+                           withResponse:(NSArray*)responses
+                              withError:(NSError*)error{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark -
+#pragma mark UIAlertView methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    [alertView resignFirstResponder];
+    if (buttonIndex == 0) {
+        
+        switch (alertView.tag) {
+            case kPasswordNot:
+            {
+                [newPassword becomeFirstResponder];
+            }
+                break;
+            case kEmptyFields:
+            {
+                [newPassword becomeFirstResponder];
+            }
+                break;
+            default:
+                break;
+        }
+    }
+    else{
+        NSLog(@"Clicked Cancel Button");
+    }
+}
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    //[textField resignFirstResponder];
     if(textField ==newPassword) {
         [confirmPassword becomeFirstResponder];
 		
     } 
 	else if(textField==confirmPassword){
-		//[confirmPassword resignFirstResponder];
 		[self.navigationController dismissModalViewControllerAnimated:YES];
 		
 	}
