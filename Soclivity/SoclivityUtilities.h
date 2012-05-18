@@ -13,5 +13,7 @@
 }
 +(UIColor*)returnTextFontColor:(NSInteger)colorType;
 +(UIImage*)updateResult:(CGSize)sizeToFitTheImage originalImage:(UIImage*)originalImage switchCaseIndex:(int)switchCaseIndex;
++(BOOL)validEmail:(NSString*)email;
++(BOOL)validPassword:(NSString*)password;
 
 @end

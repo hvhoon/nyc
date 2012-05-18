@@ -9,6 +9,10 @@
 #import "LoginViewController.h"
 #import "ResetPasswordViewController.h"
 #import "SoclivityUtilities.h"
+
+#define kUsernameMissing 0
+#define kPasswordMissing 1
+
 @implementation LoginViewController
 @synthesize emailAddress,password,backgroundState;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -37,6 +41,38 @@
 
 #pragma mark - View lifecycle
 -(IBAction)signUpButtonClicked:(id)sender{
+    
+    NSLog(@"Sign-up botton clicked");
+    
+    // Form field validation
+    if(![SoclivityUtilities validEmail:emailAddress.text]){
+        
+        // Setup an alert for the missing email address
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Email Address"
+                                                        message:@"Please enter a valid email address to login."
+                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kUsernameMissing;
+        [alert show];
+        [alert release];
+        return;
+    }
+    else if([password.text isEqualToString:@""]){
+        
+        // Setup an alert for missing password
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Password"
+                                                        message:@"Nice try, but you really need a password to login."
+                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kPasswordMissing;
+        [alert show];
+        [alert release];
+        return;
+
+    }
+    else
+    {
+        // Send the login request
+        NSLog(@"Attempting to login...");
+    }
     
 }
 -(IBAction)resetPassword:(id)sender{
@@ -125,6 +161,28 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark -
+#pragma mark UIAlertView methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    [alertView resignFirstResponder];
+    if (buttonIndex == 0) {
+        
+        switch (alertView.tag) {
+            case kUsernameMissing:
+                [emailAddress becomeFirstResponder];
+                break;
+            case kPasswordMissing:
+                [password becomeFirstResponder];
+                break;
+            default:
+                break;
+        }
+    }
+    else
+        NSLog(@"Clicked Cancel Button");
 }
 
 @end
