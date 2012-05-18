@@ -108,6 +108,7 @@
 		EAB1366E15546B6D00C1607D /* FBSession.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB1366215546B6D00C1607D /* FBSession.m */; };
 		EAB1366F15546B6D00C1607D /* FBStreamDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB1366415546B6D00C1607D /* FBStreamDialog.m */; };
 		EAB1367015546B6D00C1607D /* FBXMLHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB1366615546B6D00C1607D /* FBXMLHandler.m */; };
+		EAC94D041566C11800400404 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC94D021566C11800400404 /* SFHFKeychainUtils.m */; };
 		EAD44FF21564FA190075C8CA /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD44FF01564FA190075C8CA /* Base64.m */; };
 		EAED83C21553FBC700124D7D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAED83C01553FBC700124D7D /* LoginViewController.m */; };
 		EAED83C31553FBC700124D7D /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAED83C11553FBC700124D7D /* LoginViewController.xib */; };
@@ -373,6 +374,8 @@
 		EAB1366415546B6D00C1607D /* FBStreamDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBStreamDialog.m; sourceTree = "<group>"; };
 		EAB1366515546B6D00C1607D /* FBXMLHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBXMLHandler.h; sourceTree = "<group>"; };
 		EAB1366615546B6D00C1607D /* FBXMLHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBXMLHandler.m; sourceTree = "<group>"; };
+		EAC94D021566C11800400404 /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
+		EAC94D031566C11800400404 /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
 		EAD44FF01564FA190075C8CA /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
 		EAD44FF11564FA190075C8CA /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
 		EAED83BF1553FBC700124D7D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -524,6 +527,7 @@
 		680CE3E81551258700B8E937 /* Soclivity */ = {
 			isa = PBXGroup;
 			children = (
+				EAC94D001566C0F100400404 /* Encryption */,
 				EA96E856155E66ED00BE82DF /* Home */,
 				EA96E84F155E378100BE82DF /* New Vendor */,
 				EA96E842155E2A8500BE82DF /* Upcoming */,
@@ -929,6 +933,15 @@
 			path = FBConnect;
 			sourceTree = "<group>";
 		};
+		EAC94D001566C0F100400404 /* Encryption */ = {
+			isa = PBXGroup;
+			children = (
+				EAC94D031566C11800400404 /* SFHFKeychainUtils.h */,
+				EAC94D021566C11800400404 /* SFHFKeychainUtils.m */,
+			);
+			name = Encryption;
+			sourceTree = "<group>";
+		};
 		EAED83E31554016200124D7D /* S02 Registration */ = {
 			isa = PBXGroup;
 			children = (
@@ -1306,6 +1319,7 @@
 				EA3ABAED15657D3600B262F7 /* ResetPasswordInvocation.m in Sources */,
 				EA3ABAF115657FC800B262F7 /* ForgotPasswordInvocation.m in Sources */,
 				EA97008D156624CE005A271A /* AlertPrompt.m in Sources */,
+				EAC94D041566C11800400404 /* SFHFKeychainUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

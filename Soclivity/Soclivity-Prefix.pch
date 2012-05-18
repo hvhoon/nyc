@@ -23,3 +23,5 @@
 #define kLoginPlayer 32
 #define kResetWithNewPassword 33
 #define kForgotPassword 34
+
+#define kSignOutSoclivity @"dev.soclivity.com/signout.json"

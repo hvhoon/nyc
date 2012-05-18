@@ -9,10 +9,10 @@
 #import "SoclivityUtilities.h"
 #import "UIImage+ProportionalFill.h"
 #import "UIImage+Tint.h"
-
 #define PASSWORD_LENGTH 6
 
 @implementation SoclivityUtilities
+
 
 
 +(UIColor*)returnTextFontColor:(NSInteger)colorType{

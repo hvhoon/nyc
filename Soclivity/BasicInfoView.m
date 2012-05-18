@@ -10,6 +10,7 @@
 #import "SoclivityUtilities.h"
 #import <QuartzCore/QuartzCore.h>
 #import "GetPlayersClass.h"
+#import "SFHFKeychainUtils.h"
 #define kPicture 0
 #define kName 1
 #define kEmail 2
@@ -277,6 +278,13 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
         else{
             playerObj.first_name=[words objectAtIndex:0];
         }
+        
+        if([ SFHFKeychainUtils storeUsername:@"password" andPassword:enterPasswordTextField.text forServiceName:@"Soclivity" updateExisting:YES error:nil])
+            NSLog(@"Password Encrypted");
+        
+        if([ SFHFKeychainUtils storeUsername:@"emailAddress" andPassword:emailTextField.text forServiceName:@"Soclivity" updateExisting:YES error:nil])
+            NSLog(@"EmailAddress Encrypted");
+
 
     }
     else {

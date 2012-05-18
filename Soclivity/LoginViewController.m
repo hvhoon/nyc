@@ -14,6 +14,7 @@
 #import "GetLoginInvocation.h"
 #import "ForgotPasswordInvocation.h"
 #import "AlertPrompt.h"
+#import "SFHFKeychainUtils.h"
 #define kUsernameMissing 0
 #define kPasswordMissing 1
 #define kALertPrompt 2
@@ -84,6 +85,13 @@
                    withResponse:(NSArray*)responses
                       withError:(NSError*)error{
     NSLog(@"Successful Login");
+    
+    if([ SFHFKeychainUtils storeUsername:@"password" andPassword: password.text forServiceName:@"Soclivity" updateExisting:YES error:nil])
+		NSLog(@"Password Encrypted");
+	
+	if([ SFHFKeychainUtils storeUsername:@"emailAddress" andPassword: emailAddress.text forServiceName:@"Soclivity" updateExisting:YES error:nil])
+		NSLog(@"EmailAddress Encrypted");
+
     NSLog(@"RegistrationDetailInvocationDidFinish called");
     GetPlayersClass *obj=[responses objectAtIndex:0];
     NSLog(@"SOC ID=%d",[obj.idSoc intValue]);
