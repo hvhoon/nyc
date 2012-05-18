@@ -13,10 +13,10 @@
 #import "MainServiceManager.h"
 #import "GetLoginInvocation.h"
 #import "ForgotPasswordInvocation.h"
-#define kEmptyFields 1
-#define kNoEmail 2
-#define kPasswordNot 3
-
+#import "AlertPrompt.h"
+#define kUsernameMissing 0
+#define kPasswordMissing 1
+#define kALertPrompt 2
 @interface LoginViewController(private)<GetLoginInvocationDelegate,ForgotPasswordInvocationDelegate>
 
 @end
@@ -43,121 +43,66 @@
 #pragma mark - View lifecycle
 -(IBAction)signUpButtonClicked:(id)sender{
     
+    NSLog(@"Sign-up botton clicked");
     
-    NSLog(@"emailAddress=%@",emailAddress.text);
-    NSLog(@"password=%@",password.text);
-    
-    if(!emailAddress.text.length && !password.text.length)
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Required Fields"
-                                                        message:@"Need a email and password to login."
+    // Form field validation
+    if(![SoclivityUtilities validEmail:emailAddress.text]){
+        
+        // Setup an alert for the missing email address
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Email Address"
+                                                        message:@"Please enter a valid email address to login."
                                                        delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-        alert.tag=kEmptyFields;
+        alert.tag=kUsernameMissing;
         [alert show];
         [alert release];
         return;
         
     }
-    
-    // Make sure the field is no empty
-    if(![emailAddress.text isEqualToString:@""]){
+    else if([password.text isEqualToString:@""]){
         
-        // Make sure it contains an '@' and '.'
-        NSString *searchForMe = @"@";
-        NSRange rangeCheckAtTheRate = [emailAddress.text rangeOfString : searchForMe];
-        
-        NSString *searchFor = @".";
-        NSRange rangeCheckFullStop = [emailAddress.text rangeOfString : searchFor];
-        
-        if (rangeCheckAtTheRate.location != NSNotFound && rangeCheckFullStop.location !=NSNotFound){
-            
-            // Ensure it has enough characters
-            NSString * charToCount = @"@";
-            NSArray * array = [emailAddress.text componentsSeparatedByString:charToCount];
-            NSInteger numberOfChar=[array count];
-            
-            if(numberOfChar==2)
-                validEmail = YES;
-        }
-    }
-    else
-        validEmail = NO;
+        // Setup an alert for missing password
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Password"
+                                                        message:@"Nice try, but you really need a password to login."
+                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kPasswordMissing;
+        [alert show];
+        [alert release];
+        return;
 
-        
-    NSInteger length;
-    length = [password.text length];
-    if (length<6)
-        validPassword = NO;
+    }
     else
-        validPassword = YES;
-        
-        
-    
-    // Alert if the email is not valid
-    if(!validEmail){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Email"
-                                                        message:nil
-                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-        alert.tag=kNoEmail;
-        [alert show];
-        [alert release];
-        return;
-    }
-    
-    // Alert is the password is not valid
-    if(!validPassword){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Security Alert!"
-                                                        message:@"Your password should have at least 6 characters."
-                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-        alert.tag=kPasswordNot;
-        [alert show];
-        [alert release];
-        return;
+    {
+        // Send the login request
+        NSLog(@"Attempting to login...");
+        //[devServer getLoginInvocation:self.emailAddress.text Password:self.password.text  delegate:self];
     }
     
     
-   // [devServer getLoginInvocation:self.emailAddress.text Password:self.password.text  delegate:self];
+   
 }
 -(void)LoginInvocationDidFinish:(GetLoginInvocation*)invocation
                    withResponse:(NSArray*)responses
                       withError:(NSError*)error{
     NSLog(@"Successful Login");
 }
-#pragma mark -
-#pragma mark UIAlertView methods
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    
-    [alertView resignFirstResponder];
-    if (buttonIndex == 0) {
-        
-        switch (alertView.tag) {
-            case kNoEmail:
-            {
-                [emailAddress becomeFirstResponder];
-            }
-                
-                break;
-            case kPasswordNot:
-            {
-                [password becomeFirstResponder];
-            }
-                break;
-            case kEmptyFields:
-            {
-                [emailAddress becomeFirstResponder];
-            }
-                break;
-            default:
-                break;
-        }
-    }
-    else{
-        NSLog(@"Clicked Cancel Button");
-    }
-}
+
 -(IBAction)resetPassword:(id)sender{
     
-    //[devServer postForgotPasswordInvocation:emailAddress.text delegate:self];
+    AlertPrompt *prompt = [AlertPrompt alloc];
+    prompt.tag=kALertPrompt;
+    prompt = [prompt initWithTitle:@"Forgot Password?" 
+                 message:@"To reset your password, please enter your email address.                                                                    ."
+        delegate:self cancelButtonTitle:@"Cancel" okButtonTitle:@"Reset"];
+    [prompt show];
+    [prompt release];
+    
+    
+    
+
+}
+-(void)ForgotPasswordInvocationDelegate:(ForgotPasswordInvocation*)invocation
+                           withResponse:(NSArray*)responses
+                              withError:(NSError*)error{
     
     ResetPasswordViewController *resetPasswordViewController=[[ResetPasswordViewController alloc] initWithNibName:@"ResetPasswordViewController" bundle:nil];
     
@@ -168,11 +113,6 @@
     [resetPasswordViewController release];
     [addNavigationController release];
 
-
-}
--(void)ForgotPasswordInvocationDelegate:(ForgotPasswordInvocation*)invocation
-                           withResponse:(NSArray*)responses
-                              withError:(NSError*)error{
     
 }
 - (void)viewDidLoad
@@ -259,7 +199,41 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
--(void)dealloc{
-    [super dealloc];
+
+#pragma mark -
+#pragma mark UIAlertView methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    //[alertView resignFirstResponder];
+    
+    if(alertView.tag==kALertPrompt){
+        if (buttonIndex == 0) {
+            [emailAddress becomeFirstResponder];
+        }
+        else{
+            //Reset Pressed
+            [emailAddress becomeFirstResponder];
+
+            //[devServer postForgotPasswordInvocation:emailAddress.text delegate:self];
+        }
+    }
+    else{
+    if (buttonIndex == 0) {
+        
+        switch (alertView.tag) {
+            case kUsernameMissing:
+                [emailAddress becomeFirstResponder];
+                break;
+            case kPasswordMissing:
+                [password becomeFirstResponder];
+                break;
+            default:
+                break;
+        }
+    }
+    else
+        NSLog(@"Clicked Cancel Button");
+    }
 }
+
 @end

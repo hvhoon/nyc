@@ -191,6 +191,17 @@ NSDateFormatter* gJSONDateFormatter = nil;
 	[self execute:@"PUT"  path:path body:body];
 }
 
+-(void)delete:(NSString*)path{
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	NSMutableURLRequest* request = [[[NSMutableURLRequest alloc] init] autorelease]; 
+	NSString* url = [NSMutableString stringWithFormat:@"http://%@", path];
+	[request setURL:[NSURL URLWithString:url]];
+	[request setHTTPMethod:@"DELETE"];
+	[self addHeaders:request];
+	[NSURLConnection connectionWithRequest:request delegate:self];
+	[pool release];
+}
+
 -(void)addHeaders:(NSMutableURLRequest*)request {
     if (_clientVersion) {
 		NSString* headerName = _clientVersionHeaderName;

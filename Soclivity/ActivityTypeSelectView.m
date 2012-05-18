@@ -16,6 +16,14 @@
 #define HIDDEN 0.2
 #define SHOW 1.0
 
+#define kPlay 0
+#define kEat 1
+#define kSee 2
+#define kCreate 3
+#define kLearn 4
+
+
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -96,6 +104,72 @@
         return;
     }
     else{
+        NSString *activitySelect=nil;
+        for(int i=0;i<5;i++){
+            switch (i) {
+                case kPlay:
+                {
+                    if(play){
+                        if(activitySelect==nil)
+                            activitySelect=[NSString stringWithFormat:@"1"];
+                    }
+                }
+                    break;
+                    
+                case kEat:
+                {
+                    if(eat){
+                        if(activitySelect==nil)
+                            activitySelect=[NSString stringWithFormat:@"2"];
+                        else{
+                            activitySelect=[NSString stringWithFormat:@"%@,2",activitySelect];
+                            
+                        }
+                    }
+                }
+                    break;
+                case kSee:
+                {
+                    if(see){
+                        if(activitySelect==nil)
+                            activitySelect=[NSString stringWithFormat:@"3"];
+                        else{
+                            activitySelect=[NSString stringWithFormat:@"%@,3",activitySelect];
+                            
+                        }
+                    }
+                }
+                    break;
+                case kCreate:
+                {
+                    if(create){
+                        if(activitySelect==nil)
+                            activitySelect=[NSString stringWithFormat:@"4"];
+                        else{
+                            activitySelect=[NSString stringWithFormat:@"%@,4",activitySelect];
+                            
+                        }
+                    }
+                }
+                    break;
+                case kLearn:
+                {
+                    if(learn){
+                        if(activitySelect==nil)
+                            activitySelect=[NSString stringWithFormat:@"5"];
+                        else{
+                            activitySelect=[NSString stringWithFormat:@"%@,5",activitySelect];
+                            
+                        }
+                    }
+                }
+                    break;
+
+
+                    
+            }
+        }
+        playerObj.activityTypes=activitySelect;
         [delegate pushHomeMapViewController];
     }
 }

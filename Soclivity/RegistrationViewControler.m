@@ -254,28 +254,6 @@
 		CGFloat pageWidth = self.scrollView.frame.size.height;
 		page = floor((self.scrollView.contentOffset.y - pageWidth / 2) / pageWidth) + 1;
         //NSLog(@"page=%d",page);
-#if 0        
-        if(!SOC.basicInfoDone){
-        
-        switch (page) {
-            case 0:
-            {
-                //pageControlBeingUsed=TRUE;
-            }
-                break;
-                
-            case 1:
-            {
-                pageControlBeingUsed=TRUE;
-                [self timeToScrollDown];
-//                [basicSectionFirst BasicInfoFields];
-//                CGRect frame;
-//                frame.origin.x = 0;
-//                frame.size = self.scrollView.frame.size;
-//                frame.origin.y = 0;
-//                [self.scrollView scrollRectToVisible:frame animated:YES];
-            }
-                break;
 
         if(!SOC.basicInfoDone)
         {
@@ -387,6 +365,12 @@
     NSLog(@"RegistrationDetailInvocationDidFinish called");
     GetPlayersClass *obj=[result objectAtIndex:0];
     NSLog(@"SOC ID=%d",[obj.idSoc intValue]);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Welcome to soclivity"
+                                                    message:@"You have registered successfully"
+                                                   delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+    [alert show];
+    [alert release];
+    return;
 #if 0    
     HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
     

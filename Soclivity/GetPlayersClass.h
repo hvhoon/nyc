@@ -21,6 +21,7 @@
     NSString *password_confirmation;
     NSData *profileImageData;
     NSString *gender;
+    NSString*activityTypes;
 
     
 }
@@ -35,4 +36,5 @@
 @property(nonatomic,retain)NSString *password_confirmation;
 @property (nonatomic,retain)NSData *profileImageData;
 @property (nonatomic,retain)NSString *gender;
+@property (nonatomic,retain)NSString*activityTypes;
 @end

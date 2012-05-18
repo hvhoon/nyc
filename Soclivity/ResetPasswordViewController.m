@@ -7,11 +7,10 @@
 //
 
 #import "ResetPasswordViewController.h"
+#import "SoclivityUtilities.h"
 #import "MainServiceManager.h"
 #import "ResetPasswordInvocation.h"
-#define kPasswordNot 1
-#define kEmptyFields 2
-
+#define kNewPasswordNot 0
 @interface ResetPasswordViewController(private)<ResetPasswordInvocationDelegate>
 
 @end
@@ -35,18 +34,14 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (void)drawRect:(CGRect)rect
-{
-    // Customized fonts
-    newPassword.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
-    confirmPassword.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
-}
-
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    newPassword.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    confirmPassword.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+
     devServer=[[MainServiceManager alloc]init];
     [newPassword becomeFirstResponder];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -72,19 +67,9 @@
     self.navigationItem.titleView=passwordReset;
     [passwordReset release];
     
-//    UITapGestureRecognizer *navSingleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navSingleTap)];
-//    navSingleTap.numberOfTapsRequired = 1;
-//    [[self.navigationController.navigationBar.subviews objectAtIndex:0] setUserInteractionEnabled:YES];
-//    [[self.navigationController.navigationBar.subviews objectAtIndex:0] addGestureRecognizer:navSingleTap];
-//    [navSingleTap release];
-
-    // Do any additional setup after loading the view from its nib.
 }
 
 
--(void)navSingleTap{
-    NSLog(@"navSingleTap");
-}
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -96,43 +81,46 @@
 }
 -(void)TickClicked:(id)sender{
     
-    NSLog(@"emailAddress=%@",newPassword.text);
-    NSLog(@"password=%@",confirmPassword.text);
-    
-    if(!newPassword.text.length && !confirmPassword.text.length)
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Required Fields"
-                                                        message:@"Need a newPassword  to reset."
+    // Check to see if the password is even valid
+    if(![SoclivityUtilities validPassword:newPassword.text]){
+        
+        // If the password is invalid, please clear both fields
+        newPassword.text = @"";
+        confirmPassword.text = @"";
+        
+        // Setup an alert for the invalid password
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Security Alert!"
+                                                        message:@"Your password should have at least 6 characters."
                                                        delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-        alert.tag=kEmptyFields;
+        alert.tag=kNewPasswordNot;
         [alert show];
         [alert release];
         return;
+
+    }
+    // Check to see the passwords match
+    else if(![confirmPassword.text isEqualToString:newPassword.text]){
         
+        // if the passwords don't match, first clear the fields
+        newPassword.text = @"";
+        confirmPassword.text = @"";
+        
+        // Setup an alert for passwords that don't match
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Passwords do not match"
+                                                                message:@"Please try again!"
+                                                               delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kNewPasswordNot;
+        [alert show];
+        [alert release];
+        return;
     }
 
     
-    
-        if([newPassword.text isEqualToString:confirmPassword.text]){
-            
-        }
-        else{
-            newPassword.text=@"";
-            confirmPassword.text=@"";
-            
-            UIAlertView *passwordAlert = [[UIAlertView alloc] initWithTitle:@"Passwords do not match"
-                                                                    message:@"Try again......slowly."
-                                                                   delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-            
-            passwordAlert.tag=kPasswordNot;
-            [passwordAlert show];
-            [passwordAlert release];
-            return;
-
-        }
-    
+    else{
+       
     [devServer postResetAndConfirmNewPasswordInvocation:newPassword.text cPassword:confirmPassword.text  delegate:self];
     [self.navigationController dismissModalViewControllerAnimated:YES];
+    }
 }
 
 -(void)ResetPasswordInvocationDidFinish:(ResetPasswordInvocation*)invocation
@@ -141,39 +129,14 @@
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
-#pragma mark -
-#pragma mark UIAlertView methods
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    
-    [alertView resignFirstResponder];
-    if (buttonIndex == 0) {
-        
-        switch (alertView.tag) {
-            case kPasswordNot:
-            {
-                [newPassword becomeFirstResponder];
-            }
-                break;
-            case kEmptyFields:
-            {
-                [newPassword becomeFirstResponder];
-            }
-                break;
-            default:
-                break;
-        }
-    }
-    else{
-        NSLog(@"Clicked Cancel Button");
-    }
-}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if(textField ==newPassword) {
         [confirmPassword becomeFirstResponder];
 		
     } 
 	else if(textField==confirmPassword){
-		[self.navigationController dismissModalViewControllerAnimated:YES];
+		[self TickClicked:nil];
 		
 	}
 	

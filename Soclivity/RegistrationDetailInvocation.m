@@ -27,8 +27,10 @@
 
 -(void)invoke {
     NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/players.json"];//dev.soclivity.com/players.json
-	[self post:a
-		  body:[self body]];
+	[self post:a body:[self body]];//dev.soclivity.com/players/17.json
+    
+    //[self put:a body:[self body]];
+    //[self delete:a];
 }
 
 -(NSString*)body {
@@ -49,16 +51,16 @@
 	[bodyD setObject:player.password_confirmation  forKey:@"password_confirmation"];
     if(player.gender!=nil)
     [bodyD setObject:player.gender  forKey:@"gender"];
+    
+    if(playerLoc.coordinate.latitude!=0.0f && playerLoc.coordinate.longitude!=0.0f){
     [bodyD setObject:[NSString stringWithFormat:@"%f",playerLoc.coordinate.latitude]  forKey:@"location_lat"];
     [bodyD setObject:[NSString stringWithFormat:@"%f",playerLoc.coordinate.longitude]  forKey:@"location_lng"];
+    }
     
-    
-     //NSString *stringType=[NSString stringWithFormat:@"[1,5]"];
-    //[bodyD setObject:stringType forKey:@"activity_type_ids"];
+     //NSString *stringType=[NSString stringWithFormat:@"1,5"];
+     [bodyD setObject:player.activityTypes forKey:@"activity_type_ids"];
 
 
-
-    
     NSLog(@"bodyDataJSONRepresentation=%@",[bodyD JSONRepresentation]);
     if(player.profileImageData!=nil)
     [bodyD setObject:[Base64 encode:player.profileImageData] forKey:@"photo_data"];
@@ -73,6 +75,10 @@
 
 
 -(BOOL)handleHttpOK:(NSMutableData *)data {
+    
+    NSString *response=[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+    NSLog(@"response=%@",response);
+
     self.queue = [[NSOperationQueue alloc] init];
     ParseOperation *parser = [[ParseOperation alloc] initWithData:data delegate:self tagJsonService:kRegisterPlayer];
     

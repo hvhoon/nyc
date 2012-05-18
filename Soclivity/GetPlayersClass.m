@@ -20,6 +20,7 @@
 @synthesize password_confirmation;
 @synthesize profileImageData;
 @synthesize gender;
+@synthesize activityTypes;
 -(void)dealloc{
     [super dealloc];
     [birth_date release];
@@ -33,5 +34,6 @@
     [password_confirmation release];
     [profileImageData release];
     [gender release];
+    [activityTypes release];
 }
 @end
