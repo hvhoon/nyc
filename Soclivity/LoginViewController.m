@@ -60,7 +60,7 @@
         
         // Setup an alert for missing password
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Password"
-                                                        message:@"Nice try, but we really need your password to log you in."
+                                                        message:@"Nice try, but you really need a password to login."
                                                        delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
         alert.tag=kPasswordMissing;
         [alert show];

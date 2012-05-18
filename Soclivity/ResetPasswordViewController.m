@@ -93,6 +93,10 @@
     // Check to see if the password is even valid
     if(![SoclivityUtilities validPassword:newPassword.text]){
         
+        // If the password is invalid, please clear both fields
+        newPassword.text = @"";
+        confirmPassword.text = @"";
+        
         // Setup an alert for the invalid password
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Security Alert!"
                                                         message:@"Your password should have at least 6 characters."

@@ -41,13 +41,13 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
 }
 
 
-
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
     // Customized fonts
     SOC=[SoclivityManager SharedInstance];
+    SOC.basicInfoDone = NO;
 
     enterNameTextField.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     enterNameTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
@@ -206,9 +206,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
 }
 
 -(void)BasicInfoFields{
-    
-    SOC.basicInfoDone=FALSE;
-        
+            
     NSLog(@"enterNameTextField=%@",enterNameTextField.text);
     NSLog(@"emailTextField=%@",emailTextField.text);
     NSLog(@"enterPasswordTextField=%@",enterPasswordTextField.text);
@@ -250,6 +248,11 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
     
     // Alert is the password is not valid
     if(!validPassword){
+        
+        // Clear both the password fields if an invalid password is entered
+        enterPasswordTextField.text = @"";
+        confirmPasswordTextField.text = @"";
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Security Alert!"
                                                         message:@"Your password should have at least 6 characters."
                                                         delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
@@ -261,8 +264,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
         
     if(passwordsMatched){
         
-        NSLog(@"Password Matched");
-        SOC.basicInfoDone=TRUE;
+        NSLog(@"Information stored in player object");
         playerObj.email=emailTextField.text;
         playerObj.password=enterPasswordTextField.text;
         playerObj.password_confirmation=confirmPasswordTextField.text;
@@ -503,7 +505,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
 }
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
 	
-     SOC.basicInfoDone=FALSE;
+    SOC.basicInfoDone=FALSE;
     
     NSLog(@"textFieldDidBeginEditing");
     if(footerActivated){
@@ -559,10 +561,14 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
     [textField resignFirstResponder];
     
     // If all the fields are valid, let the user move to the next screen
-    if(validName && validEmail && validPassword && passwordsMatched)
+    if(validName && validEmail && validPassword && passwordsMatched){
+        SOC.basicInfoDone = YES;
         [[NSNotificationCenter defaultCenter] postNotificationName:kStartScrolling object:nil];
-    else
+    }
+    else {
+        SOC.basicInfoDone = NO;
         [[NSNotificationCenter defaultCenter] postNotificationName:kStopScrolling object:nil];
+    }
     
 	[UIView beginAnimations:nil context:NULL];
     [UIView setAnimationBeginsFromCurrentState:YES];
