@@ -187,4 +187,24 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark -
+#pragma mark UIAlertView methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    [alertView resignFirstResponder];
+    if (buttonIndex == 0) {
+        
+        switch (alertView.tag) {
+            case kNewPasswordNot:
+                [newPassword becomeFirstResponder];
+                break;
+            default:
+                break;
+        }
+    }
+    else
+        NSLog(@"Clicked Cancel Button");
+}
+
+
 @end

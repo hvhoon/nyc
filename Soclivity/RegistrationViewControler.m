@@ -240,9 +240,6 @@
         [UIView commitAnimations];
         footerActivated = YES;
     }
-
-
-
     self.scrollView.scrollEnabled = NO;
 }
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
@@ -252,7 +249,8 @@
     [birthDayPicker setHidden:YES];
 
     if (!pageControlBeingUsed) {
-		// Switch the indicator when more than 50% of the previous/next view is visible
+		
+        // Switch the indicator when more than 50% of the previous/next view is visible
 		CGFloat pageWidth = self.scrollView.frame.size.height;
 		page = floor((self.scrollView.contentOffset.y - pageWidth / 2) / pageWidth) + 1;
         //NSLog(@"page=%d",page);
@@ -279,17 +277,25 @@
             }
                 break;
 
-                
-            default:
-                break;
+        if(!SOC.basicInfoDone)
+        {
+            switch (page) {
+                case 0:
+                    break;
+                case 1:
+                    pageControlBeingUsed=TRUE;
+                    [self timeToScrollDown];
+                    break;
+                default:
+                    break;
+            }
         }
-        }
-#endif        
-	}
+    }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
 	pageControlBeingUsed = NO;
+    [basicSectionFirst BasicInfoFields];
     NSLog(@"scrollViewWillBeginDragging");
 }
 

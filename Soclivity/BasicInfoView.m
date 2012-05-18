@@ -24,7 +24,6 @@
 #define kEntryAdded 10
 #define kEmailNot 11
 #define kPasswordNot 12
-#define kConfirmPasswordNot 13
 #define kFutureBirthdayDate 14
 @implementation BasicInfoView
 
@@ -42,13 +41,13 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
 }
 
 
-
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
     // Customized fonts
     SOC=[SoclivityManager SharedInstance];
+    SOC.basicInfoDone = NO;
 
     enterNameTextField.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     enterNameTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
@@ -207,9 +206,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
 }
 
 -(void)BasicInfoFields{
-    
-    SOC.basicInfoDone=FALSE;
-        
+            
     NSLog(@"enterNameTextField=%@",enterNameTextField.text);
     NSLog(@"emailTextField=%@",emailTextField.text);
     NSLog(@"enterPasswordTextField=%@",enterPasswordTextField.text);
@@ -251,6 +248,11 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
     
     // Alert is the password is not valid
     if(!validPassword){
+        
+        // Clear both the password fields if an invalid password is entered
+        enterPasswordTextField.text = @"";
+        confirmPasswordTextField.text = @"";
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Security Alert!"
                                                         message:@"Your password should have at least 6 characters."
                                                         delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
@@ -262,8 +264,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
         
     if(passwordsMatched && [enterPasswordTextField.text isEqualToString:confirmPasswordTextField.text]){
         
-        NSLog(@"Password Matched");
-        SOC.basicInfoDone=TRUE;
+        NSLog(@"Information stored in player object");
         playerObj.email=emailTextField.text;
         playerObj.password=enterPasswordTextField.text;
         playerObj.password_confirmation=confirmPasswordTextField.text;
@@ -318,12 +319,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
             [enterPasswordTextField becomeFirstResponder];
         }
             break;
-        case kConfirmPasswordNot:
-        {
-            [confirmPasswordTextField becomeFirstResponder];
-        }
-            break;
-         default:
+        default:
             break;
     }
     }
@@ -509,7 +505,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
 }
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
 	
-     SOC.basicInfoDone=FALSE;
+    SOC.basicInfoDone=FALSE;
     
     NSLog(@"textFieldDidBeginEditing");
     if(footerActivated){
@@ -542,43 +538,12 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
     }
     
     // Checking the email field
-    if(textField == emailTextField) {
-        
-        // Make sure the field is no empty
-        if(![textField.text isEqualToString:@""]){
-            
-            // Make sure it contains an '@' and '.'
-            NSString *searchForMe = @"@";
-            NSRange rangeCheckAtTheRate = [textField.text rangeOfString : searchForMe];
-            
-            NSString *searchFor = @".";
-            NSRange rangeCheckFullStop = [textField.text rangeOfString : searchFor];
-            
-            if (rangeCheckAtTheRate.location != NSNotFound && rangeCheckFullStop.location !=NSNotFound){
-                
-                // Ensure it has enough characters
-                NSString * charToCount = @"@";
-                NSArray * array = [textField.text componentsSeparatedByString:charToCount];
-                NSInteger numberOfChar=[array count];
-                
-                if(numberOfChar==2)
-                    validEmail = YES;
-            }
-        }
-        else
-            validEmail = NO;
-    }
+    if(textField == emailTextField)
+        validEmail = [SoclivityUtilities validEmail:emailTextField.text];
     
     // Checking the password
-    if(textField == enterPasswordTextField) {
-        // Check length of the password
-        NSInteger length;
-        length = [textField.text length];
-        if (length<6)
-            validPassword = NO;
-        else
-            validPassword = YES;
-    }
+    if(textField == enterPasswordTextField)
+        validPassword = [SoclivityUtilities validPassword:enterPasswordTextField.text];
     
     // Checking to see if the passwords match
     if(textField == confirmPasswordTextField){
@@ -596,10 +561,14 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
     [textField resignFirstResponder];
     
     // If all the fields are valid, let the user move to the next screen
-    if(validName && validEmail && validPassword && passwordsMatched)
+    if(validName && validEmail && validPassword && passwordsMatched){
+        SOC.basicInfoDone = YES;
         [[NSNotificationCenter defaultCenter] postNotificationName:kStartScrolling object:nil];
-    else
+    }
+    else {
+        SOC.basicInfoDone = NO;
         [[NSNotificationCenter defaultCenter] postNotificationName:kStopScrolling object:nil];
+    }
     
 	[UIView beginAnimations:nil context:NULL];
     [UIView setAnimationBeginsFromCurrentState:YES];
