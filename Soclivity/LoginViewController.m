@@ -74,7 +74,7 @@
     {
         // Send the login request
         NSLog(@"Attempting to login...");
-        //[devServer getLoginInvocation:self.emailAddress.text Password:self.password.text  delegate:self];
+        [devServer getLoginInvocation:self.emailAddress.text Password:self.password.text  delegate:self];
     }
     
     
@@ -84,6 +84,15 @@
                    withResponse:(NSArray*)responses
                       withError:(NSError*)error{
     NSLog(@"Successful Login");
+    NSLog(@"RegistrationDetailInvocationDidFinish called");
+    GetPlayersClass *obj=[responses objectAtIndex:0];
+    NSLog(@"SOC ID=%d",[obj.idSoc intValue]);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Welcome to soclivity"
+                                                    message:@"You have signed in successfully"
+                                                   delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+    [alert show];
+    [alert release];
+    return;
 }
 
 -(IBAction)resetPassword:(id)sender{

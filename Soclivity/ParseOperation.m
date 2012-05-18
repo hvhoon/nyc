@@ -91,7 +91,7 @@
 {
     //NSLog(@"Inside json delegate parserFoundObjectStart");
     //if(arrayInsert){
-        if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer))
+        if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer))
         self.playerObject=[[[GetPlayersClass alloc]init]autorelease];
         
    // }
@@ -101,7 +101,7 @@
 {
     //NSLog(@"Inside json delegate foundObjectKey");
     
-    if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)){  
+    if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer)){  
         if ([key isEqualToString:@"birth_date"]) {
                 mappedKey=key;
         }
@@ -133,7 +133,7 @@
     
     
     //if(arrayInsert){
-        if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer))
+        if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer))
             [[self workingArray] addObject:self.playerObject];
         
     //}
@@ -166,7 +166,7 @@
 - (void)parser:(SBJsonStreamParser*)parser foundNumber:(NSNumber*)num{
     //    NSLog(@"Inside json delegate foundNumber");
     
-    if(jsonQueryKey==kGetPlayers||jsonQueryKey==kRegisterPlayer){
+    if(jsonQueryKey==kGetPlayers||jsonQueryKey==kRegisterPlayer||jsonQueryKey==kLoginPlayer){
         if ([mappedKey isEqualToString:@"id"]) {
             self.playerObject.idSoc = num;
             mappedKey=nil;
@@ -179,7 +179,7 @@
 - (void)parser:(SBJsonStreamParser*)parser foundString:(NSString*)string{
     //    	NSLog(@"Inside json delegate foundString");
     
-    if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)){
+    if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer)){
             
         if ([mappedKey isEqualToString:@"birth_date"]) {
             self.playerObject.birth_date = string;
