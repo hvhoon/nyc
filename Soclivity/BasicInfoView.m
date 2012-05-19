@@ -238,7 +238,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
     if(!enterNameTextField.text.length && !emailTextField.text.length && !enterPasswordTextField.text.length && !confirmPasswordTextField.text.length)
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Required Fields"
-                                                        message:@"Just need a name, email and password to register."
+                                                        message:@"Just need a name, email, location and password to register."
                                                        delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
         alert.tag=kNameNot;
         [alert show];
