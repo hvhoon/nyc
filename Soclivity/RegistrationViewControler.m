@@ -39,10 +39,6 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-
-
-
-
 -(void)BackButtonClicked{
     
     [self.navigationController popViewControllerAnimated:YES];
@@ -349,6 +345,9 @@
     
     [devServer registrationDetailInvocation:self];
     
+    // Start the animation
+    [activitySectionSecond startAnimation];
+    
     //[devServer GetPlayersInvocation:self];
 }
 
@@ -362,6 +361,9 @@
 -(void)RegistrationDetailInvocationDidFinish:(RegistrationDetailInvocation*)invocation 
                                   withResult:(NSArray*)result
                                    withError:(NSError*)error{
+    // Stop the animation
+    [activitySectionSecond stopAnimation];
+    
     NSLog(@"RegistrationDetailInvocationDidFinish called");
     GetPlayersClass *obj=[result objectAtIndex:0];
     NSLog(@"SOC ID=%d",[obj.idSoc intValue]);

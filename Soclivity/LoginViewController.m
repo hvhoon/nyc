@@ -22,6 +22,8 @@
 @end
 
 @implementation LoginViewController
+@synthesize progressGear;
+@synthesize rightArrowButton;
 @synthesize emailAddress,password,backgroundState;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -72,17 +74,26 @@
     }
     else
     {
+        // Start the animation
+        [progressGear startAnimating];
+        [rightArrowButton setHidden:YES];
+        
         // Send the login request
         NSLog(@"Attempting to login...");
         [devServer getLoginInvocation:self.emailAddress.text Password:self.password.text  delegate:self];
+        
+        
+        
     }
-    
-    
-   
 }
 -(void)LoginInvocationDidFinish:(GetLoginInvocation*)invocation
                    withResponse:(NSArray*)responses
                       withError:(NSError*)error{
+    
+    // Stop animation
+    [progressGear stopAnimating];
+    [rightArrowButton setHidden:NO];
+    
     NSLog(@"Successful Login");
     NSLog(@"RegistrationDetailInvocationDidFinish called");
     GetPlayersClass *obj=[responses objectAtIndex:0];
@@ -131,6 +142,8 @@
     
     emailAddress.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     password.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    
+    progressGear.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
 
     backgroundView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 460)];
     UIImage *bgImage=nil;
@@ -197,6 +210,9 @@
 }
 - (void)viewDidUnload
 {
+    [self setProgressGear:nil];
+    [self setRightArrowButton:nil];
+    [self setRightArrowButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -244,4 +260,10 @@
     }
 }
 
+- (void)dealloc {
+    [progressGear release];
+    [rightArrowButton release];
+    [rightArrowButton release];
+    [super dealloc];
+}
 @end
