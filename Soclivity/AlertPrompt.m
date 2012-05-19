@@ -19,9 +19,14 @@
     
     if (self = [super initWithTitle:title message:message delegate:delegate cancelButtonTitle:cancelButtonTitle otherButtonTitles:okayButtonTitle, nil])
     {
-        UITextField *theTextField = [[UITextField alloc] initWithFrame:CGRectMake(15.0, 90, 254.0, 25.0)]; 
-        [theTextField setBackgroundColor:[UIColor whiteColor]]; 
-        theTextField.layer.cornerRadius = 5;
+        UITextField *theTextField = [[UITextField alloc] initWithFrame:CGRectMake(15.0, 97, 254.0, 30)];
+        [theTextField setBackgroundColor:[UIColor whiteColor]];
+        theTextField.layer.cornerRadius = 3;
+        theTextField.font = [UIFont fontWithName:@"Helvetica" size:15];
+        theTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        theTextField.borderStyle=UITextBorderStyleRoundedRect;
+        theTextField.keyboardType = UIKeyboardTypeEmailAddress;
+        theTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         theTextField.placeholder = @"Email";
         [self addSubview:theTextField];
         self.textField = theTextField;

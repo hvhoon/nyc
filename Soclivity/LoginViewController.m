@@ -99,9 +99,9 @@
     
     AlertPrompt *prompt = [AlertPrompt alloc];
     prompt.tag=kALertPrompt;
-    prompt = [prompt initWithTitle:@"Forgot Password?" 
-                 message:@"To reset your password, please enter your email address.                                                                    ."
-        delegate:self cancelButtonTitle:@"Cancel" okButtonTitle:@"Reset"];
+    prompt = [prompt initWithTitle:@"Forgot Password?"
+                 message:@"To reset your password, please enter your email address.\n\n\n"
+                          delegate:self cancelButtonTitle:@"Cancel" okButtonTitle:@"Reset"];
     [prompt show];
     [prompt release];
     
@@ -222,7 +222,6 @@
         else{
             //Reset Pressed
             [emailAddress becomeFirstResponder];
-
             //[devServer postForgotPasswordInvocation:emailAddress.text delegate:self];
         }
     }
