@@ -367,12 +367,25 @@
     NSLog(@"RegistrationDetailInvocationDidFinish called");
     GetPlayersClass *obj=[result objectAtIndex:0];
     NSLog(@"SOC ID=%d",[obj.idSoc intValue]);
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Welcome to soclivity"
-                                                    message:@"You have registered successfully"
+    
+    if([obj.idSoc intValue]==0){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Error"
+                                                    message:@"Sorry we couldn't register you."
                                                    delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-    [alert show];
-    [alert release];
+    
+        [alert show];
+        [alert release];
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Successful"
+                                                        message:@"Welcome to Soclivity!"
+                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+    
+        [alert show];
+        [alert release];
+    }
     return;
+    
 #if 0    
     HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
     
