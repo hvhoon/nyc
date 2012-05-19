@@ -28,7 +28,7 @@
 @implementation BasicInfoView
 
 // Private variables
-BOOL validName, validEmail, validPassword, passwordsMatched;
+BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
 
 @synthesize delegate,enterNameTextField,emailTextField,enterPasswordTextField,confirmPasswordTextField,playerObj;
 - (id)initWithFrame:(CGRect)frame
@@ -72,6 +72,17 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
 }
 -(IBAction)BackButtonClicked:(id)sender{
     [delegate BackButtonClicked];
+    
+    // Once you go back you need to re-enter all your basic information.
+    SOC.basicInfoDone = NO;
+    validName = NO;
+    validEmail = NO;
+    validPassword = NO;
+    passwordsMatched = NO;
+    locationEntered = NO;
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:kStopScrolling object:nil];
+    
 }
 -(IBAction)LocationButtonClicked:(id)sender{
     SocLocation=[[LocationCustomManager alloc]init];
@@ -83,6 +94,18 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
     if(SoclivityLoc!=nil){
         [locationBtnText setTitle:SoclivityLoc forState:UIControlStateNormal];
         [locationBtnText setTitleColor:[SoclivityUtilities returnTextFontColor:1] forState:UIControlStateNormal];
+        locationEntered = YES;
+        
+        
+        // If all the fields are valid, let the user move to the next screen
+        if(validName && validEmail && validPassword && passwordsMatched && locationEntered){
+            SOC.basicInfoDone = YES;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kStartScrolling object:nil];
+        }
+        else {
+            SOC.basicInfoDone = NO;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kStopScrolling object:nil];
+        }
     }
 }
 -(IBAction)genderChanged:(UIButton*)sender{
@@ -261,8 +284,23 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
         [alert release];
         return;
     }
+    
+    // Alert if the passwords do not match
+    if(!passwordsMatched){
+        enterPasswordTextField.text=@"";
+        confirmPasswordTextField.text=@"";
         
-    if(passwordsMatched && [enterPasswordTextField.text isEqualToString:confirmPasswordTextField.text]){
+        UIAlertView *passwordAlert = [[UIAlertView alloc] initWithTitle:@"Passwords do not match"
+                                                                message:@"Try again......slowly."
+                                                               delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        
+        passwordAlert.tag=kPasswordNot;
+        [passwordAlert show];
+        [passwordAlert release];
+        return;
+    }
+        
+    if(locationEntered){
         
         NSLog(@"Information stored in player object");
         playerObj.email=emailTextField.text;
@@ -277,21 +315,18 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
         else{
             playerObj.first_name=[words objectAtIndex:0];
         }
-
     }
-    else {
+    else{
         
-        enterPasswordTextField.text=@"";
-        confirmPasswordTextField.text=@"";
+        // The user must be alerted that they need to enter a location
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Where are you?"
+                                                                message:@"Without this we can't show you stuff that's happening in your area!"
+                                                               delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
         
-        UIAlertView *passwordAlert = [[UIAlertView alloc] initWithTitle:@"Passwords do not match"
-                                                                message:@"Try again......slowly."
-                                                                delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-        
-        passwordAlert.tag=kPasswordNot;
-        [passwordAlert show];
-        [passwordAlert release];
+        [alert show];
+        [alert release];
         return;
+
     }
 }
 
@@ -561,7 +596,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched;
     [textField resignFirstResponder];
     
     // If all the fields are valid, let the user move to the next screen
-    if(validName && validEmail && validPassword && passwordsMatched){
+    if(validName && validEmail && validPassword && passwordsMatched && locationEntered){
         SOC.basicInfoDone = YES;
         [[NSNotificationCenter defaultCenter] postNotificationName:kStartScrolling object:nil];
     }
