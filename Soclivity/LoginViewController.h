@@ -18,6 +18,8 @@
 }
 @property (nonatomic,retain)IBOutlet UITextField *emailAddress;
 @property (nonatomic,retain)IBOutlet UITextField *password;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *progressGear;
+@property (retain, nonatomic) IBOutlet UIButton *rightArrowButton;
 @property (nonatomic,assign) int backgroundState;
 -(IBAction)signUpButtonClicked:(id)sender;
 -(IBAction)resetPassword:(id)sender;

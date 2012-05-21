@@ -35,6 +35,7 @@
 }
 @property (nonatomic,retain)id <ActivitySelectDelegate>delegate;
 @property (nonatomic,retain)GetPlayersClass *playerObj;
+@property (retain, nonatomic) IBOutlet UIButton *getStarted;
 -(IBAction)getStartedClicked:(id)sender;
 -(IBAction)playActivityClicked:(id)sender;
 -(IBAction)eatActivityClicked:(id)sender;
@@ -42,4 +43,7 @@
 -(IBAction)createActivityClicked:(id)sender;
 -(IBAction)learnActivityClicked:(id)sender;
 -(void)MakeSureAtLeastOneActivitySelected;
+-(void)startAnimation;
+-(void)stopAnimation;
+@property (retain, nonatomic) IBOutlet UIActivityIndicatorView *progressGear;
 @end

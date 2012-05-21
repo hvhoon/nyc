@@ -9,6 +9,8 @@
 #import "ActivityTypeSelectView.h"
 #import "GetPlayersClass.h"
 @implementation ActivityTypeSelectView
+@synthesize progressGear;
+@synthesize getStarted;
 
 @synthesize delegate,playerObj;
 
@@ -181,5 +183,23 @@
     
 }
 
+// Start the animation
+- (void)startAnimation{
+    progressGear.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    [progressGear startAnimating];
+    [getStarted setHidden:YES];
+}
 
+// Stop the animation
+- (void)stopAnimation{
+    [progressGear stopAnimating];
+    [getStarted setHidden:NO];
+}
+
+
+- (void)dealloc {
+    [getStarted release];
+    [progressGear release];
+    [super dealloc];
+}
 @end

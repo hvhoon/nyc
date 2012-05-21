@@ -18,11 +18,15 @@
 #define kUsernameMissing 0
 #define kPasswordMissing 1
 #define kALertPrompt 2
+#define kLoginSuccess 3
+#define kLoginFail 4
 @interface LoginViewController(private)<GetLoginInvocationDelegate,ForgotPasswordInvocationDelegate>
 
 @end
 
 @implementation LoginViewController
+@synthesize progressGear;
+@synthesize rightArrowButton;
 @synthesize emailAddress,password,backgroundState;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -73,17 +77,26 @@
     }
     else
     {
+        // Start the animation
+        [progressGear startAnimating];
+        [rightArrowButton setHidden:YES];
+        
         // Send the login request
         NSLog(@"Attempting to login...");
         [devServer getLoginInvocation:self.emailAddress.text Password:self.password.text  delegate:self];
+        
+        
+        
     }
-    
-    
-   
 }
 -(void)LoginInvocationDidFinish:(GetLoginInvocation*)invocation
                    withResponse:(NSArray*)responses
                       withError:(NSError*)error{
+    
+    // Stop animation
+    [progressGear stopAnimating];
+    [rightArrowButton setHidden:NO];
+    
     NSLog(@"Successful Login");
     
     if([ SFHFKeychainUtils storeUsername:@"password" andPassword: password.text forServiceName:@"Soclivity" updateExisting:YES error:nil])
@@ -95,11 +108,27 @@
     NSLog(@"RegistrationDetailInvocationDidFinish called");
     GetPlayersClass *obj=[responses objectAtIndex:0];
     NSLog(@"SOC ID=%d",[obj.idSoc intValue]);
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Welcome to soclivity"
-                                                    message:@"You have signed in successfully"
+    
+    if([obj.idSoc intValue]==0){
+        
+        // Clear your password
+        password.text = @"";
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed"
+                                                    message:@"Incorrect email or password."
                                                    delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-    [alert show];
-    [alert release];
+        alert.tag=kLoginFail;
+        [alert show];
+        [alert release];
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Successful"
+                                                        message:@"Welcome to Soclivity!"
+                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kLoginSuccess;
+        [alert show];
+        [alert release];
+
+    }
     return;
 }
 
@@ -107,9 +136,9 @@
     
     AlertPrompt *prompt = [AlertPrompt alloc];
     prompt.tag=kALertPrompt;
-    prompt = [prompt initWithTitle:@"Forgot Password?" 
-                 message:@"To reset your password, please enter your email address.                                                                    ."
-        delegate:self cancelButtonTitle:@"Cancel" okButtonTitle:@"Reset"];
+    prompt = [prompt initWithTitle:@"Forgot Password?"
+                 message:@"To reset your password, please enter your email address.\n\n\n"
+                          delegate:self cancelButtonTitle:@"Cancel" okButtonTitle:@"Reset"];
     [prompt show];
     [prompt release];
     
@@ -139,6 +168,8 @@
     
     emailAddress.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     password.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    
+    progressGear.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
 
     backgroundView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 460)];
     UIImage *bgImage=nil;
@@ -205,6 +236,9 @@
 }
 - (void)viewDidUnload
 {
+    [self setProgressGear:nil];
+    [self setRightArrowButton:nil];
+    [self setRightArrowButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -230,7 +264,6 @@
         else{
             //Reset Pressed
             [emailAddress becomeFirstResponder];
-
             //[devServer postForgotPasswordInvocation:emailAddress.text delegate:self];
         }
     }
@@ -244,6 +277,12 @@
             case kPasswordMissing:
                 [password becomeFirstResponder];
                 break;
+            case kLoginSuccess:
+                [self.navigationController popViewControllerAnimated:YES];
+                break;
+            case kLoginFail:
+                [password becomeFirstResponder];
+                break;
             default:
                 break;
         }
@@ -253,4 +292,10 @@
     }
 }
 
+- (void)dealloc {
+    [progressGear release];
+    [rightArrowButton release];
+    [rightArrowButton release];
+    [super dealloc];
+}
 @end
