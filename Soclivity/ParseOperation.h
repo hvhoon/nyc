@@ -22,11 +22,13 @@
     NSInteger jsonQueryKey;
     BOOL arrayInsert;
     GetPlayersClass *playerObject;
+    BOOL responseStatus;
     
     
 }
 
 @property (nonatomic,assign)NSInteger jsonQueryKey;
+@property (nonatomic,assign)BOOL responseStatus;
 - (id)initWithData:(NSData *)data delegate:(id <ParseOperationDelegate>)theDelegate tagJsonService:(NSInteger)tagJsonService;
 
 @end

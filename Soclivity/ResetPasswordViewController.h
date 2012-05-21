@@ -12,8 +12,15 @@
     
     IBOutlet UITextField *newPassword;
     IBOutlet UITextField *confirmPassword;
-     MainServiceManager *devServer;
+    MainServiceManager *devServer;
+    NSInteger idSoc;
+    NSString *oldPassword;
+    int backgroundState;
+    UIImageView *backgroundView;
 }
+@property (nonatomic,assign)NSInteger idSoc;
+@property (nonatomic,retain)NSString *oldPassword;
+@property (nonatomic,assign) int backgroundState;
 -(void)CrossClicked:(id)sender;
 -(void)TickClicked:(id)sender;
 @end

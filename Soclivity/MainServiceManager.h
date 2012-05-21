@@ -20,6 +20,6 @@
 -(void)registrationDetailInvocation:(id<RegistrationDetailDelegate>)delegate;
 -(void)GetPlayersInvocation:(id<GetPlayersDetailDelegate>)delegate;
 -(void)getLoginInvocation:(NSString*)username Password:(NSString*)password delegate:(id<GetLoginInvocationDelegate>)delegate;
--(void)postResetAndConfirmNewPasswordInvocation:(NSString*)newPassword cPassword:(NSString*)cPassword delegate:(id<ResetPasswordInvocationDelegate>)delegate;
+-(void)postResetAndConfirmNewPasswordInvocation:(NSString*)newPassword cPassword:(NSString*)cPassword andUserId:(NSInteger)userId tempPassword:(NSString*)tempPassword delegate:(id<ResetPasswordInvocationDelegate>)delegate;
 -(void)postForgotPasswordInvocation:(NSString*)email delegate:(id<ForgotPasswordInvocationDelegate>)delegate;
 @end

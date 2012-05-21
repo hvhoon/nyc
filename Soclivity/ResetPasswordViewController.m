@@ -10,13 +10,16 @@
 #import "SoclivityUtilities.h"
 #import "MainServiceManager.h"
 #import "ResetPasswordInvocation.h"
+#import "GetPlayersClass.h"
 #define kNewPasswordNot 0
+#define kPasswordResetEmail 1
+#define kResetFail 2
 @interface ResetPasswordViewController(private)<ResetPasswordInvocationDelegate>
 
 @end
 
 @implementation ResetPasswordViewController
-
+@synthesize idSoc,oldPassword,backgroundState;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -39,6 +42,43 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    backgroundView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 460)];
+    UIImage *bgImage=nil;
+    switch (backgroundState) {
+        case 0:
+        {
+            bgImage=[UIImage imageNamed:@"green_play.png"];
+        }
+            break;
+        case 1:
+        {
+            bgImage=[UIImage imageNamed:@"orange_eat.png"];
+            
+        }
+            break;
+        case 2:
+        {
+            bgImage=[UIImage imageNamed:@"purple_see.png"];
+            
+        }
+            break;
+        case 3:
+        {
+            bgImage=[UIImage imageNamed:@"red_create.png"];
+            
+        }
+            break;
+        case 4:
+        {
+            bgImage=[UIImage imageNamed:@"aqua_learn.png"];
+            
+        }
+            break;
+            
+            
+    }
+    backgroundView.image=bgImage; 
+    [self.view insertSubview:backgroundView atIndex:0];
     newPassword.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     confirmPassword.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
 
@@ -118,16 +158,44 @@
     
     else{
        
-    [devServer postResetAndConfirmNewPasswordInvocation:newPassword.text cPassword:confirmPassword.text  delegate:self];
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+        [devServer postResetAndConfirmNewPasswordInvocation:newPassword.text cPassword:confirmPassword.text andUserId:idSoc  tempPassword:oldPassword delegate:self];
+    
     }
 }
 
 -(void)ResetPasswordInvocationDidFinish:(ResetPasswordInvocation*)invocation
-                           withResponse:(NSArray*)responses
+                           withResponse:(NSString*)responses
                               withError:(NSError*)error{
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    
+    
+    //GetPlayersClass *obj=[responses objectAtIndex:0];
+    //NSLog(@"obj.password_status=%@",obj.statusMessage);
+    
+    if([responses isEqualToString:@"failed"]){
+        newPassword.text=@"";
+        confirmPassword.text=@"";
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed."
+                                                        message:@"Something is wrong,please confirm your password again"
+                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kResetFail;
+        [alert show];
+        [alert release];
+        return;
+
 }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Successful Reset"
+                                                        message:@"Welcome to Soclivity!"
+                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kPasswordResetEmail;
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+}    
 
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -159,6 +227,14 @@
         
         switch (alertView.tag) {
             case kNewPasswordNot:
+                [newPassword becomeFirstResponder];
+                break;
+                
+            case kPasswordResetEmail:
+             [self.navigationController dismissModalViewControllerAnimated:YES];
+                break;
+                
+            case kResetFail:
                 [newPassword becomeFirstResponder];
                 break;
             default:

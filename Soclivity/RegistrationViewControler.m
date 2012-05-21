@@ -183,8 +183,8 @@
     [basicSectionFirst hideBirthdayPicker];
     
     if (footerActivated) {
-        CGRect basketTopFrame = birthDayPicker.frame;
-        basketTopFrame.origin.y = +basketTopFrame.size.height;
+        CGRect dateTopFrame = birthDayPicker.frame;
+        dateTopFrame.origin.y = +dateTopFrame.size.height;
         
         
         [UIView beginAnimations:nil context:nil];
@@ -225,8 +225,8 @@
     
     if (!footerActivated) {
         
-        CGRect basketTopFrame = birthDayPicker.frame;
-        basketTopFrame.origin.y = -basketTopFrame.size.height;
+        CGRect dateTopFrame = birthDayPicker.frame;
+        dateTopFrame.origin.y = -dateTopFrame.size.height;
         
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.2];

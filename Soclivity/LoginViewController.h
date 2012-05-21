@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class MainServiceManager;
+@class  AlertPrompt;
 @interface LoginViewController : UIViewController<UITextFieldDelegate,UIAlertViewDelegate>{
     UITextField *emailAddress;
     UITextField *password;
@@ -15,6 +16,7 @@
     int backgroundState;
     BOOL validEmail, validPassword;
     MainServiceManager *devServer;
+    AlertPrompt *prompt;
 }
 @property (nonatomic,retain)IBOutlet UITextField *emailAddress;
 @property (nonatomic,retain)IBOutlet UITextField *password;

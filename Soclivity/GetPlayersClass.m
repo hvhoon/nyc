@@ -21,6 +21,9 @@
 @synthesize profileImageData;
 @synthesize gender;
 @synthesize activityTypes;
+@synthesize password_status;
+@synthesize status;
+@synthesize statusMessage;
 -(void)dealloc{
     [super dealloc];
     [birth_date release];
@@ -35,5 +38,7 @@
     [profileImageData release];
     [gender release];
     [activityTypes release];
+    [password_status release];
+    [statusMessage release];
 }
 @end

@@ -17,7 +17,7 @@
 @end
 
 @implementation ParseOperation
-@synthesize delegate, dataToParse, workingArray,mappedKey,jsonQueryKey,playerObject;
+@synthesize delegate, dataToParse, workingArray,mappedKey,jsonQueryKey,playerObject,responseStatus;
 
 - (id)initWithData:(NSData *)data delegate:(id <ParseOperationDelegate>)theDelegate tagJsonService:(NSInteger)tagJsonService
 {
@@ -33,7 +33,7 @@
 
 -(void)main{
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
+	responseStatus=FALSE;
 	self.workingArray = [NSMutableArray array];
     
     // It's also possible to have NSXMLParser download the data, by passing it a URL, but this is not
@@ -91,9 +91,10 @@
 {
     //NSLog(@"Inside json delegate parserFoundObjectStart");
     //if(arrayInsert){
-        if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer))
-        self.playerObject=[[[GetPlayersClass alloc]init]autorelease];
+    if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer)||(jsonQueryKey==kForgotPassword)||(jsonQueryKey==kResetWithNewPassword)){
         
+        self.playerObject=[[[GetPlayersClass alloc]init]autorelease];
+    }
    // }
     
 }
@@ -101,7 +102,7 @@
 {
     //NSLog(@"Inside json delegate foundObjectKey");
     
-    if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer)){  
+    if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer)||(jsonQueryKey==kForgotPassword)||(jsonQueryKey==kResetWithNewPassword)){  
         if ([key isEqualToString:@"birth_date"]) {
                 mappedKey=key;
         }
@@ -123,9 +124,16 @@
         if ([key isEqualToString:@"updated_at"]) {
 			mappedKey=key;
         }
+        if ([key isEqualToString:@"password_status"]) {
+			mappedKey=key;
+        }
+        
+        if ([key isEqualToString:@"status"]) {
+			mappedKey=key;
+        }
 
         
-    }		
+    }
         
     
 }
@@ -133,9 +141,12 @@
     
     
     //if(arrayInsert){
-        if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer))
+    if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer)||(jsonQueryKey==kForgotPassword)||(jsonQueryKey==kResetWithNewPassword)){
+        if((responseStatus)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kResetWithNewPassword)){
             [[self workingArray] addObject:self.playerObject];
-        
+             responseStatus=FALSE;
+        }
+    }
     //}
     
 }
@@ -157,16 +168,31 @@
 
 - (void)parser:(SBJsonStreamParser*)parser foundBoolean:(BOOL)x{
     // NSLog(@"Inside json delegate foundBoolean");
+    if(jsonQueryKey==kGetPlayers||jsonQueryKey==kRegisterPlayer||jsonQueryKey==kLoginPlayer||(jsonQueryKey==kForgotPassword)){
+        if ([mappedKey isEqualToString:@"status"]) {
+            self.playerObject.status = x;
+            mappedKey=nil;
+            responseStatus=TRUE;
+        }
+        
+    }
 }
 - (void)parserFoundNull:(SBJsonStreamParser*)parser{
-    //    NSLog(@"Inside json delegate parserFoundNull");	
+    //    NSLog(@"Inside json delegate parserFoundNull");
+	if(jsonQueryKey==kGetPlayers||jsonQueryKey==kRegisterPlayer||jsonQueryKey==kLoginPlayer||(jsonQueryKey==kForgotPassword)){
+        if ([mappedKey isEqualToString:@"password_status"]) {
+            self.playerObject.password_status = @"null";
+            mappedKey=nil;
+        }
+        
+    }
 }
 
 
 - (void)parser:(SBJsonStreamParser*)parser foundNumber:(NSNumber*)num{
     //    NSLog(@"Inside json delegate foundNumber");
     
-    if(jsonQueryKey==kGetPlayers||jsonQueryKey==kRegisterPlayer||jsonQueryKey==kLoginPlayer){
+    if(jsonQueryKey==kGetPlayers||jsonQueryKey==kRegisterPlayer||jsonQueryKey==kLoginPlayer||(jsonQueryKey==kForgotPassword)){
         if ([mappedKey isEqualToString:@"id"]) {
             self.playerObject.idSoc = num;
             mappedKey=nil;
@@ -179,7 +205,7 @@
 - (void)parser:(SBJsonStreamParser*)parser foundString:(NSString*)string{
     //    	NSLog(@"Inside json delegate foundString");
     
-    if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer)){
+    if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer)||(jsonQueryKey==kForgotPassword)||(jsonQueryKey==kResetWithNewPassword)){
             
         if ([mappedKey isEqualToString:@"birth_date"]) {
             self.playerObject.birth_date = string;
@@ -211,9 +237,22 @@
             
             mappedKey=nil;
         }
+        
+        if ([mappedKey isEqualToString:@"password_status"]) {
+            self.playerObject.password_status = string;
+            
+            mappedKey=nil;
+        }
 
         
+        if ([mappedKey isEqualToString:@"status"]) {
+            self.playerObject.statusMessage = string;
+            responseStatus=TRUE;
+			mappedKey=nil;
+        }
+        
     }
+    
         
         
         
@@ -228,8 +267,8 @@
 // -------------------------------------------------------------------------------
 - (void)dealloc
 {
-    [dataToParse release];
-    [workingArray release];
+    //[dataToParse release];
+    //[workingArray release];
     [super dealloc];
 }
 @end

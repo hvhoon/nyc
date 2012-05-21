@@ -20,6 +20,7 @@
 #define kALertPrompt 2
 #define kLoginSuccess 3
 #define kLoginFail 4
+#define kPasswordResetEmail 5
 @interface LoginViewController(private)<GetLoginInvocationDelegate,ForgotPasswordInvocationDelegate>
 
 @end
@@ -98,29 +99,19 @@
     [rightArrowButton setHidden:NO];
     
     NSLog(@"Successful Login");
-    
-    if([ SFHFKeychainUtils storeUsername:@"password" andPassword: password.text forServiceName:@"Soclivity" updateExisting:YES error:nil])
-		NSLog(@"Password Encrypted");
-	
-	if([ SFHFKeychainUtils storeUsername:@"emailAddress" andPassword: emailAddress.text forServiceName:@"Soclivity" updateExisting:YES error:nil])
-		NSLog(@"EmailAddress Encrypted");
-
     NSLog(@"RegistrationDetailInvocationDidFinish called");
     GetPlayersClass *obj=[responses objectAtIndex:0];
     NSLog(@"SOC ID=%d",[obj.idSoc intValue]);
+    NSLog(@"obj.password_status=%@",obj.password_status);
     
-    if([obj.idSoc intValue]==0){
+    if(obj.status && [obj.password_status isEqualToString:@"null"]){
         
-        // Clear your password
-        password.text = @"";
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed"
-                                                    message:@"Incorrect email or password."
-                                                   delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-        alert.tag=kLoginFail;
-        [alert show];
-        [alert release];
-    }
-    else{
+        if([ SFHFKeychainUtils storeUsername:@"password" andPassword: password.text forServiceName:@"Soclivity" updateExisting:YES error:nil])
+            NSLog(@"Password Encrypted");
+        
+        if([ SFHFKeychainUtils storeUsername:@"emailAddress" andPassword: emailAddress.text forServiceName:@"Soclivity" updateExisting:YES error:nil])
+            NSLog(@"EmailAddress Encrypted");
+
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Successful"
                                                         message:@"Welcome to Soclivity!"
                                                        delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
@@ -129,12 +120,39 @@
         [alert release];
 
     }
-    return;
+    
+else if(obj.status && [obj.password_status isEqualToString:@"temp"]){
+        
+        
+        ResetPasswordViewController *resetPasswordViewController=[[ResetPasswordViewController alloc] initWithNibName:@"ResetPasswordViewController" bundle:nil];
+        resetPasswordViewController.backgroundState=backgroundState;
+        resetPasswordViewController.idSoc=[obj.idSoc intValue];
+        resetPasswordViewController.oldPassword=password.text;
+        UINavigationController *addNavigationController = [[UINavigationController alloc] initWithRootViewController:resetPasswordViewController];
+        
+        
+        [self.navigationController presentModalViewController:addNavigationController animated:YES];
+        [resetPasswordViewController release];
+        [addNavigationController release];
+    }
+    else{
+        // Clear your password
+        password.text = @"";
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed"
+                                                    message:@"Incorrect email or password."
+                                                   delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kLoginFail;
+        [alert show];
+        [alert release];
+            return;
+
+    }
+    
 }
 
 -(IBAction)resetPassword:(id)sender{
     
-    AlertPrompt *prompt = [AlertPrompt alloc];
+    prompt = [AlertPrompt alloc];
     prompt.tag=kALertPrompt;
     prompt = [prompt initWithTitle:@"Forgot Password?"
                  message:@"To reset your password, please enter your email address.\n\n\n"
@@ -150,14 +168,15 @@
                            withResponse:(NSArray*)responses
                               withError:(NSError*)error{
     
-    ResetPasswordViewController *resetPasswordViewController=[[ResetPasswordViewController alloc] initWithNibName:@"ResetPasswordViewController" bundle:nil];
     
-    UINavigationController *addNavigationController = [[UINavigationController alloc] initWithRootViewController:resetPasswordViewController];
-	
-    
-	[self.navigationController presentModalViewController:addNavigationController animated:YES];
-    [resetPasswordViewController release];
-    [addNavigationController release];
+    GetPlayersClass *obj=[responses objectAtIndex:0];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:obj.statusMessage
+                                                    message:nil
+                                                   delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+    [alert show];
+    [alert release];
+    return;
+
 
     
 }
@@ -264,7 +283,21 @@
         else{
             //Reset Pressed
             [emailAddress becomeFirstResponder];
-            //[devServer postForgotPasswordInvocation:emailAddress.text delegate:self];
+            NSString *email=[prompt enteredText];
+            if([SoclivityUtilities validEmail:email]){
+                [devServer postForgotPasswordInvocation:email delegate:self];
+                
+            }
+            else{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Email"
+                                                                message:@"Promise not to send you spam!"
+                                                               delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+                alert.tag=kPasswordResetEmail;
+                [alert show];
+                [alert release];
+                return;
+
+            }
         }
     }
     else{
@@ -283,6 +316,10 @@
             case kLoginFail:
                 [password becomeFirstResponder];
                 break;
+            case kPasswordResetEmail:
+                [self resetPassword:nil];
+                break;
+
             default:
                 break;
         }
@@ -294,8 +331,6 @@
 
 - (void)dealloc {
     [progressGear release];
-    [rightArrowButton release];
-    [rightArrowButton release];
     [super dealloc];
 }
 @end

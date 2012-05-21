@@ -17,10 +17,8 @@
 #define kPassword 3
 #define kConfirm 4
 #define kBirthday 5
-
 #define kMale 6
 #define kFemale 7
-
 #define kNameNot 9
 #define kEntryAdded 10
 #define kEmailNot 11
@@ -110,6 +108,8 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
     }
 }
 -(IBAction)genderChanged:(UIButton*)sender{
+    
+    playerObj.gender=nil;
     
     switch (sender.tag) {
         case kMale:

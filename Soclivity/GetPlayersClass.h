@@ -22,6 +22,9 @@
     NSData *profileImageData;
     NSString *gender;
     NSString*activityTypes;
+    NSString *password_status;
+    BOOL status;
+    NSString*statusMessage;
 
     
 }
@@ -37,4 +40,7 @@
 @property (nonatomic,retain)NSData *profileImageData;
 @property (nonatomic,retain)NSString *gender;
 @property (nonatomic,retain)NSString*activityTypes;
+@property (nonatomic,retain)NSString *password_status;
+@property (nonatomic,assign)BOOL status;
+@property (nonatomic,retain)NSString*statusMessage;
 @end

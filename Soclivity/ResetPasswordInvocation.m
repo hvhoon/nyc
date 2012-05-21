@@ -13,32 +13,41 @@
 @end
 
 @implementation ResetPasswordInvocation
-@synthesize queue,newPassword,confirmPassword;
+@synthesize queue,confirmPassword,userId,oldPassword,newPassword;
 
 -(void)dealloc {	
 	[super dealloc];
 }
 -(void)invoke {
-    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/signin.json"];
-    [self post:a
+    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/password/%d.json",userId];
+    [self put:a
 		  body:[self body]];
 }
 -(NSString*)body {
 #if 1    
 	NSMutableDictionary* bodyD = [[[NSMutableDictionary alloc] init] autorelease];
     
-    [bodyD setObject:newPassword forKey:@"email"];
-    [bodyD setObject:confirmPassword forKey:@"password"];
     
-    NSString *bodyData = [NSString stringWithFormat:@"%@",[bodyD JSONRepresentation]];
+    [bodyD setObject:newPassword forKey:@"password"];
+    [bodyD setObject:confirmPassword forKey:@"password_confirmation"];
     
-    //    NSString *bodyData = [NSString stringWithFormat:@"{\"signin\":%@}",[bodyD JSONRepresentation]];
-    NSLog(@"bodyData=%@",bodyData);
-	return bodyData;
+     NSString *bodyData = [NSString stringWithFormat:@"\"player\":%@}",[bodyD JSONRepresentation]];
+     NSString *bodyData1 = [NSString stringWithFormat:@"{\"old_password\":\"%@\",%@",oldPassword,bodyData];
+     NSLog(@"bodyData=%@",bodyData1);
+	return bodyData1;
 #endif    
 }
 
 -(BOOL)handleHttpOK:(NSMutableData *)data {
+    NSError* error = nil;
+    NSDictionary* resultsd = [[[[NSString alloc] initWithData:data 
+                                                encoding:NSUTF8StringEncoding] autorelease] JSONValue];
+    
+   
+    NSString*resetStatus= [resultsd objectForKey:@"status"];
+     NSLog(@"resetStatus=%@",resetStatus);
+    [self.delegate ResetPasswordInvocationDidFinish:self withResponse:resetStatus withError:error];
+#if 0
     self.queue = [[NSOperationQueue alloc] init];
     ParseOperation *parser = [[ParseOperation alloc] initWithData:data delegate:self tagJsonService:kResetWithNewPassword];
     
@@ -46,6 +55,7 @@
     
     [parser release];
     [queue release];
+#endif
 	return YES;
 }
 

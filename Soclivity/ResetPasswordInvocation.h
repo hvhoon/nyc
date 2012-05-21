@@ -16,7 +16,7 @@
 @protocol ResetPasswordInvocationDelegate 
 
 -(void)ResetPasswordInvocationDidFinish:(ResetPasswordInvocation*)invocation
-                   withResponse:(NSArray*)responses
+                   withResponse:(NSString*)responses
                       withError:(NSError*)error;
 
 @end
@@ -25,9 +25,13 @@
     NSOperationQueue*queue;
     NSString *newPassword;
     NSString *confirmPassword;
+    NSInteger userId;
+    NSString *oldPassword;
 }
 @property(nonatomic,retain) NSOperationQueue*queue;
-@property (nonatomic, retain) NSString *newPassword;
 @property (nonatomic, retain) NSString *confirmPassword;
+@property (nonatomic,assign)NSInteger userId;
+@property (nonatomic,retain)NSString*oldPassword;
+@property (nonatomic, retain) NSString *newPassword;
 
 @end
