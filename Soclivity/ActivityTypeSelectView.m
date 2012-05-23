@@ -12,7 +12,7 @@
 @synthesize progressGear;
 @synthesize getStarted;
 
-@synthesize delegate,playerObj;
+@synthesize delegate,playerObj,facebookTag;
 
 // Defining the transparency used to display the tick for activity categories selected
 #define HIDDEN 0.2

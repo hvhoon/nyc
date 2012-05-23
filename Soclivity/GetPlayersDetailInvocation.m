@@ -9,6 +9,8 @@
 #import "GetPlayersDetailInvocation.h"
 #import "JSON.h"
 #import <CFNetwork/CFNetwork.h>
+#import "Players.h"
+#import "players_accel.h"
 @implementation GetPlayersDetailInvocation
 @synthesize queue;
 
@@ -18,11 +20,22 @@
 
 
 -(void)invoke {
-    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/players?format=json"];
+    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/players.json"];
     [self get:a];
 }
 
 -(BOOL)handleHttpOK:(NSMutableData *)data {
+    
+    NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    
+    NSMutableDictionary *topDictionary = [jsonString JSONValue];
+#if 0    
+    NSDictionary* resultsd = [[[[NSString alloc] initWithData:data 
+                                                encoding:NSUTF8StringEncoding] autorelease] JSONValue];
+    
+    players_accel* response = [players_accel modelObjectWithDictionary:topDictionary];
+#else
     self.queue = [[NSOperationQueue alloc] init];
     ParseOperation *parser = [[ParseOperation alloc] initWithData:data delegate:self tagJsonService:kGetPlayers];
     
@@ -30,6 +43,7 @@
     
     [parser release];
     [queue release];
+#endif    
 	return YES;
 }
 

@@ -15,13 +15,15 @@
 #import "UpComingEventsViewController.h"
 #import "AppDelegate.h"
 #import "GetPlayersClass.h"
+
 #define kDatePicker 123
 @interface RegistrationViewControler (private)<GetPlayersDetailDelegate,RegistrationDetailDelegate>
 @end
 
 
 @implementation RegistrationViewControler
-@synthesize basicSectionFirst,activitySectionSecond,scrollView;
+@synthesize basicSectionFirst,activitySectionSecond,scrollView,facebookTag;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -29,6 +31,9 @@
         // Custom initialization
     }
     return self;
+}
+- (void)dealloc {
+    [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,7 +55,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+        
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
     //SOC.basicInfoDone=FALSE;
@@ -75,9 +80,11 @@
     scrollView.bounces=NO;
     [self.view addSubview:scrollView];
     basicSectionFirst.delegate=self;
+    basicSectionFirst.facebookTag=facebookTag;
     basicSectionFirst.playerObj=SOC.registrationObject;
     activitySectionSecond.delegate=self;
     activitySectionSecond.playerObj=SOC.registrationObject;
+    activitySectionSecond.facebookTag=facebookTag;
     for (int i = 0; i < 2; i++) {
 		CGRect frame;
 		frame.origin.x = 0;
@@ -343,10 +350,22 @@
 
 -(void)RegisterUserForTheFirstTime{
     
-    [devServer registrationDetailInvocation:self];
     
+    if(facebookTag){
+     //implememt different registration procedure for facebook.
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Web Syncing For Facebook Pending"
+                                                        message:@"Sorry we couldn't register you."
+                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        
+        [alert show];
+        [alert release];
+    }
+    else{
+        [activitySectionSecond startAnimation];
+    [devServer registrationDetailInvocation:self];
+    }
     // Start the animation
-    [activitySectionSecond startAnimation];
+    
     
     //[devServer GetPlayersInvocation:self];
 }

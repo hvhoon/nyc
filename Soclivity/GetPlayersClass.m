@@ -24,12 +24,17 @@
 @synthesize password_status;
 @synthesize status;
 @synthesize statusMessage;
+@synthesize FBProfileImage;
+@synthesize fullName;
+@synthesize current_location;
 -(void)dealloc{
     [super dealloc];
     [birth_date release];
     [created_at release];
     [email release];
+    [fullName release];
     [first_name release];
+    [current_location release];
     [idSoc release];
     [last_name release];
     [updated_at release];
@@ -40,5 +45,6 @@
     [activityTypes release];
     [password_status release];
     [statusMessage release];
+    [FBProfileImage release];
 }
 @end

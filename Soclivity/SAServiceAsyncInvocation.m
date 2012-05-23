@@ -228,8 +228,6 @@ NSDateFormatter* gJSONDateFormatter = nil;
 
 - (void)connection:(NSURLConnection*)connection didReceiveData:(NSData*)data {
 	
-    NSString *response1=[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-    NSLog(@"response=%@",response1);
 	if ([_response isOK]) {
 		[_receivedData appendData:data];
 	}
@@ -242,8 +240,6 @@ NSDateFormatter* gJSONDateFormatter = nil;
 
 - (void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error {
 	
-     NSString *response=[[NSString alloc] initWithData:_receivedData encoding:NSASCIIStringEncoding];
-    NSLog(@"response=%@",response);
 	[self handleHttpError:[[self response] statusCode]];
 	//[self.finalizer finalize:self];
 }

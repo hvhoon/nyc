@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface WelcomeScreenViewController : UIViewController{
+#import "FacebookLogin.h"
+@interface WelcomeScreenViewController : UIViewController<FacebookLoginDelegate>{
     UIView *rootView;
     UIImageView *playImageView;
     UIImageView *eatImageView;

@@ -37,7 +37,7 @@
     SBJsonWriter *jsonWriter = [SBJsonWriter new];    
     NSString *json = [jsonWriter stringWithObject:self];
     if (!json)
-        NSLog(@"-JSONRepresentation failed. Error is: %@", jsonWriter.error);
+        NSLog(@"-JSONRepresentation failed. Error is: %@", [jsonWriter errorTrace]);
     [jsonWriter release];
     return json;
 }
@@ -52,7 +52,7 @@
     SBJsonParser *jsonParser = [SBJsonParser new];
     id repr = [jsonParser objectWithString:self];
     if (!repr)
-        NSLog(@"-JSONValue failed. Error is: %@", jsonParser.error);
+        NSLog(@"-JSONValue failed. Error is: %@", [jsonParser errorTrace]);
     [jsonParser release];
     return repr;
 }

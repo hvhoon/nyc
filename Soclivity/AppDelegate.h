@@ -8,13 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "DDMenuController.h"
-
-@interface AppDelegate : UIResponder <UIApplicationDelegate>{
+#import "FBConnect.h"
+@class FacebookLogin;
+@interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate>{
     UINavigationController *navigationController;
     DDMenuController *menuController;
+    Facebook *facebook;
+    NSMutableDictionary *userPermissions;
 }
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic,retain) UINavigationController *navigationController;
 @property (retain, nonatomic) DDMenuController *menuController;
+@property (nonatomic, retain) Facebook *facebook;
+@property (nonatomic, retain) NSMutableDictionary *userPermissions;
+-(FacebookLogin*)SetUpFacebook;
 @end

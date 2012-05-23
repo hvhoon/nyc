@@ -25,6 +25,9 @@
     NSString *password_status;
     BOOL status;
     NSString*statusMessage;
+    UIImage *FBProfileImage;
+    NSString *fullName;
+    NSString *current_location;
 
     
 }
@@ -43,4 +46,7 @@
 @property (nonatomic,retain)NSString *password_status;
 @property (nonatomic,assign)BOOL status;
 @property (nonatomic,retain)NSString*statusMessage;
+@property (nonatomic,retain) UIImage *FBProfileImage;
+@property (nonatomic,retain)NSString *fullName;
+@property (nonatomic,retain)NSString *current_location;
 @end

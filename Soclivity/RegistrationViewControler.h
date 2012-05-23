@@ -22,10 +22,17 @@
     UIDatePicker *birthDayPicker;
     BOOL footerActivated;
     SoclivityManager *SOC;
+    BOOL facebookTag;
+    
+    
+    
 }
+
+
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property(nonatomic,retain)IBOutlet BasicInfoView *basicSectionFirst;
 @property(nonatomic,retain)IBOutlet ActivityTypeSelectView*activitySectionSecond;
+@property (nonatomic,assign)BOOL facebookTag;
 -(void)hidePickerView:(id)sender;
 -(void)doneSelectDatePickerView:(id)sender;
 -(void)RegisterUserForTheFirstTime;

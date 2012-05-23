@@ -29,7 +29,7 @@
 // Private variables
 BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
 
-@synthesize delegate,enterNameTextField,emailTextField,enterPasswordTextField,confirmPasswordTextField,playerObj;
+@synthesize delegate,enterNameTextField,emailTextField,enterPasswordTextField,confirmPasswordTextField,playerObj,facebookTag;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -67,6 +67,95 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
     
     locationBtnText.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
     
+    
+    if(facebookTag){
+        emailTextField.text=SOC.fbObject.email;
+        emailTextField.enabled = NO;
+        enterPasswordTextField.enabled=NO;
+        confirmPasswordTextField.enabled=NO;
+        if(SOC.fbObject.FBProfileImage.size.height != SOC.fbObject.FBProfileImage.size.width)
+            SOC.fbObject.FBProfileImage = [self autoCrop:SOC.fbObject.FBProfileImage];
+        
+        // If the image needs to be compressed
+        if(SOC.fbObject.FBProfileImage.size.height > 100 || SOC.fbObject.FBProfileImage.size.width > 100)
+            SOC.fbObject.FBProfileImage = [self compressImage:SOC.fbObject.FBProfileImage size:CGSizeMake(100,100)];
+        
+        playerObj.profileImageData=UIImagePNGRepresentation(SOC.fbObject.FBProfileImage);
+        [profileBtn setBackgroundImage:SOC.fbObject.FBProfileImage forState:UIControlStateNormal];
+        [[profileBtn layer] setBorderWidth:1.0];
+        [[profileBtn layer] setBorderColor:[SoclivityUtilities returnTextFontColor:4].CGColor];
+        setYourPic.hidden=YES;
+        
+        NSLog(@"firstName=%@",SOC.fbObject.first_name);
+        NSLog(@"last_name=%@",SOC.fbObject.last_name);
+        NSLog(@"email=%@",SOC.fbObject.email);
+        NSLog(@"gender=%@",SOC.fbObject.gender);
+        NSLog(@"birth_date=%@",SOC.fbObject.birth_date);
+        
+        if([SOC.fbObject.gender isEqualToString:@"male"]){
+            [maleButton setBackgroundImage:[UIImage imageNamed:@"S02_male.png"] forState:UIControlStateNormal];
+            b_Female=FALSE;
+            playerObj.gender=@"m";
+            b_Male=TRUE;
+            [femaleButton setBackgroundImage:[UIImage imageNamed:@"S02_F_notselected.png"] forState:UIControlStateNormal];
+        }
+        else if([SOC.fbObject.gender isEqualToString:@"female"]){
+            [femaleButton setBackgroundImage:[UIImage imageNamed:@"S02_female.png"] forState:UIControlStateNormal];
+            b_Male=FALSE;
+            b_Female=TRUE;
+            playerObj.gender=@"f";
+            [maleButton setBackgroundImage:[UIImage imageNamed:@"S02_M_notselected.png"] forState:UIControlStateNormal];
+        }
+        else{
+            NSLog(@"No gender Selected");
+        }
+        
+        if((SOC.fbObject.birth_date==(NSString*)[NSNull null])||([SOC.fbObject.birth_date isEqualToString:@""]||SOC.fbObject.birth_date==nil)||([SOC.fbObject.birth_date isEqualToString:@"(null)"])){
+             NSLog(@"No birth_date Selected");
+        }
+        if((SOC.fbObject.current_location==(NSString*)[NSNull null])||([SOC.fbObject.current_location isEqualToString:@""]||SOC.fbObject.current_location==nil)||([SOC.fbObject.current_location isEqualToString:@"(null)"])){
+            NSLog(@"No current_location Selected");
+        }
+
+        
+        BOOL fName=TRUE;
+        BOOL lName=TRUE;
+        if ((SOC.fbObject.first_name==(NSString*)[NSNull null])||([SOC.fbObject.first_name isEqualToString:@""]||SOC.fbObject.first_name==nil)||([SOC.fbObject.first_name isEqualToString:@"(null)"])){
+            fName=FALSE;
+        }
+        
+        if ((SOC.fbObject.last_name==(NSString*)[NSNull null])||([SOC.fbObject.last_name isEqualToString:@""]||SOC.fbObject.last_name==nil)||([SOC.fbObject.last_name isEqualToString:@"(null)"])){
+            lName=FALSE;
+        }
+        
+        
+        if(fName && lName){
+            SOC.fbObject.fullName=[NSString stringWithFormat:@"%@ %@",SOC.fbObject.first_name,SOC.fbObject.last_name];
+        }
+        
+        if(fName && !lName){
+           SOC.fbObject.fullName=[NSString stringWithFormat:@"%@",SOC.fbObject.first_name];
+        }
+        
+        if(!fName && lName){
+            SOC.fbObject.fullName=[NSString stringWithFormat:@"%@",SOC.fbObject.last_name];
+        }
+        
+        enterNameTextField.text=SOC.fbObject.fullName;
+        NSInteger length;
+        length = [enterNameTextField.text length];
+        if (length<2)
+            validName = NO;
+        else
+            validName = YES;
+        
+        validEmail=YES;
+        validPassword = YES;
+        passwordsMatched =YES;
+
+
+
+   }
     
 }
 -(IBAction)BackButtonClicked:(id)sender{

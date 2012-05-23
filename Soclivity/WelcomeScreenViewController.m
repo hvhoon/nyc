@@ -11,6 +11,7 @@
 #import "RegistrationViewControler.h"
 #import "LoginViewController.h"
 #import "SoclivityManager.h"
+#import "AppDelegate.h"
 @implementation WelcomeScreenViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -225,7 +226,7 @@
 #if 1    
     NSLog(@"SignUpButtonClicked");
     RegistrationViewControler *registrationViewControler=[[RegistrationViewControler alloc] initWithNibName:@"RegistrationViewControler" bundle:nil];
-    
+    registrationViewControler.facebookTag=FALSE;
 	[[self navigationController] pushViewController:registrationViewControler animated:YES];
     [registrationViewControler release];
     
@@ -234,9 +235,19 @@
 -(void)SignInUsingFacebookButtonClicked{
     NSLog(@"SignInUsingFacebookButtonClicked");
 #if 1    
-    SoclivityManager *facebookManager=[SoclivityManager SharedInstance];
-    [facebookManager SetFacebookConnectObject:self fTag:0];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    FacebookLogin *fbLogin=[appDelegate SetUpFacebook];
+    fbLogin.FBdelegate=self;
 #endif    
+}
+
+-(void)pushToRegistration{
+    RegistrationViewControler *registrationViewControler=[[RegistrationViewControler alloc] initWithNibName:@"RegistrationViewControler" bundle:nil];
+    registrationViewControler.facebookTag=TRUE;
+
+	[[self navigationController] pushViewController:registrationViewControler animated:YES];
+    [registrationViewControler release];
+    
 }
 -(void)AlreadySignedUpButtonClicked{
      NSLog(@"AlreadySignedUpButtonClicked");

@@ -49,6 +49,7 @@
     BOOL footerActivated;
     GetPlayersClass *playerObj;
     SoclivityManager *SOC;
+    BOOL facebookTag;
     
 }
 @property (nonatomic,retain)id <BasicRegistrationDelegate>delegate;
@@ -57,6 +58,7 @@
 @property (nonatomic,retain)IBOutlet UITextField *enterPasswordTextField;
 @property (nonatomic,retain)IBOutlet UITextField *confirmPasswordTextField;
 @property (nonatomic,retain) GetPlayersClass *playerObj;
+@property (nonatomic,assign)BOOL facebookTag;
 -(void)showUploadCaptureSheet;
 -(void)PushImageGallery;
 -(void)PushCamera;
