@@ -15,6 +15,9 @@
 #import "ForgotPasswordInvocation.h"
 #import "AlertPrompt.h"
 #import "SFHFKeychainUtils.h"
+#import "HomeViewController.h"
+#import "SettingsViewController.h"
+#import "UpComingEventsViewController.h"
 #define kUsernameMissing 0
 #define kPasswordMissing 1
 #define kALertPrompt 2
@@ -118,6 +121,7 @@
         alert.tag=kLoginSuccess;
         [alert show];
         [alert release];
+        return;
 
     }
     
@@ -134,6 +138,7 @@ else if(obj.status && [obj.password_status isEqualToString:@"temp"]){
         [self.navigationController presentModalViewController:addNavigationController animated:YES];
         [resetPasswordViewController release];
         [addNavigationController release];
+        return;
     }
     else{
         // Clear your password
@@ -144,7 +149,7 @@ else if(obj.status && [obj.password_status isEqualToString:@"temp"]){
         alert.tag=kLoginFail;
         [alert show];
         [alert release];
-            return;
+        return;
 
     }
     
@@ -311,7 +316,31 @@ else if(obj.status && [obj.password_status isEqualToString:@"temp"]){
                 [password becomeFirstResponder];
                 break;
             case kLoginSuccess:
-                [self.navigationController popViewControllerAnimated:YES];
+            {
+                HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+                
+                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+                
+                DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
+                
+                
+                SettingsViewController *leftController = [[SettingsViewController alloc] init];
+                rootController.leftViewController = leftController;
+                
+                UpComingEventsViewController *rightController = [[UpComingEventsViewController alloc] init];
+                rootController.rightViewController = rightController;
+                
+                
+                
+                AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                appDelegate.menuController=rootController;
+                [self.navigationController pushViewController:rootController animated:YES];
+                //[leftController release];
+                //[rightController release];
+                //[rootController release];
+                //[navController release];
+
+            }
                 break;
             case kLoginFail:
                 [password becomeFirstResponder];

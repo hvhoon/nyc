@@ -397,7 +397,7 @@
     [navSingleTap release];
     
     if (_menuFlags.canShowLeft) {
-        UIBarButtonItem *button = [[barButtonItemClass alloc] initWithImage:[UIImage imageNamed:@"S01.2_tick.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showLeft:)];
+        UIBarButtonItem *button = [[barButtonItemClass alloc] initWithImage:[UIImage imageNamed:@"S01.1_back-arrow_circle.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showLeft:)];
         topController.navigationItem.leftBarButtonItem = button;
     } else {
 		if(topController.navigationItem.leftBarButtonItem.target == self) {
@@ -406,7 +406,7 @@
     }
     
     if (_menuFlags.canShowRight) {
-        UIBarButtonItem *button = [[barButtonItemClass alloc] initWithImage:[UIImage imageNamed:@"S01.2_tick.png"] style:UIBarButtonItemStyleBordered  target:self action:@selector(showRight:)];
+        UIBarButtonItem *button = [[barButtonItemClass alloc] initWithImage:[UIImage imageNamed:@"S01.1_back-arrow_circle.png"] style:UIBarButtonItemStyleBordered  target:self action:@selector(showRight:)];
         topController.navigationItem.rightBarButtonItem = button;
     } else {
 		if(topController.navigationItem.rightBarButtonItem.target == self) {
@@ -601,11 +601,13 @@
         UIView *view = _root.view;
         view.frame = self.view.bounds;
         [self.view addSubview:view];
-
+        
+#if 0
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
         pan.delegate = (id<UIGestureRecognizerDelegate>)self;
         [view addGestureRecognizer:pan];
         _pan = pan;
+#endif        
         
     } else {
         
