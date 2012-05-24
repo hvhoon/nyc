@@ -242,6 +242,8 @@
 }
 
 -(void)pushToRegistration{
+    
+    //check for facebook user Already registered or else redirect to registraion page
     RegistrationViewControler *registrationViewControler=[[RegistrationViewControler alloc] initWithNibName:@"RegistrationViewControler" bundle:nil];
     registrationViewControler.facebookTag=TRUE;
 

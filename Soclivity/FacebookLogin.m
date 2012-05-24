@@ -180,6 +180,14 @@
         if([result objectForKey:@"birthday_date"]){
             SOC.fbObject.birth_date=[result objectForKey:@"birthday_date"];
         }
+        
+        if([result objectForKey:@"uid"]){
+            
+            SOC.fbObject.facebookUId=[result objectForKey:@"uid"];
+
+             NSLog(@"uid=%@",[result objectForKey:@"uid"]);
+        }
+
         NSLog(@"firstName=%@",[result objectForKey:@"first_name"]);
         NSLog(@"email=%@",[result objectForKey:@"email"]);
         NSLog(@"sex=%@",[result objectForKey:@"sex"]);
