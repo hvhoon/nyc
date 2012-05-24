@@ -10,7 +10,7 @@
 
 @class MainServiceManager;
 @class MBProgressHUD;
-@class  AlertPrompt;
+@class AlertPrompt;
 
 @interface LoginViewController : UIViewController<UITextFieldDelegate,UIAlertViewDelegate>{
     UITextField *emailAddress;

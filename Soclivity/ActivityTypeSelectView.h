@@ -31,14 +31,9 @@
     GetPlayersClass *playerObj;
     MBProgressHUD *HUD;
     BOOL facebookTag;
-    
-
-
-    
 }
 @property (nonatomic,retain)id <ActivitySelectDelegate>delegate;
 @property (nonatomic,retain)GetPlayersClass *playerObj;
-@property (retain, nonatomic) IBOutlet UIButton *getStarted;
 @property (retain, nonatomic) IBOutlet UIButton *getStarted;
 @property (nonatomic,assign)BOOL facebookTag;
 -(IBAction)playActivityClicked:(id)sender;

@@ -295,49 +295,33 @@
     else {
         if (buttonIndex == 0) {
         
-        switch (alertView.tag) {
-            case kUsernameMissing:
-        switch (alertView.tag) {
-            case kUsernameMissing:
-                [emailAddress becomeFirstResponder];
-                break;
-            case kPasswordMissing:
-                [password becomeFirstResponder];
-                break;
-            case kLoginSuccess:
-            {
-                HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+            switch (alertView.tag) {
+                case kUsernameMissing:
+                    [emailAddress becomeFirstResponder];
+                    break;
+                case kPasswordMissing:
+                    [password becomeFirstResponder];
+                    break;
+                case kLoginSuccess: {
+                    HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+                    DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
+                    SettingsViewController *leftController = [[SettingsViewController alloc] init];
+                    rootController.leftViewController = leftController;
+                    UpComingEventsViewController *rightController = [[UpComingEventsViewController alloc] init];
+                    rootController.rightViewController = rightController;
                 
-                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
-                
-                DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
-                
-                
-                SettingsViewController *leftController = [[SettingsViewController alloc] init];
-                rootController.leftViewController = leftController;
-                
-                UpComingEventsViewController *rightController = [[UpComingEventsViewController alloc] init];
-                rootController.rightViewController = rightController;
-                
-                
-                
-                AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                appDelegate.menuController=rootController;
-                [self.navigationController pushViewController:rootController animated:YES];
-                //[leftController release];
-                //[rightController release];
-                //[rootController release];
-                //[navController release];
-
-            case kLoginFail:
-                [password becomeFirstResponder];
-                break;
-            case kPasswordResetEmail:
-                [self resetPassword:nil];
-                break;
-
-            default:
-                break;
+                    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                    appDelegate.menuController=rootController;
+                    [self.navigationController pushViewController:rootController animated:YES];
+                    break;
+                }
+                case kLoginFail:
+                    [password becomeFirstResponder];
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
