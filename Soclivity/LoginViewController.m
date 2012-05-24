@@ -317,6 +317,7 @@
     // Setup animation settings
     HUD = [[MBProgressHUD alloc] initWithView:self.view];
     HUD.yOffset = -90.0;
+    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
     HUD.labelText = @"Signing In";
     
     [self.view addSubview:HUD];
@@ -329,6 +330,7 @@
     // Setup animation settings
     HUD = [[MBProgressHUD alloc] initWithView:self.view];
     HUD.yOffset = -90.0;
+    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
     HUD.labelText = @"Resetting Password";
     
     [self.view addSubview:HUD];

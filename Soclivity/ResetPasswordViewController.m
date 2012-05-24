@@ -252,6 +252,7 @@
     // Setup animation settings
     HUD = [[MBProgressHUD alloc] initWithView:self.view];
     HUD.yOffset = -90.0;
+    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
     HUD.labelText = @"Updating Password";
     
     [self.view addSubview:HUD];

@@ -197,6 +197,7 @@
 - (void)startAnimation{
     // Setup animation settings
     HUD = [[MBProgressHUD alloc] initWithView:self];
+    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
     HUD.labelText = @"Registering You";
     
     [self addSubview:HUD];
