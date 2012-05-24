@@ -31,6 +31,7 @@
 		686C798B1557C475001358E0 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 686C798A1557C475001358E0 /* Icon@2x.png */; };
 		687F3A781551349F00B694DA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 687F3A771551349F00B694DA /* CoreLocation.framework */; };
 		687F3A7A155134AE00B694DA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 687F3A79155134AE00B694DA /* QuartzCore.framework */; };
+		68AF2103156D41EA0085D48C /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AF2102156D41EA0085D48C /* MBProgressHUD.m */; };
 		68B91451155EBBAB00F2B780 /* S01.1_question-mark.png in Resources */ = {isa = PBXBuildFile; fileRef = 68B9144D155EBBAB00F2B780 /* S01.1_question-mark.png */; };
 		68B91452155EBBAB00F2B780 /* S01.1_question-mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68B9144E155EBBAB00F2B780 /* S01.1_question-mark@2x.png */; };
 		68B91456155EC18000F2B780 /* S01.1_back-arrow_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 68B91454155EC18000F2B780 /* S01.1_back-arrow_circle.png */; };
@@ -237,6 +238,8 @@
 		686C798A1557C475001358E0 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		687F3A771551349F00B694DA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		687F3A79155134AE00B694DA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		68AF2101156D41EA0085D48C /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		68AF2102156D41EA0085D48C /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		68B9144D155EBBAB00F2B780 /* S01.1_question-mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S01.1_question-mark.png"; sourceTree = "<group>"; };
 		68B9144E155EBBAB00F2B780 /* S01.1_question-mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S01.1_question-mark@2x.png"; sourceTree = "<group>"; };
 		68B91454155EC18000F2B780 /* S01.1_back-arrow_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S01.1_back-arrow_circle.png"; sourceTree = "<group>"; };
@@ -648,6 +651,15 @@
 				680CE4141551284700B8E937 /* UIImage+Tint.m */,
 			);
 			name = Utilities;
+			sourceTree = "<group>";
+		};
+		68AF2105156D41FD0085D48C /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				68AF2101156D41EA0085D48C /* MBProgressHUD.h */,
+				68AF2102156D41EA0085D48C /* MBProgressHUD.m */,
+			);
+			name = Animation;
 			sourceTree = "<group>";
 		};
 		68BF4F6E155CAEF5005399B3 /* Fonts */ = {
@@ -1351,8 +1363,8 @@
 					armv6,
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1369,8 +1381,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
-				PROVISIONING_PROFILE = "0A86A85D-283E-4FC4-A20F-9E3D5530B941";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0A86A85D-283E-4FC4-A20F-9E3D5530B941";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -1386,8 +1396,8 @@
 					armv6,
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_THUMB_SUPPORT = NO;
@@ -1398,8 +1408,6 @@
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "0A86A85D-283E-4FC4-A20F-9E3D5530B941";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0A86A85D-283E-4FC4-A20F-9E3D5530B941";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -1412,8 +1420,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
@@ -1421,8 +1429,8 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0A86A85D-283E-4FC4-A20F-9E3D5530B941";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0A86A85D-283E-4FC4-A20F-9E3D5530B941";
+				PROVISIONING_PROFILE = "C9B0720B-8BFF-434D-B66A-9905D0AC1B3B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C9B0720B-8BFF-434D-B66A-9905D0AC1B3B";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1433,8 +1441,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Harish Hoon";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Harish Hoon";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
@@ -1442,8 +1450,8 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0A86A85D-283E-4FC4-A20F-9E3D5530B941";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0A86A85D-283E-4FC4-A20F-9E3D5530B941";
+				PROVISIONING_PROFILE = "27CC6466-8E73-4C70-B20C-31D91E5F7B20";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "27CC6466-8E73-4C70-B20C-31D91E5F7B20";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};

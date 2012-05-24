@@ -2,17 +2,16 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12A193i</string>
+		<string key="IBDocument.SystemVersion">12A206j</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2488</string>
-		<string key="IBDocument.AppKitVersion">1170</string>
-		<string key="IBDocument.HIToolboxVersion">611.00</string>
+		<string key="IBDocument.AppKitVersion">1172.1</string>
+		<string key="IBDocument.HIToolboxVersion">613.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">1468</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
-			<string>IBUIActivityIndicatorView</string>
 			<string>IBUIButton</string>
 			<string>IBUIImageView</string>
 			<string>IBUITextField</string>
@@ -40,7 +39,6 @@
 				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
@@ -442,7 +440,6 @@
 						<string key="NSFrame">{{275, 372}, {26, 26}}</string>
 						<reference key="NSSuperview" ref="222031491"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -802,7 +799,7 @@
 						<string key="NSFrame">{{276, 378}, {29, 30}}</string>
 						<reference key="NSSuperview" ref="797170633"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="516917738"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
 							<string key="IBUIAccessibilityLabel"/>
@@ -885,18 +882,6 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<reference key="IBUIImage" ref="253309505"/>
-					</object>
-					<object class="IBUIActivityIndicatorView" id="516917738">
-						<reference key="NSNextResponder" ref="797170633"/>
-						<int key="NSvFlags">-2147483356</int>
-						<string key="NSFrame">{{277, 383}, {20, 20}}</string>
-						<reference key="NSSuperview" ref="797170633"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBUIStyle">2</int>
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 414}</string>
@@ -1056,22 +1041,6 @@
 						<reference key="destination" ref="290724446"/>
 					</object>
 					<int key="connectionID">95</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">getStarted</string>
-						<reference key="source" ref="797170633"/>
-						<reference key="destination" ref="294799622"/>
-					</object>
-					<int key="connectionID">112</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">progressGear</string>
-						<reference key="source" ref="797170633"/>
-						<reference key="destination" ref="516917738"/>
-					</object>
-					<int key="connectionID">114</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -1292,7 +1261,6 @@
 							<reference ref="498195881"/>
 							<reference ref="272571998"/>
 							<reference ref="64966439"/>
-							<reference ref="516917738"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1512,12 +1480,6 @@
 						<reference key="object" ref="780109821"/>
 						<reference key="parent" ref="222031491"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">113</int>
-						<reference key="object" ref="516917738"/>
-						<reference key="parent" ref="797170633"/>
-						<string key="objectName">progressGear</string>
-					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1528,7 +1490,6 @@
 				<string key="1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="105.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="109.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="113.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="25.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="26.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="28.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1625,10 +1586,8 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="createImageView">UIImageView</string>
 						<string key="eatImageView">UIImageView</string>
-						<string key="getStarted">UIButton</string>
 						<string key="learnImageView">UIImageView</string>
 						<string key="playImageView">UIImageView</string>
-						<string key="progressGear">UIActivityIndicatorView</string>
 						<string key="seeImageView">UIImageView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -1640,10 +1599,6 @@
 							<string key="name">eatImageView</string>
 							<string key="candidateClassName">UIImageView</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="getStarted">
-							<string key="name">getStarted</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="learnImageView">
 							<string key="name">learnImageView</string>
 							<string key="candidateClassName">UIImageView</string>
@@ -1651,10 +1606,6 @@
 						<object class="IBToOneOutletInfo" key="playImageView">
 							<string key="name">playImageView</string>
 							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="progressGear">
-							<string key="name">progressGear</string>
-							<string key="candidateClassName">UIActivityIndicatorView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="seeImageView">
 							<string key="name">seeImageView</string>

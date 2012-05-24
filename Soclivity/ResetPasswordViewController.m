@@ -11,10 +11,12 @@
 #import "MainServiceManager.h"
 #import "ResetPasswordInvocation.h"
 #import "GetPlayersClass.h"
+#import "MBProgressHUD.h"
+
 #define kNewPasswordNot 0
 #define kPasswordResetEmail 1
 #define kResetFail 2
-@interface ResetPasswordViewController(private)<ResetPasswordInvocationDelegate>
+@interface ResetPasswordViewController(private)<ResetPasswordInvocationDelegate,MBProgressHUDDelegate>
 
 @end
 
@@ -158,6 +160,8 @@
     
     else{
        
+        // Starting animation
+        [self startUpdatePasswordAnimation];
         [devServer postResetAndConfirmNewPasswordInvocation:newPassword.text cPassword:confirmPassword.text andUserId:idSoc  tempPassword:oldPassword delegate:self];
     
     }
@@ -167,10 +171,8 @@
                            withResponse:(NSString*)responses
                               withError:(NSError*)error{
     
-    
-    
-    //GetPlayersClass *obj=[responses objectAtIndex:0];
-    //NSLog(@"obj.password_status=%@",obj.statusMessage);
+    // Stop animation
+    [HUD hide:YES];
     
     if([responses isEqualToString:@"failed"]){
         newPassword.text=@"";
@@ -231,7 +233,7 @@
                 break;
                 
             case kPasswordResetEmail:
-             [self.navigationController dismissModalViewControllerAnimated:YES];
+                [self.navigationController dismissModalViewControllerAnimated:YES];
                 break;
                 
             case kResetFail:
@@ -241,9 +243,28 @@
                 break;
         }
     }
-    else
-        NSLog(@"Clicked Cancel Button");
 }
 
+#pragma mark -
+#pragma mark Animation methods
 
+-(void)startUpdatePasswordAnimation {
+    // Setup animation settings
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    HUD.yOffset = -90.0;
+    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
+    HUD.labelText = @"Updating Password";
+    
+    [self.view addSubview:HUD];
+    HUD.delegate = self;
+    [HUD show:YES];
+    
+}
+
+-(void)hudWasHidden:(MBProgressHUD *)hud {
+    // Remove HUD from screen when the HUD was hidded
+	[HUD removeFromSuperview];
+	[HUD release];
+	HUD = nil;
+}
 @end

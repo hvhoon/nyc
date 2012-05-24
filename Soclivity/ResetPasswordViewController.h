@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class MainServiceManager;
+@class MBProgressHUD;
 @interface ResetPasswordViewController : UIViewController<UITextFieldDelegate,UIAlertViewDelegate>{
     
     IBOutlet UITextField *newPassword;
@@ -17,6 +18,7 @@
     NSString *oldPassword;
     int backgroundState;
     UIImageView *backgroundView;
+    MBProgressHUD *HUD;
 }
 @property (nonatomic,assign)NSInteger idSoc;
 @property (nonatomic,retain)NSString *oldPassword;

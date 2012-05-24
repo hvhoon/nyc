@@ -24,6 +24,7 @@
 #define kEmailNot 11
 #define kPasswordNot 12
 #define kFutureBirthdayDate 14
+
 @implementation BasicInfoView
 
 // Private variables
@@ -188,14 +189,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
         
         
         // If all the fields are valid, let the user move to the next screen
-        if(validName && validEmail && validPassword && passwordsMatched && locationEntered){
-            SOC.basicInfoDone = YES;
-            [[NSNotificationCenter defaultCenter] postNotificationName:kStartScrolling object:nil];
-        }
-        else {
-            SOC.basicInfoDone = NO;
-            [[NSNotificationCenter defaultCenter] postNotificationName:kStopScrolling object:nil];
-        }
+        [self controlScrolling];
     }
 }
 -(IBAction)genderChanged:(UIButton*)sender{
@@ -252,9 +246,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
     [sheet showInView:[UIApplication sharedApplication].keyWindow];
     [sheet release];
     
-    
 }
-
 
 -(IBAction)birthdayDateSelection:(id)sender{
     
@@ -318,6 +310,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
 			
 		}
     }
+    [self controlScrolling];
 }
 
 -(void)BasicInfoFields{
@@ -695,15 +688,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
 	 NSLog(@"textFieldShouldReturn");
     [textField resignFirstResponder];
     
-    // If all the fields are valid, let the user move to the next screen
-    if(validName && validEmail && validPassword && passwordsMatched && locationEntered){
-        SOC.basicInfoDone = YES;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kStartScrolling object:nil];
-    }
-    else {
-        SOC.basicInfoDone = NO;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kStopScrolling object:nil];
-    }
+    [self controlScrolling];
     
 	[UIView beginAnimations:nil context:NULL];
     [UIView setAnimationBeginsFromCurrentState:YES];
@@ -713,5 +698,17 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
     [UIView commitAnimations];
         
     return NO;
+}
+
+-(void)controlScrolling {
+    // If all the fields are valid, let the user move to the next screen
+    if(validName && validEmail && validPassword && passwordsMatched && locationEntered){
+        SOC.basicInfoDone = YES;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kStartScrolling object:nil];
+    }
+    else {
+        SOC.basicInfoDone = NO;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kStopScrolling object:nil];
+    }
 }
 @end

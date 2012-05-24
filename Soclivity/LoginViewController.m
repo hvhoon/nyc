@@ -23,15 +23,14 @@
 #define kALertPrompt 2
 #define kLoginSuccess 3
 #define kLoginFail 4
-#define kPasswordResetEmail 5
-@interface LoginViewController(private)<GetLoginInvocationDelegate,ForgotPasswordInvocationDelegate>
 
+@interface LoginViewController(private)<GetLoginInvocationDelegate,ForgotPasswordInvocationDelegate,MBProgressHUDDelegate>
 @end
 
 @implementation LoginViewController
-@synthesize progressGear;
-@synthesize rightArrowButton;
+
 @synthesize emailAddress,password,backgroundState;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -80,33 +79,32 @@
 
     }
     else
-    {
-        // Start the animation
-        [progressGear startAnimating];
-        [rightArrowButton setHidden:YES];
-        
-        // Send the login request
-        NSLog(@"Attempting to login...");
-        [devServer getLoginInvocation:self.emailAddress.text Password:self.password.text  delegate:self];
-        
-        
-        
-    }
+        [self LoginInvocation];
 }
+
+// Beging the login process
+-(void)LoginInvocation {
+    // Send the login request
+    NSLog(@"Attempting to login...");
+    [self startLoginAnimation];
+    [devServer getLoginInvocation:self.emailAddress.text Password:self.password.text  delegate:self];
+}
+
+// Login process complete
 -(void)LoginInvocationDidFinish:(GetLoginInvocation*)invocation
                    withResponse:(NSArray*)responses
                       withError:(NSError*)error{
     
     // Stop animation
-    [progressGear stopAnimating];
-    [rightArrowButton setHidden:NO];
-    
+    [HUD hide:YES];
+
     NSLog(@"Successful Login");
     NSLog(@"RegistrationDetailInvocationDidFinish called");
     GetPlayersClass *obj=[responses objectAtIndex:0];
     NSLog(@"SOC ID=%d",[obj.idSoc intValue]);
     NSLog(@"obj.password_status=%@",obj.password_status);
     
+    // Login successful
     if(obj.status && [obj.password_status isEqualToString:@"null"]){
         
         if([ SFHFKeychainUtils storeUsername:@"password" andPassword: password.text forServiceName:@"Soclivity" updateExisting:YES error:nil])
@@ -125,7 +123,8 @@
 
     }
     
-else if(obj.status && [obj.password_status isEqualToString:@"temp"]){
+    // Login with temporary password successful
+    else if(obj.status && [obj.password_status isEqualToString:@"temp"]){
         
         
         ResetPasswordViewController *resetPasswordViewController=[[ResetPasswordViewController alloc] initWithNibName:@"ResetPasswordViewController" bundle:nil];
@@ -140,8 +139,10 @@ else if(obj.status && [obj.password_status isEqualToString:@"temp"]){
         [addNavigationController release];
         return;
     }
+    
+    // Login not successful
     else{
-        // Clear your password
+        // Clear entered password
         password.text = @"";
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed"
                                                     message:@"Incorrect email or password."
@@ -172,8 +173,7 @@ else if(obj.status && [obj.password_status isEqualToString:@"temp"]){
 -(void)ForgotPasswordInvocationDelegate:(ForgotPasswordInvocation*)invocation
                            withResponse:(NSArray*)responses
                               withError:(NSError*)error{
-    
-    
+    [HUD hide:YES];
     GetPlayersClass *obj=[responses objectAtIndex:0];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:obj.statusMessage
                                                     message:nil
@@ -192,8 +192,6 @@ else if(obj.status && [obj.password_status isEqualToString:@"temp"]){
     
     emailAddress.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     password.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
-    
-    progressGear.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
 
     backgroundView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 460)];
     UIImage *bgImage=nil;
@@ -250,22 +248,17 @@ else if(obj.status && [obj.password_status isEqualToString:@"temp"]){
 		[self signUpButtonClicked:nil];
 		
 	}
-	
-	
     return NO;
 }
+
 -(IBAction)BackButtonClicked:(id)sender{
     
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 - (void)viewDidUnload
 {
-    [self setProgressGear:nil];
-    [self setRightArrowButton:nil];
-    [self setRightArrowButton:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 
@@ -289,24 +282,16 @@ else if(obj.status && [obj.password_status isEqualToString:@"temp"]){
             //Reset Pressed
             [emailAddress becomeFirstResponder];
             NSString *email=[prompt enteredText];
-            if([SoclivityUtilities validEmail:email]){
-                [devServer postForgotPasswordInvocation:email delegate:self];
-                
-            }
-            else{
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Email"
-                                                                message:@"Promise not to send you spam!"
-                                                               delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-                alert.tag=kPasswordResetEmail;
-                [alert show];
-                [alert release];
-                return;
-
-            }
+            
+            // Start animation
+            [self startPasswordResetEmailAnimation];
+            
+            // Send Password Reset request
+            [devServer postForgotPasswordInvocation:email delegate:self];
         }
     }
-    else{
-    if (buttonIndex == 0) {
+    else {
+        if (buttonIndex == 0) {
         
         switch (alertView.tag) {
             case kUsernameMissing:
@@ -353,13 +338,48 @@ else if(obj.status && [obj.password_status isEqualToString:@"temp"]){
                 break;
         }
     }
-    else
-        NSLog(@"Clicked Cancel Button");
-    }
 }
 
+#pragma mark -
+#pragma mark Animation methods
+
+-(void)startLoginAnimation {
+    // Setup animation settings
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    HUD.yOffset = -90.0;
+    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
+    HUD.labelText = @"Signing In";
+    
+    [self.view addSubview:HUD];
+    HUD.delegate = self;
+    [HUD show:YES];
+
+}
+
+-(void)startPasswordResetEmailAnimation {
+    // Setup animation settings
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    HUD.yOffset = -90.0;
+    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
+    HUD.labelText = @"Resetting Password";
+    
+    [self.view addSubview:HUD];
+    HUD.delegate = self;
+    [HUD show:YES];
+    
+}
+
+-(void)hudWasHidden:(MBProgressHUD *)hud {
+    // Remove HUD from screen when the HUD was hidded
+	[HUD removeFromSuperview];
+	[HUD release];
+	HUD = nil;
+}
+
+#pragma mark -
 - (void)dealloc {
-    [progressGear release];
     [super dealloc];
 }
+
 @end
+
