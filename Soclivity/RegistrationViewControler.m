@@ -206,7 +206,7 @@
     
     UIImageView *selectActivityType = (UIImageView *)[self.scrollView viewWithTag:237];
     [selectActivityType setHidden:NO];
-
+    
     self.scrollView.scrollEnabled = YES;
 }
 -(void)setPickerSettings{

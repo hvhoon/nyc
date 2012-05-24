@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class GetPlayersClass;
+@class MBProgressHUD;
 
 @protocol ActivitySelectDelegate <NSObject>
 
@@ -15,7 +16,7 @@
 -(void)pushHomeMapViewController;
 @end
 
-@interface ActivityTypeSelectView : UIView{
+@interface ActivityTypeSelectView : UIView {
     id <ActivitySelectDelegate>delegate;
     IBOutlet UIImageView *playImageView;
     IBOutlet UIImageView *eatImageView;
@@ -28,14 +29,11 @@
     BOOL create;
     BOOL learn;
     GetPlayersClass *playerObj;
-    
-
-
-    
+    MBProgressHUD *HUD;
 }
 @property (nonatomic,retain)id <ActivitySelectDelegate>delegate;
 @property (nonatomic,retain)GetPlayersClass *playerObj;
-@property (retain, nonatomic) IBOutlet UIButton *getStarted;
+
 -(IBAction)getStartedClicked:(id)sender;
 -(IBAction)playActivityClicked:(id)sender;
 -(IBAction)eatActivityClicked:(id)sender;
@@ -45,5 +43,5 @@
 -(void)MakeSureAtLeastOneActivitySelected;
 -(void)startAnimation;
 -(void)stopAnimation;
-@property (retain, nonatomic) IBOutlet UIActivityIndicatorView *progressGear;
+
 @end

@@ -8,9 +8,13 @@
 
 #import "ActivityTypeSelectView.h"
 #import "GetPlayersClass.h"
+#import "MBProgressHUD.h"
+
+// Private properties
+@interface ActivityTypeSelectView() <MBProgressHUDDelegate>
+@end
+
 @implementation ActivityTypeSelectView
-@synthesize progressGear;
-@synthesize getStarted;
 
 @synthesize delegate,playerObj;
 
@@ -23,8 +27,6 @@
 #define kSee 2
 #define kCreate 3
 #define kLearn 4
-
-
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -182,24 +184,33 @@
     // Drawing code
     
 }
+#pragma mark -
+#pragma mark Animation methods
 
+-(void)hudWasHidden:(MBProgressHUD *)hud {
+    // Remove HUD from screen when the HUD was hidded
+	[HUD removeFromSuperview];
+	[HUD release];
+	HUD = nil;
+}
 // Start the animation
 - (void)startAnimation{
-    progressGear.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-    [progressGear startAnimating];
-    [getStarted setHidden:YES];
+    // Setup animation settings
+    HUD = [[MBProgressHUD alloc] initWithView:self];
+    HUD.labelText = @"Registering You";
+    
+    [self addSubview:HUD];
+    HUD.delegate = self;
+    [HUD show:YES];
 }
 
 // Stop the animation
 - (void)stopAnimation{
-    [progressGear stopAnimating];
-    [getStarted setHidden:NO];
+    [HUD hide:YES];
 }
 
 
 - (void)dealloc {
-    [getStarted release];
-    [progressGear release];
     [super dealloc];
 }
 @end

@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @class MainServiceManager;
+@class MBProgressHUD;
 @class  AlertPrompt;
+
 @interface LoginViewController : UIViewController<UITextFieldDelegate,UIAlertViewDelegate>{
     UITextField *emailAddress;
     UITextField *password;
@@ -17,11 +20,10 @@
     BOOL validEmail, validPassword;
     MainServiceManager *devServer;
     AlertPrompt *prompt;
+    MBProgressHUD *HUD;
 }
 @property (nonatomic,retain)IBOutlet UITextField *emailAddress;
 @property (nonatomic,retain)IBOutlet UITextField *password;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *progressGear;
-@property (retain, nonatomic) IBOutlet UIButton *rightArrowButton;
 @property (nonatomic,assign) int backgroundState;
 -(IBAction)signUpButtonClicked:(id)sender;
 -(IBAction)resetPassword:(id)sender;
