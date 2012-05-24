@@ -18,6 +18,8 @@
 #import "HomeViewController.h"
 #import "SettingsViewController.h"
 #import "UpComingEventsViewController.h"
+#import "MBProgressHUD.h"
+
 #define kUsernameMissing 0
 #define kPasswordMissing 1
 #define kALertPrompt 2
@@ -295,6 +297,8 @@
         
         switch (alertView.tag) {
             case kUsernameMissing:
+        switch (alertView.tag) {
+            case kUsernameMissing:
                 [emailAddress becomeFirstResponder];
                 break;
             case kPasswordMissing:
@@ -325,8 +329,6 @@
                 //[rootController release];
                 //[navController release];
 
-            }
-                break;
             case kLoginFail:
                 [password becomeFirstResponder];
                 break;
