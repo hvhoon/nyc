@@ -113,9 +113,12 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
         if((SOC.fbObject.birth_date==(NSString*)[NSNull null])||([SOC.fbObject.birth_date isEqualToString:@""]||SOC.fbObject.birth_date==nil)||([SOC.fbObject.birth_date isEqualToString:@"(null)"])){
              NSLog(@"No birth_date Selected");
         }
+        
+        // We are not pulling location information right now
+        /*
         if((SOC.fbObject.current_location==(NSString*)[NSNull null])||([SOC.fbObject.current_location isEqualToString:@""]||SOC.fbObject.current_location==nil)||([SOC.fbObject.current_location isEqualToString:@"(null)"])){
             NSLog(@"No current_location Selected");
-        }
+        }*/
 
         
         BOOL fName=TRUE;

@@ -44,7 +44,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [self.navigationController.navigationBar setHidden:YES];
     rootView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 460)];
     [self.view addSubview:rootView];
 

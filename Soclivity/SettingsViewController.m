@@ -10,7 +10,7 @@
 #import "HomeViewController.h"
 #import "UpComingEventsViewController.h"
 #import "DDMenuController.h"
-
+#import "WelcomeScreenViewController.h"
 
 @implementation SettingsViewController
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -51,7 +51,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    return 3;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -62,7 +62,7 @@
     static NSString *PlaceholderCellIdentifier = @"PlaceholderCell";
     
     // add a placeholder cell while waiting on table data
-    int nodeCount = 3;
+    int nodeCount = 1;
 	
 	if (nodeCount == 0 && indexPath.row == 0)
 	{
@@ -94,7 +94,7 @@
 	{
         // Set up the cell...
         
-		cell.textLabel.text = @"Kanav";
+		cell.textLabel.text = @"Logout";
         cell.detailTextLabel.text = @"Check This Out";
 		
         // Only load cached images; defer new downloads until scrolling ends
@@ -106,13 +106,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+
     DDMenuController *menuController = (DDMenuController*)((AppDelegate*)[[UIApplication sharedApplication] delegate]).menuController;
     UpComingEventsViewController *controller = [[UpComingEventsViewController alloc] init];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
+    WelcomeScreenViewController *welcomeScreenViewController=[[WelcomeScreenViewController alloc] initWithNibName:@"WelcomeScreenViewController" bundle:nil];
+	[[self navigationController] pushViewController:welcomeScreenViewController animated:YES];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:welcomeScreenViewController];
     
     [menuController setRootController:navController animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    [welcomeScreenViewController release];
+
 }
 
 

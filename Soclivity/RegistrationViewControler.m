@@ -17,6 +17,7 @@
 #import "GetPlayersClass.h"
 
 #define kDatePicker 123
+#define kRegisterSucces 2
 @interface RegistrationViewControler (private)<GetPlayersDetailDelegate,RegistrationDetailDelegate>
 @end
 
@@ -400,35 +401,59 @@
                                                         message:@"Welcome to Soclivity!"
                                                        delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
     
+        alert.tag=kRegisterSucces;
         [alert show];
         [alert release];
+
     }
     return;
     
-#if 0    
-    HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+}
+
+
+#pragma mark -
+#pragma mark UIAlertView methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+    //[alertView resignFirstResponder];
     
-    DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
+        if (buttonIndex == 0) {
+            
+            switch (alertView.tag) {
+                case kRegisterSucces:
+                {
+                    HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+                    
+                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+                    
+                    DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
+                    
+                    
+                    SettingsViewController *leftController = [[SettingsViewController alloc] init];
+                    rootController.leftViewController = leftController;
+                    
+                    UpComingEventsViewController *rightController = [[UpComingEventsViewController alloc] init];
+                    rootController.rightViewController = rightController;
+                    
+                    
+                    
+                    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                    appDelegate.menuController=rootController;
+                    [self.navigationController pushViewController:rootController animated:YES];
+                    //[leftController release];
+                    //[rightController release];
+                    //[rootController release];
+                    //[navController release];
+                    
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+            NSLog(@"Clicked Cancel Button");
     
-    
-    SettingsViewController *leftController = [[SettingsViewController alloc] init];
-    rootController.leftViewController = leftController;
-    
-    UpComingEventsViewController *rightController = [[UpComingEventsViewController alloc] init];
-    rootController.rightViewController = rightController;
-    
-    
-    
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    appDelegate.menuController=rootController;
-    [self.navigationController pushViewController:rootController animated:YES];
-    //[leftController release];
-    //[rightController release];
-    //[rootController release];
-    //[navController release];
-#endif
 }
 - (void)viewDidUnload
 {
