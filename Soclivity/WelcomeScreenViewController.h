@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "FacebookLogin.h"
+@class MBProgressHUD;
+
 @interface WelcomeScreenViewController : UIViewController<FacebookLoginDelegate>{
     UIView *rootView;
     UIImageView *playImageView;
@@ -17,7 +19,7 @@
     UIImageView*learnImageView;
     int rnd;
     int backgroundState;
-
+    MBProgressHUD *HUD;
 }
 -(void)performTransition;
 -(void)SignUpButtonClicked;

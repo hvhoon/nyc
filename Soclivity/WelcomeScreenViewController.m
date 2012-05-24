@@ -12,6 +12,11 @@
 #import "LoginViewController.h"
 #import "SoclivityManager.h"
 #import "AppDelegate.h"
+#import "MBProgressHUD.h"
+
+@interface WelcomeScreenViewController(Private) <MBProgressHUDDelegate>
+@end
+
 @implementation WelcomeScreenViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -233,12 +238,14 @@
 #endif
 }
 -(void)SignInUsingFacebookButtonClicked{
+    [self startFacebookSignup];
     NSLog(@"SignInUsingFacebookButtonClicked");
 #if 1    
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     FacebookLogin *fbLogin=[appDelegate SetUpFacebook];
     fbLogin.FBdelegate=self;
-#endif    
+
+#endif
 }
 
 -(void)pushToRegistration{
@@ -246,7 +253,7 @@
     //check for facebook user Already registered or else redirect to registraion page
     RegistrationViewControler *registrationViewControler=[[RegistrationViewControler alloc] initWithNibName:@"RegistrationViewControler" bundle:nil];
     registrationViewControler.facebookTag=TRUE;
-
+    [HUD hide:YES];
 	[[self navigationController] pushViewController:registrationViewControler animated:YES];
     [registrationViewControler release];
     
@@ -270,6 +277,28 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark -
+#pragma mark Animation methods
+
+-(void)startFacebookSignup {
+    // Setup animation settings
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
+    HUD.labelText = @"Facebook Sign-in";
+    
+    [self.view addSubview:HUD];
+    HUD.delegate = self;
+    [HUD show:YES];
+    
+}
+
+-(void)hudWasHidden:(MBProgressHUD *)hud {
+    // Remove HUD from screen when the HUD was hidded
+	[HUD removeFromSuperview];
+	[HUD release];
+	HUD = nil;
 }
 
 @end
