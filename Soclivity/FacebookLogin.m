@@ -94,6 +94,8 @@
 
 -(void)fbDidExtendToken:(NSString *)accessToken expiresAt:(NSDate *)expiresAt {
     NSLog(@"token extended");
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    SOC.fbObject.facebookAccessToken=accessToken;
     [self storeAuthData:accessToken expiresAt:expiresAt];
 }
 

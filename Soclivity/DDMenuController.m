@@ -404,7 +404,7 @@
 			topController.navigationItem.leftBarButtonItem = nil;
 		}
     }
-    
+  
     if (_menuFlags.canShowRight) {
         UIBarButtonItem *button = [[barButtonItemClass alloc] initWithImage:[UIImage imageNamed:@"S01.1_back-arrow_circle.png"] style:UIBarButtonItemStyleBordered  target:self action:@selector(showRight:)];
         topController.navigationItem.rightBarButtonItem = button;

@@ -37,89 +37,28 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    settingTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, 390)];
-    [settingTableView setDelegate:self];
-    [settingTableView setDataSource:self];
-    [settingTableView setRowHeight:40];
-    [settingTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     
-    settingTableView.scrollEnabled=YES;
-    [self.view addSubview:settingTableView];
+    UIButton *logoutButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    logoutButton.frame=CGRectMake(10,50,160,32);
+    [logoutButton setTitle:@"Logout" forState:UIControlStateNormal];
+    [logoutButton addTarget:self action:@selector(logoutFromTheApp) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:logoutButton];
+
     
     // Do any additional setup after loading the view from its nib.
 }
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
-{
-    return 1;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	// customize the appearance of table view cells
-	//
-	static NSString *CellIdentifier = @"MediaTableCell";
-    static NSString *PlaceholderCellIdentifier = @"PlaceholderCell";
-    
-    // add a placeholder cell while waiting on table data
-    int nodeCount = 1;
-	
-	if (nodeCount == 0 && indexPath.row == 0)
-	{
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:PlaceholderCellIdentifier];
-        if (cell == nil)
-		{
-            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-										   reuseIdentifier:PlaceholderCellIdentifier] autorelease];   
-            cell.detailTextLabel.textAlignment = UITextAlignmentCenter;
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
-        
-		cell.detailTextLabel.text = @"Loading…";
-		
-		return cell;
-    }
-	
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil)
-	{
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-									   reuseIdentifier:CellIdentifier] autorelease];
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-    
-    // Leave cells empty if there's no data yet
-    if (nodeCount > 0)
-	{
-        // Set up the cell...
-        
-		cell.textLabel.text = @"Logout";
-        cell.detailTextLabel.text = @"Check This Out";
-		
-        // Only load cached images; defer new downloads until scrolling ends
-        
-    }
-    
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-
+-(void)logoutFromTheApp{
     DDMenuController *menuController = (DDMenuController*)((AppDelegate*)[[UIApplication sharedApplication] delegate]).menuController;
     
-    UpComingEventsViewController *controller = [[UpComingEventsViewController alloc] init];
     WelcomeScreenViewController *welcomeScreenViewController=[[WelcomeScreenViewController alloc] initWithNibName:@"WelcomeScreenViewController" bundle:nil];
 	[[self navigationController] pushViewController:welcomeScreenViewController animated:YES];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:welcomeScreenViewController];
     
     [menuController setRootController:navController animated:YES];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [welcomeScreenViewController release];
 
 }
+    
 
 
 - (void)viewDidUnload

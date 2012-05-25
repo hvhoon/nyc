@@ -80,7 +80,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
         if(SOC.fbObject.FBProfileImage.size.height > 100 || SOC.fbObject.FBProfileImage.size.width > 100)
             SOC.fbObject.FBProfileImage = [self compressImage:SOC.fbObject.FBProfileImage size:CGSizeMake(100,100)];
         
-        playerObj.profileImageData=UIImagePNGRepresentation(SOC.fbObject.FBProfileImage);
+        SOC.fbObject.profileImageData=UIImagePNGRepresentation(SOC.fbObject.FBProfileImage);
         [profileBtn setBackgroundImage:SOC.fbObject.FBProfileImage forState:UIControlStateNormal];
         [[profileBtn layer] setBorderWidth:1.0];
         [[profileBtn layer] setBorderColor:[SoclivityUtilities returnTextFontColor:4].CGColor];

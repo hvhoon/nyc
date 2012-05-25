@@ -55,14 +55,14 @@
     
     self.homeSearchBar.frame=CGRectMake(0, -44, 320, 44.0f);
     
-    
+#if 0    
     UIButton *scrollUpDownButton=[UIButton buttonWithType:UIButtonTypeCustom];
     scrollUpDownButton.frame=CGRectMake(276,122,29,30);
     [scrollUpDownButton setBackgroundImage:[UIImage imageNamed:@"S02_downarrow.png"] forState:UIControlStateNormal];
     [scrollUpDownButton addTarget:self action:@selector(timeToScrollDown) forControlEvents:UIControlEventTouchUpInside];
     scrollUpDownButton.tag=236;
     [self.view addSubview:scrollUpDownButton];
-
+#endif
     // Do any additional setup after loading the view from its nib.
 }
 -(void)timeToScrollDown{

@@ -28,6 +28,7 @@
 @synthesize fullName;
 @synthesize current_location;
 @synthesize facebookUId;
+@synthesize facebookAccessToken;
 -(void)dealloc{
     [super dealloc];
     [birth_date release];
@@ -48,5 +49,6 @@
     [statusMessage release];
     [FBProfileImage release];
     [facebookUId release];
+    [facebookAccessToken release];
 }
 @end

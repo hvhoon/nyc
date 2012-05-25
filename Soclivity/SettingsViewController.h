@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingsViewController : UIViewController<UITableViewDataSource, UITabBarControllerDelegate,UITableViewDelegate>{
+@interface SettingsViewController : UIViewController{
     
-    UITableView *settingTableView;
+    
 }
-
+-(void)logoutFromTheApp;
 @end

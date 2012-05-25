@@ -29,6 +29,7 @@
     NSString *fullName;
     NSString *current_location;
     NSString *facebookUId;
+    NSString*facebookAccessToken;
 
     
 }
@@ -51,4 +52,5 @@
 @property (nonatomic,retain)NSString *fullName;
 @property (nonatomic,retain)NSString *current_location;
 @property (nonatomic,retain)NSString *facebookUId;
+@property (nonatomic,retain)NSString *facebookAccessToken;
 @end

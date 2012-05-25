@@ -248,7 +248,7 @@
 }
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
     
-    NSLog(@"scrollViewDidScroll");
+    //NSLog(@"scrollViewDidScroll");
     
     [birthDayPicker setHidden:YES];
 
@@ -278,12 +278,12 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
 	pageControlBeingUsed = NO;
     [basicSectionFirst BasicInfoFields];
-    NSLog(@"scrollViewWillBeginDragging");
+    //NSLog(@"scrollViewWillBeginDragging");
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
 	//pageControlBeingUsed = NO;
-    NSLog(@"scrollViewDidEndDecelerating");
+    //NSLog(@"scrollViewDidEndDecelerating");
 }
 
 
