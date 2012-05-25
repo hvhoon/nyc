@@ -25,4 +25,5 @@
 -(void)SignUpButtonClicked;
 -(void)SignInUsingFacebookButtonClicked;
 -(void)AlreadySignedUpButtonClicked;
+-(void)startFacebookSignup;
 @end

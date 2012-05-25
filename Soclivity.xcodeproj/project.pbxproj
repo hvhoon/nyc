@@ -60,6 +60,7 @@
 		EA5BC9BA156CDE7100AC8C0C /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5BC9B9156CDE7100AC8C0C /* SBJsonStreamParserState.m */; };
 		EA5BC9BD156CDE8800AC8C0C /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5BC9BC156CDE8800AC8C0C /* SBJsonStreamWriterState.m */; };
 		EA5BC9C0156CEB2500AC8C0C /* FacebookLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5BC9BF156CEB2500AC8C0C /* FacebookLogin.m */; };
+		EA86D2D7156FEDE900E3EABD /* FBSignInInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA86D2D6156FEDE900E3EABD /* FBSignInInvocation.m */; };
 		EA91C26F155A36EA00BE5BB1 /* BirthdayPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C26E155A36EA00BE5BB1 /* BirthdayPickerView.m */; };
 		EA91C2DD155A716F00BE5BB1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C2C9155A716F00BE5BB1 /* Reachability.m */; };
 		EA91C2DE155A716F00BE5BB1 /* CAVNSArrayTypeCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C2CC155A716F00BE5BB1 /* CAVNSArrayTypeCategory.m */; };
@@ -289,6 +290,8 @@
 		EA5BC9BC156CDE8800AC8C0C /* SBJsonStreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterState.m; sourceTree = "<group>"; };
 		EA5BC9BE156CEB2500AC8C0C /* FacebookLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookLogin.h; sourceTree = "<group>"; };
 		EA5BC9BF156CEB2500AC8C0C /* FacebookLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookLogin.m; sourceTree = "<group>"; };
+		EA86D2D5156FEDE900E3EABD /* FBSignInInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSignInInvocation.h; sourceTree = "<group>"; };
+		EA86D2D6156FEDE900E3EABD /* FBSignInInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBSignInInvocation.m; sourceTree = "<group>"; };
 		EA91C26D155A36EA00BE5BB1 /* BirthdayPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BirthdayPickerView.h; sourceTree = "<group>"; };
 		EA91C26E155A36EA00BE5BB1 /* BirthdayPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BirthdayPickerView.m; sourceTree = "<group>"; };
 		EA91C2C8155A716F00BE5BB1 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = categories/Reachability.h; sourceTree = "<group>"; };
@@ -737,6 +740,15 @@
 			path = JSON;
 			sourceTree = "<group>";
 		};
+		EA86D2D3156FEDB500E3EABD /* FB SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				EA86D2D5156FEDE900E3EABD /* FBSignInInvocation.h */,
+				EA86D2D6156FEDE900E3EABD /* FBSignInInvocation.m */,
+			);
+			name = "FB SignIn";
+			sourceTree = "<group>";
+		};
 		EA91C2C5155A716300BE5BB1 /* App Delegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -798,13 +810,14 @@
 		EA91C324155A71A500BE5BB1 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				EA86D2D3156FEDB500E3EABD /* FB SignIn */,
 				EA3ABAEE15657F9600B262F7 /* Email Send For Forgot Password */,
 				EA3ABAE915657D0000B262F7 /* Reset Password Service */,
 				EA91C34D155A901000BE5BB1 /* Parser */,
 				EA91C34C155A8FA700BE5BB1 /* Async Invocation */,
 				EA91C338155A747600BE5BB1 /* GetRequest Services */,
 				EA3ABAE41565704C00B262F7 /* Login Service */,
-				EA91C34E155A903000BE5BB1 /* Post Request services */,
+				EA91C34E155A903000BE5BB1 /* Registeration services */,
 				EA91C32B155A71D000BE5BB1 /* MainServiceManager.h */,
 				EA91C32C155A71D000BE5BB1 /* MainServiceManager.m */,
 			);
@@ -844,13 +857,13 @@
 			name = Parser;
 			sourceTree = "<group>";
 		};
-		EA91C34E155A903000BE5BB1 /* Post Request services */ = {
+		EA91C34E155A903000BE5BB1 /* Registeration services */ = {
 			isa = PBXGroup;
 			children = (
 				EA91C32F155A71D000BE5BB1 /* RegistrationDetailInvocation.h */,
 				EA91C330155A71D000BE5BB1 /* RegistrationDetailInvocation.m */,
 			);
-			name = "Post Request services";
+			name = "Registeration services";
 			sourceTree = "<group>";
 		};
 		EA91C34F155A906700BE5BB1 /* Reachability */ = {
@@ -1339,6 +1352,7 @@
 				EA5BC9BD156CDE8800AC8C0C /* SBJsonStreamWriterState.m in Sources */,
 				EA5BC9C0156CEB2500AC8C0C /* FacebookLogin.m in Sources */,
 				6820EB67156E9342006DEDD3 /* MBProgressHUD.m in Sources */,
+				EA86D2D7156FEDE900E3EABD /* FBSignInInvocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1365,8 +1379,8 @@
 					armv6,
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1383,6 +1397,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				PROVISIONING_PROFILE = "0A86A85D-283E-4FC4-A20F-9E3D5530B941";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0A86A85D-283E-4FC4-A20F-9E3D5530B941";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -1398,8 +1414,8 @@
 					armv6,
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_THUMB_SUPPORT = NO;
@@ -1410,6 +1426,8 @@
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "0A86A85D-283E-4FC4-A20F-9E3D5530B941";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0A86A85D-283E-4FC4-A20F-9E3D5530B941";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -1422,8 +1440,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
@@ -1431,8 +1449,8 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "C9B0720B-8BFF-434D-B66A-9905D0AC1B3B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C9B0720B-8BFF-434D-B66A-9905D0AC1B3B";
+				PROVISIONING_PROFILE = "0A86A85D-283E-4FC4-A20F-9E3D5530B941";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0A86A85D-283E-4FC4-A20F-9E3D5530B941";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1443,8 +1461,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Harish Hoon";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Harish Hoon";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
@@ -1452,8 +1470,8 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "27CC6466-8E73-4C70-B20C-31D91E5F7B20";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "27CC6466-8E73-4C70-B20C-31D91E5F7B20";
+				PROVISIONING_PROFILE = "0A86A85D-283E-4FC4-A20F-9E3D5530B941";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0A86A85D-283E-4FC4-A20F-9E3D5530B941";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};

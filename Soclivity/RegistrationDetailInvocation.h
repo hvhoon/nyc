@@ -24,7 +24,8 @@
 
 @interface RegistrationDetailInvocation : ProjectAsyncInvocation<ParseOperationDelegate>{
      NSOperationQueue*queue;
+    BOOL isFacebookUser;
 }
 @property(nonatomic,retain) NSOperationQueue*queue;
-
+@property (nonatomic,assign)BOOL isFacebookUser;
 @end

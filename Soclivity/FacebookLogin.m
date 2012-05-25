@@ -11,6 +11,11 @@
 #import "FBConnect.h"
 #import "SoclivityManager.h"
 #import "GetPlayersClass.h"
+#import "MainServiceManager.h"
+
+@interface FacebookLogin(private)<FBSignInInvocationDelegate>
+@end
+
 @implementation FacebookLogin
 @synthesize permissions,FBdelegate;
 
@@ -66,6 +71,7 @@
  */
 
 - (void)showLoggedOut {
+    NSLog(@"showLoggedOut");
 }
 
 
@@ -78,6 +84,9 @@
     }
 }
 - (void)storeAuthData:(NSString *)accessToken expiresAt:(NSDate *)expiresAt {
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    SOC.fbObject.facebookAccessToken=accessToken;
+    [[NSUserDefaults standardUserDefaults] setValue:accessToken forKey:@"facebookId"];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:accessToken forKey:@"FBAccessTokenKey"];
     [defaults setObject:expiresAt forKey:@"FBExpirationDateKey"];
@@ -96,6 +105,7 @@
     NSLog(@"token extended");
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     SOC.fbObject.facebookAccessToken=accessToken;
+[[NSUserDefaults standardUserDefaults] setValue:accessToken forKey:@"facebookId"];
     [self storeAuthData:accessToken expiresAt:expiresAt];
 }
 
@@ -104,13 +114,13 @@
  * Called when the user canceled the authorization dialog.
  */
 -(void)fbDidNotLogin:(BOOL)cancelled {
-     NSLog(@"fbDidNotLogin extended");
+     NSLog(@"fbDidNotLogin ");
 }
-
 /**
  * Called when the request logout has succeeded.
  */
 - (void)fbDidLogout {
+     NSLog(@"fbDidLogout");
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults removeObjectForKey:@"FBAccessTokenKey"];
     [defaults removeObjectForKey:@"FBExpirationDateKey"];
@@ -162,6 +172,7 @@
     // information or getting the user's permissions.
     if ([result objectForKey:@"name"]) {
         SoclivityManager *SOC=[SoclivityManager SharedInstance];
+        devServer=[[MainServiceManager alloc]init];
         // If basic information callback, set the UI objects to
         // display this.
         if([result objectForKey:@"first_name"]){
@@ -206,7 +217,9 @@
         // well on Retina display
         
         [self apiGraphUserPermissions];
-        [FBdelegate pushToRegistration];
+        [devServer postFBSignInInvocation:SOC.fbObject.email facebookUid:SOC.fbObject.facebookUId fbAccessToken:[[NSUserDefaults standardUserDefaults] valueForKey:@"facebookId"] delegate:self];
+
+        
          
     }
     
@@ -224,6 +237,17 @@
 - (void)request:(FBRequest *)request didFailWithError:(NSError *)error {
     NSLog(@"Err message: %@", [[error userInfo] objectForKey:@"error_msg"]);
     NSLog(@"Err code: %d", [error code]);
+}
+-(void)FBSignInInvocationDidFinish:(FBSignInInvocation*)invocation
+                      withResponse:(BOOL)responses
+                         withError:(NSError*)error{
+    
+    if(!responses)
+        [FBdelegate pushToRegistration];
+    else{
+        //redirect him to homeView Controller
+        [FBdelegate pushToHomeViewController];
+    }
 }
 
 @end

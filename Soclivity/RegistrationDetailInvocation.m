@@ -17,7 +17,7 @@
 @implementation RegistrationDetailInvocation
 
 
-@synthesize  queue;
+@synthesize  queue,isFacebookUser;
 
 
 -(void)dealloc {	
@@ -36,7 +36,13 @@
 -(NSString*)body {
 #if 1    
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
-    GetPlayersClass *player=SOC.registrationObject;
+    GetPlayersClass *player;
+    if(isFacebookUser){
+        player=SOC.fbObject;
+    }
+    else{
+    player=SOC.registrationObject;
+    }
     CLLocation *playerLoc=SOC.currentLocation;
 	NSMutableDictionary* bodyD = [[[NSMutableDictionary alloc] init] autorelease];
     
@@ -47,19 +53,28 @@
     [bodyD setObject:player.email forKey:@"email"];
     if(player.birth_date!=nil)
 	[bodyD setObject:player.birth_date forKey:@"birth_date"];
+    
+    if(!isFacebookUser){
     [bodyD setObject:player.password forKey:@"password"];
 	[bodyD setObject:player.password_confirmation  forKey:@"password_confirmation"];
+    }
     if(player.gender!=nil)
     [bodyD setObject:player.gender  forKey:@"gender"];
     
-    if(playerLoc.coordinate.latitude!=0.0f && playerLoc.coordinate.longitude!=0.0f){
+    //if(playerLoc.coordinate.latitude!=0.0f && playerLoc.coordinate.longitude!=0.0f){
     [bodyD setObject:[NSString stringWithFormat:@"%f",playerLoc.coordinate.latitude]  forKey:@"location_lat"];
     [bodyD setObject:[NSString stringWithFormat:@"%f",playerLoc.coordinate.longitude]  forKey:@"location_lng"];
-    }
+    //}
     
      //NSString *stringType=[NSString stringWithFormat:@"1,5"];
      [bodyD setObject:player.activityTypes forKey:@"activity_type_ids"];
+     
+    if(isFacebookUser){
+        [bodyD setObject:player.facebookAccessToken  forKey:@"access_token"];
+        [bodyD setObject:player.facebookUId  forKey:@"fbuid"];
 
+        
+    }
 
     NSLog(@"bodyDataJSONRepresentation=%@",[bodyD JSONRepresentation]);
     if(player.profileImageData!=nil)

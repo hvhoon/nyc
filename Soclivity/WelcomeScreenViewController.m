@@ -13,7 +13,9 @@
 #import "SoclivityManager.h"
 #import "AppDelegate.h"
 #import "MBProgressHUD.h"
-
+#import "HomeViewController.h"
+#import "SettingsViewController.h"
+#import "UpComingEventsViewController.h"
 @interface WelcomeScreenViewController(Private) <MBProgressHUDDelegate>
 @end
 
@@ -257,6 +259,23 @@
 	[[self navigationController] pushViewController:registrationViewControler animated:YES];
     [registrationViewControler release];
     
+}
+-(void)pushToHomeViewController{
+    
+    [HUD hide:YES];
+    HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+    DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
+    SettingsViewController *leftController = [[SettingsViewController alloc] init];
+    leftController.isFBlogged=TRUE;
+    rootController.leftViewController = leftController;
+    UpComingEventsViewController *rightController = [[UpComingEventsViewController alloc] init];
+    rootController.rightViewController = rightController;
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate.menuController=rootController;
+    [self.navigationController pushViewController:rootController animated:YES];
+
 }
 -(void)AlreadySignedUpButtonClicked{
      NSLog(@"AlreadySignedUpButtonClicked");

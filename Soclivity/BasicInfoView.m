@@ -96,7 +96,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
         if([SOC.fbObject.gender isEqualToString:@"male"]){
             [maleButton setBackgroundImage:[UIImage imageNamed:@"S02_male.png"] forState:UIControlStateNormal];
             b_Female=FALSE;
-            playerObj.gender=@"m";
+            SOC.fbObject.gender=@"m";
             b_Male=TRUE;
             [femaleButton setBackgroundImage:[UIImage imageNamed:@"S02_F_notselected.png"] forState:UIControlStateNormal];
         }
@@ -104,7 +104,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
             [femaleButton setBackgroundImage:[UIImage imageNamed:@"S02_female.png"] forState:UIControlStateNormal];
             b_Male=FALSE;
             b_Female=TRUE;
-            playerObj.gender=@"f";
+           SOC.fbObject.gender=@"f";
             [maleButton setBackgroundImage:[UIImage imageNamed:@"S02_M_notselected.png"] forState:UIControlStateNormal];
         }
         else{
@@ -113,6 +113,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
         
         if((SOC.fbObject.birth_date==(NSString*)[NSNull null])||([SOC.fbObject.birth_date isEqualToString:@""]||SOC.fbObject.birth_date==nil)||([SOC.fbObject.birth_date isEqualToString:@"(null)"])){
              NSLog(@"No birth_date Selected");
+            SOC.fbObject.birth_date=nil;
         }
 
         // We are not pulling location information right now
@@ -291,7 +292,12 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
         // Format and set date in the player object
         dateFormatter.dateFormat=@"d/MM/YYYY";
         NSString*postDate=[dateFormatter stringFromDate:bDate];
-        playerObj.birth_date=postDate;
+        if(facebookTag){
+            SOC.fbObject.birth_date=postDate;
+        }
+        else{
+          playerObj.birth_date=postDate;
+        }
         [dateFormatter release];
     }
     

@@ -28,4 +28,7 @@
 -(IBAction)signUpButtonClicked:(id)sender;
 -(IBAction)resetPassword:(id)sender;
 -(IBAction)BackButtonClicked:(id)sender;
+-(void)startPasswordResetEmailAnimation;
+-(void)LoginInvocation;
+-(void)startLoginAnimation;
 @end

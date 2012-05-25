@@ -72,4 +72,5 @@
 -(void)hideBirthdayPicker;
 -(void)dateSelected:(NSDate*)bDate;
 -(void)BasicInfoFields;
+-(void)controlScrolling;
 @end

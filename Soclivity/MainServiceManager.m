@@ -20,9 +20,10 @@
 	[super dealloc];
 }
 
--(void)registrationDetailInvocation:(id<RegistrationDetailDelegate>)delegate{
+-(void)registrationDetailInvocation:(id<RegistrationDetailDelegate>)delegate isFBuser:(BOOL)isFBuser{
     
     RegistrationDetailInvocation *invocation = [[[RegistrationDetailInvocation alloc] init] autorelease];
+    invocation.isFacebookUser=isFBuser;
     [self invoke:invocation withDelegate:delegate];
 }
 
@@ -52,4 +53,13 @@
     invocation.emailAddress = email;
     [self invoke:invocation withDelegate:delegate];
 }
+-(void)postFBSignInInvocation:(NSString*)emailAddress facebookUid:(NSString*)facebookUid fbAccessToken:(NSString*)fbAccessToken delegate:(id<FBSignInInvocationDelegate>)delegate{
+    FBSignInInvocation *invocation = [[[FBSignInInvocation alloc] init] autorelease];
+    invocation.email = emailAddress;
+    invocation.fbuid = facebookUid;
+    invocation.access_token=fbAccessToken;
+    [self invoke:invocation withDelegate:delegate];
+    
+}
+
 @end

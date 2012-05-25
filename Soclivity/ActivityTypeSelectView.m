@@ -9,14 +9,14 @@
 #import "ActivityTypeSelectView.h"
 #import "GetPlayersClass.h"
 #import "MBProgressHUD.h"
-
+#import "SoclivityManager.h"
 // Private properties
 @interface ActivityTypeSelectView() <MBProgressHUDDelegate>
 @end
 
 @implementation ActivityTypeSelectView
 
-@synthesize delegate,playerObj,facebookTag;
+@synthesize delegate,playerObj,facebookTag,getStarted;
 
 // Defining the transparency used to display the tick for activity categories selected
 #define HIDDEN 0.2
@@ -173,7 +173,14 @@
                     
             }
         }
+        if(facebookTag){
+            SoclivityManager *SOC=[SoclivityManager SharedInstance];
+            SOC.fbObject.activityTypes=activitySelect;
+
+        }
+        else{
         playerObj.activityTypes=activitySelect;
+        }
         [delegate pushHomeMapViewController];
     }
 }

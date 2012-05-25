@@ -354,16 +354,13 @@
     
     if(facebookTag){
      //implememt different registration procedure for facebook.
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Web Syncing For Facebook Pending"
-                                                        message:@"Sorry we couldn't register you."
-                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        [activitySectionSecond startAnimation];
+        [devServer registrationDetailInvocation:self isFBuser:YES];
         
-        [alert show];
-        [alert release];
     }
     else{
         [activitySectionSecond startAnimation];
-    [devServer registrationDetailInvocation:self];
+       [devServer registrationDetailInvocation:self isFBuser:NO];
     }
     // Start the animation
     

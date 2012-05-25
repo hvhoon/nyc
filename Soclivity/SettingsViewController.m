@@ -13,6 +13,7 @@
 #import "WelcomeScreenViewController.h"
 
 @implementation SettingsViewController
+@synthesize isFBlogged;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -48,6 +49,9 @@
     // Do any additional setup after loading the view from its nib.
 }
 -(void)logoutFromTheApp{
+    if(isFBlogged){
+        [self FBlogout];
+    }
     DDMenuController *menuController = (DDMenuController*)((AppDelegate*)[[UIApplication sharedApplication] delegate]).menuController;
     
     WelcomeScreenViewController *welcomeScreenViewController=[[WelcomeScreenViewController alloc] initWithNibName:@"WelcomeScreenViewController" bundle:nil];
@@ -59,6 +63,10 @@
 
 }
     
+- (void)FBlogout {
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [[delegate facebook] logout];
+}
 
 
 - (void)viewDidUnload

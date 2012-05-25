@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface SettingsViewController : UIViewController{
-    
+    BOOL isFBlogged;
     
 }
+@property (nonatomic,assign)BOOL isFBlogged;
 -(void)logoutFromTheApp;
+- (void)FBlogout;
 @end

@@ -8,11 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "FBConnect.h"
-
+@class MainServiceManager;
 @protocol FacebookLoginDelegate <NSObject>
 
 @optional
 -(void)pushToRegistration;
+-(void)pushToHomeViewController;
 @end
 
 
@@ -21,6 +22,7 @@
     
     NSArray *permissions;
     id <FacebookLoginDelegate>FBdelegate;
+    MainServiceManager *devServer;
 }
 @property (nonatomic, retain) NSArray *permissions;
 @property (nonatomic,retain)id <FacebookLoginDelegate>FBdelegate;

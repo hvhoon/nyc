@@ -25,4 +25,5 @@
 @property (nonatomic,assign) int backgroundState;
 -(void)CrossClicked:(id)sender;
 -(void)TickClicked:(id)sender;
+-(void)startUpdatePasswordAnimation;
 @end
