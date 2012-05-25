@@ -214,7 +214,7 @@
     
     UIImageView *selectActivityType = (UIImageView *)[self.scrollView viewWithTag:237];
     [selectActivityType setHidden:NO];
-
+    
     self.scrollView.scrollEnabled = YES;
 }
 -(void)setPickerSettings{
@@ -440,6 +440,7 @@
                     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                     appDelegate.menuController=rootController;
                     [self.navigationController pushViewController:rootController animated:YES];
+
                     //[leftController release];
                     //[rightController release];
                     //[rootController release];
