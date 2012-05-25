@@ -31,7 +31,7 @@
  */
 
 #import <Foundation/Foundation.h>
-
+#if 0
 /// Enable JSON writing for non-native objects
 @interface NSObject (SBProxyForJson)
 
@@ -54,7 +54,7 @@
 - (id)proxyForJson;
 
 @end
-
+#endif
 @class SBJsonStreamWriterState;
 
 /**

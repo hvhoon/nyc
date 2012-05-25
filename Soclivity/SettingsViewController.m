@@ -109,6 +109,7 @@
     
 
     DDMenuController *menuController = (DDMenuController*)((AppDelegate*)[[UIApplication sharedApplication] delegate]).menuController;
+    
     UpComingEventsViewController *controller = [[UpComingEventsViewController alloc] init];
     WelcomeScreenViewController *welcomeScreenViewController=[[WelcomeScreenViewController alloc] initWithNibName:@"WelcomeScreenViewController" bundle:nil];
 	[[self navigationController] pushViewController:welcomeScreenViewController animated:YES];
