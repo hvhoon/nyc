@@ -9,12 +9,38 @@
 #import "SoclivityUtilities.h"
 #import "UIImage+ProportionalFill.h"
 #import "UIImage+Tint.h"
+#import <SystemConfiguration/SystemConfiguration.h>
 #define PASSWORD_LENGTH 6
 
 @implementation SoclivityUtilities
 
-
-
++(Boolean)hasNetworkConnection
+{
+	Boolean retVal = NO;
+	
+	SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, [@"www.google.com" UTF8String]);
+	
+	if(reachability!= NULL)
+	{
+		SCNetworkReachabilityFlags flags;
+		if (SCNetworkReachabilityGetFlags(reachability, &flags))
+		{
+			
+			if ((flags & kSCNetworkReachabilityFlagsReachable)) {
+				retVal = YES;
+			} else {
+				retVal = NO;
+			}
+		}
+		
+	}
+	
+	
+	
+	reachability = nil;
+	
+	return retVal;
+}
 +(UIColor*)returnTextFontColor:(NSInteger)colorType{
     
     switch(colorType){

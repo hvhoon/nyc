@@ -41,7 +41,7 @@
 
 -(void)postResetAndConfirmNewPasswordInvocation:(NSString*)newPassword cPassword:(NSString*)cPassword andUserId:(NSInteger)userId tempPassword:(NSString*)tempPassword delegate:(id<ResetPasswordInvocationDelegate>)delegate{
     ResetPasswordInvocation *invocation = [[[ResetPasswordInvocation alloc] init] autorelease];
-    invocation.newPassword = newPassword;
+    invocation.theNewPassword = newPassword;
     invocation.confirmPassword = cPassword;
     invocation.userId=userId;
     invocation.oldPassword=tempPassword;

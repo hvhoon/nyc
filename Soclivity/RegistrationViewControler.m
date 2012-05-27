@@ -15,7 +15,7 @@
 #import "UpComingEventsViewController.h"
 #import "AppDelegate.h"
 #import "GetPlayersClass.h"
-
+#import "SoclivityUtilities.h"
 #define kDatePicker 123
 #define kRegisterSucces 2
 @interface RegistrationViewControler (private)<GetPlayersDetailDelegate,RegistrationDetailDelegate>
@@ -351,6 +351,8 @@
 
 -(void)RegisterUserForTheFirstTime{
     
+    if([SoclivityUtilities hasNetworkConnection]){
+        
     
     if(facebookTag){
      //implememt different registration procedure for facebook.
@@ -362,8 +364,18 @@
         [activitySectionSecond startAnimation];
        [devServer registrationDetailInvocation:self isFBuser:NO];
     }
-    // Start the animation
-    
+        
+    }
+    else {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil 
+													   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+		
+		[alert show];
+		[alert release];
+		return;
+		
+	}
+
     
     //[devServer GetPlayersInvocation:self];
 }

@@ -161,8 +161,19 @@
     else{
        
         // Starting animation
+        
+        if([SoclivityUtilities hasNetworkConnection]){
         [self startUpdatePasswordAnimation];
         [devServer postResetAndConfirmNewPasswordInvocation:newPassword.text cPassword:confirmPassword.text andUserId:idSoc  tempPassword:oldPassword delegate:self];
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil 
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            
+            [alert show];
+            [alert release];
+            return;
+            
+        }
     
     }
 }

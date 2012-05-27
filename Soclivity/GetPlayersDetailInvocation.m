@@ -25,12 +25,12 @@
 }
 
 -(BOOL)handleHttpOK:(NSMutableData *)data {
-    
+#if 0     
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
     
     NSMutableDictionary *topDictionary = [jsonString JSONValue];
-#if 0    
+   
     NSDictionary* resultsd = [[[[NSString alloc] initWithData:data 
                                                 encoding:NSUTF8StringEncoding] autorelease] JSONValue];
     

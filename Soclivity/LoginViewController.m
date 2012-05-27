@@ -88,8 +88,21 @@
 -(void)LoginInvocation {
     // Send the login request
     NSLog(@"Attempting to login...");
+    
+    if([SoclivityUtilities hasNetworkConnection]){
     [self startLoginAnimation];
     [devServer getLoginInvocation:self.emailAddress.text Password:self.password.text  delegate:self];
+    }
+    else {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil 
+													   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+		
+		[alert show];
+		[alert release];
+		return;
+		
+	}
+
 }
 
 // Login process complete
@@ -284,12 +297,23 @@
             //Reset Pressed
             [emailAddress becomeFirstResponder];
             NSString *email=[prompt enteredText];
-            
+            if([SoclivityUtilities hasNetworkConnection]){
             // Start animation
             [self startPasswordResetEmailAnimation];
             
             // Send Password Reset request
             [devServer postForgotPasswordInvocation:email delegate:self];
+            }else{
+                {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil 
+                                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                    
+                    [alert show];
+                    [alert release];
+                    return;
+                    
+                }
+            }
         }
     }
     else {

@@ -12,7 +12,7 @@
 #import "SoclivityManager.h"
 #import "GetPlayersClass.h"
 #import "MainServiceManager.h"
-
+#import "SoclivityUtilities.h"
 @interface FacebookLogin(private)<FBSignInInvocationDelegate>
 @end
 
@@ -217,7 +217,18 @@
         // well on Retina display
         
         [self apiGraphUserPermissions];
+        if([SoclivityUtilities hasNetworkConnection]){
         [devServer postFBSignInInvocation:SOC.fbObject.email facebookUid:SOC.fbObject.facebookUId fbAccessToken:[[NSUserDefaults standardUserDefaults] valueForKey:@"facebookId"] delegate:self];
+        }
+        else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil 
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            
+            [alert show];
+            [alert release];
+            return;
+            
+        }
 
         
          

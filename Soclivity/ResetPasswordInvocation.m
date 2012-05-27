@@ -13,7 +13,7 @@
 @end
 
 @implementation ResetPasswordInvocation
-@synthesize queue,confirmPassword,userId,oldPassword,newPassword;
+@synthesize queue,confirmPassword,userId,oldPassword,theNewPassword;
 
 -(void)dealloc {	
 	[super dealloc];
@@ -28,7 +28,7 @@
 	NSMutableDictionary* bodyD = [[[NSMutableDictionary alloc] init] autorelease];
     
     
-    [bodyD setObject:newPassword forKey:@"password"];
+    [bodyD setObject:theNewPassword forKey:@"password"];
     [bodyD setObject:confirmPassword forKey:@"password_confirmation"];
     
      NSString *bodyData = [NSString stringWithFormat:@"\"player\":%@}",[bodyD JSONRepresentation]];

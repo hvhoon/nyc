@@ -23,7 +23,7 @@
 
 @interface ResetPasswordInvocation : ProjectAsyncInvocation<ParseOperationDelegate>{
     NSOperationQueue*queue;
-    NSString *newPassword;
+    NSString *theNewPassword;
     NSString *confirmPassword;
     NSInteger userId;
     NSString *oldPassword;
@@ -32,6 +32,6 @@
 @property (nonatomic, retain) NSString *confirmPassword;
 @property (nonatomic,assign)NSInteger userId;
 @property (nonatomic,retain)NSString*oldPassword;
-@property (nonatomic, retain) NSString *newPassword;
+@property (nonatomic, retain) NSString *theNewPassword;
 
 @end

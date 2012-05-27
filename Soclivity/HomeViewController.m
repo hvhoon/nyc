@@ -73,8 +73,8 @@
 }
 -(void)HideSearchBar{
     NSLog(@"CheckingTap");
-    CGRect basketTopFrame = self.homeSearchBar.frame;
-    basketTopFrame.origin.y = -basketTopFrame.size.height;
+    CGRect searchTopFrame = self.homeSearchBar.frame;
+    searchTopFrame.origin.y = -searchTopFrame.size.height;
     
     
     [UIView beginAnimations:nil context:nil];
@@ -88,8 +88,8 @@
 -(void)ShowSearchBar{
     
     
-    CGRect basketTopFrame = self.homeSearchBar.frame;
-    basketTopFrame.origin.y = +basketTopFrame.size.height;
+    CGRect searchTopFrame = self.homeSearchBar.frame;
+    searchTopFrame.origin.y = +searchTopFrame.size.height;
     
     
     [UIView beginAnimations:nil context:nil];
