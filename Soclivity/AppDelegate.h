@@ -15,6 +15,7 @@
     DDMenuController *menuController;
     Facebook *facebook;
     NSMutableDictionary *userPermissions;
+    BOOL resetSuccess;
 }
 
 @property (strong, nonatomic) UIWindow *window;
@@ -22,5 +23,7 @@
 @property (retain, nonatomic) DDMenuController *menuController;
 @property (nonatomic, retain) Facebook *facebook;
 @property (nonatomic, retain) NSMutableDictionary *userPermissions;
+@property (nonatomic,assign)BOOL resetSuccess;
+
 -(FacebookLogin*)SetUpFacebook;
 @end

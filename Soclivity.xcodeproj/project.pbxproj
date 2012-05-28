@@ -61,6 +61,8 @@
 		EA5BC9BD156CDE8800AC8C0C /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5BC9BC156CDE8800AC8C0C /* SBJsonStreamWriterState.m */; };
 		EA5BC9C0156CEB2500AC8C0C /* FacebookLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5BC9BF156CEB2500AC8C0C /* FacebookLogin.m */; };
 		EA86D2D7156FEDE900E3EABD /* FBSignInInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA86D2D6156FEDE900E3EABD /* FBSignInInvocation.m */; };
+		EA87EDC1157340EE00DE1762 /* UserContactList.m in Sources */ = {isa = PBXBuildFile; fileRef = EA87EDC0157340EE00DE1762 /* UserContactList.m */; };
+		EA87EDC6157346A700DE1762 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA87EDC5157346A700DE1762 /* AddressBook.framework */; };
 		EA91C26F155A36EA00BE5BB1 /* BirthdayPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C26E155A36EA00BE5BB1 /* BirthdayPickerView.m */; };
 		EA91C2DD155A716F00BE5BB1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C2C9155A716F00BE5BB1 /* Reachability.m */; };
 		EA91C2DE155A716F00BE5BB1 /* CAVNSArrayTypeCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C2CC155A716F00BE5BB1 /* CAVNSArrayTypeCategory.m */; };
@@ -292,6 +294,9 @@
 		EA5BC9BF156CEB2500AC8C0C /* FacebookLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookLogin.m; sourceTree = "<group>"; };
 		EA86D2D5156FEDE900E3EABD /* FBSignInInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSignInInvocation.h; sourceTree = "<group>"; };
 		EA86D2D6156FEDE900E3EABD /* FBSignInInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBSignInInvocation.m; sourceTree = "<group>"; };
+		EA87EDBF157340EE00DE1762 /* UserContactList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserContactList.h; sourceTree = "<group>"; };
+		EA87EDC0157340EE00DE1762 /* UserContactList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserContactList.m; sourceTree = "<group>"; };
+		EA87EDC5157346A700DE1762 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		EA91C26D155A36EA00BE5BB1 /* BirthdayPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BirthdayPickerView.h; sourceTree = "<group>"; };
 		EA91C26E155A36EA00BE5BB1 /* BirthdayPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BirthdayPickerView.m; sourceTree = "<group>"; };
 		EA91C2C8155A716F00BE5BB1 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = categories/Reachability.h; sourceTree = "<group>"; };
@@ -477,6 +482,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA87EDC6157346A700DE1762 /* AddressBook.framework in Frameworks */,
 				EA91C337155A730200BE5BB1 /* SystemConfiguration.framework in Frameworks */,
 				EA91C335155A72F800BE5BB1 /* CFNetwork.framework in Frameworks */,
 				EAB136501554682F00C1607D /* Security.framework in Frameworks */,
@@ -496,6 +502,7 @@
 		680CE3D31551258700B8E937 = {
 			isa = PBXGroup;
 			children = (
+				EA87EDC5157346A700DE1762 /* AddressBook.framework */,
 				680CE3E81551258700B8E937 /* Soclivity */,
 				680CE4271551286D00B8E937 /* Resources */,
 				680CE3E11551258700B8E937 /* Frameworks */,
@@ -531,6 +538,7 @@
 		680CE3E81551258700B8E937 /* Soclivity */ = {
 			isa = PBXGroup;
 			children = (
+				EA87EDBD157340AB00DE1762 /* Address Book */,
 				6820EB69156E934B006DEDD3 /* Animations */,
 				EA5BC966156CCC0700AC8C0C /* Json */,
 				EA94D017156BAB4700B0E6F5 /* Facebook */,
@@ -747,6 +755,15 @@
 				EA86D2D6156FEDE900E3EABD /* FBSignInInvocation.m */,
 			);
 			name = "FB SignIn";
+			sourceTree = "<group>";
+		};
+		EA87EDBD157340AB00DE1762 /* Address Book */ = {
+			isa = PBXGroup;
+			children = (
+				EA87EDBF157340EE00DE1762 /* UserContactList.h */,
+				EA87EDC0157340EE00DE1762 /* UserContactList.m */,
+			);
+			name = "Address Book";
 			sourceTree = "<group>";
 		};
 		EA91C2C5155A716300BE5BB1 /* App Delegate */ = {
@@ -1353,6 +1370,7 @@
 				EA5BC9C0156CEB2500AC8C0C /* FacebookLogin.m in Sources */,
 				6820EB67156E9342006DEDD3 /* MBProgressHUD.m in Sources */,
 				EA86D2D7156FEDE900E3EABD /* FBSignInInvocation.m in Sources */,
+				EA87EDC1157340EE00DE1762 /* UserContactList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

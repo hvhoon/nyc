@@ -14,6 +14,7 @@
 @optional
 -(void)pushToRegistration;
 -(void)pushToHomeViewController;
+-(void)userCancelFBRequest;
 @end
 
 

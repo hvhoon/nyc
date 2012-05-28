@@ -31,4 +31,5 @@
 -(void)startPasswordResetEmailAnimation;
 -(void)LoginInvocation;
 -(void)startLoginAnimation;
+-(void)SetUpHomeScreen;
 @end

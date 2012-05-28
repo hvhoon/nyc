@@ -27,7 +27,7 @@ static NSString* kAppId = @"160726900680967";//kanav
 @synthesize menuController;
 @synthesize facebook;
 @synthesize userPermissions;
-
+@synthesize resetSuccess;
 - (void)dealloc
 {
     [_window release];

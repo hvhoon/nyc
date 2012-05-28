@@ -105,7 +105,7 @@
     NSLog(@"token extended");
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     SOC.fbObject.facebookAccessToken=accessToken;
-[[NSUserDefaults standardUserDefaults] setValue:accessToken forKey:@"facebookId"];
+    [[NSUserDefaults standardUserDefaults] setValue:accessToken forKey:@"facebookId"];
     [self storeAuthData:accessToken expiresAt:expiresAt];
 }
 
@@ -115,6 +115,7 @@
  */
 -(void)fbDidNotLogin:(BOOL)cancelled {
      NSLog(@"fbDidNotLogin ");
+    [FBdelegate userCancelFBRequest];
 }
 /**
  * Called when the request logout has succeeded.

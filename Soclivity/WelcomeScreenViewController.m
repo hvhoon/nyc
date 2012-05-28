@@ -249,7 +249,9 @@
 
 #endif
 }
-
+-(void)userCancelFBRequest{
+    [HUD hide:YES];
+}
 -(void)pushToRegistration{
     
     //check for facebook user Already registered or else redirect to registraion page

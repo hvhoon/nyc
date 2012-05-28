@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import "SoclivityUtilities.h"
 #import "SettingsViewController.h"
+#import "UserContactList.h"
 @implementation HomeViewController
 @synthesize homeSearchBar;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -33,6 +34,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UserContactList *addressBook=[[UserContactList alloc]init];
+    [addressBook GetAddressBook];
     self.homeSearchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.bounds.size.width, 44.0)] autorelease];
 	self.homeSearchBar.delegate = self;
 	self.homeSearchBar.showsCancelButton = NO;

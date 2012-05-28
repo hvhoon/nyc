@@ -19,7 +19,7 @@
 #import "SettingsViewController.h"
 #import "UpComingEventsViewController.h"
 #import "MBProgressHUD.h"
-
+#import "AppDelegate.h"
 #define kUsernameMissing 0
 #define kPasswordMissing 1
 #define kALertPrompt 2
@@ -50,6 +50,16 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    if(appDelegate.resetSuccess){
+        appDelegate.resetSuccess=FALSE;
+    [self SetUpHomeScreen];
+    }
+    NSLog(@"viewWillAppear called in Login View Controller");
+    
+}
 #pragma mark - View lifecycle
 -(IBAction)signUpButtonClicked:(id)sender{
     
@@ -327,17 +337,7 @@
                     [password becomeFirstResponder];
                     break;
                 case kLoginSuccess: {
-                    HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
-                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
-                    DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
-                    SettingsViewController *leftController = [[SettingsViewController alloc] init];
-                    rootController.leftViewController = leftController;
-                    UpComingEventsViewController *rightController = [[UpComingEventsViewController alloc] init];
-                    rootController.rightViewController = rightController;
-                
-                    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                    appDelegate.menuController=rootController;
-                    [self.navigationController pushViewController:rootController animated:YES];
+                    [self SetUpHomeScreen];
                     break;
                 }
                 case kLoginFail:
@@ -349,7 +349,20 @@
         }
     }
 }
-
+-(void)SetUpHomeScreen{
+    HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+    DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
+    SettingsViewController *leftController = [[SettingsViewController alloc] init];
+    rootController.leftViewController = leftController;
+    UpComingEventsViewController *rightController = [[UpComingEventsViewController alloc] init];
+    rootController.rightViewController = rightController;
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate.menuController=rootController;
+    [self.navigationController pushViewController:rootController animated:YES];
+    
+}
 #pragma mark -
 #pragma mark Animation methods
 

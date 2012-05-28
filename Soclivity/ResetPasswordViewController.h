@@ -26,4 +26,5 @@
 -(void)CrossClicked:(id)sender;
 -(void)TickClicked:(id)sender;
 -(void)startUpdatePasswordAnimation;
+
 @end

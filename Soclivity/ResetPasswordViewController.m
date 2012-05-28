@@ -12,7 +12,7 @@
 #import "ResetPasswordInvocation.h"
 #import "GetPlayersClass.h"
 #import "MBProgressHUD.h"
-
+#import "AppDelegate.h"
 #define kNewPasswordNot 0
 #define kPasswordResetEmail 1
 #define kResetFail 2
@@ -244,7 +244,12 @@
                 break;
                 
             case kPasswordResetEmail:
+            {
+                AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                    appDelegate.resetSuccess=TRUE;
+
                 [self.navigationController dismissModalViewControllerAnimated:YES];
+            }
                 break;
                 
             case kResetFail:
