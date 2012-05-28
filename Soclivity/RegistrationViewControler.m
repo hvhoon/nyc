@@ -432,7 +432,6 @@
                 case kRegisterSucces:
                 {
                     HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
-                    
                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
                     
                     DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
@@ -440,7 +439,7 @@
                     
                     SettingsViewController *leftController = [[SettingsViewController alloc] init];
                     rootController.leftViewController = leftController;
-                    
+                    leftController.isFBlogged=facebookTag;
                     UpComingEventsViewController *rightController = [[UpComingEventsViewController alloc] init];
                     rootController.rightViewController = rightController;
                     
