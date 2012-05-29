@@ -11,7 +11,7 @@
 #import "SettingsViewController.h"
 #import "UserContactList.h"
 @implementation HomeViewController
-@synthesize homeSearchBar;
+@synthesize homeSearchBar,delegate,socEventMapView,activityTableView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -34,10 +34,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.navigationController.navigationBar setHidden:YES];
     
+    UITapGestureRecognizer *navSingleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navSingleTap)];
+    navSingleTap.numberOfTapsRequired = 1;
+    [topNavBarView setUserInteractionEnabled:YES];
+    [topNavBarView addGestureRecognizer:navSingleTap];
+    [navSingleTap release];
+
+
+    [self.view insertSubview:profileBtn aboveSubview:topNavBarView];
+
+    [self.view insertSubview:profileBtn aboveSubview:socEventMapView];
+    [self.view insertSubview:profileBtn aboveSubview:activityTableView];
+    
+    [activityTableView setHidden:YES];
     UserContactList *addressBook=[[UserContactList alloc]init];
     [addressBook GetAddressBook];
-    self.homeSearchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.bounds.size.width, 44.0)] autorelease];
+    self.homeSearchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 44.0, self.view.bounds.size.width, 44.0)] autorelease];
 	self.homeSearchBar.delegate = self;
 	self.homeSearchBar.showsCancelButton = NO;
 	self.homeSearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -75,6 +89,20 @@
 	[[self navigationController] pushViewController:settingsViewController animated:YES];
     [settingsViewController release];
 }
+
+-(void)navSingleTap{
+    NSLog(@"navSingleTap");
+        if(!searchBarActivated){
+            [self ShowSearchBar];
+            searchBarActivated=YES;
+        }
+        else{
+            searchBarActivated=NO;
+            [self HideSearchBar];
+        }
+    
+}    
+
 -(void)HideSearchBar{
     NSLog(@"CheckingTap");
     CGRect searchTopFrame = self.homeSearchBar.frame;
@@ -100,10 +128,53 @@
     [UIView setAnimationDuration:1.0];
     //[UIView setAnimationDelay:1.0];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-    self.homeSearchBar.frame=CGRectMake(0, 0, 320, 44.0f);
+    self.homeSearchBar.frame=CGRectMake(0, 44, 320, 44.0f);
     [UIView commitAnimations];
 }
-        
+
+#pragma mark -
+#pragma mark Sliding Drawer Action
+
+
+-(IBAction)profileSlidingDrawerTapped:(id)sender{
+    [delegate showLeft:sender];
+}
+#pragma mark -
+#pragma mark AddANewActivity Action
+
+-(IBAction)AddANewActivity:(id)sender{
+    
+}
+
+-(IBAction)FilterBtnClicked:(id)sender{
+    
+}
+-(IBAction)FlipToListOrBackToMap:(id)sender{
+    
+    if(!footerActivated){
+    [UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:1.0];
+	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight
+						   forView:[self view]
+							 cache:YES];
+    [activityTableView setHidden:NO];
+	//[self.view addSubview:activityTableView];
+	[UIView commitAnimations];
+        footerActivated=TRUE;
+    }
+    else{
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:1.0];
+        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft
+                               forView:[self view]
+                                 cache:YES];
+        //[activityTableView removeFromSuperview];
+        [activityTableView setHidden:YES];
+        [UIView commitAnimations];
+        footerActivated=FALSE;
+    }
+}
+
 #pragma mark -
 #pragma mark UISearchBarDelegate
 

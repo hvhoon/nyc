@@ -52,6 +52,7 @@
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad {
+    [self.navigationController.navigationBar setHidden:YES];
     [super viewDidLoad];
     [self setRootViewController:_root]; // reset root
     

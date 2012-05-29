@@ -4,7 +4,7 @@
 
 
 #import <UIKit/UIKit.h>
-
+#import "HomeViewController.h"
 typedef enum {
     DDMenuPanDirectionLeft = 0,
     DDMenuPanDirectionRight,
@@ -17,7 +17,7 @@ typedef enum {
 } DDMenuPanCompletion;
 
 @protocol DDMenuControllerDelegate;
-@interface DDMenuController : UIViewController <UIGestureRecognizerDelegate>{
+@interface DDMenuController : UIViewController <UIGestureRecognizerDelegate,HomeScreenDelegate>{
     
     id _tap;
     id _pan;

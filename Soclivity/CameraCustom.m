@@ -1,10 +1,11 @@
 //
 //  CameraCustom.m
-//  Xling
+//  Soclivity
 //
-//  Created by Kanav Gupta on 2/12/12.
+//  Created by Kanav Gupta on 5/8/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
+
 
 #import "CameraCustom.h"
 #include <CoreFoundation/CoreFoundation.h>
