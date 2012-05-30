@@ -435,7 +435,7 @@
                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
                     
                     DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
-                    
+                       homeViewController.delegate=rootController;
                     
                     SettingsViewController *leftController = [[SettingsViewController alloc] init];
                     rootController.leftViewController = leftController;
