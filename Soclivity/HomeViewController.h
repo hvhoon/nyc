@@ -25,8 +25,11 @@
     IBOutlet EventsMapView *socEventMapView;
     IBOutlet ActivityListView *activityTableView;
     IBOutlet UIView *staticView;
+    IBOutlet UIView *staticButtonView;
     BOOL footerActivated;
     BOOL searchBarActivated;
+    IBOutlet UIButton *mapflipBtn;
+    IBOutlet UIButton *listFlipBtn;
 }
 @property (nonatomic, retain) UISearchBar *homeSearchBar;
 @property (nonatomic,retain)id <HomeScreenDelegate>delegate;

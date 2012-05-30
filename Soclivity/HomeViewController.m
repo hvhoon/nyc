@@ -34,8 +34,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor=[UIColor blackColor];
     [self.navigationController.navigationBar setHidden:YES];
-    
     UITapGestureRecognizer *navSingleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navSingleTap)];
     navSingleTap.numberOfTapsRequired = 1;
     [topNavBarView setUserInteractionEnabled:YES];
@@ -49,6 +49,7 @@
     [self.view insertSubview:profileBtn aboveSubview:activityTableView];
     
     [activityTableView setHidden:YES];
+    listFlipBtn.hidden=YES;
     UserContactList *addressBook=[[UserContactList alloc]init];
     [addressBook GetAddressBook];
     self.homeSearchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 44.0, self.view.bounds.size.width, 44.0)] autorelease];
@@ -149,33 +150,115 @@
 -(IBAction)FilterBtnClicked:(id)sender{
     
 }
+#if 0
+-(IBAction)FlipToListOrBackToMap:(id)sender{
+    
+    double delayInSeconds = 0.0;
+    
+    if(!footerActivated){
+        footerActivated=TRUE;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [UIView transitionWithView:staticView duration:1 options:UIViewAnimationOptionTransitionFlipFromRight animations:^(void) 
+         {
+             [UIView transitionWithView:staticButtonView duration:1 options:UIViewAnimationOptionTransitionFlipFromRight animations:^(void) 
+              {
+              } 
+                             completion:^(BOOL finished){
+                                 listFlipBtn.hidden=NO;
+                                 mapflipBtn.hidden=YES;
+
+                             }] ;
+         } 
+                        completion:^(BOOL finished){
+                            [activityTableView setHidden:NO];
+                            [socEventMapView setHidden:YES];
+                        }] ;
+    });
+        
+    }
+    else {
+        footerActivated=FALSE;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [UIView transitionWithView:staticView duration:1 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^(void) 
+             {
+                 [UIView transitionWithView:staticButtonView duration:1 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^(void) 
+                  {
+                  } 
+                                 completion:^(BOOL finished){
+                                     listFlipBtn.hidden=YES;
+                                     mapflipBtn.hidden=NO;
+                                     
+                                 }] ;
+             } 
+                            completion:^(BOOL finished){
+                                [activityTableView setHidden:YES];
+                                [socEventMapView setHidden:NO];
+                            }] ;
+        });
+
+    }
+
+}
+#else
 -(IBAction)FlipToListOrBackToMap:(id)sender{
     
     if(!footerActivated){
-    [UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDuration:1.0];
-	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight
-						   forView:staticView
-							 cache:YES];
+        footerActivated=TRUE;
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationTransition: UIViewAnimationTransitionFlipFromLeft forView:staticView cache:YES];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationDuration:1.0];
+    [UIView setAnimationDelegate:self];
+    
     [activityTableView setHidden:NO];
     [socEventMapView setHidden:YES];
-	//[self.view addSubview:activityTableView];
-	[UIView commitAnimations];
-        footerActivated=TRUE;
+    [UIView commitAnimations];
+    
+    
+    context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationTransition: UIViewAnimationTransitionFlipFromLeft forView:staticButtonView cache:YES];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationDuration:1.0];
+    [UIView setAnimationDelegate:self];
+    
+    listFlipBtn.hidden=NO;
+    mapflipBtn.hidden=YES;
+    
+    [UIView commitAnimations];
     }
     else{
-        [UIView beginAnimations:nil context:nil];
+        footerActivated=FALSE;
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        [UIView beginAnimations:nil context:context];
+        [UIView setAnimationTransition: UIViewAnimationTransitionFlipFromRight forView:staticView cache:YES];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
         [UIView setAnimationDuration:1.0];
-        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft
-                               forView:staticView
-                                 cache:YES];
-        //[activityTableView removeFromSuperview];
+        [UIView setAnimationDelegate:self];
+        
         [activityTableView setHidden:YES];
         [socEventMapView setHidden:NO];
         [UIView commitAnimations];
-        footerActivated=FALSE;
+        
+        
+        context = UIGraphicsGetCurrentContext();
+        [UIView beginAnimations:nil context:context];
+        [UIView setAnimationTransition: UIViewAnimationTransitionFlipFromRight forView:staticButtonView cache:YES];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+        [UIView setAnimationDuration:1.0];
+        [UIView setAnimationDelegate:self];
+        
+        listFlipBtn.hidden=YES;
+        mapflipBtn.hidden=NO;
+        
+        [UIView commitAnimations];
     }
+    
 }
+#endif
 
 #pragma mark -
 #pragma mark UISearchBarDelegate
