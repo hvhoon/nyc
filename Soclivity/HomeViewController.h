@@ -24,6 +24,7 @@
     id <HomeScreenDelegate>delegate;
     IBOutlet EventsMapView *socEventMapView;
     IBOutlet ActivityListView *activityTableView;
+    IBOutlet UIView *staticView;
     BOOL footerActivated;
     BOOL searchBarActivated;
 }

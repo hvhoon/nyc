@@ -15,6 +15,7 @@
 @optional
 -(void)LocationAcquired:(NSString*)SoclivityLoc;
 -(void)TagNearbyLocations:(NSMutableArray*)tagLocationsArray;
+-(void)currentLocation:(CLLocationCoordinate2D)theCoord;
 @end
 
 @interface LocationCustomManager : NSObject<CLLocationManagerDelegate>{

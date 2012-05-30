@@ -101,8 +101,14 @@
     locationManager.delegate = nil;
     
       
-        
-        
+    if(theTag==kOnlyLatLong){
+        CLLocationCoordinate2D theCoordinate;
+        theCoordinate.latitude = bestEffortAtLocation.coordinate.latitude;
+        theCoordinate.longitude =bestEffortAtLocation.coordinate.longitude;
+        [delegate currentLocation:theCoordinate];
+
+    }
+    else{    
     
     NSLog(@"Latiude=%f",bestEffortAtLocation.coordinate.latitude);
     NSLog(@"Longitude=%f",bestEffortAtLocation.coordinate.longitude);
@@ -196,7 +202,7 @@
         [delegate  LocationAcquired:@"Not Available"];
     }
     
-    
+    }
     
 }
 

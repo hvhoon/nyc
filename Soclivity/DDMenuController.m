@@ -416,6 +416,7 @@
     }
     
 }
+#if 0
 -(void)navSingleTap{
     NSLog(@"navSingleTap");
     UINavigationController *navController = (UINavigationController*)_root;
@@ -431,7 +432,7 @@
         }
     }
 }
-
+#endif
 - (void)showShadow:(BOOL)val {
     if (!_root) return;
     

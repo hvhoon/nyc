@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "LocationCustomManager.h"
 @class SocAnnotation;
-@interface EventsMapView : UIView<MKMapViewDelegate>{
+@interface EventsMapView : UIView<MKMapViewDelegate,CoreLocationDelegate>{
     MKMapView *mapView;
     NSMutableArray *mapAnnotations;
 	MKAnnotationView *_selectedAnnotationView;
@@ -22,5 +23,5 @@
 @property (nonatomic, retain) MKAnnotationView *selectedAnnotationView;
 + (CGFloat)annotationPadding;
 + (CGFloat)calloutHeight;
-
+- (void)gotoLocation:(CLLocationCoordinate2D)currentCoord;
 @end

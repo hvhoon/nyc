@@ -176,6 +176,10 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
     [[NSNotificationCenter defaultCenter] postNotificationName:kStopScrolling object:nil];
     
 }
+
+#pragma mark -
+#pragma mark Location methods
+
 -(IBAction)LocationButtonClicked:(id)sender{
     SocLocation=[[LocationCustomManager alloc]init];
     SocLocation.delegate=self;

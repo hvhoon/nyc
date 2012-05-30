@@ -155,9 +155,10 @@
     [UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:1.0];
 	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight
-						   forView:[self view]
+						   forView:staticView
 							 cache:YES];
     [activityTableView setHidden:NO];
+    [socEventMapView setHidden:YES];
 	//[self.view addSubview:activityTableView];
 	[UIView commitAnimations];
         footerActivated=TRUE;
@@ -166,10 +167,11 @@
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:1.0];
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft
-                               forView:[self view]
+                               forView:staticView
                                  cache:YES];
         //[activityTableView removeFromSuperview];
         [activityTableView setHidden:YES];
+        [socEventMapView setHidden:NO];
         [UIView commitAnimations];
         footerActivated=FALSE;
     }

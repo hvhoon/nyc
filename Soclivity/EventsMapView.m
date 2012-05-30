@@ -21,7 +21,6 @@
 
 @end
 
-
 @implementation EventsMapView
 @synthesize mapView, mapAnnotations;
 @synthesize calloutAnnotation = _calloutAnnotation;
@@ -38,19 +37,18 @@
 {
     return 40.0f;
 }
-- (void)dealloc 
-{
+- (void)dealloc {
     [mapView release];
     [mapAnnotations release];
     
     [super dealloc];
 }
-- (void)gotoLocation
+- (void)gotoLocation:(CLLocationCoordinate2D)currentCoord
 {
     // start off by default in San Francisco
     MKCoordinateRegion newRegion;
-    newRegion.center.latitude = 37.786996;
-    newRegion.center.longitude = -122.440100;
+    newRegion.center.latitude = currentCoord.latitude;
+    newRegion.center.longitude = currentCoord.longitude;
     newRegion.span.latitudeDelta = 0.112872;
     newRegion.span.longitudeDelta = 0.109863;
     
@@ -71,24 +69,28 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+    LocationCustomManager *SocLocation=[[LocationCustomManager alloc]init];
+    SocLocation.delegate=self;
+    SocLocation.theTag=kOnlyLatLong;
+
     self.mapView.mapType = MKMapTypeStandard;
     self.mapAnnotations = [[NSMutableArray alloc] initWithCapacity:1];
-    
-    // annotation for the City of San Francisco
+}
+
+-(void)currentLocation:(CLLocationCoordinate2D)theCoord{
     CLLocationCoordinate2D theCoordinate;
-    theCoordinate.latitude = 37.786996;
-    theCoordinate.longitude = -122.419281;
+    theCoordinate.latitude = theCoord.latitude;
+    theCoordinate.longitude =theCoord.longitude;
     GetPlayersClass *myPlayers=[[GetPlayersClass alloc]init];
-    SocAnnotation *sfAnnotation = [[[SocAnnotation alloc] initWithName:@"San Francisco" address:@"Founded: June 29, 1776" coordinate:theCoordinate annotationObject:myPlayers] autorelease];
+    SocAnnotation *sfAnnotation = [[[SocAnnotation alloc] initWithName:@"Current Location" address:@"Soclivity" coordinate:theCoordinate annotationObject:myPlayers] autorelease];
     [self.mapAnnotations insertObject:sfAnnotation atIndex:0];
     [sfAnnotation release];
-
     
-    [self gotoLocation];
+    
+    [self gotoLocation:theCoord];
     [self.mapView removeAnnotations:self.mapView.annotations];  // remove any annotations that exist
     
     [self.mapView addAnnotation:[self.mapAnnotations objectAtIndex:0]];
-
 
 }
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
@@ -100,7 +102,7 @@
             theCoordinate.longitude = -122.419281;
             GetPlayersClass *myPlayers=[[GetPlayersClass alloc]init];
 
-			self.calloutAnnotation = [[[SocAnnotation alloc] initWithName:@"San Francisco" address:@"Founded: June 29, 1776" coordinate:theCoordinate annotationObject:myPlayers] autorelease];
+			self.calloutAnnotation = [[[SocAnnotation alloc] initWithName:@"Current Location" address:@"Soclivity" coordinate:theCoordinate annotationObject:myPlayers] autorelease];
 		} else {
 			self.calloutAnnotation.latitude = view.annotation.coordinate.latitude;
 			self.calloutAnnotation.longitude = view.annotation.coordinate.longitude;
@@ -118,7 +120,7 @@
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
-	if (annotation == self.calloutAnnotation) {
+	if (annotation == self.calloutAnnotation){
 		CalloutMapAnnotationView *calloutMapAnnotationView = (CalloutMapAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:@"CalloutAnnotation"];
 		if (!calloutMapAnnotationView) {
 			calloutMapAnnotationView = [[[CalloutMapAnnotationView alloc] initWithAnnotation:annotation 
@@ -138,7 +140,7 @@
     MKPinAnnotationView *annotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation 
     reuseIdentifier:@"CustomAnnotation"] autorelease];
     annotationView.canShowCallout = NO;
-    annotationView.pinColor = MKPinAnnotationColorGreen;
+    annotationView.pinColor = MKPinAnnotationColorPurple;
     return annotationView;
 }
 #else    
