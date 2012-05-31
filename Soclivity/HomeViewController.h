@@ -30,6 +30,12 @@
     BOOL searchBarActivated;
     IBOutlet UIButton *mapflipBtn;
     IBOutlet UIButton *listFlipBtn;
+    IBOutlet UIButton*sortDistanceBtn;
+    IBOutlet UIButton*sortDOSBtn;    
+    IBOutlet UIButton*sortByTimeBtn;
+    IBOutlet UIButton*refreshBtn;    
+    IBOutlet UIButton*currentLocationBtn;
+    
 }
 @property (nonatomic, retain) UISearchBar *homeSearchBar;
 @property (nonatomic,retain)id <HomeScreenDelegate>delegate;
@@ -42,4 +48,9 @@
 -(IBAction)AddANewActivity:(id)sender;
 -(IBAction)FilterBtnClicked:(id)sender;
 -(IBAction)FlipToListOrBackToMap:(id)sender;
+-(IBAction)RefreshButtonTapped:(id)sender;
+-(IBAction)CurrentLocation:(id)sender;
+-(IBAction)DistanceSortingClicked:(id)sender;
+-(IBAction)DOSSortingClicked:(id)sender;
+-(IBAction)TimeSortingClicked:(id)sender;
 @end

@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface ActivityListView : UIView<UITableViewDataSource,UITableViewDelegate>{
+#import "SectionHeaderView.h"
+#import "SOCTableViewCell.h"
+@interface ActivityListView : UIView<UITableViewDataSource,UITableViewDelegate,SectionHeaderViewDelegate,PDTTableViewCellDelegate>{
     
-    IBOutlet UITableView* tableListView; 
+    IBOutlet UITableView* tableView;
+    NSArray *plays;
+    
 }
-
+@property (nonatomic, retain) NSArray *plays;
+@property(nonatomic,retain)UITableView *tableView;
+- (void)setUpActivityDataList;
 @end

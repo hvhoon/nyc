@@ -16,6 +16,7 @@
 	MKAnnotationView *_selectedAnnotationView;
 	SocAnnotation *_customAnnotation;
     SocAnnotation *_calloutAnnotation;
+    CLLocationCoordinate2D currentCoord;
 
 }
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
@@ -23,5 +24,5 @@
 @property (nonatomic, retain) MKAnnotationView *selectedAnnotationView;
 + (CGFloat)annotationPadding;
 + (CGFloat)calloutHeight;
-- (void)gotoLocation:(CLLocationCoordinate2D)currentCoord;
+- (void)gotoLocation;
 @end

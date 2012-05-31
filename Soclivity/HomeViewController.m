@@ -50,6 +50,11 @@
     
     [activityTableView setHidden:YES];
     listFlipBtn.hidden=YES;
+    sortDistanceBtn.hidden=YES;
+    sortDOSBtn.hidden=YES;
+    sortByTimeBtn.hidden=YES;
+    refreshBtn.hidden=NO;
+    currentLocationBtn.hidden=NO;
     UserContactList *addressBook=[[UserContactList alloc]init];
     [addressBook GetAddressBook];
     self.homeSearchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 44.0, self.view.bounds.size.width, 44.0)] autorelease];
@@ -74,14 +79,6 @@
     
     self.homeSearchBar.frame=CGRectMake(0, -44, 320, 44.0f);
     
-#if 0    
-    UIButton *scrollUpDownButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    scrollUpDownButton.frame=CGRectMake(276,122,29,30);
-    [scrollUpDownButton setBackgroundImage:[UIImage imageNamed:@"S02_downarrow.png"] forState:UIControlStateNormal];
-    [scrollUpDownButton addTarget:self action:@selector(timeToScrollDown) forControlEvents:UIControlEventTouchUpInside];
-    scrollUpDownButton.tag=236;
-    [self.view addSubview:scrollUpDownButton];
-#endif
     // Do any additional setup after loading the view from its nib.
 }
 -(void)timeToScrollDown{
@@ -92,6 +89,7 @@
 }
 
 -(void)navSingleTap{
+#if 0    
     NSLog(@"navSingleTap");
         if(!searchBarActivated){
             [self ShowSearchBar];
@@ -101,14 +99,13 @@
             searchBarActivated=NO;
             [self HideSearchBar];
         }
-    
+#endif    
 }    
 
 -(void)HideSearchBar{
     NSLog(@"CheckingTap");
     CGRect searchTopFrame = self.homeSearchBar.frame;
     searchTopFrame.origin.y = -searchTopFrame.size.height;
-    
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:1.0];
@@ -120,11 +117,8 @@
       
 -(void)ShowSearchBar{
     
-    
     CGRect searchTopFrame = self.homeSearchBar.frame;
     searchTopFrame.origin.y = +searchTopFrame.size.height;
-    
-    
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:1.0];
     //[UIView setAnimationDelay:1.0];
@@ -167,6 +161,11 @@
                              completion:^(BOOL finished){
                                  listFlipBtn.hidden=NO;
                                  mapflipBtn.hidden=YES;
+                                 refreshBtn.hidden=YES;
+                                 currentLocationBtn.hidden=YES;
+                                 sortDistanceBtn.hidden=NO;
+                                 sortDOSBtn.hidden=NO;
+                                 sortByTimeBtn.hidden=NO;
 
                              }] ;
          } 
@@ -189,6 +188,12 @@
                                  completion:^(BOOL finished){
                                      listFlipBtn.hidden=YES;
                                      mapflipBtn.hidden=NO;
+                                     sortDistanceBtn.hidden=YES;
+                                     sortDOSBtn.hidden=YES;
+                                     sortByTimeBtn.hidden=YES;
+                                     refreshBtn.hidden=NO;
+                                     currentLocationBtn.hidden=NO;
+
                                      
                                  }] ;
              } 
@@ -227,6 +232,12 @@
     
     listFlipBtn.hidden=NO;
     mapflipBtn.hidden=YES;
+    refreshBtn.hidden=YES;
+    currentLocationBtn.hidden=YES;
+
+    sortDistanceBtn.hidden=NO;
+    sortDOSBtn.hidden=NO;
+    sortByTimeBtn.hidden=NO;
     
     [UIView commitAnimations];
     }
@@ -253,6 +264,13 @@
         
         listFlipBtn.hidden=YES;
         mapflipBtn.hidden=NO;
+        refreshBtn.hidden=NO;
+        currentLocationBtn.hidden=NO;
+
+        sortDistanceBtn.hidden=YES;
+        sortDOSBtn.hidden=YES;
+        sortByTimeBtn.hidden=YES;
+
         
         [UIView commitAnimations];
     }
@@ -271,8 +289,40 @@
 // called when keyboard search button pressed
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [self.homeSearchBar resignFirstResponder];
-}    
+}
 
+#pragma mark -
+#pragma mark Refresh Btn Tapped
+
+-(IBAction)RefreshButtonTapped:(id)sender{
+    
+}
+#pragma mark -
+#pragma mark CurrentLocation Btn Tapped
+
+-(IBAction)CurrentLocation:(id)sender{
+    [socEventMapView gotoLocation];
+}
+
+#pragma mark -
+#pragma mark DistanceSortingBtn Clicked
+
+
+-(IBAction)DistanceSortingClicked:(id)sender{
+    
+}
+#pragma mark -
+#pragma mark DOSSortingBtn Clicked
+
+-(IBAction)DOSSortingClicked:(id)sender{
+    
+}
+#pragma mark -
+#pragma mark TimeSorting Clicked
+
+-(IBAction)TimeSortingClicked:(id)sender{
+    
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];

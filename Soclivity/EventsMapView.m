@@ -43,7 +43,7 @@
     
     [super dealloc];
 }
-- (void)gotoLocation:(CLLocationCoordinate2D)currentCoord
+- (void)gotoLocation
 {
     // start off by default in San Francisco
     MKCoordinateRegion newRegion;
@@ -81,13 +81,14 @@
     CLLocationCoordinate2D theCoordinate;
     theCoordinate.latitude = theCoord.latitude;
     theCoordinate.longitude =theCoord.longitude;
+    currentCoord=theCoordinate;
     GetPlayersClass *myPlayers=[[GetPlayersClass alloc]init];
     SocAnnotation *sfAnnotation = [[[SocAnnotation alloc] initWithName:@"Current Location" address:@"Soclivity" coordinate:theCoordinate annotationObject:myPlayers] autorelease];
     [self.mapAnnotations insertObject:sfAnnotation atIndex:0];
     [sfAnnotation release];
     
     
-    [self gotoLocation:theCoord];
+    [self gotoLocation];
     [self.mapView removeAnnotations:self.mapView.annotations];  // remove any annotations that exist
     
     [self.mapView addAnnotation:[self.mapAnnotations objectAtIndex:0]];
@@ -120,6 +121,10 @@
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+    
+//    if ([annotation isKindOfClass:[MKUserLocation class]])
+//             return nil;
+#if 1   
 	if (annotation == self.calloutAnnotation){
 		CalloutMapAnnotationView *calloutMapAnnotationView = (CalloutMapAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:@"CalloutAnnotation"];
 		if (!calloutMapAnnotationView) {
@@ -186,6 +191,7 @@
 	}
 #endif	
 	return nil;
+#endif    
 }
 
 
