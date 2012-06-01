@@ -81,6 +81,7 @@ static UIFont *boldText = nil;
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch =[touches anyObject]; 
     CGPoint startPoint =[touch locationInView:self.contentView];
+    NSLog(@"startpointX=%f",startPoint.x);
 	NSLog(@"Tap Detected");
 
     [super touchesBegan:touches withEvent:event];

@@ -295,7 +295,7 @@
     
     refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, REFRESH_HEADER_HEIGHT)];
     refreshLabel.backgroundColor = [UIColor clearColor];
-    refreshLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
+    refreshLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     refreshLabel.textAlignment = UITextAlignmentCenter;
     
     refreshArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S04_listrefresh.png"]];
