@@ -32,8 +32,11 @@
         
         // Create and configure the title label.
         section = sectionNumber;
-        
-        UIImageView *activityTypeImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 25, 66)];
+        UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
+        v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_darkdivider.png"]];
+        [self addSubview:v];	
+        [v release];
+        UIImageView *activityTypeImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 1, 25, 66)];
         switch (detailSectionInfo.type) {
             case 1:
             {
@@ -128,7 +131,7 @@
 
         
         
-        UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 66, 320, 1)];
+        v = [[UIView alloc] initWithFrame:CGRectMake(0, 66, 320, 1)];
         v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_lightdivider.png"]];
         [self addSubview:v];	
         [v release];
@@ -145,10 +148,10 @@
         [label release];
         
         
-        v = [[UIView alloc] initWithFrame:CGRectMake(0,100, 320, 1)];
-        v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_lightdivider.png"]];
-        [self addSubview:v];	
-        [v release];
+//        v = [[UIView alloc] initWithFrame:CGRectMake(0,100, 320, 1)];
+//        v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_lightdivider.png"]];
+//        [self addSubview:v];	
+//        [v release];
 
 
         

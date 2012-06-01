@@ -51,11 +51,16 @@ static UIFont *firstTextFont = nil;
     textColor=[SoclivityUtilities returnTextFontColor:1];
     CGContextFillRect(context, r);
     [textColor set];
+    
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0,0, 320, 1)];
+    v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_lightdivider.png"]];
+    [self addSubview:v];	
+    [v release];
        
     [@"WHEN:" drawInRect:CGRectMake(25, 15,55, 25) withFont:firstTextFont];
     [quotation.dateAndTime drawInRect:CGRectMake(25+65, 15, 200, 25) withFont:firstTextFont];
     
-    [@"WHERE:" drawInRect:CGRectMake(25, 55, 55, 25) withFont:firstTextFont];
+    [@"WHERE:" drawInRect:CGRectMake(25, 55, 60, 25) withFont:firstTextFont];
     
     [quotation.location drawInRect:CGRectMake(25+75, 55, 200, 25) withFont:firstTextFont];
 
