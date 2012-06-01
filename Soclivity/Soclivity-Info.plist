@@ -50,6 +50,7 @@
 	<array>
 		<string>Helvetica-Condensed.otf</string>
 		<string>Helvetica-Condensed-Black.otf</string>
+		<string>Helvetica-Condensed-Bold.otf</string>
 	</array>
 	<key>UIPrerenderedIcon</key>
 	<true/>
