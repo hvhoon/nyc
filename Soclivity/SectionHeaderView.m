@@ -92,17 +92,17 @@
         CGSize size = [[NSString stringWithFormat:@"by %@",detailSectionInfo.organizerName] sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:15]];
 		NSLog(@"width=%f",size.width);
 
-        UIImageView *DOSImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_sortdos.png"]];
-        DOSImgView.frame=CGRectMake(45+size.width, 45, 32, 22);
+        UIImageView *DOSImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_dos.png"]];
+        DOSImgView.frame=CGRectMake(55+size.width-5, 40, 26, 22);
         [self addSubview:DOSImgView];
         
         
-        CGRect degreeLabelRect=CGRectMake(45+size.width+32-5,45,5,10);
+        CGRect degreeLabelRect=CGRectMake(45+size.width+32-3,41,5,10);
         UILabel *degreelabel=[[UILabel alloc] initWithFrame:degreeLabelRect];
         degreelabel.textAlignment=UITextAlignmentLeft;
         degreelabel.text=[NSString stringWithFormat:@"%@",detailSectionInfo.DOS];
-        degreelabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
-        degreelabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+        degreelabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
+        degreelabel.textColor=[SoclivityUtilities returnTextFontColor:5];
         degreelabel.backgroundColor=[UIColor clearColor];
         
         [self addSubview:degreelabel];
@@ -110,11 +110,11 @@
 
         
         UIImageView *DotImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_dot.png"]];
-        DotImgView.frame=CGRectMake(45+size.width+32+10, 45, 6, 6);
+        DotImgView.frame=CGRectMake(45+size.width+32+10, 50, 6, 6);
         [self addSubview:DotImgView];
 
         
-        CGRect distanceLabelRect=CGRectMake(55+size.width+32+25,45,180,15);
+        CGRect distanceLabelRect=CGRectMake(45+size.width+32+25,45,180,15);
         UILabel *mileslabel=[[UILabel alloc] initWithFrame:distanceLabelRect];
         mileslabel.textAlignment=UITextAlignmentLeft;
         mileslabel.text=[NSString stringWithFormat:@"%@ miles",detailSectionInfo.distance];
