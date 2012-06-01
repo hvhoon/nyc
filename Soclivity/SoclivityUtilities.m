@@ -79,6 +79,11 @@
             
             break;
         }
+        
+        case 5:
+        {
+            return [UIColor colorWithRed:90.0/255.0 green:90.0/255.0 blue:90.0/255.0 alpha:1.0];
+        }
             
         default:
         {

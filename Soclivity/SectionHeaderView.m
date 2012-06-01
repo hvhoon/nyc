@@ -64,28 +64,27 @@
                 
             }
                 break;
-
                 
             default:
                 break;
         }
         [self addSubview:activityTypeImageView];
         
-        CGRect activityLabelFrame = CGRectMake(55,25,210,20);
+        CGRect activityLabelFrame = CGRectMake(45,20,210,20);
         activitytitleLabel = [[UILabel alloc] initWithFrame:activityLabelFrame];
         activitytitleLabel.text = detailSectionInfo.activityName;
         activitytitleLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:20];
-        activitytitleLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+        activitytitleLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
         activitytitleLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:activitytitleLabel];
         
         
-        CGRect organizerLabelRect=CGRectMake(55,45,210,15);
+        CGRect organizerLabelRect=CGRectMake(45,45,210,15);
         UILabel *oglabel=[[UILabel alloc] initWithFrame:organizerLabelRect];
         oglabel.textAlignment=UITextAlignmentLeft;
         oglabel.text=[NSString stringWithFormat:@"by %@",detailSectionInfo.organizerName];
         oglabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
-        oglabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+        oglabel.textColor=[SoclivityUtilities returnTextFontColor:5];
         oglabel.backgroundColor=[UIColor clearColor];
         
         [self addSubview:oglabel];
@@ -93,33 +92,33 @@
         CGSize size = [[NSString stringWithFormat:@"by %@",detailSectionInfo.organizerName] sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:15]];
 		NSLog(@"width=%f",size.width);
 
-        UIImageView *DOSImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_sortdos.png"]];
-        DOSImgView.frame=CGRectMake(55+size.width, 45, 32, 22);
+        UIImageView *DOSImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_dos.png"]];
+        DOSImgView.frame=CGRectMake(55+size.width-5, 40, 26, 22);
         [self addSubview:DOSImgView];
         
         
-        CGRect degreeLabelRect=CGRectMake(55+size.width+32-5,45,5,10);
+        CGRect degreeLabelRect=CGRectMake(45+size.width+32-3,41,5,10);
         UILabel *degreelabel=[[UILabel alloc] initWithFrame:degreeLabelRect];
         degreelabel.textAlignment=UITextAlignmentLeft;
         degreelabel.text=[NSString stringWithFormat:@"%@",detailSectionInfo.DOS];
-        degreelabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
-        degreelabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+        degreelabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
+        degreelabel.textColor=[SoclivityUtilities returnTextFontColor:5];
         degreelabel.backgroundColor=[UIColor clearColor];
         
         [self addSubview:degreelabel];
         [degreelabel release];
 
         
-        UIImageView *DotImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Dot.png"]];
-        DotImgView.frame=CGRectMake(55+size.width+32+10, 50, 11, 10);
+        UIImageView *DotImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_dot.png"]];
+        DotImgView.frame=CGRectMake(45+size.width+32+10, 50, 6, 6);
         [self addSubview:DotImgView];
 
         
-        CGRect distanceLabelRect=CGRectMake(55+size.width+32+25,45,180,15);
+        CGRect distanceLabelRect=CGRectMake(45+size.width+32+25,45,180,15);
         UILabel *mileslabel=[[UILabel alloc] initWithFrame:distanceLabelRect];
         mileslabel.textAlignment=UITextAlignmentLeft;
         mileslabel.text=[NSString stringWithFormat:@"%@ miles",detailSectionInfo.distance];
-        mileslabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
+        mileslabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
         mileslabel.textColor=[SoclivityUtilities returnTextFontColor:1];
         mileslabel.backgroundColor=[UIColor clearColor];
         
@@ -127,17 +126,16 @@
         [mileslabel release];
 
         
-        
-        UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 66, 320, 1)];
+        UIView* v = [[UIView alloc] initWithFrame:CGRectMake(0, 66, 320, 1)];
         v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_lightdivider.png"]];
         [self addSubview:v];	
         [v release];
         
-        CGRect countLabelRect=CGRectMake(15,76,180,15);
+        CGRect countLabelRect=CGRectMake(15,74,180,15);
         UILabel *label=[[UILabel alloc] initWithFrame:countLabelRect];
         label.textAlignment=UITextAlignmentLeft;
-        label.text=[NSString stringWithFormat:@"%@ People going",detailSectionInfo.goingCount];
-        label.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
+        label.text=[NSString stringWithFormat:@"%@ People Going",detailSectionInfo.goingCount];
+        label.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
         label.textColor=[SoclivityUtilities returnTextFontColor:1];
         label.backgroundColor=[UIColor clearColor];
         
@@ -145,8 +143,8 @@
         [label release];
         
         
-        v = [[UIView alloc] initWithFrame:CGRectMake(0,100, 320, 1)];
-        v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_lightdivider.png"]];
+        v = [[UIView alloc] initWithFrame:CGRectMake(0,97, 320, 1)];
+        v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_darkdivider.png"]];
         [self addSubview:v];	
         [v release];
 
