@@ -59,10 +59,9 @@ static UIFont *boldText = nil;
     [self addSubview:v];	
     [v release];
        
-    [@"WHEN:" drawInRect:CGRectMake(25, 15,55, 25) withFont:firstTextFont];
-    [quotation.dateAndTime drawInRect:CGRectMake(25+65, 15, 200, 25) withFont:firstTextFont];
     
-    [@"WHERE:" drawInRect:CGRectMake(25, 55, 60, 25) withFont:firstTextFont];
+    [@"WHEN:" drawInRect:CGRectMake(45,10,55,25) withFont:boldText];
+    [quotation.dateAndTime drawInRect:CGRectMake(45+50, 10, 200, 25) withFont:firstTextFont];
     
     [@"WHERE:" drawInRect:CGRectMake(45,35,55,25) withFont:boldText];
     [quotation.location drawInRect:CGRectMake(45+55,35,200,25) withFont:firstTextFont];
@@ -72,10 +71,10 @@ static UIFont *boldText = nil;
     [firstLabel drawInRect:CGRectMake(45,60,200,25) withFont:firstTextFont];
     [secondLabel drawInRect:CGRectMake(45,85,280,25) withFont:firstTextFont];
     
-    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 119, 320, 1)];
-    v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_darkdivider.png"]];
-    [self addSubview:v];	
-    [v release];
+//    v = [[UIView alloc] initWithFrame:CGRectMake(0, 119, 320, 1)];
+//    v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_darkdivider.png"]];
+//    [self addSubview:v];	
+//    [v release];
 
 }
 
