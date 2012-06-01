@@ -6,7 +6,7 @@
 @implementation SectionHeaderView
 
 
-@synthesize activitytitleLabel, disclosureButton, delegate, section;
+@synthesize activitytitleLabel, delegate, section;
 
 
 + (Class)layerClass {
@@ -154,16 +154,14 @@
 
 
         
-#if 0        
         // Create and configure the disclosure button.
-        disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        disclosureButton.frame = CGRectMake(0.0, 5.0, 35.0, 35.0);
-        [disclosureButton setImage:[UIImage imageNamed:@"carat.png"] forState:UIControlStateNormal];
-        [disclosureButton setImage:[UIImage imageNamed:@"carat-open.png"] forState:UIControlStateSelected];
-        [disclosureButton addTarget:self action:@selector(toggleOpen:) forControlEvents:UIControlEventTouchUpInside];
+        UIButton *disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        disclosureButton.frame = CGRectMake(290.0, 30.0, 13.0, 18.0);
+        [disclosureButton setImage:[UIImage imageNamed:@"S04_moreinfoarrow.png"] forState:UIControlStateNormal];
+        [disclosureButton setImage:[UIImage imageNamed:@"S04_moreinfoarrow.png"] forState:UIControlStateSelected];
+        [disclosureButton addTarget:self action:@selector(detailActivity:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:disclosureButton];
         
-#endif        // Set the colors for the gradient layer.
         static NSMutableArray *colors = nil;
         if (colors == nil) {
             colors = [[NSMutableArray alloc] initWithCapacity:3];
@@ -189,7 +187,9 @@
     [self toggleOpenWithUserAction:YES];
 }
 
-
+-(void)detailActivity:(id)sender{
+    
+}
 -(void)toggleOpenWithUserAction:(BOOL)userAction {
     
     // Toggle the disclosure button state.
@@ -214,7 +214,6 @@
 - (void)dealloc {
     
     [activitytitleLabel release];
-    [disclosureButton release];
     [super dealloc];
 }
 

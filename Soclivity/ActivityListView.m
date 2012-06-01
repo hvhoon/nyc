@@ -193,9 +193,9 @@
 
 -(void)tableView:(UITableView*)tableViewIndex didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     [tableViewIndex deselectRowAtIndexPath:indexPath animated:YES];
-    [tableViewIndex scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
+    [tableViewIndex scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 
-    [tableViewIndex scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:NO];    //do be uncommented kanav 
+    //[tableViewIndex scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionMiddle animated:NO];    //do be uncommented kanav 
 }
 
 
@@ -203,6 +203,14 @@
 
 -(void)sectionHeaderView:(SectionHeaderView*)sectionHeaderView sectionOpened:(NSInteger)sectionOpened {
 	
+//    NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
+//    
+//    for (NSIndexPath *indexPath in visiblePaths) {
+//        if((sectionOpened +2)>[plays count]){
+//            
+//        }
+//    }
+    
 	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:sectionOpened];
 	
 	sectionInfo.open = YES;
@@ -215,7 +223,8 @@
     for (NSInteger i = 0; i < countOfRowsToInsert; i++) {
         [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:i inSection:sectionOpened]];
     }
-
+    
+    
     /*
      Create an array containing the index paths of the rows to delete: These correspond to the rows for each quotation in the previously-open section, if there was one.
      */
@@ -254,6 +263,8 @@
     
     [indexPathsToInsert release];
     [indexPathsToDelete release];
+    
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:sectionOpened] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 }
 
 

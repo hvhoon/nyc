@@ -11,13 +11,13 @@
 }
 
 @property (nonatomic, retain) UILabel *activitytitleLabel;
-@property (nonatomic, retain) UIButton *disclosureButton;
 @property (nonatomic, assign) NSInteger section;
 @property (nonatomic, assign) id <SectionHeaderViewDelegate> delegate;
 
 -(id)initWithFrame:(CGRect)frame detailSectionInfo:(InfoActivityClass*)detailSectionInfo section:(NSInteger)sectionNumber delegate:(id <SectionHeaderViewDelegate>)aDelegate;
 -(void)toggleOpenWithUserAction:(BOOL)userAction;
-
+-(void)detailActivity:(id)sender;
+-(IBAction)toggleOpen:(id)sender;
 @end
 
 
