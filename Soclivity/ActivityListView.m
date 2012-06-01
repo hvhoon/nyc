@@ -22,8 +22,8 @@
 @property (nonatomic, assign) NSInteger openSectionIndex;
 @end
 
-#define DEFAULT_ROW_HEIGHT 140
-#define HEADER_HEIGHT 100
+#define DEFAULT_ROW_HEIGHT 120
+#define HEADER_HEIGHT 98
 
 @implementation ActivityListView
 @synthesize plays,tableView;

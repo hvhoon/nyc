@@ -13,10 +13,12 @@
 @synthesize delegate;
 @synthesize quotation;
 static UIFont *firstTextFont = nil;
+static UIFont *boldText = nil;
 + (void)initialize
 {
 	if(self == [SOCTableViewCell class]){
-        firstTextFont=[UIFont fontWithName:@"Helvetica-Condensed" size:18];
+        firstTextFont=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
+        boldText=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         
     }
 }
@@ -42,13 +44,13 @@ static UIFont *firstTextFont = nil;
     if(self.selected)
     {
         backgroundColor = background;
-        textColor = [SoclivityUtilities returnTextFontColor:1];
+        textColor = [SoclivityUtilities returnTextFontColor:5];
     }
     
     [backgroundColor set];
     [background release];
     
-    textColor=[SoclivityUtilities returnTextFontColor:1];
+    textColor=[SoclivityUtilities returnTextFontColor:5];
     CGContextFillRect(context, r);
     [textColor set];
     
@@ -62,15 +64,18 @@ static UIFont *firstTextFont = nil;
     
     [@"WHERE:" drawInRect:CGRectMake(25, 55, 60, 25) withFont:firstTextFont];
     
-    [quotation.location drawInRect:CGRectMake(25+75, 55, 200, 25) withFont:firstTextFont];
+    [@"WHERE:" drawInRect:CGRectMake(45,35,55,25) withFont:boldText];
+    [quotation.location drawInRect:CGRectMake(45+55,35,200,25) withFont:firstTextFont];
 
-    [@"WHO:" drawInRect:CGRectMake(25, 85,55, 25) withFont:firstTextFont];
     NSString *firstLabel=[NSString stringWithFormat:@"You have %d friends going",quotation.DOS_1];
     NSString *secondLabel=[NSString stringWithFormat:@"You may know  %d more people going",quotation.DOS_2];
-    [firstLabel drawInRect:CGRectMake(85, 85,200, 25) withFont:firstTextFont];
+    [firstLabel drawInRect:CGRectMake(45,60,200,25) withFont:firstTextFont];
+    [secondLabel drawInRect:CGRectMake(45,85,280,25) withFont:firstTextFont];
     
-    [secondLabel drawInRect:CGRectMake(25, 110,280, 25) withFont:firstTextFont];
-
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 119, 320, 1)];
+    v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_darkdivider.png"]];
+    [self addSubview:v];	
+    [v release];
 
 }
 

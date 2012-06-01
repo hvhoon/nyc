@@ -58,11 +58,11 @@
 	</dict>
 	<dict>
 		<key>activityName</key>
-		<string>Bike Ride with the boys</string>
+		<string>Learning to Ride!</string>
 		<key>organizerName</key>
 		<string>Avinash Thadani</string>
 		<key>type</key>
-		<integer>1</integer>
+		<integer>5</integer>
 		<key>DOS</key>
 		<string>1</string>
 		<key>distance</key>
@@ -89,7 +89,7 @@
 		<key>organizerName</key>
 		<string>Kanav Gupta</string>
 		<key>type</key>
-		<integer>1</integer>
+		<integer>3</integer>
 		<key>DOS</key>
 		<string>1</string>
 		<key>distance</key>
