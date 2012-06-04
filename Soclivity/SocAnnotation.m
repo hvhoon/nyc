@@ -7,7 +7,7 @@
 //
 
 #import "SocAnnotation.h"
-#import "GetPlayersClass.h"
+#import "MapActivityClass.h"
 @implementation SocAnnotation
 @synthesize name = _name;
 @synthesize address = _address;
@@ -18,7 +18,7 @@
 @synthesize longitude = _longitude;
 
 
-- (id)initWithName:(NSString*)name address:(NSString*)address coordinate:(CLLocationCoordinate2D)coordinate annotationObject:(GetPlayersClass*)annotationObject{
+- (id)initWithName:(NSString*)name address:(NSString*)address coordinate:(CLLocationCoordinate2D)coordinate annotationObject:(MapActivityClass*)annotationObject{
     if ((self = [super init])) {
 		
 		_name = [name copy];

@@ -26,4 +26,5 @@
 @property (nonatomic,assign)BOOL resetSuccess;
 
 -(FacebookLogin*)SetUpFacebook;
+- (void)setUpActivityDataList;
 @end

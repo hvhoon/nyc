@@ -16,4 +16,7 @@
 +(BOOL)validEmail:(NSString*)email;
 +(BOOL)validPassword:(NSString*)password;
 +(Boolean)hasNetworkConnection;
++(void)setPlayerActivities:(NSArray *)_data;
++(NSArray *)getPlayerActivities;
+
 @end

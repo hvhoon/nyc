@@ -15,6 +15,8 @@
     NSString *DOS;
     NSString *distance;
     NSString *goingCount;
+    NSNumber *latitude;
+    NSNumber *longitude;
     NSArray *quotations;
 }
 @property (nonatomic,assign)NSInteger type;
@@ -23,5 +25,7 @@
 @property (nonatomic,retain)NSString *DOS;
 @property (nonatomic,retain)NSString *distance;
 @property (nonatomic,retain)NSString *goingCount;
+@property (nonatomic,retain) NSNumber *latitude;
+@property (nonatomic,retain) NSNumber *longitude;
 @property (nonatomic, retain) NSArray *quotations;
 @end

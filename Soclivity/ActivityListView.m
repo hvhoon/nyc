@@ -58,54 +58,17 @@
     openSectionIndex_ = NSNotFound;
     [self setupStrings];
     [self addPullToRefreshHeader];
-    [self setUpActivityDataList];
+    [self startPopulatingListView];
+    
 }
 - (void)setupStrings{
     textPull = [[NSString alloc] initWithString:@"Pull down to update..."];
     textRelease = [[NSString alloc] initWithString:@"Release to update..."];
     textLoading = [[NSString alloc] initWithString:@"Loading..."];
 }
-- (void)setUpActivityDataList{
+- (void)startPopulatingListView{
     
-    
-//    NSDictionary *dTmp=[[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Activities" ofType:@"plist"]];
-
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"Activities" withExtension:@"plist"];
-    NSArray *playDictionariesArray = [[NSArray alloc ] initWithContentsOfURL:url];
-    NSMutableArray *playsArray = [NSMutableArray arrayWithCapacity:[playDictionariesArray count]];
-    
-    for (NSDictionary *playDictionary in playDictionariesArray) {
-        
-        InfoActivityClass *play = [[InfoActivityClass alloc] init];
-        play.activityName = [playDictionary objectForKey:@"activityName"];
-        play.organizerName=[playDictionary objectForKey:@"organizerName"];
-        NSNumber * n = [playDictionary objectForKey:@"type"];
-        play.type= [n intValue];
-        play.DOS=[playDictionary objectForKey:@"DOS"];
-        play.distance=[playDictionary objectForKey:@"distance"];
-        play.goingCount=[playDictionary objectForKey:@"goingCount"];
-        NSArray *quotationDictionaries = [playDictionary objectForKey:@"detailQuotations"];
-        NSMutableArray *quotations = [NSMutableArray arrayWithCapacity:[quotationDictionaries count]];
-        
-        for (NSDictionary *quotationDictionary in quotationDictionaries) {
-            
-            DetailInfoActivityClass *quotation = [[DetailInfoActivityClass alloc] init];
-            [quotation setValuesForKeysWithDictionary:quotationDictionary];
-            
-            [quotations addObject:quotation];
-            [quotation release];
-        }
-        play.quotations = quotations;
-        
-        [playsArray addObject:play];
-        [play release];
-    }
-    
-    self.plays = playsArray;
-    [playDictionariesArray release];
-    
-    
-    
+    self.plays =[SoclivityUtilities getPlayerActivities];
     if ((self.sectionInfoArray == nil) || ([self.sectionInfoArray count] != [self numberOfSectionsInTableView:self.tableView])) {
 		
         // For each play, set up a corresponding SectionInfo object to contain the default height for each row.

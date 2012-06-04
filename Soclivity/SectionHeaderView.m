@@ -168,7 +168,7 @@
             UIColor *color = nil;
             color = [UIColor colorWithRed:1.0 green:1.0 blue:0.99 alpha:1.0];
             [colors addObject:(id)[color CGColor]];
-            color = [UIColor colorWithRed:1.0 green:0.99 blue:1.0 alpha:1.0];
+            color = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
             [colors addObject:(id)[color CGColor]];
             color = [UIColor colorWithRed:1.0 green:1.0 blue:0.99 alpha:1.0];
             [colors addObject:(id)[color CGColor]];

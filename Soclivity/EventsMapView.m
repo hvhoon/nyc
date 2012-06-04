@@ -12,8 +12,10 @@
 #import "CalloutMapAnnotationView.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
-
-
+#import "SoclivityUtilities.h"
+#import "InfoActivityClass.h"
+#import "MapActivityClass.h"
+#import "DetailInfoActivityClass.h"
 @interface EventsMapView()
 
 @property (nonatomic, retain) SocAnnotation *calloutAnnotation;
@@ -26,7 +28,7 @@
 @synthesize calloutAnnotation = _calloutAnnotation;
 @synthesize selectedAnnotationView = _selectedAnnotationView;
 @synthesize customAnnotation = _customAnnotation;
-
+@synthesize plays;
 #pragma mark -
 
 + (CGFloat)annotationPadding;
@@ -47,8 +49,8 @@
 {
     // start off by default in San Francisco
     MKCoordinateRegion newRegion;
-    newRegion.center.latitude = currentCoord.latitude;
-    newRegion.center.longitude = currentCoord.longitude;
+    newRegion.center.latitude = 34.416885;
+    newRegion.center.longitude = -119.678369;
     newRegion.span.latitudeDelta = 0.112872;
     newRegion.span.longitudeDelta = 0.109863;
     
@@ -69,23 +71,42 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-    LocationCustomManager *SocLocation=[[LocationCustomManager alloc]init];
-    SocLocation.delegate=self;
-    SocLocation.theTag=kOnlyLatLong;
+    //LocationCustomManager *SocLocation=[[LocationCustomManager alloc]init];
+    //SocLocation.delegate=self;
+    //SocLocation.theTag=kOnlyLatLong;
 
     self.mapView.mapType = MKMapTypeStandard;
-    self.mapAnnotations = [[NSMutableArray alloc] initWithCapacity:1];
+    self.plays=[SoclivityUtilities getPlayerActivities];
+    self.mapAnnotations = [[NSMutableArray alloc] initWithCapacity:[self.plays count]];
+    [self setUpMapAnnotations];
 }
+-(void)setUpMapAnnotations{
+    for (InfoActivityClass *play in self.plays){
+        MapActivityClass *mapObj=[[MapActivityClass alloc]init];
 
+        CLLocationCoordinate2D theCoordinate;
+        theCoordinate.latitude = [play.latitude doubleValue];
+        theCoordinate.longitude =[play.longitude doubleValue];
+        currentCoord=theCoordinate;
+        mapObj.mapCoord=theCoordinate;
+        mapObj.pinType=play.type;
+        mapObj.activityName=play.activityName;
+        mapObj.organizer=play.organizerName;
+        for(DetailInfoActivityClass *detailPlay in [play quotations]){
+            mapObj.activityDateAndTime=detailPlay.dateAndTime;
+            
+        }
+        mapObj.DOS=[play.DOS intValue];
+        SocAnnotation *sfAnnotation = [[[SocAnnotation alloc] initWithName:@" " address:@" " coordinate:theCoordinate annotationObject:mapObj] autorelease];
+        [self.mapView addAnnotation:sfAnnotation];
+    }
+        [self gotoLocation];
+}
 -(void)currentLocation:(CLLocationCoordinate2D)theCoord{
     CLLocationCoordinate2D theCoordinate;
     theCoordinate.latitude = theCoord.latitude;
     theCoordinate.longitude =theCoord.longitude;
     currentCoord=theCoordinate;
-    GetPlayersClass *myPlayers=[[GetPlayersClass alloc]init];
-    SocAnnotation *sfAnnotation = [[[SocAnnotation alloc] initWithName:@"Current Location" address:@"Soclivity" coordinate:theCoordinate annotationObject:myPlayers] autorelease];
-    [self.mapAnnotations insertObject:sfAnnotation atIndex:0];
-    [sfAnnotation release];
     
     
     [self gotoLocation];
@@ -95,7 +116,7 @@
 
 }
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
-#if 1    
+#if 0    
 	if ([view.annotation isKindOfClass:[SocAnnotation class]]) {
 		if (self.calloutAnnotation == nil) {
             GetPlayersClass *myPlayers=[[GetPlayersClass alloc]init];
@@ -137,12 +158,76 @@
 	}
     
  else if ([annotation isKindOfClass:[SocAnnotation class]]) {
+    SocAnnotation *location = (SocAnnotation *) annotation;
     MKPinAnnotationView *annotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation 
     reuseIdentifier:@"CustomAnnotation"] autorelease];
-     annotationView.canShowCallout = NO;
-     UIImage *flagImage = [UIImage imageNamed:@"S04_locationred.png"];
-     annotationView.image = flagImage;
+     UIImage *flagImage=nil;
+     switch (location._socAnnotation.pinType) {
+         case 1:
+         {
+             flagImage=[UIImage imageNamed:@"S04_location_play.png"];
+         }
+             break;
+         case 2:
+         {
+             flagImage=[UIImage imageNamed:@"S04_location_eat.png"];
+             
+         }
+             break;
+         case 3:
+         {
+             flagImage=[UIImage imageNamed:@"S04_location_see.png"];
+             
+         }
+             break;
+         case 4:
+         {
+             flagImage=[UIImage imageNamed:@"S04_location_create.png"];
+             
+         }
+             break;
+         case 5:
+         {
+             flagImage=[UIImage imageNamed:@"S04_location_learn.png"];
+             
+         }
+             break;
+             
+         default:
+             break;
+     }
+     
+     CGRect resizeRect;
+     
+     resizeRect.size = flagImage.size;
+     CGSize maxSize = CGRectInset(self.bounds,
+                                  [EventsMapView annotationPadding],
+                                  [EventsMapView annotationPadding]).size;
+     maxSize.height -= 44 + [EventsMapView calloutHeight];
+     if (resizeRect.size.width > maxSize.width)
+         resizeRect.size = CGSizeMake(maxSize.width, resizeRect.size.height / resizeRect.size.width * maxSize.width);
+     if (resizeRect.size.height > maxSize.height)
+         resizeRect.size = CGSizeMake(resizeRect.size.width / resizeRect.size.height * maxSize.height, maxSize.height);
+     
+     resizeRect.origin = (CGPoint){0.0f, 0.0f};
+     UIGraphicsBeginImageContext(resizeRect.size);
+     [flagImage drawInRect:resizeRect];
+     UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+     UIGraphicsEndImageContext();
+     
+     annotationView.image = resizedImage;
      annotationView.opaque = NO;
+     
+
+     annotationView.leftCalloutAccessoryView=[self DrawAMapLeftAccessoryView:location];
+     UIButton *disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+     disclosureButton.frame = CGRectMake(0.0, 0.0, 20.0, 21.0);
+     [disclosureButton setImage:[UIImage imageNamed:@"S04_rightarrow.png"] forState:UIControlStateNormal];
+     [disclosureButton setImage:[UIImage imageNamed:@"S04_rightarrow.png"] forState:UIControlStateSelected];
+     [disclosureButton addTarget:self action:@selector(pushTodetailActivity:) forControlEvents:UIControlEventTouchUpInside];
+     annotationView.rightCalloutAccessoryView=disclosureButton;
+     annotationView.opaque = NO;
+     annotationView.canShowCallout = YES;
     return annotationView;
 }
 
@@ -150,5 +235,47 @@
 #endif    
 }
 
-
+-(UIView*)DrawAMapLeftAccessoryView:(SocAnnotation *)locObject{
+	
+	UIView *mapLeftView=[[UIView alloc] initWithFrame:CGRectMake(0,0, 150, 30)];
+	
+	CGRect nameLabelRect=CGRectMake(10,0,140,12);
+	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
+	nameLabel.textAlignment=UITextAlignmentLeft;
+	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
+	nameLabel.textColor=[UIColor whiteColor];
+	nameLabel.backgroundColor=[UIColor clearColor];
+	nameLabel.text=[locObject._socAnnotation activityName];
+	[mapLeftView addSubview:nameLabel];
+	[nameLabel release];
+	
+	CGRect timeLabelRect=CGRectMake(10,13,140,10);
+	UILabel *timeLabel=[[UILabel alloc] initWithFrame:timeLabelRect];
+	timeLabel.textAlignment=UITextAlignmentLeft;
+	timeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:11];
+	timeLabel.textColor=[UIColor whiteColor];
+	timeLabel.backgroundColor=[UIColor clearColor];
+	timeLabel.text=[locObject._socAnnotation activityDateAndTime];
+	[mapLeftView addSubview:timeLabel];
+	[timeLabel release];
+	
+	
+	CGRect organizerLabelRect=CGRectMake(10,24,140,12);
+	UILabel *organizerLabel=[[UILabel alloc] initWithFrame:organizerLabelRect];
+	organizerLabel.textAlignment=UITextAlignmentLeft;
+	organizerLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:11];
+	organizerLabel.textColor=[UIColor whiteColor];
+	organizerLabel.backgroundColor=[UIColor clearColor];
+	organizerLabel.text=[NSString stringWithFormat:@"Organizer:%@ (%d)",locObject._socAnnotation.organizer,locObject._socAnnotation.DOS];
+	[mapLeftView addSubview:organizerLabel];
+	[organizerLabel release];
+	
+	
+	return mapLeftView;
+	
+	
+}
+-(void)pushTodetailActivity:(id)sender{
+    
+}
 @end

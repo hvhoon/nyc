@@ -14,6 +14,17 @@
 
 @implementation SoclivityUtilities
 
+static NSArray *playerActivityDetails;
++(void)setPlayerActivities:(NSArray *)_data{
+    playerActivityDetails = [[NSArray alloc]autorelease];
+    playerActivityDetails = [_data copy];
+    
+}
++(NSArray *)getPlayerActivities{
+    return playerActivityDetails;
+    
+}
+
 +(Boolean)hasNetworkConnection
 {
 	Boolean retVal = NO;

@@ -35,11 +35,11 @@
 @property (nonatomic, copy) NSString *textRelease;
 @property (nonatomic, copy) NSString *textLoading;
 
-- (void)setUpActivityDataList;
+
 - (void)setupStrings;
 - (void)addPullToRefreshHeader;
 - (void)startLoading;
 - (void)stopLoading;
 - (void)refresh;
-
+- (void)startPopulatingListView;
 @end

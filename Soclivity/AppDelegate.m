@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "WelcomeScreenViewController.h"
 #import "FacebookLogin.h"
+#import "InfoActivityClass.h"
+#import "SoclivityUtilities.h"
 static NSString* kAppId = @"160726900680967";//kanav
 @implementation UINavigationBar (CustomImage)
 
@@ -48,7 +50,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     
     
-    
+    [self setUpActivityDataList];
     
      [application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
@@ -75,6 +77,45 @@ void uncaughtExceptionHandler(NSException *exception) {
 
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+-(void)setUpActivityDataList{
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"Activities" withExtension:@"plist"];
+    NSArray *playDictionariesArray = [[NSArray alloc ] initWithContentsOfURL:url];
+    NSMutableArray *playsArray = [NSMutableArray arrayWithCapacity:[playDictionariesArray count]];
+    
+    for (NSDictionary *playDictionary in playDictionariesArray) {
+        
+        InfoActivityClass *play = [[InfoActivityClass alloc] init];
+        play.activityName = [playDictionary objectForKey:@"activityName"];
+        play.organizerName=[playDictionary objectForKey:@"organizerName"];
+        NSNumber * n = [playDictionary objectForKey:@"type"];
+        play.type= [n intValue];
+        play.DOS=[playDictionary objectForKey:@"DOS"];
+        play.distance=[playDictionary objectForKey:@"distance"];
+        play.goingCount=[playDictionary objectForKey:@"goingCount"];
+        play.latitude=[playDictionary objectForKey:@"Latitude"];
+        play.longitude=[playDictionary objectForKey:@"Longitude"];
+        NSArray *quotationDictionaries = [playDictionary objectForKey:@"detailQuotations"];
+        NSMutableArray *quotations = [NSMutableArray arrayWithCapacity:[quotationDictionaries count]];
+        
+        for (NSDictionary *quotationDictionary in quotationDictionaries) {
+            
+            DetailInfoActivityClass *quotation = [[DetailInfoActivityClass alloc] init];
+            [quotation setValuesForKeysWithDictionary:quotationDictionary];
+            
+            [quotations addObject:quotation];
+            [quotation release];
+        }
+        play.quotations = quotations;
+        
+        [playsArray addObject:play];
+        [play release];
+    }
+    
+    [SoclivityUtilities setPlayerActivities:playsArray];
+    [playDictionariesArray release];
+
 }
 -(FacebookLogin*)SetUpFacebook{
     FacebookLogin *login=[[FacebookLogin alloc]init];
