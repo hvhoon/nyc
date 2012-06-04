@@ -56,7 +56,8 @@
 	CalloutMapAnnotationViewContentHeightBuffer +
 	CalloutMapAnnotationViewBottomShadowBufferSize -
 	self.offsetFromParent.y;
-	frame.size = CGSizeMake(self.mapView.frame.size.width, height);
+    NSLog(@"width=%f,height=%f",height,self.mapView.frame.size.width);
+	frame.size = CGSizeMake(self.mapView.frame.size.width-140, height);
 	self.frame = frame;
 }
 
@@ -73,7 +74,7 @@
 	CGPoint parentOrigin = [self.mapView convertPoint:self.parentAnnotationView.frame.origin 
 											 fromView:self.parentAnnotationView.superview];
 	
-	CGFloat xOffset =	(self.mapView.frame.size.width / 2) - 
+	CGFloat xOffset =	(self.mapView.frame.size.width / 2-140/2) - 
 						(parentOrigin.x + self.offsetFromParent.x);
 	
 	//Add half our height plus half of the height of the annotation we are tied to so that our bottom lines up to its top
@@ -225,7 +226,7 @@
 	
 	//Fill Callout Bubble & Add Shadow
 	//color = [[UIColor redColor] colorWithAlphaComponent:.6];//black color
-    color=[[UIColor colorWithPatternImage: [UIImage imageNamed: @"asynchrony-logo-small.png"]]colorWithAlphaComponent:.6];
+    color=[[UIColor colorWithPatternImage: [UIImage imageNamed: @"S04_rightarrow.png"]]colorWithAlphaComponent:.6];
 
 	[color setFill];
 	CGContextAddPath(context, path);

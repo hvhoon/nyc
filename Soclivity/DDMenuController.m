@@ -156,6 +156,7 @@
             _panDirection = DDMenuPanDirectionRight;
         } else {
             _panDirection = DDMenuPanDirectionLeft;
+            NSLog(@"DDMenuPanDirectionLeft");
         }
 
     }
@@ -165,6 +166,7 @@
         CGPoint velocity = [gesture velocityInView:self.view];
         if((velocity.x*_panVelocity.x + velocity.y*_panVelocity.y) < 0) {
             _panDirection = (_panDirection == DDMenuPanDirectionRight) ? DDMenuPanDirectionLeft : DDMenuPanDirectionRight;
+            NSLog(@"_panDirection=%d",_panDirection);
         }
         
         _panVelocity = velocity;        
@@ -177,6 +179,7 @@
             if(_menuFlags.showingRightView) {
                 _menuFlags.showingRightView = NO;
                 [self.rightViewController.view removeFromSuperview];
+                NSLog(@"showingLeftView");
             }
             
             if (_menuFlags.canShowLeft) {
@@ -186,9 +189,11 @@
 				frame.size.width = kMenuFullWidth;
                 self.leftViewController.view.frame = frame;
                 [self.view insertSubview:self.leftViewController.view atIndex:0];
+                NSLog(@"canShowLeft");
                 
             } else {
                 frame.origin.x = 0.0f; // ignore right view if it's not set
+                NSLog(@"frame.origin.x");
             }
             
         } else if (frame.origin.x < 0.0f && !_menuFlags.showingRightView) {
@@ -196,16 +201,19 @@
             if(_menuFlags.showingLeftView) {
                 _menuFlags.showingLeftView = NO;
                 [self.leftViewController.view removeFromSuperview];
+                NSLog(@"showingRightView");
             }
             
             if (_menuFlags.canShowRight) {
                 
-                _menuFlags.showingRightView = YES;
-                CGRect frame = self.view.bounds;
-				frame.origin.x += frame.size.width - kMenuFullWidth;
-				frame.size.width = kMenuFullWidth;
-                self.rightViewController.view.frame = frame;
-                [self.view insertSubview:self.rightViewController.view atIndex:0];
+                frame.origin.x = 0.0f;
+//                _menuFlags.showingRightView = YES;
+//                CGRect frame = self.view.bounds;
+//				frame.origin.x += frame.size.width - kMenuFullWidth;
+//				frame.size.width = kMenuFullWidth;
+//                self.rightViewController.view.frame = frame;
+//                [self.view insertSubview:self.rightViewController.view atIndex:0];
+                NSLog(@"canShowRight");
      
             } else {
                 frame.origin.x = 0.0f; // ignore left view if it's not set
@@ -217,6 +225,7 @@
 
     } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
         
+        NSLog(@"UIGestureRecognizerStateEnded");
         //  Finishing moving to left, right or root view with current pan velocity
         [self.view setUserInteractionEnabled:NO];
         
@@ -520,6 +529,11 @@
         _root.view.frame = frame;
     } completion:^(BOOL finished) {
         [_tap setEnabled:YES];
+//        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
+//        pan.delegate = (id<UIGestureRecognizerDelegate>)self;
+//        [view addGestureRecognizer:pan];
+//        _pan = pan;
+
     }];
     
     if (!animated) {
