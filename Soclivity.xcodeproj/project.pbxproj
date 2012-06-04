@@ -24,6 +24,7 @@
 		680CE4241551284800B8E937 /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = 680CE4141551284700B8E937 /* UIImage+Tint.m */; };
 		680CE4251551284800B8E937 /* WelcomeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 680CE4161551284800B8E937 /* WelcomeScreenViewController.m */; };
 		680CE4261551284800B8E937 /* WelcomeScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 680CE4171551284800B8E937 /* WelcomeScreenViewController.xib */; };
+		681EEA41157B6DA9003991EB /* S04_listrefresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 681EEA40157B6DA9003991EB /* S04_listrefresh@2x.png */; };
 		6820EB67156E9342006DEDD3 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6820EB66156E9342006DEDD3 /* MBProgressHUD.m */; };
 		686C797F15579545001358E0 /* S02.1_getstarted.png in Resources */ = {isa = PBXBuildFile; fileRef = 686C797E15579545001358E0 /* S02.1_getstarted.png */; };
 		686C79821557B0DA001358E0 /* S02_F_notselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 686C79801557B0DA001358E0 /* S02_F_notselected.png */; };
@@ -311,6 +312,7 @@
 		680CE4151551284800B8E937 /* WelcomeScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeScreenViewController.h; sourceTree = "<group>"; };
 		680CE4161551284800B8E937 /* WelcomeScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeScreenViewController.m; sourceTree = "<group>"; };
 		680CE4171551284800B8E937 /* WelcomeScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeScreenViewController.xib; sourceTree = "<group>"; };
+		681EEA40157B6DA9003991EB /* S04_listrefresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S04_listrefresh@2x.png"; sourceTree = "<group>"; };
 		6820EB65156E9342006DEDD3 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		6820EB66156E9342006DEDD3 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		686C797E15579545001358E0 /* S02.1_getstarted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S02.1_getstarted.png; sourceTree = "<group>"; };
@@ -949,6 +951,7 @@
 		EA8F656B1574C56300EFAE8A /* S02 Home */ = {
 			isa = PBXGroup;
 			children = (
+				681EEA40157B6DA9003991EB /* S04_listrefresh@2x.png */,
 				68AC43F1157846040074AD75 /* S04_dos.png */,
 				68AC43F2157846040074AD75 /* S04_dos@2x.png */,
 				68AC43EB1577F6760074AD75 /* S04_dot.png */,
@@ -1641,6 +1644,7 @@
 				68AC43F0157800FC0074AD75 /* Helvetica-Condensed-Bold.otf in Resources */,
 				68AC43F3157846050074AD75 /* S04_dos.png in Resources */,
 				68AC43F4157846050074AD75 /* S04_dos@2x.png in Resources */,
+				681EEA41157B6DA9003991EB /* S04_listrefresh@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1758,8 +1762,8 @@
 					armv6,
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1776,8 +1780,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
-				PROVISIONING_PROFILE = "C400065D-BAEE-4684-AE0A-0E00F3AC5AD6";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C400065D-BAEE-4684-AE0A-0E00F3AC5AD6";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -1793,8 +1795,8 @@
 					armv6,
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_THUMB_SUPPORT = NO;
@@ -1805,8 +1807,6 @@
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "C400065D-BAEE-4684-AE0A-0E00F3AC5AD6";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C400065D-BAEE-4684-AE0A-0E00F3AC5AD6";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -1819,8 +1819,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
@@ -1828,8 +1828,8 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "C400065D-BAEE-4684-AE0A-0E00F3AC5AD6";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C400065D-BAEE-4684-AE0A-0E00F3AC5AD6";
+				PROVISIONING_PROFILE = "EFA635E3-4755-42D9-881A-F2391BEBE66C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EFA635E3-4755-42D9-881A-F2391BEBE66C";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -1841,8 +1841,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Harish Hoon";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Harish Hoon";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
@@ -1850,8 +1850,8 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "C400065D-BAEE-4684-AE0A-0E00F3AC5AD6";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C400065D-BAEE-4684-AE0A-0E00F3AC5AD6";
+				PROVISIONING_PROFILE = "C7E1267A-B3F8-42C9-B88E-C46A96F23C5A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C7E1267A-B3F8-42C9-B88E-C46A96F23C5A";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;

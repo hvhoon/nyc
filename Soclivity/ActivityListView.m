@@ -12,7 +12,8 @@
 #import "SectionInfo.h"
 #import "SectionHeaderView.h"
 #import "SOCTableViewCell.h"
-#define REFRESH_HEADER_HEIGHT 70.0f
+#import "SoclivityUtilities.h"
+#define REFRESH_HEADER_HEIGHT 90.0f
 @interface ActivityListView ()
 
 @property (nonatomic, retain) NSMutableArray* sectionInfoArray;
@@ -48,7 +49,7 @@
     self.tableView.sectionHeaderHeight = HEADER_HEIGHT;
     //self.tableView.separatorColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_darkdivider.png"]];
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
-    v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_darkdivider.png"]];
+    v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_lightdivider.png"]];
     self.tableView.tableFooterView=v;
 	/*
      The section info array is thrown away in viewWillUnload, so it's OK to set the default values here. If you keep the section information etc. then set the default values in the designated initializer.
@@ -296,15 +297,16 @@
     refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, REFRESH_HEADER_HEIGHT)];
     refreshLabel.backgroundColor = [UIColor clearColor];
     refreshLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
+    refreshLabel.textColor = [SoclivityUtilities returnTextFontColor:1];
     refreshLabel.textAlignment = UITextAlignmentCenter;
     
     refreshArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S04_listrefresh.png"]];
-    refreshArrow.frame = CGRectMake(floorf((REFRESH_HEADER_HEIGHT - 23) / 2),
+    refreshArrow.frame = CGRectMake(floorf((REFRESH_HEADER_HEIGHT + 20) / 2),
                                     (floorf(REFRESH_HEADER_HEIGHT - 60) / 2),
                                     23, 60);
     
     refreshSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    refreshSpinner.frame = CGRectMake(floorf(floorf(REFRESH_HEADER_HEIGHT - 20) / 2), floorf((REFRESH_HEADER_HEIGHT - 20) / 2), 20, 20);
+    refreshSpinner.frame = CGRectMake(floorf(floorf(REFRESH_HEADER_HEIGHT + 20) / 2), floorf((REFRESH_HEADER_HEIGHT - 20) / 2), 20, 20);
     refreshSpinner.hidesWhenStopped = YES;
     
     [refreshHeaderView addSubview:refreshLabel];
