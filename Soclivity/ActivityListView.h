@@ -22,9 +22,8 @@
     NSString *textPull;
     NSString *textRelease;
     NSString *textLoading;
-
-    
 }
+
 @property (nonatomic, retain) NSArray *plays;
 @property(nonatomic,retain)UITableView *tableView;
 @property (nonatomic, retain) UIView *refreshHeaderView;
@@ -35,7 +34,7 @@
 @property (nonatomic, copy) NSString *textRelease;
 @property (nonatomic, copy) NSString *textLoading;
 
-
+-(void)LoadTable;
 - (void)setupStrings;
 - (void)addPullToRefreshHeader;
 - (void)startLoading;

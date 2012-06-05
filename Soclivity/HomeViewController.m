@@ -49,6 +49,7 @@
     [self.view insertSubview:profileBtn aboveSubview:activityTableView];
     
     [activityTableView setHidden:YES];
+    [activityTableView LoadTable];
     listFlipBtn.hidden=YES;
     sortDistanceBtn.hidden=YES;
     sortDOSBtn.hidden=YES;

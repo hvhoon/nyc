@@ -51,15 +51,15 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
     v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_lightdivider.png"]];
     self.tableView.tableFooterView=v;
-	/*
-     The section info array is thrown away in viewWillUnload, so it's OK to set the default values here. If you keep the section information etc. then set the default values in the designated initializer.
-     */
+	
     rowHeight_ = DEFAULT_ROW_HEIGHT;
     openSectionIndex_ = NSNotFound;
+    [self startPopulatingListView];
+}
+
+-(void)LoadTable{
     [self setupStrings];
     [self addPullToRefreshHeader];
-    [self startPopulatingListView];
-    
 }
 - (void)setupStrings{
     textPull = [[NSString alloc] initWithString:@"Pull down to update..."];
@@ -134,9 +134,7 @@
 }
 -(UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
     
-    /*
-     Create the section header views lazily.
-     */
+    
 	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     if (!sectionInfo.headerView) {
        InfoActivityClass*activityName = sectionInfo.play;
@@ -158,8 +156,6 @@
 -(void)tableView:(UITableView*)tableViewIndex didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     [tableViewIndex deselectRowAtIndexPath:indexPath animated:YES];
     [tableViewIndex scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-
-    //[tableViewIndex scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionMiddle animated:NO];    //do be uncommented kanav 
 }
 
 
@@ -167,21 +163,13 @@
 
 -(void)sectionHeaderView:(SectionHeaderView*)sectionHeaderView sectionOpened:(NSInteger)sectionOpened {
 	
-//    NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
-//    
-//    for (NSIndexPath *indexPath in visiblePaths) {
-//        if((sectionOpened +2)>[plays count]){
-//            
-//        }
-//    }
+
     
 	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:sectionOpened];
 	
 	sectionInfo.open = YES;
     
-    /*
-     Create an array containing the index paths of the rows to insert: These correspond to the rows for each quotation in the current section.
-     */
+    
     NSInteger countOfRowsToInsert = [sectionInfo.play.quotations count];
     NSMutableArray *indexPathsToInsert = [[NSMutableArray alloc] init];
     for (NSInteger i = 0; i < countOfRowsToInsert; i++) {
@@ -189,9 +177,7 @@
     }
     
     
-    /*
-     Create an array containing the index paths of the rows to delete: These correspond to the rows for each quotation in the previously-open section, if there was one.
-     */
+    
     NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
     
     NSInteger previousOpenSectionIndex = self.openSectionIndex;
@@ -234,9 +220,7 @@
 
 -(void)sectionHeaderView:(SectionHeaderView*)sectionHeaderView sectionClosed:(NSInteger)sectionClosed {
     
-    /*
-     Create an array of the index paths of the rows in the section that was closed, then delete those rows from the table view.
-     */
+    
 	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:sectionClosed];
 	
     sectionInfo.open = NO;

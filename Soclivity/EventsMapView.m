@@ -157,79 +157,90 @@
 		return calloutMapAnnotationView;
 	}
     
- else if ([annotation isKindOfClass:[SocAnnotation class]]) {
-    SocAnnotation *location = (SocAnnotation *) annotation;
-    MKPinAnnotationView *annotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation 
-    reuseIdentifier:@"CustomAnnotation"] autorelease];
-     UIImage *flagImage=nil;
-     switch (location._socAnnotation.pinType) {
-         case 1:
-         {
-             flagImage=[UIImage imageNamed:@"S04_location_play.png"];
-         }
-             break;
-         case 2:
-         {
-             flagImage=[UIImage imageNamed:@"S04_location_eat.png"];
-             
-         }
-             break;
-         case 3:
-         {
-             flagImage=[UIImage imageNamed:@"S04_location_see.png"];
-             
-         }
-             break;
-         case 4:
-         {
-             flagImage=[UIImage imageNamed:@"S04_location_create.png"];
-             
-         }
-             break;
-         case 5:
-         {
-             flagImage=[UIImage imageNamed:@"S04_location_learn.png"];
-             
-         }
-             break;
-             
-         default:
-             break;
-     }
-     
-     CGRect resizeRect;
-     
-     resizeRect.size = flagImage.size;
-     CGSize maxSize = CGRectInset(self.bounds,
-                                  [EventsMapView annotationPadding],
-                                  [EventsMapView annotationPadding]).size;
-     maxSize.height -= 44 + [EventsMapView calloutHeight];
-     if (resizeRect.size.width > maxSize.width)
-         resizeRect.size = CGSizeMake(maxSize.width, resizeRect.size.height / resizeRect.size.width * maxSize.width);
-     if (resizeRect.size.height > maxSize.height)
-         resizeRect.size = CGSizeMake(resizeRect.size.width / resizeRect.size.height * maxSize.height, maxSize.height);
-     
-     resizeRect.origin = (CGPoint){0.0f, 0.0f};
-     UIGraphicsBeginImageContext(resizeRect.size);
-     [flagImage drawInRect:resizeRect];
-     UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
-     UIGraphicsEndImageContext();
-     
-     annotationView.image = resizedImage;
-     annotationView.opaque = NO;
-     
+    else if ([annotation isKindOfClass:[SocAnnotation class]]){
+        static NSString* SFAnnotationIdentifier = @"SFAnnotationIdentifier";
+        SocAnnotation *location = (SocAnnotation *) annotation;
+        MKPinAnnotationView* pinView =
+        (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:SFAnnotationIdentifier];
+        if (!pinView)
+        {
+            MKAnnotationView *annotationView = [[[MKAnnotationView alloc] initWithAnnotation:annotation
+                                                                             reuseIdentifier:SFAnnotationIdentifier] autorelease];
+            annotationView.canShowCallout = YES;
+            UIImage *flagImage=nil;
+            switch (location._socAnnotation.pinType) {
+                case 1:
+                {
+                    flagImage=[UIImage imageNamed:@"S04_location_play.png"];
+                }
+                    break;
+                case 2:
+                {
+                    flagImage=[UIImage imageNamed:@"S04_location_eat.png"];
+                    
+                }
+                    break;
+                case 3:
+                {
+                    flagImage=[UIImage imageNamed:@"S04_location_see.png"];
+                    
+                }
+                    break;
+                case 4:
+                {
+                    flagImage=[UIImage imageNamed:@"S04_location_create.png"];
+                    
+                }
+                    break;
+                case 5:
+                {
+                    flagImage=[UIImage imageNamed:@"S04_location_learn.png"];
+                    
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
 
-     annotationView.leftCalloutAccessoryView=[self DrawAMapLeftAccessoryView:location];
-     UIButton *disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-     disclosureButton.frame = CGRectMake(0.0, 0.0, 20.0, 21.0);
-     [disclosureButton setImage:[UIImage imageNamed:@"S04_rightarrow.png"] forState:UIControlStateNormal];
-     [disclosureButton setImage:[UIImage imageNamed:@"S04_rightarrow.png"] forState:UIControlStateSelected];
-     [disclosureButton addTarget:self action:@selector(pushTodetailActivity:) forControlEvents:UIControlEventTouchUpInside];
-     annotationView.rightCalloutAccessoryView=disclosureButton;
-     annotationView.opaque = NO;
-     annotationView.canShowCallout = YES;
-    return annotationView;
-}
+            
+            CGRect resizeRect;
+            
+            resizeRect.size = flagImage.size;
+            CGSize maxSize = CGRectInset(self.bounds,
+                                         [EventsMapView annotationPadding],
+                                         [EventsMapView annotationPadding]).size;
+            maxSize.height -= 44 + [EventsMapView calloutHeight];
+            if (resizeRect.size.width > maxSize.width)
+                resizeRect.size = CGSizeMake(maxSize.width, resizeRect.size.height / resizeRect.size.width * maxSize.width);
+            if (resizeRect.size.height > maxSize.height)
+                resizeRect.size = CGSizeMake(resizeRect.size.width / resizeRect.size.height * maxSize.height, maxSize.height);
+            
+            resizeRect.origin = (CGPoint){0.0f, 0.0f};
+            UIGraphicsBeginImageContext(resizeRect.size);
+            [flagImage drawInRect:resizeRect];
+            UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
+            annotationView.image = resizedImage;
+            annotationView.opaque = NO;
+            annotationView.leftCalloutAccessoryView=[self DrawAMapLeftAccessoryView:location];
+            UIButton *disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+            disclosureButton.frame = CGRectMake(0.0, 0.0, 20.0, 21.0);
+            [disclosureButton setImage:[UIImage imageNamed:@"S04_rightarrow.png"] forState:UIControlStateNormal];
+            [disclosureButton setImage:[UIImage imageNamed:@"S04_rightarrow.png"] forState:UIControlStateSelected];
+            [disclosureButton addTarget:self action:@selector(pushTodetailActivity:) forControlEvents:UIControlEventTouchUpInside];
+            annotationView.rightCalloutAccessoryView=disclosureButton;
+
+            
+            return annotationView;
+        }
+        else
+        {
+            pinView.annotation = annotation;
+        }
+        return pinView;
+    }
 
 	return nil;
 #endif    
