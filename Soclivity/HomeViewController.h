@@ -9,15 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "EventsMapView.h"
 #import "ActivityListView.h"
-
+#import "StyledPullableView.h"
 @protocol HomeScreenDelegate <NSObject>
 
 @optional
 - (void)showLeft:(id)sender;
 @end
 
-@interface HomeViewController : UIViewController<UISearchBarDelegate>{
-    UISearchBar	*homeSearchBar;
+@interface HomeViewController : UIViewController<PullableViewDelegate>{
+   
     IBOutlet UIButton *profileBtn;
     IBOutlet UIButton *addBtn;
     IBOutlet UIView *topNavBarView;
@@ -35,9 +35,11 @@
     IBOutlet UIButton*sortByTimeBtn;
     IBOutlet UIButton*refreshBtn;    
     IBOutlet UIButton*currentLocationBtn;
+    StyledPullableView *pullDownView;
+    float gradient;
     
 }
-@property (nonatomic, retain) UISearchBar *homeSearchBar;
+
 @property (nonatomic,retain)id <HomeScreenDelegate>delegate;
 @property (nonatomic,retain)EventsMapView *socEventMapView;
 @property (nonatomic,retain)ActivityListView *activityTableView;

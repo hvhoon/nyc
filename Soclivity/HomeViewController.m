@@ -11,7 +11,7 @@
 #import "SettingsViewController.h"
 #import "UserContactList.h"
 @implementation HomeViewController
-@synthesize homeSearchBar,delegate,socEventMapView,activityTableView;
+@synthesize delegate,socEventMapView,activityTableView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -34,6 +34,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    gradient=0.94;
+    CGFloat xOffset = 0;
+    
+#if 1   
+    NSLog(@"offset=%f",xOffset);
+    pullDownView = [[StyledPullableView alloc] initWithFrame:CGRectMake(xOffset, 0, 320, 460)];
+    pullDownView.openedCenter = CGPointMake(160 + xOffset,130);
+    pullDownView.closedCenter = CGPointMake(160 + xOffset, -172);//-200
+    pullDownView.center = pullDownView.closedCenter;
+    
+    
+    //kanav handle layout
+    
+    pullDownView.handleView.frame = CGRectMake(5, 402, 58, 58);
+    pullDownView.delegate = self;
+    
+    
+    
+#endif 
+
     self.view.backgroundColor=[UIColor blackColor];
     [self.navigationController.navigationBar setHidden:YES];
     UITapGestureRecognizer *navSingleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navSingleTap)];
@@ -48,6 +68,16 @@
     [self.view insertSubview:profileBtn aboveSubview:socEventMapView];
     [self.view insertSubview:profileBtn aboveSubview:activityTableView];
     
+    [self.view insertSubview:pullDownView aboveSubview:topNavBarView];
+    
+    [self.view insertSubview:pullDownView aboveSubview:socEventMapView];
+    [self.view insertSubview:pullDownView aboveSubview:activityTableView];
+
+    
+//    [self.view addSubview:pullDownView];
+//    [pullDownView release];
+
+    
     [activityTableView setHidden:YES];
     [activityTableView LoadTable];
     listFlipBtn.hidden=YES;
@@ -58,27 +88,6 @@
     currentLocationBtn.hidden=NO;
     UserContactList *addressBook=[[UserContactList alloc]init];
     [addressBook GetAddressBook];
-    self.homeSearchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 44.0, self.view.bounds.size.width, 44.0)] autorelease];
-	self.homeSearchBar.delegate = self;
-	self.homeSearchBar.showsCancelButton = NO;
-	self.homeSearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-	self.homeSearchBar.placeholder=@"Search for 'Tennis'";
-	
-    //[[[mySearchBar subviews] objectAtIndex:0] setAlpha:0.0];
-    //we can still add a tint color so as the search bar buttons match our new background
-	self.homeSearchBar.tintColor = [SoclivityUtilities returnTextFontColor:1];
-	
-	UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0,self.homeSearchBar.frame.size.height-1,self.homeSearchBar.frame.size.width, 1)];
-    [bottomBorder setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"Background_Search.png"]]];
-    [bottomBorder setOpaque:YES];
-    [bottomBorder setTag:123];
-    [self.homeSearchBar addSubview:bottomBorder];
-    [bottomBorder release];
-    //self.homeSearchBar.hidden=YES;
-    // note: here you can also change its "tintColor" property to a different UIColor
-    [self.view addSubview:self.homeSearchBar];
-    
-    self.homeSearchBar.frame=CGRectMake(0, -44, 320, 44.0f);
     
     // Do any additional setup after loading the view from its nib.
 }
@@ -88,9 +97,9 @@
 	[[self navigationController] pushViewController:settingsViewController animated:YES];
     [settingsViewController release];
 }
-
+#if 0 
 -(void)navSingleTap{
-#if 0    
+   
     NSLog(@"navSingleTap");
         if(!searchBarActivated){
             [self ShowSearchBar];
@@ -100,7 +109,7 @@
             searchBarActivated=NO;
             [self HideSearchBar];
         }
-#endif    
+
 }    
 
 -(void)HideSearchBar{
@@ -127,6 +136,7 @@
     self.homeSearchBar.frame=CGRectMake(0, 44, 320, 44.0f);
     [UIView commitAnimations];
 }
+#endif    
 
 #pragma mark -
 #pragma mark Sliding Drawer Action
@@ -271,8 +281,6 @@
         sortDistanceBtn.hidden=YES;
         sortDOSBtn.hidden=YES;
         sortByTimeBtn.hidden=YES;
-
-        
         [UIView commitAnimations];
     }
     
@@ -280,16 +288,58 @@
 #endif
 
 #pragma mark -
-#pragma mark UISearchBarDelegate
+#pragma mark PullDownView
 
-
--(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
-	
+-(void)doTheTurn:(Boolean)open{
     
+    if(open){
+        self.view.alpha = 1.0;
+        [UIView animateWithDuration: 0.5
+                              delay: 0.0
+                            options: UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             //handleView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+                             self.view.alpha = 0.4;
+                             self.view.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+                         }
+                         completion:^(BOOL finished){
+                             
+                         }];
+        
+        
+    }
+    else{
+        self.view.alpha = 0.4;
+        [UIView animateWithDuration: 0.5
+                              delay: 0.0
+                            options: UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             //handleView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+                             self.view.alpha = 1.0;
+                             self.view.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+                         }
+                         completion:^(BOOL finished){
+                             
+                         }];
+    }
 }
-// called when keyboard search button pressed
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-    [self.homeSearchBar resignFirstResponder];
+
+-(void)alphaLess{
+    gradient=gradient-0.003;
+    self.view.alpha =gradient;
+}
+-(void)alphaMore{
+    gradient=gradient+0.003;
+    self.view.alpha = gradient;
+}
+
+- (void)pullableView:(PullableView *)pView didChangeState:(BOOL)opened {
+    if (opened) {
+        NSLog(@"Now I'm open!");
+        
+    } else {
+        NSLog(@"Now I'm closed, pull me up again!");
+    }
 }
 
 #pragma mark -
