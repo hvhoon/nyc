@@ -49,8 +49,8 @@
 {
     // start off by default in San Francisco
     MKCoordinateRegion newRegion;
-    newRegion.center.latitude = 34.416885;
-    newRegion.center.longitude = -119.678369;
+    newRegion.center.latitude = currentCoord.latitude;
+    newRegion.center.longitude = currentCoord.longitude;
     newRegion.span.latitudeDelta = 0.112872;
     newRegion.span.longitudeDelta = 0.109863;
     
@@ -71,14 +71,18 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-    //LocationCustomManager *SocLocation=[[LocationCustomManager alloc]init];
-    //SocLocation.delegate=self;
-    //SocLocation.theTag=kOnlyLatLong;
+    LocationCustomManager *SocLocation=[[LocationCustomManager alloc]init];
+    SocLocation.delegate=self;
+    SocLocation.theTag=kOnlyLatLong;
 
     self.mapView.mapType = MKMapTypeStandard;
+#if 0    
     self.plays=[SoclivityUtilities getPlayerActivities];
     self.mapAnnotations = [[NSMutableArray alloc] initWithCapacity:[self.plays count]];
     [self setUpMapAnnotations];
+#else
+ 
+#endif    
 }
 -(void)setUpMapAnnotations{
     for (InfoActivityClass *play in self.plays){
@@ -111,8 +115,16 @@
     
     [self gotoLocation];
     [self.mapView removeAnnotations:self.mapView.annotations];  // remove any annotations that exist
-    
-    [self.mapView addAnnotation:[self.mapAnnotations objectAtIndex:0]];
+    MapActivityClass *mapObj=[[MapActivityClass alloc]init];
+    mapObj.mapCoord=theCoordinate;
+    mapObj.pinType=1;
+    mapObj.activityName=@"Tennis Match";
+    mapObj.organizer=@"Shahved Katoch";
+    mapObj.activityDateAndTime=@"Fri Nov 7, 18:07 PM";
+    mapObj.DOS=1;
+
+    SocAnnotation *sfAnnotation = [[[SocAnnotation alloc] initWithName:@" " address:@" " coordinate:currentCoord annotationObject:mapObj] autorelease];
+    [self.mapView addAnnotation:sfAnnotation];
 
 }
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
