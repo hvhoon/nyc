@@ -15,9 +15,6 @@
     BOOL see;
     BOOL create;
     BOOL learn;
-    BOOL today;
-    BOOL tomorrow;
-    BOOL later;
     FCRangeSlider *rangeSlider;
     
 }
