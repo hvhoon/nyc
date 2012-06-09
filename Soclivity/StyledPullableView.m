@@ -24,7 +24,7 @@
         
         self.backgroundColor=[UIColor clearColor];
                               
-        filterPaneView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 402)];
+        filterPaneView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 402)];//402
         filterPaneView.backgroundColor=[UIColor whiteColor];
         self.homeSearchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 100.0,320, 44.0)] autorelease];
         self.homeSearchBar.delegate = self;

@@ -294,7 +294,7 @@
     
     if(open){
         self.view.alpha = 1.0;
-        [UIView animateWithDuration: 0.5
+        [UIView animateWithDuration: 0.3
                               delay: 0.0
                             options: UIViewAnimationOptionCurveEaseOut
                          animations:^{
@@ -310,7 +310,7 @@
     }
     else{
         self.view.alpha = 0.4;
-        [UIView animateWithDuration: 0.5
+        [UIView animateWithDuration: 0.3
                               delay: 0.0
                             options: UIViewAnimationOptionCurveEaseOut
                          animations:^{

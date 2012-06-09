@@ -76,6 +76,7 @@
     SocLocation.theTag=kOnlyLatLong;
 
     self.mapView.mapType = MKMapTypeStandard;
+    [self.mapView setShowsUserLocation:YES];
 #if 0    
     self.plays=[SoclivityUtilities getPlayerActivities];
     self.mapAnnotations = [[NSMutableArray alloc] initWithCapacity:[self.plays count]];
@@ -116,14 +117,18 @@
     [self gotoLocation];
     [self.mapView removeAnnotations:self.mapView.annotations];  // remove any annotations that exist
     MapActivityClass *mapObj=[[MapActivityClass alloc]init];
-    mapObj.mapCoord=theCoordinate;
+    CLLocationCoordinate2D thePinCoordinate;
+    thePinCoordinate.latitude = 37.785834;
+    thePinCoordinate.longitude =-122.406417;
+
+    mapObj.mapCoord=thePinCoordinate;
     mapObj.pinType=1;
     mapObj.activityName=@"Tennis Match";
     mapObj.organizer=@"Shahved Katoch";
     mapObj.activityDateAndTime=@"Fri Nov 7, 18:07 PM";
     mapObj.DOS=1;
 
-    SocAnnotation *sfAnnotation = [[[SocAnnotation alloc] initWithName:@" " address:@" " coordinate:currentCoord annotationObject:mapObj] autorelease];
+    SocAnnotation *sfAnnotation = [[[SocAnnotation alloc] initWithName:@" " address:@" " coordinate:thePinCoordinate annotationObject:mapObj] autorelease];
     [self.mapView addAnnotation:sfAnnotation];
 
 }
@@ -149,7 +154,7 @@
 		[self.mapView removeAnnotation: self.calloutAnnotation];
 	}
 }
-
+#if 1
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     
 #if 1   
@@ -257,7 +262,49 @@
 	return nil;
 #endif    
 }
+#else
+- (MKAnnotationView *) mapView:(MKMapView *)mapView1 viewForAnnotation:(id <MKAnnotation>) annotation
+{
+    MKPinAnnotationView *annView=[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"currentloc"];
+    
+    if (annotation == mapView1.userLocation)
+    {
+        
+        annView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"blueDot"];
+        if (annView != nil)
+        {
+            annView.annotation = annotation;
+        }
+        else
+        {
+            annView = [[[NSClassFromString(@"MKUserLocationView") alloc] initWithAnnotation:annotation reuseIdentifier:@"blueDot"] autorelease];
+            
+            
+        }
+    }
+    
+    if([inStock isEqual:@"yes"]){
+        annView.pinColor = MKPinAnnotationColorGreen;
+    } 
+    if([inStock isEqual:@"no"]){
+        annView.pinColor = MKPinAnnotationColorRed;
+    }
+    if([inStock isEqual:@"unknown"]){
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greyPin.png"]];
+        [annView addSubview:imageView];
+        
+        
+        
+        
+    }
+    annView.animatesDrop=TRUE;
+    annView.canShowCallout = YES;
+    annView.calloutOffset = CGPointMake(-5, 5);
+    return annView;
+}
 
+#endif
 -(UIView*)DrawAMapLeftAccessoryView:(SocAnnotation *)locObject{
 	
 	UIView *mapLeftView=[[UIView alloc] initWithFrame:CGRectMake(0,0, 150, 30)];

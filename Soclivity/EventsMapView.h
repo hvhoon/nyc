@@ -18,6 +18,7 @@
     SocAnnotation *_calloutAnnotation;
     CLLocationCoordinate2D currentCoord;
     NSArray *plays;
+    NSString *inStock;
 
 }
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
