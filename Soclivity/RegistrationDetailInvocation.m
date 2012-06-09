@@ -26,7 +26,7 @@
 
 
 -(void)invoke {
-    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/players.json"];//dev.soclivity.com/players.json
+    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/players.json"];
 	[self post:a body:[self body]];//dev.soclivity.com/players/17.json
     
     //[self put:a body:[self body]];
@@ -61,12 +61,11 @@
     if(player.gender!=nil)
     [bodyD setObject:player.gender  forKey:@"gender"];
     
-    //if(playerLoc.coordinate.latitude!=0.0f && playerLoc.coordinate.longitude!=0.0f){
+    if(playerLoc.coordinate.latitude!=0.0f && playerLoc.coordinate.longitude!=0.0f){
     [bodyD setObject:[NSString stringWithFormat:@"%f",playerLoc.coordinate.latitude]  forKey:@"location_lat"];
     [bodyD setObject:[NSString stringWithFormat:@"%f",playerLoc.coordinate.longitude]  forKey:@"location_lng"];
-    //}
+    }
     
-     //NSString *stringType=[NSString stringWithFormat:@"1,5"];
      [bodyD setObject:player.activityTypes forKey:@"activity_type_ids"];
      
     if(isFacebookUser){

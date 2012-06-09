@@ -34,7 +34,6 @@
     minimumRangeLength = 0.0f;
     self.clipsToBounds = YES;
     
-    
     UIImage *thumbImage = [UIImage imageNamed:@"S4.1_scroll-ball.png"];
     CGFloat thumbCenter = thumbImage.size.width / 2;
     trackSliderWidth = self.frame.size.width - thumbImage.size.width;
@@ -53,12 +52,13 @@
     [self addSubview:inRangeTrackView];
     
     minimumThumbView = [[UIImageView alloc] initWithImage:thumbImage];
+    minimumThumbView.frame = CGRectSetPosition(minimumThumbView.frame, self.frame.size.width - thumbImage.size.width, 2);
     minimumThumbView.frame = CGRectSetHeight(minimumThumbView.frame, 24);
     minimumThumbView.contentMode = UIViewContentModeCenter;
     [self addSubview:minimumThumbView];
     
     maximumThumbView = [[UIImageView alloc] initWithImage:thumbImage];
-    maximumThumbView.frame = CGRectSetPosition(minimumThumbView.frame, self.frame.size.width - thumbImage.size.width, 0);
+    maximumThumbView.frame = CGRectSetPosition(minimumThumbView.frame, self.frame.size.width - thumbImage.size.width, 2);
     maximumThumbView.frame = CGRectSetHeight(maximumThumbView.frame, 24);
     maximumThumbView.contentMode = UIViewContentModeCenter;
     [self addSubview:maximumThumbView];
@@ -67,7 +67,7 @@
     [roundFormatter setMaximumFractionDigits:0];
     [roundFormatter setRoundingMode:NSNumberFormatterRoundHalfEven];
     
-    self.rangeValue = FCRangeSliderValueMake(minimumValue, maximumValue);    
+    self.rangeValue = FCRangeSliderValueMake(2.5, 7.5); //minimumValue,maximumValue   
 }
 
 - (id)initWithFrame:(CGRect)frame {

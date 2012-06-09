@@ -26,7 +26,7 @@
     if (self) {
         
         animate = YES;
-        animationDuration = 0.3;
+        animationDuration = 0.2;
         
         toggleOnTap = YES;
         
@@ -80,11 +80,11 @@
         if(translateNew.y>translate.y)
         {
             NSLog(@"up going");
-            [delegate alphaMore];
+            //[delegate alphaMore];
         }
         else{
             NSLog(@"down going");
-            [delegate alphaLess];
+            //[delegate alphaLess];
 
         }
         translateNew=translate;
@@ -215,7 +215,7 @@
         filterPaneView.layer.shadowOpacity = opened ? 0.8f : 0.0f;
         filterPaneView.layer.cornerRadius = 1.0f;
         filterPaneView.layer.shadowOffset = CGSizeZero;
-        filterPaneView.layer.shadowRadius = 4.0f;
+        filterPaneView.layer.shadowRadius = 14.0f;
         filterPaneView.layer.shadowPath = [UIBezierPath bezierPathWithRect:filterPaneView.bounds].CGPath;
         
     }

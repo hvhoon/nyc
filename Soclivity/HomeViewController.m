@@ -294,11 +294,10 @@
     
     if(open){
         self.view.alpha = 1.0;
-        [UIView animateWithDuration: 0.3
+        [UIView animateWithDuration: 0.2
                               delay: 0.0
                             options: UIViewAnimationOptionCurveEaseOut
                          animations:^{
-                             //handleView.transform = CGAffineTransformMakeScale(1.0, 1.0);
                              self.view.alpha = 0.4;
                              self.view.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
                          }
@@ -310,11 +309,10 @@
     }
     else{
         self.view.alpha = 0.4;
-        [UIView animateWithDuration: 0.3
+        [UIView animateWithDuration: 0.2
                               delay: 0.0
                             options: UIViewAnimationOptionCurveEaseOut
                          animations:^{
-                             //handleView.transform = CGAffineTransformMakeScale(1.0, 1.0);
                              self.view.alpha = 1.0;
                              self.view.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
                          }
