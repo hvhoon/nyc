@@ -70,50 +70,50 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
     
     
     if(facebookTag){
-        emailTextField.text=SOC.fbObject.email;
+        emailTextField.text=playerObj.email;
         emailTextField.enabled = NO;
         enterPasswordTextField.enabled=NO;
         confirmPasswordTextField.enabled=NO;
-        if(SOC.fbObject.FBProfileImage.size.height != SOC.fbObject.FBProfileImage.size.width)
-            SOC.fbObject.FBProfileImage = [self autoCrop:SOC.fbObject.FBProfileImage];
+        if(playerObj.FBProfileImage.size.height != playerObj.FBProfileImage.size.width)
+            playerObj.FBProfileImage = [self autoCrop:playerObj.FBProfileImage];
         
         // If the image needs to be compressed
-        if(SOC.fbObject.FBProfileImage.size.height > 100 || SOC.fbObject.FBProfileImage.size.width > 100)
-            SOC.fbObject.FBProfileImage = [self compressImage:SOC.fbObject.FBProfileImage size:CGSizeMake(100,100)];
+        if(playerObj.FBProfileImage.size.height > 100 || playerObj.FBProfileImage.size.width > 100)
+            playerObj.FBProfileImage = [self compressImage:playerObj.FBProfileImage size:CGSizeMake(100,100)];
         
-        SOC.fbObject.profileImageData=UIImagePNGRepresentation(SOC.fbObject.FBProfileImage);
-        [profileBtn setBackgroundImage:SOC.fbObject.FBProfileImage forState:UIControlStateNormal];
+        playerObj.profileImageData=UIImagePNGRepresentation(playerObj.FBProfileImage);
+        [profileBtn setBackgroundImage:playerObj.FBProfileImage forState:UIControlStateNormal];
         [[profileBtn layer] setBorderWidth:1.0];
         [[profileBtn layer] setBorderColor:[SoclivityUtilities returnTextFontColor:4].CGColor];
         setYourPic.hidden=YES;
         
-        NSLog(@"firstName=%@",SOC.fbObject.first_name);
-        NSLog(@"last_name=%@",SOC.fbObject.last_name);
-        NSLog(@"email=%@",SOC.fbObject.email);
-        NSLog(@"gender=%@",SOC.fbObject.gender);
-        NSLog(@"birth_date=%@",SOC.fbObject.birth_date);
+        NSLog(@"firstName=%@",playerObj.first_name);
+        NSLog(@"last_name=%@",playerObj.last_name);
+        NSLog(@"email=%@",playerObj.email);
+        NSLog(@"gender=%@",playerObj.gender);
+        NSLog(@"birth_date=%@",playerObj.birth_date);
         
-        if([SOC.fbObject.gender isEqualToString:@"male"]){
+        if([playerObj.gender isEqualToString:@"male"]){
             [maleButton setBackgroundImage:[UIImage imageNamed:@"S02_male.png"] forState:UIControlStateNormal];
             b_Female=FALSE;
-            SOC.fbObject.gender=@"m";
+            playerObj.gender=@"m";
             b_Male=TRUE;
             [femaleButton setBackgroundImage:[UIImage imageNamed:@"S02_F_notselected.png"] forState:UIControlStateNormal];
         }
-        else if([SOC.fbObject.gender isEqualToString:@"female"]){
+        else if([playerObj.gender isEqualToString:@"female"]){
             [femaleButton setBackgroundImage:[UIImage imageNamed:@"S02_female.png"] forState:UIControlStateNormal];
             b_Male=FALSE;
             b_Female=TRUE;
-           SOC.fbObject.gender=@"f";
+           playerObj.gender=@"f";
             [maleButton setBackgroundImage:[UIImage imageNamed:@"S02_M_notselected.png"] forState:UIControlStateNormal];
         }
         else{
             NSLog(@"No gender Selected");
         }
         
-        if((SOC.fbObject.birth_date==(NSString*)[NSNull null])||([SOC.fbObject.birth_date isEqualToString:@""]||SOC.fbObject.birth_date==nil)||([SOC.fbObject.birth_date isEqualToString:@"(null)"])){
+        if((playerObj.birth_date==(NSString*)[NSNull null])||([playerObj.birth_date isEqualToString:@""]||playerObj.birth_date==nil)||([playerObj.birth_date isEqualToString:@"(null)"])){
              NSLog(@"No birth_date Selected");
-            SOC.fbObject.birth_date=nil;
+            playerObj.birth_date=nil;
         }
 
         // We are not pulling location information right now
@@ -124,28 +124,28 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
         
         BOOL fName=TRUE;
         BOOL lName=TRUE;
-        if ((SOC.fbObject.first_name==(NSString*)[NSNull null])||([SOC.fbObject.first_name isEqualToString:@""]||SOC.fbObject.first_name==nil)||([SOC.fbObject.first_name isEqualToString:@"(null)"])){
+        if ((playerObj.first_name==(NSString*)[NSNull null])||([playerObj.first_name isEqualToString:@""]||playerObj.first_name==nil)||([playerObj.first_name isEqualToString:@"(null)"])){
             fName=FALSE;
         }
         
-        if ((SOC.fbObject.last_name==(NSString*)[NSNull null])||([SOC.fbObject.last_name isEqualToString:@""]||SOC.fbObject.last_name==nil)||([SOC.fbObject.last_name isEqualToString:@"(null)"])){
+        if ((playerObj.last_name==(NSString*)[NSNull null])||([playerObj.last_name isEqualToString:@""]||playerObj.last_name==nil)||([playerObj.last_name isEqualToString:@"(null)"])){
             lName=FALSE;
         }
         
         
         if(fName && lName){
-            SOC.fbObject.fullName=[NSString stringWithFormat:@"%@ %@",SOC.fbObject.first_name,SOC.fbObject.last_name];
+            playerObj.fullName=[NSString stringWithFormat:@"%@ %@",playerObj.first_name,playerObj.last_name];
         }
         
         if(fName && !lName){
-           SOC.fbObject.fullName=[NSString stringWithFormat:@"%@",SOC.fbObject.first_name];
+           playerObj.fullName=[NSString stringWithFormat:@"%@",playerObj.first_name];
         }
         
         if(!fName && lName){
-            SOC.fbObject.fullName=[NSString stringWithFormat:@"%@",SOC.fbObject.last_name];
+            playerObj.fullName=[NSString stringWithFormat:@"%@",playerObj.last_name];
         }
         
-        enterNameTextField.text=SOC.fbObject.fullName;
+        enterNameTextField.text=playerObj.fullName;
         NSInteger length;
         length = [enterNameTextField.text length];
         if (length<2)
@@ -296,12 +296,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
         // Format and set date in the player object
         dateFormatter.dateFormat=@"d/MM/YYYY";
         NSString*postDate=[dateFormatter stringFromDate:bDate];
-        if(facebookTag){
-            SOC.fbObject.birth_date=postDate;
-        }
-        else{
-          playerObj.birth_date=postDate;
-        }
+        playerObj.birth_date=postDate;
         [dateFormatter release];
     }
     

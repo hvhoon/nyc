@@ -246,6 +246,10 @@
 		EA96E85A155E670800BE82DF /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA96E858155E670800BE82DF /* HomeViewController.m */; };
 		EA96E85B155E670800BE82DF /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA96E859155E670800BE82DF /* HomeViewController.xib */; };
 		EA97008D156624CE005A271A /* AlertPrompt.m in Sources */ = {isa = PBXBuildFile; fileRef = EA97008B156624CE005A271A /* AlertPrompt.m */; };
+		EA976C341584AD7600474EAF /* SoclivitySqliteClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EA976C331584AD7600474EAF /* SoclivitySqliteClass.m */; };
+		EA976C361584B50B00474EAF /* SoclivityDB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = EA976C351584B50B00474EAF /* SoclivityDB.sqlite */; };
+		EA976C3A1584C63100474EAF /* GetActivitiesInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA976C391584C63100474EAF /* GetActivitiesInvocation.m */; };
+		EA976C411584D0D000474EAF /* InfoActivityClass+Parse.m in Sources */ = {isa = PBXBuildFile; fileRef = EA976C401584D0CF00474EAF /* InfoActivityClass+Parse.m */; };
 		EA99A08615826E370096719F /* FCRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = EA99A04415826E370096719F /* FCRangeSlider.m */; };
 		EAB053D81562214F00771877 /* S02_blackbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68BFF8CB1561FA2000D73D7C /* S02_blackbar@2x.png */; };
 		EAB053DA1562215200771877 /* S02_blackbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 68BFF8CA1561FA2000D73D7C /* S02_blackbar.png */; };
@@ -673,6 +677,13 @@
 		EA96E859155E670800BE82DF /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		EA97008B156624CE005A271A /* AlertPrompt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertPrompt.m; sourceTree = "<group>"; };
 		EA97008C156624CE005A271A /* AlertPrompt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertPrompt.h; sourceTree = "<group>"; };
+		EA976C321584AD7600474EAF /* SoclivitySqliteClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoclivitySqliteClass.h; sourceTree = "<group>"; };
+		EA976C331584AD7600474EAF /* SoclivitySqliteClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoclivitySqliteClass.m; sourceTree = "<group>"; };
+		EA976C351584B50B00474EAF /* SoclivityDB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = SoclivityDB.sqlite; sourceTree = "<group>"; };
+		EA976C381584C63100474EAF /* GetActivitiesInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetActivitiesInvocation.h; sourceTree = "<group>"; };
+		EA976C391584C63100474EAF /* GetActivitiesInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetActivitiesInvocation.m; sourceTree = "<group>"; };
+		EA976C3F1584D0CE00474EAF /* InfoActivityClass+Parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "InfoActivityClass+Parse.h"; sourceTree = "<group>"; };
+		EA976C401584D0CF00474EAF /* InfoActivityClass+Parse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "InfoActivityClass+Parse.m"; sourceTree = "<group>"; };
 		EA99A04315826E370096719F /* FCRangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCRangeSlider.h; sourceTree = "<group>"; };
 		EA99A04415826E370096719F /* FCRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCRangeSlider.m; sourceTree = "<group>"; };
 		EA99A0C815826EDB0096719F /* FCGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCGeometry.h; sourceTree = "<group>"; };
@@ -841,6 +852,7 @@
 		680CE3E81551258700B8E937 /* Soclivity */ = {
 			isa = PBXGroup;
 			children = (
+				EA976C301584AD4D00474EAF /* Sqlite */,
 				EA87EDBD157340AB00DE1762 /* Address Book */,
 				EA5BC966156CCC0700AC8C0C /* JSON */,
 				EA94D017156BAB4700B0E6F5 /* Facebook */,
@@ -872,6 +884,7 @@
 		680CE3E91551258700B8E937 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EA976C351584B50B00474EAF /* SoclivityDB.sqlite */,
 				EA7D64A715776A970034E4DB /* Activities.plist */,
 				680CE3EA1551258700B8E937 /* Soclivity-Info.plist */,
 				680CE3EB1551258700B8E937 /* InfoPlist.strings */,
@@ -1181,6 +1194,8 @@
 				EA7D64A2157767C30034E4DB /* InfoActivityClass.m */,
 				EA7D64A4157769040034E4DB /* DetailInfoActivityClass.h */,
 				EA7D64A5157769040034E4DB /* DetailInfoActivityClass.m */,
+				EA976C3F1584D0CE00474EAF /* InfoActivityClass+Parse.h */,
+				EA976C401584D0CF00474EAF /* InfoActivityClass+Parse.m */,
 			);
 			name = ActivityListView;
 			sourceTree = "<group>";
@@ -1332,6 +1347,7 @@
 		EA91C324155A71A500BE5BB1 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				EA976C371584C5EB00474EAF /* Get Activities Service */,
 				EA86D2D3156FEDB500E3EABD /* FB SignIn */,
 				EA3ABAEE15657F9600B262F7 /* Email Send For Forgot Password */,
 				EA3ABAE915657D0000B262F7 /* Reset Password Service */,
@@ -1469,6 +1485,24 @@
 				EA96E859155E670800BE82DF /* HomeViewController.xib */,
 			);
 			name = Home;
+			sourceTree = "<group>";
+		};
+		EA976C301584AD4D00474EAF /* Sqlite */ = {
+			isa = PBXGroup;
+			children = (
+				EA976C321584AD7600474EAF /* SoclivitySqliteClass.h */,
+				EA976C331584AD7600474EAF /* SoclivitySqliteClass.m */,
+			);
+			name = Sqlite;
+			sourceTree = "<group>";
+		};
+		EA976C371584C5EB00474EAF /* Get Activities Service */ = {
+			isa = PBXGroup;
+			children = (
+				EA976C381584C63100474EAF /* GetActivitiesInvocation.h */,
+				EA976C391584C63100474EAF /* GetActivitiesInvocation.m */,
+			);
+			name = "Get Activities Service";
 			sourceTree = "<group>";
 		};
 		EAB135AF15545B1100C1607D /* Reset Password */ = {
@@ -1927,6 +1961,7 @@
 				EA90FFCB1582074E00CA0C4F /* S4.1_what@2x.png in Resources */,
 				EA90FFCC1582074E00CA0C4F /* S4.1_when.png in Resources */,
 				EA90FFCD1582074E00CA0C4F /* S4.1_when@2x.png in Resources */,
+				EA976C361584B50B00474EAF /* SoclivityDB.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2022,6 +2057,9 @@
 				EA90FF371581CF9300CA0C4F /* PullableView.m in Sources */,
 				EA90FF381581CF9300CA0C4F /* StyledPullableView.m in Sources */,
 				EA99A08615826E370096719F /* FCRangeSlider.m in Sources */,
+				EA976C341584AD7600474EAF /* SoclivitySqliteClass.m in Sources */,
+				EA976C3A1584C63100474EAF /* GetActivitiesInvocation.m in Sources */,
+				EA976C411584D0D000474EAF /* InfoActivityClass+Parse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

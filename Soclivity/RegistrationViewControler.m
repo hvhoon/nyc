@@ -9,7 +9,6 @@
 #import "RegistrationViewControler.h"
 #import "MainServiceManager.h"
 #import "GetPlayersDetailInvocation.h"
-#import "HomeViewController.h"
 #import "DDMenuController.h"
 #import "SettingsViewController.h"
 #import "UpComingEventsViewController.h"
@@ -85,7 +84,6 @@
     basicSectionFirst.playerObj=SOC.registrationObject;
     activitySectionSecond.delegate=self;
     activitySectionSecond.playerObj=SOC.registrationObject;
-    activitySectionSecond.facebookTag=facebookTag;
     for (int i = 0; i < 2; i++) {
 		CGRect frame;
 		frame.origin.x = 0;
@@ -406,6 +404,7 @@
         [alert release];
     }
     else {
+        SOC.loggedInUser=obj;
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Successful"
                                                         message:@"Welcome to Soclivity!"
                                                        delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
@@ -432,6 +431,7 @@
                 case kRegisterSucces:
                 {
                     HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+                    //[self StartGettingActivities:homeViewController];
                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
                     
                     DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
@@ -463,6 +463,10 @@
         else
             NSLog(@"Clicked Cancel Button");
     
+}
+
+-(void)StartGettingActivities:(HomeViewController*)homeVC{
+    [devServer getActivitiesInvocation:[SOC.loggedInUser.idSoc intValue] latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude timeSpanFilter:@"today" updatedAt:@"today" delegate:homeVC];
 }
 - (void)viewDidUnload
 {

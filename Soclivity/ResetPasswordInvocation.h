@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "ProjectAsyncInvocation.h"
 #import "SAServiceAsyncInvocation.h"
-#import "ParseOperation.h"
 
 @class ResetPasswordInvocation;
 
@@ -21,14 +20,12 @@
 
 @end
 
-@interface ResetPasswordInvocation : ProjectAsyncInvocation<ParseOperationDelegate>{
-    NSOperationQueue*queue;
+@interface ResetPasswordInvocation : ProjectAsyncInvocation{
     NSString *theNewPassword;
     NSString *confirmPassword;
     NSInteger userId;
     NSString *oldPassword;
 }
-@property(nonatomic,retain) NSOperationQueue*queue;
 @property (nonatomic, retain) NSString *confirmPassword;
 @property (nonatomic,assign)NSInteger userId;
 @property (nonatomic,retain)NSString*oldPassword;

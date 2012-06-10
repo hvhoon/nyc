@@ -9,7 +9,7 @@
 #import "SoclivityManager.h"
 #import "GetPlayersClass.h"
 @implementation SoclivityManager
-@synthesize delegate,registrationObject,basicInfoDone,currentLocation,fbObject;
+@synthesize delegate,registrationObject,basicInfoDone,currentLocation,loggedInUser;
 
 
 + (id) SharedInstance {
@@ -25,7 +25,6 @@
     
     if(self=[super init]){
         registrationObject=[[GetPlayersClass alloc]init];
-        fbObject=[[GetPlayersClass alloc]init];
     }
     return self;
 }

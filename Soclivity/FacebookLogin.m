@@ -85,7 +85,7 @@
 }
 - (void)storeAuthData:(NSString *)accessToken expiresAt:(NSDate *)expiresAt {
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
-    SOC.fbObject.facebookAccessToken=accessToken;
+    SOC.registrationObject.facebookAccessToken=accessToken;
     [[NSUserDefaults standardUserDefaults] setValue:accessToken forKey:@"facebookId"];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:accessToken forKey:@"FBAccessTokenKey"];
@@ -104,7 +104,7 @@
 -(void)fbDidExtendToken:(NSString *)accessToken expiresAt:(NSDate *)expiresAt {
     NSLog(@"token extended");
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
-    SOC.fbObject.facebookAccessToken=accessToken;
+    SOC.registrationObject.facebookAccessToken=accessToken;
     [[NSUserDefaults standardUserDefaults] setValue:accessToken forKey:@"facebookId"];
     [self storeAuthData:accessToken expiresAt:expiresAt];
 }
@@ -177,27 +177,27 @@
         // If basic information callback, set the UI objects to
         // display this.
         if([result objectForKey:@"first_name"]){
-            SOC.fbObject.first_name=[result objectForKey:@"first_name"];
+            SOC.registrationObject.first_name=[result objectForKey:@"first_name"];
         }
         if([result objectForKey:@"email"]){
-            SOC.fbObject.email=[result objectForKey:@"email"];
+            SOC.registrationObject.email=[result objectForKey:@"email"];
         }
         if([result objectForKey:@"sex"]){
-            SOC.fbObject.gender=[result objectForKey:@"sex"];
+            SOC.registrationObject.gender=[result objectForKey:@"sex"];
         }
         if([result objectForKey:@"current_location"]){
-            SOC.fbObject.current_location=[result objectForKey:@"current_location"];
+            SOC.registrationObject.current_location=[result objectForKey:@"current_location"];
         }
         if([result objectForKey:@"last_name"]){
-            SOC.fbObject.last_name=[result objectForKey:@"last_name"];
+            SOC.registrationObject.last_name=[result objectForKey:@"last_name"];
         }
         if([result objectForKey:@"birthday_date"]){
-            SOC.fbObject.birth_date=[result objectForKey:@"birthday_date"];
+            SOC.registrationObject.birth_date=[result objectForKey:@"birthday_date"];
         }
         
         if([result objectForKey:@"uid"]){
             
-            SOC.fbObject.facebookUId=[result objectForKey:@"uid"];
+            SOC.registrationObject.facebookUId=[result objectForKey:@"uid"];
 
              NSLog(@"uid=%@",[result objectForKey:@"uid"]);
         }
@@ -212,14 +212,14 @@
 
         // Get the profile image
         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[result objectForKey:@"pic"]]]];
-        SOC.fbObject.FBProfileImage=image;
+        SOC.registrationObject.FBProfileImage=image;
         
         // Resize, crop the image to make sure it is square and renders
         // well on Retina display
         
         [self apiGraphUserPermissions];
         if([SoclivityUtilities hasNetworkConnection]){
-        [devServer postFBSignInInvocation:SOC.fbObject.email facebookUid:SOC.fbObject.facebookUId fbAccessToken:[[NSUserDefaults standardUserDefaults] valueForKey:@"facebookId"] delegate:self];
+        [devServer postFBSignInInvocation:SOC.registrationObject.email facebookUid:SOC.registrationObject.facebookUId fbAccessToken:[[NSUserDefaults standardUserDefaults] valueForKey:@"facebookId"] delegate:self];
         }
         else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil 

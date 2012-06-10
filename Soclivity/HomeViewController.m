@@ -10,6 +10,7 @@
 #import "SoclivityUtilities.h"
 #import "SettingsViewController.h"
 #import "UserContactList.h"
+
 @implementation HomeViewController
 @synthesize delegate,socEventMapView,activityTableView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -370,6 +371,14 @@
 #pragma mark TimeSorting Clicked
 
 -(IBAction)TimeSortingClicked:(id)sender{
+    
+}
+#pragma mark -
+#pragma mark GetActivitiesInvocationDelegate Method
+
+-(void)ActivitiesInvocationDidFinish:(GetActivitiesInvocation*)invocation
+                        withResponse:(NSArray*)responses
+                           withError:(NSError*)error{
     
 }
 - (void)viewDidUnload

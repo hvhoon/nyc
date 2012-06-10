@@ -21,4 +21,5 @@
     [longitude release];
     [quotations release];
 }
+
 @end

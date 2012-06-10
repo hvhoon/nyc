@@ -20,14 +20,14 @@
     GetPlayersClass *registrationObject;
     BOOL basicInfoDone;
     CLLocation *currentLocation;
-    GetPlayersClass *fbObject;
+    GetPlayersClass *loggedInUser;
    
    
 }
 @property (nonatomic,retain)id <SoclivityManagerDelegate>delegate;
 @property (nonatomic,retain)GetPlayersClass *registrationObject;
-@property (nonatomic,retain)GetPlayersClass *fbObject;
 @property (nonatomic,assign)BOOL basicInfoDone;
 @property (nonatomic,retain)CLLocation *currentLocation;
+@property (nonatomic,retain)GetPlayersClass *loggedInUser;
 + (id)SharedInstance;
 @end

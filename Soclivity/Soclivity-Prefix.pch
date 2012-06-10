@@ -17,6 +17,9 @@
     #import "AppDelegate.h"
 
 #endif
+
+#define DATABASE_NAME @"SoclivityDB.sqlite"
+
 #define kNoLocation 123
 #define kOnlyLatLong 124
 #define kGetPlayers 30

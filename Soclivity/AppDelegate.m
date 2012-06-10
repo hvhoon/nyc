@@ -11,6 +11,7 @@
 #import "FacebookLogin.h"
 #import "InfoActivityClass.h"
 #import "SoclivityUtilities.h"
+#import "SoclivitySqliteClass.h"
 static NSString* kAppId = @"160726900680967";//kanav
 @implementation UINavigationBar (CustomImage)
 
@@ -51,6 +52,11 @@ void uncaughtExceptionHandler(NSException *exception) {
     
     
     [self setUpActivityDataList];
+    [SoclivitySqliteClass copyDatabaseIfNeeded];
+	BOOL openSuccessful=[SoclivitySqliteClass openDatabase:[SoclivitySqliteClass getDBPath]];
+	if(openSuccessful)
+		NSLog(@"He he database");
+
     
      [application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];

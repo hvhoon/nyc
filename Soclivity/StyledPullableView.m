@@ -53,13 +53,13 @@
         backgroundView.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S4.1_dropdown-background.png"]];
         	
         
-        UIImageView *filterImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S4.1_filters.png"]];
-        filterImgView.frame=CGRectMake(18, 25, 47, 12);
-        [backgroundView addSubview:filterImgView];
+        UIImageView *filterImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S4.1_filters.png"]];
+        filterImageView.frame=CGRectMake(18, 25, 47, 12);
+        [backgroundView addSubview:filterImageView];
         
-        UIImageView *whatImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S4.1_what.png"]];
-        whatImgView.frame=CGRectMake(18, 50, 140, 14);
-        [backgroundView addSubview:whatImgView];
+        UIImageView *whatImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S4.1_what.png"]];
+        whatImageView.frame=CGRectMake(18, 50, 140, 14);
+        [backgroundView addSubview:whatImageView];
         
         
         UIButton *playButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -101,15 +101,13 @@
         [backgroundView addSubview:learnButton];
         
         
+        UIImageView *whenImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S4.1_when.png"]];
+        whenImageView.frame=CGRectMake(18, 120, 154, 12);
+        [backgroundView addSubview:whenImageView];
         
         
-        UIImageView *whenImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S4.1_when.png"]];
-        whenImgView.frame=CGRectMake(18, 120, 154, 12);
-        [backgroundView addSubview:whenImgView];
-        
-        
-        UIView *timeBackgroundImgView = [[UIView alloc] initWithFrame:CGRectMake(2.5, 145, 315, 89)];
-        timeBackgroundImgView.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S4.1_time-background.png"]];
+        UIView *timeBackgroundImageView = [[UIView alloc] initWithFrame:CGRectMake(2.5, 145, 315, 89)];
+        timeBackgroundImageView.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S4.1_time-background.png"]];
 
        
         UIButton *todayButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -117,7 +115,7 @@
         todayButton.tag=kTodayFilter;
         [todayButton setImage:[UIImage imageNamed:@"S4.1_today-deselect.png"] forState:UIControlStateNormal];
         [todayButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [timeBackgroundImgView addSubview:todayButton];
+        [timeBackgroundImageView addSubview:todayButton];
         
         
         UIButton *tomorrowButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -125,7 +123,7 @@
         tomorrowButton.tag=kTomorrowFilter;
         [tomorrowButton setImage:[UIImage imageNamed:@"S4.1_tomorrow-deselect.png"] forState:UIControlStateNormal];
         [tomorrowButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [timeBackgroundImgView addSubview:tomorrowButton];
+        [timeBackgroundImageView addSubview:tomorrowButton];
         
         
         UIButton *laterButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -133,29 +131,29 @@
         laterButton.tag=kLaterFilter;
         [laterButton setImage:[UIImage imageNamed:@"S4.1_later-deselect.png"] forState:UIControlStateNormal];
         [laterButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [timeBackgroundImgView addSubview:laterButton];
+        [timeBackgroundImageView addSubview:laterButton];
         
         
         
         
         UIImageView *startImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S4.1_start.png"]];
         startImgView.frame=CGRectMake(18, 55, 32, 10);
-        [timeBackgroundImgView addSubview:startImgView];
+        [timeBackgroundImageView addSubview:startImgView];
 
         
         
         UIImageView *finishImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S4.1_finish.png"]];
         finishImgView.frame=CGRectMake(265, 55, 32, 10);
-        [timeBackgroundImgView addSubview:finishImgView];
+        [timeBackgroundImageView addSubview:finishImgView];
 
 
 
         rangeSlider=[[FCRangeSlider alloc]initWithFrame:CGRectMake(58.5, 48, 198, 7)];
-        [timeBackgroundImgView addSubview:rangeSlider];
+        [timeBackgroundImageView addSubview:rangeSlider];
         [rangeSlider setThumbImage:[UIImage imageNamed:@"S4.1_scroll-ball.png"] forState:UIControlStateHighlighted];
         [self sliderValueChanged:rangeSlider];
 
-        [backgroundView addSubview:timeBackgroundImgView];
+        [backgroundView addSubview:timeBackgroundImageView];
         [filterPaneView addSubview:backgroundView];
 
         

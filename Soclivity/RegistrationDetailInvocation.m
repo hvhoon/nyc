@@ -36,13 +36,7 @@
 -(NSString*)body {
 #if 1    
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
-    GetPlayersClass *player;
-    if(isFacebookUser){
-        player=SOC.fbObject;
-    }
-    else{
-    player=SOC.registrationObject;
-    }
+    GetPlayersClass *player=SOC.registrationObject;
     CLLocation *playerLoc=SOC.currentLocation;
 	NSMutableDictionary* bodyD = [[[NSMutableDictionary alloc] init] autorelease];
     

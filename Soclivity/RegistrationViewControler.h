@@ -10,6 +10,7 @@
 #import "BasicInfoView.h"
 #import "ActivityTypeSelectView.h"
 #import "SoclivityManager.h"
+#import "HomeViewController.h"
 @class MainServiceManager;
 
 @interface RegistrationViewControler : UIViewController<BasicRegistrationDelegate,ActivitySelectDelegate,UIScrollViewDelegate>{
@@ -38,6 +39,7 @@
 -(void)RegisterUserForTheFirstTime;
 -(void)disableScrolling;
 -(void)enableScrolling;
+-(void)StartGettingActivities:(HomeViewController*)homeVC;
 @end
 
 

@@ -91,7 +91,7 @@
 {
     //NSLog(@"Inside json delegate parserFoundObjectStart");
     //if(arrayInsert){
-    if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer)||(jsonQueryKey==kForgotPassword)||(jsonQueryKey==kResetWithNewPassword)){
+    if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer)||(jsonQueryKey==kForgotPassword)){
         
         self.playerObject=[[[GetPlayersClass alloc]init]autorelease];
     }
@@ -102,7 +102,7 @@
 {
     //NSLog(@"Inside json delegate foundObjectKey");
     
-    if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer)||(jsonQueryKey==kForgotPassword)||(jsonQueryKey==kResetWithNewPassword)){  
+    if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer)||(jsonQueryKey==kForgotPassword)){  
         if ([key isEqualToString:@"birth_date"]) {
                 mappedKey=key;
         }
@@ -141,8 +141,8 @@
     
     
     //if(arrayInsert){
-    if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer)||(jsonQueryKey==kForgotPassword)||(jsonQueryKey==kResetWithNewPassword)){
-        if((responseStatus)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kResetWithNewPassword)){
+    if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer)||(jsonQueryKey==kForgotPassword)){
+        if((responseStatus)||(jsonQueryKey==kRegisterPlayer)){
             [[self workingArray] addObject:self.playerObject];
              responseStatus=FALSE;
         }
@@ -205,7 +205,7 @@
 - (void)parser:(SBJsonStreamParser*)parser foundString:(NSString*)string{
     //    	NSLog(@"Inside json delegate foundString");
     
-    if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer)||(jsonQueryKey==kForgotPassword)||(jsonQueryKey==kResetWithNewPassword)){
+    if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer)||(jsonQueryKey==kForgotPassword)){
             
         if ([mappedKey isEqualToString:@"birth_date"]) {
             self.playerObject.birth_date = string;
