@@ -17,6 +17,7 @@
     BOOL learn;
     FCRangeSlider *rangeSlider;
     
+    
 }
 @property (nonatomic, retain) UISearchBar *homeSearchBar;
 - (void)sliderValueChanged:(FCRangeSlider *)sender;

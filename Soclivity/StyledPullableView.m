@@ -163,6 +163,11 @@
         [searchHandleButton addTarget:self action:@selector(pushTodetailActivity:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:searchHandleButton];
         
+        crossImageView=[[UIImageView alloc]initWithFrame:CGRectMake(20, 415, 17, 17)];
+        crossImageView.image=[UIImage imageNamed:@"S4.1_cross.png"];
+        [self addSubview:crossImageView];
+        crossImageView.hidden=YES;
+        
         [self addSubview:filterPaneView];
         [self insertSubview:filterPaneView atIndex:0];
         [self insertSubview:searchHandleButton atIndex:0];

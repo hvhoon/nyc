@@ -16,6 +16,7 @@
 -(void)alphaLess;
 -(void)alphaMore;
 -(void)AddHideAnOverlay:(Boolean)open;
+-(void)newActivityButtonPressed;
 @end
 
 @interface PullableView : UIView {
@@ -41,6 +42,7 @@
     
     id<PullableViewDelegate> delegate;
     CGPoint translateNew;
+    UIImageView *crossImageView;
 }
 
 /**

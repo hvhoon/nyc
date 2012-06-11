@@ -251,6 +251,9 @@
 		EA976C3A1584C63100474EAF /* GetActivitiesInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA976C391584C63100474EAF /* GetActivitiesInvocation.m */; };
 		EA976C411584D0D000474EAF /* InfoActivityClass+Parse.m in Sources */ = {isa = PBXBuildFile; fileRef = EA976C401584D0CF00474EAF /* InfoActivityClass+Parse.m */; };
 		EA99A08615826E370096719F /* FCRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = EA99A04415826E370096719F /* FCRangeSlider.m */; };
+		EAA339B41585F88000DBCA07 /* S4.1_cross.png in Resources */ = {isa = PBXBuildFile; fileRef = EAA339B11585F88000DBCA07 /* S4.1_cross.png */; };
+		EAA339B51585F88000DBCA07 /* S4.1_cross@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAA339B21585F88000DBCA07 /* S4.1_cross@2x.png */; };
+		EAA339B61585F88000DBCA07 /* S4.1_start.png in Resources */ = {isa = PBXBuildFile; fileRef = EAA339B31585F88000DBCA07 /* S4.1_start.png */; };
 		EAB053D81562214F00771877 /* S02_blackbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68BFF8CB1561FA2000D73D7C /* S02_blackbar@2x.png */; };
 		EAB053DA1562215200771877 /* S02_blackbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 68BFF8CA1561FA2000D73D7C /* S02_blackbar.png */; };
 		EAB135B415545B3600C1607D /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB135B215545B3600C1607D /* ResetPasswordViewController.m */; };
@@ -687,6 +690,9 @@
 		EA99A04315826E370096719F /* FCRangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCRangeSlider.h; sourceTree = "<group>"; };
 		EA99A04415826E370096719F /* FCRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCRangeSlider.m; sourceTree = "<group>"; };
 		EA99A0C815826EDB0096719F /* FCGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCGeometry.h; sourceTree = "<group>"; };
+		EAA339B11585F88000DBCA07 /* S4.1_cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S4.1_cross.png; sourceTree = "<group>"; };
+		EAA339B21585F88000DBCA07 /* S4.1_cross@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S4.1_cross@2x.png"; sourceTree = "<group>"; };
+		EAA339B31585F88000DBCA07 /* S4.1_start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S4.1_start.png; sourceTree = "<group>"; };
 		EAB135B115545B3600C1607D /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
 		EAB135B215545B3600C1607D /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
 		EAB135B315545B3600C1607D /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
@@ -1217,6 +1223,9 @@
 		EA90FF4B1582074E00CA0C4F /* S04.1 Dropdown */ = {
 			isa = PBXGroup;
 			children = (
+				EAA339B11585F88000DBCA07 /* S4.1_cross.png */,
+				EAA339B21585F88000DBCA07 /* S4.1_cross@2x.png */,
+				EAA339B31585F88000DBCA07 /* S4.1_start.png */,
 				EA90FF4D1582074E00CA0C4F /* S04.1_SOC-logo@2x.png */,
 				EA90FF4E1582074E00CA0C4F /* S4.1_create-deselect.png */,
 				EA90FF4F1582074E00CA0C4F /* S4.1_create-deselect@2x.png */,
@@ -1962,6 +1971,9 @@
 				EA90FFCC1582074E00CA0C4F /* S4.1_when.png in Resources */,
 				EA90FFCD1582074E00CA0C4F /* S4.1_when@2x.png in Resources */,
 				EA976C361584B50B00474EAF /* SoclivityDB.sqlite in Resources */,
+				EAA339B41585F88000DBCA07 /* S4.1_cross.png in Resources */,
+				EAA339B51585F88000DBCA07 /* S4.1_cross@2x.png in Resources */,
+				EAA339B61585F88000DBCA07 /* S4.1_start.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

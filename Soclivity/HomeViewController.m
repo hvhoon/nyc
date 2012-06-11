@@ -150,7 +150,9 @@
     [UIView commitAnimations];
 }
 #endif    
-
+-(void)newActivityButtonPressed{
+    NSLog(@"newActivityButtonPressed");
+}
 #pragma mark -
 #pragma mark Sliding Drawer Action
 

@@ -55,8 +55,9 @@
 }
 
 - (void)handleDrag:(UIPanGestureRecognizer *)sender {
-    
+    crossImageView.hidden=NO;
     if ([sender state] == UIGestureRecognizerStateBegan) {
+        
         
         startPos = self.center;
         
@@ -160,6 +161,7 @@
 
 - (void)setOpened:(BOOL)op animated:(BOOL)anim {
     opened = op;
+    [self showHideCross:opened];
     
     if (anim) {
         [UIView beginAnimations:nil context:nil];
@@ -196,7 +198,14 @@
         }
     }
 }
-         
+-(void)showHideCross:(BOOL)op{
+    if(op){
+        crossImageView.hidden=NO;
+    }
+    else{
+        crossImageView.hidden=YES;
+    }
+}
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
     if (finished) {
         // Restores interaction after the animation is over
@@ -253,14 +262,21 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch =[touches anyObject]; 
     CGPoint startPoint =[touch locationInView:self];
+     NSLog(@"Start Point_X=%f,Start Point_Y=%f",startPoint.x,startPoint.y);
     if(opened){
-    CGRect tapLowerPaneRect =CGRectMake(0, 402, 320, 58);
-    NSLog(@"Start Point_X=%f,Start Point_Y=%f",startPoint.x,startPoint.y);
+    CGRect tapLowerPaneRect =CGRectMake(70, 402, 320, 58);
+   
     if(CGRectContainsPoint(tapLowerPaneRect,startPoint)){
         [self setOpened:NO animated:YES];
         NSLog(@"Tap Detected Inside Lower Pane");
 
     }
+    }
+    else{
+        CGRect tapNewActivityRect =CGRectMake(275, 408, 39, 31);
+        if(CGRectContainsPoint(tapNewActivityRect,startPoint)){
+         [delegate newActivityButtonPressed];
+        }
     }
 }
 @end
