@@ -251,15 +251,16 @@
 }
 #endif
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    NSLog(@"touchesBegan called");
     UITouch *touch =[touches anyObject]; 
     CGPoint startPoint =[touch locationInView:self];
-	NSLog(@"Tap Detected");
-    
+    if(opened){
+    CGRect tapLowerPaneRect =CGRectMake(0, 402, 320, 58);
     NSLog(@"Start Point_X=%f,Start Point_Y=%f",startPoint.x,startPoint.y);
-   // if(CGRectContainsPoint(loveXlingVideo,startPoint)){
-        
-    //}
+    if(CGRectContainsPoint(tapLowerPaneRect,startPoint)){
+        [self setOpened:NO animated:YES];
+        NSLog(@"Tap Detected Inside Lower Pane");
 
+    }
+    }
 }
 @end
