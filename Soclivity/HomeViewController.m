@@ -54,6 +54,18 @@
     
     
 #endif 
+    
+    overLayView=[[UIView alloc]initWithFrame:CGRectMake(0, 300, 320, 160)];
+    overLayView.backgroundColor=[UIColor clearColor];
+    [self.view addSubview:overLayView];
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    tapRecognizer.numberOfTapsRequired = 1;
+    tapRecognizer.numberOfTouchesRequired = 1;
+    
+    [overLayView addGestureRecognizer:tapRecognizer];
+    [tapRecognizer release];
+
+    [overLayView setHidden:YES];                            
 
     self.view.backgroundColor=[UIColor blackColor];
     [self.navigationController.navigationBar setHidden:YES];
@@ -340,7 +352,27 @@
         NSLog(@"Now I'm closed, pull me up again!");
     }
 }
+-(void)AddHideAnOverlay:(Boolean)open{
+    if(open){
+        overLayView.hidden=NO;
+         NSLog(@"show!");
+    }
+    else{
+        overLayView.hidden=YES;
+        NSLog(@"Hide!");
+    }
+        
+}
+#pragma mark -
+#pragma mark HandleTap Overlay Method
 
+- (void)handleTap:(UITapGestureRecognizer *)sender {
+    NSLog(@"UITapGestureRecognizer");
+    if ([sender state] == UIGestureRecognizerStateEnded) {
+        [pullDownView setOpened:NO animated:YES];
+        NSLog(@"Pull Down");
+    }
+}
 #pragma mark -
 #pragma mark Refresh Btn Tapped
 
@@ -381,6 +413,7 @@
                            withError:(NSError*)error{
     
 }
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];

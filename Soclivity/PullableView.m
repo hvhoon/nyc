@@ -178,6 +178,7 @@
     
     //kanav
     //[delegate doTheTurn:opened];//commented let's come to this again
+    [delegate AddHideAnOverlay:opened];
     
     if (anim) {
         
@@ -249,4 +250,16 @@
     }
 }
 #endif
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    NSLog(@"touchesBegan called");
+    UITouch *touch =[touches anyObject]; 
+    CGPoint startPoint =[touch locationInView:self];
+	NSLog(@"Tap Detected");
+    
+    NSLog(@"Start Point_X=%f,Start Point_Y=%f",startPoint.x,startPoint.y);
+   // if(CGRectContainsPoint(loveXlingVideo,startPoint)){
+        
+    //}
+
+}
 @end

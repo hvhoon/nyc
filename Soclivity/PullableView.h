@@ -15,6 +15,7 @@
 -(void)doTheTurn:(Boolean)open;
 -(void)alphaLess;
 -(void)alphaMore;
+-(void)AddHideAnOverlay:(Boolean)open;
 @end
 
 @interface PullableView : UIView {

@@ -39,6 +39,7 @@
     IBOutlet UIButton*currentLocationBtn;
     StyledPullableView *pullDownView;
     float gradient;
+    UIView *overLayView;
     
 }
 
