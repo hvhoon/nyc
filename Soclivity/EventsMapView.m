@@ -98,14 +98,14 @@
         SocAnnotation *sfAnnotation = [[[SocAnnotation alloc] initWithName:@" " address:@" " coordinate:theCoordinate annotationObject:mapObj] autorelease];
         [self.mapView addAnnotation:sfAnnotation];
     }
-        [self gotoLocation];
+        
 }
 -(void)currentLocation:(CLLocationCoordinate2D)theCoord{
     CLLocationCoordinate2D theCoordinate;
     theCoordinate.latitude = theCoord.latitude;
     theCoordinate.longitude =theCoord.longitude;
     currentCoord=theCoordinate;
-    
+    [self gotoLocation];
     
     [self.mapView removeAnnotations:self.mapView.annotations];  // remove any annotations that exist
     self.plays=[SoclivityUtilities getPlayerActivities];
@@ -238,6 +238,9 @@
         }
         return pinView;
     }
+    
+   else if ([annotation isKindOfClass:[MKUserLocation class]])
+        return nil;
 
 	return nil;
 #endif    
@@ -324,6 +327,15 @@
 	return mapLeftView;
 	
 	
+}
+
+- (void)locationUpdate:(CLLocation *)location {
+    
+    NSLog(@"locationUpdate");
+    [mapView setCenterCoordinate:location.coordinate];
+    if ([mapView showsUserLocation] == NO) {
+        [mapView setShowsUserLocation:YES];
+    }
 }
 -(void)pushTodetailActivity:(id)sender{
     

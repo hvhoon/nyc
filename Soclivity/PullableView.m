@@ -56,6 +56,7 @@
 
 - (void)handleDrag:(UIPanGestureRecognizer *)sender {
     crossImageView.hidden=NO;
+    searchLensImageView.hidden=YES;
     filterPaneView.layer.shadowOpacity = 1 ? 0.8f : 0.0f;
     filterPaneView.layer.cornerRadius = 4.0f;
     filterPaneView.layer.shadowOffset = CGSizeZero;
@@ -207,9 +208,11 @@
 -(void)showHideCross:(BOOL)op{
     if(op){
         crossImageView.hidden=NO;
+        searchLensImageView.hidden=YES;
     }
     else{
         crossImageView.hidden=YES;
+        searchLensImageView.hidden=NO;
     }
 }
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {

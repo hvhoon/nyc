@@ -246,6 +246,8 @@
     
     [activityTableView setHidden:NO];
     [socEventMapView setHidden:YES];
+        //kanav location test
+    [socEventMapView.mapView setShowsUserLocation:NO];
     [UIView commitAnimations];
     
     
@@ -279,7 +281,9 @@
         [activityTableView setHidden:YES];
         [socEventMapView setHidden:NO];
         [UIView commitAnimations];
-        
+        //kanav location test
+
+        [socEventMapView.mapView setShowsUserLocation:YES];
         
         context = UIGraphicsGetCurrentContext();
         [UIView beginAnimations:nil context:context];

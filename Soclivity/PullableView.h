@@ -43,6 +43,7 @@
     id<PullableViewDelegate> delegate;
     CGPoint translateNew;
     UIImageView *crossImageView;
+    UIImageView *searchLensImageView;
 }
 
 /**

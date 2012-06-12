@@ -159,11 +159,19 @@
         
         UIButton *searchHandleButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         searchHandleButton.frame = CGRectMake(5, 398.0, 58.0, 58.0);
-        [searchHandleButton setImage:[UIImage imageNamed:@"S04_search.png"] forState:UIControlStateNormal];
+        [searchHandleButton setImage:[UIImage imageNamed:@"S04_bookmark.png"] forState:UIControlStateNormal];
         [searchHandleButton addTarget:self action:@selector(pushTodetailActivity:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:searchHandleButton];
         
-        crossImageView=[[UIImageView alloc]initWithFrame:CGRectMake(20, 415, 17, 17)];
+        
+        
+        
+        searchLensImageView=[[UIImageView alloc]initWithFrame:CGRectMake(22, 415, 20, 21)];
+        searchLensImageView.image=[UIImage imageNamed:@"S04_search.png"];
+        [self addSubview:searchLensImageView];
+        searchLensImageView.hidden=NO;
+
+        crossImageView=[[UIImageView alloc]initWithFrame:CGRectMake(22, 416, 17, 17)];
         crossImageView.image=[UIImage imageNamed:@"S4.1_cross.png"];
         [self addSubview:crossImageView];
         crossImageView.hidden=YES;
