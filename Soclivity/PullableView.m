@@ -26,7 +26,7 @@
     if (self) {
         
         animate = YES;
-        animationDuration = 0.2;
+        animationDuration = 0.4;
         
         toggleOnTap = YES;
         
@@ -56,6 +56,12 @@
 
 - (void)handleDrag:(UIPanGestureRecognizer *)sender {
     crossImageView.hidden=NO;
+    filterPaneView.layer.shadowOpacity = 1 ? 0.8f : 0.0f;
+    filterPaneView.layer.cornerRadius = 4.0f;
+    filterPaneView.layer.shadowOffset = CGSizeZero;
+    filterPaneView.layer.shadowRadius = 14.0f;
+    filterPaneView.layer.shadowPath = [UIBezierPath bezierPathWithRect:filterPaneView.bounds].CGPath;
+
     if ([sender state] == UIGestureRecognizerStateBegan) {
         
         

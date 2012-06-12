@@ -109,4 +109,5 @@
  */
 - (void)setOpened:(BOOL)op animated:(BOOL)anim;
 -(void)showShadow;
+-(void)showHideCross:(BOOL)op;
 @end

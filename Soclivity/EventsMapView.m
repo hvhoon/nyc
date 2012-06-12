@@ -77,13 +77,6 @@
 
     self.mapView.mapType = MKMapTypeStandard;
     [self.mapView setShowsUserLocation:YES];
-#if 0    
-    self.plays=[SoclivityUtilities getPlayerActivities];
-    self.mapAnnotations = [[NSMutableArray alloc] initWithCapacity:[self.plays count]];
-    [self setUpMapAnnotations];
-#else
- 
-#endif    
 }
 -(void)setUpMapAnnotations{
     for (InfoActivityClass *play in self.plays){
@@ -114,23 +107,10 @@
     currentCoord=theCoordinate;
     
     
-    [self gotoLocation];
     [self.mapView removeAnnotations:self.mapView.annotations];  // remove any annotations that exist
-    MapActivityClass *mapObj=[[MapActivityClass alloc]init];
-    CLLocationCoordinate2D thePinCoordinate;
-    thePinCoordinate.latitude = 37.785834;
-    thePinCoordinate.longitude =-122.406417;
-
-    mapObj.mapCoord=thePinCoordinate;
-    mapObj.pinType=1;
-    mapObj.activityName=@"Tennis Match";
-    mapObj.organizer=@"Shahved Katoch";
-    mapObj.activityDateAndTime=@"Fri Nov 7, 18:07 PM";
-    mapObj.DOS=1;
-
-    SocAnnotation *sfAnnotation = [[[SocAnnotation alloc] initWithName:@" " address:@" " coordinate:thePinCoordinate annotationObject:mapObj] autorelease];
-    [self.mapView addAnnotation:sfAnnotation];
-
+    self.plays=[SoclivityUtilities getPlayerActivities];
+    self.mapAnnotations = [[NSMutableArray alloc] initWithCapacity:[self.plays count]];
+    [self setUpMapAnnotations];
 }
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
 #if 0    

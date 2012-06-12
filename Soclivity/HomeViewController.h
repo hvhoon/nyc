@@ -40,7 +40,7 @@
     StyledPullableView *pullDownView;
     float gradient;
     UIView *overLayView;
-    
+    float animationDuration;
 }
 
 @property (nonatomic,retain)id <HomeScreenDelegate>delegate;

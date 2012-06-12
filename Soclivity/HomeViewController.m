@@ -37,7 +37,7 @@
     [super viewDidLoad];
     gradient=0.94;
     CGFloat xOffset = 0;
-    
+    animationDuration = 0.4;
 #if 1   
     NSLog(@"offset=%f",xOffset);
     pullDownView = [[StyledPullableView alloc] initWithFrame:CGRectMake(xOffset, 0, 320, 460)];
@@ -309,7 +309,7 @@
     
     if(open){
         self.view.alpha = 1.0;
-        [UIView animateWithDuration: 0.2
+        [UIView animateWithDuration:animationDuration
                               delay: 0.0
                             options: UIViewAnimationOptionCurveEaseOut
                          animations:^{
@@ -324,7 +324,7 @@
     }
     else{
         self.view.alpha = 0.4;
-        [UIView animateWithDuration: 0.2
+        [UIView animateWithDuration: animationDuration
                               delay: 0.0
                             options: UIViewAnimationOptionCurveEaseOut
                          animations:^{
