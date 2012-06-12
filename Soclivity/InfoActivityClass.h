@@ -10,6 +10,7 @@
 
 @interface InfoActivityClass : NSObject{
     NSInteger type;
+    NSInteger stamp;
     NSString *activityName;
     NSString *organizerName;
     NSString *DOS;
@@ -20,6 +21,7 @@
     NSArray *quotations;
 }
 @property (nonatomic,assign)NSInteger type;
+@property (nonatomic,assign)NSInteger stamp;
 @property (nonatomic,retain)NSString *activityName;
 @property (nonatomic,retain)NSString *organizerName;
 @property (nonatomic,retain)NSString *DOS;

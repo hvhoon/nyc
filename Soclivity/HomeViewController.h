@@ -11,14 +11,13 @@
 #import "ActivityListView.h"
 #import "StyledPullableView.h"
 #import "GetActivitiesInvocation.h"
-
 @protocol HomeScreenDelegate <NSObject>
 
 @optional
 - (void)showLeft:(id)sender;
 @end
 
-@interface HomeViewController : UIViewController<PullableViewDelegate,GetActivitiesInvocationDelegate,ActivityListViewDelegate>{
+@interface HomeViewController : UIViewController<PullableViewDelegate,GetActivitiesInvocationDelegate,ActivityListViewDelegate,EventsMapViewDelegate>{
    
     IBOutlet UIButton *profileBtn;
     IBOutlet UIButton *addBtn;

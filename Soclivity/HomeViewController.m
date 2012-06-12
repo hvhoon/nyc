@@ -81,6 +81,7 @@
     [navSingleTap release];
 
     activityTableView.delegate=self;
+    socEventMapView.delegate=self;
     [self.view insertSubview:profileBtn aboveSubview:topNavBarView];
 
     [self.view insertSubview:profileBtn aboveSubview:socEventMapView];

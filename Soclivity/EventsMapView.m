@@ -28,7 +28,7 @@
 @synthesize calloutAnnotation = _calloutAnnotation;
 @synthesize selectedAnnotationView = _selectedAnnotationView;
 @synthesize customAnnotation = _customAnnotation;
-@synthesize plays;
+@synthesize plays,delegate;
 #pragma mark -
 
 + (CGFloat)annotationPadding;
@@ -79,24 +79,15 @@
     [self.mapView setShowsUserLocation:YES];
 }
 -(void)setUpMapAnnotations{
+    int index=0;
     for (InfoActivityClass *play in self.plays){
-        MapActivityClass *mapObj=[[MapActivityClass alloc]init];
-
         CLLocationCoordinate2D theCoordinate;
         theCoordinate.latitude = [play.latitude doubleValue];
         theCoordinate.longitude =[play.longitude doubleValue];
-        currentCoord=theCoordinate;
-        mapObj.mapCoord=theCoordinate;
-        mapObj.pinType=play.type;
-        mapObj.activityName=play.activityName;
-        mapObj.organizer=play.organizerName;
-        for(DetailInfoActivityClass *detailPlay in [play quotations]){
-            mapObj.activityDateAndTime=detailPlay.dateAndTime;
-            
-        }
-        mapObj.DOS=[play.DOS intValue];
-        SocAnnotation *sfAnnotation = [[[SocAnnotation alloc] initWithName:@" " address:@" " coordinate:theCoordinate annotationObject:mapObj] autorelease];
+        play.stamp=index;
+        SocAnnotation *sfAnnotation = [[[SocAnnotation alloc] initWithName:@" " address:@" " coordinate:theCoordinate annotationObject:play] autorelease];
         [self.mapView addAnnotation:sfAnnotation];
+        index++;
     }
         
 }
@@ -134,7 +125,7 @@
 		[self.mapView removeAnnotation: self.calloutAnnotation];
 	}
 }
-#if 1
+
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     
 #if 1   
@@ -165,7 +156,7 @@
                                                                              reuseIdentifier:SFAnnotationIdentifier] autorelease];
             annotationView.canShowCallout = YES;
             UIImage *flagImage=nil;
-            switch (location._socAnnotation.pinType) {
+            switch (location._socAnnotation.type) {
                 case 1:
                 {
                     flagImage=[UIImage imageNamed:@"S04_location_play.png"];
@@ -225,7 +216,7 @@
             UIButton *disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
             disclosureButton.frame = CGRectMake(0.0, 0.0, 20.0, 21.0);
             [disclosureButton setImage:[UIImage imageNamed:@"S04_rightarrow.png"] forState:UIControlStateNormal];
-            [disclosureButton setImage:[UIImage imageNamed:@"S04_rightarrow.png"] forState:UIControlStateSelected];
+            disclosureButton.tag=location._socAnnotation.stamp;
             [disclosureButton addTarget:self action:@selector(pushTodetailActivity:) forControlEvents:UIControlEventTouchUpInside];
             annotationView.rightCalloutAccessoryView=disclosureButton;
 
@@ -245,49 +236,7 @@
 	return nil;
 #endif    
 }
-#else
-- (MKAnnotationView *) mapView:(MKMapView *)mapView1 viewForAnnotation:(id <MKAnnotation>) annotation
-{
-    MKPinAnnotationView *annView=[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"currentloc"];
-    
-    if (annotation == mapView1.userLocation)
-    {
-        
-        annView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"blueDot"];
-        if (annView != nil)
-        {
-            annView.annotation = annotation;
-        }
-        else
-        {
-            annView = [[[NSClassFromString(@"MKUserLocationView") alloc] initWithAnnotation:annotation reuseIdentifier:@"blueDot"] autorelease];
-            
-            
-        }
-    }
-    
-    if([inStock isEqual:@"yes"]){
-        annView.pinColor = MKPinAnnotationColorGreen;
-    } 
-    if([inStock isEqual:@"no"]){
-        annView.pinColor = MKPinAnnotationColorRed;
-    }
-    if([inStock isEqual:@"unknown"]){
-        
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greyPin.png"]];
-        [annView addSubview:imageView];
-        
-        
-        
-        
-    }
-    annView.animatesDrop=TRUE;
-    annView.canShowCallout = YES;
-    annView.calloutOffset = CGPointMake(-5, 5);
-    return annView;
-}
 
-#endif
 -(UIView*)DrawAMapLeftAccessoryView:(SocAnnotation *)locObject{
 	
 	UIView *mapLeftView=[[UIView alloc] initWithFrame:CGRectMake(0,0, 150, 30)];
@@ -308,7 +257,11 @@
 	timeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:11];
 	timeLabel.textColor=[UIColor whiteColor];
 	timeLabel.backgroundColor=[UIColor clearColor];
-	timeLabel.text=[locObject._socAnnotation activityDateAndTime];
+    for(DetailInfoActivityClass *detailPlay in [locObject._socAnnotation quotations]){
+        timeLabel.text=detailPlay.dateAndTime;
+    }
+
+	
 	[mapLeftView addSubview:timeLabel];
 	[timeLabel release];
 	
@@ -319,7 +272,7 @@
 	organizerLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:11];
 	organizerLabel.textColor=[UIColor whiteColor];
 	organizerLabel.backgroundColor=[UIColor clearColor];
-	organizerLabel.text=[NSString stringWithFormat:@"Organizer:%@ (%d)",locObject._socAnnotation.organizer,locObject._socAnnotation.DOS];
+	organizerLabel.text=[NSString stringWithFormat:@"Organizer:%@ (%d)",locObject._socAnnotation.organizerName,[locObject._socAnnotation.DOS intValue]];
 	[mapLeftView addSubview:organizerLabel];
 	[organizerLabel release];
 	
@@ -337,7 +290,9 @@
         [mapView setShowsUserLocation:YES];
     }
 }
--(void)pushTodetailActivity:(id)sender{
-    
+-(void)pushTodetailActivity:(UIButton*)sender{
+    InfoActivityClass *activityInfo=[self.plays objectAtIndex:[sender tag]];
+    [delegate PushToDetailActivityView:activityInfo];
+
 }
 @end

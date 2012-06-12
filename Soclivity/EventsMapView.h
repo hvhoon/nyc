@@ -10,6 +10,14 @@
 #import <MapKit/MapKit.h>
 #import "LocationCustomManager.h"
 @class SocAnnotation;
+@class InfoActivityClass;
+
+@protocol EventsMapViewDelegate <NSObject>
+
+@optional
+-(void)PushToDetailActivityView:(InfoActivityClass*)detailedInfo;
+@end
+
 @interface EventsMapView : UIView<MKMapViewDelegate,CoreLocationDelegate>{
     MKMapView *mapView;
     NSMutableArray *mapAnnotations;
@@ -18,14 +26,14 @@
     SocAnnotation *_calloutAnnotation;
     CLLocationCoordinate2D currentCoord;
     NSArray *plays;
-    NSString *inStock;
+    id <EventsMapViewDelegate>delegate;
 
 }
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
 @property (nonatomic, retain) NSMutableArray *mapAnnotations;
 @property (nonatomic, retain) MKAnnotationView *selectedAnnotationView;
 @property (nonatomic,retain)NSArray *plays;
-
+@property (nonatomic,retain)id <EventsMapViewDelegate>delegate;
 + (CGFloat)annotationPadding;
 + (CGFloat)calloutHeight;
 - (void)gotoLocation;
