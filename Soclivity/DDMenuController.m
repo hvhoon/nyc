@@ -50,7 +50,11 @@
 
 
 #pragma mark - View lifecycle
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
 
+    [self.navigationController.navigationBar setHidden:YES];
+}
 - (void)viewDidLoad {
     [self.navigationController.navigationBar setHidden:YES];
     [super viewDidLoad];
@@ -400,11 +404,6 @@
     }
     
     
-    UITapGestureRecognizer *navSingleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navSingleTap)];
-    navSingleTap.numberOfTapsRequired = 1;
-    [[topController.navigationController.navigationBar.subviews objectAtIndex:0] setUserInteractionEnabled:YES];
-    [[topController.navigationController.navigationBar.subviews objectAtIndex:0] addGestureRecognizer:navSingleTap];
-    [navSingleTap release];
     
     if (_menuFlags.canShowLeft) {
         UIBarButtonItem *button = [[barButtonItemClass alloc] initWithImage:[UIImage imageNamed:@"S01.1_back-arrow_circle.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showLeft:)];

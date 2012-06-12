@@ -18,7 +18,7 @@
 - (void)showLeft:(id)sender;
 @end
 
-@interface HomeViewController : UIViewController<PullableViewDelegate,GetActivitiesInvocationDelegate>{
+@interface HomeViewController : UIViewController<PullableViewDelegate,GetActivitiesInvocationDelegate,ActivityListViewDelegate>{
    
     IBOutlet UIButton *profileBtn;
     IBOutlet UIButton *addBtn;
@@ -55,4 +55,5 @@
 -(IBAction)DistanceSortingClicked:(id)sender;
 -(IBAction)DOSSortingClicked:(id)sender;
 -(IBAction)TimeSortingClicked:(id)sender;
+-(void)DelegateProperty:(id)delegateView;
 @end

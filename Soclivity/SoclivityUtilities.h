@@ -18,5 +18,5 @@
 +(Boolean)hasNetworkConnection;
 +(void)setPlayerActivities:(NSArray *)_data;
 +(NSArray *)getPlayerActivities;
-
++(UILabel*)TitleLabelAndFontOnNavigationBar;
 @end

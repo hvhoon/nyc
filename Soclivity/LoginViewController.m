@@ -20,6 +20,7 @@
 #import "UpComingEventsViewController.h"
 #import "MBProgressHUD.h"
 #import "AppDelegate.h"
+#import "SlidingDrawerViewController.h"
 #define kUsernameMissing 0
 #define kPasswordMissing 1
 #define kALertPrompt 2
@@ -55,7 +56,7 @@
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     if(appDelegate.resetSuccess){
         appDelegate.resetSuccess=FALSE;
-    [self SetUpHomeScreen];
+        [self SetUpHomeScreen];
     }
     NSLog(@"viewWillAppear called in Login View Controller");
     
@@ -349,6 +350,7 @@
         }
     }
 }
+#if 0
 -(void)SetUpHomeScreen{
     HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
@@ -364,6 +366,17 @@
     [self.navigationController pushViewController:rootController animated:YES];
     
 }
+
+#else
+-(void)SetUpHomeScreen{
+    SlidingDrawerViewController *slideViewController = [[SlidingDrawerViewController alloc] initWithNibName:@"SlideViewController" bundle:nil];
+    slideViewController.delegate = slideViewController;
+    slideViewController.isFBlogged=FALSE;
+    [self.navigationController pushViewController:slideViewController animated:YES];
+    [slideViewController release];
+
+}
+#endif
 #pragma mark -
 #pragma mark Animation methods
 

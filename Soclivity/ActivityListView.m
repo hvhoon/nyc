@@ -27,7 +27,7 @@
 #define HEADER_HEIGHT 98
 
 @implementation ActivityListView
-@synthesize plays,tableView;
+@synthesize plays,tableView,delegate;
 @synthesize sectionInfoArray=sectionInfoArray_, uniformRowHeight=rowHeight_,openSectionIndex=openSectionIndex_;
 @synthesize textPull, textRelease, textLoading, refreshHeaderView, refreshLabel, refreshArrow, refreshSpinner;
 
@@ -235,6 +235,15 @@
         [indexPathsToDelete release];
     }
     self.openSectionIndex = NSNotFound;
+}
+
+
+-(void)selectActivityView:(NSInteger)activitySection{
+    
+    NSLog(@"activitySection=%d",activitySection);
+    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:activitySection];
+    [delegate PushToDetailActivityView:sectionInfo.play];
+
 }
 #pragma mark Pull To Refresh header 
 -(void)addPullToRefreshHeader {

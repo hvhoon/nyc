@@ -15,6 +15,7 @@
 #import "AppDelegate.h"
 #import "GetPlayersClass.h"
 #import "SoclivityUtilities.h"
+#import "SlidingDrawerViewController.h"
 #define kDatePicker 123
 #define kRegisterSucces 2
 @interface RegistrationViewControler (private)<GetPlayersDetailDelegate,RegistrationDetailDelegate>
@@ -430,30 +431,7 @@
             switch (alertView.tag) {
                 case kRegisterSucces:
                 {
-                    HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
-                    //[self StartGettingActivities:homeViewController];
-                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
-                    
-                    DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
-                       homeViewController.delegate=rootController;
-                    
-                    SettingsViewController *leftController = [[SettingsViewController alloc] init];
-                    rootController.leftViewController = leftController;
-                    leftController.isFBlogged=facebookTag;
-                    UpComingEventsViewController *rightController = [[UpComingEventsViewController alloc] init];
-                    rootController.rightViewController = rightController;
-                    
-                    
-                    
-                    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                    appDelegate.menuController=rootController;
-                    [self.navigationController pushViewController:rootController animated:YES];
-
-                    //[leftController release];
-                    //[rightController release];
-                    //[rootController release];
-                    //[navController release];
-                    
+                    [self PushHomeScreen];
                 }
                     break;
                 default:
@@ -464,7 +442,43 @@
             NSLog(@"Clicked Cancel Button");
     
 }
+#if 0
+-(void)PushHomeScreen{
+    HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+    //[self StartGettingActivities:homeViewController];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+    
+    DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
+    homeViewController.delegate=rootController;
+    
+    SettingsViewController *leftController = [[SettingsViewController alloc] init];
+    rootController.leftViewController = leftController;
+    leftController.isFBlogged=facebookTag;
+    UpComingEventsViewController *rightController = [[UpComingEventsViewController alloc] init];
+    rootController.rightViewController = rightController;
+    
+    
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate.menuController=rootController;
+    [self.navigationController pushViewController:rootController animated:YES];
+    
+    //[leftController release];
+    //[rightController release];
+    //[rootController release];
+    //[navController release];
+    
+}
+#else
+-(void)PushHomeScreen{
+    SlidingDrawerViewController *slideViewController = [[SlidingDrawerViewController alloc] initWithNibName:@"SlideViewController" bundle:nil];
+    slideViewController.delegate = slideViewController;
+    slideViewController.isFBlogged=facebookTag;
+    [self.navigationController pushViewController:slideViewController animated:YES];
+    [slideViewController release];
 
+}
+#endif
 -(void)StartGettingActivities:(HomeViewController*)homeVC{
     [devServer getActivitiesInvocation:[SOC.loggedInUser.idSoc intValue] latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude timeSpanFilter:@"today" updatedAt:@"today" delegate:homeVC];
 }

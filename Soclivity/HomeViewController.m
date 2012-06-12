@@ -10,7 +10,7 @@
 #import "SoclivityUtilities.h"
 #import "SettingsViewController.h"
 #import "UserContactList.h"
-
+#import "ActivityEventViewController.h"
 @implementation HomeViewController
 @synthesize delegate,socEventMapView,activityTableView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -32,6 +32,11 @@
 
 #pragma mark - View lifecycle
 
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setHidden:YES];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -75,7 +80,7 @@
     [topNavBarView addGestureRecognizer:navSingleTap];
     [navSingleTap release];
 
-
+    activityTableView.delegate=self;
     [self.view insertSubview:profileBtn aboveSubview:topNavBarView];
 
     [self.view insertSubview:profileBtn aboveSubview:socEventMapView];
@@ -109,6 +114,9 @@
     
 	[[self navigationController] pushViewController:settingsViewController animated:YES];
     [settingsViewController release];
+}
+-(void)DelegateProperty:(id)delegateView{
+    self.delegate=delegateView;
 }
 #if 0 
 -(void)navSingleTap{
@@ -410,6 +418,17 @@
 
 -(IBAction)TimeSortingClicked:(id)sender{
     
+}
+#pragma mark -
+#pragma mark New Activity Push Method
+
+-(void)PushToDetailActivityView:(InfoActivityClass*)detailedInfo{
+    NSLog(@"PushToDetailActivityView");
+    ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:@"ActivityEventViewController" bundle:nil];
+    activityEventViewController.activityInfo=detailedInfo;
+	[[self navigationController] pushViewController:activityEventViewController animated:YES];
+    [activityEventViewController release];
+
 }
 #pragma mark -
 #pragma mark GetActivitiesInvocationDelegate Method

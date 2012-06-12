@@ -397,6 +397,13 @@
 		EAF2AE9B15873037008EAE27 /* S5_public@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF2AE7115873037008EAE27 /* S5_public@2x.png */; };
 		EAF2AE9C15873037008EAE27 /* S5_what.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF2AE7215873037008EAE27 /* S5_what.png */; };
 		EAF2AE9D15873037008EAE27 /* S5_what@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF2AE7315873037008EAE27 /* S5_what@2x.png */; };
+		EAF2AEA215874BCC008EAE27 /* ActivityEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF2AEA015874BCC008EAE27 /* ActivityEventViewController.m */; };
+		EAF2AEA315874BCC008EAE27 /* ActivityEventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAF2AEA115874BCC008EAE27 /* ActivityEventViewController.xib */; };
+		EAF2AEAA15874D02008EAE27 /* EventDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF2AEA915874D02008EAE27 /* EventDetailView.m */; };
+		EAF2AEB015874D76008EAE27 /* EventDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAF2AEAF15874D76008EAE27 /* EventDetailView.xib */; };
+		EAF2AEBC15875E36008EAE27 /* SlidingDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF2AEBB15875E36008EAE27 /* SlidingDrawerViewController.m */; };
+		EAF2AEC015875EA5008EAE27 /* SlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF2AEBE15875EA5008EAE27 /* SlideViewController.m */; };
+		EAF2AEC115875EA5008EAE27 /* SlideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAF2AEBF15875EA5008EAE27 /* SlideViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -885,6 +892,17 @@
 		EAF2AE7115873037008EAE27 /* S5_public@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S5_public@2x.png"; sourceTree = "<group>"; };
 		EAF2AE7215873037008EAE27 /* S5_what.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S5_what.png; sourceTree = "<group>"; };
 		EAF2AE7315873037008EAE27 /* S5_what@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S5_what@2x.png"; sourceTree = "<group>"; };
+		EAF2AE9F15874BCC008EAE27 /* ActivityEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityEventViewController.h; sourceTree = "<group>"; };
+		EAF2AEA015874BCC008EAE27 /* ActivityEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityEventViewController.m; sourceTree = "<group>"; };
+		EAF2AEA115874BCC008EAE27 /* ActivityEventViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityEventViewController.xib; sourceTree = "<group>"; };
+		EAF2AEA815874D02008EAE27 /* EventDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailView.h; sourceTree = "<group>"; };
+		EAF2AEA915874D02008EAE27 /* EventDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailView.m; sourceTree = "<group>"; };
+		EAF2AEAF15874D76008EAE27 /* EventDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventDetailView.xib; sourceTree = "<group>"; };
+		EAF2AEBA15875E36008EAE27 /* SlidingDrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlidingDrawerViewController.h; sourceTree = "<group>"; };
+		EAF2AEBB15875E36008EAE27 /* SlidingDrawerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlidingDrawerViewController.m; sourceTree = "<group>"; };
+		EAF2AEBD15875EA5008EAE27 /* SlideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideViewController.h; sourceTree = "<group>"; };
+		EAF2AEBE15875EA5008EAE27 /* SlideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideViewController.m; sourceTree = "<group>"; };
+		EAF2AEBF15875EA5008EAE27 /* SlideViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlideViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -950,6 +968,8 @@
 		680CE3E81551258700B8E937 /* Soclivity */ = {
 			isa = PBXGroup;
 			children = (
+				EAF2AEB915875DF1008EAE27 /* Sliding Drawer Effect */,
+				EAF2AE9E15874B90008EAE27 /* Activity Event */,
 				EA976C301584AD4D00474EAF /* Sqlite */,
 				EA87EDBD157340AB00DE1762 /* Address Book */,
 				EA5BC966156CCC0700AC8C0C /* JSON */,
@@ -1218,12 +1238,12 @@
 				EA7D64AD1577757C0034E4DB /* SectionInfo.h */,
 				EA7D64AC1577757B0034E4DB /* SectionInfo.m */,
 				EA8F65B81574E94300EFAE8A /* ActivityListView.h */,
-				EA8F65B91574E94300EFAE8A /* ActivityListView.m */,
 				EA7D64A1157767C30034E4DB /* InfoActivityClass.h */,
 				EA7D64A2157767C30034E4DB /* InfoActivityClass.m */,
 				EA7D64A4157769040034E4DB /* DetailInfoActivityClass.h */,
 				EA7D64A5157769040034E4DB /* DetailInfoActivityClass.m */,
 				EA976C3F1584D0CE00474EAF /* InfoActivityClass+Parse.h */,
+				EA8F65B91574E94300EFAE8A /* ActivityListView.m */,
 				EA976C401584D0CF00474EAF /* InfoActivityClass+Parse.m */,
 			);
 			name = ActivityListView;
@@ -1827,6 +1847,31 @@
 			path = "Soclivity/S05 Activity";
 			sourceTree = "<group>";
 		};
+		EAF2AE9E15874B90008EAE27 /* Activity Event */ = {
+			isa = PBXGroup;
+			children = (
+				EAF2AE9F15874BCC008EAE27 /* ActivityEventViewController.h */,
+				EAF2AEA015874BCC008EAE27 /* ActivityEventViewController.m */,
+				EAF2AEA115874BCC008EAE27 /* ActivityEventViewController.xib */,
+				EAF2AEA815874D02008EAE27 /* EventDetailView.h */,
+				EAF2AEA915874D02008EAE27 /* EventDetailView.m */,
+				EAF2AEAF15874D76008EAE27 /* EventDetailView.xib */,
+			);
+			name = "Activity Event";
+			sourceTree = "<group>";
+		};
+		EAF2AEB915875DF1008EAE27 /* Sliding Drawer Effect */ = {
+			isa = PBXGroup;
+			children = (
+				EAF2AEBD15875EA5008EAE27 /* SlideViewController.h */,
+				EAF2AEBE15875EA5008EAE27 /* SlideViewController.m */,
+				EAF2AEBF15875EA5008EAE27 /* SlideViewController.xib */,
+				EAF2AEBA15875E36008EAE27 /* SlidingDrawerViewController.h */,
+				EAF2AEBB15875E36008EAE27 /* SlidingDrawerViewController.m */,
+			);
+			name = "Sliding Drawer Effect";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2167,6 +2212,9 @@
 				EAF2AE9B15873037008EAE27 /* S5_public@2x.png in Resources */,
 				EAF2AE9C15873037008EAE27 /* S5_what.png in Resources */,
 				EAF2AE9D15873037008EAE27 /* S5_what@2x.png in Resources */,
+				EAF2AEA315874BCC008EAE27 /* ActivityEventViewController.xib in Resources */,
+				EAF2AEB015874D76008EAE27 /* EventDetailView.xib in Resources */,
+				EAF2AEC115875EA5008EAE27 /* SlideViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2265,6 +2313,10 @@
 				EA976C341584AD7600474EAF /* SoclivitySqliteClass.m in Sources */,
 				EA976C3A1584C63100474EAF /* GetActivitiesInvocation.m in Sources */,
 				EA976C411584D0D000474EAF /* InfoActivityClass+Parse.m in Sources */,
+				EAF2AEA215874BCC008EAE27 /* ActivityEventViewController.m in Sources */,
+				EAF2AEAA15874D02008EAE27 /* EventDetailView.m in Sources */,
+				EAF2AEBC15875E36008EAE27 /* SlidingDrawerViewController.m in Sources */,
+				EAF2AEC015875EA5008EAE27 /* SlideViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

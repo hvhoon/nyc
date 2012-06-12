@@ -22,8 +22,13 @@
     if (self != nil) {
         
         // Set up the tap gesture recognizer.
+        
+        UIView *touchAllowedView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,290, 98)];
+        [self addSubview:touchAllowedView];
+        [touchAllowedView release];
+
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleOpen:)];
-        [self addGestureRecognizer:tapGesture];
+        [touchAllowedView addGestureRecognizer:tapGesture];
         [tapGesture release];
 
         delegate = aDelegate;        
@@ -147,12 +152,6 @@
         [label release];
         
         
-//        v = [[UIView alloc] initWithFrame:CGRectMake(0,100, 320, 1)];
-//        v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_lightdivider.png"]];
-//        [self addSubview:v];	
-//        [v release];
-
-
         
         // Create and configure the disclosure button.
         UIButton *disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -182,13 +181,20 @@
 }
 
 
--(IBAction)toggleOpen:(id)sender {
+-(IBAction)toggleOpen:(UITapGestureRecognizer*)sender {
     
     [self toggleOpenWithUserAction:YES];
+    
+     CGPoint translate = [sender locationInView:self.superview];
+     NSLog(@"Start Point_X=%f,Start Point_Y=%f",translate.x,translate.y);
 }
 
 -(void)detailActivity:(id)sender{
-    
+    NSLog(@"detailActivity");
+    if ([delegate respondsToSelector:@selector(selectActivityView:)]) {
+        [delegate selectActivityView:section];
+    }
+
 }
 -(void)toggleOpenWithUserAction:(BOOL)userAction {
     

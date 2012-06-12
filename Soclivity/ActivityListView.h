@@ -9,10 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "SectionHeaderView.h"
 #import "SOCTableViewCell.h"
+@class InfoActivityClass;
+@protocol ActivityListViewDelegate <NSObject>
+
+@optional
+-(void)PushToDetailActivityView:(InfoActivityClass*)detailedInfo;
+@end
+
+
 @interface ActivityListView : UIView<UITableViewDataSource,UITableViewDelegate,SectionHeaderViewDelegate,PDTTableViewCellDelegate>{
     
     IBOutlet UITableView* tableView;
     NSArray *plays;
+    id <ActivityListViewDelegate>delegate;
     UIView *refreshHeaderView;
     UILabel *refreshLabel;
     UIImageView *refreshArrow;
@@ -33,6 +42,7 @@
 @property (nonatomic, copy) NSString *textPull;
 @property (nonatomic, copy) NSString *textRelease;
 @property (nonatomic, copy) NSString *textLoading;
+@property (nonatomic,retain)id <ActivityListViewDelegate>delegate;
 
 -(void)LoadTable;
 - (void)setupStrings;

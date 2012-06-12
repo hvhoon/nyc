@@ -16,6 +16,7 @@
 #import "HomeViewController.h"
 #import "SettingsViewController.h"
 #import "UpComingEventsViewController.h"
+#import "SlidingDrawerViewController.h"
 @interface WelcomeScreenViewController(Private) <MBProgressHUDDelegate>
 @end
 
@@ -230,24 +231,21 @@
 }
 
 -(void)SignUpButtonClicked{
-#if 1    
+    
     NSLog(@"SignUpButtonClicked");
     RegistrationViewControler *registrationViewControler=[[RegistrationViewControler alloc] initWithNibName:@"RegistrationViewControler" bundle:nil];
     registrationViewControler.facebookTag=FALSE;
 	[[self navigationController] pushViewController:registrationViewControler animated:YES];
     [registrationViewControler release];
     
-#endif
 }
 -(void)SignInUsingFacebookButtonClicked{
     [self startFacebookSignup];
     NSLog(@"SignInUsingFacebookButtonClicked");
-#if 1    
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     FacebookLogin *fbLogin=[appDelegate SetUpFacebook];
     fbLogin.FBdelegate=self;
 
-#endif
 }
 -(void)userCancelFBRequest{
     [HUD hide:YES];
@@ -262,6 +260,7 @@
     [registrationViewControler release];
     
 }
+#if 0
 -(void)pushToHomeViewController{
     
     [HUD hide:YES];
@@ -280,6 +279,17 @@
     [self.navigationController pushViewController:rootController animated:YES];
 
 }
+#else
+-(void)pushToHomeViewController{
+    [HUD hide:YES];
+    SlidingDrawerViewController *slideViewController = [[SlidingDrawerViewController alloc] initWithNibName:@"SlideViewController" bundle:nil];
+    slideViewController.delegate = slideViewController;
+    slideViewController.isFBlogged=TRUE;
+    [self.navigationController pushViewController:slideViewController animated:YES];
+    [slideViewController release];
+    
+}
+#endif
 -(void)AlreadySignedUpButtonClicked{
      NSLog(@"AlreadySignedUpButtonClicked");
     LoginViewController *loginViewController=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];

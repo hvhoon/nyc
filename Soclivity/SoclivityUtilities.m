@@ -52,6 +52,17 @@ static NSArray *playerActivityDetails;
 	
 	return retVal;
 }
+
++(UILabel*)TitleLabelAndFontOnNavigationBar{
+	UILabel *label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+	label.backgroundColor = [UIColor clearColor];
+    label.textColor=[SoclivityUtilities returnTextFontColor:1];
+    label.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
+    label.textAlignment = UITextAlignmentCenter;
+	
+	return label;
+	
+}
 +(UIColor*)returnTextFontColor:(NSInteger)colorType{
     
     switch(colorType){
