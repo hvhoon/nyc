@@ -113,7 +113,7 @@
         _touchView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
         _touchView.exclusiveTouch = NO;
         
-        _overlayView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 44.0f, 320.0f, 416.0f)];
+        _overlayView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 420.0f)];
         
         _slideNavigationControllerState = kSlideNavigationControllerStateNormal;
         
@@ -150,7 +150,7 @@
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:_slideNavigationController.view.bounds cornerRadius:4.0];
     _slideNavigationController.view.layer.shadowPath = path.CGPath;
     
-    [(SlideViewNavigationBar *)_slideNavigationController.navigationBar setSlideViewNavigationBarDelegate:self];
+    //[(SlideViewNavigationBar *)_slideNavigationController.navigationBar setSlideViewNavigationBarDelegate:self];
     
     
     UIViewController *initalViewController = [self.delegate initialViewController];
@@ -277,12 +277,21 @@
     
     // we only trigger a swipe if either navigationBarOnly is deactivated
     // or we swiped in the navigationBar
+#if 0    
     if (!kSVCSwipeNavigationBarOnly || _startingDragPoint.y <= 44.0f) {
         
         _slideNavigationControllerState = kSlideNavigationControllerStateDragging;
         _startingDragTransformTx = _slideNavigationController.view.transform.tx;
 
     }
+#endif    
+    if (!kSVCSwipeNavigationBarOnly) {
+        
+        _slideNavigationControllerState = kSlideNavigationControllerStateDragging;
+        _startingDragTransformTx = _slideNavigationController.view.transform.tx;
+        
+    }
+
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
