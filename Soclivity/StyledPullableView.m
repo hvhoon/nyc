@@ -56,10 +56,12 @@
         UIImageView *filterImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S4.1_filters.png"]];
         filterImageView.frame=CGRectMake(18, 25, 47, 12);
         [backgroundView addSubview:filterImageView];
+        [filterImageView release];
         
         UIImageView *whatImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S4.1_what.png"]];
         whatImageView.frame=CGRectMake(18, 50, 140, 14);
         [backgroundView addSubview:whatImageView];
+        [whatImageView release];
         
         
         UIButton *playButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -104,7 +106,7 @@
         UIImageView *whenImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S4.1_when.png"]];
         whenImageView.frame=CGRectMake(18, 120, 154, 12);
         [backgroundView addSubview:whenImageView];
-        
+        [whenImageView release];
         
         UIView *timeBackgroundImageView = [[UIView alloc] initWithFrame:CGRectMake(2.5, 145, 315, 89)];
         timeBackgroundImageView.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S4.1_time-background.png"]];
@@ -139,12 +141,14 @@
         UIImageView *startImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S4.1_start.png"]];
         startImgView.frame=CGRectMake(18, 55, 32, 10);
         [timeBackgroundImageView addSubview:startImgView];
+        [startImgView release];
 
         
         
         UIImageView *finishImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S4.1_finish.png"]];
         finishImgView.frame=CGRectMake(265, 55, 32, 10);
         [timeBackgroundImageView addSubview:finishImgView];
+        [finishImgView release];
 
 
 
@@ -154,6 +158,7 @@
         [self sliderValueChanged:rangeSlider];
 
         [backgroundView addSubview:timeBackgroundImageView];
+        [timeBackgroundImageView release];
         [filterPaneView addSubview:backgroundView];
 
         

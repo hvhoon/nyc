@@ -24,7 +24,7 @@
 @end
 
 @implementation EventsMapView
-@synthesize mapView, mapAnnotations;
+@synthesize mapView;
 @synthesize calloutAnnotation = _calloutAnnotation;
 @synthesize selectedAnnotationView = _selectedAnnotationView;
 @synthesize customAnnotation = _customAnnotation;
@@ -41,8 +41,6 @@
 }
 - (void)dealloc {
     [mapView release];
-    [mapAnnotations release];
-    
     [super dealloc];
 }
 - (void)gotoLocation
@@ -100,7 +98,6 @@
     
     [self.mapView removeAnnotations:self.mapView.annotations];  // remove any annotations that exist
     self.plays=[SoclivityUtilities getPlayerActivities];
-    self.mapAnnotations = [[NSMutableArray alloc] initWithCapacity:[self.plays count]];
     [self setUpMapAnnotations];
 }
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {

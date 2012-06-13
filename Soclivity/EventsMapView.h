@@ -20,7 +20,6 @@
 
 @interface EventsMapView : UIView<MKMapViewDelegate,CoreLocationDelegate>{
     MKMapView *mapView;
-    NSMutableArray *mapAnnotations;
 	MKAnnotationView *_selectedAnnotationView;
 	SocAnnotation *_customAnnotation;
     SocAnnotation *_calloutAnnotation;
@@ -30,7 +29,6 @@
 
 }
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
-@property (nonatomic, retain) NSMutableArray *mapAnnotations;
 @property (nonatomic, retain) MKAnnotationView *selectedAnnotationView;
 @property (nonatomic,retain)NSArray *plays;
 @property (nonatomic,retain)id <EventsMapViewDelegate>delegate;

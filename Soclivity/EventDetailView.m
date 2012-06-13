@@ -17,7 +17,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        NSArray * nib = [[NSBundle mainBundle] loadNibNamed: @"EventDetailView" owner: self options: nil];
+        NSArray * nib = [[NSBundle mainBundle] loadNibNamed: @"EventDetailView" owner:self options: nil];
         // prevent memory leak
         [self release];
         self = [[nib objectAtIndex:0] retain];
@@ -83,7 +83,7 @@
                 
         }
 
-    }
+    
     
     for(DetailInfoActivityClass *detail in info.quotations){
         whenTextLabel.text=detail.dateAndTime;
@@ -119,6 +119,8 @@
     joinButton.titleLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
     joinButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
     [joinButton setTitle:@"Join" forState:UIControlStateNormal];
+        
+    }
     return self;
 }
 
