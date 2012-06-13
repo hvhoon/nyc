@@ -292,37 +292,25 @@
 	
 	UIView *mapLeftView=[[UIView alloc] initWithFrame:CGRectMake(0,0, 150, 30)];
 	
-	CGRect nameLabelRect=CGRectMake(10,0,140,12);
+	CGRect nameLabelRect=CGRectMake(10,0,140,15);
 	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
 	nameLabel.textAlignment=UITextAlignmentLeft;
-	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
+	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
 	nameLabel.textColor=[UIColor whiteColor];
 	nameLabel.backgroundColor=[UIColor clearColor];
 	nameLabel.text=[locObject._socAnnotation activityName];
 	[mapLeftView addSubview:nameLabel];
 	[nameLabel release];
 	
-	CGRect timeLabelRect=CGRectMake(10,13,140,10);
+	CGRect timeLabelRect=CGRectMake(12,16,140,12);
 	UILabel *timeLabel=[[UILabel alloc] initWithFrame:timeLabelRect];
 	timeLabel.textAlignment=UITextAlignmentLeft;
-	timeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:11];
+	timeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
 	timeLabel.textColor=[UIColor whiteColor];
 	timeLabel.backgroundColor=[UIColor clearColor];
 	timeLabel.text=[locObject._socAnnotation activityDateAndTime];
 	[mapLeftView addSubview:timeLabel];
 	[timeLabel release];
-	
-	
-	CGRect organizerLabelRect=CGRectMake(10,24,140,12);
-	UILabel *organizerLabel=[[UILabel alloc] initWithFrame:organizerLabelRect];
-	organizerLabel.textAlignment=UITextAlignmentLeft;
-	organizerLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:11];
-	organizerLabel.textColor=[UIColor whiteColor];
-	organizerLabel.backgroundColor=[UIColor clearColor];
-	organizerLabel.text=[NSString stringWithFormat:@"Organizer:%@ (%d)",locObject._socAnnotation.organizer,locObject._socAnnotation.DOS];
-	[mapLeftView addSubview:organizerLabel];
-	[organizerLabel release];
-	
 	
 	return mapLeftView;
 	
