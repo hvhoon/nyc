@@ -364,4 +364,58 @@
     [super dealloc];
     
 }
+
+#pragma mark Sorting To Filter 
+-(void)SortByDistance{
+    
+    [self.plays sortUsingComparator:^NSComparisonResult(InfoActivityClass *play1, InfoActivityClass *play2) {
+        if ([play1.distance intValue] <= [play2.distance intValue])
+            return (NSComparisonResult)NSOrderedDescending;
+        if ([play1.distance intValue] > [play2.distance intValue])
+            return (NSComparisonResult)NSOrderedAscending;
+        return (NSComparisonResult)NSOrderedSame;
+        
+    }];
+    
+    [self sortingFilterRefresh];
+}
+-(void)sortByDegree{
+    
+
+    self.plays = [self.plays sortedArrayUsingComparator: ^(InfoActivityClass *a, InfoActivityClass *b) {
+        NSString *s1 = a.DOS;
+        NSString *s2 = b.DOS;
+        return [s1 compare:s2];
+    }];
+
+    [self sortingFilterRefresh];
+}
+NSComparisonResult dateSort(NSString *s1, NSString *s2) {
+    return [s1 compare:s2];
+}
+
+-(void)sortingFilterRefresh{
+    NSMutableArray *infoArray = [[NSMutableArray alloc] init];
+    [self.sectionInfoArray removeAllObjects];
+    for (InfoActivityClass *play in self.plays) {
+        
+        SectionInfo *sectionInfo = [[SectionInfo alloc] init];			
+        sectionInfo.play = play;
+        sectionInfo.open = NO;
+        
+        NSNumber *defaultRowHeight = [NSNumber numberWithInteger:DEFAULT_ROW_HEIGHT];
+        NSInteger countOfQuotations = [[sectionInfo.play quotations] count];
+        for (NSInteger i = 0; i < countOfQuotations; i++) {
+            [sectionInfo insertObject:defaultRowHeight inRowHeightsAtIndex:i];
+        }
+        
+        [infoArray addObject:sectionInfo];
+        [sectionInfo release];
+    }
+    
+    self.sectionInfoArray = infoArray;
+    [infoArray release];
+    [self.tableView reloadData];
+    
+}
 @end

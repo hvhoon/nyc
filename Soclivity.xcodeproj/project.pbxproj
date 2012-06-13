@@ -1243,12 +1243,12 @@
 				EA7D64AD1577757C0034E4DB /* SectionInfo.h */,
 				EA7D64AC1577757B0034E4DB /* SectionInfo.m */,
 				EA8F65B81574E94300EFAE8A /* ActivityListView.h */,
+				EA8F65B91574E94300EFAE8A /* ActivityListView.m */,
 				EA7D64A1157767C30034E4DB /* InfoActivityClass.h */,
 				EA7D64A2157767C30034E4DB /* InfoActivityClass.m */,
 				EA7D64A4157769040034E4DB /* DetailInfoActivityClass.h */,
 				EA7D64A5157769040034E4DB /* DetailInfoActivityClass.m */,
 				EA976C3F1584D0CE00474EAF /* InfoActivityClass+Parse.h */,
-				EA8F65B91574E94300EFAE8A /* ActivityListView.m */,
 				EA976C401584D0CF00474EAF /* InfoActivityClass+Parse.m */,
 			);
 			name = ActivityListView;

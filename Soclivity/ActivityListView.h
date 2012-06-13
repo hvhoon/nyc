@@ -51,4 +51,7 @@
 - (void)stopLoading;
 - (void)refresh;
 - (void)startPopulatingListView;
+-(void)SortByDistance;
+-(void)sortByDegree;
+-(void)sortingFilterRefresh;
 @end

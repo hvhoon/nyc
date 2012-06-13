@@ -416,13 +416,13 @@
 
 
 -(IBAction)DistanceSortingClicked:(id)sender{
-    
+    [activityTableView SortByDistance];
 }
 #pragma mark -
 #pragma mark DOSSortingBtn Clicked
 
 -(IBAction)DOSSortingClicked:(id)sender{
-    
+    [activityTableView sortByDegree];
 }
 #pragma mark -
 #pragma mark TimeSorting Clicked
