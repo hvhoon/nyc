@@ -71,6 +71,8 @@
 		EA86D2D7156FEDE900E3EABD /* FBSignInInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA86D2D6156FEDE900E3EABD /* FBSignInInvocation.m */; };
 		EA87EDC1157340EE00DE1762 /* UserContactList.m in Sources */ = {isa = PBXBuildFile; fileRef = EA87EDC0157340EE00DE1762 /* UserContactList.m */; };
 		EA87EDC6157346A700DE1762 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA87EDC5157346A700DE1762 /* AddressBook.framework */; };
+		EA893AA715887DFE003FD793 /* LaterDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA893AA615887DFD003FD793 /* LaterDateView.m */; };
+		EA893AA915887E16003FD793 /* LaterDateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA893AA815887E16003FD793 /* LaterDateView.xib */; };
 		EA8F65AB1574CF2F00EFAE8A /* EventsMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F65AA1574CF2F00EFAE8A /* EventsMapView.m */; };
 		EA8F65AD1574D4CB00EFAE8A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8F65AC1574D4CA00EFAE8A /* MapKit.framework */; };
 		EA8F65B31574D76E00EFAE8A /* SocAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F65B21574D76E00EFAE8A /* SocAnnotation.m */; };
@@ -514,6 +516,9 @@
 		EA87EDBF157340EE00DE1762 /* UserContactList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserContactList.h; sourceTree = "<group>"; };
 		EA87EDC0157340EE00DE1762 /* UserContactList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserContactList.m; sourceTree = "<group>"; };
 		EA87EDC5157346A700DE1762 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		EA893AA515887DFD003FD793 /* LaterDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaterDateView.h; sourceTree = "<group>"; };
+		EA893AA615887DFD003FD793 /* LaterDateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaterDateView.m; sourceTree = "<group>"; };
+		EA893AA815887E16003FD793 /* LaterDateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaterDateView.xib; sourceTree = "<group>"; };
 		EA8F65A91574CF2F00EFAE8A /* EventsMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsMapView.h; sourceTree = "<group>"; };
 		EA8F65AA1574CF2F00EFAE8A /* EventsMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsMapView.m; sourceTree = "<group>"; };
 		EA8F65AC1574D4CA00EFAE8A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -1259,6 +1264,9 @@
 				EA90FF341581CF9300CA0C4F /* PullableView.m */,
 				EA90FF351581CF9300CA0C4F /* StyledPullableView.h */,
 				EA90FF361581CF9300CA0C4F /* StyledPullableView.m */,
+				EA893AA515887DFD003FD793 /* LaterDateView.h */,
+				EA893AA615887DFD003FD793 /* LaterDateView.m */,
+				EA893AA815887E16003FD793 /* LaterDateView.xib */,
 			);
 			name = "PullDown Filter Pane";
 			sourceTree = "<group>";
@@ -2215,6 +2223,7 @@
 				EAF2AEA315874BCC008EAE27 /* ActivityEventViewController.xib in Resources */,
 				EAF2AEB015874D76008EAE27 /* EventDetailView.xib in Resources */,
 				EAF2AEC115875EA5008EAE27 /* SlideViewController.xib in Resources */,
+				EA893AA915887E16003FD793 /* LaterDateView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2317,6 +2326,7 @@
 				EAF2AEAA15874D02008EAE27 /* EventDetailView.m in Sources */,
 				EAF2AEBC15875E36008EAE27 /* SlidingDrawerViewController.m in Sources */,
 				EAF2AEC015875EA5008EAE27 /* SlideViewController.m in Sources */,
+				EA893AA715887DFE003FD793 /* LaterDateView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2343,8 +2353,8 @@
 					armv6,
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2361,6 +2371,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				PROVISIONING_PROFILE = "C400065D-BAEE-4684-AE0A-0E00F3AC5AD6";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C400065D-BAEE-4684-AE0A-0E00F3AC5AD6";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -2376,8 +2388,8 @@
 					armv6,
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_THUMB_SUPPORT = NO;
@@ -2388,6 +2400,8 @@
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "C400065D-BAEE-4684-AE0A-0E00F3AC5AD6";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C400065D-BAEE-4684-AE0A-0E00F3AC5AD6";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -2400,8 +2414,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
@@ -2409,8 +2423,8 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "405A728E-F5B2-4972-8A82-FAC6AD31E9C4";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "405A728E-F5B2-4972-8A82-FAC6AD31E9C4";
+				PROVISIONING_PROFILE = "C400065D-BAEE-4684-AE0A-0E00F3AC5AD6";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C400065D-BAEE-4684-AE0A-0E00F3AC5AD6";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -2422,8 +2436,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Harish Hoon";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Harish Hoon";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
@@ -2431,8 +2445,8 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "EA9D7BE4-293A-47C6-BC4B-EBAF15D49E6A";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EA9D7BE4-293A-47C6-BC4B-EBAF15D49E6A";
+				PROVISIONING_PROFILE = "C400065D-BAEE-4684-AE0A-0E00F3AC5AD6";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C400065D-BAEE-4684-AE0A-0E00F3AC5AD6";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;

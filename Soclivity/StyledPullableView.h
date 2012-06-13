@@ -7,8 +7,9 @@
 //
 #import "PullableView.h"
 #import "FCRangeSlider.h"
+#import "LaterDateView.h"
 
-@interface StyledPullableView : PullableView<UISearchBarDelegate>{
+@interface StyledPullableView : PullableView<UISearchBarDelegate,LaterDateViewDelegate>{
     UISearchBar*homeSearchBar;
     BOOL play;
     BOOL eat;

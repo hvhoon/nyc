@@ -26,12 +26,12 @@
     if (self) {
         
         animate = YES;
-        animationDuration = 0.4;
+        animationDuration = 0.2;
         
         toggleOnTap = YES;
         
         // Creates the handle view. Subclasses should resize, reposition and style this view
-        handleView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height - 40, frame.size.width, 40)];
+        handleView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height - 40, 320, 40)];
         [self addSubview:handleView];
         [handleView release];
         
@@ -88,11 +88,11 @@
         if(translateNew.y>translate.y)
         {
             NSLog(@"up going");
-            //[delegate alphaMore];
+            [delegate alphaMore];
         }
         else{
             NSLog(@"down going");
-            //[delegate alphaLess];
+            [delegate alphaLess];
 
         }
         translateNew=translate;
@@ -152,6 +152,15 @@
 
 - (void)handleTap:(UITapGestureRecognizer *)sender {
     
+    if(!opened){
+        filterPaneView.layer.shadowOpacity = 1 ? 0.8f : 0.0f;
+        filterPaneView.layer.cornerRadius = 4.0f;
+        filterPaneView.layer.shadowOffset = CGSizeZero;
+        filterPaneView.layer.shadowRadius = 14.0f;
+        filterPaneView.layer.shadowPath = [UIBezierPath bezierPathWithRect:filterPaneView.bounds].CGPath;
+        
+    }
+    
     if ([sender state] == UIGestureRecognizerStateEnded) {
         [self setOpened:!opened animated:animate];
     }
@@ -186,7 +195,7 @@
     
     
     //kanav
-    //[delegate doTheTurn:opened];//commented let's come to this again
+    [delegate doTheTurn:opened];//commented let's come to this again
     [delegate AddHideAnOverlay:opened];
     
     if (anim) {
@@ -288,4 +297,39 @@
         }
     }
 }
+#pragma mark -
+#pragma mark Transform Animation
+
+-(void)pushTransformWithAnimation{
+    NSLog(@"pushTransformWithAnimation");
+    [self bringInFilterPane];
+}
+
+- (void)slideOutFilterPane {
+    
+    
+    [UIView animateWithDuration:0.3 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut  | UIViewAnimationOptionBeginFromCurrentState animations:^{
+        
+        filterPaneView.transform = CGAffineTransformMakeTranslation(-320.0f, 0.0f);
+        
+    } completion:^(BOOL finished) {
+        
+        
+    }];
+    
+}
+
+- (void)bringInFilterPane{
+    
+    [UIView animateWithDuration:0.3 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState animations:^{
+        
+        filterPaneView.transform = CGAffineTransformIdentity;
+        
+    } completion:^(BOOL finished) {
+        
+        
+    }];
+    
+}
+
 @end

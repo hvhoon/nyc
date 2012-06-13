@@ -8,7 +8,6 @@
 #import <UIKit/UIKit.h>
 
 @class PullableView;
-
 @protocol PullableViewDelegate <NSObject>
 
 - (void)pullableView:(PullableView *)pView didChangeState:(BOOL)opened;
@@ -111,4 +110,6 @@
 - (void)setOpened:(BOOL)op animated:(BOOL)anim;
 -(void)showShadow;
 -(void)showHideCross:(BOOL)op;
+- (void)slideOutFilterPane;
+- (void)bringInFilterPane;
 @end

@@ -8,7 +8,7 @@
 
 #import "StyledPullableView.h"
 #import "SoclivityUtilities.h"
-
+#import "LaterDateView.h"
 #define kPlayActivity 12
 #define kEatActivity 13
 #define kSeeActivity 14
@@ -23,8 +23,9 @@
     if ((self = [super initWithFrame:frame])) {
         
         self.backgroundColor=[UIColor clearColor];
+        
                               
-        filterPaneView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 402)];//402
+        filterPaneView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 640, 402)];//402
         filterPaneView.backgroundColor=[UIColor whiteColor];
         self.homeSearchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 100.0,320, 44.0)] autorelease];
         self.homeSearchBar.delegate = self;
@@ -169,6 +170,24 @@
         [self addSubview:searchHandleButton];
         
         
+        UIView *dateCalendarView=[[UIView alloc]initWithFrame:CGRectMake(320, 0, 320, 402)];
+        dateCalendarView.backgroundColor=[UIColor whiteColor];
+        
+        UIImageView *titleImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_titlebar.png"]];
+        titleImageView.frame=CGRectMake(0, 100, 320, 44);
+        [dateCalendarView addSubview:titleImageView];
+        [titleImageView release];
+        
+        
+        UIButton *backButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        backButton.frame = CGRectMake(15, 107, 38.0, 30.0);
+        [backButton setImage:[UIImage imageNamed:@"S5-back-arrow.png"] forState:UIControlStateNormal];
+        [backButton addTarget:self action:@selector(pushTransformWithAnimation:) forControlEvents:UIControlEventTouchUpInside];
+        [dateCalendarView addSubview:backButton];
+
+
+        [filterPaneView addSubview:dateCalendarView];
+
         
         
         searchLensImageView=[[UIImageView alloc]initWithFrame:CGRectMake(22, 415, 20, 21)];
@@ -288,6 +307,7 @@
             [sender setImage:[UIImage imageNamed:@"S4.1_later-selected.png"] forState:UIControlStateNormal];
             [(UIButton*)[self viewWithTag:kTomorrowFilter]setImage:[UIImage imageNamed:@"S4.1_tomorrow-deselect.png"] forState:UIControlStateNormal];
             [(UIButton*)[self viewWithTag:kTodayFilter]setImage:[UIImage imageNamed:@"S4.1_today-deselect.png"] forState:UIControlStateNormal];
+            [self slideOutFilterPane];
 
 
         }
@@ -297,6 +317,10 @@
             
             
     }
+}
+
+-(void)pushTransformWithAnimation:(id)sender{
+    [self bringInFilterPane];
 }
 -(void)pushTodetailActivity:(UIButton*)sender{
     NSLog(@"pushTodetailActivity=%f,%f,%f,%f",sender.frame.size.height,sender.frame.size.width,sender.frame.origin.x,sender.frame.origin.y);

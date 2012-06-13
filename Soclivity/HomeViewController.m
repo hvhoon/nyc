@@ -45,9 +45,9 @@
     animationDuration = 0.4;
 #if 1   
     NSLog(@"offset=%f",xOffset);
-    pullDownView = [[StyledPullableView alloc] initWithFrame:CGRectMake(xOffset, 0, 320, 460)];
-    pullDownView.openedCenter = CGPointMake(160 + xOffset,130);
-    pullDownView.closedCenter = CGPointMake(160 + xOffset, -172);//-200
+    pullDownView = [[StyledPullableView alloc] initWithFrame:CGRectMake(xOffset, 0, 640, 460)];
+    pullDownView.openedCenter = CGPointMake(320 + xOffset,130);
+    pullDownView.closedCenter = CGPointMake(320 + xOffset, -172);//-200
     pullDownView.center = pullDownView.closedCenter;
     
     
@@ -321,13 +321,18 @@
 -(void)doTheTurn:(Boolean)open{
     
     if(open){
-        self.view.alpha = 1.0;
+        socEventMapView.alpha = gradient;
+        activityTableView.alpha=gradient;
         [UIView animateWithDuration:animationDuration
                               delay: 0.0
                             options: UIViewAnimationOptionCurveEaseOut
                          animations:^{
-                             self.view.alpha = 0.4;
-                             self.view.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+                             socEventMapView.alpha = 0.4;
+                             activityTableView.alpha = 0.4;
+                             gradient=0.4;
+//                             socEventMapView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+//                             activityTableView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+
                          }
                          completion:^(BOOL finished){
                              
@@ -336,13 +341,17 @@
         
     }
     else{
-        self.view.alpha = 0.4;
+        socEventMapView.alpha =gradient;
+        activityTableView.alpha=gradient;
+
         [UIView animateWithDuration: animationDuration
                               delay: 0.0
                             options: UIViewAnimationOptionCurveEaseOut
                          animations:^{
-                             self.view.alpha = 1.0;
-                             self.view.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+                             socEventMapView.alpha = 1.0;
+                             activityTableView.alpha = 1.0;
+                             gradient=1.0;
+//                             socEventMapView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
                          }
                          completion:^(BOOL finished){
                              
@@ -352,11 +361,13 @@
 
 -(void)alphaLess{
     gradient=gradient-0.003;
-    self.view.alpha =gradient;
+    socEventMapView.alpha =gradient;
+    activityTableView.alpha =gradient;
 }
 -(void)alphaMore{
     gradient=gradient+0.003;
-    self.view.alpha = gradient;
+    socEventMapView.alpha = gradient;
+    activityTableView.alpha =gradient;
 }
 
 - (void)pullableView:(PullableView *)pView didChangeState:(BOOL)opened {
@@ -376,7 +387,6 @@
         overLayView.hidden=YES;
         NSLog(@"Hide!");
     }
-        
 }
 #pragma mark -
 #pragma mark HandleTap Overlay Method
