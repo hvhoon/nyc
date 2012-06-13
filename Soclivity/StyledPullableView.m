@@ -176,7 +176,7 @@
         [self addSubview:searchLensImageView];
         searchLensImageView.hidden=NO;
 
-        crossImageView=[[UIImageView alloc]initWithFrame:CGRectMake(22, 416, 17, 17)];
+        crossImageView=[[UIImageView alloc]initWithFrame:CGRectMake(22, 415, 22, 18)];
         crossImageView.image=[UIImage imageNamed:@"S4.1_cross.png"];
         [self addSubview:crossImageView];
         crossImageView.hidden=YES;

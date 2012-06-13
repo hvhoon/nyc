@@ -49,8 +49,8 @@
     MKCoordinateRegion newRegion;
     newRegion.center.latitude = currentCoord.latitude;
     newRegion.center.longitude = currentCoord.longitude;
-    newRegion.span.latitudeDelta = 0.112872;
-    newRegion.span.longitudeDelta = 0.109863;
+    newRegion.span.latitudeDelta = 0.04;
+    newRegion.span.longitudeDelta = 0.04;
     
     [self.mapView setRegion:newRegion animated:YES];
 }
@@ -238,20 +238,20 @@
 	
 	UIView *mapLeftView=[[UIView alloc] initWithFrame:CGRectMake(0,0, 150, 30)];
 	
-	CGRect nameLabelRect=CGRectMake(10,0,140,12);
+	CGRect nameLabelRect=CGRectMake(10,0,140,15);
 	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
 	nameLabel.textAlignment=UITextAlignmentLeft;
-	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
+	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
 	nameLabel.textColor=[UIColor whiteColor];
 	nameLabel.backgroundColor=[UIColor clearColor];
 	nameLabel.text=[locObject._socAnnotation activityName];
 	[mapLeftView addSubview:nameLabel];
 	[nameLabel release];
 	
-	CGRect timeLabelRect=CGRectMake(10,13,140,10);
+	CGRect timeLabelRect=CGRectMake(12,16,140,12);
 	UILabel *timeLabel=[[UILabel alloc] initWithFrame:timeLabelRect];
 	timeLabel.textAlignment=UITextAlignmentLeft;
-	timeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:11];
+	timeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
 	timeLabel.textColor=[UIColor whiteColor];
 	timeLabel.backgroundColor=[UIColor clearColor];
     for(DetailInfoActivityClass *detailPlay in [locObject._socAnnotation quotations]){
