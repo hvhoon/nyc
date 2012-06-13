@@ -968,6 +968,12 @@
 		680CE3E81551258700B8E937 /* Soclivity */ = {
 			isa = PBXGroup;
 			children = (
+				EA91C2C5155A716300BE5BB1 /* App Delegate */,
+				687F3A701551300E00B694DA /* Welcome */,
+				687F3A721551301D00B694DA /* Registration */,
+				EAB135AF15545B1100C1607D /* Reset Password */,
+				687F3A731551303600B694DA /* Login */,
+				EA96E856155E66ED00BE82DF /* Home */,
 				EAF2AEB915875DF1008EAE27 /* Sliding Drawer Effect */,
 				EAF2AE9E15874B90008EAE27 /* Activity Event */,
 				EA976C301584AD4D00474EAF /* Sqlite */,
@@ -975,16 +981,10 @@
 				EA5BC966156CCC0700AC8C0C /* JSON */,
 				EA94D017156BAB4700B0E6F5 /* Facebook */,
 				EA94CFFE156B53F000B0E6F5 /* Objectify */,
-				EA96E856155E66ED00BE82DF /* Home */,
 				EA96E84F155E378100BE82DF /* New Vendor */,
 				EA96E842155E2A8500BE82DF /* Upcoming */,
 				EA96E83C155E268000BE82DF /* Settings */,
-				EA91C324155A71A500BE5BB1 /* Service */,
-				EA91C2C5155A716300BE5BB1 /* App Delegate */,
-				687F3A701551300E00B694DA /* Welcome */,
-				687F3A721551301D00B694DA /* Registration */,
-				687F3A731551303600B694DA /* Login */,
-				EAB135AF15545B1100C1607D /* Reset Password */,
+				EA91C324155A71A500BE5BB1 /* Services */,
 				687F3A751551307000B694DA /* Camera Custom */,
 				687F3A741551306500B694DA /* Location Manager */,
 				6820EB69156E934B006DEDD3 /* Progress Animation */,
@@ -1396,7 +1396,7 @@
 			path = GTM;
 			sourceTree = "<group>";
 		};
-		EA91C324155A71A500BE5BB1 /* Service */ = {
+		EA91C324155A71A500BE5BB1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				EA976C371584C5EB00474EAF /* Get Activities Service */,
@@ -1411,7 +1411,7 @@
 				EA91C32B155A71D000BE5BB1 /* MainServiceManager.h */,
 				EA91C32C155A71D000BE5BB1 /* MainServiceManager.m */,
 			);
-			name = Service;
+			name = Services;
 			sourceTree = "<group>";
 		};
 		EA91C338155A747600BE5BB1 /* GetRequest Services */ = {

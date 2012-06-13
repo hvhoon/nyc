@@ -54,7 +54,6 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addEvent];
 
     
-    
     self.navigationItem.titleView=nil; 	
 	UILabel *label=[SoclivityUtilities TitleLabelAndFontOnNavigationBar];
     NSString *titleString=[NSString stringWithFormat:@"%@",activityInfo.activityName];
