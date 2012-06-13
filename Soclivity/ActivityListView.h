@@ -55,3 +55,6 @@
 -(void)sortByDegree;
 -(void)sortingFilterRefresh;
 @end
+NS_INLINE NSComparisonResult FilterSorting(NSString *s1, NSString *s2) {
+    return [s1 compare:s2];
+}

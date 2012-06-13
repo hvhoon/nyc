@@ -368,13 +368,10 @@
 #pragma mark Sorting To Filter 
 -(void)SortByDistance{
     
-    [self.plays sortUsingComparator:^NSComparisonResult(InfoActivityClass *play1, InfoActivityClass *play2) {
-        if ([play1.distance intValue] <= [play2.distance intValue])
-            return (NSComparisonResult)NSOrderedDescending;
-        if ([play1.distance intValue] > [play2.distance intValue])
-            return (NSComparisonResult)NSOrderedAscending;
-        return (NSComparisonResult)NSOrderedSame;
-        
+   self.plays = [self.plays sortedArrayUsingComparator: ^(InfoActivityClass *a, InfoActivityClass *b) {
+        NSString *s1 = a.distance;
+        NSString *s2 = b.distance;
+        return [s1 compare:s2];
     }];
     
     [self sortingFilterRefresh];
@@ -390,9 +387,9 @@
 
     [self sortingFilterRefresh];
 }
-NSComparisonResult dateSort(NSString *s1, NSString *s2) {
-    return [s1 compare:s2];
-}
+//NSComparisonResult FilterSorting(NSString *s1, NSString *s2) {
+//    return [s1 compare:s2];
+//}
 
 -(void)sortingFilterRefresh{
     NSMutableArray *infoArray = [[NSMutableArray alloc] init];
