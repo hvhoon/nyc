@@ -41,6 +41,7 @@
 }
 - (void)dealloc {
     [mapView release];
+    [self.mapView.userLocation removeObserver:self forKeyPath:@"location"];
     [super dealloc];
 }
 - (void)gotoLocation
@@ -74,7 +75,31 @@
     SocLocation.theTag=kOnlyLatLong;
 
     self.mapView.mapType = MKMapTypeStandard;
-    [self.mapView setShowsUserLocation:YES];
+    //[self.mapView setShowsUserLocation:YES];
+    self.mapView.showsUserLocation=YES;
+    [self.mapView.userLocation addObserver:self  
+                                forKeyPath:@"location"  
+                                   options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld)  
+                                   context:NULL];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath  
+                      ofObject:(id)object  
+                        change:(NSDictionary *)change  
+                       context:(void *)context {  
+     NSLog(@"observeValueForKeyPath");
+    if ([self.mapView showsUserLocation]) {  
+        NSLog(@"observeValueForKeyPath for showsUserLocation");
+        // and of course you can use here old and new location values
+    }
+}
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation      {
+    CLLocationAccuracy accuracy = userLocation.location.horizontalAccuracy;
+    if (accuracy) {
+        NSLog(@"didUpdateUserLocation");
+        //self.mapView.showsUserLocation=NO;
+
+    } 
 }
 -(void)setUpMapAnnotations{
     int index=0;

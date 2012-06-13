@@ -102,6 +102,7 @@ void uncaughtExceptionHandler(NSException *exception) {
         play.goingCount=[playDictionary objectForKey:@"goingCount"];
         play.latitude=[playDictionary objectForKey:@"Latitude"];
         play.longitude=[playDictionary objectForKey:@"Longitude"];
+        play.dateFormatterString=[playDictionary objectForKey:@"Date"];
         NSArray *quotationDictionaries = [playDictionary objectForKey:@"detailQuotations"];
         NSMutableArray *quotations = [NSMutableArray arrayWithCapacity:[quotationDictionaries count]];
         

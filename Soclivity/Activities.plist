@@ -19,6 +19,8 @@
 		<string>5.9</string>
 		<key>goingCount</key>
 		<string>12</string>
+		<key>Date</key>
+		<string>2012-07-12_21:43:29</string>
 		<key>detailQuotations</key>
 		<array>
 			<dict>
@@ -50,6 +52,8 @@
 		<string>0.3</string>
 		<key>goingCount</key>
 		<string>21</string>
+		<key>Date</key>
+		<string>2012-09-2_12:04:29</string>
 		<key>detailQuotations</key>
 		<array>
 			<dict>
@@ -81,6 +85,8 @@
 		<string>0.83</string>
 		<key>goingCount</key>
 		<string>11</string>
+		<key>Date</key>
+		<string>2012-12-12_19:43:29</string>
 		<key>detailQuotations</key>
 		<array>
 			<dict>
@@ -112,6 +118,8 @@
 		<string>1.9</string>
 		<key>goingCount</key>
 		<string>32</string>
+		<key>Date</key>
+		<string>2012-06-14_06:43:29</string>
 		<key>detailQuotations</key>
 		<array>
 			<dict>
@@ -143,6 +151,8 @@
 		<string>5.6</string>
 		<key>goingCount</key>
 		<string>2</string>
+		<key>Date</key>
+		<string>2012-06-13_19:24:29</string>
 		<key>detailQuotations</key>
 		<array>
 			<dict>
@@ -174,6 +184,8 @@
 		<string>8.6</string>
 		<key>goingCount</key>
 		<string>24</string>
+		<key>Date</key>
+		<string>2012-11-12_11:43:29</string>
 		<key>detailQuotations</key>
 		<array>
 			<dict>
