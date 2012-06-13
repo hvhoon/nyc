@@ -413,8 +413,6 @@
 -(void)sortingFilterRefresh{
     NSMutableArray *infoArray = [[NSMutableArray alloc] init];
      openSectionIndex_ = NSNotFound;
-    //self.sectionInfoArray=[[NSMutableArray alloc] init];
-    //[self.sectionInfoArray removeAllObjects];
     for (InfoActivityClass *play in self.plays) {
         
         SectionInfo *sectionInfo = [[SectionInfo alloc] init];			
