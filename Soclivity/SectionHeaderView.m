@@ -3,6 +3,10 @@
 #import <QuartzCore/QuartzCore.h>
 #import "InfoActivityClass.h"
 #import "SoclivityUtilities.h"
+
+#define kSortByDistance 1
+#define kSortByDegree 2
+#define kSortByTime 3
 @implementation SectionHeaderView
 
 
@@ -15,7 +19,7 @@
 }
 
 
--(id)initWithFrame:(CGRect)frame detailSectionInfo:(InfoActivityClass*)detailSectionInfo section:(NSInteger)sectionNumber delegate:(id <SectionHeaderViewDelegate>)aDelegate {
+-(id)initWithFrame:(CGRect)frame detailSectionInfo:(InfoActivityClass*)detailSectionInfo section:(NSInteger)sectionNumber delegate:(id <SectionHeaderViewDelegate>)aDelegate sortingPattern:(NSInteger)sortingPattern{
     
     self = [super initWithFrame:frame];
     
@@ -99,6 +103,9 @@
         [oglabel release];
         CGSize size = [[NSString stringWithFormat:@"by %@",detailSectionInfo.organizerName] sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:15]];
 		NSLog(@"width=%f",size.width);
+        
+        
+        
 
         UIImageView *DOSImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_dos.png"]];
         DOSImgView.frame=CGRectMake(55+size.width-5, 40, 26, 22);
@@ -117,24 +124,42 @@
         [degreelabel release];
 
         
-        UIImageView *DotImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_dot.png"]];
-        DotImgView.frame=CGRectMake(45+size.width+32+10, 50, 6, 6);
-        [self addSubview:DotImgView];
+        switch (sortingPattern) {
+            case kSortByDistance:
+            {
+                UIImageView *DotImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_dot.png"]];
+                DotImgView.frame=CGRectMake(45+size.width+32+10, 50, 6, 6);
+                [self addSubview:DotImgView];
+                
+                CGRect distanceLabelRect=CGRectMake(45+size.width+32+25,45,180,15);
+                UILabel *mileslabel=[[UILabel alloc] initWithFrame:distanceLabelRect];
+                mileslabel.textAlignment=UITextAlignmentLeft;
+                mileslabel.text=[NSString stringWithFormat:@"%@ miles",detailSectionInfo.distance];
+                mileslabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
+                mileslabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+                mileslabel.backgroundColor=[UIColor clearColor];
+                
+                [self addSubview:mileslabel];
+                [mileslabel release];
 
-        
-        CGRect distanceLabelRect=CGRectMake(45+size.width+32+25,45,180,15);
-        UILabel *mileslabel=[[UILabel alloc] initWithFrame:distanceLabelRect];
-        mileslabel.textAlignment=UITextAlignmentLeft;
-        mileslabel.text=[NSString stringWithFormat:@"%@ miles",detailSectionInfo.distance];
-        mileslabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
-        mileslabel.textColor=[SoclivityUtilities returnTextFontColor:1];
-        mileslabel.backgroundColor=[UIColor clearColor];
-        
-        [self addSubview:mileslabel];
-        [mileslabel release];
 
-        
-        
+            }
+                break;
+                
+            case kSortByDegree:
+            {
+                
+            }
+                break;
+                
+            case kSortByTime:
+            {
+                
+            }
+                break;
+                
+        }
+
         v = [[UIView alloc] initWithFrame:CGRectMake(0, 66, 320, 1)];
         v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_lightdivider.png"]];
         [self addSubview:v];	

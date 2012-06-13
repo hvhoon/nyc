@@ -46,6 +46,7 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+    sortType=1;
     self.tableView.sectionHeaderHeight = HEADER_HEIGHT;
     //self.tableView.separatorColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_darkdivider.png"]];
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
@@ -138,7 +139,7 @@
 	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     if (!sectionInfo.headerView) {
        InfoActivityClass*activityName = sectionInfo.play;
-        sectionInfo.headerView = [[[SectionHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.bounds.size.width, HEADER_HEIGHT) detailSectionInfo:activityName section:section delegate:self] autorelease];
+        sectionInfo.headerView = [[[SectionHeaderView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.bounds.size.width, HEADER_HEIGHT) detailSectionInfo:activityName section:section delegate:self sortingPattern:sortType] autorelease];
     }
     
     return sectionInfo.headerView;
@@ -374,6 +375,7 @@
         return [s1 compare:s2];
     }];
     
+    sortType=1;
     [self sortingFilterRefresh];
 }
 -(void)sortByDegree{
@@ -384,12 +386,9 @@
         NSString *s2 = b.DOS;
         return [s1 compare:s2];
     }];
-
+    sortType=2;
     [self sortingFilterRefresh];
 }
-//NSComparisonResult FilterSorting(NSString *s1, NSString *s2) {
-//    return [s1 compare:s2];
-//}
 
 -(void)sortingFilterRefresh{
     NSMutableArray *infoArray = [[NSMutableArray alloc] init];
@@ -399,7 +398,6 @@
         SectionInfo *sectionInfo = [[SectionInfo alloc] init];			
         sectionInfo.play = play;
         sectionInfo.open = NO;
-        
         NSNumber *defaultRowHeight = [NSNumber numberWithInteger:DEFAULT_ROW_HEIGHT];
         NSInteger countOfQuotations = [[sectionInfo.play quotations] count];
         for (NSInteger i = 0; i < countOfQuotations; i++) {

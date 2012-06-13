@@ -14,7 +14,7 @@
 @property (nonatomic, assign) NSInteger section;
 @property (nonatomic, assign) id <SectionHeaderViewDelegate> delegate;
 
--(id)initWithFrame:(CGRect)frame detailSectionInfo:(InfoActivityClass*)detailSectionInfo section:(NSInteger)sectionNumber delegate:(id <SectionHeaderViewDelegate>)aDelegate;
+-(id)initWithFrame:(CGRect)frame detailSectionInfo:(InfoActivityClass*)detailSectionInfo section:(NSInteger)sectionNumber delegate:(id <SectionHeaderViewDelegate>)aDelegate sortingPattern:(NSInteger)sortingPattern;
 -(void)toggleOpenWithUserAction:(BOOL)userAction;
 -(void)detailActivity:(id)sender;
 -(IBAction)toggleOpen:(id)sender;

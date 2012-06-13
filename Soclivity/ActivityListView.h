@@ -31,6 +31,7 @@
     NSString *textPull;
     NSString *textRelease;
     NSString *textLoading;
+    NSInteger sortType;
 }
 
 @property (nonatomic, retain) NSArray *plays;
