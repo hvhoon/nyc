@@ -389,7 +389,53 @@
     sortType=2;
     [self sortingFilterRefresh];
 }
+-(void)SortByTime{
+    NSDate *today = [NSDate date];
+    NSDate *visitDate=[NSDate date];
+    NSLog(@"today=%@",today);
+    NSTimeInterval dateTime;
+    
+    dateTime = ([visitDate timeIntervalSinceDate:today] / 86400);  
+    if(dateTime < 0) //Check if visit date is a past date, dateTime returns - val
+    {
+        NSLog (@"Past Date");
+    }
+    
+    else if(dateTime == 0) //There's a chance that this could actually happen
+    {
+        NSLog (@"Same Date & Time");
+    }
+    
+    else if(dateTime>0 && dateTime<=1440)
+    {   
+        NSLog (@"Tommorow Date");
+    }
+    else{
+         NSLog (@"Future Date");
+    }
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	dateFormatter.dateFormat=@"MMM d, YYYY, h:mma";
+	
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [dateFormatter setTimeZone:gmt];
+	
+	
+	NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
+	
+	NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:visitDate];
+	
+	NSTimeInterval interval2 = destinationGMTOffset;
+	
+	NSDate* destinationDate = [[[NSDate alloc] initWithTimeInterval:interval2 sinceDate:visitDate] autorelease];
+	
+	
+	
+	NSString *currentTime=[dateFormatter stringFromDate:destinationDate];
+	
+	
+	[dateFormatter release];
 
+}
 -(void)sortingFilterRefresh{
     NSMutableArray *infoArray = [[NSMutableArray alloc] init];
     [self.sectionInfoArray removeAllObjects];

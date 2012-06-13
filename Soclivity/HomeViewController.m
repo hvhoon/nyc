@@ -428,7 +428,7 @@
 #pragma mark TimeSorting Clicked
 
 -(IBAction)TimeSortingClicked:(id)sender{
-    
+    //[activityTableView SortByTime];
 }
 #pragma mark -
 #pragma mark New Activity Push Method
