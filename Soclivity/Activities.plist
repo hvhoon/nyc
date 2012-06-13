@@ -12,9 +12,9 @@
 		<key>DOS</key>
 		<string>1</string>
 		<key>Latitude</key>
-		<real>37.244435</real>
+		<real>37.36852</real>
 		<key>Longitude</key>
-		<real>-122.55321</real>
+		<real>-122.104111</real>
 		<key>distance</key>
 		<string>0.1</string>
 		<key>goingCount</key>
@@ -43,9 +43,9 @@
 		<key>DOS</key>
 		<string>1</string>
 		<key>Latitude</key>
-		<real>37.225607</real>
+		<real>37.437248</real>
 		<key>Longitude</key>
-		<real>-122.65894</real>
+		<real>-122.11853</real>
 		<key>distance</key>
 		<string>0.3</string>
 		<key>goingCount</key>
@@ -74,9 +74,9 @@
 		<key>DOS</key>
 		<string>1</string>
 		<key>Latitude</key>
-		<real>37.24024</real>
+		<real>37.386526</real>
 		<key>Longitude</key>
-		<real>-122.3112</real>
+		<real>-122.021713</real>
 		<key>distance</key>
 		<string>1.3</string>
 		<key>goingCount</key>
@@ -105,9 +105,9 @@
 		<key>DOS</key>
 		<string>1</string>
 		<key>Latitude</key>
-		<real>40.423261</real>
+		<real>40.739649</real>
 		<key>Longitude</key>
-		<real>-74.03881</real>
+		<real>-74.00013</real>
 		<key>distance</key>
 		<string>2.4</string>
 		<key>goingCount</key>
@@ -136,9 +136,9 @@
 		<key>DOS</key>
 		<string>1</string>
 		<key>Latitude</key>
-		<real>40.424416</real>
+		<real>40.7256</real>
 		<key>Longitude</key>
-		<real>-73.594296</real>
+		<real>-74.006052</real>
 		<key>distance</key>
 		<string>5.6</string>
 		<key>goingCount</key>
@@ -167,9 +167,9 @@
 		<key>DOS</key>
 		<string>1</string>
 		<key>Latitude</key>
-		<real>40.434001</real>
+		<real>40.720787</real>
 		<key>Longitude</key>
-		<real>-73.594784</real>
+		<real>-73.98888599999999</real>
 		<key>distance</key>
 		<string>8.6</string>
 		<key>goingCount</key>

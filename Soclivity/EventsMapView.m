@@ -51,8 +51,8 @@
     MKCoordinateRegion newRegion;
     newRegion.center.latitude = currentCoord.latitude;
     newRegion.center.longitude = currentCoord.longitude;
-    newRegion.span.latitudeDelta = 0.112872;
-    newRegion.span.longitudeDelta = 0.109863;
+    newRegion.span.latitudeDelta = 0.04;
+    newRegion.span.longitudeDelta = 0.04;
     
     [self.mapView setRegion:newRegion animated:YES];
 }
