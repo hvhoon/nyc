@@ -32,6 +32,7 @@
     NSString *textRelease;
     NSString *textLoading;
     NSInteger sortType;
+    BOOL sectionOpenClose;
 }
 
 @property (nonatomic, retain) NSArray *plays;

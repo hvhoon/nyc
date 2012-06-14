@@ -52,7 +52,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
     v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_lightdivider.png"]];
     self.tableView.tableFooterView=v;
-	
+	self.tableView.scrollsToTop=YES;
     rowHeight_ = DEFAULT_ROW_HEIGHT;
     openSectionIndex_ = NSNotFound;
     [self startPopulatingListView];
@@ -166,7 +166,7 @@
 -(void)sectionHeaderView:(SectionHeaderView*)sectionHeaderView sectionOpened:(NSInteger)sectionOpened {
 	
 
-    
+    sectionOpenClose=TRUE;
 	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:sectionOpened];
 	
 	sectionInfo.open = YES;
@@ -222,7 +222,7 @@
 
 -(void)sectionHeaderView:(SectionHeaderView*)sectionHeaderView sectionClosed:(NSInteger)sectionClosed {
     
-    
+    sectionOpenClose=FALSE;
 	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:sectionClosed];
 	
     sectionInfo.open = NO;
@@ -277,6 +277,9 @@
     isDragging = YES;
 }
 
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView{
+    return YES;    
+}
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (isLoading) {
         // Update the content inset, good for section headers
@@ -411,8 +414,28 @@
 
 }
 -(void)sortingFilterRefresh{
+    
+    if(sectionOpenClose){
+        sectionOpenClose=FALSE;
+        SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:self.openSectionIndex];
+        
+        sectionInfo.open = NO;
+        NSInteger countOfRowsToDelete = [self.tableView numberOfRowsInSection:self.openSectionIndex];
+        
+        if (countOfRowsToDelete > 0) {
+            NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
+            for (NSInteger i = 0; i < countOfRowsToDelete; i++) {
+                [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:i inSection:self.openSectionIndex]];
+            }
+            [self.tableView deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:UITableViewRowAnimationTop];
+            [indexPathsToDelete release];
+        }
+        self.openSectionIndex = NSNotFound;
+
+    }
+    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     NSMutableArray *infoArray = [[NSMutableArray alloc] init];
-     openSectionIndex_ = NSNotFound;
+     //openSectionIndex_ = NSNotFound;
     for (InfoActivityClass *play in self.plays) {
         
         SectionInfo *sectionInfo = [[SectionInfo alloc] init];			
@@ -430,7 +453,9 @@
     
     self.sectionInfoArray = infoArray;
     [infoArray release];
+
     [self.tableView reloadData];
+
     
 }
 @end

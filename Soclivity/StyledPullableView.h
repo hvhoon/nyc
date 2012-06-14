@@ -8,15 +8,13 @@
 #import "PullableView.h"
 #import "FCRangeSlider.h"
 #import "LaterDateView.h"
+@class SoclivityManager;
 
 @interface StyledPullableView : PullableView<UISearchBarDelegate,LaterDateViewDelegate>{
     UISearchBar*homeSearchBar;
-    BOOL play;
-    BOOL eat;
-    BOOL see;
-    BOOL create;
     BOOL learn;
     FCRangeSlider *rangeSlider;
+    SoclivityManager *SOC; 
     
     
 }

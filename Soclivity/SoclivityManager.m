@@ -8,8 +8,9 @@
 
 #import "SoclivityManager.h"
 #import "GetPlayersClass.h"
+#import "FilterPreferenceClass.h"
 @implementation SoclivityManager
-@synthesize delegate,registrationObject,basicInfoDone,currentLocation,loggedInUser;
+@synthesize delegate,registrationObject,basicInfoDone,currentLocation,loggedInUser,filterObject;
 
 
 + (id) SharedInstance {
@@ -25,6 +26,12 @@
     
     if(self=[super init]){
         registrationObject=[[GetPlayersClass alloc]init];
+        filterObject=[[FilterPreferenceClass alloc]init];
+        filterObject.playAct=TRUE;
+        filterObject.eatAct=TRUE;
+        filterObject.seeAct=TRUE;
+        filterObject.createAct=TRUE;
+        filterObject.learnAct=TRUE;
     }
     return self;
 }

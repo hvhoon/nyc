@@ -78,6 +78,7 @@
 		EA8F65B31574D76E00EFAE8A /* SocAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F65B21574D76E00EFAE8A /* SocAnnotation.m */; };
 		EA8F65B61574DB1B00EFAE8A /* CalloutMapAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F65B51574DB1B00EFAE8A /* CalloutMapAnnotationView.m */; };
 		EA8F65BA1574E94300EFAE8A /* ActivityListView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F65B91574E94300EFAE8A /* ActivityListView.m */; };
+		EA9058991589A88900E78B54 /* FilterPreferenceClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9058981589A88900E78B54 /* FilterPreferenceClass.m */; };
 		EA90FF371581CF9300CA0C4F /* PullableView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA90FF341581CF9300CA0C4F /* PullableView.m */; };
 		EA90FF381581CF9300CA0C4F /* StyledPullableView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA90FF361581CF9300CA0C4F /* StyledPullableView.m */; };
 		EA90FF8E1582074E00CA0C4F /* S04.1_SOC-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA90FF4D1582074E00CA0C4F /* S04.1_SOC-logo@2x.png */; };
@@ -528,6 +529,8 @@
 		EA8F65B51574DB1B00EFAE8A /* CalloutMapAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutMapAnnotationView.m; sourceTree = "<group>"; };
 		EA8F65B81574E94300EFAE8A /* ActivityListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityListView.h; sourceTree = "<group>"; };
 		EA8F65B91574E94300EFAE8A /* ActivityListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityListView.m; sourceTree = "<group>"; };
+		EA9058971589A88900E78B54 /* FilterPreferenceClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterPreferenceClass.h; sourceTree = "<group>"; };
+		EA9058981589A88900E78B54 /* FilterPreferenceClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterPreferenceClass.m; sourceTree = "<group>"; };
 		EA90FF331581CF9300CA0C4F /* PullableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullableView.h; sourceTree = "<group>"; };
 		EA90FF341581CF9300CA0C4F /* PullableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullableView.m; sourceTree = "<group>"; };
 		EA90FF351581CF9300CA0C4F /* StyledPullableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyledPullableView.h; sourceTree = "<group>"; };
@@ -1267,6 +1270,8 @@
 				EA893AA515887DFD003FD793 /* LaterDateView.h */,
 				EA893AA615887DFD003FD793 /* LaterDateView.m */,
 				EA893AA815887E16003FD793 /* LaterDateView.xib */,
+				EA9058971589A88900E78B54 /* FilterPreferenceClass.h */,
+				EA9058981589A88900E78B54 /* FilterPreferenceClass.m */,
 			);
 			name = "PullDown Filter Pane";
 			sourceTree = "<group>";
@@ -2327,6 +2332,7 @@
 				EAF2AEBC15875E36008EAE27 /* SlidingDrawerViewController.m in Sources */,
 				EAF2AEC015875EA5008EAE27 /* SlideViewController.m in Sources */,
 				EA893AA715887DFE003FD793 /* LaterDateView.m in Sources */,
+				EA9058991589A88900E78B54 /* FilterPreferenceClass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,8 @@
 #import "StyledPullableView.h"
 #import "SoclivityUtilities.h"
 #import "LaterDateView.h"
+#import "SoclivityManager.h"
+#import "FilterPreferenceClass.h"
 #define kPlayActivity 12
 #define kEatActivity 13
 #define kSeeActivity 14
@@ -24,7 +26,7 @@
         
         self.backgroundColor=[UIColor clearColor];
         
-                              
+        SOC=[SoclivityManager SharedInstance];                     
         filterPaneView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 640, 402)];//402
         filterPaneView.backgroundColor=[UIColor whiteColor];
         self.homeSearchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 100.0,320, 44.0)] autorelease];
@@ -68,22 +70,39 @@
         UIButton *playButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         playButton.frame = CGRectMake(0,72, 62.0, 30.0);
         playButton.tag=kPlayActivity;
-        [playButton setImage:[UIImage imageNamed:@"S4.1_play-unselected.png"] forState:UIControlStateNormal];
+        if(SOC.filterObject.playAct)
+            [playButton setImage:[UIImage imageNamed:@"S4.1_play-selected.png"] forState:UIControlStateNormal];
+        else
+            [playButton setImage:[UIImage imageNamed:@"S4.1_play-unselected.png"] forState:UIControlStateNormal];
         [playButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [backgroundView addSubview:playButton];
         
         UIButton *eatButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         eatButton.frame = CGRectMake(64.5,72, 62.0, 30.0);
         eatButton.tag=kEatActivity;
-        [eatButton setImage:[UIImage imageNamed:@"S4.1_eat-deselect.png"] forState:UIControlStateNormal];
+        
+        if(SOC.filterObject.eatAct)
+            [eatButton setImage:[UIImage imageNamed:@"S4.1_eat-selected.png"] forState:UIControlStateNormal];
+        else
+            [eatButton setImage:[UIImage imageNamed:@"S4.1_eat-deselect.png"] forState:UIControlStateNormal];
+        
         [eatButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [backgroundView addSubview:eatButton];
+        
+        
         
         
         UIButton *seeButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         seeButton.frame = CGRectMake(129,72, 62.0, 30.0);
         seeButton.tag=kSeeActivity;
+        
+        if(SOC.filterObject.seeAct){
+            [seeButton setImage:[UIImage imageNamed:@"S4.1_see-selected.png"] forState:UIControlStateNormal]; 
+        }
+        else
         [seeButton setImage:[UIImage imageNamed:@"S4.1_see-deselect.png"] forState:UIControlStateNormal];
+        
+        
         [seeButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [backgroundView addSubview:seeButton];
         
@@ -91,7 +110,12 @@
         UIButton *createButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         createButton.frame = CGRectMake(193.5,72, 62.0, 30.0);
         createButton.tag=kCreateActivity;
+        
+        if(SOC.filterObject.createAct)
+        [createButton setImage:[UIImage imageNamed:@"S4.1_create-selected.png"] forState:UIControlStateNormal];
+        else{
         [createButton setImage:[UIImage imageNamed:@"S4.1_create-deselect.png"] forState:UIControlStateNormal];
+        }
         [createButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [backgroundView addSubview:createButton];
         
@@ -99,7 +123,12 @@
         UIButton *learnButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         learnButton.frame = CGRectMake(258,72, 62.0, 30.0);
         learnButton.tag=kLearnActivity;
-        [learnButton setImage:[UIImage imageNamed:@"S4.1_learn-deselect.png"] forState:UIControlStateNormal];
+        
+        if(SOC.filterObject.learnAct)
+        [learnButton setImage:[UIImage imageNamed:@"S4.1_learn-selected.png"] forState:UIControlStateNormal];
+        else
+            [learnButton setImage:[UIImage imageNamed:@"S4.1_learn-deselect.png"] forState:UIControlStateNormal];
+        
         [learnButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [backgroundView addSubview:learnButton];
         
@@ -218,8 +247,8 @@
     switch (sender.tag) {
         case kPlayActivity:
         {
-            play=!play;
-            if(play){
+            SOC.filterObject.playAct=!SOC.filterObject.playAct;
+            if(SOC.filterObject.playAct){
                 [sender setImage:[UIImage imageNamed:@"S4.1_play-selected.png"] forState:UIControlStateNormal];
             }
             else{
@@ -231,8 +260,8 @@
             
         case kEatActivity:
         {
-            eat=!eat;
-            if(eat){
+            SOC.filterObject.eatAct=!SOC.filterObject.eatAct;
+            if(SOC.filterObject.eatAct){
                 [sender setImage:[UIImage imageNamed:@"S4.1_eat-selected.png"] forState:UIControlStateNormal];
             }
             else{
@@ -244,8 +273,8 @@
             
         case kSeeActivity:
         {
-            see=!see;
-            if(see){
+            SOC.filterObject.seeAct=!SOC.filterObject.seeAct;
+            if(SOC.filterObject.seeAct){
                 [sender setImage:[UIImage imageNamed:@"S4.1_see-selected.png"] forState:UIControlStateNormal];
             }
             else{
@@ -257,8 +286,8 @@
             
         case kCreateActivity:
         {
-            create=!create;
-            if(create){
+            SOC.filterObject.createAct=!SOC.filterObject.createAct;
+            if(SOC.filterObject.createAct){
                 [sender setImage:[UIImage imageNamed:@"S4.1_create-selected.png"] forState:UIControlStateNormal];
             }
             else{
@@ -270,8 +299,8 @@
             
         case kLearnActivity:
         {
-            learn=!learn;
-            if(learn){
+            SOC.filterObject.learnAct=!SOC.filterObject.learnAct;
+            if(SOC.filterObject.learnAct){
                 [sender setImage:[UIImage imageNamed:@"S4.1_learn-selected.png"] forState:UIControlStateNormal];
             }
             else{
