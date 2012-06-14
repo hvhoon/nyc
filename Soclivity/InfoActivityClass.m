@@ -9,7 +9,7 @@
 #import "InfoActivityClass.h"
 
 @implementation InfoActivityClass
-@synthesize type,activityName,organizerName,DOS,distance,goingCount,quotations,latitude,longitude,stamp,dateFormatterString;
+@synthesize type,activityName,organizerName,DOS,distance,goingCount,quotations,latitude,longitude,stamp,dateFormatterString,dateAndTime;
 
 -(void)dealloc{
     [activityName release];
@@ -21,6 +21,7 @@
     [longitude release];
     [quotations release];
     [dateFormatterString release];
+    [dateAndTime release];
 }
 
 @end

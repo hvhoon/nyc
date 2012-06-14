@@ -85,14 +85,12 @@
 
     
     
+        whenTextLabel.text=info.dateAndTime;
     for(DetailInfoActivityClass *detail in info.quotations){
-        whenTextLabel.text=detail.dateAndTime;
         whereTextLabel.text=[NSString stringWithFormat:@"%@ ,%@ miles",detail.location,info.distance];
         peopleYouKnowCountLabel.text=[NSString stringWithFormat:@"%d",detail.DOS_1];
         peopleYouMayKnowCountLabel.text=[NSString stringWithFormat:@"%d",detail.DOS_2];
-        
-
-    }
+        }
 
     whatTextLabel.text=info.activityName;
     

@@ -9,12 +9,11 @@
 #import "DetailInfoActivityClass.h"
 
 @implementation DetailInfoActivityClass
-@synthesize dateAndTime,location,DOS_1,DOS_2;
+@synthesize location,DOS_1,DOS_2;
 
 
 -(void)dealloc{
     [super dealloc];
-    [dateAndTime release];
     [location release];
 }
 @end

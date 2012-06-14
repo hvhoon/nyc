@@ -127,7 +127,7 @@
     
     cell.delegate=self;
     InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
-    cell.quotation = [play.quotations objectAtIndex:indexPath.row];
+    cell.playActivity = play;
     [cell setNeedsDisplay];
     return cell;
     
@@ -433,7 +433,7 @@
         self.openSectionIndex = NSNotFound;
 
     }
-    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+    
     NSMutableArray *infoArray = [[NSMutableArray alloc] init];
      //openSectionIndex_ = NSNotFound;
     for (InfoActivityClass *play in self.plays) {
@@ -455,7 +455,7 @@
     [infoArray release];
 
     [self.tableView reloadData];
-
+    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     
 }
 @end

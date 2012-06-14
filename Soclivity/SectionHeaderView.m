@@ -123,13 +123,13 @@
         [self addSubview:degreelabel];
         [degreelabel release];
 
+        UIImageView *DotImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_dot.png"]];
+        DotImgView.frame=CGRectMake(45+size.width+32+10, 50, 6, 6);
+        [self addSubview:DotImgView];
         
         switch (sortingPattern) {
             case kSortByDistance:
             {
-                UIImageView *DotImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_dot.png"]];
-                DotImgView.frame=CGRectMake(45+size.width+32+10, 50, 6, 6);
-                [self addSubview:DotImgView];
                 
                 CGRect distanceLabelRect=CGRectMake(45+size.width+32+25,45,180,15);
                 UILabel *mileslabel=[[UILabel alloc] initWithFrame:distanceLabelRect];
@@ -148,108 +148,26 @@
                 
             case kSortByDegree:
             {
-                UIImageView *DotImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_dot.png"]];
-                DotImgView.frame=CGRectMake(45+size.width+32+10, 50, 6, 6);
-                [self addSubview:DotImgView];
 
             }
                 break;
                 
             case kSortByTime:
             {
-                UIImageView *DotImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_dot.png"]];
-                DotImgView.frame=CGRectMake(45+size.width+32+10, 50, 6, 6);
-                [self addSubview:DotImgView];
-#if 1    
-                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                dateFormatter.dateFormat = @"yyyy-MM-dd_HH:mm:ss";
-                NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-                [dateFormatter setTimeZone:gmt];
-                
-                // how to get back time from current time in the same format
-                
-                NSDate *lastDate = [dateFormatter dateFromString:detailSectionInfo.dateFormatterString];//add the string
-                NSString *todayDate = [dateFormatter stringFromDate:[NSDate date]];
-                NSDate *currentDate=[dateFormatter dateFromString:todayDate];	
-                
-                	
-                
-                BOOL checkTime;			
-                NSTimeInterval interval = [lastDate timeIntervalSinceDate:currentDate];
-                unsigned long seconds = interval;
-                unsigned long minutes = seconds / 60;
-                seconds %= 60;
-                unsigned long hours = minutes / 60;
-                if(hours)
-                    minutes %= 60;
-                unsigned long days=hours/24;
-                if(days)
-                    hours %=24;
-                
-                NSMutableString * result = [[NSMutableString new] autorelease];
-                dateFormatter.dateFormat=@"MMM d, YYYY, h:mma";
-                
-                
-                
-                NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
-                
-                NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:lastDate];
-                
-                NSTimeInterval interval2 = destinationGMTOffset;
-                
-                NSDate* destinationDate = [[[NSDate alloc] initWithTimeInterval:interval2 sinceDate:lastDate] autorelease];
-                
-                NSString *currentTime=[dateFormatter stringFromDate:destinationDate];
-                NSLog(@"cutt=%@",currentTime);
+                    CGRect timeLabelRect=CGRectMake(45+size.width+32+25,45,180,15);
+                    UILabel *timelabel=[[UILabel alloc] initWithFrame:timeLabelRect];
+                    timelabel.textAlignment=UITextAlignmentLeft;
+                    timelabel.text=[NSString stringWithFormat:@"%@",[SoclivityUtilities NetworkTime:detailSectionInfo]];
+                    timelabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
+                    timelabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+                    timelabel.backgroundColor=[UIColor clearColor];
+                    
+                    [self addSubview:timelabel];
+                    [timelabel release];
 
-                
-                if(days){
-                    
-                    
-                    [result appendFormat:@"%@",currentTime];
-                    checkTime=FALSE;
                 }
-                
-                else {
-                    checkTime=TRUE;
-                }
-                
-                
-                if(hours && checkTime){
-                    
-                    if(hours>0 && hours<=24){
-                    [result appendFormat: @"Tomorrow"];
-                      checkTime=FALSE;
-                    }
-                    else{
-                        checkTime=TRUE;
-                    }
-                }
-                
-                
-                
-                if(minutes && checkTime){
-                    
-                    
-                    [result appendFormat: @"in %dmins", minutes];
-                    checkTime=FALSE;
-                }
-                
-                CGRect distanceLabelRect=CGRectMake(45+size.width+32+25,45,180,15);
-                UILabel *mileslabel=[[UILabel alloc] initWithFrame:distanceLabelRect];
-                mileslabel.textAlignment=UITextAlignmentLeft;
-                mileslabel.text=[NSString stringWithFormat:@"%@",result];
-                mileslabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
-                mileslabel.textColor=[SoclivityUtilities returnTextFontColor:1];
-                mileslabel.backgroundColor=[UIColor clearColor];
-                
-                [self addSubview:mileslabel];
-                [mileslabel release];
 
-                
-#endif
-
-            }
+            
                 break;
                 
         }

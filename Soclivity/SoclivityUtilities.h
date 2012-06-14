@@ -19,4 +19,5 @@
 +(void)setPlayerActivities:(NSArray *)_data;
 +(NSArray *)getPlayerActivities;
 +(UILabel*)TitleLabelAndFontOnNavigationBar;
++(NSString*)NetworkTime:(InfoActivityClass*)formatStringGMTObj;
 @end

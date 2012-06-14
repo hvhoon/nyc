@@ -279,12 +279,8 @@
 	timeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
 	timeLabel.textColor=[UIColor whiteColor];
 	timeLabel.backgroundColor=[UIColor clearColor];
-    for(DetailInfoActivityClass *detailPlay in [locObject._socAnnotation quotations]){
-        timeLabel.text=detailPlay.dateAndTime;
-    }
-
-	
-	[mapLeftView addSubview:timeLabel];
+    timeLabel.text=locObject._socAnnotation.dateAndTime;
+    [mapLeftView addSubview:timeLabel];
 	[timeLabel release];
 	
 	
