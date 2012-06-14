@@ -12,6 +12,9 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "InfoActivityClass.h"
 #import "DetailInfoActivityClass.h"
+#import "SoclivityManager.h"
+#import "FilterPreferenceClass.h"
+
 #define PASSWORD_LENGTH 6
 
 @implementation SoclivityUtilities
@@ -92,18 +95,19 @@ static NSArray *playerActivityDetails;
             NSLog(@"Today");
             
             if(hours && checkTime){
-                [result appendFormat: @"in %d hours", hours];
-                checkTime=FALSE;
-            }
-            else{
-                checkTime=TRUE;
+                [result appendFormat: @"in %d hrs", hours];
             }
             
             if(minutes && checkTime){
                 
+                if(hours==0){
+                    [result appendFormat: @"in %d min", minutes];
+                }
+                else
+                [result appendFormat: @" %d min", minutes];
                 
-                [result appendFormat: @"in %d minutes", minutes];
                 checkTime=FALSE;
+                
             }
             
             
@@ -310,5 +314,37 @@ static NSArray *playerActivityDetails;
     
     return NO;
 }
-
++(BOOL)validFilterActivity:(NSInteger)Type{
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    switch (Type) {
+        case 1:
+        {
+            return SOC.filterObject.playAct;
+        }
+            break;
+        case 2:
+        {
+            return SOC.filterObject.eatAct;
+        }
+            break;
+        case 3:
+        {
+            return SOC.filterObject.seeAct;
+        }
+            break;
+        case 4:
+        {
+            return SOC.filterObject.createAct;
+        }
+            break;
+        case 5:
+        {
+            return SOC.filterObject.learnAct;
+        }
+            break;
+         default:
+            return NO;
+            break;
+    }
+}
 @end

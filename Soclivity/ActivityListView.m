@@ -101,7 +101,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
     
-    return [self.plays count];
+    return [self.sectionInfoArray count];
 }
 
 
@@ -435,10 +435,11 @@
     }
     
     NSMutableArray *infoArray = [[NSMutableArray alloc] init];
-     //openSectionIndex_ = NSNotFound;
     for (InfoActivityClass *play in self.plays) {
         
-        SectionInfo *sectionInfo = [[SectionInfo alloc] init];			
+        if([SoclivityUtilities validFilterActivity:play.type]){
+        SectionInfo *sectionInfo = [[SectionInfo alloc] init];
+        
         sectionInfo.play = play;
         sectionInfo.open = NO;
         NSNumber *defaultRowHeight = [NSNumber numberWithInteger:DEFAULT_ROW_HEIGHT];
@@ -449,6 +450,7 @@
         
         [infoArray addObject:sectionInfo];
         [sectionInfo release];
+        }
     }
     
     self.sectionInfoArray = infoArray;
@@ -458,4 +460,9 @@
     [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     
 }
+#pragma mark Filter Pane Activities
+-(void)doFilteringByActivities{
+    [self sortingFilterRefresh];    
+}
+
 @end

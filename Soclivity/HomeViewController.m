@@ -378,7 +378,7 @@
         NSLog(@"Now I'm closed, pull me up again!");
         
         //time to update filters
-        //[activityTableView doFilteringByActivities];
+        [activityTableView doFilteringByActivities];
     }
 }
 -(void)AddHideAnOverlay:(Boolean)open{
