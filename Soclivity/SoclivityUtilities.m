@@ -231,6 +231,10 @@ static NSArray *playerActivityDetails;
         {
             return [UIColor colorWithRed:90.0/255.0 green:90.0/255.0 blue:90.0/255.0 alpha:1.0];
         }
+
+        // Color for the Home List view text
+        case 6:
+            return [UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0];
             
         default:
         {
