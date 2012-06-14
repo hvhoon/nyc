@@ -360,12 +360,12 @@
 }
 
 -(void)alphaLess{
-    gradient=gradient-0.003;
+    gradient=gradient-0.005;
     socEventMapView.alpha =gradient;
     activityTableView.alpha =gradient;
 }
 -(void)alphaMore{
-    gradient=gradient+0.003;
+    gradient=gradient+0.005;
     socEventMapView.alpha = gradient;
     activityTableView.alpha =gradient;
 }
@@ -376,6 +376,10 @@
         
     } else {
         NSLog(@"Now I'm closed, pull me up again!");
+        
+        //time to update filters
+        [activityTableView doFilteringByActivities];
+        [socEventMapView doFilteringByActivities];
     }
 }
 -(void)AddHideAnOverlay:(Boolean)open{

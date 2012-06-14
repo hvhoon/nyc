@@ -10,6 +10,7 @@
 #import "WelcomeScreenViewController.h"
 #import "FacebookLogin.h"
 #import "InfoActivityClass.h"
+#import "DetailInfoActivityClass.h"
 #import "SoclivityUtilities.h"
 #import "SoclivitySqliteClass.h"
 static NSString* kAppId = @"160726900680967";//kanav
@@ -103,6 +104,8 @@ void uncaughtExceptionHandler(NSException *exception) {
         play.latitude=[playDictionary objectForKey:@"Latitude"];
         play.longitude=[playDictionary objectForKey:@"Longitude"];
         play.dateFormatterString=[playDictionary objectForKey:@"Date"];
+        NSString *message=[SoclivityUtilities NetworkTime:play];
+        NSLog(@"message=%@",message);
         NSArray *quotationDictionaries = [playDictionary objectForKey:@"detailQuotations"];
         NSMutableArray *quotations = [NSMutableArray arrayWithCapacity:[quotationDictionaries count]];
         
@@ -124,6 +127,8 @@ void uncaughtExceptionHandler(NSException *exception) {
     [playDictionariesArray release];
 
 }
+
+
 -(FacebookLogin*)SetUpFacebook{
     FacebookLogin *login=[[FacebookLogin alloc]init];
 

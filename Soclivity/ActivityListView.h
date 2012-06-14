@@ -32,6 +32,7 @@
     NSString *textRelease;
     NSString *textLoading;
     NSInteger sortType;
+    BOOL sectionOpenClose;
 }
 
 @property (nonatomic, retain) NSArray *plays;
@@ -56,6 +57,7 @@
 -(void)sortByDegree;
 -(void)sortingFilterRefresh;
 -(void)SortByTime;
+-(void)doFilteringByActivities;
 @end
 NS_INLINE NSComparisonResult FilterSorting(NSString *s1, NSString *s2) {
     return [s1 compare:s2];

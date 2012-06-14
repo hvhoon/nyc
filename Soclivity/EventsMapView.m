@@ -104,12 +104,15 @@
 -(void)setUpMapAnnotations{
     int index=0;
     for (InfoActivityClass *play in self.plays){
+        
+    if([SoclivityUtilities validFilterActivity:play.type]){
         CLLocationCoordinate2D theCoordinate;
         theCoordinate.latitude = [play.latitude doubleValue];
         theCoordinate.longitude =[play.longitude doubleValue];
         play.stamp=index;
-        SocAnnotation *sfAnnotation = [[[SocAnnotation alloc] initWithName:@" " address:@" " coordinate:theCoordinate annotationObject:play] autorelease];
+        SocAnnotation *sfAnnotation = [[SocAnnotation alloc] initWithName:@" " address:@" " coordinate:theCoordinate annotationObject:play];
         [self.mapView addAnnotation:sfAnnotation];
+        }
         index++;
     }
         
@@ -124,6 +127,12 @@
     [self.mapView removeAnnotations:self.mapView.annotations];  // remove any annotations that exist
     self.plays=[SoclivityUtilities getPlayerActivities];
     [self setUpMapAnnotations];
+}
+
+-(void)doFilteringByActivities{
+    [self.mapView removeAnnotations:self.mapView.annotations];  // remove any annotations that exist
+    [self setUpMapAnnotations];
+
 }
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
 #if 0    
@@ -172,7 +181,7 @@
         SocAnnotation *location = (SocAnnotation *) annotation;
         MKPinAnnotationView* pinView =
         (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:SFAnnotationIdentifier];
-        if (!pinView)
+        //if (!pinView)
         {
             MKAnnotationView *annotationView = [[[MKAnnotationView alloc] initWithAnnotation:annotation
                                                                              reuseIdentifier:SFAnnotationIdentifier] autorelease];
@@ -245,10 +254,10 @@
             
             return annotationView;
         }
-        else
+        /*else
         {
             pinView.annotation = annotation;
-        }
+        }*/
         return pinView;
     }
     
@@ -279,12 +288,8 @@
 	timeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
 	timeLabel.textColor=[UIColor whiteColor];
 	timeLabel.backgroundColor=[UIColor clearColor];
-    for(DetailInfoActivityClass *detailPlay in [locObject._socAnnotation quotations]){
-        timeLabel.text=detailPlay.dateAndTime;
-    }
-
-	
-	[mapLeftView addSubview:timeLabel];
+    timeLabel.text=[locObject._socAnnotation dateAndTime];
+    [mapLeftView addSubview:timeLabel];
 	[timeLabel release];
 	
 	

@@ -52,7 +52,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
     v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_lightdivider.png"]];
     self.tableView.tableFooterView=v;
-	
+	self.tableView.scrollsToTop=YES;
     rowHeight_ = DEFAULT_ROW_HEIGHT;
     openSectionIndex_ = NSNotFound;
     [self startPopulatingListView];
@@ -101,7 +101,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
     
-    return [self.plays count];
+    return [self.sectionInfoArray count];
 }
 
 
@@ -127,7 +127,7 @@
     
     cell.delegate=self;
     InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
-    cell.quotation = [play.quotations objectAtIndex:indexPath.row];
+    cell.playActivity = play;
     [cell setNeedsDisplay];
     return cell;
     
@@ -166,7 +166,7 @@
 -(void)sectionHeaderView:(SectionHeaderView*)sectionHeaderView sectionOpened:(NSInteger)sectionOpened {
 	
 
-    
+    sectionOpenClose=TRUE;
 	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:sectionOpened];
 	
 	sectionInfo.open = YES;
@@ -222,7 +222,7 @@
 
 -(void)sectionHeaderView:(SectionHeaderView*)sectionHeaderView sectionClosed:(NSInteger)sectionClosed {
     
-    
+    sectionOpenClose=FALSE;
 	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:sectionClosed];
 	
     sectionInfo.open = NO;
@@ -277,6 +277,9 @@
     isDragging = YES;
 }
 
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView{
+    return YES;    
+}
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (isLoading) {
         // Update the content inset, good for section headers
@@ -411,11 +414,32 @@
 
 }
 -(void)sortingFilterRefresh{
+    
+    if(sectionOpenClose){
+        sectionOpenClose=FALSE;
+        SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:self.openSectionIndex];
+        
+        sectionInfo.open = NO;
+        NSInteger countOfRowsToDelete = [self.tableView numberOfRowsInSection:self.openSectionIndex];
+        
+        if (countOfRowsToDelete > 0) {
+            NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
+            for (NSInteger i = 0; i < countOfRowsToDelete; i++) {
+                [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:i inSection:self.openSectionIndex]];
+            }
+            [self.tableView deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:UITableViewRowAnimationTop];
+            [indexPathsToDelete release];
+        }
+        self.openSectionIndex = NSNotFound;
+
+    }
+    
     NSMutableArray *infoArray = [[NSMutableArray alloc] init];
-     openSectionIndex_ = NSNotFound;
     for (InfoActivityClass *play in self.plays) {
         
-        SectionInfo *sectionInfo = [[SectionInfo alloc] init];			
+        if([SoclivityUtilities validFilterActivity:play.type]){
+        SectionInfo *sectionInfo = [[SectionInfo alloc] init];
+        
         sectionInfo.play = play;
         sectionInfo.open = NO;
         NSNumber *defaultRowHeight = [NSNumber numberWithInteger:DEFAULT_ROW_HEIGHT];
@@ -426,11 +450,19 @@
         
         [infoArray addObject:sectionInfo];
         [sectionInfo release];
+        }
     }
     
     self.sectionInfoArray = infoArray;
     [infoArray release];
+
     [self.tableView reloadData];
+    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     
 }
+#pragma mark Filter Pane Activities
+-(void)doFilteringByActivities{
+    [self sortingFilterRefresh];    
+}
+
 @end

@@ -10,12 +10,12 @@
 
 @interface DetailInfoActivityClass : NSObject{
     
-    NSString *dateAndTime;
+    
     NSString *location;
     NSInteger DOS_1;
     NSInteger DOS_2;
 }
-@property(nonatomic,retain)NSString *dateAndTime;
+
 @property(nonatomic,retain)NSString *location;
 @property(nonatomic,assign)NSInteger DOS_1;
 @property(nonatomic,assign)NSInteger DOS_2;

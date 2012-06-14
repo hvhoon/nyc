@@ -20,7 +20,7 @@
 		<key>goingCount</key>
 		<string>12</string>
 		<key>Date</key>
-		<string>2012-07-12_21:43:29</string>
+		<string>2012-07-14_21:43:29</string>
 		<key>detailQuotations</key>
 		<array>
 			<dict>
@@ -28,8 +28,6 @@
 				<integer>2</integer>
 				<key>DOS_2</key>
 				<integer>4</integer>
-				<key>dateAndTime</key>
-				<string>Today, 07:30 PM</string>
 				<key>location</key>
 				<string>114 Christopher Street</string>
 			</dict>
@@ -61,8 +59,6 @@
 				<integer>8</integer>
 				<key>DOS_2</key>
 				<integer>4</integer>
-				<key>dateAndTime</key>
-				<string>Thu May 3, 05:25 AM</string>
 				<key>location</key>
 				<string>Penn Square</string>
 			</dict>
@@ -94,8 +90,6 @@
 				<integer>12</integer>
 				<key>DOS_2</key>
 				<integer>9</integer>
-				<key>dateAndTime</key>
-				<string>Mon June 17, 23:09 PM</string>
 				<key>location</key>
 				<string>Leisure Valley</string>
 			</dict>
@@ -119,7 +113,7 @@
 		<key>goingCount</key>
 		<string>32</string>
 		<key>Date</key>
-		<string>2012-06-14_06:43:29</string>
+		<string>2012-06-16_06:43:29</string>
 		<key>detailQuotations</key>
 		<array>
 			<dict>
@@ -127,8 +121,6 @@
 				<integer>10</integer>
 				<key>DOS_2</key>
 				<integer>7</integer>
-				<key>dateAndTime</key>
-				<string>Today, 20.00 PM</string>
 				<key>location</key>
 				<string>Old Delhi</string>
 			</dict>
@@ -152,7 +144,7 @@
 		<key>goingCount</key>
 		<string>2</string>
 		<key>Date</key>
-		<string>2012-06-13_19:24:29</string>
+		<string>2012-06-15_12:24:29</string>
 		<key>detailQuotations</key>
 		<array>
 			<dict>
@@ -160,8 +152,6 @@
 				<integer>6</integer>
 				<key>DOS_2</key>
 				<integer>4</integer>
-				<key>dateAndTime</key>
-				<string>Fri Nov 7, 18:07 PM</string>
 				<key>location</key>
 				<string>London</string>
 			</dict>
@@ -193,8 +183,6 @@
 				<integer>3</integer>
 				<key>DOS_2</key>
 				<integer>9</integer>
-				<key>dateAndTime</key>
-				<string>Fri Feb 7, 17:07 PM</string>
 				<key>location</key>
 				<string>Miami</string>
 			</dict>

@@ -9,9 +9,10 @@
 
 #import "SOCTableViewCell.h"
 #import "SoclivityUtilities.h"
+#import "DetailInfoActivityClass.h"
 @implementation SOCTableViewCell
 @synthesize delegate;
-@synthesize quotation;
+@synthesize playActivity;
 static UIFont *firstTextFont = nil;
 static UIFont *boldText = nil;
 + (void)initialize
@@ -27,7 +28,7 @@ static UIFont *boldText = nil;
 - (void)dealloc
 {
     [super dealloc];
-    [quotation release];
+    [playActivity release];
 }
 
 - (void)drawContentView:(CGRect)r
@@ -61,16 +62,17 @@ static UIFont *boldText = nil;
        
     
     [@"WHEN:" drawInRect:CGRectMake(45,10,55,25) withFont:boldText];
-    [quotation.dateAndTime drawInRect:CGRectMake(45+50, 10, 200, 25) withFont:firstTextFont];
     
+    [playActivity.dateAndTime drawInRect:CGRectMake(45+50, 10, 200, 25) withFont:firstTextFont];
     [@"WHERE:" drawInRect:CGRectMake(45,35,55,25) withFont:boldText];
-    [quotation.location drawInRect:CGRectMake(45+55,35,200,25) withFont:firstTextFont];
-
-    NSString *firstLabel=[NSString stringWithFormat:@"You have %d friends going",quotation.DOS_1];
-    NSString *secondLabel=[NSString stringWithFormat:@"You may know  %d more people going",quotation.DOS_2];
+    for(DetailInfoActivityClass *detailPlay in [playActivity quotations]){
+    [detailPlay.location drawInRect:CGRectMake(45+55,35,200,25) withFont:firstTextFont];
+    
+    NSString *firstLabel=[NSString stringWithFormat:@"You have %d friends going",detailPlay.DOS_1];
+    NSString *secondLabel=[NSString stringWithFormat:@"You may know  %d more people going",detailPlay.DOS_2];
     [firstLabel drawInRect:CGRectMake(45,60,200,25) withFont:firstTextFont];
     [secondLabel drawInRect:CGRectMake(45,85,280,25) withFont:firstTextFont];
-    
+    }
 //    v = [[UIView alloc] initWithFrame:CGRectMake(0, 119, 320, 1)];
 //    v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_darkdivider.png"]];
 //    [self addSubview:v];	

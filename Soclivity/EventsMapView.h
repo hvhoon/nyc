@@ -38,4 +38,5 @@
 -(void)setUpMapAnnotations;
 -(UIView*)DrawAMapLeftAccessoryView:(SocAnnotation *)locObject;
 -(void)pushTodetailActivity:(id)sender;
+-(void)doFilteringByActivities;
 @end

@@ -20,6 +20,7 @@
     NSNumber *longitude;
     NSArray *quotations;
     NSString *dateFormatterString;
+    NSString *dateAndTime;
 }
 @property (nonatomic,assign)NSInteger type;
 @property (nonatomic,assign)NSInteger stamp;
@@ -32,4 +33,5 @@
 @property (nonatomic,retain) NSNumber *longitude;
 @property (nonatomic, retain) NSArray *quotations;
 @property (nonatomic,retain) NSString *dateFormatterString;
+@property(nonatomic,retain)NSString *dateAndTime;
 @end

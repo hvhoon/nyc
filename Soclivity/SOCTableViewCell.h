@@ -7,7 +7,7 @@
 //
 
 #import "ABTableViewCell.h"
-#import "DetailInfoActivityClass.h"
+#import "InfoActivityClass.h"
 
 @protocol PDTTableViewCellDelegate <NSObject>
 
@@ -17,9 +17,9 @@
 
 @interface SOCTableViewCell : ABTableViewCell{
     id <PDTTableViewCellDelegate> delegate;
-    DetailInfoActivityClass *quotation;
+    InfoActivityClass *playActivity;
 }
 
 @property (nonatomic,retain)id <PDTTableViewCellDelegate> delegate;
-@property (nonatomic, retain) DetailInfoActivityClass *quotation;
+@property (nonatomic, retain) InfoActivityClass *playActivity;
 @end

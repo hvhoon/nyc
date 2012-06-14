@@ -10,6 +10,11 @@
 #import "UIImage+ProportionalFill.h"
 #import "UIImage+Tint.h"
 #import <SystemConfiguration/SystemConfiguration.h>
+#import "InfoActivityClass.h"
+#import "DetailInfoActivityClass.h"
+#import "SoclivityManager.h"
+#import "FilterPreferenceClass.h"
+
 #define PASSWORD_LENGTH 6
 
 @implementation SoclivityUtilities
@@ -24,7 +29,127 @@ static NSArray *playerActivityDetails;
     return playerActivityDetails;
     
 }
-
++(NSString*)NetworkTime:(InfoActivityClass*)formatStringGMTObj{
+#if 1    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd_HH:mm:ss";
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [dateFormatter setTimeZone:gmt];
+    
+    // how to get back time from current time in the same format
+    
+    NSDate *lastDate = [dateFormatter dateFromString:formatStringGMTObj.dateFormatterString];//add the string
+    NSString *todayDate = [dateFormatter stringFromDate:[NSDate date]];
+    NSDate *currentDate=[dateFormatter dateFromString:todayDate];	
+    
+    NSTimeInterval interval = [lastDate timeIntervalSinceDate:currentDate];
+    NSLog(@"initail interval=%f",interval);
+    unsigned long seconds = interval;
+    unsigned long minutes = seconds / 60;
+    seconds %= 60;
+    unsigned long hours = minutes / 60;
+    if(hours)
+        minutes %= 60;
+    unsigned long days=hours/24;
+    if(days)
+        hours %=24;
+    
+    NSMutableString * result = [[NSMutableString new] autorelease];
+    dateFormatter.dateFormat=@"EEE, MMM d, h:mm a";//@"MMM d, YYYY, h:mm a"
+    
+    
+    
+    NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
+    
+    NSInteger destinationGMTOffset1 = [destinationTimeZone secondsFromGMTForDate:lastDate];
+    NSInteger destinationGMTOffset2 = [destinationTimeZone secondsFromGMTForDate:currentDate];
+    
+    NSTimeInterval interval2 = destinationGMTOffset1;
+    NSTimeInterval interval3 = destinationGMTOffset2;
+    
+    NSDate* destinationDate = [[[NSDate alloc] initWithTimeInterval:interval2 sinceDate:lastDate] autorelease];
+    
+    NSDate* currentDateTime = [[[NSDate alloc] initWithTimeInterval:interval3 sinceDate:currentDate] autorelease];
+    
+    
+    NSString *activityTime=[dateFormatter stringFromDate:destinationDate];
+    NSString  *currentTime=[dateFormatter stringFromDate:currentDateTime];
+    NSTimeInterval interval5 = [destinationDate timeIntervalSinceDate:currentDateTime];
+    NSLog(@"activityTime=%@",activityTime);
+    NSLog(@"currentTime=%@",currentTime);
+    NSLog(@"interval5,the actual difference=%f",interval5);
+    
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    int differenceInDays =
+    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:destinationDate]-
+    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:currentDateTime];
+    BOOL checkTime=TRUE;
+    switch (differenceInDays) {
+        case -1:
+        {
+            NSLog(@"Yesterday");
+        }
+            break;
+        case 0:
+        {
+            NSLog(@"Today");
+            
+            if(hours && checkTime){
+                [result appendFormat: @"in %d hrs", hours];
+            }
+            
+            if(minutes && checkTime){
+                
+                if(hours==0){
+                    [result appendFormat: @"in %d min", minutes];
+                }
+                else
+                [result appendFormat: @" %d min", minutes];
+                
+                checkTime=FALSE;
+                
+            }
+            
+            
+                dateFormatter.dateFormat=@"h:mm a";
+                
+                NSString*timeUpdate=[NSString stringWithFormat:@"Today,%@",[dateFormatter stringFromDate:destinationDate]];
+                formatStringGMTObj.dateAndTime=timeUpdate;
+            
+            
+        }
+            break;
+        case 1:
+        {
+            NSLog(@"Tommorow");
+            
+            [result appendFormat: @"Tommorow"];
+            
+            for(DetailInfoActivityClass *detailPlay in [formatStringGMTObj quotations]){
+                dateFormatter.dateFormat=@"h:mm a";
+                
+                NSString*timeUpdate=[NSString stringWithFormat:@"Tomorrow,%@",[dateFormatter stringFromDate:destinationDate]];
+                formatStringGMTObj.dateAndTime=timeUpdate;
+            }
+            
+        }
+            break;
+        default: {
+            NSLog(@"later");
+            [result appendFormat:activityTime];
+            formatStringGMTObj.dateAndTime=activityTime;
+        }
+            break;
+            
+    }
+    
+    
+    return result;
+    
+    
+#endif
+    
+}
 +(Boolean)hasNetworkConnection
 {
 	Boolean retVal = NO;
@@ -189,5 +314,37 @@ static NSArray *playerActivityDetails;
     
     return NO;
 }
-
++(BOOL)validFilterActivity:(NSInteger)Type{
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    switch (Type) {
+        case 1:
+        {
+            return SOC.filterObject.playAct;
+        }
+            break;
+        case 2:
+        {
+            return SOC.filterObject.eatAct;
+        }
+            break;
+        case 3:
+        {
+            return SOC.filterObject.seeAct;
+        }
+            break;
+        case 4:
+        {
+            return SOC.filterObject.createAct;
+        }
+            break;
+        case 5:
+        {
+            return SOC.filterObject.learnAct;
+        }
+            break;
+         default:
+            return NO;
+            break;
+    }
+}
 @end

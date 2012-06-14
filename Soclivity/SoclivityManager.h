@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 @class GetPlayersClass;
+@class FilterPreferenceClass;
 @protocol SoclivityManagerDelegate <NSObject>
 
 @optional
@@ -21,6 +22,7 @@
     BOOL basicInfoDone;
     CLLocation *currentLocation;
     GetPlayersClass *loggedInUser;
+    FilterPreferenceClass *filterObject;
    
    
 }
@@ -29,5 +31,6 @@
 @property (nonatomic,assign)BOOL basicInfoDone;
 @property (nonatomic,retain)CLLocation *currentLocation;
 @property (nonatomic,retain)GetPlayersClass *loggedInUser;
+@property (nonatomic,retain)FilterPreferenceClass *filterObject;
 + (id)SharedInstance;
 @end
