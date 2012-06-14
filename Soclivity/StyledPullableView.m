@@ -24,6 +24,10 @@
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
         
+        float theFloat = 5.3456;
+        int rounded = lroundf(theFloat); NSLog(@"%d",rounded);
+        int roundedUp = ceil(theFloat); NSLog(@"%d",roundedUp);
+        int roundedDown = floor(theFloat); NSLog(@"%d",roundedDown);
         self.backgroundColor=[UIColor clearColor];
         
         SOC=[SoclivityManager SharedInstance];                     
@@ -185,7 +189,8 @@
         rangeSlider=[[FCRangeSlider alloc]initWithFrame:CGRectMake(58.5, 48, 198, 7)];
         [timeBackgroundImageView addSubview:rangeSlider];
         [rangeSlider setThumbImage:[UIImage imageNamed:@"S4.1_scroll-ball.png"] forState:UIControlStateHighlighted];
-        [self sliderValueChanged:rangeSlider];
+        [rangeSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+        //[self sliderValueChanged:rangeSlider];
 
         [backgroundView addSubview:timeBackgroundImageView];
         [timeBackgroundImageView release];
@@ -240,6 +245,34 @@
 
 - (void)sliderValueChanged:(FCRangeSlider *)sender {
     NSLog(@"lblRangeValue=%@",[NSString stringWithFormat:@"{%f, %f}", sender.rangeValue.start, sender.rangeValue.end]);
+    float value=sender.rangeValue.start*96/10;
+    int value1=lroundf(value);
+   NSMutableString * result = [[NSMutableString new] autorelease];
+    NSLog(@"%d",value1);
+    if(value1%2==0){
+        NSLog(@"Even Value");
+        value1=value1;
+        if(value1>12){
+            value1-=12;
+            [result appendFormat:@"%d PM",value1];
+        }
+        else{
+        [result appendFormat:@"%d AM",value1];
+        }
+        //offeset in hours
+    }
+    else{
+        value1=value1-1;
+        if(value1>12){
+            value1-=12;
+            [result appendFormat:@"%d:30 PM",value1];
+        }
+        else{
+            [result appendFormat:@"%d:30 AM",value1];
+        }
+        NSLog(@"Odd Value");//.30
+    }
+    NSLog(@"result=%@",result);
 }
 
 -(void)activityButtonPressed:(UIButton*)sender{
