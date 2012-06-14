@@ -236,6 +236,10 @@ static NSArray *playerActivityDetails;
         case 6:
             return [UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0];
             
+        // Color for the list detailed and middle section
+        case 7:
+            return [UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.0];
+            
         default:
         {
             return [UIColor colorWithRed:255.0/255.0 green:255./255.0 blue:255.0/255.0 alpha:1.0];
