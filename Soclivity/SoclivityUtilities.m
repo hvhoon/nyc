@@ -182,7 +182,7 @@ if(timer%2==0){
             
                 dateFormatter.dateFormat=@"h:mm a";
                 
-                NSString*timeUpdate=[NSString stringWithFormat:@"Today,%@",[dateFormatter stringFromDate:destinationDate]];
+                NSString*timeUpdate=[NSString stringWithFormat:@"Today, %@",[dateFormatter stringFromDate:destinationDate]];
                 formatStringGMTObj.dateAndTime=timeUpdate;
             
             
@@ -197,7 +197,7 @@ if(timer%2==0){
             for(DetailInfoActivityClass *detailPlay in [formatStringGMTObj quotations]){
                 dateFormatter.dateFormat=@"h:mm a";
                 
-                NSString*timeUpdate=[NSString stringWithFormat:@"Tomorrow,%@",[dateFormatter stringFromDate:destinationDate]];
+                NSString*timeUpdate=[NSString stringWithFormat:@"Tomorrow, %@",[dateFormatter stringFromDate:destinationDate]];
                 formatStringGMTObj.dateAndTime=timeUpdate;
             }
             

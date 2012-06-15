@@ -187,13 +187,6 @@
                 
         }
         
-        // Divider at the bottom of the header section
-        UIView* middleSectionBottomDivider = [[UIView alloc] initWithFrame:CGRectMake(0, 94, 320, 1)];
-        middleSectionBottomDivider.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]];
-        [self addSubview:middleSectionBottomDivider];
-        [middleSectionBottomDivider release];
-        
-        
         // Create and configure the disclosure button.
         UIButton *disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         disclosureButton.frame = CGRectMake(290.0, 30.0, 13.0, 18.0);
