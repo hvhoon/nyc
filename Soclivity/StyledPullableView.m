@@ -26,10 +26,6 @@
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
         
-        float theFloat = 5.3456;
-        int rounded = lroundf(theFloat); NSLog(@"%d",rounded);
-        int roundedUp = ceil(theFloat); NSLog(@"%d",roundedUp);
-        int roundedDown = floor(theFloat); NSLog(@"%d",roundedDown);
         self.backgroundColor=[UIColor clearColor];
         
         SOC=[SoclivityManager SharedInstance];                     
@@ -148,10 +144,17 @@
         timeBackgroundImageView.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S4.1_time-background.png"]];
 
        
+        
+     
         UIButton *todayButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         todayButton.frame = CGRectMake(2,5, 103.0, 29.0);
         todayButton.tag=kTodayFilter;
-        [todayButton setImage:[UIImage imageNamed:@"S4.1_today-deselect.png"] forState:UIControlStateNormal];
+        if(SOC.filterObject.whenSearchType==1){
+        [todayButton setImage:[UIImage imageNamed:@"S4.1_today-selected.png"] forState:UIControlStateNormal];
+        }
+        else{
+            [todayButton setImage:[UIImage imageNamed:@"S4.1_today-deselect.png"] forState:UIControlStateNormal];
+        }
         [todayButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [timeBackgroundImageView addSubview:todayButton];
         
@@ -159,7 +162,14 @@
         UIButton *tomorrowButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         tomorrowButton.frame = CGRectMake(106,5, 103.0, 29.0);
         tomorrowButton.tag=kTomorrowFilter;
-        [tomorrowButton setImage:[UIImage imageNamed:@"S4.1_tomorrow-deselect.png"] forState:UIControlStateNormal];
+        if(SOC.filterObject.whenSearchType==2){
+            [tomorrowButton setImage:[UIImage imageNamed:@"S4.1_tomorrow-selected.png"] forState:UIControlStateNormal];
+        }
+        else{
+            [tomorrowButton setImage:[UIImage imageNamed:@"S4.1_tomorrow-deselect.png"] forState:UIControlStateNormal];
+        }
+
+        
         [tomorrowButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [timeBackgroundImageView addSubview:tomorrowButton];
         
@@ -167,11 +177,17 @@
         UIButton *laterButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         laterButton.frame = CGRectMake(210,5, 103.0, 29.0);
         laterButton.tag=kLaterFilter;
-        [laterButton setImage:[UIImage imageNamed:@"S4.1_later-deselect.png"] forState:UIControlStateNormal];
+        if(SOC.filterObject.whenSearchType==3){
+            [laterButton setImage:[UIImage imageNamed:@"S4.1_later-selected.png"] forState:UIControlStateNormal];
+        }
+        else{
+            [laterButton setImage:[UIImage imageNamed:@"S4.1_later-deselect.png"] forState:UIControlStateNormal];
+        }
+
         [laterButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [timeBackgroundImageView addSubview:laterButton];
         
-        
+
         
 #if 0
         UIImageView *startImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S4.1_start.png"]];
@@ -269,109 +285,8 @@
 }
 
 - (void)sliderValueChanged:(FCRangeSlider *)sender {
-    NSLog(@"lblRangeValue=%@",[NSString stringWithFormat:@"{%f, %f}", sender.rangeValue.start, sender.rangeValue.end]);
-    float value=sender.rangeValue.start*48/10;
-    int value1=lroundf(value);
-    //int value1=value;
-   NSMutableString * result = [[NSMutableString new] autorelease];
-    NSLog(@"%d",value1);
-    
-    if(value1%2==0){
-        value1=value1/2;
-        if(value1>=12){
-            if(value1==12){
-                [result appendFormat:@"%d:00 PM",value1];
-            }
-            else if(value1==24){
-                [result appendFormat:@"%d:00 AM",12];
-            }
-            else{
-                value1=value1-12;
-                [result appendFormat:@"%d:00 PM",value1];
-            }
-            
-            
-        }
-        else{
-            if(value1==0){
-                [result appendFormat:@"%d:00 AM",12];
-            }
-            else
-                [result appendFormat:@"%d:00 AM",value1];
-        }
-        NSLog(@"Even Value");//.30
-    }
-    else{
-        value1=value1/2;
-        if(value1>=12){
-            if(value1==12){
-                
-            }
-            else
-            value1=value1-12;
-            
-            [result appendFormat:@"%d:30 PM",value1];
-        }
-        else{
-            [result appendFormat:@"%d:30 AM",value1];
-        }
-        NSLog(@"Odd Value");//.30
-    }
-    
-    NSLog(@"result start=%@",result);
-    
-    float endvalue=sender.rangeValue.end*48/10;
-    int endvalue1=lroundf(endvalue);
-    //int endvalue1=endvalue;
-    NSMutableString * endresult = [[NSMutableString new] autorelease];
-    NSLog(@"%d",endvalue1);
-    
-    
-    if(endvalue1%2==0){
-        endvalue1=endvalue1/2;
-        if(endvalue1>=12){
-            if(endvalue1==12){
-                [endresult appendFormat:@"%d:00 PM",endvalue1];
-            }
-            else if(endvalue1==24){
-                [endresult appendFormat:@"%d:00 AM",12];
-            }
-            else{
-                endvalue1=endvalue1-12;
-                [endresult appendFormat:@"%d:00 PM",endvalue1];
-            }
-            
-            
-        }
-        else{
-            if(endvalue1==0){
-                [endresult appendFormat:@"%d:00 AM",12];
-            }
-            else
-            [endresult appendFormat:@"%d:00 AM",endvalue1];
-        }
-        NSLog(@"Even Value");//.30
-    }
-    else{
-        endvalue1=endvalue1/2;
-        if(endvalue1>=12){
-            if(endvalue1==12){
-                
-            }
-            else
-                endvalue1=endvalue1-12;
-            
-            [endresult appendFormat:@"%d:30 PM",endvalue1];
-        }
-        else{
-            [endresult appendFormat:@"%d:30 AM",endvalue1];
-        }
-        NSLog(@"Odd Value");//.30
-    }
-    
-    NSLog(@"result end=%@",endresult);
-    [(UILabel*)[self viewWithTag:kStartTime]setText:result];
-    [(UILabel*)[self viewWithTag:kFinshTime]setText:endresult];
+    [(UILabel*)[self viewWithTag:kStartTime]setText:[SoclivityUtilities getStartAndFinishTimeLabel:sender.rangeValue.start]];
+    [(UILabel*)[self viewWithTag:kFinshTime]setText:[SoclivityUtilities getStartAndFinishTimeLabel:sender.rangeValue.end]];
     
 }
 
@@ -445,6 +360,7 @@
             
         case kTodayFilter:
         {
+            SOC.filterObject.whenSearchType=1;
             [sender setImage:[UIImage imageNamed:@"S4.1_today-selected.png"] forState:UIControlStateNormal];
             [(UIButton*)[self viewWithTag:kTomorrowFilter]setImage:[UIImage imageNamed:@"S4.1_tomorrow-deselect.png"] forState:UIControlStateNormal];
             [(UIButton*)[self viewWithTag:kLaterFilter]setImage:[UIImage imageNamed:@"S4.1_later-deselect.png"] forState:UIControlStateNormal];
@@ -456,7 +372,7 @@
             
         case kTomorrowFilter:
         {
-            
+            SOC.filterObject.whenSearchType=2;
             [sender setImage:[UIImage imageNamed:@"S4.1_tomorrow-selected.png"] forState:UIControlStateNormal];
             [(UIButton*)[self viewWithTag:kTodayFilter]setImage:[UIImage imageNamed:@"S4.1_today-deselect.png"] forState:UIControlStateNormal];
             [(UIButton*)[self viewWithTag:kLaterFilter]setImage:[UIImage imageNamed:@"S4.1_later-deselect.png"] forState:UIControlStateNormal];
@@ -466,6 +382,7 @@
             
         case kLaterFilter:
         {
+            SOC.filterObject.whenSearchType=3;
             [sender setImage:[UIImage imageNamed:@"S4.1_later-selected.png"] forState:UIControlStateNormal];
             [(UIButton*)[self viewWithTag:kTomorrowFilter]setImage:[UIImage imageNamed:@"S4.1_tomorrow-deselect.png"] forState:UIControlStateNormal];
             [(UIButton*)[self viewWithTag:kTodayFilter]setImage:[UIImage imageNamed:@"S4.1_today-deselect.png"] forState:UIControlStateNormal];

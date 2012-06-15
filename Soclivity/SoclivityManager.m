@@ -32,6 +32,7 @@
         filterObject.seeAct=TRUE;
         filterObject.createAct=TRUE;
         filterObject.learnAct=TRUE;
+        filterObject.whenSearchType=1;
     }
     return self;
 }

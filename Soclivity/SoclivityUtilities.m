@@ -29,6 +29,62 @@ static NSArray *playerActivityDetails;
     return playerActivityDetails;
     
 }
+
++(NSString*)getStartAndFinishTimeLabel:(float)sliderValue{
+    float timeValue=sliderValue*48/10;
+    int timer=lroundf(timeValue);
+    //int value1=value;
+    float theFloat = 5.3456;
+    int rounded = lroundf(theFloat); NSLog(@"%d",rounded);
+    int roundedUp = ceil(theFloat); NSLog(@"%d",roundedUp);
+    int roundedDown = floor(theFloat); NSLog(@"%d",roundedDown);
+
+    NSMutableString * result = [[NSMutableString new] autorelease];
+    NSLog(@"%d",timer);
+if(timer%2==0){
+                timer=timer/2;
+        if(timer>=12){
+                if(timer==12){
+                    [result appendFormat:@"%d:00 PM",timer];
+            }
+                else if(timer==24){
+                    [result appendFormat:@"%d:00 AM",12];
+            }
+                else{
+                    timer=timer-12;
+                    [result appendFormat:@"%d:00 PM",timer];
+            }
+            
+            
+}
+ else{
+        if(timer==0){
+                    [result appendFormat:@"%d:00 AM",12];
+            }
+                else
+                    [result appendFormat:@"%d:00 AM",timer];
+        }
+    }
+        else{
+                        timer=timer/2;
+            if(timer>=12){
+                        if(timer==12){
+                            [result appendFormat:@"%d:30 PM",timer];
+
+                        }
+                        else{
+                            timer=timer-12;
+                            [result appendFormat:@"%d:30 PM",timer];
+                        }
+                }
+          else{
+                            [result appendFormat:@"%d:30 AM",timer];
+            }
+    }
+    
+    return result;
+
+}
 +(NSString*)NetworkTime:(InfoActivityClass*)formatStringGMTObj{
 #if 1    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

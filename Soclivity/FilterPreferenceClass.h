@@ -14,10 +14,12 @@
     BOOL seeAct;
     BOOL createAct;
     BOOL learnAct;
+    NSInteger whenSearchType;
 }
 @property (nonatomic,assign)BOOL playAct;
 @property (nonatomic,assign)BOOL eatAct;
 @property (nonatomic,assign)BOOL seeAct;
 @property (nonatomic,assign)BOOL createAct;
 @property (nonatomic,assign)BOOL learnAct;
+@property (nonatomic,assign) NSInteger whenSearchType;
 @end

@@ -21,4 +21,5 @@
 +(UILabel*)TitleLabelAndFontOnNavigationBar;
 +(NSString*)NetworkTime:(InfoActivityClass*)formatStringGMTObj;
 +(BOOL)validFilterActivity:(NSInteger)Type;
++(NSString*)getStartAndFinishTimeLabel:(float)sliderValue;
 @end
