@@ -42,7 +42,7 @@
     [super viewDidLoad];
     gradient=0.94;
     CGFloat xOffset = 0;
-    animationDuration = 0.4;
+    animationDuration = 0.2;
 #if 1   
     NSLog(@"offset=%f",xOffset);
     pullDownView = [[StyledPullableView alloc] initWithFrame:CGRectMake(xOffset, 0, 640, 460)];
@@ -360,12 +360,12 @@
 }
 
 -(void)alphaLess{
-    gradient=gradient-0.005;
+    gradient=gradient-0.007;
     socEventMapView.alpha =gradient;
     activityTableView.alpha =gradient;
 }
 -(void)alphaMore{
-    gradient=gradient+0.005;
+    gradient=gradient+0.007;
     socEventMapView.alpha = gradient;
     activityTableView.alpha =gradient;
 }

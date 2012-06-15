@@ -41,7 +41,7 @@
 }
 - (void)dealloc {
     [mapView release];
-    [self.mapView.userLocation removeObserver:self forKeyPath:@"location"];
+    //[self.mapView.userLocation removeObserver:self forKeyPath:@"location"];
     [super dealloc];
 }
 - (void)gotoLocation
@@ -77,10 +77,10 @@
     self.mapView.mapType = MKMapTypeStandard;
     //[self.mapView setShowsUserLocation:YES];
     self.mapView.showsUserLocation=YES;
-    [self.mapView.userLocation addObserver:self  
+    /*[self.mapView.userLocation addObserver:self  
                                 forKeyPath:@"location"  
                                    options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld)  
-                                   context:NULL];
+                                   context:NULL];*/
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath  
@@ -181,7 +181,7 @@
         SocAnnotation *location = (SocAnnotation *) annotation;
         MKPinAnnotationView* pinView =
         (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:SFAnnotationIdentifier];
-        //if (!pinView)
+        if (!pinView)
         {
             MKAnnotationView *annotationView = [[[MKAnnotationView alloc] initWithAnnotation:annotation
                                                                              reuseIdentifier:SFAnnotationIdentifier] autorelease];
@@ -251,13 +251,13 @@
             [disclosureButton addTarget:self action:@selector(pushTodetailActivity:) forControlEvents:UIControlEventTouchUpInside];
             annotationView.rightCalloutAccessoryView=disclosureButton;
 
-            
+            pinView.animatesDrop=YES;
             return annotationView;
         }
-        /*else
+        else
         {
             pinView.annotation = annotation;
-        }*/
+        }
         return pinView;
     }
     

@@ -19,6 +19,8 @@
 #define kTodayFilter 17
 #define kTomorrowFilter 18
 #define kLaterFilter 19
+#define kStartTime 20
+#define kFinshTime 21
 @implementation StyledPullableView
 @synthesize homeSearchBar;
 - (id)initWithFrame:(CGRect)frame {
@@ -171,7 +173,7 @@
         
         
         
-        
+#if 0
         UIImageView *startImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S4.1_start.png"]];
         startImgView.frame=CGRectMake(18, 55, 32, 10);
         [timeBackgroundImageView addSubview:startImgView];
@@ -183,14 +185,37 @@
         finishImgView.frame=CGRectMake(265, 55, 32, 10);
         [timeBackgroundImageView addSubview:finishImgView];
         [finishImgView release];
+#else
 
+        CGRect startLabelRect=CGRectMake(5,55,65,15);
+        UILabel *startLabel=[[UILabel alloc] initWithFrame:startLabelRect];
+        startLabel.textAlignment=UITextAlignmentLeft;
+        startLabel.text=[NSString stringWithFormat:@"4:00 AM"];
+        startLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
+        startLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+        startLabel.tag=kStartTime;
+        startLabel.backgroundColor=[UIColor clearColor];
+        
+        [timeBackgroundImageView addSubview:startLabel];
+        [startLabel release];
 
+        CGRect finishLabelRect=CGRectMake(255, 55, 62, 15);
+        UILabel *finishLabel=[[UILabel alloc] initWithFrame:finishLabelRect];
+        finishLabel.textAlignment=UITextAlignmentLeft;
+        finishLabel.text=[NSString stringWithFormat:@"8:00 PM"];
+        finishLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
+        finishLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+        finishLabel.tag=kFinshTime;
+        finishLabel.backgroundColor=[UIColor clearColor];
+        
+        [timeBackgroundImageView addSubview:finishLabel];
+        [finishLabel release];
 
+#endif        
         rangeSlider=[[FCRangeSlider alloc]initWithFrame:CGRectMake(58.5, 48, 198, 7)];
         [timeBackgroundImageView addSubview:rangeSlider];
         [rangeSlider setThumbImage:[UIImage imageNamed:@"S4.1_scroll-ball.png"] forState:UIControlStateHighlighted];
         [rangeSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-        //[self sliderValueChanged:rangeSlider];
 
         [backgroundView addSubview:timeBackgroundImageView];
         [timeBackgroundImageView release];
@@ -245,34 +270,91 @@
 
 - (void)sliderValueChanged:(FCRangeSlider *)sender {
     NSLog(@"lblRangeValue=%@",[NSString stringWithFormat:@"{%f, %f}", sender.rangeValue.start, sender.rangeValue.end]);
-    float value=sender.rangeValue.start*96/10;
+    float value=sender.rangeValue.start*48/10;
     int value1=lroundf(value);
    NSMutableString * result = [[NSMutableString new] autorelease];
     NSLog(@"%d",value1);
-    if(value1%2==0){
+    
+    if(value1==0){
+        [result appendFormat:@"%d:00 AM",12];
+    }
+    if(value1==24){
+        [result appendFormat:@"%d:00 PM",12];
+    }
+    else if(value1%2==0){
         NSLog(@"Even Value");
-        value1=value1;
-        if(value1>12){
-            value1-=12;
-            [result appendFormat:@"%d PM",value1];
+        
+        if(value1>24){
+            value1-=24;
+            if(value==24){
+                [result appendFormat:@"%d:00 AM",value1/2];
+            }
+            else
+            [result appendFormat:@"%d:00 PM",value1/2];
         }
         else{
-        [result appendFormat:@"%d AM",value1];
+        [result appendFormat:@"%d:00 AM",value1/2];
         }
-        //offeset in hours
+        //offset in hours
     }
     else{
-        value1=value1-1;
-        if(value1>12){
-            value1-=12;
-            [result appendFormat:@"%d:30 PM",value1];
+        
+        if(value1>24){
+            value1-=24;
+            [result appendFormat:@"%d:30 PM",value1/2-1];
         }
         else{
-            [result appendFormat:@"%d:30 AM",value1];
+            [result appendFormat:@"%d:30 AM",value1/2-1];
         }
         NSLog(@"Odd Value");//.30
     }
-    NSLog(@"result=%@",result);
+    
+    NSLog(@"result start=%@",result);
+    
+    float endvalue=sender.rangeValue.end*48/10;
+    int endvalue1=lroundf(endvalue);
+    NSMutableString * endresult = [[NSMutableString new] autorelease];
+    NSLog(@"%d",endvalue1);
+    
+    if(endvalue1==0){
+        [endresult appendFormat:@"%d:00 AM",12];
+    }
+    if(endvalue1==24){
+        [endresult appendFormat:@"%d:00 PM",12];
+    }
+    
+    else if(endvalue1%2==0){
+        NSLog(@"Even Value");
+        
+        if(endvalue1>24){
+            endvalue1-=24;
+            if(endvalue1==24){
+                [endresult appendFormat:@"%d:00 AM",endvalue1/2];
+            }
+            else
+                [endresult appendFormat:@"%d:00 PM",endvalue1/2];
+        }
+        else{
+            [endresult appendFormat:@"%d:00 AM",endvalue1/2];
+        }
+        //offset in hours
+    }
+    else{
+        
+        if(endvalue1>24){
+            endvalue1-=24;
+            [endresult appendFormat:@"%d:30 PM",endvalue1/2-1];
+        }
+        else{
+            [endresult appendFormat:@"%d:30 AM",endvalue1/2-1];
+        }
+        NSLog(@"Odd Value");//.30
+    }
+    
+    NSLog(@"result end=%@",endresult);
+    [(UILabel*)[self viewWithTag:kStartTime]setText:result];
+    [(UILabel*)[self viewWithTag:kFinshTime]setText:endresult];
+    
 }
 
 -(void)activityButtonPressed:(UIButton*)sender{

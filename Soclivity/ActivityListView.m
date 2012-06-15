@@ -422,6 +422,7 @@
         sectionInfo.open = NO;
         NSInteger countOfRowsToDelete = [self.tableView numberOfRowsInSection:self.openSectionIndex];
         
+        [self.tableView beginUpdates];
         if (countOfRowsToDelete > 0) {
             NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
             for (NSInteger i = 0; i < countOfRowsToDelete; i++) {
@@ -431,6 +432,7 @@
             [indexPathsToDelete release];
         }
         self.openSectionIndex = NSNotFound;
+        [self.tableView endUpdates];
 
     }
     
@@ -457,8 +459,9 @@
     [infoArray release];
 
     [self.tableView reloadData];
+    [self.tableView beginUpdates];
     [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-    
+    [self.tableView endUpdates];
 }
 #pragma mark Filter Pane Activities
 -(void)doFilteringByActivities{

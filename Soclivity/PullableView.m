@@ -26,7 +26,7 @@
     if (self) {
         
         animate = YES;
-        animationDuration = 0.2;
+        animationDuration = 0.4;
         
         toggleOnTap = YES;
         
