@@ -35,31 +35,17 @@ static UIFont *boldText = nil;
 {
 	CGContextRef context = UIGraphicsGetCurrentContext();
     
-    UIColor *background;
-    UIColor *backgroundColor;
-    background = [UIColor whiteColor];
-    backgroundColor = background;
+    UIColor *backgroundColor = [SoclivityUtilities returnTextFontColor:7];
+    UIColor *textColor =[SoclivityUtilities returnTextFontColor:5];
     
-    
-    UIColor *textColor =[UIColor blackColor];
-    if(self.selected)
-    {
-        backgroundColor = background;
-        textColor = [SoclivityUtilities returnTextFontColor:5];
-    }
-    
+    // Set the background color
     [backgroundColor set];
-    [background release];
     
-    textColor=[SoclivityUtilities returnTextFontColor:5];
+    // Fill the rectangle with the color above
     CGContextFillRect(context, r);
-    [textColor set];
     
-    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0,0, 320, 1)];
-    v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_lightdivider.png"]];
-    [self addSubview:v];	
-    [v release];
-       
+    // Next color to use to draw
+    [textColor set];
     
     [@"WHEN:" drawInRect:CGRectMake(45,10,55,25) withFont:boldText];
     
@@ -73,10 +59,6 @@ static UIFont *boldText = nil;
     [firstLabel drawInRect:CGRectMake(45,60,200,25) withFont:firstTextFont];
     [secondLabel drawInRect:CGRectMake(45,85,280,25) withFont:firstTextFont];
     }
-//    v = [[UIView alloc] initWithFrame:CGRectMake(0, 119, 320, 1)];
-//    v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_darkdivider.png"]];
-//    [self addSubview:v];	
-//    [v release];
 
 }
 

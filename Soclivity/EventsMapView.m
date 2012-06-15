@@ -166,7 +166,7 @@
 			calloutMapAnnotationView = [[[CalloutMapAnnotationView alloc] initWithAnnotation:annotation 
                 reuseIdentifier:@"CalloutAnnotation"] autorelease];
 			calloutMapAnnotationView.contentHeight = 58.0f;
-			UIImage *asynchronyLogo = [UIImage imageNamed:@"S04_rightarrow.png"];
+			UIImage *asynchronyLogo = [UIImage imageNamed:@"S02.1_rightarrow.png"];
 			UIImageView *asynchronyLogoView = [[[UIImageView alloc] initWithImage:asynchronyLogo] autorelease];
 			asynchronyLogoView.frame = CGRectMake(50, 20, asynchronyLogoView.frame.size.width, asynchronyLogoView.frame.size.height);
 			[calloutMapAnnotationView.contentView addSubview:asynchronyLogoView];
@@ -245,8 +245,8 @@
             annotationView.opaque = NO;
             annotationView.leftCalloutAccessoryView=[self DrawAMapLeftAccessoryView:location];
             UIButton *disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-            disclosureButton.frame = CGRectMake(0.0, 0.0, 20.0, 21.0);
-            [disclosureButton setImage:[UIImage imageNamed:@"S04_rightarrow.png"] forState:UIControlStateNormal];
+            disclosureButton.frame = CGRectMake(0.0, 0.0, 29.0, 30.0);
+            [disclosureButton setImage:[UIImage imageNamed:@"S02.1_rightarrow.png"] forState:UIControlStateNormal];
             disclosureButton.tag=location._socAnnotation.stamp;
             [disclosureButton addTarget:self action:@selector(pushTodetailActivity:) forControlEvents:UIControlEventTouchUpInside];
             annotationView.rightCalloutAccessoryView=disclosureButton;
@@ -282,7 +282,7 @@
 	[mapLeftView addSubview:nameLabel];
 	[nameLabel release];
 	
-	CGRect timeLabelRect=CGRectMake(12,16,140,12);
+	CGRect timeLabelRect=CGRectMake(10,16,140,12);
 	UILabel *timeLabel=[[UILabel alloc] initWithFrame:timeLabelRect];
 	timeLabel.textAlignment=UITextAlignmentLeft;
 	timeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
@@ -291,17 +291,6 @@
     timeLabel.text=[locObject._socAnnotation dateAndTime];
     [mapLeftView addSubview:timeLabel];
 	[timeLabel release];
-	
-	
-	CGRect organizerLabelRect=CGRectMake(10,24,140,12);
-	UILabel *organizerLabel=[[UILabel alloc] initWithFrame:organizerLabelRect];
-	organizerLabel.textAlignment=UITextAlignmentLeft;
-	organizerLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:11];
-	organizerLabel.textColor=[UIColor whiteColor];
-	organizerLabel.backgroundColor=[UIColor clearColor];
-	organizerLabel.text=[NSString stringWithFormat:@"Organizer:%@ (%d)",locObject._socAnnotation.organizerName,[locObject._socAnnotation.DOS intValue]];
-	[mapLeftView addSubview:organizerLabel];
-	[organizerLabel release];
 	
 	
 	return mapLeftView;
