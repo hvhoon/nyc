@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1280</int>
+		<int key="IBDocument.SystemTarget">1296</int>
 		<string key="IBDocument.SystemVersion">12A206j</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2488</string>
 		<string key="IBDocument.AppKitVersion">1172.1</string>
@@ -60,7 +60,6 @@
 										<bool key="IBUIClipsSubviews">YES</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<bool key="IBUIAlwaysBounceVertical">YES</bool>
-										<int key="IBUISeparatorStyle">1</int>
 										<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>
 										<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>
 										<float key="IBUIRowHeight">44</float>
@@ -1027,7 +1026,7 @@
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
-			<real value="1280" key="NS.object.0"/>
+			<real value="1296" key="NS.object.0"/>
 		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
@@ -1043,7 +1042,7 @@
 			<string key="S04_mapbtn.png">{39, 31}</string>
 			<string key="S04_profile.png">{39, 31}</string>
 			<string key="S04_refresh.png">{25, 25}</string>
-			<string key="S04_sortdistance.png">{25, 26}</string>
+			<string key="S04_sortdistance.png">{25, 25}</string>
 			<string key="S04_sortdos.png">{32, 22}</string>
 			<string key="S04_sorttime.png">{24, 25}</string>
 			<string key="S04_titlebar.png">{320, 44}</string>

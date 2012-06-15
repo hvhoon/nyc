@@ -24,7 +24,7 @@
 @end
 
 #define DEFAULT_ROW_HEIGHT 120
-#define HEADER_HEIGHT 98
+#define HEADER_HEIGHT 94
 
 @implementation ActivityListView
 @synthesize plays,tableView,delegate;
@@ -48,10 +48,6 @@
     // Drawing code
     sortType=1;
     self.tableView.sectionHeaderHeight = HEADER_HEIGHT;
-    //self.tableView.separatorColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_darkdivider.png"]];
-    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
-    v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_lightdivider.png"]];
-    self.tableView.tableFooterView=v;
 	self.tableView.scrollsToTop=YES;
     rowHeight_ = DEFAULT_ROW_HEIGHT;
     openSectionIndex_ = NSNotFound;
@@ -250,7 +246,7 @@
 #pragma mark Pull To Refresh header 
 -(void)addPullToRefreshHeader {
     refreshHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 - REFRESH_HEADER_HEIGHT, 320, REFRESH_HEADER_HEIGHT)];
-    refreshHeaderView.backgroundColor = [UIColor clearColor];
+    refreshHeaderView.backgroundColor = [SoclivityUtilities returnTextFontColor:7];
     
     refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, REFRESH_HEADER_HEIGHT)];
     refreshLabel.backgroundColor = [UIColor clearColor];

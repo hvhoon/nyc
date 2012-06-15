@@ -44,7 +44,7 @@ static UIFont *boldText = nil;
     UIColor *textColor =[UIColor blackColor];
     if(self.selected)
     {
-        backgroundColor = background;
+        backgroundColor = [SoclivityUtilities returnTextFontColor:7];
         textColor = [SoclivityUtilities returnTextFontColor:5];
     }
     
@@ -54,12 +54,6 @@ static UIFont *boldText = nil;
     textColor=[SoclivityUtilities returnTextFontColor:5];
     CGContextFillRect(context, r);
     [textColor set];
-    
-    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0,0, 320, 1)];
-    v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_lightdivider.png"]];
-    [self addSubview:v];	
-    [v release];
-       
     
     [@"WHEN:" drawInRect:CGRectMake(45,10,55,25) withFont:boldText];
     
@@ -73,10 +67,6 @@ static UIFont *boldText = nil;
     [firstLabel drawInRect:CGRectMake(45,60,200,25) withFont:firstTextFont];
     [secondLabel drawInRect:CGRectMake(45,85,280,25) withFont:firstTextFont];
     }
-//    v = [[UIView alloc] initWithFrame:CGRectMake(0, 119, 320, 1)];
-//    v.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_darkdivider.png"]];
-//    [self addSubview:v];	
-//    [v release];
 
 }
 
