@@ -35,24 +35,16 @@ static UIFont *boldText = nil;
 {
 	CGContextRef context = UIGraphicsGetCurrentContext();
     
-    UIColor *background;
-    UIColor *backgroundColor;
-    background = [UIColor whiteColor];
-    backgroundColor = background;
+    UIColor *backgroundColor = [SoclivityUtilities returnTextFontColor:7];
+    UIColor *textColor =[SoclivityUtilities returnTextFontColor:5];
     
-    
-    UIColor *textColor =[UIColor blackColor];
-    if(self.selected)
-    {
-        backgroundColor = [SoclivityUtilities returnTextFontColor:7];
-        textColor = [SoclivityUtilities returnTextFontColor:5];
-    }
-    
+    // Set the background color
     [backgroundColor set];
-    [background release];
     
-    textColor=[SoclivityUtilities returnTextFontColor:5];
+    // Fill the rectangle with the color above
     CGContextFillRect(context, r);
+    
+    // Next color to use to draw
     [textColor set];
     
     [@"WHEN:" drawInRect:CGRectMake(45,10,55,25) withFont:boldText];

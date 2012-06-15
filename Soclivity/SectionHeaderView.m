@@ -193,13 +193,11 @@
         [self addSubview:middleSectionBottomDivider];
         [middleSectionBottomDivider release];
         
-        /* Hide the shadow for now
         // Shadow on the detailed section
         UIImageView *shadow=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_detailShadow.png"]];
         shadow.frame=CGRectMake(0,95,320,10);
         [self addSubview:shadow];
         [shadow release];
-        */
         
         // Create and configure the disclosure button.
         UIButton *disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
