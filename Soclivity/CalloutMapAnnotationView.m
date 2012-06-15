@@ -224,8 +224,10 @@
 				 -M_PI / 2, M_PI, 1);
 	CGPathCloseSubpath(path);
 	
-	//Fill Callout Bubble & Add Shadow
-	//color = [[UIColor redColor] colorWithAlphaComponent:.6];//black color
+	//Commented out because it's not being used.
+    /*
+    Fill Callout Bubble & Add Shadow
+	color = [[UIColor redColor] colorWithAlphaComponent:.6];//black color
     color=[[UIColor colorWithPatternImage: [UIImage imageNamed: @"S04_rightarrow.png"]]colorWithAlphaComponent:.6];
 
 	[color setFill];
@@ -234,7 +236,8 @@
 	CGContextSetShadowWithColor(context, CGSizeMake (0, self.yShadowOffset), 6, [UIColor colorWithWhite:0 alpha:.5].CGColor);
 	CGContextFillPath(context);
 	CGContextRestoreGState(context);
-	
+	*/
+     
 	//Stroke Callout Bubble
 	color = [[UIColor darkGrayColor] colorWithAlphaComponent:.9];
 	[color setStroke];
