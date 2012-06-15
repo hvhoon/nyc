@@ -14,11 +14,13 @@
 @synthesize delegate;
 @synthesize playActivity;
 static UIFont *firstTextFont = nil;
+static UIFont *secondTextFont = nil;
 static UIFont *boldText = nil;
 + (void)initialize
 {
 	if(self == [SOCTableViewCell class]){
         firstTextFont=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
+        secondTextFont=[UIFont fontWithName:@"Helvetica-Condensed" size:11];
         boldText=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         
     }
@@ -35,29 +37,52 @@ static UIFont *boldText = nil;
 {
 	CGContextRef context = UIGraphicsGetCurrentContext();
     
-    UIColor *backgroundColor = [SoclivityUtilities returnTextFontColor:7];
-    UIColor *textColor =[SoclivityUtilities returnTextFontColor:5];
+    UIColor *background;
+    UIColor *backgroundColor;
+    background = [SoclivityUtilities returnTextFontColor:7];
+    backgroundColor = background;
     
-    // Set the background color
+    
+    UIColor *textColor =[UIColor blackColor];
+    if(self.selected)
+    {
+        backgroundColor = background;
+        textColor = [SoclivityUtilities returnTextFontColor:5];
+    }
+    
     [backgroundColor set];
     
-    // Fill the rectangle with the color above
-    CGContextFillRect(context, r);
     
-    // Next color to use to draw
+    textColor=[SoclivityUtilities returnTextFontColor:5];
+    CGContextFillRect(context, r);
     [textColor set];
     
-    [@"WHEN:" drawInRect:CGRectMake(45,10,55,25) withFont:boldText];
     
-    [playActivity.dateAndTime drawInRect:CGRectMake(45+50, 10, 200, 25) withFont:firstTextFont];
-    [@"WHERE:" drawInRect:CGRectMake(45,35,55,25) withFont:boldText];
+    [[UIImage imageNamed:@"S04_detailShadow.png"] drawInRect:CGRectMake(0,0,320,10)];
+    
+    [[UIImage imageNamed:@"S04_smallClock.png"] drawInRect:CGRectMake(45,16,12,12)];
+    
+    [playActivity.dateAndTime drawInRect:CGRectMake(45+25, 12, 200, 25) withFont:firstTextFont];
+    
+    
+    [[UIImage imageNamed:@"S04_sectionDivider.png"] drawInRect:CGRectMake(25,40,280,1)];
+    
+    [[UIImage imageNamed:@"S04_smallLocation.png"] drawInRect:CGRectMake(45,51,12,12)];
+
     for(DetailInfoActivityClass *detailPlay in [playActivity quotations]){
-    [detailPlay.location drawInRect:CGRectMake(45+55,35,200,25) withFont:firstTextFont];
+    [detailPlay.location drawInRect:CGRectMake(45+25,47,200,25) withFont:firstTextFont];
+        
+    [[UIImage imageNamed:@"S04_sectionDivider.png"] drawInRect:CGRectMake(25,75,280,1)];    
+     
+    [[UIImage imageNamed:@"S04_smallDOS1.png"] drawInRect:CGRectMake(45,93,19,11)];
+        
     
-    NSString *firstLabel=[NSString stringWithFormat:@"You have %d friends going",detailPlay.DOS_1];
-    NSString *secondLabel=[NSString stringWithFormat:@"You may know  %d more people going",detailPlay.DOS_2];
-    [firstLabel drawInRect:CGRectMake(45,60,200,25) withFont:firstTextFont];
-    [secondLabel drawInRect:CGRectMake(45,85,280,25) withFont:firstTextFont];
+    NSString *firstLabel=[NSString stringWithFormat:@"%d friends",detailPlay.DOS_1];
+    [firstLabel drawInRect:CGRectMake(45+25,89,60,25) withFont:firstTextFont];
+        
+    [[UIImage imageNamed:@"S04_smallDOS2.png"] drawInRect:CGRectMake(45+100,93,19,11)];
+    NSString *secondLabel=[NSString stringWithFormat:@"%d Friends of friends",detailPlay.DOS_2];
+    [secondLabel drawInRect:CGRectMake(45+100+25,89,280,25) withFont:firstTextFont];
     }
 
 }

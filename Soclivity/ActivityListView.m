@@ -49,6 +49,7 @@
     sortType=1;
     self.tableView.sectionHeaderHeight = HEADER_HEIGHT;
 	self.tableView.scrollsToTop=YES;
+    self.tableView.backgroundColor=[UIColor whiteColor];
     rowHeight_ = DEFAULT_ROW_HEIGHT;
     openSectionIndex_ = NSNotFound;
     [self startPopulatingListView];

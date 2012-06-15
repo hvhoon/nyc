@@ -113,7 +113,7 @@
 		<key>goingCount</key>
 		<string>32</string>
 		<key>Date</key>
-		<string>2012-06-16_06:43:29</string>
+		<string>2012-06-18_16:43:29</string>
 		<key>detailQuotations</key>
 		<array>
 			<dict>
@@ -200,7 +200,7 @@
 		<key>Latitude</key>
 		<real>30.727134</real>
 		<key>Longitude</key>
-		<real>75.846288</real>
+		<real>76.146288</real>
 		<key>distance</key>
 		<string>1.6</string>
 		<key>goingCount</key>
