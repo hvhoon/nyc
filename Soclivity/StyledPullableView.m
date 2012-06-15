@@ -285,8 +285,19 @@
 }
 
 - (void)sliderValueChanged:(FCRangeSlider *)sender {
+    
+
+
     [(UILabel*)[self viewWithTag:kStartTime]setText:[SoclivityUtilities getStartAndFinishTimeLabel:sender.rangeValue.start]];
     [(UILabel*)[self viewWithTag:kFinshTime]setText:[SoclivityUtilities getStartAndFinishTimeLabel:sender.rangeValue.end]];
+    float startTimeValue=sender.rangeValue.start*48/10;
+    int timerStart=lroundf(startTimeValue);
+    SOC.filterObject.startTime_48=timerStart;
+    
+    float endTimeValue=sender.rangeValue.end*48/10;
+    int timerEnd=lroundf(endTimeValue);
+    SOC.filterObject.finishTime_48=timerEnd;
+
     
 }
 

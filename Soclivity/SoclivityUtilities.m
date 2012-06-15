@@ -34,10 +34,10 @@ static NSArray *playerActivityDetails;
     float timeValue=sliderValue*48/10;
     int timer=lroundf(timeValue);
     //int value1=value;
-    float theFloat = 5.3456;
-    int rounded = lroundf(theFloat); NSLog(@"%d",rounded);
-    int roundedUp = ceil(theFloat); NSLog(@"%d",roundedUp);
-    int roundedDown = floor(theFloat); NSLog(@"%d",roundedDown);
+    //float theFloat = 5.3456;
+    //int rounded = lroundf(theFloat); NSLog(@"%d",rounded);
+    //int roundedUp = ceil(theFloat); NSLog(@"%d",roundedUp);
+    //int roundedDown = floor(theFloat); NSLog(@"%d",roundedDown);
 
     NSMutableString * result = [[NSMutableString new] autorelease];
     NSLog(@"%d",timer);
@@ -85,6 +85,8 @@ if(timer%2==0){
     return result;
 
 }
+
+
 +(NSString*)NetworkTime:(InfoActivityClass*)formatStringGMTObj{
 #if 1    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -134,6 +136,17 @@ if(timer%2==0){
     NSLog(@"activityTime=%@",activityTime);
     NSLog(@"currentTime=%@",currentTime);
     NSLog(@"interval5,the actual difference=%f",interval5);
+    
+    
+    
+    NSDate *forwardDate = [currentDateTime dateByAddingTimeInterval:3600];
+    NSDate *backwardDate = [currentDateTime dateByAddingTimeInterval:-3600];
+    NSString *forwardDateTime=[dateFormatter stringFromDate:forwardDate];
+    NSString  *backwardDateTime=[dateFormatter stringFromDate:backwardDate];
+
+    NSLog(@"forwardDate=%@",forwardDateTime);
+    NSLog(@"backwardDate=%@",backwardDateTime);
+    
     
     NSCalendar* calendar = [NSCalendar currentCalendar];
     int differenceInDays =
@@ -411,4 +424,137 @@ if(timer%2==0){
             break;
     }
 }
+
++(NSInteger)DoTheTimeLogic:(InfoActivityClass*)formatStringGMTObj{
+    NSDate *today = [NSDate date];
+    NSCalendar *gregorian = [[[NSCalendar alloc]
+                              initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    NSDateComponents *components =
+    [gregorian components:(NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:today];
+    
+    NSInteger hour = [components hour];
+    NSInteger minute = [components minute];
+    NSInteger second = [components second];
+    NSLog(@"hour=%d,minute=%d,secnd=%d",hour,minute,second);
+    
+    
+    int timer=lroundf(minute/15);
+    int hourInterval=hour*2;
+    switch (timer) {
+        case 0:
+        {
+            hourInterval=hourInterval+0;
+        }
+            break;
+        case 1:
+        {
+            hourInterval=hourInterval+1;
+        }
+            break;
+        case 2:
+        {
+            hourInterval=hourInterval+1;
+        }
+            break;
+        case 3:
+        {
+            hourInterval=hourInterval+2;
+        }
+            break;
+        case 4:
+        {
+            hourInterval=hourInterval+2;
+        }
+            break;
+    }
+    NSLog(@"hourInterval=%d",hourInterval);
+    long int startTimeInterval;
+    long int finishTimeInterval;
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    if(hourInterval<=SOC.filterObject.startTime_48){
+        startTimeInterval=(SOC.filterObject.startTime_48-hourInterval)*30*60;
+    }
+    else{
+        startTimeInterval=-(hourInterval-SOC.filterObject.startTime_48)*30*60;
+    }
+    
+    if(hourInterval<=SOC.filterObject.finishTime_48){
+        finishTimeInterval=(SOC.filterObject.finishTime_48-hourInterval)*30*60;
+    }
+    else{
+        finishTimeInterval=-(hourInterval-SOC.filterObject.finishTime_48)*30*60;
+    }
+
+    NSLog(@"startTimeInterval=%ld",startTimeInterval);
+    NSLog(@"finishTimeInterval=%ld",finishTimeInterval);    
+    //Now figuring out the time Range Interval
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd_HH:mm:ss";
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [dateFormatter setTimeZone:gmt];
+
+    
+    NSDate *lastDate = [dateFormatter dateFromString:formatStringGMTObj.dateFormatterString];
+    NSString *todayDate = [dateFormatter stringFromDate:[NSDate date]];
+    NSDate *currentDate=[dateFormatter dateFromString:todayDate];	
+
+    dateFormatter.dateFormat=@"EEE, MMM d, h:mm a";//@"MMM d, YYYY, h:mm a"
+    
+    
+    
+    NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
+    
+    NSInteger destinationGMTOffset1 = [destinationTimeZone secondsFromGMTForDate:lastDate];
+    NSInteger destinationGMTOffset2 = [destinationTimeZone secondsFromGMTForDate:currentDate];
+    
+    NSTimeInterval interval2 = destinationGMTOffset1;
+    NSTimeInterval interval3 = destinationGMTOffset2;
+    
+    NSDate* destinationDate = [[[NSDate alloc] initWithTimeInterval:interval2 sinceDate:lastDate] autorelease];
+    
+    NSDate* currentDateTime = [[[NSDate alloc] initWithTimeInterval:interval3 sinceDate:currentDate] autorelease];
+    
+    
+    NSString *activityTime=[dateFormatter stringFromDate:destinationDate];
+    NSString  *currentTime=[dateFormatter stringFromDate:currentDateTime];
+    NSTimeInterval interval5 = [destinationDate timeIntervalSinceDate:currentDateTime];
+    NSLog(@"activityTime=%@",activityTime);
+    NSLog(@"currentTime=%@",currentTime);
+    NSLog(@"interval5,the actual difference=%f",interval5);
+    
+    NSDate *startDate = [currentDateTime dateByAddingTimeInterval:startTimeInterval];
+    NSDate *EndDate = [currentDateTime dateByAddingTimeInterval:finishTimeInterval];
+    NSString *startDateTime=[dateFormatter stringFromDate:startDate];
+    NSString  *endDateTime=[dateFormatter stringFromDate:EndDate];
+    NSLog(@"forwardDate=%@",startDateTime);
+    NSLog(@"backwardDate=%@",endDateTime);
+
+    
+    int check;
+    NSArray *array = [NSArray arrayWithObjects:startDate,destinationDate,EndDate, nil];
+    
+    array = [array sortedArrayUsingComparator: ^(NSDate *s1, NSDate *s2){
+        
+        return [s1 compare:s2];
+    }];
+    
+    NSUInteger indexOfDay1 = [array indexOfObject:startDate];
+    NSUInteger indexOfDay2 = [array indexOfObject:destinationDate];
+    NSUInteger indexOfDay3 = [array indexOfObject:EndDate];
+    
+    if (((indexOfDay1 < indexOfDay2 ) && (indexOfDay2 < indexOfDay3)) || 
+        ((indexOfDay1 > indexOfDay2 ) && (indexOfDay2 > indexOfDay3))) {
+        NSLog(@"YES");
+        check=1;
+    } else {
+        NSLog(@"NO");
+        check=0;
+    }
+    NSLog(@"check=%d",check);
+    return check;
+    
+
+}
+
+
 @end

@@ -45,6 +45,7 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
+    
     // Drawing code
     sortType=1;
     self.tableView.sectionHeaderHeight = HEADER_HEIGHT;
@@ -74,9 +75,13 @@
 		
 		for (InfoActivityClass *play in self.plays) {
 			
-			SectionInfo *sectionInfo = [[SectionInfo alloc] init];			
-			sectionInfo.play = play;
-			sectionInfo.open = NO;
+        if([SoclivityUtilities validFilterActivity:play.type]){
+            
+            
+            if([SoclivityUtilities DoTheTimeLogic:play]){
+                SectionInfo *sectionInfo = [[SectionInfo alloc] init];			
+                sectionInfo.play = play;
+                sectionInfo.open = NO;
 			
             NSNumber *defaultRowHeight = [NSNumber numberWithInteger:DEFAULT_ROW_HEIGHT];
 			NSInteger countOfQuotations = [[sectionInfo.play quotations] count];
@@ -86,6 +91,8 @@
 			
 			[infoArray addObject:sectionInfo];
 			[sectionInfo release];
+            }
+            }
 		}
 		
 		self.sectionInfoArray = infoArray;
@@ -437,6 +444,9 @@
     for (InfoActivityClass *play in self.plays) {
         
         if([SoclivityUtilities validFilterActivity:play.type]){
+            
+        if([SoclivityUtilities DoTheTimeLogic:play]){
+            
         SectionInfo *sectionInfo = [[SectionInfo alloc] init];
         
         sectionInfo.play = play;
@@ -449,6 +459,7 @@
         
         [infoArray addObject:sectionInfo];
         [sectionInfo release];
+            }
         }
     }
     

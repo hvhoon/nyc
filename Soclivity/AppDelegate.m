@@ -52,6 +52,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     
     
+    
     [self setUpActivityDataList];
     [SoclivitySqliteClass copyDatabaseIfNeeded];
 	BOOL openSuccessful=[SoclivitySqliteClass openDatabase:[SoclivitySqliteClass getDBPath]];

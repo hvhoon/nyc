@@ -15,6 +15,8 @@
     BOOL createAct;
     BOOL learnAct;
     NSInteger whenSearchType;
+    NSInteger startTime_48;
+    NSInteger finishTime_48;
 }
 @property (nonatomic,assign)BOOL playAct;
 @property (nonatomic,assign)BOOL eatAct;
@@ -22,4 +24,7 @@
 @property (nonatomic,assign)BOOL createAct;
 @property (nonatomic,assign)BOOL learnAct;
 @property (nonatomic,assign) NSInteger whenSearchType;
+@property (nonatomic,assign)NSInteger startTime_48;
+@property (nonatomic,assign)NSInteger finishTime_48;
+
 @end

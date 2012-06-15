@@ -9,7 +9,7 @@
 #import "FilterPreferenceClass.h"
 
 @implementation FilterPreferenceClass
-@synthesize playAct,eatAct,seeAct,createAct,learnAct,whenSearchType;
+@synthesize playAct,eatAct,seeAct,createAct,learnAct,whenSearchType,startTime_48,finishTime_48;
 
 
 -(void)dealloc{
