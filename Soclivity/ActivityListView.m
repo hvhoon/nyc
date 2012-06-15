@@ -75,10 +75,11 @@
 		
 		for (InfoActivityClass *play in self.plays) {
 			
+            if([SoclivityUtilities ValidActivityDate:play.dateFormatterString]){
         if([SoclivityUtilities validFilterActivity:play.type]){
             
             
-            if([SoclivityUtilities DoTheTimeLogic:play]){
+            if([SoclivityUtilities DoTheTimeLogic:play.dateFormatterString]){
                 SectionInfo *sectionInfo = [[SectionInfo alloc] init];			
                 sectionInfo.play = play;
                 sectionInfo.open = NO;
@@ -94,7 +95,7 @@
             }
             }
 		}
-		
+		}
 		self.sectionInfoArray = infoArray;
 		[infoArray release];
 	}
@@ -443,9 +444,11 @@
     NSMutableArray *infoArray = [[NSMutableArray alloc] init];
     for (InfoActivityClass *play in self.plays) {
         
+        if([SoclivityUtilities ValidActivityDate:play.dateFormatterString]){
+        
         if([SoclivityUtilities validFilterActivity:play.type]){
             
-        if([SoclivityUtilities DoTheTimeLogic:play]){
+        if([SoclivityUtilities DoTheTimeLogic:play.dateFormatterString]){
             
         SectionInfo *sectionInfo = [[SectionInfo alloc] init];
         
@@ -462,7 +465,8 @@
             }
         }
     }
-    
+        
+    }
     self.sectionInfoArray = infoArray;
     [infoArray release];
 

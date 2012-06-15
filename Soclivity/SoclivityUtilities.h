@@ -23,5 +23,6 @@
 +(BOOL)validFilterActivity:(NSInteger)Type;
 +(NSString*)getStartAndFinishTimeLabel:(float)sliderValue;
 + (NSInteger)dateInterval:(NSDate*)date isBetweenDate:(NSDate*)beginDate andDate:(NSDate*)endDate;
-+(NSInteger)DoTheTimeLogic:(InfoActivityClass*)formatStringGMTObj;
++(NSInteger)DoTheTimeLogic:(NSString*)formatStringGMTObj;
++(BOOL)ValidActivityDate:(NSString*)activityDate;
 @end
