@@ -242,24 +242,17 @@ if(timer%2==0){
     NSDate* destinationDate = [[[NSDate alloc] initWithTimeInterval:interval2 sinceDate:lastDate] autorelease];
     
     NSDate* currentDateTime = [[[NSDate alloc] initWithTimeInterval:interval3 sinceDate:[NSDate date]] autorelease];
-    NSCalendar* calendar = [NSCalendar currentCalendar];
-    int differenceInDays =
-    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:destinationDate]-
-    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:currentDateTime];
     BOOL checkTime=TRUE;
-    switch (differenceInDays) {
-        case -1:
-        {
-            NSLog(@"Yesterday");
-            checkTime=FALSE;
-        }
-            break;
-            default:
-        {
-            checkTime=TRUE;
-        }
-            break;
+
+    if ([destinationDate compare:currentDateTime] == NSOrderedAscending){
+        checkTime=FALSE;
     }
+    else{
+        checkTime=TRUE;
+    }
+    
+            
+            
     return checkTime;
 
 }
