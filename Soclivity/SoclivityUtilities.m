@@ -426,11 +426,24 @@ if(timer%2==0){
 }
 
 +(NSInteger)DoTheTimeLogic:(InfoActivityClass*)formatStringGMTObj{
-    NSDate *today = [NSDate date];
+    
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    NSDate *filterDate;
+    if(SOC.filterObject.whenSearchType==1){
+        filterDate = [NSDate date];
+    }
+    else if(SOC.filterObject.whenSearchType==2){
+         filterDate = [[NSDate date] dateByAddingTimeInterval:86400];
+    }
+    else{
+        filterDate = [NSDate date];
+    }
+
+    
     NSCalendar *gregorian = [[[NSCalendar alloc]
                               initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
     NSDateComponents *components =
-    [gregorian components:(NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:today];
+    [gregorian components:(NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:filterDate];
     
     NSInteger hour = [components hour];
     NSInteger minute = [components minute];
@@ -470,7 +483,7 @@ if(timer%2==0){
     NSLog(@"hourInterval=%d",hourInterval);
     long int startTimeInterval;
     long int finishTimeInterval;
-    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    
     if(hourInterval<=SOC.filterObject.startTime_48){
         startTimeInterval=(SOC.filterObject.startTime_48-hourInterval)*30*60;
     }
@@ -495,7 +508,7 @@ if(timer%2==0){
 
     
     NSDate *lastDate = [dateFormatter dateFromString:formatStringGMTObj.dateFormatterString];
-    NSString *todayDate = [dateFormatter stringFromDate:[NSDate date]];
+    NSString *todayDate = [dateFormatter stringFromDate:filterDate];
     NSDate *currentDate=[dateFormatter dateFromString:todayDate];	
 
     dateFormatter.dateFormat=@"EEE, MMM d, h:mm a";//@"MMM d, YYYY, h:mm a"
@@ -518,16 +531,16 @@ if(timer%2==0){
     NSString *activityTime=[dateFormatter stringFromDate:destinationDate];
     NSString  *currentTime=[dateFormatter stringFromDate:currentDateTime];
     NSTimeInterval interval5 = [destinationDate timeIntervalSinceDate:currentDateTime];
-    NSLog(@"activityTime=%@",activityTime);
-    NSLog(@"currentTime=%@",currentTime);
     NSLog(@"interval5,the actual difference=%f",interval5);
     
     NSDate *startDate = [currentDateTime dateByAddingTimeInterval:startTimeInterval];
     NSDate *EndDate = [currentDateTime dateByAddingTimeInterval:finishTimeInterval];
     NSString *startDateTime=[dateFormatter stringFromDate:startDate];
     NSString  *endDateTime=[dateFormatter stringFromDate:EndDate];
-    NSLog(@"forwardDate=%@",startDateTime);
-    NSLog(@"backwardDate=%@",endDateTime);
+    NSLog(@"currentTime=%@",currentTime);
+    NSLog(@"startDate=%@",startDateTime);
+    NSLog(@"activityTime=%@",activityTime);
+    NSLog(@"EndDate=%@",endDateTime);
 
     
     int check;

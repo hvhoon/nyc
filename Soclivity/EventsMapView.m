@@ -106,14 +106,20 @@
     for (InfoActivityClass *play in self.plays){
         
     if([SoclivityUtilities validFilterActivity:play.type]){
+        
+        if([SoclivityUtilities DoTheTimeLogic:play]){
+            
         CLLocationCoordinate2D theCoordinate;
         theCoordinate.latitude = [play.latitude doubleValue];
         theCoordinate.longitude =[play.longitude doubleValue];
         play.stamp=index;
         SocAnnotation *sfAnnotation = [[SocAnnotation alloc] initWithName:@" " address:@" " coordinate:theCoordinate annotationObject:play];
         [self.mapView addAnnotation:sfAnnotation];
+            index++;
         }
-        index++;
+        
+    }
+        
     }
         
 }
