@@ -11,7 +11,7 @@
 #import "SoclivityUtilities.h"
 #import "DetailInfoActivityClass.h"
 @implementation SOCTableViewCell
-@synthesize delegate;
+@synthesize delegate,lastRow;
 @synthesize playActivity;
 static UIFont *firstTextFont = nil;
 static UIFont *secondTextFont = nil;
@@ -84,8 +84,8 @@ static UIFont *boldText = nil;
     NSString *secondLabel=[NSString stringWithFormat:@"%d Friends of friends",detailPlay.DOS_2];
     [secondLabel drawInRect:CGRectMake(45+100+25,89,280,25) withFont:firstTextFont];
     }
-    
-    //[[UIImage imageNamed:@"S04_sectionDivider.png"] drawInRect:CGRectMake(0,118,320,0.5)];
+    if(lastRow)
+        [[UIImage imageNamed:@"S04_sectionDivider.png"] drawInRect:CGRectMake(0,119,320,1.0)];
 
 }
 

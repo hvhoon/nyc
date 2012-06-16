@@ -578,7 +578,7 @@ if(timer%2==0){
     NSLog(@"EndDate=%@",endDateTime);
 
     
-    int check;
+    int check=0;
     NSArray *array = [NSArray arrayWithObjects:startDate,destinationDate,EndDate, nil];
     
     array = [array sortedArrayUsingComparator: ^(NSDate *s1, NSDate *s2){

@@ -57,7 +57,6 @@
     middleSectionBottomDivider.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]];
     self.tableView.tableFooterView=middleSectionBottomDivider;
     [middleSectionBottomDivider release];*/
-
     rowHeight_ = DEFAULT_ROW_HEIGHT;
     openSectionIndex_ = NSNotFound;
     [self startPopulatingListView];
@@ -140,6 +139,10 @@
     cell.delegate=self;
     InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
     cell.playActivity = play;
+    if(indexPath.section ==([self.sectionInfoArray count]-1))
+        cell.lastRow=TRUE;
+    else
+         cell.lastRow=FALSE;
     [cell setNeedsDisplay];
     return cell;
     
