@@ -35,7 +35,7 @@
         self.homeSearchBar.delegate = self;
         self.homeSearchBar.showsCancelButton = NO;
         self.homeSearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-        self.homeSearchBar.placeholder=@"Search for friends to invite ";
+        self.homeSearchBar.placeholder=@"Search for activities";
 
         self.homeSearchBar.backgroundImage=[UIImage imageNamed: @"S4.1_search-background.png"];
         [filterPaneView addSubview:self.homeSearchBar];
