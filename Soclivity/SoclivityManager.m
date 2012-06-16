@@ -33,8 +33,8 @@
         filterObject.createAct=TRUE;
         filterObject.learnAct=TRUE;
         filterObject.whenSearchType=1;
-        filterObject.startTime_48=8;
-        filterObject.finishTime_48=40;
+        filterObject.startTime_48=0;
+        filterObject.finishTime_48=48;
     }
     return self;
 }
