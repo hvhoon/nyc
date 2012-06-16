@@ -17,6 +17,7 @@
 #import "SettingsViewController.h"
 #import "UpComingEventsViewController.h"
 #import "SlidingDrawerViewController.h"
+#import "EventShareActivity.h"
 @interface WelcomeScreenViewController(Private) <MBProgressHUDDelegate>
 @end
 
@@ -290,6 +291,8 @@
     
 }
 #endif
+
+#if 1
 -(void)AlreadySignedUpButtonClicked{
      NSLog(@"AlreadySignedUpButtonClicked");
     LoginViewController *loginViewController=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
@@ -298,6 +301,14 @@
     [loginViewController release];
 
 }
+#else
+-(void)AlreadySignedUpButtonClicked{
+    NSLog(@"AlreadySignedUpButtonClicked");
+    EventShareActivity *eventShare=[[EventShareActivity alloc]init];
+    [eventShare sendEvent];
+    //[eventShare deleteAnEvent:@"0311444F-3DCB-4019-8167-B701394C35BD:7A1655C3-CF17-45F6-BA4A-6DC6816AED00"];
+}
+#endif
 - (void)viewDidUnload
 {
     [super viewDidUnload];

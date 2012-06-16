@@ -187,7 +187,7 @@
                 
         }
         
-        // Divider at the bottom of the header section
+         //Divider at the bottom of the header section
         UIView* middleSectionBottomDivider = [[UIView alloc] initWithFrame:CGRectMake(0, 94, 320, 1)];
         middleSectionBottomDivider.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]];
         [self addSubview:middleSectionBottomDivider];

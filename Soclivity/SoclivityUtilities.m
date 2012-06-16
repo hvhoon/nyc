@@ -193,13 +193,11 @@ if(timer%2==0){
             NSLog(@"Tommorow");
             
             [result appendFormat: @"Tommorow"];
+            dateFormatter.dateFormat=@"h:mm a";
             
-            for(DetailInfoActivityClass *detailPlay in [formatStringGMTObj quotations]){
-                dateFormatter.dateFormat=@"h:mm a";
-                
-                NSString*timeUpdate=[NSString stringWithFormat:@"Tomorrow,%@",[dateFormatter stringFromDate:destinationDate]];
-                formatStringGMTObj.dateAndTime=timeUpdate;
-            }
+            NSString*timeUpdate=[NSString stringWithFormat:@"Tomorrow,%@",[dateFormatter stringFromDate:destinationDate]];
+            formatStringGMTObj.dateAndTime=timeUpdate;
+   
             
         }
             break;

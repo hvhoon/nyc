@@ -105,6 +105,7 @@ void uncaughtExceptionHandler(NSException *exception) {
         play.latitude=[playDictionary objectForKey:@"Latitude"];
         play.longitude=[playDictionary objectForKey:@"Longitude"];
         play.dateFormatterString=[playDictionary objectForKey:@"Date"];
+        if([SoclivityUtilities ValidActivityDate:play.dateFormatterString]){
         NSString *message=[SoclivityUtilities NetworkTime:play];
         NSLog(@"message=%@",message);
         NSArray *quotationDictionaries = [playDictionary objectForKey:@"detailQuotations"];
@@ -122,6 +123,7 @@ void uncaughtExceptionHandler(NSException *exception) {
         
         [playsArray addObject:play];
         [play release];
+        }
     }
     
     [SoclivityUtilities setPlayerActivities:playsArray];

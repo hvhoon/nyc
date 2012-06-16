@@ -84,6 +84,8 @@ static UIFont *boldText = nil;
     NSString *secondLabel=[NSString stringWithFormat:@"%d Friends of friends",detailPlay.DOS_2];
     [secondLabel drawInRect:CGRectMake(45+100+25,89,280,25) withFont:firstTextFont];
     }
+    
+    //[[UIImage imageNamed:@"S04_sectionDivider.png"] drawInRect:CGRectMake(0,118,320,0.5)];
 
 }
 

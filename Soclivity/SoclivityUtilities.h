@@ -22,7 +22,6 @@
 +(NSString*)NetworkTime:(InfoActivityClass*)formatStringGMTObj;
 +(BOOL)validFilterActivity:(NSInteger)Type;
 +(NSString*)getStartAndFinishTimeLabel:(float)sliderValue;
-+ (NSInteger)dateInterval:(NSDate*)date isBetweenDate:(NSDate*)beginDate andDate:(NSDate*)endDate;
 +(NSInteger)DoTheTimeLogic:(NSString*)formatStringGMTObj;
 +(BOOL)ValidActivityDate:(NSString*)activityDate;
 @end

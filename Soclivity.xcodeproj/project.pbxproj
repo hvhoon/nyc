@@ -63,6 +63,8 @@
 		68B91467155EC32F00F2B780 /* S02_tick_emb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68B9145F155EC32F00F2B780 /* S02_tick_emb@2x.png */; };
 		68BF4F79155CB034005399B3 /* Helvetica-Condensed-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 68BF4F77155CB034005399B3 /* Helvetica-Condensed-Black.otf */; };
 		68BF4F7A155CB034005399B3 /* Helvetica-Condensed.otf in Resources */ = {isa = PBXBuildFile; fileRef = 68BF4F78155CB034005399B3 /* Helvetica-Condensed.otf */; };
+		EA13F5CF158C74AB004B8192 /* EventShareActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = EA13F5CE158C74AB004B8192 /* EventShareActivity.m */; };
+		EA13F5D1158C74D7004B8192 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA13F5D0158C74D7004B8192 /* EventKit.framework */; };
 		EA3ABAE81565709100B262F7 /* GetLoginInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3ABAE71565709100B262F7 /* GetLoginInvocation.m */; };
 		EA3ABAED15657D3600B262F7 /* ResetPasswordInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3ABAEC15657D3600B262F7 /* ResetPasswordInvocation.m */; };
 		EA3ABAF115657FC800B262F7 /* ForgotPasswordInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3ABAF015657FC800B262F7 /* ForgotPasswordInvocation.m */; };
@@ -502,6 +504,9 @@
 		68BF4F78155CB034005399B3 /* Helvetica-Condensed.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Helvetica-Condensed.otf"; sourceTree = "<group>"; };
 		68BFF8CA1561FA2000D73D7C /* S02_blackbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S02_blackbar.png; sourceTree = "<group>"; };
 		68BFF8CB1561FA2000D73D7C /* S02_blackbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S02_blackbar@2x.png"; sourceTree = "<group>"; };
+		EA13F5CD158C74AB004B8192 /* EventShareActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventShareActivity.h; sourceTree = "<group>"; };
+		EA13F5CE158C74AB004B8192 /* EventShareActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventShareActivity.m; sourceTree = "<group>"; };
+		EA13F5D0158C74D7004B8192 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		EA3ABAE61565709100B262F7 /* GetLoginInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetLoginInvocation.h; sourceTree = "<group>"; };
 		EA3ABAE71565709100B262F7 /* GetLoginInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetLoginInvocation.m; sourceTree = "<group>"; };
 		EA3ABAEB15657D3600B262F7 /* ResetPasswordInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordInvocation.h; sourceTree = "<group>"; };
@@ -958,6 +963,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA13F5D1158C74D7004B8192 /* EventKit.framework in Frameworks */,
 				EA8F65AD1574D4CB00EFAE8A /* MapKit.framework in Frameworks */,
 				EA87EDC6157346A700DE1762 /* AddressBook.framework in Frameworks */,
 				EA91C337155A730200BE5BB1 /* SystemConfiguration.framework in Frameworks */,
@@ -979,6 +985,7 @@
 		680CE3D31551258700B8E937 = {
 			isa = PBXGroup;
 			children = (
+				EA13F5D0158C74D7004B8192 /* EventKit.framework */,
 				680CE3E81551258700B8E937 /* Soclivity */,
 				680CE4271551286D00B8E937 /* Resources */,
 				680CE3E11551258700B8E937 /* Frameworks */,
@@ -1016,6 +1023,7 @@
 		680CE3E81551258700B8E937 /* Soclivity */ = {
 			isa = PBXGroup;
 			children = (
+				EA13F5CB158C7478004B8192 /* Research */,
 				EA91C2C5155A716300BE5BB1 /* App Delegate */,
 				687F3A701551300E00B694DA /* Welcome */,
 				687F3A721551301D00B694DA /* Registration */,
@@ -1169,6 +1177,15 @@
 			);
 			name = Fonts;
 			path = Soclivity/Fonts;
+			sourceTree = "<group>";
+		};
+		EA13F5CB158C7478004B8192 /* Research */ = {
+			isa = PBXGroup;
+			children = (
+				EA13F5CD158C74AB004B8192 /* EventShareActivity.h */,
+				EA13F5CE158C74AB004B8192 /* EventShareActivity.m */,
+			);
+			name = Research;
 			sourceTree = "<group>";
 		};
 		EA3ABAE41565704C00B262F7 /* Login Service */ = {
@@ -2413,6 +2430,7 @@
 				EAF2AEC015875EA5008EAE27 /* SlideViewController.m in Sources */,
 				EA893AA715887DFE003FD793 /* LaterDateView.m in Sources */,
 				EA9058991589A88900E78B54 /* FilterPreferenceClass.m in Sources */,
+				EA13F5CF158C74AB004B8192 /* EventShareActivity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
