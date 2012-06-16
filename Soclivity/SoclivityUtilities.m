@@ -219,6 +219,43 @@ if(timer%2==0){
 #endif
     
 }
++(BOOL)ValidActivityDate:(NSString*)activityDate{
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd_HH:mm:ss";
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [dateFormatter setTimeZone:gmt];
+    NSDate *lastDate = [dateFormatter dateFromString:activityDate];
+
+    dateFormatter.dateFormat=@"EEE, MMM d, h:mm a";//@"MMM d, YYYY, h:mm a"
+    
+    
+    
+    NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
+    
+    NSInteger destinationGMTOffset1 = [destinationTimeZone secondsFromGMTForDate:lastDate];
+    NSInteger destinationGMTOffset2 = [destinationTimeZone secondsFromGMTForDate:[NSDate date]];
+    
+    NSTimeInterval interval2 = destinationGMTOffset1;
+    NSTimeInterval interval3 = destinationGMTOffset2;
+    
+    NSDate* destinationDate = [[[NSDate alloc] initWithTimeInterval:interval2 sinceDate:lastDate] autorelease];
+    
+    NSDate* currentDateTime = [[[NSDate alloc] initWithTimeInterval:interval3 sinceDate:[NSDate date]] autorelease];
+    BOOL checkTime=TRUE;
+
+    if ([destinationDate compare:currentDateTime] == NSOrderedAscending){
+        checkTime=FALSE;
+    }
+    else{
+        checkTime=TRUE;
+    }
+    
+            
+            
+    return checkTime;
+
+}
 +(Boolean)hasNetworkConnection
 {
 	Boolean retVal = NO;
@@ -425,7 +462,7 @@ if(timer%2==0){
     }
 }
 
-+(NSInteger)DoTheTimeLogic:(InfoActivityClass*)formatStringGMTObj{
++(NSInteger)DoTheTimeLogic:(NSString*)formatStringGMTObj{
     
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     NSDate *filterDate;
@@ -507,7 +544,7 @@ if(timer%2==0){
     [dateFormatter setTimeZone:gmt];
 
     
-    NSDate *lastDate = [dateFormatter dateFromString:formatStringGMTObj.dateFormatterString];
+    NSDate *lastDate = [dateFormatter dateFromString:formatStringGMTObj];
     NSString *todayDate = [dateFormatter stringFromDate:filterDate];
     NSDate *currentDate=[dateFormatter dateFromString:todayDate];	
 

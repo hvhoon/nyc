@@ -105,9 +105,10 @@
     int index=0;
     for (InfoActivityClass *play in self.plays){
         
+        if([SoclivityUtilities ValidActivityDate:play.dateFormatterString]){
     if([SoclivityUtilities validFilterActivity:play.type]){
         
-        if([SoclivityUtilities DoTheTimeLogic:play]){
+        if([SoclivityUtilities DoTheTimeLogic:play.dateFormatterString]){
             
         CLLocationCoordinate2D theCoordinate;
         theCoordinate.latitude = [play.latitude doubleValue];
@@ -117,7 +118,7 @@
         [self.mapView addAnnotation:sfAnnotation];
             index++;
         }
-        
+    }
     }
         
     }
