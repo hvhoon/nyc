@@ -35,7 +35,7 @@
         self.homeSearchBar.delegate = self;
         self.homeSearchBar.showsCancelButton = NO;
         self.homeSearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-        self.homeSearchBar.placeholder=@"Search for friends to invite ";
+        self.homeSearchBar.placeholder=@"Search for activities";
 
         self.homeSearchBar.backgroundImage=[UIImage imageNamed: @"S4.1_search-background.png"];
         [filterPaneView addSubview:self.homeSearchBar];
@@ -203,10 +203,10 @@
         [finishImgView release];
 #else
 
-        CGRect startLabelRect=CGRectMake(5,55,65,15);
+        CGRect startLabelRect=CGRectMake(10,55,65,15);
         UILabel *startLabel=[[UILabel alloc] initWithFrame:startLabelRect];
         startLabel.textAlignment=UITextAlignmentLeft;
-        startLabel.text=[NSString stringWithFormat:@"4:00 AM"];
+        startLabel.text=[NSString stringWithFormat:@"12:00 AM"];
         startLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
         startLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
         startLabel.tag=kStartTime;
@@ -218,7 +218,7 @@
         CGRect finishLabelRect=CGRectMake(255, 55, 62, 15);
         UILabel *finishLabel=[[UILabel alloc] initWithFrame:finishLabelRect];
         finishLabel.textAlignment=UITextAlignmentLeft;
-        finishLabel.text=[NSString stringWithFormat:@"8:00 PM"];
+        finishLabel.text=[NSString stringWithFormat:@"12:00 PM"];
         finishLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
         finishLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
         finishLabel.tag=kFinshTime;
