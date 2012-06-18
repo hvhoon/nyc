@@ -26,3 +26,4 @@
 @property (nonatomic,retain) id<CustomCameraUploadDelegate>delegate;
 @property (nonatomic,assign) BOOL galleryImage;
 @end
+    

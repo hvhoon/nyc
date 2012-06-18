@@ -1023,14 +1023,13 @@
 		680CE3E81551258700B8E937 /* Soclivity */ = {
 			isa = PBXGroup;
 			children = (
-				EA13F5CB158C7478004B8192 /* Research */,
 				EA91C2C5155A716300BE5BB1 /* App Delegate */,
 				687F3A701551300E00B694DA /* Welcome */,
 				687F3A721551301D00B694DA /* Registration */,
-				EAB135AF15545B1100C1607D /* Reset Password */,
 				687F3A731551303600B694DA /* Login */,
-				EA96E856155E66ED00BE82DF /* Home */,
+				EAB135AF15545B1100C1607D /* Reset Password */,
 				EAF2AEB915875DF1008EAE27 /* Sliding Drawer Effect */,
+				EA96E856155E66ED00BE82DF /* Home */,
 				EAF2AE9E15874B90008EAE27 /* Activity Event */,
 				EA976C301584AD4D00474EAF /* Sqlite */,
 				EA87EDBD157340AB00DE1762 /* Address Book */,
@@ -1047,6 +1046,7 @@
 				EAC94D001566C0F100400404 /* Encryption */,
 				687F3A761551307C00B694DA /* Utilities */,
 				EAB135B91554608800C1607D /* Soclivity Manager */,
+				EA13F5CB158C7478004B8192 /* Research */,
 				EA91C34F155A906700BE5BB1 /* Reachability */,
 				EA91C2CA155A716F00BE5BB1 /* Error Codes */,
 				EA91C313155A719A00BE5BB1 /* QStrings */,
@@ -1295,7 +1295,7 @@
 			name = "Map View";
 			sourceTree = "<group>";
 		};
-		EA8F65B71574E91600EFAE8A /* ActivityListView */ = {
+		EA8F65B71574E91600EFAE8A /* ListView */ = {
 			isa = PBXGroup;
 			children = (
 				EA7D64AF1577757D0034E4DB /* SectionHeaderView.h */,
@@ -1311,7 +1311,7 @@
 				EA976C3F1584D0CE00474EAF /* InfoActivityClass+Parse.h */,
 				EA976C401584D0CF00474EAF /* InfoActivityClass+Parse.m */,
 			);
-			name = ActivityListView;
+			name = ListView;
 			sourceTree = "<group>";
 		};
 		EA90FF311581CF0000CA0C4F /* PullDown Filter Pane */ = {
@@ -1600,7 +1600,7 @@
 			children = (
 				EA90FF311581CF0000CA0C4F /* PullDown Filter Pane */,
 				EA7D64BC157780AF0034E4DB /* Cell Utilities */,
-				EA8F65B71574E91600EFAE8A /* ActivityListView */,
+				EA8F65B71574E91600EFAE8A /* ListView */,
 				EA8F65A81574CED200EFAE8A /* Map View */,
 				EA96E857155E670800BE82DF /* HomeViewController.h */,
 				EA96E858155E670800BE82DF /* HomeViewController.m */,

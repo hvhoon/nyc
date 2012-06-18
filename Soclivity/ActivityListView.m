@@ -51,12 +51,6 @@
     self.tableView.sectionHeaderHeight = HEADER_HEIGHT;
 	self.tableView.scrollsToTop=YES;
     self.tableView.backgroundColor=[UIColor whiteColor];
-    //self.tableView.separatorStyle=UITableViewCellSeparatorStyleSingleLine;
-    /*self.tableView.separatorColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]];
-    UIView* middleSectionBottomDivider = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320,1.0)];
-    middleSectionBottomDivider.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]];
-    self.tableView.tableFooterView=middleSectionBottomDivider;
-    [middleSectionBottomDivider release];*/
     rowHeight_ = DEFAULT_ROW_HEIGHT;
     openSectionIndex_ = NSNotFound;
     [self startPopulatingListView];

@@ -28,7 +28,7 @@
 @synthesize calloutAnnotation = _calloutAnnotation;
 @synthesize selectedAnnotationView = _selectedAnnotationView;
 @synthesize customAnnotation = _customAnnotation;
-@synthesize plays,delegate;
+@synthesize plays,delegate,mapAnnotations;
 #pragma mark -
 
 + (CGFloat)annotationPadding;
@@ -103,6 +103,8 @@
 }
 -(void)setUpMapAnnotations{
     int index=0;
+     [self.mapView removeAnnotations:self.mapView.annotations];
+    self.mapAnnotations = [[NSMutableArray alloc] initWithCapacity:[self.plays count]];
     for (InfoActivityClass *play in self.plays){
         
         if([SoclivityUtilities ValidActivityDate:play.dateFormatterString]){
@@ -115,13 +117,16 @@
         theCoordinate.longitude =[play.longitude doubleValue];
         play.stamp=index;
         SocAnnotation *sfAnnotation = [[SocAnnotation alloc] initWithName:@" " address:@" " coordinate:theCoordinate annotationObject:play];
-        [self.mapView addAnnotation:sfAnnotation];
+        [self.mapAnnotations insertObject:sfAnnotation atIndex:index];
+        
             index++;
         }
     }
     }
         
     }
+    for(SocAnnotation *sfAnn in self.mapAnnotations)
+       [self.mapView addAnnotation:sfAnn];
         
 }
 -(void)currentLocation:(CLLocationCoordinate2D)theCoord{
@@ -188,7 +193,7 @@
         SocAnnotation *location = (SocAnnotation *) annotation;
         MKPinAnnotationView* pinView =
         (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:SFAnnotationIdentifier];
-        if (!pinView)
+        //if (!pinView)
         {
             MKAnnotationView *annotationView = [[[MKAnnotationView alloc] initWithAnnotation:annotation
                                                                              reuseIdentifier:SFAnnotationIdentifier] autorelease];
@@ -258,13 +263,12 @@
             [disclosureButton addTarget:self action:@selector(pushTodetailActivity:) forControlEvents:UIControlEventTouchUpInside];
             annotationView.rightCalloutAccessoryView=disclosureButton;
 
-            pinView.animatesDrop=YES;
             return annotationView;
         }
-        else
+        /*else
         {
             pinView.annotation = annotation;
-        }
+        }*/
         return pinView;
     }
     
@@ -314,8 +318,8 @@
     }
 }
 -(void)pushTodetailActivity:(UIButton*)sender{
-    InfoActivityClass *activityInfo=[self.plays objectAtIndex:[sender tag]];
-    [delegate PushToDetailActivityView:activityInfo];
+    SocAnnotation *detailAnnotation=[self.mapAnnotations objectAtIndex:[sender tag]];
+    [delegate PushToDetailActivityView:detailAnnotation._socAnnotation];
 
 }
 @end
