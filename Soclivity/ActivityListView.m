@@ -50,7 +50,7 @@
     sortType=1;
     self.tableView.sectionHeaderHeight = HEADER_HEIGHT;
 	self.tableView.scrollsToTop=YES;
-    self.tableView.backgroundColor=[UIColor whiteColor];
+    self.tableView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
     rowHeight_ = DEFAULT_ROW_HEIGHT;
     openSectionIndex_ = NSNotFound;
     [self startPopulatingListView];

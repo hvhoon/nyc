@@ -182,7 +182,7 @@ if(timer%2==0){
             
                 dateFormatter.dateFormat=@"h:mm a";
                 
-                NSString*timeUpdate=[NSString stringWithFormat:@"Today,%@",[dateFormatter stringFromDate:destinationDate]];
+                NSString*timeUpdate=[NSString stringWithFormat:@"Today, %@",[dateFormatter stringFromDate:destinationDate]];
                 formatStringGMTObj.dateAndTime=timeUpdate;
             
             

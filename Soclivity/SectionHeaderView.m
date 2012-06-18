@@ -42,10 +42,10 @@
         // Create and configure the title label.
         section = sectionNumber;
         
-        UIView *sectionHeaderTopDivider = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
-        sectionHeaderTopDivider.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]];
-        [self addSubview:sectionHeaderTopDivider];
-        [sectionHeaderTopDivider release];
+        UIImageView *topDivider=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_sectionDivider.png"]];
+        topDivider.frame=CGRectMake(0, 0, 320, 1);
+        [self addSubview:topDivider];
+        
         
         UIImageView *activityTypeImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 1, 25, 66)];
         switch (detailSectionInfo.type) {
@@ -158,8 +158,6 @@
                 
                 [self addSubview:mileslabel];
                 [mileslabel release];
-                
-                
             }
                 break;
                 
