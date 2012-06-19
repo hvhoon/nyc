@@ -70,6 +70,8 @@
     
     //self.plays =[SoclivityUtilities getPlayerActivities];
     self.plays =[SoclivitySqliteClass returnAllValidActivities];
+    [self sortingFilterRefresh];
+#if 0    
 //    [self.sectionInfoArray removeAllObjects];
 //    if ((self.sectionInfoArray == nil) || ([self.sectionInfoArray count] != [self numberOfSectionsInTableView:self.tableView])) {
 		
@@ -103,7 +105,7 @@
 		[infoArray release];
 //}
     [self.tableView reloadData];
-    
+#endif    
     if(listRefresh){
         [self stopLoading];
     }
