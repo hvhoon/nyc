@@ -469,8 +469,19 @@
 
 -(void)StartGettingActivities{
     
-    [devServer getActivitiesInvocation:[SOC.loggedInUser.idSoc intValue] delegate:self];
+    
+    
+         [devServer getActivitiesInvocation:[SOC.loggedInUser.idSoc intValue] delegate:self];
     //[devServer getActivitiesInvocation:[SOC.loggedInUser.idSoc intValue] latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude timeSpanFilter:@"today" updatedAt:@"today" delegate:self];
+//    NSString *timeStamp=[[NSUserDefaults standardUserDefaults] valueForKey:@"SOCTimeStamp"];
+//    if(timeStamp==nil)
+//
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+//    NSString  *currentTime=[dateFormatter stringFromDate:[NSDate date]];
+//    
+//    [[NSUserDefaults standardUserDefaults] setValue:currentTime forKey:@"SOCTimeStamp"];
+
 }
 #pragma mark -
 #pragma mark GetActivitiesInvocationDelegate Method

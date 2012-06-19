@@ -58,6 +58,7 @@ static sqlite3 *database = nil;
 +(void)InsertNewActivities:(NSArray*)ActivityArray{
 	
 	sqlite3_stmt *insertStmtNewActivity=nil;
+    
 	
 	[SoclivitySqliteClass deleteAllActivitiesPriorToThisRequest];
     
