@@ -219,17 +219,16 @@ static sqlite3 *database = nil;
             play.distance=@"0.89";
             play.organizerName=@"Shahved Katoch";
             play.goingCount=@"34";
-            play.DOS=@"1";
-            [listOfValidActivitiesArray addObject:play];
+            play.DOS=@"2";
             NSLog(@"message=%@",message);
 
-                NSMutableArray *quotations = [NSMutableArray arrayWithCapacity:1];
-                quotation.DOS_1=3;
-                quotation.DOS_2=3;
-                [quotations addObject:quotation];
-                 play.quotations = quotations;
+            NSMutableArray *quotations = [NSMutableArray arrayWithCapacity:1];
+            quotation.DOS_1=3;
+            quotation.DOS_2=3;
+            [quotations addObject:quotation];
+             play.quotations = quotations;
                 
-                [listOfValidActivitiesArray addObject:play];
+            [listOfValidActivitiesArray addObject:play];
             }
         }
       return listOfValidActivitiesArray;

@@ -359,8 +359,11 @@
 }
 
 - (void)refresh {
+    
+    //time to call the HomeView Controller for cleaning the cache and loading new results
+      [delegate RefreshFromTheListView];
     // Don't forget to call stopLoading at the end.
-    [self performSelector:@selector(stopLoading) withObject:nil afterDelay:2.0];
+    //[self performSelector:@selector(stopLoading) withObject:nil afterDelay:2.0];
 }
 
 #pragma mark Memory management

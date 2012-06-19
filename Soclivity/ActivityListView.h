@@ -14,6 +14,7 @@
 
 @optional
 -(void)PushToDetailActivityView:(InfoActivityClass*)detailedInfo;
+-(void)RefreshFromTheListView;
 @end
 
 

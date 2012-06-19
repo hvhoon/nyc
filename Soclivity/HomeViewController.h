@@ -45,6 +45,8 @@
     float animationDuration;
     MainServiceManager *devServer;
     SoclivityManager *SOC;
+    BOOL listRefresh;
+    BOOL locationPulled;
 }
 
 @property (nonatomic,retain)id <HomeScreenDelegate>delegate;

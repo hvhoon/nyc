@@ -50,9 +50,11 @@
     
     
     if(SOC.currentLocation.coordinate.latitude!=0.0f && SOC.currentLocation.coordinate.longitude!=0.0f){
-         [self StartGettingActivities];
+        
+        [self StartGettingActivities];
     }
     else{
+        locationPulled=FALSE;
     LocationCustomManager *SocLocation=[[LocationCustomManager alloc]init];
     SocLocation.delegate=self;
     SocLocation.theTag=kOnlyLatLong;
@@ -479,18 +481,34 @@
     //now time to write in the Sqlite DataBase(Delete and Clean the activities Table)
     
     [SoclivitySqliteClass InsertNewActivities:responses];
+    if(listRefresh){
+        listRefresh=FALSE;
+        [activityTableView stopLoading];
+    }
+    
     [activityTableView startPopulatingListView];
     [socEventMapView setUpMapAnnotations];
 }
 
 -(void)currentLocation:(CLLocationCoordinate2D)theCoord{
-     [self StartGettingActivities];
+    
+    
+    if(!locationPulled){
+        locationPulled=TRUE;
+        [self StartGettingActivities];
+    }
+     
 }
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+-(void)RefreshFromTheListView{
+    listRefresh=TRUE;
+    [self StartGettingActivities];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

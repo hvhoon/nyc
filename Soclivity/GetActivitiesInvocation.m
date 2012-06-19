@@ -41,6 +41,8 @@
 
 -(BOOL)handleHttpOK:(NSMutableData *)data {
     
+    
+    NSLog(@"handleHttpOK");
 	NSArray* resultsd = [[[NSString alloc] initWithData:data 
                                                encoding:NSUTF8StringEncoding] JSONValue];
     
