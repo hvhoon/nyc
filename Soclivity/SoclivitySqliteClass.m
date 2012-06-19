@@ -66,7 +66,9 @@ static sqlite3 *database = nil;
 		
 		if(insertStmtNewActivity == nil) {
 			
-			const char *sqlNewActivity = "insert into Activities(name,atype,when_act,where_lat,where_lng,where_address,where_city,where_state,where_zip,what,access,numofpeople,ownnerid,created_at,updated_at) Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        const char *sqlNewActivity ="INSERT OR REPLACE INTO Activities(name,atype,when_act,where_lat,where_lng,where_address,where_city,where_state,where_zip,what,access,numofpeople,ownnerid,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+			/*const char *sqlNewActivity = "insert into Activities(name,atype,when_act,where_lat,where_lng,where_address,where_city,where_state,where_zip,what,access,numofpeople,ownnerid,created_at,updated_at) Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";*/
 			int error = sqlite3_prepare_v2(database, sqlNewActivity, -1, &insertStmtNewActivity, NULL);
 			if(error != SQLITE_OK)
 				NSAssert1(0, @"Error while creating add statement. '%s'", sqlite3_errmsg(database));
