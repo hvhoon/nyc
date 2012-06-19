@@ -11,6 +11,7 @@
 #import "InfoActivityClass.h"
 #import "SoclivityUtilities.h"
 #import "DetailInfoActivityClass.h"
+#import "SoclivityManager.h"
 static sqlite3 *database = nil;
 @implementation SoclivitySqliteClass
 
@@ -214,17 +215,25 @@ static sqlite3 *database = nil;
         
         if([SoclivityUtilities ValidActivityDate:play.when]){
             
-            
+            SoclivityManager *SOC=[SoclivityManager SharedInstance];
             NSString *message=[SoclivityUtilities NetworkTime:play];
-            play.distance=@"0.89";
+            CLLocationDegrees latitude  = [play.where_lat  doubleValue];
+            CLLocationDegrees longitude = [play.where_lng  doubleValue];
+            CLLocation *tempLocObj = [[CLLocation alloc] initWithLatitude:latitude
+                                                                longitude:longitude];
+            
+            CLLocation *newCenter = [[CLLocation alloc] initWithLatitude:SOC.currentLocation.coordinate.latitude
+                                                                longitude:SOC.currentLocation.coordinate.longitude];
+
+            play.distance =[NSString stringWithFormat:@"%.02f",[newCenter distanceFromLocation:tempLocObj] / 1000];
             play.organizerName=@"Shahved Katoch";
-            play.goingCount=@"34";
-            play.DOS=@"2";
+            play.goingCount=@"14";
+            play.DOS=@"1";
             NSLog(@"message=%@",message);
 
             NSMutableArray *quotations = [NSMutableArray arrayWithCapacity:1];
             quotation.DOS_1=3;
-            quotation.DOS_2=3;
+            quotation.DOS_2=7;
             [quotations addObject:quotation];
              play.quotations = quotations;
                 
