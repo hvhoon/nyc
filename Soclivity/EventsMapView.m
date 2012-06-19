@@ -16,6 +16,8 @@
 #import "InfoActivityClass.h"
 #import "MapActivityClass.h"
 #import "DetailInfoActivityClass.h"
+#import "SoclivitySqliteClass.h"
+#import "SoclivityManager.h"
 @interface EventsMapView()
 
 @property (nonatomic, retain) SocAnnotation *calloutAnnotation;
@@ -46,10 +48,11 @@
 }
 - (void)gotoLocation
 {
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
     // start off by default in San Francisco
     MKCoordinateRegion newRegion;
-    newRegion.center.latitude = currentCoord.latitude;
-    newRegion.center.longitude = currentCoord.longitude;
+    newRegion.center.latitude = SOC.currentLocation.coordinate.latitude;
+    newRegion.center.longitude = SOC.currentLocation.coordinate.longitude;
     newRegion.span.latitudeDelta = 0.06;
     newRegion.span.longitudeDelta = 0.06;
     
@@ -70,9 +73,6 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-    LocationCustomManager *SocLocation=[[LocationCustomManager alloc]init];
-    SocLocation.delegate=self;
-    SocLocation.theTag=kOnlyLatLong;
 
     self.mapView.mapType = MKMapTypeStandard;
     //[self.mapView setShowsUserLocation:YES];
@@ -103,18 +103,20 @@
 }
 -(void)setUpMapAnnotations{
     int index=0;
+     [self gotoLocation];
      [self.mapView removeAnnotations:self.mapView.annotations];
-    self.mapAnnotations = [[NSMutableArray alloc] initWithCapacity:[self.plays count]];
+     self.plays=[SoclivitySqliteClass returnAllValidActivities];
+     self.mapAnnotations = [[NSMutableArray alloc] initWithCapacity:[self.plays count]];
     for (InfoActivityClass *play in self.plays){
         
-        if([SoclivityUtilities ValidActivityDate:play.dateFormatterString]){
+        if([SoclivityUtilities ValidActivityDate:play.when]){
     if([SoclivityUtilities validFilterActivity:play.type]){
         
-        if([SoclivityUtilities DoTheTimeLogic:play.dateFormatterString]){
+        if([SoclivityUtilities DoTheTimeLogic:play.when]){
             
         CLLocationCoordinate2D theCoordinate;
-        theCoordinate.latitude = [play.latitude doubleValue];
-        theCoordinate.longitude =[play.longitude doubleValue];
+        theCoordinate.latitude = [play.where_lat doubleValue];
+        theCoordinate.longitude =[play.where_lng doubleValue];
         play.stamp=index;
         SocAnnotation *sfAnnotation = [[SocAnnotation alloc] initWithName:@" " address:@" " coordinate:theCoordinate annotationObject:play];
         [self.mapAnnotations insertObject:sfAnnotation atIndex:index];

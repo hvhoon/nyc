@@ -19,26 +19,29 @@
 	}
 	
 	InfoActivityClass *play = [[[InfoActivityClass alloc] init] autorelease];
-#if 0    
+#if 1    
     play.activityName = [ACTDict objectForKey:@"name"];
     NSNumber *type = [ACTDict objectForKey:@"atype"];
     play.type =[type intValue];
-    play.time_slot_id = [ACTDict objectForKey:@"when_act"];
-    play.from_time = [ACTDict objectForKey:@"where_lat"];
-    play.to_time = [ACTDict objectForKey:@"where_lng"];
-    play.user_role_id = [ACTDict objectForKey:@"where_address"];
-    play.user_id = [ACTDict objectForKey:@"where_city"];
-    play.role_id = [ACTDict objectForKey:@"where_state"];
-    play.sub_tenant_id = [ACTDict objectForKey:@"where_zip"];
-    play.day = [ACTDict objectForKey:@"what"];
-    play.sub_tenant_id = [ACTDict objectForKey:@"access"];
-    play.goingCount = [ACTDict objectForKey:@"numofpeople"];
-    play.sub_tenant_id = [ACTDict objectForKey:@"ownnerid"];
-    play.day = [ACTDict objectForKey:@"created"];
-    play.sub_tenant_id = [ACTDict objectForKey:@"last_update"];
-    play.day = [ACTDict objectForKey:@"deleted"];
-    play.sub_tenant_id = [ACTDict objectForKey:@"created_at"];
-    play.day = [ACTDict objectForKey:@"updated_at"];
+    play.access = [ACTDict objectForKey:@"access"];
+    NSNumber *numberOfPeople = [ACTDict objectForKey:@"num_of_people"];
+    play.num_of_people =[numberOfPeople intValue];
+    play.created_at = [ACTDict objectForKey:@"created_at"];
+    play.activityId = [ACTDict objectForKey:@"id"];
+    NSNumber *ownerId = [ACTDict objectForKey:@"ownnerid"];
+    play.OwnerId =[ownerId intValue];
+    play.updated_at=[ACTDict objectForKey:@"updated_at"];
+    play.what=[ACTDict objectForKey:@"what"];
+    play.when=[ACTDict objectForKey:@"when"];
+    play.where_address=[ACTDict objectForKey:@"where_address"];
+    play.where_city=[ACTDict objectForKey:@"where_city"];
+    play.where_lat=[ACTDict objectForKey:@"where_lat"];
+    play.where_lng=[ACTDict objectForKey:@"where_lng"];
+    play.where_state=[ACTDict objectForKey:@"where_state"];
+    play.where_zip=[ACTDict objectForKey:@"where_zip"];
+    
+    
+    
 #endif    
 	return play;
     

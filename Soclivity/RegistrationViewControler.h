@@ -39,7 +39,6 @@
 -(void)RegisterUserForTheFirstTime;
 -(void)disableScrolling;
 -(void)enableScrolling;
--(void)StartGettingActivities:(HomeViewController*)homeVC;
 -(void)PushHomeScreen;
 @end
 

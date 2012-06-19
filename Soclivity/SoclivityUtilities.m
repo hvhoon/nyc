@@ -89,14 +89,17 @@ if(timer%2==0){
 
 +(NSString*)NetworkTime:(InfoActivityClass*)formatStringGMTObj{
 #if 1    
+    
+    //formatStringGMTObj.dateFormatterString=@"2012-06-18T09:25:36Z";
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"yyyy-MM-dd_HH:mm:ss";
+    //dateFormatter.dateFormat = @"yyyy-MM-dd_HH:mm:ss";
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
     NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
     [dateFormatter setTimeZone:gmt];
     
     // how to get back time from current time in the same format
     
-    NSDate *lastDate = [dateFormatter dateFromString:formatStringGMTObj.dateFormatterString];//add the string
+    NSDate *lastDate = [dateFormatter dateFromString:formatStringGMTObj.when];//add the string
     NSString *todayDate = [dateFormatter stringFromDate:[NSDate date]];
     NSDate *currentDate=[dateFormatter dateFromString:todayDate];	
     
@@ -220,7 +223,8 @@ if(timer%2==0){
 +(BOOL)ValidActivityDate:(NSString*)activityDate{
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"yyyy-MM-dd_HH:mm:ss";
+    //dateFormatter.dateFormat = @"yyyy-MM-dd_HH:mm:ss";
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
     NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
     [dateFormatter setTimeZone:gmt];
     NSDate *lastDate = [dateFormatter dateFromString:activityDate];
@@ -537,7 +541,8 @@ if(timer%2==0){
     NSLog(@"finishTimeInterval=%ld",finishTimeInterval);    
     //Now figuring out the time Range Interval
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"yyyy-MM-dd_HH:mm:ss";
+    //dateFormatter.dateFormat = @"yyyy-MM-dd_HH:mm:ss";
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
     NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
     [dateFormatter setTimeZone:gmt];
 

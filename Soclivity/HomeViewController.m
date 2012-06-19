@@ -11,6 +11,11 @@
 #import "SettingsViewController.h"
 #import "UserContactList.h"
 #import "ActivityEventViewController.h"
+#import "MainServiceManager.h"
+#import "SoclivityManager.h"
+#import "GetPlayersClass.h"
+#import "SoclivitySqliteClass.h"
+#import "LocationCustomManager.h"
 @implementation HomeViewController
 @synthesize delegate,socEventMapView,activityTableView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -40,10 +45,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    devServer=[[MainServiceManager alloc]init];
+    SOC=[SoclivityManager SharedInstance];
+    
+    
+    if(SOC.currentLocation.coordinate.latitude!=0.0f && SOC.currentLocation.coordinate.longitude!=0.0f){
+         [self StartGettingActivities];
+    }
+    else{
+    LocationCustomManager *SocLocation=[[LocationCustomManager alloc]init];
+    SocLocation.delegate=self;
+    SocLocation.theTag=kOnlyLatLong;
+    }
+
+   
     gradient=0.94;
     CGFloat xOffset = 0;
     animationDuration = 0.2;
-#if 1   
+  
     NSLog(@"offset=%f",xOffset);
     pullDownView = [[StyledPullableView alloc] initWithFrame:CGRectMake(xOffset, 0, 640, 460)];
     pullDownView.openedCenter = CGPointMake(320 + xOffset,130);
@@ -57,8 +76,6 @@
     pullDownView.delegate = self;
     
     
-    
-#endif 
     
     overLayView=[[UIView alloc]initWithFrame:CGRectMake(0, 300, 320, 160)];
     overLayView.backgroundColor=[UIColor clearColor];
@@ -110,6 +127,8 @@
     
     // Do any additional setup after loading the view from its nib.
 }
+
+
 -(void)timeToScrollDown{
     SettingsViewController *settingsViewController=[[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
     
@@ -445,15 +464,28 @@
     [activityEventViewController release];
 
 }
+
+-(void)StartGettingActivities{
+    
+    [devServer getActivitiesInvocation:[SOC.loggedInUser.idSoc intValue] delegate:self];
+    //[devServer getActivitiesInvocation:[SOC.loggedInUser.idSoc intValue] latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude timeSpanFilter:@"today" updatedAt:@"today" delegate:self];
+}
 #pragma mark -
 #pragma mark GetActivitiesInvocationDelegate Method
 
 -(void)ActivitiesInvocationDidFinish:(GetActivitiesInvocation*)invocation
                         withResponse:(NSArray*)responses
                            withError:(NSError*)error{
+    //now time to write in the Sqlite DataBase(Delete and Clean the activities Table)
     
+    [SoclivitySqliteClass InsertNewActivities:responses];
+    [activityTableView startPopulatingListView];
+    [socEventMapView setUpMapAnnotations];
 }
 
+-(void)currentLocation:(CLLocationCoordinate2D)theCoord{
+     [self StartGettingActivities];
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];

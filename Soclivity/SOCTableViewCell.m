@@ -90,7 +90,7 @@ static UIFont *boldText = nil;
         
     }
     if(lastRow)
-        [[UIImage imageNamed:@"S04_sectionDivider.png"] drawInRect:CGRectMake(0,119,320,1.0)];
+        [[UIImage imageNamed:@"S04_sectionDivider.png"] drawInRect:CGRectMake(0,113,320,1.0)];
 
 }
 

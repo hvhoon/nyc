@@ -14,5 +14,7 @@
 +(BOOL)openDatabase:(NSString*)dbPath;
 + (void) copyDatabaseIfNeeded;
 + (NSString *) getDBPath;
-
++(void)InsertNewActivities:(NSArray*)ActivityArray;
++(void)deleteAllActivitiesPriorToThisRequest;
++(NSArray*)returnAllValidActivities;
 @end

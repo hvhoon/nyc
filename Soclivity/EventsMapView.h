@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import "LocationCustomManager.h"
 @class SocAnnotation;
 @class InfoActivityClass;
 
@@ -18,7 +17,7 @@
 -(void)PushToDetailActivityView:(InfoActivityClass*)detailedInfo;
 @end
 
-@interface EventsMapView : UIView<MKMapViewDelegate,CoreLocationDelegate>{
+@interface EventsMapView : UIView<MKMapViewDelegate>{
     MKMapView *mapView;
 	MKAnnotationView *_selectedAnnotationView;
 	SocAnnotation *_customAnnotation;

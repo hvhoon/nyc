@@ -13,6 +13,7 @@
 #import "SectionHeaderView.h"
 #import "SOCTableViewCell.h"
 #import "SoclivityUtilities.h"
+#import "SoclivitySqliteClass.h"
 #define REFRESH_HEADER_HEIGHT 90.0f
 @interface ActivityListView ()
 
@@ -23,7 +24,7 @@
 @property (nonatomic, assign) NSInteger openSectionIndex;
 @end
 
-#define DEFAULT_ROW_HEIGHT 121
+#define DEFAULT_ROW_HEIGHT 115
 #define HEADER_HEIGHT 94
 
 @implementation ActivityListView
@@ -53,7 +54,7 @@
     self.tableView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
     rowHeight_ = DEFAULT_ROW_HEIGHT;
     openSectionIndex_ = NSNotFound;
-    [self startPopulatingListView];
+    //[self startPopulatingListView];
 }
 
 -(void)LoadTable{
@@ -67,7 +68,8 @@
 }
 - (void)startPopulatingListView{
     
-    self.plays =[SoclivityUtilities getPlayerActivities];
+    //self.plays =[SoclivityUtilities getPlayerActivities];
+    self.plays =[SoclivitySqliteClass returnAllValidActivities];
     if ((self.sectionInfoArray == nil) || ([self.sectionInfoArray count] != [self numberOfSectionsInTableView:self.tableView])) {
 		
         // For each play, set up a corresponding SectionInfo object to contain the default height for each row.
@@ -75,11 +77,11 @@
 		
 		for (InfoActivityClass *play in self.plays) {
 			
-            if([SoclivityUtilities ValidActivityDate:play.dateFormatterString]){
+         if([SoclivityUtilities ValidActivityDate:play.when]){
         if([SoclivityUtilities validFilterActivity:play.type]){
             
             
-            if([SoclivityUtilities DoTheTimeLogic:play.dateFormatterString]){
+            if([SoclivityUtilities DoTheTimeLogic:play.when]){
                 SectionInfo *sectionInfo = [[SectionInfo alloc] init];			
                 sectionInfo.play = play;
                 sectionInfo.open = NO;
@@ -410,11 +412,12 @@
     
     self.plays = [self.plays sortedArrayUsingComparator: ^(InfoActivityClass *a, InfoActivityClass *b) {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-		dateFormatter.dateFormat = @"yyyy-MM-dd_HH:mm:ss";
+		//dateFormatter.dateFormat = @"yyyy-MM-dd_HH:mm:ss";
+        dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
 		NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
 		[dateFormatter setTimeZone:gmt];
-        NSDate *s1 = [dateFormatter dateFromString:a.dateFormatterString];//add the string
-        NSDate *s2 = [dateFormatter dateFromString:b.dateFormatterString];
+        NSDate *s1 = [dateFormatter dateFromString:a.when];//add the string
+        NSDate *s2 = [dateFormatter dateFromString:b.when];
 
         return [s1 compare:s2];
     }];
@@ -448,11 +451,11 @@
     NSMutableArray *infoArray = [[NSMutableArray alloc] init];
     for (InfoActivityClass *play in self.plays) {
         
-        if([SoclivityUtilities ValidActivityDate:play.dateFormatterString]){
+        if([SoclivityUtilities ValidActivityDate:play.when]){
         
         if([SoclivityUtilities validFilterActivity:play.type]){
             
-        if([SoclivityUtilities DoTheTimeLogic:play.dateFormatterString]){
+        if([SoclivityUtilities DoTheTimeLogic:play.when]){
             
         SectionInfo *sectionInfo = [[SectionInfo alloc] init];
         

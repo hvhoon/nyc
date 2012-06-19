@@ -53,7 +53,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     
     
     
-    [self setUpActivityDataList];
+    //[self setUpActivityDataList];
     [SoclivitySqliteClass copyDatabaseIfNeeded];
 	BOOL openSuccessful=[SoclivitySqliteClass openDatabase:[SoclivitySqliteClass getDBPath]];
 	if(openSuccessful)
@@ -102,10 +102,10 @@ void uncaughtExceptionHandler(NSException *exception) {
         play.DOS=[playDictionary objectForKey:@"DOS"];
         play.distance=[playDictionary objectForKey:@"distance"];
         play.goingCount=[playDictionary objectForKey:@"goingCount"];
-        play.latitude=[playDictionary objectForKey:@"Latitude"];
-        play.longitude=[playDictionary objectForKey:@"Longitude"];
-        play.dateFormatterString=[playDictionary objectForKey:@"Date"];
-        if([SoclivityUtilities ValidActivityDate:play.dateFormatterString]){
+        play.where_lat=[playDictionary objectForKey:@"Latitude"];
+        play.where_lng=[playDictionary objectForKey:@"Longitude"];
+        play.when=[playDictionary objectForKey:@"Date"];
+        if([SoclivityUtilities ValidActivityDate:play.when]){
         NSString *message=[SoclivityUtilities NetworkTime:play];
         NSLog(@"message=%@",message);
         NSArray *quotationDictionaries = [playDictionary objectForKey:@"detailQuotations"];

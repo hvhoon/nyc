@@ -9,19 +9,33 @@
 #import "InfoActivityClass.h"
 
 @implementation InfoActivityClass
-@synthesize type,activityName,organizerName,DOS,distance,goingCount,quotations,latitude,longitude,stamp,dateFormatterString,dateAndTime;
+@synthesize type,activityName,organizerName,DOS,distance,goingCount,quotations,where_lat,where_lng,stamp,dateAndTime;
 
+@synthesize access,activityType,created_at,num_of_people,activityId,OwnerId,updated_at,what,when,where_address,where_city;
+@synthesize where_state,where_zip;
 -(void)dealloc{
     [activityName release];
     [organizerName release];
     [DOS release];
     [distance release];
     [goingCount release];
-    [latitude release];
-    [longitude release];
+    [where_lat release];
+    [where_lng release];
     [quotations release];
-    [dateFormatterString release];
     [dateAndTime release];
+    
+    [access release];
+    [activityType release];
+    [created_at release];
+    [activityId release];
+    [updated_at release];
+    [what release];
+    [when release];
+    [where_address release];
+    [where_city release];
+    [where_state release];
+    [where_zip release];
+     
 }
 
 @end

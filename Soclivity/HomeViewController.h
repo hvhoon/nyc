@@ -11,13 +11,16 @@
 #import "ActivityListView.h"
 #import "StyledPullableView.h"
 #import "GetActivitiesInvocation.h"
+#import "LocationCustomManager.h"
+@class MainServiceManager;
+@class SoclivityManager;
 @protocol HomeScreenDelegate <NSObject>
 
 @optional
 - (void)showLeft:(id)sender;
 @end
 
-@interface HomeViewController : UIViewController<PullableViewDelegate,GetActivitiesInvocationDelegate,ActivityListViewDelegate,EventsMapViewDelegate>{
+@interface HomeViewController : UIViewController<PullableViewDelegate,GetActivitiesInvocationDelegate,ActivityListViewDelegate,EventsMapViewDelegate,CoreLocationDelegate>{
    
     IBOutlet UIButton *profileBtn;
     IBOutlet UIButton *addBtn;
@@ -40,6 +43,8 @@
     float gradient;
     UIView *overLayView;
     float animationDuration;
+    MainServiceManager *devServer;
+    SoclivityManager *SOC;
 }
 
 @property (nonatomic,retain)id <HomeScreenDelegate>delegate;
@@ -55,4 +60,5 @@
 -(IBAction)DOSSortingClicked:(id)sender;
 -(IBAction)TimeSortingClicked:(id)sender;
 -(void)DelegateProperty:(id)delegateView;
+-(void)StartGettingActivities;
 @end

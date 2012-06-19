@@ -21,10 +21,8 @@
 	[super dealloc];
 }
 -(void)invoke {
-    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/signin.json"];
-    //NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/signout.json"];
-    [self post:a
-		  body:[self body]];
+    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/getactivities.json?pid=%d",userSOCId];
+    [self get:a];
 }
 -(NSString*)body {
 #if 1    

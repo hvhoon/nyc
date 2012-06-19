@@ -67,7 +67,7 @@
     [roundFormatter setMaximumFractionDigits:0];
     [roundFormatter setRoundingMode:NSNumberFormatterRoundHalfEven];
     
-    self.rangeValue = FCRangeSliderValueMake(2.5, 7.5); //minimumValue,maximumValue   
+    self.rangeValue = FCRangeSliderValueMake(0,10.0); //minimumValue,maximumValue   
 }
 
 - (id)initWithFrame:(CGRect)frame {

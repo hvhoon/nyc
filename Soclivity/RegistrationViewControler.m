@@ -445,7 +445,6 @@
 #if 0
 -(void)PushHomeScreen{
     HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
-    //[self StartGettingActivities:homeViewController];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
     
     DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
@@ -479,9 +478,7 @@
 
 }
 #endif
--(void)StartGettingActivities:(HomeViewController*)homeVC{
-    [devServer getActivitiesInvocation:[SOC.loggedInUser.idSoc intValue] latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude timeSpanFilter:@"today" updatedAt:@"today" delegate:homeVC];
-}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];

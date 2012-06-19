@@ -72,5 +72,11 @@
     [self invoke:invocation withDelegate:delegate];
 
 }
+-(void)getActivitiesInvocation:(NSInteger)userId delegate:(id<GetActivitiesInvocationDelegate>)delegate{
+    GetActivitiesInvocation *invocation = [[[GetActivitiesInvocation alloc] init] autorelease];
+    invocation.userSOCId = userId;
+    [self invoke:invocation withDelegate:delegate];
+    
+}
 
 @end

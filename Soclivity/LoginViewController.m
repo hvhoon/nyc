@@ -21,6 +21,7 @@
 #import "MBProgressHUD.h"
 #import "AppDelegate.h"
 #import "SlidingDrawerViewController.h"
+#import "SoclivityManager.h"
 #define kUsernameMissing 0
 #define kPasswordMissing 1
 #define kALertPrompt 2
@@ -133,6 +134,8 @@
     // Login successful
     if(obj.status && [obj.password_status isEqualToString:@"null"]){
         
+        SoclivityManager *SOC=[SoclivityManager SharedInstance];
+         SOC.loggedInUser=obj;
         if([ SFHFKeychainUtils storeUsername:@"password" andPassword: password.text forServiceName:@"Soclivity" updateExisting:YES error:nil])
             NSLog(@"Password Encrypted");
         
