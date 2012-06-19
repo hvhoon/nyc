@@ -251,13 +251,18 @@
     NSLog(@"Err code: %d", [error code]);
 }
 -(void)FBSignInInvocationDidFinish:(FBSignInInvocation*)invocation
-                      withResponse:(BOOL)responses
+                      withResponse:(NSArray*)responses
                          withError:(NSError*)error{
     
-    if(!responses)
+    GetPlayersClass *obj=[responses objectAtIndex:0];
+    NSLog(@"SOC ID=%d",[obj.idSoc intValue]);
+    if(!obj.registered)
         [FBdelegate pushToRegistration];
     else{
         //redirect him to homeView Controller
+        SoclivityManager *SOC=[SoclivityManager SharedInstance];
+        SOC.loggedInUser=obj;
+
         [FBdelegate pushToHomeViewController];
     }
 }

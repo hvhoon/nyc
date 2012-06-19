@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ProjectAsyncInvocation.h"
 #import "SAServiceAsyncInvocation.h"
-
+#import "ParseOperation.h"
 
 
 @class FBSignInInvocation;
@@ -17,16 +17,18 @@
 @protocol FBSignInInvocationDelegate 
 
 -(void)FBSignInInvocationDidFinish:(FBSignInInvocation*)invocation
-                           withResponse:(BOOL)responses
+                           withResponse:(NSArray*)responses
                               withError:(NSError*)error;
 
 @end
 
-@interface FBSignInInvocation : ProjectAsyncInvocation{
+@interface FBSignInInvocation : ProjectAsyncInvocation<ParseOperationDelegate>{
     NSString *email;
     NSString *fbuid;
     NSString *access_token;
+    NSOperationQueue*queue;
 }
+@property(nonatomic,retain) NSOperationQueue*queue;
 @property (nonatomic, retain) NSString *email;
 @property (nonatomic,retain)NSString *fbuid;
 @property (nonatomic,retain)NSString*access_token;

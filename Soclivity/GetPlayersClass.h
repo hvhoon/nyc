@@ -30,6 +30,7 @@
     NSString *current_location;
     NSString *facebookUId;
     NSString*facebookAccessToken;
+    BOOL registered;
 
     
 }
@@ -53,4 +54,5 @@
 @property (nonatomic,retain)NSString *current_location;
 @property (nonatomic,retain)NSString *facebookUId;
 @property (nonatomic,retain)NSString *facebookAccessToken;
+@property (nonatomic,assign)BOOL registered;
 @end

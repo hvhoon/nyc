@@ -131,6 +131,9 @@
         if ([key isEqualToString:@"status"]) {
 			mappedKey=key;
         }
+        if ([key isEqualToString:@"registered"]) {
+			mappedKey=key;
+        }
 
         
     }
@@ -171,6 +174,11 @@
     if(jsonQueryKey==kGetPlayers||jsonQueryKey==kRegisterPlayer||jsonQueryKey==kLoginPlayer||(jsonQueryKey==kForgotPassword)){
         if ([mappedKey isEqualToString:@"status"]) {
             self.playerObject.status = x;
+            mappedKey=nil;
+            responseStatus=TRUE;
+        }
+        else if([mappedKey isEqualToString:@"registered"]){
+            self.playerObject.registered = x;
             mappedKey=nil;
             responseStatus=TRUE;
         }

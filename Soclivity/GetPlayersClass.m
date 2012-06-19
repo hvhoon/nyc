@@ -29,6 +29,7 @@
 @synthesize current_location;
 @synthesize facebookUId;
 @synthesize facebookAccessToken;
+@synthesize registered;
 -(void)dealloc{
     [super dealloc];
     [birth_date release];
