@@ -45,7 +45,6 @@
     float animationDuration;
     MainServiceManager *devServer;
     SoclivityManager *SOC;
-    BOOL listRefresh;
     BOOL locationPulled;
 }
 

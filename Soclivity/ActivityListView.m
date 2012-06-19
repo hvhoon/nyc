@@ -70,7 +70,8 @@
     
     //self.plays =[SoclivityUtilities getPlayerActivities];
     self.plays =[SoclivitySqliteClass returnAllValidActivities];
-    if ((self.sectionInfoArray == nil) || ([self.sectionInfoArray count] != [self numberOfSectionsInTableView:self.tableView])) {
+//    [self.sectionInfoArray removeAllObjects];
+//    if ((self.sectionInfoArray == nil) || ([self.sectionInfoArray count] != [self numberOfSectionsInTableView:self.tableView])) {
 		
         // For each play, set up a corresponding SectionInfo object to contain the default height for each row.
 		NSMutableArray *infoArray = [[NSMutableArray alloc] init];
@@ -100,8 +101,13 @@
 		}
 		self.sectionInfoArray = infoArray;
 		[infoArray release];
-	}
+//}
     [self.tableView reloadData];
+    
+    if(listRefresh){
+        [self stopLoading];
+    }
+
 }
 
 #pragma mark Table view data source and delegate
@@ -340,7 +346,7 @@
 
 - (void)stopLoading {
     isLoading = NO;
-    
+    listRefresh=FALSE;
     // Hide the header
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDelegate:self];
@@ -359,7 +365,7 @@
 }
 
 - (void)refresh {
-    
+    listRefresh=TRUE;
     //time to call the HomeView Controller for cleaning the cache and loading new results
       [delegate RefreshFromTheListView];
     // Don't forget to call stopLoading at the end.

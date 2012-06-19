@@ -34,6 +34,7 @@
     NSString *textLoading;
     NSInteger sortType;
     BOOL sectionOpenClose;
+    BOOL listRefresh;
 }
 
 @property (nonatomic, retain) NSArray *plays;

@@ -427,7 +427,7 @@
 #pragma mark Refresh Btn Tapped
 
 -(IBAction)RefreshButtonTapped:(id)sender{
-    
+    [self StartGettingActivities];
 }
 #pragma mark -
 #pragma mark CurrentLocation Btn Tapped
@@ -481,11 +481,6 @@
     //now time to write in the Sqlite DataBase(Delete and Clean the activities Table)
     
     [SoclivitySqliteClass InsertNewActivities:responses];
-    if(listRefresh){
-        listRefresh=FALSE;
-        [activityTableView stopLoading];
-    }
-    
     [activityTableView startPopulatingListView];
     [socEventMapView setUpMapAnnotations];
 }
@@ -507,7 +502,7 @@
 }
 
 -(void)RefreshFromTheListView{
-    listRefresh=TRUE;
+    
     [self StartGettingActivities];
 }
 
