@@ -75,7 +75,7 @@ static UIFont *boldText = nil;
     [distanceInfo drawInRect:CGRectMake(50+25,48,200,14) withFont:firstTextFont];
     
     // Second divider
-    [[UIImage imageNamed:@"S04_sectionDivider.png"] drawInRect:CGRectMake(22,75,283,1)];
+    [[UIImage imageNamed:@"S04_detailDivider.png"] drawInRect:CGRectMake(22,75,283,1)];
     
     for(DetailInfoActivityClass *detailPlay in [playActivity quotations]){
      
