@@ -46,6 +46,7 @@
 @property (nonatomic, copy) NSString *textPull;
 @property (nonatomic, copy) NSString *textRelease;
 @property (nonatomic, copy) NSString *textLoading;
+@property (nonatomic, retain) UIImageView *topDivider;
 @property (nonatomic,retain)id <ActivityListViewDelegate>delegate;
 
 -(void)LoadTable;

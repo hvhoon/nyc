@@ -24,13 +24,13 @@
 @property (nonatomic, assign) NSInteger openSectionIndex;
 @end
 
-#define DEFAULT_ROW_HEIGHT 115
-#define HEADER_HEIGHT 94
+#define DEFAULT_ROW_HEIGHT 114
+#define HEADER_HEIGHT 93
 
 @implementation ActivityListView
 @synthesize plays,tableView,delegate;
 @synthesize sectionInfoArray=sectionInfoArray_, uniformRowHeight=rowHeight_,openSectionIndex=openSectionIndex_;
-@synthesize textPull, textRelease, textLoading, refreshHeaderView, refreshLabel, refreshArrow, refreshSpinner;
+@synthesize textPull, textRelease, textLoading, refreshHeaderView, refreshLabel, refreshArrow, refreshSpinner, topDivider;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -273,9 +273,15 @@
     
     refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, REFRESH_HEADER_HEIGHT)];
     refreshLabel.backgroundColor = [UIColor clearColor];
+    refreshLabel.shadowColor = [SoclivityUtilities returnTextFontColor:7];
+    refreshLabel.shadowOffset = CGSizeMake(0,-1);
     refreshLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     refreshLabel.textColor = [SoclivityUtilities returnTextFontColor:1];
     refreshLabel.textAlignment = UITextAlignmentCenter;
+    
+    topDivider=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_sectionDivider.png"]];
+    topDivider.frame=CGRectMake(0, REFRESH_HEADER_HEIGHT-1, 320, 1);
+
     
     refreshArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S04_listrefresh.png"]];
     refreshArrow.frame = CGRectMake(floorf((REFRESH_HEADER_HEIGHT + 20) / 2),
@@ -286,6 +292,7 @@
     refreshSpinner.frame = CGRectMake(floorf(floorf(REFRESH_HEADER_HEIGHT + 20) / 2), floorf((REFRESH_HEADER_HEIGHT - 20) / 2), 20, 20);
     refreshSpinner.hidesWhenStopped = YES;
     
+    [refreshHeaderView addSubview:topDivider];
     [refreshHeaderView addSubview:refreshLabel];
     [refreshHeaderView addSubview:refreshArrow];
     [refreshHeaderView addSubview:refreshSpinner];
@@ -387,6 +394,7 @@
     [textPull release];
     [textRelease release];
     [textLoading release];
+    [topDivider release];
 
     [super dealloc];
     

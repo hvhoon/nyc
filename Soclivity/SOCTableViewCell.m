@@ -58,16 +58,15 @@ static UIFont *boldText = nil;
     [textColor set];
     
     // Graphics in the details table cell
-    [[UIImage imageNamed:@"S04_sectionDivider.png"] drawInRect:CGRectMake(0,0,320,1)];
     
     [[UIImage imageNamed:@"S04_detailShadow.png"] drawInRect:CGRectMake(0,0,320,10)];
-    
-    // First divider
-    [[UIImage imageNamed:@"S04_detailDivider.png"] drawInRect:CGRectMake(22,38,283,1)];
     
     // Time info.
     [[UIImage imageNamed:@"S04_smallClock.png"] drawInRect:CGRectMake(50,15,12,12)];
     [playActivity.dateAndTime drawInRect:CGRectMake(50+25, 12, 200, 14) withFont:firstTextFont];
+    
+    // First divider
+    [[UIImage imageNamed:@"S04_detailDivider.png"] drawInRect:CGRectMake(22,38,283,1)];
     
     // Distance info.
     [[UIImage imageNamed:@"S04_smallLocation.png"] drawInRect:CGRectMake(50,51,12,12)];
@@ -89,8 +88,7 @@ static UIFont *boldText = nil;
         [secondLabel drawInRect:CGRectMake(50+95+25+3,85,280,25) withFont:firstTextFont];
         
     }
-    if(lastRow)
-        [[UIImage imageNamed:@"S04_sectionDivider.png"] drawInRect:CGRectMake(0,113,320,1.0)];
+    [[UIImage imageNamed:@"S04_sectionDivider.png"] drawInRect:CGRectMake(0,113,320,1)];
 
 }
 
