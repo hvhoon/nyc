@@ -42,12 +42,7 @@
         // Create and configure the title label.
         section = sectionNumber;
         
-        UIImageView *topDivider=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_sectionDivider.png"]];
-        topDivider.frame=CGRectMake(0, 0, 320, 1);
-        [self addSubview:topDivider];
-        
-        
-        UIImageView *activityTypeImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 1, 25, 66)];
+        UIImageView *activityTypeImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 25, 66)];
         switch (detailSectionInfo.type) {
             case 1:
             {
@@ -121,19 +116,19 @@
         }
         
         // Line at the beginning of the middle section
-        UIView* middleSectionTopDivider = [[UIView alloc] initWithFrame:CGRectMake(0, 67, 320, 1)];
+        UIView* middleSectionTopDivider = [[UIView alloc] initWithFrame:CGRectMake(0, 66, 320, 1)];
         middleSectionTopDivider.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_middleLine.png"]];
         [self addSubview:middleSectionTopDivider];
         [middleSectionTopDivider release];
         
         // Middle section
-        UIView* middleSection=[[UIView alloc]initWithFrame:CGRectMake(0, 68, 320, 26)];
+        UIView* middleSection=[[UIView alloc]initWithFrame:CGRectMake(0, 67, 320, 26)];
         middleSection.backgroundColor = [SoclivityUtilities returnTextFontColor:7];
         [self addSubview:middleSection];
         [middleSection release];
-        
+         
         // People going 
-        CGRect countLabelRect=CGRectMake(15,73,180,15);
+        CGRect countLabelRect=CGRectMake(15,72,180,15);
         UILabel *label=[[UILabel alloc] initWithFrame:countLabelRect];
         label.textAlignment=UITextAlignmentLeft;
         label.text=[NSString stringWithFormat:@"%@ People going",detailSectionInfo.goingCount];
@@ -148,7 +143,7 @@
             case kSortByDistance:
             {
                 
-                CGRect distanceLabelRect=CGRectMake(160,73,143,15);
+                CGRect distanceLabelRect=CGRectMake(160,72,143,15);
                 UILabel *mileslabel=[[UILabel alloc] initWithFrame:distanceLabelRect];
                 mileslabel.textAlignment=UITextAlignmentRight;
                 mileslabel.text=[NSString stringWithFormat:@"%@ miles away",detailSectionInfo.distance];
@@ -169,7 +164,7 @@
                 
             case kSortByTime:
             {
-                CGRect timeLabelRect=CGRectMake(160,73,143,15);
+                CGRect timeLabelRect=CGRectMake(160,72,143,15);
                 UILabel *timelabel=[[UILabel alloc] initWithFrame:timeLabelRect];
                 timelabel.textAlignment=UITextAlignmentRight;
                 timelabel.text=[NSString stringWithFormat:@"%@",[SoclivityUtilities NetworkTime:detailSectionInfo]];
@@ -186,11 +181,10 @@
         }
         
          //Divider at the bottom of the header section
-        UIView* middleSectionBottomDivider = [[UIView alloc] initWithFrame:CGRectMake(0, 94, 320, 1)];
+        UIView* middleSectionBottomDivider = [[UIView alloc] initWithFrame:CGRectMake(0, 92, 320, 1)];
         middleSectionBottomDivider.backgroundColor = [[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]];
         [self addSubview:middleSectionBottomDivider];
         [middleSectionBottomDivider release];
-        
         
         // Create and configure the disclosure button.
         UIButton *disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
