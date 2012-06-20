@@ -97,7 +97,7 @@
     CLLocationAccuracy accuracy = userLocation.location.horizontalAccuracy;
     if (accuracy) {
         NSLog(@"didUpdateUserLocation");
-        //self.mapView.showsUserLocation=NO;
+        self.mapView.showsUserLocation=NO;
 
     } 
 }
