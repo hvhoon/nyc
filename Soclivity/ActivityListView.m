@@ -399,8 +399,8 @@
 -(void)SortByDistance{
     
    self.plays = [self.plays sortedArrayUsingComparator: ^(InfoActivityClass *a, InfoActivityClass *b) {
-        NSString *s1 = a.distance;
-        NSString *s2 = b.distance;
+       NSNumber *s1=[NSNumber numberWithDouble:[a.distance doubleValue]];
+       NSNumber *s2=[NSNumber numberWithDouble:[b.distance doubleValue]];
         return [s1 compare:s2];
     }];
     
