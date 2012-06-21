@@ -33,17 +33,55 @@
         filterPaneView.backgroundColor=[UIColor whiteColor];
         self.homeSearchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 100.0,320, 44.0)] autorelease];
         self.homeSearchBar.delegate = self;
-        self.homeSearchBar.showsCancelButton = NO;
+        self.homeSearchBar.showsCancelButton = YES;
         self.homeSearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
         self.homeSearchBar.placeholder=@"Search for activities";
 
         self.homeSearchBar.backgroundImage=[UIImage imageNamed: @"S4.1_search-background.png"];
         [filterPaneView addSubview:self.homeSearchBar];
         
+        
+        
         for (UIView *subview in [self.homeSearchBar subviews]) {
             if ([subview isKindOfClass:NSClassFromString(@"UISearchBarBackground")])
             {
                 //[subview removeFromSuperview];
+            }
+            UIButton *cancelButton = nil;
+            if([subview isKindOfClass:[UIButton class]]){
+                cancelButton = (UIButton*)subview;
+            }
+            if (cancelButton){
+                NSLog(@"cancelButton");
+                [cancelButton setTintColor:[UIColor colorWithRed:145.0/255.0 green:159.0/255.0 blue:179.0/255.0 alpha:1.0]];
+                [cancelButton setBackgroundImage:[UIImage imageNamed:@"S5_on-background.png"] forState:UIControlStateNormal];
+                [cancelButton setBackgroundImage:[UIImage imageNamed:@"S5_on-background.png"] forState:UIControlStateHighlighted];
+                
+                
+                    /* For some strange reason, this code changes the font but not the text color. I assume some other internal customizations      make this not possible:
+                     
+                     UILabel *titleLabel = [cancelButton titleLabel];
+                     [titleLabel setFont:font];
+                     [titleLabel setTextColor:[UIColor redColor]];
+                    
+                    // Therefore I had to create view with a label on top:        
+                    UIView *overlay = [[UIView alloc] initWithFrame:CGRectMake(2, 2, kCancelButtonWidth, kCancelButtonLabelHeight)];
+                    [overlay setBackgroundColor:[UIColor whiteColor]];
+                    [overlay setUserInteractionEnabled:NO]; // This is important for the cancel button to work
+                    [cancelButton addSubview:overlay];
+                    
+                    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, kCancelButtonWidth, kCancelButtonLabelHeight)];
+                    [newLabel setFont:font];
+                    [newLabel setTextColor:textColor];
+                    // Text "Cancel" should be localized for other languages
+                    [newLabel setText:@"Cancel"]; 
+                    [newLabel setTextAlignment:UITextAlignmentCenter];
+                    // This is important for the cancel button to work
+                    [newLabel setUserInteractionEnabled:NO]; 
+                    [overlay addSubview:newLabel];
+                    [newLabel release];
+                    [overlay release]; 
+                */
             }
             
             if ([subview isKindOfClass:NSClassFromString(@"UISearchBarTextField")]) {
@@ -422,6 +460,9 @@
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
 	
     
+}
+- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar{
+     [self.homeSearchBar resignFirstResponder];
 }
 // called when keyboard search button pressed
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
