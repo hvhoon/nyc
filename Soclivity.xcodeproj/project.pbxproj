@@ -139,6 +139,10 @@
 		EA87EDC6157346A700DE1762 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA87EDC5157346A700DE1762 /* AddressBook.framework */; };
 		EA893AA715887DFE003FD793 /* LaterDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA893AA615887DFD003FD793 /* LaterDateView.m */; };
 		EA893AA915887E16003FD793 /* LaterDateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA893AA815887E16003FD793 /* LaterDateView.xib */; };
+		EA8B19471593BC94009C9851 /* S4.1_search-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8B19431593BC94009C9851 /* S4.1_search-bar@2x.png */; };
+		EA8B19481593BC94009C9851 /* S4.1_search-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8B19441593BC94009C9851 /* S4.1_search-bar.png */; };
+		EA8B19491593BC94009C9851 /* S4.1_search-background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8B19451593BC94009C9851 /* S4.1_search-background@2x.png */; };
+		EA8B194A1593BC94009C9851 /* S4.1_search-background.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8B19461593BC94009C9851 /* S4.1_search-background.png */; };
 		EA8F65AB1574CF2F00EFAE8A /* EventsMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F65AA1574CF2F00EFAE8A /* EventsMapView.m */; };
 		EA8F65AD1574D4CB00EFAE8A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8F65AC1574D4CA00EFAE8A /* MapKit.framework */; };
 		EA8F65B31574D76E00EFAE8A /* SocAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F65B21574D76E00EFAE8A /* SocAnnotation.m */; };
@@ -586,6 +590,10 @@
 		EA893AA515887DFD003FD793 /* LaterDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaterDateView.h; sourceTree = "<group>"; };
 		EA893AA615887DFD003FD793 /* LaterDateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaterDateView.m; sourceTree = "<group>"; };
 		EA893AA815887E16003FD793 /* LaterDateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaterDateView.xib; sourceTree = "<group>"; };
+		EA8B19431593BC94009C9851 /* S4.1_search-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S4.1_search-bar@2x.png"; sourceTree = "<group>"; };
+		EA8B19441593BC94009C9851 /* S4.1_search-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S4.1_search-bar.png"; sourceTree = "<group>"; };
+		EA8B19451593BC94009C9851 /* S4.1_search-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S4.1_search-background@2x.png"; sourceTree = "<group>"; };
+		EA8B19461593BC94009C9851 /* S4.1_search-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S4.1_search-background.png"; sourceTree = "<group>"; };
 		EA8F65A91574CF2F00EFAE8A /* EventsMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsMapView.h; sourceTree = "<group>"; };
 		EA8F65AA1574CF2F00EFAE8A /* EventsMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsMapView.m; sourceTree = "<group>"; };
 		EA8F65AC1574D4CA00EFAE8A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -1290,6 +1298,10 @@
 		EA90FF4B1582074E00CA0C4F /* S04.1 Dropdown */ = {
 			isa = PBXGroup;
 			children = (
+				EA8B19431593BC94009C9851 /* S4.1_search-bar@2x.png */,
+				EA8B19441593BC94009C9851 /* S4.1_search-bar.png */,
+				EA8B19451593BC94009C9851 /* S4.1_search-background@2x.png */,
+				EA8B19461593BC94009C9851 /* S4.1_search-background.png */,
 				EA78E584159336CA00AD64B2 /* S04.1_learn.png */,
 				EA78E585159336CA00AD64B2 /* S04.1_learn@2x.png */,
 				EA78E586159336CA00AD64B2 /* S04.1_create.png */,
@@ -2234,6 +2246,10 @@
 				EA78E5D9159336CA00AD64B2 /* S04.1_cancel@2x.png in Resources */,
 				EA78E5DA159336CA00AD64B2 /* S04.1_searchBar.png in Resources */,
 				EA78E5DB159336CA00AD64B2 /* S04.1_searchBar@2x.png in Resources */,
+				EA8B19471593BC94009C9851 /* S4.1_search-bar@2x.png in Resources */,
+				EA8B19481593BC94009C9851 /* S4.1_search-bar.png in Resources */,
+				EA8B19491593BC94009C9851 /* S4.1_search-background@2x.png in Resources */,
+				EA8B194A1593BC94009C9851 /* S4.1_search-background.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
