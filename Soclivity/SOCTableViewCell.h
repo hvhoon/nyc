@@ -18,10 +18,8 @@
 @interface SOCTableViewCell : ABTableViewCell{
     id <PDTTableViewCellDelegate> delegate;
     InfoActivityClass *playActivity;
-    BOOL lastRow;
 }
 
 @property (nonatomic,retain)id <PDTTableViewCellDelegate> delegate;
 @property (nonatomic, retain) InfoActivityClass *playActivity;
-@property (nonatomic,assign)BOOL lastRow;
 @end

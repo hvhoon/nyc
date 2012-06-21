@@ -26,5 +26,5 @@
 -(void)postForgotPasswordInvocation:(NSString*)email delegate:(id<ForgotPasswordInvocationDelegate>)delegate;
 -(void)postFBSignInInvocation:(NSString*)emailAddress facebookUid:(NSString*)facebookUid fbAccessToken:(NSString*)fbAccessToken delegate:(id<FBSignInInvocationDelegate>)delegate;
 -(void)getActivitiesInvocation:(NSInteger)userId latitude:(float)latitude longitude:(float)longitude timeSpanFilter:(NSString*)timeSpanFilter updatedAt:(NSString*)updatedAt  delegate:(id<GetActivitiesInvocationDelegate>)delegate;
--(void)getActivitiesInvocation:(NSInteger)userId delegate:(id<GetActivitiesInvocationDelegate>)delegate;
+-(void)getActivitiesInvocation:(NSInteger)userId latitude:(float)latitude longitude:(float)longitude delegate:(id<GetActivitiesInvocationDelegate>)delegate;
 @end

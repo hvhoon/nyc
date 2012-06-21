@@ -18,6 +18,8 @@
 #import "DetailInfoActivityClass.h"
 #import "SoclivitySqliteClass.h"
 #import "SoclivityManager.h"
+#define kLocationAccuracyLimit 300.0f
+#define kLocationAccuracyOverZoomLimit 150.0f
 @interface EventsMapView()
 
 @property (nonatomic, retain) SocAnnotation *calloutAnnotation;
@@ -93,13 +95,71 @@
         // and of course you can use here old and new location values
     }
 }
-- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation      {
+#if 0
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation{
     CLLocationAccuracy accuracy = userLocation.location.horizontalAccuracy;
     if (accuracy) {
         NSLog(@"didUpdateUserLocation");
-        self.mapView.showsUserLocation=NO;
+        //self.mapView.showsUserLocation=NO;
 
     } 
+}
+#else
+- (void)mapView:(MKMapView *)map didUpdateUserLocation:(MKUserLocation *)userLocation{
+    
+    if (userLocation.location == nil)
+        return;
+    
+    NSLog(@"Location has updated with accuracy %f meters", userLocation.location.horizontalAccuracy);       
+    //[map setCenterCoordinate: userLocation.coordinate animated: YES];
+    
+    CLLocationAccuracy accuracy = userLocation.location.horizontalAccuracy;
+    
+    BOOL canPost = (accuracy < kLocationAccuracyLimit);     // let user post if accuracy is good enouth
+    if(canPost){
+        NSLog(@"canPost");
+    }
+    else{
+        
+    }
+    
+    if (accuracy < kLocationAccuracyOverZoomLimit) { // avoids overzooming on very accurate location
+        accuracy = kLocationAccuracyOverZoomLimit;
+    }
+    
+    accuracy *= 2; // double accuracy value to inscribe location circle in screen
+    
+    //MKCoordinateRegion cr = MKCoordinateRegionMakeWithDistance(userLocation.location.coordinate, accuracy, accuracy );
+    
+    //[map setRegion: cr animated: YES];
+    
+    //Updating road status with latest location
+    
+    NSLog(@"Visible map width: %f", map.visibleMapRect.size.width);
+    
+}
+#endif
+- (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
+{
+    if (error.code == kCLErrorDenied){
+        NSLog(@"User refused location services");
+    } else {
+        NSLog(@"Did fail to locate user with error: %@", error.description);    
+    }    
+}
+
+- (void)mapViewWillStartLocatingUser:(MKMapView *)mapView 
+{
+    NSLog(@"Will Locate");
+}
+- (void)mapViewDidStopLocatingUser:(MKMapView *)mapView
+{
+    NSLog(@"Stop Locate");
+}
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    NSLog(@"Region updated!");
 }
 -(void)setUpMapAnnotations{
     int index=0;

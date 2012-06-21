@@ -10,9 +10,6 @@
 #import "JSON.h"
 #import "InfoActivityClass.h"
 #import "InfoActivityClass+Parse.h"
-@interface GetActivitiesInvocation (private)
--(NSString*)body;
-@end
 
 @implementation GetActivitiesInvocation
 @synthesize userSOCId,currentLatitude,currentLongitude,timeSpan,lastUpdated,queue;
@@ -21,23 +18,10 @@
 	[super dealloc];
 }
 -(void)invoke {
-    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/getactivities.json?pid=%d",userSOCId];
+    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/getactivities.json?lat=%f&lng=%f&pid=%d",currentLatitude,currentLongitude,userSOCId];
     [self get:a];
 }
--(NSString*)body {
-#if 1    
-	NSMutableDictionary* bodyD = [[[NSMutableDictionary alloc] init] autorelease];
-    
-    [bodyD setObject:timeSpan forKey:@"email"];
-    [bodyD setObject:lastUpdated forKey:@"password"];
-    
-    NSString *bodyData = [NSString stringWithFormat:@"%@",[bodyD JSONRepresentation]];
-    
-    //    NSString *bodyData = [NSString stringWithFormat:@"{\"signin\":%@}",[bodyD JSONRepresentation]];
-    NSLog(@"bodyData=%@",bodyData);
-	return bodyData;
-#endif    
-}
+
 
 -(BOOL)handleHttpOK:(NSMutableData *)data {
     

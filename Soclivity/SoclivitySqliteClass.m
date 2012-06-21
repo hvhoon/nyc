@@ -67,7 +67,7 @@ static sqlite3 *database = nil;
 		
 		if(insertStmtNewActivity == nil) {
 			
-        const char *sqlNewActivity ="INSERT OR REPLACE INTO Activities(name,atype,when_act,where_lat,where_lng,where_address,where_city,where_state,where_zip,what,access,numofpeople,ownnerid,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        const char *sqlNewActivity ="INSERT OR REPLACE INTO Activities(name,atype,when_act,where_lat,where_lng,where_address,access,numofpeople,updated_at,Distance) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
 			/*const char *sqlNewActivity = "insert into Activities(name,atype,when_act,where_lat,where_lng,where_address,where_city,where_state,where_zip,what,access,numofpeople,ownnerid,created_at,updated_at) Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";*/
 			int error = sqlite3_prepare_v2(database, sqlNewActivity, -1, &insertStmtNewActivity, NULL);
@@ -81,15 +81,10 @@ static sqlite3 *database = nil;
 		sqlite3_bind_text(insertStmtNewActivity, 4, [ActObj.where_lat UTF8String], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStmtNewActivity, 5, [ActObj.where_lng UTF8String], -1, SQLITE_TRANSIENT);
 		sqlite3_bind_text(insertStmtNewActivity, 6, [ActObj.where_address UTF8String], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStmtNewActivity, 7, [ActObj.where_city UTF8String], -1, SQLITE_TRANSIENT);
-		sqlite3_bind_text(insertStmtNewActivity, 8, [ActObj.where_state UTF8String], -1, SQLITE_TRANSIENT);
-		sqlite3_bind_text(insertStmtNewActivity, 9, [ActObj.where_zip UTF8String], -1, SQLITE_TRANSIENT);
-		sqlite3_bind_text(insertStmtNewActivity, 10, [ActObj.what UTF8String], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStmtNewActivity, 11, [ActObj.access UTF8String], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_int(insertStmtNewActivity, 12, ActObj.num_of_people);
-        sqlite3_bind_int(insertStmtNewActivity, 13, ActObj.OwnerId);
-        sqlite3_bind_text(insertStmtNewActivity, 14, [ActObj.created_at UTF8String], -1, SQLITE_TRANSIENT);
-		sqlite3_bind_text(insertStmtNewActivity, 15, [ActObj.updated_at UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStmtNewActivity,7, [ActObj.access UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(insertStmtNewActivity, 8, ActObj.num_of_people);
+		sqlite3_bind_text(insertStmtNewActivity, 9, [ActObj.updated_at UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStmtNewActivity, 10, [ActObj.distance UTF8String], -1, SQLITE_TRANSIENT);
 
 		
 		if(SQLITE_DONE != sqlite3_step(insertStmtNewActivity))
@@ -127,11 +122,11 @@ static sqlite3 *database = nil;
     
 	sqlite3_stmt *SOCTableActivityGetStmt;
     
-	const char *sqlLevelQues5 = "select name,atype,when_act,where_lat,where_lng,where_address,where_city,where_state,where_zip,what,access,numofpeople,ownnerid,created_at,updated_at from Activities";
+	const char *sqlLevelQues5 = "select name,atype,when_act,where_lat,where_lng,where_address,access,numofpeople,updated_at,Distance from Activities";
 	
 	
 	if(sqlite3_prepare_v2(database, sqlLevelQues5, -1, &SOCTableActivityGetStmt, NULL)!=SQLITE_OK){
-		NSAssert1(0,@"Error while updating From EMS_table5Ques.'%s'",sqlite3_errmsg(database));
+		NSAssert1(0,@"Error while updating From sqlLevelQues5.'%s'",sqlite3_errmsg(database));
 	}
 	
     
@@ -173,53 +168,37 @@ static sqlite3 *database = nil;
 			quotation.location = [NSString stringWithUTF8String: where_addressChars];
 		}
 		
-		const char *where_cityChars = (const char *)sqlite3_column_text(SOCTableActivityGetStmt,6);
-		if(where_cityChars != NULL)
-		{
-			play.where_city = [NSString stringWithUTF8String: where_cityChars];
-		}
-        const char *where_stateChars = (const char *)sqlite3_column_text(SOCTableActivityGetStmt,7);
-		if(where_stateChars != NULL)
-		{
-			play.where_state = [NSString stringWithUTF8String: where_stateChars];
-		}
-		const char *where_zipChars = (const char *)sqlite3_column_text(SOCTableActivityGetStmt,8);
-		if(where_zipChars != NULL)
-		{
-			play.where_zip = [NSString stringWithUTF8String: where_zipChars];
-		}
-		const char *whatChars = (const char *)sqlite3_column_text(SOCTableActivityGetStmt,9);
-		if(whatChars != NULL)
-		{
-			play.what = [NSString stringWithUTF8String: whatChars];
-		}
-		const char *accessChars = (const char *)sqlite3_column_text(SOCTableActivityGetStmt,10);
+		const char *accessChars = (const char *)sqlite3_column_text(SOCTableActivityGetStmt,6);
 		if(accessChars != NULL)
 		{
 			play.access = [NSString stringWithUTF8String: accessChars];
 		}
-        NSNumber *NoOfPeople=[NSNumber numberWithInt:sqlite3_column_int(SOCTableActivityGetStmt, 11)];
+        NSNumber *NoOfPeople=[NSNumber numberWithInt:sqlite3_column_int(SOCTableActivityGetStmt,7)];
         play.num_of_people=[NoOfPeople intValue];
         
-        NSNumber *ownerId=[NSNumber numberWithInt:sqlite3_column_int(SOCTableActivityGetStmt, 12)];
-        play.OwnerId=[ownerId intValue];
 
 
-		const char *created_atChars = (const char *)sqlite3_column_text(SOCTableActivityGetStmt,13);
-		if(created_atChars != NULL)
-		{
-			play.created_at = [NSString stringWithUTF8String: created_atChars];
-		}
-		const char *updated_atChars = (const char *)sqlite3_column_text(SOCTableActivityGetStmt,14);
+		const char *updated_atChars = (const char *)sqlite3_column_text(SOCTableActivityGetStmt,8);
 		if(updated_atChars != NULL)
 		{
 			play.updated_at = [NSString stringWithUTF8String: updated_atChars];
 		}
         
+        const char *distanceChars = (const char *)sqlite3_column_text(SOCTableActivityGetStmt,9);
+		if(distanceChars != NULL)
+		{
+			play.distance = [NSString stringWithUTF8String:distanceChars];
+		}
+
+        
+
+        
         if([SoclivityUtilities ValidActivityDate:play.when]){
             
-            SoclivityManager *SOC=[SoclivityManager SharedInstance];
+            
             NSString *message=[SoclivityUtilities NetworkTime:play];
+#if 0        
+            SoclivityManager *SOC=[SoclivityManager SharedInstance];
             CLLocationDegrees latitude  = [play.where_lat  doubleValue];
             CLLocationDegrees longitude = [play.where_lng  doubleValue];
             CLLocation *tempLocObj = [[CLLocation alloc] initWithLatitude:latitude
@@ -229,6 +208,7 @@ static sqlite3 *database = nil;
                                                                 longitude:SOC.currentLocation.coordinate.longitude];
 
             play.distance =[NSString stringWithFormat:@"%.02f",[newCenter distanceFromLocation:tempLocObj] / 1000];
+#endif            
             play.organizerName=@"Shahved Katoch";
             play.goingCount=@"14";
             play.DOS=@"1";

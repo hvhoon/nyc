@@ -143,10 +143,6 @@
     cell.delegate=self;
     InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
     cell.playActivity = play;
-    if(indexPath.section ==([self.sectionInfoArray count]-1))
-        cell.lastRow=TRUE;
-    else
-         cell.lastRow=FALSE;
     [cell setNeedsDisplay];
     return cell;
     
@@ -189,7 +185,6 @@
 	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:sectionOpened];
 	
 	sectionInfo.open = YES;
-    
     
     NSInteger countOfRowsToInsert = [sectionInfo.play.quotations count];
     NSMutableArray *indexPathsToInsert = [[NSMutableArray alloc] init];

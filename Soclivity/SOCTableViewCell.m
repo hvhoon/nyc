@@ -11,7 +11,7 @@
 #import "SoclivityUtilities.h"
 #import "DetailInfoActivityClass.h"
 @implementation SOCTableViewCell
-@synthesize delegate,lastRow;
+@synthesize delegate;
 @synthesize playActivity;
 static UIFont *firstTextFont = nil;
 static UIFont *secondTextFont = nil;

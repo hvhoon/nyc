@@ -64,18 +64,18 @@
 -(void)getActivitiesInvocation:(NSInteger)userId latitude:(float)latitude longitude:(float)longitude timeSpanFilter:(NSString*)timeSpanFilter updatedAt:(NSString*)updatedAt  delegate:(id<GetActivitiesInvocationDelegate>)delegate{
     GetActivitiesInvocation *invocation = [[[GetActivitiesInvocation alloc] init] autorelease];
     invocation.userSOCId = userId;
-    invocation.currentLatitude = latitude;
-    invocation.currentLongitude = longitude;
     invocation.timeSpan = timeSpanFilter;
     invocation.lastUpdated = updatedAt;
 
     [self invoke:invocation withDelegate:delegate];
 
 }
--(void)getActivitiesInvocation:(NSInteger)userId delegate:(id<GetActivitiesInvocationDelegate>)delegate{
+-(void)getActivitiesInvocation:(NSInteger)userId latitude:(float)latitude longitude:(float)longitude delegate:(id<GetActivitiesInvocationDelegate>)delegate{
     GetActivitiesInvocation *invocation = [[[GetActivitiesInvocation alloc] init] autorelease];
     invocation.userSOCId = userId;
-    [self invoke:invocation withDelegate:delegate];
+    invocation.currentLatitude = latitude;
+    invocation.currentLongitude = longitude;
+   [self invoke:invocation withDelegate:delegate];
     
 }
 

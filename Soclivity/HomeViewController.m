@@ -470,8 +470,20 @@
 -(void)StartGettingActivities{
     
     
-    
-         [devServer getActivitiesInvocation:[SOC.loggedInUser.idSoc intValue] delegate:self];
+     if([SoclivityUtilities hasNetworkConnection]){
+         [devServer getActivitiesInvocation:[SOC.loggedInUser.idSoc intValue] latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude delegate:self];
+     }
+     else{
+         
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil 
+                                                            delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+             
+             [alert show];
+             [alert release];
+             return;
+             
+         
+     }
     //[devServer getActivitiesInvocation:[SOC.loggedInUser.idSoc intValue] latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude timeSpanFilter:@"today" updatedAt:@"today" delegate:self];
 //    NSString *timeStamp=[[NSUserDefaults standardUserDefaults] valueForKey:@"SOCTimeStamp"];
 //    if(timeStamp==nil)

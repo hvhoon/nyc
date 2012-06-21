@@ -26,22 +26,18 @@
     play.access = [ACTDict objectForKey:@"access"];
     NSNumber *numberOfPeople = [ACTDict objectForKey:@"num_of_people"];
     play.num_of_people =[numberOfPeople intValue];
-    play.created_at = [ACTDict objectForKey:@"created_at"];
     play.activityId = [ACTDict objectForKey:@"id"];
     NSNumber *ownerId = [ACTDict objectForKey:@"ownnerid"];
     play.OwnerId =[ownerId intValue];
     play.updated_at=[ACTDict objectForKey:@"updated_at"];
-    play.what=[ACTDict objectForKey:@"what"];
     play.when=[ACTDict objectForKey:@"when"];
     play.where_address=[ACTDict objectForKey:@"where_address"];
-    play.where_city=[ACTDict objectForKey:@"where_city"];
     play.where_lat=[ACTDict objectForKey:@"where_lat"];
     play.where_lng=[ACTDict objectForKey:@"where_lng"];
-    play.where_state=[ACTDict objectForKey:@"where_state"];
-    play.where_zip=[ACTDict objectForKey:@"where_zip"];
-    
-    
-    
+    NSNumber *distance = [ACTDict objectForKey:@"Distance"];
+    play.distance=[NSString stringWithFormat:@"%.02f",[distance doubleValue]];
+
+
 #endif    
 	return play;
     
