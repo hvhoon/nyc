@@ -67,7 +67,7 @@
   
     NSLog(@"offset=%f",xOffset);
     pullDownView = [[StyledPullableView alloc] initWithFrame:CGRectMake(xOffset, 0, 640, 460)];
-    pullDownView.openedCenter = CGPointMake(320 + xOffset,130);
+    pullDownView.openedCenter = CGPointMake(320 + xOffset,190);//130
     pullDownView.closedCenter = CGPointMake(320 + xOffset, -172);//-200
     pullDownView.center = pullDownView.closedCenter;
     
@@ -79,7 +79,7 @@
     
     
     
-    overLayView=[[UIView alloc]initWithFrame:CGRectMake(0, 300, 320, 160)];
+    overLayView=[[UIView alloc]initWithFrame:CGRectMake(0, 360, 320, 100)];
     overLayView.backgroundColor=[UIColor clearColor];
     [self.view addSubview:overLayView];
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];

@@ -14,6 +14,9 @@
     BOOL seeAct;
     BOOL createAct;
     BOOL learnAct;
+    BOOL morning;
+    BOOL afternoon;
+    BOOL evening;
     NSInteger whenSearchType;
     NSInteger startTime_48;
     NSInteger finishTime_48;
@@ -23,6 +26,9 @@
 @property (nonatomic,assign)BOOL seeAct;
 @property (nonatomic,assign)BOOL createAct;
 @property (nonatomic,assign)BOOL learnAct;
+@property (nonatomic,assign)BOOL morning;
+@property (nonatomic,assign)BOOL afternoon;
+@property (nonatomic,assign)BOOL evening;
 @property (nonatomic,assign) NSInteger whenSearchType;
 @property (nonatomic,assign)NSInteger startTime_48;
 @property (nonatomic,assign)NSInteger finishTime_48;

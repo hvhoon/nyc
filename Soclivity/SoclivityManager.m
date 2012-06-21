@@ -35,6 +35,9 @@
         filterObject.whenSearchType=1;
         filterObject.startTime_48=0;
         filterObject.finishTime_48=48;
+        filterObject.morning=YES;
+        filterObject.afternoon=YES;
+        filterObject.evening=YES;
     }
     return self;
 }
