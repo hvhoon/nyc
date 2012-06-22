@@ -99,7 +99,8 @@ void uncaughtExceptionHandler(NSException *exception) {
         play.organizerName=[playDictionary objectForKey:@"organizerName"];
         NSNumber * n = [playDictionary objectForKey:@"type"];
         play.type= [n intValue];
-        play.DOS=[playDictionary objectForKey:@"DOS"];
+        NSNumber * DOS = [playDictionary objectForKey:@"DOS"];
+        play.DOS= [DOS intValue];
         play.distance=[playDictionary objectForKey:@"distance"];
         play.goingCount=[playDictionary objectForKey:@"goingCount"];
         play.where_lat=[playDictionary objectForKey:@"Latitude"];

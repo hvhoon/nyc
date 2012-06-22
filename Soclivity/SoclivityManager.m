@@ -38,6 +38,24 @@
         filterObject.morning=YES;
         filterObject.afternoon=YES;
         filterObject.evening=YES;
+        
+            NSCalendar* myCalendar = [NSCalendar currentCalendar];
+            NSDateComponents* components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit 
+                                                         fromDate:[NSDate date]];
+            [components setHour: 23];
+            [components setMinute:59];
+            [components setSecond:59];
+            filterObject.endPickDateTime=[myCalendar dateFromComponents:components];
+            
+            NSLog(@"weekdayComponentsEnd=%@",[myCalendar dateFromComponents:components]);
+            
+            [components setHour:00];
+            [components setMinute:00];
+            [components setSecond:01];
+            NSLog(@"weekdayComponentsStart=%@",[myCalendar dateFromComponents:components]);
+            filterObject.startPickDateTime=[myCalendar dateFromComponents:components];
+            
+        
     }
     return self;
 }

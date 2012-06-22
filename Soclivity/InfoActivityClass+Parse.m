@@ -28,7 +28,7 @@
     play.num_of_people =[numberOfPeople intValue];
     play.activityId = [ACTDict objectForKey:@"id"];
     NSNumber *ownerId = [ACTDict objectForKey:@"ownnerid"];
-    play.OwnerId =[ownerId intValue];
+    play.organizerId =[ownerId intValue];
     play.updated_at=[ACTDict objectForKey:@"updated_at"];
     play.when=[ACTDict objectForKey:@"when"];
     play.where_address=[ACTDict objectForKey:@"where_address"];
@@ -36,6 +36,16 @@
     play.where_lng=[ACTDict objectForKey:@"where_lng"];
     NSNumber *distance = [ACTDict objectForKey:@"Distance"];
     play.distance=[NSString stringWithFormat:@"%.02f",[distance doubleValue]];
+    NSNumber *dosOwner = [ACTDict objectForKey:@"dos0"];
+    play.DOS =[dosOwner intValue];
+    play.organizerName=[ACTDict objectForKey:@"ownername"];
+    NSNumber *dos1 = [ACTDict objectForKey:@"dos1"];
+    play.DOS1 =[dos1 intValue];
+    NSNumber *dos2 = [ACTDict objectForKey:@"dos2"];
+    play.DOS2 =[dos2 intValue];
+    NSNumber *dos3 = [ACTDict objectForKey:@"dos3"];
+    play.DOS3 =[dos3 intValue];
+
 
 
 #endif    

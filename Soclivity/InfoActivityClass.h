@@ -13,7 +13,10 @@
     NSInteger stamp;
     
     NSString *organizerName;
-    NSString *DOS;
+    NSInteger DOS;
+    NSInteger DOS1;
+    NSInteger DOS2;
+    NSInteger DOS3;
     NSString *distance;
     NSString *goingCount;
     NSString *where_lat;
@@ -26,7 +29,7 @@
     NSInteger num_of_people;
     NSString *activityId;
     NSString *activityName;
-    NSInteger OwnerId;
+    NSInteger organizerId;
     NSString *updated_at;
     NSString *what;
     NSString *when;
@@ -40,7 +43,10 @@
 @property (nonatomic,assign)NSInteger stamp;
 @property (nonatomic,retain)NSString *activityName;
 @property (nonatomic,retain)NSString *organizerName;
-@property (nonatomic,retain)NSString *DOS;
+@property (nonatomic,assign)NSInteger DOS;
+@property (nonatomic,assign)NSInteger DOS1;
+@property (nonatomic,assign)NSInteger DOS2;
+@property (nonatomic,assign)NSInteger DOS3;
 @property (nonatomic,retain)NSString *distance;
 @property (nonatomic,retain)NSString *goingCount;
 @property (nonatomic,retain) NSString *where_lat;
@@ -54,7 +60,7 @@
 @property(nonatomic,retain) NSString *created_at;
 @property (nonatomic,assign) NSInteger num_of_people;
 @property (nonatomic,retain) NSString *activityId;
-@property (nonatomic,assign) NSInteger OwnerId;
+@property (nonatomic,assign) NSInteger organizerId;
 @property(nonatomic,retain) NSString *updated_at;
 @property (nonatomic,retain)NSString *what;
 @property (nonatomic,retain)NSString *when;

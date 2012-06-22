@@ -8,7 +8,6 @@
 
 #import "StyledPullableView.h"
 #import "SoclivityUtilities.h"
-#import "LaterDateView.h"
 #import "SoclivityManager.h"
 #import "FilterPreferenceClass.h"
 
@@ -53,6 +52,8 @@
 #define kMoonSelectedImage 50
 #define kEveningText 51
 #define kPm7_Pm11 52
+#define kCrossDateSelection 53
+#define kTickDateSelection 54
 @implementation StyledPullableView
 @synthesize homeSearchBar;
 - (id)initWithFrame:(CGRect)frame {
@@ -565,17 +566,31 @@
         UIView *dateCalendarView=[[UIView alloc]initWithFrame:CGRectMake(320, 0, 320, 402)];
         dateCalendarView.backgroundColor=[UIColor whiteColor];
         
-        UIImageView *titleImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_titlebar.png"]];
+        UIImageView *titleImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1.1_topbar.png"]];
         titleImageView.frame=CGRectMake(0, 40, 320, 44);
         [dateCalendarView addSubview:titleImageView];
         [titleImageView release];
         
         
-        UIButton *backButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        backButton.frame = CGRectMake(15, 47, 38.0, 30.0);
-        [backButton setImage:[UIImage imageNamed:@"S5-back-arrow.png"] forState:UIControlStateNormal];
-        [backButton addTarget:self action:@selector(pushTransformWithAnimation:) forControlEvents:UIControlEventTouchUpInside];
-        [dateCalendarView addSubview:backButton];
+        UIButton *crossButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        crossButton.frame = CGRectMake(15, 51.5, 21.0, 21.0);
+        [crossButton setImage:[UIImage imageNamed:@"S04.1.1_cross.png"] forState:UIControlStateNormal];
+        crossButton.tag=kCrossDateSelection;
+        [crossButton addTarget:self action:@selector(pushTransformWithAnimation:) forControlEvents:UIControlEventTouchUpInside];
+        [dateCalendarView addSubview:crossButton];
+        
+        
+        UIButton *tickButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        tickButton.frame = CGRectMake(281, 51.5, 25.0, 20.0);
+        [tickButton setImage:[UIImage imageNamed:@"S04.1.1_tick.png"] forState:UIControlStateNormal];
+        tickButton.tag=kTickDateSelection;
+        [tickButton addTarget:self action:@selector(pushTransformWithAnimation:) forControlEvents:UIControlEventTouchUpInside];
+        [dateCalendarView addSubview:tickButton];
+
+        
+        CalendarDateView *calendarDate=[[CalendarDateView alloc]initWithFrame:CGRectMake(0, 84, 320,354)];
+        calendarDate.KALDelegate=self;
+        [dateCalendarView addSubview:calendarDate];
 
 
         [filterPaneView addSubview:dateCalendarView];
@@ -797,7 +812,29 @@
 
 }
 
--(void)pushTransformWithAnimation:(id)sender{
+-(void)pushTransformWithAnimation:(UIButton*)sender{
+    
+    int tag=sender.tag;
+    
+    switch (tag) {
+        case kCrossDateSelection:
+        {
+            
+        }
+            break;
+            
+        case kTickDateSelection:
+        {
+            
+        }
+            break;
+    
+            
+            
+        default:
+            break;
+    }
+    
     [self bringInFilterPane];
 }
 -(void)pushTodetailActivity:(UIButton*)sender{

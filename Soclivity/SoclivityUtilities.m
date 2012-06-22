@@ -486,22 +486,8 @@ if(timer%2==0){
     }
     
     else if(SOC.filterObject.whenSearchType==3){
-        NSCalendar* myCalendar = [NSCalendar currentCalendar];
-        NSDateComponents* components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit 
-                                                     fromDate:[NSDate date]];
-        [components setHour: 23];
-        [components setMinute:59];
-        [components setSecond:59];
-        finishFilterDate=[myCalendar dateFromComponents:components];
-        
-        NSLog(@"weekdayComponentsEnd=%@",[myCalendar dateFromComponents:components]);
-        
-        [components setHour:00];
-        [components setMinute:00];
-        [components setSecond:01];
-        NSLog(@"weekdayComponentsStart=%@",[myCalendar dateFromComponents:components]);
-        startFilterDate=[myCalendar dateFromComponents:components];
-
+        startFilterDate=SOC.filterObject.startPickDateTime;
+        finishFilterDate=SOC.filterObject.endPickDateTime;
     }
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -554,29 +540,32 @@ if(timer%2==0){
     NSDate *setFinishDate;
     NSDate *setStartDate;
     
+    NSArray *array = [NSArray arrayWithObjects:startDateTime,destinationDate,finishDateTime, nil];
+    
+    array = [array sortedArrayUsingComparator: ^(NSDate *s1, NSDate *s2){
+        
+        return [s1 compare:s2];
+    }];
+    
+    NSUInteger indexOfDay1 = [array indexOfObject:startDateTime];
+    NSUInteger indexOfDay2 = [array indexOfObject:destinationDate];
+    NSUInteger indexOfDay3 = [array indexOfObject:finishDateTime];
+    
+    if (((indexOfDay1 < indexOfDay2 ) && (indexOfDay2 < indexOfDay3)) || 
+        ((indexOfDay1 > indexOfDay2 ) && (indexOfDay2 > indexOfDay3))) {
+        NSLog(@"YES");
+        check=1;
+    } else {
+        NSLog(@"NO");
+        check=0;
+    }
+    NSLog(@"check=%d",check);
     if(SOC.filterObject.morning && SOC.filterObject.evening && SOC.filterObject.afternoon){
-        NSArray *array = [NSArray arrayWithObjects:startDateTime,destinationDate,finishDateTime, nil];
         
-        array = [array sortedArrayUsingComparator: ^(NSDate *s1, NSDate *s2){
-            
-            return [s1 compare:s2];
-        }];
-        
-        NSUInteger indexOfDay1 = [array indexOfObject:startDateTime];
-        NSUInteger indexOfDay2 = [array indexOfObject:destinationDate];
-        NSUInteger indexOfDay3 = [array indexOfObject:finishDateTime];
-        
-        if (((indexOfDay1 < indexOfDay2 ) && (indexOfDay2 < indexOfDay3)) || 
-            ((indexOfDay1 > indexOfDay2 ) && (indexOfDay2 > indexOfDay3))) {
-            NSLog(@"YES");
-            check=1;
-        } else {
-            NSLog(@"NO");
-            check=0;
-        }
-        NSLog(@"check=%d",check);
         return check;
     }
+    
+    if(check){
     if(SOC.filterObject.morning && !SOC.filterObject.evening && !SOC.filterObject.afternoon){
         
         
@@ -801,6 +790,9 @@ if(timer%2==0){
 
     
     return  check;
+    }
+    else
+        return 0;
     
 }
 #else

@@ -20,6 +20,8 @@
     NSInteger whenSearchType;
     NSInteger startTime_48;
     NSInteger finishTime_48;
+    NSDate *startPickDateTime;
+    NSDate *endPickDateTime;
 }
 @property (nonatomic,assign)BOOL playAct;
 @property (nonatomic,assign)BOOL eatAct;
@@ -32,5 +34,6 @@
 @property (nonatomic,assign) NSInteger whenSearchType;
 @property (nonatomic,assign)NSInteger startTime_48;
 @property (nonatomic,assign)NSInteger finishTime_48;
-
+@property (nonatomic,retain)NSDate *startPickDateTime;
+@property (nonatomic,retain)NSDate *endPickDateTime;
 @end

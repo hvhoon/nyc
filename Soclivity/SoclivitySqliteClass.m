@@ -67,7 +67,7 @@ static sqlite3 *database = nil;
 		
 		if(insertStmtNewActivity == nil) {
 			
-        const char *sqlNewActivity ="INSERT OR REPLACE INTO Activities(name,atype,when_act,where_lat,where_lng,where_address,access,numofpeople,updated_at,Distance) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        const char *sqlNewActivity ="INSERT OR REPLACE INTO Activities(name,atype,when_act,where_lat,where_lng,where_address,access,numofpeople,updated_at,Distance,ownnerid,dos0,ownername,dos1,dos2,dos3) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			/*const char *sqlNewActivity = "insert into Activities(name,atype,when_act,where_lat,where_lng,where_address,where_city,where_state,where_zip,what,access,numofpeople,ownnerid,created_at,updated_at) Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";*/
 			int error = sqlite3_prepare_v2(database, sqlNewActivity, -1, &insertStmtNewActivity, NULL);
@@ -85,6 +85,13 @@ static sqlite3 *database = nil;
         sqlite3_bind_int(insertStmtNewActivity, 8, ActObj.num_of_people);
 		sqlite3_bind_text(insertStmtNewActivity, 9, [ActObj.updated_at UTF8String], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStmtNewActivity, 10, [ActObj.distance UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(insertStmtNewActivity, 11, ActObj.organizerId);
+
+        sqlite3_bind_int(insertStmtNewActivity, 12, ActObj.DOS);
+        sqlite3_bind_text(insertStmtNewActivity,13, [ActObj.organizerName UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(insertStmtNewActivity, 14, ActObj.DOS1);
+        sqlite3_bind_int(insertStmtNewActivity, 15, ActObj.DOS2);
+        sqlite3_bind_int(insertStmtNewActivity, 16, ActObj.DOS3);
 
 		
 		if(SQLITE_DONE != sqlite3_step(insertStmtNewActivity))
@@ -122,7 +129,7 @@ static sqlite3 *database = nil;
     
 	sqlite3_stmt *SOCTableActivityGetStmt;
     
-	const char *sqlLevelQues5 = "select name,atype,when_act,where_lat,where_lng,where_address,access,numofpeople,updated_at,Distance from Activities";
+	const char *sqlLevelQues5 = "select name,atype,when_act,where_lat,where_lng,where_address,access,numofpeople,updated_at,Distance,ownnerid,dos0,ownername,dos1,dos2,dos3 from Activities";
 	
 	
 	if(sqlite3_prepare_v2(database, sqlLevelQues5, -1, &SOCTableActivityGetStmt, NULL)!=SQLITE_OK){
@@ -190,7 +197,29 @@ static sqlite3 *database = nil;
 			play.distance = [NSString stringWithUTF8String:distanceChars];
 		}
 
+        NSNumber *ownerIdNum=[NSNumber numberWithInt:sqlite3_column_int(SOCTableActivityGetStmt, 10)];
+        play.organizerId=[ownerIdNum intValue];
         
+        NSNumber *dosOwner=[NSNumber numberWithInt:sqlite3_column_int(SOCTableActivityGetStmt, 11)];
+        play.DOS=[dosOwner intValue];
+        
+        const char *organizerNameChars = (const char *)sqlite3_column_text(SOCTableActivityGetStmt,12);
+		if(organizerNameChars != NULL)
+		{
+			play.organizerName =[NSString stringWithUTF8String: organizerNameChars];
+		}
+
+        
+        NSNumber *dos1=[NSNumber numberWithInt:sqlite3_column_int(SOCTableActivityGetStmt, 13)];
+        play.DOS1=[dos1 intValue];
+        
+        NSNumber *dos2=[NSNumber numberWithInt:sqlite3_column_int(SOCTableActivityGetStmt, 14)];
+        play.DOS2=[dos2 intValue];
+
+        NSNumber *dos3=[NSNumber numberWithInt:sqlite3_column_int(SOCTableActivityGetStmt, 15)];
+        play.DOS3=[dos3 intValue];
+
+
 
         
         if([SoclivityUtilities ValidActivityDate:play.when]){
@@ -209,14 +238,12 @@ static sqlite3 *database = nil;
 
             play.distance =[NSString stringWithFormat:@"%.02f",[newCenter distanceFromLocation:tempLocObj] / 1000];
 #endif            
-            play.organizerName=@"Shahved Katoch";
-            play.goingCount=@"14";
-            play.DOS=@"1";
+            play.goingCount=[NSString stringWithFormat:@"%d",play.DOS1+play.DOS2+play.DOS3];
             NSLog(@"message=%@",message);
 
             NSMutableArray *quotations = [NSMutableArray arrayWithCapacity:1];
-            quotation.DOS_1=3;
-            quotation.DOS_2=7;
+            quotation.DOS_1=play.DOS1;
+            quotation.DOS_2=play.DOS2;
             [quotations addObject:quotation];
              play.quotations = quotations;
                 

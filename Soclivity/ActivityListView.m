@@ -411,8 +411,8 @@
     
 
     self.plays = [self.plays sortedArrayUsingComparator: ^(InfoActivityClass *a, InfoActivityClass *b) {
-        NSString *s1 = a.DOS;
-        NSString *s2 = b.DOS;
+        NSNumber *s1=[NSNumber numberWithInt:a.DOS];
+        NSNumber *s2=[NSNumber numberWithInt:b.DOS];
         return [s1 compare:s2];
     }];
     sortType=2;

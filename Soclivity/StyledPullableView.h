@@ -7,10 +7,10 @@
 //
 #import "PullableView.h"
 #import "FCRangeSlider.h"
-#import "LaterDateView.h"
+#import "CalendarDateView.h"
 @class SoclivityManager;
 
-@interface StyledPullableView : PullableView<UISearchBarDelegate,LaterDateViewDelegate>{
+@interface StyledPullableView : PullableView<UISearchBarDelegate,CalendarDateViewDelegate>{
     UISearchBar*homeSearchBar;
     BOOL learn;
     FCRangeSlider *rangeSlider;
