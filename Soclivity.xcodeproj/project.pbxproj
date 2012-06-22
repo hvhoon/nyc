@@ -134,6 +134,8 @@
 		EA7D64B11577757D0034E4DB /* SectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7D64AE1577757C0034E4DB /* SectionHeaderView.m */; };
 		EA7D64C1157780CF0034E4DB /* ABTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7D64BE157780CF0034E4DB /* ABTableViewCell.m */; };
 		EA7D64C2157780CF0034E4DB /* SOCTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7D64C0157780CF0034E4DB /* SOCTableViewCell.m */; };
+		EA8323EC15945EBA0063B786 /* S04.1_button.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8323EA15945EBA0063B786 /* S04.1_button.png */; };
+		EA8323ED15945EBA0063B786 /* S04.1_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8323EB15945EBA0063B786 /* S04.1_button@2x.png */; };
 		EA86D2D7156FEDE900E3EABD /* FBSignInInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA86D2D6156FEDE900E3EABD /* FBSignInInvocation.m */; };
 		EA87EDC1157340EE00DE1762 /* UserContactList.m in Sources */ = {isa = PBXBuildFile; fileRef = EA87EDC0157340EE00DE1762 /* UserContactList.m */; };
 		EA87EDC6157346A700DE1762 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA87EDC5157346A700DE1762 /* AddressBook.framework */; };
@@ -582,6 +584,8 @@
 		EA7D64BE157780CF0034E4DB /* ABTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABTableViewCell.m; sourceTree = "<group>"; };
 		EA7D64BF157780CF0034E4DB /* SOCTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOCTableViewCell.h; sourceTree = "<group>"; };
 		EA7D64C0157780CF0034E4DB /* SOCTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOCTableViewCell.m; sourceTree = "<group>"; };
+		EA8323EA15945EBA0063B786 /* S04.1_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S04.1_button.png; sourceTree = "<group>"; };
+		EA8323EB15945EBA0063B786 /* S04.1_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S04.1_button@2x.png"; sourceTree = "<group>"; };
 		EA86D2D5156FEDE900E3EABD /* FBSignInInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSignInInvocation.h; sourceTree = "<group>"; };
 		EA86D2D6156FEDE900E3EABD /* FBSignInInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBSignInInvocation.m; sourceTree = "<group>"; };
 		EA87EDBF157340EE00DE1762 /* UserContactList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserContactList.h; sourceTree = "<group>"; };
@@ -1298,6 +1302,8 @@
 		EA90FF4B1582074E00CA0C4F /* S04.1 Dropdown */ = {
 			isa = PBXGroup;
 			children = (
+				EA8323EA15945EBA0063B786 /* S04.1_button.png */,
+				EA8323EB15945EBA0063B786 /* S04.1_button@2x.png */,
 				EA8B19431593BC94009C9851 /* S4.1_search-bar@2x.png */,
 				EA8B19441593BC94009C9851 /* S4.1_search-bar.png */,
 				EA8B19451593BC94009C9851 /* S4.1_search-background@2x.png */,
@@ -2250,6 +2256,8 @@
 				EA8B19481593BC94009C9851 /* S4.1_search-bar.png in Resources */,
 				EA8B19491593BC94009C9851 /* S4.1_search-background@2x.png in Resources */,
 				EA8B194A1593BC94009C9851 /* S4.1_search-background.png in Resources */,
+				EA8323EC15945EBA0063B786 /* S04.1_button.png in Resources */,
+				EA8323ED15945EBA0063B786 /* S04.1_button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -85,8 +85,8 @@
             }
             if (cancelButton){
                 NSLog(@"cancelButton");
-                [cancelButton setBackgroundImage:[UIImage imageNamed:@"S04.1_cancel.png"] forState:UIControlStateNormal];
-                [cancelButton setBackgroundImage:[UIImage imageNamed:@"S04.1_cancelPressed.png"] forState:UIControlStateHighlighted];
+                [cancelButton setBackgroundImage:[UIImage imageNamed:@"S04.1_button.png"] forState:UIControlStateNormal];
+                [cancelButton setBackgroundImage:[UIImage imageNamed:@"S04.1_button.png"] forState:UIControlStateHighlighted];
                 
                 
             }
@@ -814,11 +814,16 @@
         UIButton *cancelButton = nil;
         if([subview isKindOfClass:[UIButton class]]){
             cancelButton = (UIButton*)subview;
+            UILabel *cancelLabel=[cancelButton titleLabel];
+            cancelLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
+            cancelLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+            cancelLabel.backgroundColor=[UIColor clearColor];
+
         }
         if (cancelButton){
             NSLog(@"cancelButton");
-            [cancelButton setBackgroundImage:[UIImage imageNamed:@"S04.1_cancel.png"] forState:UIControlStateNormal];
-            [cancelButton setBackgroundImage:[UIImage imageNamed:@"S04.1_cancelPressed.png"] forState:UIControlStateHighlighted];
+            [cancelButton setBackgroundImage:[UIImage imageNamed:@"S04.1_button.png"] forState:UIControlStateNormal];
+            [cancelButton setBackgroundImage:[UIImage imageNamed:@"S04.1_button.png"] forState:UIControlStateHighlighted];
             }   
         }
     
