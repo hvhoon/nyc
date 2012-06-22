@@ -463,7 +463,347 @@ if(timer%2==0){
             break;
     }
 }
+#if 1
++(NSInteger)DoTheTimeLogic:(NSString*)formatStringGMTObj{
 
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    if(!SOC.filterObject.morning && !SOC.filterObject.evening && !SOC.filterObject.afternoon){
+    
+        return 0;
+    }
+
+    
+    
+    NSDate *startFilterDate;
+    NSDate *finishFilterDate;
+    if(SOC.filterObject.whenSearchType==1){
+        startFilterDate=[NSDate date];
+        finishFilterDate = [[NSDate date] dateByAddingTimeInterval:86400*2];
+    }
+    else if(SOC.filterObject.whenSearchType==2){
+        startFilterDate=[NSDate date];
+        finishFilterDate = [[NSDate date] dateByAddingTimeInterval:86400*7];
+    }
+    
+    else if(SOC.filterObject.whenSearchType==3){
+        NSCalendar* myCalendar = [NSCalendar currentCalendar];
+        NSDateComponents* components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit 
+                                                     fromDate:[NSDate date]];
+        [components setHour: 23];
+        [components setMinute:59];
+        [components setSecond:59];
+        finishFilterDate=[myCalendar dateFromComponents:components];
+        
+        NSLog(@"weekdayComponentsEnd=%@",[myCalendar dateFromComponents:components]);
+        
+        [components setHour:00];
+        [components setMinute:00];
+        [components setSecond:01];
+        NSLog(@"weekdayComponentsStart=%@",[myCalendar dateFromComponents:components]);
+        startFilterDate=[myCalendar dateFromComponents:components];
+
+    }
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [dateFormatter setTimeZone:gmt];
+    
+    
+    NSDate *activityDate = [dateFormatter dateFromString:formatStringGMTObj];
+    NSString *startFilterDateString = [dateFormatter stringFromDate:startFilterDate];
+    NSDate *startFilterDateFormatted=[dateFormatter dateFromString:startFilterDateString];	
+    
+    NSString *finishFilterDateString = [dateFormatter stringFromDate:finishFilterDate];
+    NSDate *finishFilterDateFormatted=[dateFormatter dateFromString:finishFilterDateString];	
+
+    
+    dateFormatter.dateFormat=@"EEE, MMM d, h:mm a";
+    
+    
+    
+    NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
+    
+    NSInteger destinationGMTOffset1 = [destinationTimeZone secondsFromGMTForDate:activityDate];
+    NSInteger destinationGMTOffset2 = [destinationTimeZone secondsFromGMTForDate:startFilterDateFormatted];
+    
+    NSInteger destinationGMTOffset3 = [destinationTimeZone secondsFromGMTForDate:finishFilterDateFormatted];
+
+    
+    NSTimeInterval interval2 = destinationGMTOffset1;
+    NSTimeInterval interval3 = destinationGMTOffset2;
+    NSTimeInterval interval4 = destinationGMTOffset3;
+    
+    NSDate* destinationDate = [[[NSDate alloc] initWithTimeInterval:interval2 sinceDate:activityDate] autorelease];
+    
+    NSDate* startDateTime = [[[NSDate alloc] initWithTimeInterval:interval3 sinceDate:startFilterDateFormatted] autorelease];
+    
+    NSDate* finishDateTime = [[[NSDate alloc] initWithTimeInterval:interval4 sinceDate:finishFilterDateFormatted] autorelease];
+
+    
+    
+    NSString *activityTime=[dateFormatter stringFromDate:destinationDate];
+    NSString  *startFilterTime=[dateFormatter stringFromDate:startDateTime];
+    NSString  *finishFilterTime=[dateFormatter stringFromDate:finishDateTime];
+    
+    NSLog(@"activityTime=%@",activityTime);
+    NSLog(@"startFilterTime=%@",startFilterTime);
+    NSLog(@"finishFilterTime=%@",finishFilterTime);
+    
+    int check=0;
+    NSDate *setFinishDate;
+    NSDate *setStartDate;
+    
+    if(SOC.filterObject.morning && SOC.filterObject.evening && SOC.filterObject.afternoon){
+        NSArray *array = [NSArray arrayWithObjects:startDateTime,destinationDate,finishDateTime, nil];
+        
+        array = [array sortedArrayUsingComparator: ^(NSDate *s1, NSDate *s2){
+            
+            return [s1 compare:s2];
+        }];
+        
+        NSUInteger indexOfDay1 = [array indexOfObject:startDateTime];
+        NSUInteger indexOfDay2 = [array indexOfObject:destinationDate];
+        NSUInteger indexOfDay3 = [array indexOfObject:finishDateTime];
+        
+        if (((indexOfDay1 < indexOfDay2 ) && (indexOfDay2 < indexOfDay3)) || 
+            ((indexOfDay1 > indexOfDay2 ) && (indexOfDay2 > indexOfDay3))) {
+            NSLog(@"YES");
+            check=1;
+        } else {
+            NSLog(@"NO");
+            check=0;
+        }
+        NSLog(@"check=%d",check);
+        return check;
+    }
+    if(SOC.filterObject.morning && !SOC.filterObject.evening && !SOC.filterObject.afternoon){
+        
+        
+        NSCalendar* myCalendar = [NSCalendar currentCalendar];
+        NSDateComponents* components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit 
+                                                     fromDate:activityDate];
+        [components setHour: 11];
+        [components setMinute:59];
+        [components setSecond:59];
+        setFinishDate=[myCalendar dateFromComponents:components];
+        
+        NSLog(@"weekdayComponentsEnd=%@",[myCalendar dateFromComponents:components]);
+        
+        [components setHour:00];
+        [components setMinute:00];
+        [components setSecond:01];
+        NSLog(@"weekdayComponentsStart=%@",[myCalendar dateFromComponents:components]);
+        setStartDate=[myCalendar dateFromComponents:components];
+            
+
+    }
+    
+    if(!SOC.filterObject.morning && !SOC.filterObject.evening && SOC.filterObject.afternoon){
+        
+            NSCalendar* myCalendar = [NSCalendar currentCalendar];
+            NSDateComponents* components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit 
+                                                         fromDate:activityDate];
+            
+            [components setHour:12];
+            [components setMinute:00];
+            [components setSecond:01];
+            setStartDate=[myCalendar dateFromComponents:components];
+            NSLog(@"setStartDate=%@",setStartDate);
+            
+            [components setHour: 18];
+            [components setMinute:59];
+            [components setSecond:59];
+            setFinishDate=[myCalendar dateFromComponents:components];
+            
+            NSLog(@"setFinishDate=%@",setFinishDate);
+
+            
+        
+    }
+    if(!SOC.filterObject.morning && SOC.filterObject.evening && !SOC.filterObject.afternoon){
+        
+            NSCalendar* myCalendar = [NSCalendar currentCalendar];
+            NSDateComponents* components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit 
+                                                         fromDate:activityDate];
+            [components setHour: 23];
+            [components setMinute:59];
+            [components setSecond:59];
+            setFinishDate=[myCalendar dateFromComponents:components];
+            
+            NSLog(@"weekdayComponentsEnd=%@",[myCalendar dateFromComponents:components]);
+            
+            [components setHour:19];
+            [components setMinute:00];
+            [components setSecond:01];
+            NSLog(@"weekdayComponentsStart=%@",[myCalendar dateFromComponents:components]);
+            setStartDate=[myCalendar dateFromComponents:components];
+            
+        
+}
+    
+    if(SOC.filterObject.morning && !SOC.filterObject.evening && SOC.filterObject.afternoon){
+        
+        NSCalendar* myCalendar = [NSCalendar currentCalendar];
+        NSDateComponents* components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit 
+                                                     fromDate:activityDate];
+        
+        
+        [components setHour:00];
+        [components setMinute:00];
+        [components setSecond:01];
+        NSLog(@"weekdayComponentsStart=%@",[myCalendar dateFromComponents:components]);
+        setStartDate=[myCalendar dateFromComponents:components];
+        
+        [components setHour: 18];
+        [components setMinute:59];
+        [components setSecond:59];
+        setFinishDate=[myCalendar dateFromComponents:components];
+        NSLog(@"weekdayComponentsEnd=%@",[myCalendar dateFromComponents:components]);
+
+
+        
+        
+    }
+    
+    
+    
+    if(SOC.filterObject.morning && SOC.filterObject.evening && !SOC.filterObject.afternoon){
+        
+        
+        int localCheckMorning=0;
+        NSCalendar* myCalendar = [NSCalendar currentCalendar];
+        NSDateComponents* components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit 
+                                                     fromDate:activityDate];
+        
+        
+        [components setHour:00];
+        [components setMinute:00];
+        [components setSecond:01];
+        NSLog(@"weekdayComponentsStart=%@",[myCalendar dateFromComponents:components]);
+        setStartDate=[myCalendar dateFromComponents:components];
+        
+        [components setHour: 11];
+        [components setMinute:59];
+        [components setSecond:59];
+        setFinishDate=[myCalendar dateFromComponents:components];
+        NSLog(@"weekdayComponentsEnd=%@",[myCalendar dateFromComponents:components]);
+        
+        NSArray *array1 = [NSArray arrayWithObjects:setStartDate,activityDate,setFinishDate, nil];
+        
+        array1 = [array1 sortedArrayUsingComparator: ^(NSDate *s1, NSDate *s2){
+            
+            return [s1 compare:s2];
+        }];
+        
+        NSUInteger indexOfDay1 = [array1 indexOfObject:setStartDate];
+        NSUInteger indexOfDay2 = [array1 indexOfObject:activityDate];
+        NSUInteger indexOfDay3 = [array1 indexOfObject:setFinishDate];
+        
+        if (((indexOfDay1 < indexOfDay2 ) && (indexOfDay2 < indexOfDay3)) || 
+            ((indexOfDay1 > indexOfDay2 ) && (indexOfDay2 > indexOfDay3))) {
+            NSLog(@"YES");
+            localCheckMorning=1;
+        } else {
+            NSLog(@"NO");
+            localCheckMorning=0;
+        }
+        
+        
+        int localCheckEvening=0;
+        [components setHour:19];
+        [components setMinute:00];
+        [components setSecond:01];
+        NSLog(@"weekdayComponentsStart=%@",[myCalendar dateFromComponents:components]);
+        setStartDate=[myCalendar dateFromComponents:components];
+        
+        [components setHour: 23];
+        [components setMinute:59];
+        [components setSecond:59];
+        setFinishDate=[myCalendar dateFromComponents:components];
+        NSLog(@"weekdayComponentsEnd=%@",[myCalendar dateFromComponents:components]);
+        
+        NSArray *array = [NSArray arrayWithObjects:setStartDate,activityDate,setFinishDate, nil];
+        
+        array = [array sortedArrayUsingComparator: ^(NSDate *s1, NSDate *s2){
+            
+            return [s1 compare:s2];
+        }];
+        
+        indexOfDay1 = [array indexOfObject:setStartDate];
+        indexOfDay2 = [array indexOfObject:activityDate];
+        indexOfDay3 = [array indexOfObject:setFinishDate];
+        
+        if (((indexOfDay1 < indexOfDay2 ) && (indexOfDay2 < indexOfDay3)) || 
+            ((indexOfDay1 > indexOfDay2 ) && (indexOfDay2 > indexOfDay3))) {
+            NSLog(@"YES");
+            localCheckEvening=1;
+        } else {
+            NSLog(@"NO");
+            localCheckEvening=0;
+        }
+
+        if(localCheckEvening||localCheckMorning){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+        
+        
+        
+        
+    }
+    
+    if(!SOC.filterObject.morning && SOC.filterObject.evening && SOC.filterObject.afternoon){
+        
+        NSCalendar* myCalendar = [NSCalendar currentCalendar];
+        NSDateComponents* components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit 
+                                                     fromDate:activityDate];
+        
+        
+        [components setHour:12];
+        [components setMinute:00];
+        [components setSecond:01];
+        NSLog(@"weekdayComponentsStart=%@",[myCalendar dateFromComponents:components]);
+        setStartDate=[myCalendar dateFromComponents:components];
+        
+        [components setHour: 23];
+        [components setMinute:59];
+        [components setSecond:59];
+        setFinishDate=[myCalendar dateFromComponents:components];
+        NSLog(@"weekdayComponentsEnd=%@",[myCalendar dateFromComponents:components]);
+        
+        
+        
+        
+    }
+    
+    NSArray *array = [NSArray arrayWithObjects:setStartDate,activityDate,setFinishDate, nil];
+    
+    array = [array sortedArrayUsingComparator: ^(NSDate *s1, NSDate *s2){
+        
+        return [s1 compare:s2];
+    }];
+    
+    NSUInteger indexOfDay1 = [array indexOfObject:setStartDate];
+    NSUInteger indexOfDay2 = [array indexOfObject:activityDate];
+    NSUInteger indexOfDay3 = [array indexOfObject:setFinishDate];
+    
+    if (((indexOfDay1 < indexOfDay2 ) && (indexOfDay2 < indexOfDay3)) || 
+        ((indexOfDay1 > indexOfDay2 ) && (indexOfDay2 > indexOfDay3))) {
+        NSLog(@"YES");
+        check=1;
+    } else {
+        NSLog(@"NO");
+        check=0;
+    }
+
+    
+    return  check;
+    
+}
+#else
 +(NSInteger)DoTheTimeLogic:(NSString*)formatStringGMTObj{
     
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
@@ -608,6 +948,6 @@ if(timer%2==0){
     
 
 }
-
+#endif
 
 @end
