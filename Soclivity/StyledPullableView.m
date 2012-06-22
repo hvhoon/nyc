@@ -303,6 +303,7 @@
         UIImageView *next7DaysTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_datesCheck.png"]];
         next7DaysTickImageView.frame=CGRectMake(155, 225, 16, 15);
         next7DaysTickImageView.tag=kNextSevenDaysTickImage;
+        next7DaysTickImageView.alpha=0.3f;
         [filterPaneView addSubview:next7DaysTickImageView];
         [next7DaysTickImageView release];
         
@@ -310,6 +311,7 @@
         UILabel *next7DaysLabel=[[UILabel alloc] initWithFrame:next7DaysLabelRect];
         next7DaysLabel.textAlignment=UITextAlignmentLeft;
         next7DaysLabel.text=[NSString stringWithFormat:@"Next 7 Days"];
+        next7DaysLabel.alpha=0.3f;
         next7DaysLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         next7DaysLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
         next7DaysLabel.tag=kNextSevenDaysText;
@@ -332,6 +334,7 @@
         UIImageView *pickADayTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_pickADayIcon.png"]];
         pickADayTickImageView.frame=CGRectMake(255, 225, 16, 15);
         pickADayTickImageView.tag=kPickADayTickImage;
+        pickADayTickImageView.alpha=0.3f;
         [filterPaneView addSubview:pickADayTickImageView];
         [pickADayTickImageView release];
         
@@ -342,6 +345,7 @@
         pickADayLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         pickADayLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
         pickADayLabel.tag=kPickADayText;
+        pickADayLabel.alpha=0.3f;
         pickADayLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:pickADayLabel];
         [pickADayLabel release];
@@ -434,7 +438,7 @@
         
 #endif        
         UIImageView *timeVerticalDividerImageView2=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_timeVerticalDivider.png"]];
-        timeVerticalDividerImageView2.frame=CGRectMake(220, 330, 2, 41);
+        timeVerticalDividerImageView2.frame=CGRectMake(220, 335, 2, 41);
         [filterPaneView addSubview:timeVerticalDividerImageView2];
         [timeVerticalDividerImageView2 release];
         
@@ -815,8 +819,7 @@
             NSLog(@"cancelButton");
             [cancelButton setBackgroundImage:[UIImage imageNamed:@"S04.1_cancel.png"] forState:UIControlStateNormal];
             [cancelButton setBackgroundImage:[UIImage imageNamed:@"S04.1_cancelPressed.png"] forState:UIControlStateHighlighted];
-            
-        }   
+            }   
         }
     
 }
@@ -827,6 +830,7 @@
 }
 // called when keyboard search button pressed
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+     self.homeSearchBar.showsCancelButton = NO;
     [self.homeSearchBar resignFirstResponder];
 }
 
