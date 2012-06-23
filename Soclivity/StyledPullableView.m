@@ -101,10 +101,7 @@
             }
         }
         
-#if 1
-        
         // Block of code for the activity types
-        
         CGRect actTypesLabelRect=CGRectMake(10,100,165,15);
         UILabel *actTypesLabel=[[UILabel alloc] initWithFrame:actTypesLabelRect];
         actTypesLabel.textAlignment=UITextAlignmentLeft;
@@ -140,7 +137,6 @@
         playTypeLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:playTypeLabel];
         [playTypeLabel release];
-        
         
         
         UIButton *eatButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -432,7 +428,6 @@
         [filterPaneView addSubview:Pm12_Pm6_Label];
         [Pm12_Pm6_Label release];
         
-#endif        
         UIImageView *timeVerticalDividerImageView2=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_timeVerticalDivider.png"]];
         timeVerticalDividerImageView2.frame=CGRectMake(213, 333, 1, 41);
         [filterPaneView addSubview:timeVerticalDividerImageView2];
@@ -472,78 +467,6 @@
         [filterPaneView addSubview:Pm7_Pm11_Label];
         [Pm7_Pm11_Label release];
         
-#if 0        
-                
-        
-        UIButton *learnButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        learnButton.frame = CGRectMake(258,72, 62.0, 30.0);
-        learnButton.tag=kLearnActivity;
-        
-        if(SOC.filterObject.learnAct)
-        [learnButton setImage:[UIImage imageNamed:@"S4.1_learn-selected.png"] forState:UIControlStateNormal];
-        else
-            [learnButton setImage:[UIImage imageNamed:@"S4.1_learn-deselect.png"] forState:UIControlStateNormal];
-        
-        [learnButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [backgroundView addSubview:learnButton];
-        
-        
-                
-     
-        UIButton *todayButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        todayButton.frame = CGRectMake(2,5, 103.0, 29.0);
-        todayButton.tag=kTodayFilter;
-        if(SOC.filterObject.whenSearchType==1){
-        [todayButton setImage:[UIImage imageNamed:@"S4.1_today-selected.png"] forState:UIControlStateNormal];
-        }
-        else{
-            [todayButton setImage:[UIImage imageNamed:@"S4.1_today-deselect.png"] forState:UIControlStateNormal];
-        }
-        [todayButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [timeBackgroundImageView addSubview:todayButton];
-        
-        
-                
-
-        
-
-        CGRect startLabelRect=CGRectMake(10,55,65,15);
-        UILabel *startLabel=[[UILabel alloc] initWithFrame:startLabelRect];
-        startLabel.textAlignment=UITextAlignmentLeft;
-        startLabel.text=[NSString stringWithFormat:@"12:00 AM"];
-        startLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
-        startLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
-        startLabel.tag=kStartTime;
-        startLabel.backgroundColor=[UIColor clearColor];
-        
-        [timeBackgroundImageView addSubview:startLabel];
-        [startLabel release];
-
-        CGRect finishLabelRect=CGRectMake(255, 55, 62, 15);
-        UILabel *finishLabel=[[UILabel alloc] initWithFrame:finishLabelRect];
-        finishLabel.textAlignment=UITextAlignmentLeft;
-        finishLabel.text=[NSString stringWithFormat:@"12:00 PM"];
-        finishLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
-        finishLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
-        finishLabel.tag=kFinshTime;
-        finishLabel.backgroundColor=[UIColor clearColor];
-        
-        [timeBackgroundImageView addSubview:finishLabel];
-        [finishLabel release];
-      
-        rangeSlider=[[FCRangeSlider alloc]initWithFrame:CGRectMake(58.5, 48, 198, 7)];
-        [timeBackgroundImageView addSubview:rangeSlider];
-        [rangeSlider setThumbImage:[UIImage imageNamed:@"S4.1_scroll-ball.png"] forState:UIControlStateHighlighted];
-        [rangeSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-
-        [backgroundView addSubview:timeBackgroundImageView];
-        [timeBackgroundImageView release];
-        [filterPaneView addSubview:backgroundView];
-        [backgroundView release];
-
- 
-      
-#endif        
         UIButton *searchHandleButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         searchHandleButton.frame = CGRectMake(5, 397, 58.0, 57.0);
         [searchHandleButton setImage:[UIImage imageNamed:@"S04_bookmark.png"] forState:UIControlStateNormal];
@@ -584,7 +507,6 @@
 
         [filterPaneView addSubview:dateCalendarView];
 
-        
         
         searchLensImageView=[[UIImageView alloc]initWithFrame:CGRectMake(22, 415, 20, 21)];
         searchLensImageView.image=[UIImage imageNamed:@"S04_search.png"];
@@ -750,11 +672,13 @@
             if(SOC.filterObject.morning){
             [(UILabel*)[self viewWithTag:kMorningText] setAlpha:1.0f];
             [(UIImageView*)[self viewWithTag:kSunriseImage]setImage:[UIImage imageNamed:@"S04.1_sunriseSelected.png"]];
+            [(UIImageView*)[self viewWithTag:kSunriseImage]setAlpha:1.0f];
             [(UILabel*)[self viewWithTag:kAm12_Am11] setAlpha:1.0f];
             }
             else{
                 [(UILabel*)[self viewWithTag:kMorningText] setAlpha:0.3f];
                 [(UIImageView*)[self viewWithTag:kSunriseImage]setImage:[UIImage imageNamed:@"S04.1_sunriseUnselected.png"]];
+                [(UIImageView*)[self viewWithTag:kSunriseImage]setAlpha:0.3f];
                 [(UILabel*)[self viewWithTag:kAm12_Am11] setAlpha:0.3f];
                 
             }
@@ -767,11 +691,13 @@
             if(SOC.filterObject.afternoon){
                 [(UILabel*)[self viewWithTag:kAfternoonText] setAlpha:1.0f];
                 [(UIImageView*)[self viewWithTag:kSunSelectedImage]setImage:[UIImage imageNamed:@"S04.1_sunSelected.png"]];
+                [(UIImageView*)[self viewWithTag:kSunSelectedImage]setAlpha:1.0f];
                 [(UILabel*)[self viewWithTag:kPm12_Pm6] setAlpha:1.0f];
             }
             else{
                 [(UILabel*)[self viewWithTag:kAfternoonText] setAlpha:0.3f];
                 [(UIImageView*)[self viewWithTag:kSunSelectedImage]setImage:[UIImage imageNamed:@"S04.1_sunUnselected.png"]];
+                [(UIImageView*)[self viewWithTag:kSunSelectedImage]setAlpha:0.3f];
                 [(UILabel*)[self viewWithTag:kPm12_Pm6] setAlpha:0.3f];
                 
             }
@@ -784,11 +710,13 @@
             if(SOC.filterObject.evening){
                 [(UILabel*)[self viewWithTag:kEveningText] setAlpha:1.0f];
                 [(UIImageView*)[self viewWithTag:kMoonSelectedImage]setImage:[UIImage imageNamed:@"S04.1_moonSelected.png"]];
+                [(UIImageView*)[self viewWithTag:kMoonSelectedImage]setAlpha:1.0f];
                 [(UILabel*)[self viewWithTag:kPm7_Pm11] setAlpha:1.0f];
             }
             else{
                 [(UILabel*)[self viewWithTag:kEveningText] setAlpha:0.3f];
                 [(UIImageView*)[self viewWithTag:kMoonSelectedImage]setImage:[UIImage imageNamed:@"S04.1_moonUnselected.png"]];
+                [(UIImageView*)[self viewWithTag:kMoonSelectedImage]setAlpha:0.3f];
                 [(UILabel*)[self viewWithTag:kPm7_Pm11] setAlpha:0.3f];
                 
             }
