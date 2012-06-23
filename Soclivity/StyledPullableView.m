@@ -64,7 +64,7 @@
         SOC=[SoclivityManager SharedInstance];                     
         filterPaneView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 640, 402)];
         filterPaneView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
-        self.homeSearchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0, 40,320, 44)] autorelease];
+        self.homeSearchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0, 40, 320, 44)] autorelease];
         self.homeSearchBar.delegate = self;
         self.homeSearchBar.showsCancelButton =NO;
         self.homeSearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -323,7 +323,7 @@
         [datesVerticalDividerImageView2 release];
         
         UIButton *pickADayButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        pickADayButton.frame = CGRectMake(214,238,100,40);
+        pickADayButton.frame = CGRectMake(214,238,100,45);
         pickADayButton.tag=kPickADay;
         [pickADayButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [filterPaneView addSubview:pickADayButton];
@@ -347,47 +347,46 @@
         [filterPaneView addSubview:pickADayLabel];
         [pickADayLabel release];
         
-        
+        // Time selection section
         UIImageView *clockIconImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_clock.png"]];
-        clockIconImageView.frame=CGRectMake(10, 290, 24, 23);
+        clockIconImageView.frame=CGRectMake(10, 302, 24, 23);
         [filterPaneView addSubview:clockIconImageView];
         [clockIconImageView release];
         
         UIImageView *horizontalDividerImageView2=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_horizontalDivider.png"]];
-        horizontalDividerImageView2.frame=CGRectMake(44, 300, 269, 2);
+        horizontalDividerImageView2.frame=CGRectMake(44, 309, 269, 1);
         [filterPaneView addSubview:horizontalDividerImageView2];
         [horizontalDividerImageView2 release];
         
-        
         UIButton *morningButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        morningButton.frame =CGRectMake(45,325,90,41);
+        morningButton.frame =CGRectMake(12,330,100,55);
         morningButton.tag=kMorningButton;
         [morningButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [filterPaneView addSubview:morningButton];
         
         UIImageView *sunriseImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_sunriseSelected.png"]];
-        sunriseImageView.frame=CGRectMake(60, 325, 15,9);
+        sunriseImageView.frame=CGRectMake(55, 330, 15,9);
         sunriseImageView.tag=kSunriseImage;
         [filterPaneView addSubview:sunriseImageView];
         [sunriseImageView release];
         
-        CGRect morningLabelRect=CGRectMake(45,345,90,15);
+        CGRect morningLabelRect=CGRectMake(12,345,100,15);
         UILabel *morningLabel=[[UILabel alloc] initWithFrame:morningLabelRect];
-        morningLabel.textAlignment=UITextAlignmentLeft;
+        morningLabel.textAlignment=UITextAlignmentCenter;
         morningLabel.text=[NSString stringWithFormat:@"Morning"];
         morningLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
-        morningLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+        morningLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
         morningLabel.tag=kMorningText;
         morningLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:morningLabel];
         [morningLabel release];
         
-        CGRect Am12_Am11_LabelRect=CGRectMake(35,365,90,15);
+        CGRect Am12_Am11_LabelRect=CGRectMake(12,365,100,15);
         UILabel *Am12_Am11Label=[[UILabel alloc] initWithFrame:Am12_Am11_LabelRect];
-        Am12_Am11Label.textAlignment=UITextAlignmentLeft;
+        Am12_Am11Label.textAlignment=UITextAlignmentCenter;
         Am12_Am11Label.text=[NSString stringWithFormat:@"12am - 11am"];
         Am12_Am11Label.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
-        Am12_Am11Label.textColor=[SoclivityUtilities returnTextFontColor:1];
+        Am12_Am11Label.textColor=[SoclivityUtilities returnTextFontColor:5];
         Am12_Am11Label.tag=kAm12_Am11;
         Am12_Am11Label.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:Am12_Am11Label];
@@ -395,39 +394,39 @@
         
         
         UIImageView *timeVerticalDividerImageView1=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_timeVerticalDivider.png"]];
-        timeVerticalDividerImageView1.frame=CGRectMake(120, 335, 2, 41);
+        timeVerticalDividerImageView1.frame=CGRectMake(112, 333, 1, 41);
         [filterPaneView addSubview:timeVerticalDividerImageView1];
         [timeVerticalDividerImageView1 release];
 
         UIButton *afternoonButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        afternoonButton.frame =CGRectMake(140,325,90,53);
+        afternoonButton.frame =CGRectMake(113,330,100,55);
         afternoonButton.tag=kAfternoonButton;
         [afternoonButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [filterPaneView addSubview:afternoonButton];
         
         UIImageView *sunSelectedImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_sunSelected.png"]];
-        sunSelectedImageView.frame=CGRectMake(155, 325, 16, 15);
+        sunSelectedImageView.frame=CGRectMake(155, 324, 16, 15);
         sunSelectedImageView.tag=kSunSelectedImage;
         [filterPaneView addSubview:sunSelectedImageView];
         [sunSelectedImageView release];
         
-        CGRect afternoonLabelRect=CGRectMake(140,345,90,15);
+        CGRect afternoonLabelRect=CGRectMake(113,345,100,15);
         UILabel *afternoonLabel=[[UILabel alloc] initWithFrame:afternoonLabelRect];
-        afternoonLabel.textAlignment=UITextAlignmentLeft;
+        afternoonLabel.textAlignment=UITextAlignmentCenter;
         afternoonLabel.text=[NSString stringWithFormat:@"Afternoon"];
         afternoonLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
-        afternoonLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+        afternoonLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
         afternoonLabel.tag=kAfternoonText;
         afternoonLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:afternoonLabel];
         [afternoonLabel release];
         
-        CGRect Pm12_Pm6_LabelRect=CGRectMake(130,365,90,15);
+        CGRect Pm12_Pm6_LabelRect=CGRectMake(113,365,100,15);
         UILabel *Pm12_Pm6_Label=[[UILabel alloc] initWithFrame:Pm12_Pm6_LabelRect];
-        Pm12_Pm6_Label.textAlignment=UITextAlignmentLeft;
+        Pm12_Pm6_Label.textAlignment=UITextAlignmentCenter;
         Pm12_Pm6_Label.text=[NSString stringWithFormat:@"12pm - 6pm"];
         Pm12_Pm6_Label.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
-        Pm12_Pm6_Label.textColor=[SoclivityUtilities returnTextFontColor:1];
+        Pm12_Pm6_Label.textColor=[SoclivityUtilities returnTextFontColor:5];
         Pm12_Pm6_Label.tag=kPm12_Pm6;
         Pm12_Pm6_Label.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:Pm12_Pm6_Label];
@@ -435,36 +434,36 @@
         
 #endif        
         UIImageView *timeVerticalDividerImageView2=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_timeVerticalDivider.png"]];
-        timeVerticalDividerImageView2.frame=CGRectMake(220, 335, 2, 41);
+        timeVerticalDividerImageView2.frame=CGRectMake(213, 333, 1, 41);
         [filterPaneView addSubview:timeVerticalDividerImageView2];
         [timeVerticalDividerImageView2 release];
         
         UIButton *eveningButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        eveningButton.frame =CGRectMake(240,325,90,53);
+        eveningButton.frame =CGRectMake(214,330,100,55);
         eveningButton.tag=kEveningButton;
         [eveningButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [filterPaneView addSubview:eveningButton];
         
         UIImageView *moonSelectedImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_moonSelected.png"]];
-        moonSelectedImageView.frame=CGRectMake(255, 325, 13, 15);
+        moonSelectedImageView.frame=CGRectMake(255, 324, 13, 15);
         moonSelectedImageView.tag=kMoonSelectedImage;
         [filterPaneView addSubview:moonSelectedImageView];
         [moonSelectedImageView release];
         
-        CGRect eveningLabelRect=CGRectMake(245,345,90,15);
+        CGRect eveningLabelRect=CGRectMake(214,345,100,15);
         UILabel *eveningLabel=[[UILabel alloc] initWithFrame:eveningLabelRect];
-        eveningLabel.textAlignment=UITextAlignmentLeft;
+        eveningLabel.textAlignment=UITextAlignmentCenter;
         eveningLabel.text=[NSString stringWithFormat:@"Evening"];
         eveningLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
-        eveningLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+        eveningLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
         eveningLabel.tag=kEveningText;
         eveningLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:eveningLabel];
         [eveningLabel release];
         
-        CGRect Pm7_Pm11_LabelRect=CGRectMake(230,365,90,15);
+        CGRect Pm7_Pm11_LabelRect=CGRectMake(214,365,100,15);
         UILabel *Pm7_Pm11_Label=[[UILabel alloc] initWithFrame:Pm7_Pm11_LabelRect];
-        Pm7_Pm11_Label.textAlignment=UITextAlignmentLeft;
+        Pm7_Pm11_Label.textAlignment=UITextAlignmentCenter;
         Pm7_Pm11_Label.text=[NSString stringWithFormat:@"7pm - 11pm"];
         Pm7_Pm11_Label.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
         Pm7_Pm11_Label.textColor=[SoclivityUtilities returnTextFontColor:1];
@@ -472,12 +471,6 @@
         Pm7_Pm11_Label.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:Pm7_Pm11_Label];
         [Pm7_Pm11_Label release];
-
-
-
-
-        
-
         
 #if 0        
                 
@@ -552,7 +545,7 @@
       
 #endif        
         UIButton *searchHandleButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        searchHandleButton.frame = CGRectMake(5, 398.0, 58.0, 58.0);
+        searchHandleButton.frame = CGRectMake(5, 397, 58.0, 57.0);
         [searchHandleButton setImage:[UIImage imageNamed:@"S04_bookmark.png"] forState:UIControlStateNormal];
         [searchHandleButton addTarget:self action:@selector(pushTodetailActivity:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:searchHandleButton];
@@ -856,7 +849,7 @@
         if (cancelButton){
             NSLog(@"cancelButton");
             [cancelButton setBackgroundImage:[UIImage imageNamed:@"S04.1_button.png"] forState:UIControlStateNormal];
-            [cancelButton setBackgroundImage:[UIImage imageNamed:@"S04.1_button.png"] forState:UIControlStateHighlighted];
+            [cancelButton setBackgroundImage:[UIImage imageNamed:@"S04.1_buttonSelected.png"] forState:UIControlStateHighlighted];
             }   
         }
     
