@@ -249,36 +249,36 @@
         [filterPaneView addSubview:learnTypeLabel];
         [learnTypeLabel release];
         
-        // Calendar section
+        // Dates selection section
         UIImageView *calendarIconImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_calendarIcon.png"]];
-        calendarIconImageView.frame=CGRectMake(10, 195, 26, 25);
+        calendarIconImageView.frame=CGRectMake(10, 207, 26, 25);
         [filterPaneView addSubview:calendarIconImageView];
         [calendarIconImageView release];
         
         UIImageView *horizontalDividerImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_horizontalDivider.png"]];
-        horizontalDividerImageView.frame=CGRectMake(44, 205, 269, 2);
+        horizontalDividerImageView.frame=CGRectMake(41, 217, 269, 1);
         [filterPaneView addSubview:horizontalDividerImageView];
         [horizontalDividerImageView release];
         
         
         UIButton *next2DaysButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        next2DaysButton.frame = CGRectMake(45,225,90,41);
+        next2DaysButton.frame = CGRectMake(12,238,100,40);
         next2DaysButton.tag=kNextTwoDays;
         [next2DaysButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [filterPaneView addSubview:next2DaysButton];
         
         UIImageView *next2DaysTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_datesCheck.png"]];
-        next2DaysTickImageView.frame=CGRectMake(60, 225, 16, 15);
+        next2DaysTickImageView.frame=CGRectMake(54, 238, 16, 15);
         next2DaysTickImageView.tag=kNextTwoDaysTickImage;
         [filterPaneView addSubview:next2DaysTickImageView];
         [next2DaysTickImageView release];
         
-        CGRect next2DaysLabelRect=CGRectMake(35,250,90,15);
+        CGRect next2DaysLabelRect=CGRectMake(12,263,100,15);
         UILabel *next2DaysLabel=[[UILabel alloc] initWithFrame:next2DaysLabelRect];
-        next2DaysLabel.textAlignment=UITextAlignmentLeft;
+        next2DaysLabel.textAlignment=UITextAlignmentCenter;
         next2DaysLabel.text=[NSString stringWithFormat:@"Next 2 Days"];
         next2DaysLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
-        next2DaysLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+        next2DaysLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
         next2DaysLabel.tag=kNextTwoDaysText;
         next2DaysLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:next2DaysLabel];
@@ -286,33 +286,31 @@
         
         
         UIImageView *datesVerticalDividerImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_datesVerticalDivider.png"]];
-        datesVerticalDividerImageView.frame=CGRectMake(120, 230, 2, 29);
+        datesVerticalDividerImageView.frame=CGRectMake(112, 243, 1, 29);
         [filterPaneView addSubview:datesVerticalDividerImageView];
         [datesVerticalDividerImageView release];
         
         
-        
-        
         UIButton *next7DaysButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        next7DaysButton.frame = CGRectMake(140,225,90,41);
+        next7DaysButton.frame = CGRectMake(113,238,100,40);
         next7DaysButton.tag=kNextSevenDays;
         [next7DaysButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [filterPaneView addSubview:next7DaysButton];
         
         UIImageView *next7DaysTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_datesCheck.png"]];
-        next7DaysTickImageView.frame=CGRectMake(155, 225, 16, 15);
+        next7DaysTickImageView.frame=CGRectMake(155, 238, 16, 15);
         next7DaysTickImageView.tag=kNextSevenDaysTickImage;
         next7DaysTickImageView.alpha=0.3f;
         [filterPaneView addSubview:next7DaysTickImageView];
         [next7DaysTickImageView release];
         
-        CGRect next7DaysLabelRect=CGRectMake(130,250,90,15);
+        CGRect next7DaysLabelRect=CGRectMake(113,263,100,15);
         UILabel *next7DaysLabel=[[UILabel alloc] initWithFrame:next7DaysLabelRect];
-        next7DaysLabel.textAlignment=UITextAlignmentLeft;
+        next7DaysLabel.textAlignment=UITextAlignmentCenter;
         next7DaysLabel.text=[NSString stringWithFormat:@"Next 7 Days"];
         next7DaysLabel.alpha=0.3f;
         next7DaysLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
-        next7DaysLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+        next7DaysLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
         next7DaysLabel.tag=kNextSevenDaysText;
         next7DaysLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:next7DaysLabel];
@@ -320,29 +318,29 @@
         
         
         UIImageView *datesVerticalDividerImageView2=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_datesVerticalDivider.png"]];
-        datesVerticalDividerImageView2.frame=CGRectMake(220, 230, 2, 29);
+        datesVerticalDividerImageView2.frame=CGRectMake(213, 243, 1, 29);
         [filterPaneView addSubview:datesVerticalDividerImageView2];
         [datesVerticalDividerImageView2 release];
         
         UIButton *pickADayButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        pickADayButton.frame = CGRectMake(240,225,90,41);
+        pickADayButton.frame = CGRectMake(214,238,100,40);
         pickADayButton.tag=kPickADay;
         [pickADayButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [filterPaneView addSubview:pickADayButton];
         
         UIImageView *pickADayTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_pickADayIcon.png"]];
-        pickADayTickImageView.frame=CGRectMake(255, 225, 16, 15);
+        pickADayTickImageView.frame=CGRectMake(257, 238, 14, 15);
         pickADayTickImageView.tag=kPickADayTickImage;
         pickADayTickImageView.alpha=0.3f;
         [filterPaneView addSubview:pickADayTickImageView];
         [pickADayTickImageView release];
         
-        CGRect pickADayLabelRect=CGRectMake(230,250,90,15);
+        CGRect pickADayLabelRect=CGRectMake(230,263,100,15);
         UILabel *pickADayLabel=[[UILabel alloc] initWithFrame:pickADayLabelRect];
         pickADayLabel.textAlignment=UITextAlignmentLeft;
         pickADayLabel.text=[NSString stringWithFormat:@"Pick A Day"];
         pickADayLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
-        pickADayLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+        pickADayLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
         pickADayLabel.tag=kPickADayText;
         pickADayLabel.alpha=0.3f;
         pickADayLabel.backgroundColor=[UIColor clearColor];
