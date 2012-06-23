@@ -63,8 +63,8 @@
         
         SOC=[SoclivityManager SharedInstance];                     
         filterPaneView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 640, 402)];
-        filterPaneView.backgroundColor=[UIColor whiteColor];
-        self.homeSearchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 40.0,320, 44.0)] autorelease];
+        filterPaneView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
+        self.homeSearchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0, 40,320, 44)] autorelease];
         self.homeSearchBar.delegate = self;
         self.homeSearchBar.showsCancelButton =NO;
         self.homeSearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -101,24 +101,22 @@
             }
         }
         
-#if 1        
+#if 1
+        
+        // Block of code for the activity types
+        
         CGRect actTypesLabelRect=CGRectMake(10,100,165,15);
         UILabel *actTypesLabel=[[UILabel alloc] initWithFrame:actTypesLabelRect];
         actTypesLabel.textAlignment=UITextAlignmentLeft;
         actTypesLabel.text=[NSString stringWithFormat:@"ACTIVITY TYPES"];
         actTypesLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
-        actTypesLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+        actTypesLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
         actTypesLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:actTypesLabel];
         [actTypesLabel release];
         
-        
-        
-        
-        
-        
         UIButton *playButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        playButton.frame = CGRectMake(22.5,125,55,51);
+        playButton.frame = CGRectMake(25,130,55,51);
         playButton.tag=kPlayActivity;
         [playButton setImage:[UIImage imageNamed:@"S04.1_play.png"] forState:UIControlStateNormal];
 
@@ -126,17 +124,18 @@
         [filterPaneView addSubview:playButton];
         
         UIImageView *playTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_activityTypeCheck.png"]];
-        playTickImageView.frame=CGRectMake(42, 135, 16, 15);
+        playTickImageView.frame=CGRectMake(45, 140, 16, 15);
         playTickImageView.tag=kPlayTickImage;
         [filterPaneView addSubview:playTickImageView];
         [playTickImageView release];
         
-        CGRect playTypeLabelRect=CGRectMake(38,155,45,15);
+        CGRect playTypeLabelRect=CGRectMake(25,160,55,15);
         UILabel *playTypeLabel=[[UILabel alloc] initWithFrame:playTypeLabelRect];
         playTypeLabel.textAlignment=UITextAlignmentLeft;
         playTypeLabel.text=[NSString stringWithFormat:@"Play"];
         playTypeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         playTypeLabel.textColor=[UIColor whiteColor];
+        playTypeLabel.textAlignment = UITextAlignmentCenter;
         playTypeLabel.tag=kPlayLabelText;
         playTypeLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:playTypeLabel];
@@ -145,7 +144,7 @@
         
         
         UIButton *eatButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        eatButton.frame = CGRectMake(77.5,125,55,51);
+        eatButton.frame = CGRectMake(80,130,55,51);
         eatButton.tag=kEatActivity;
         [eatButton setImage:[UIImage imageNamed:@"S04.1_eat.png"] forState:UIControlStateNormal];
         
@@ -153,24 +152,25 @@
         [filterPaneView addSubview:eatButton];
         
         UIImageView *eatTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_activityTypeCheck.png"]];
-        eatTickImageView.frame=CGRectMake(97, 135, 16, 15);
+        eatTickImageView.frame=CGRectMake(100, 140, 16, 15);
         eatTickImageView.tag=kEatTickImage;
         [filterPaneView addSubview:eatTickImageView];
         [eatTickImageView release];
         
-        CGRect eatTypeLabelRect=CGRectMake(95,155,45,15);
+        CGRect eatTypeLabelRect=CGRectMake(80,160,55,15);
         UILabel *eatTypeLabel=[[UILabel alloc] initWithFrame:eatTypeLabelRect];
         eatTypeLabel.textAlignment=UITextAlignmentLeft;
         eatTypeLabel.text=[NSString stringWithFormat:@"Eat"];
         eatTypeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         eatTypeLabel.textColor=[UIColor whiteColor];
+        eatTypeLabel.textAlignment = UITextAlignmentCenter;
         eatTypeLabel.tag=kEatLabelText;
         eatTypeLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:eatTypeLabel];
         [eatTypeLabel release];
         
         UIButton *seeButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        seeButton.frame = CGRectMake(132.5,125,55,51);
+        seeButton.frame = CGRectMake(135,130,55,51);
         seeButton.tag=kSeeActivity;
         [seeButton setImage:[UIImage imageNamed:@"S04.1_see.png"] forState:UIControlStateNormal];
         
@@ -178,26 +178,26 @@
         [filterPaneView addSubview:seeButton];
         
         UIImageView *seeTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_activityTypeCheck.png"]];
-        seeTickImageView.frame=CGRectMake(152, 135, 16, 15);
+        seeTickImageView.frame=CGRectMake(155, 140, 16, 15);
         seeTickImageView.tag=kSeeTickImage;
         [filterPaneView addSubview:seeTickImageView];
         [seeTickImageView release];
         
-        CGRect seeTypeLabelRect=CGRectMake(150,155,45,15);
+        CGRect seeTypeLabelRect=CGRectMake(135,160,55,15);
         UILabel *seeTypeLabel=[[UILabel alloc] initWithFrame:seeTypeLabelRect];
         seeTypeLabel.textAlignment=UITextAlignmentLeft;
         seeTypeLabel.text=[NSString stringWithFormat:@"See"];
         seeTypeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         seeTypeLabel.textColor=[UIColor whiteColor];
+        seeTypeLabel.textAlignment = UITextAlignmentCenter;
         seeTypeLabel.tag=kSeeLabelText;
         seeTypeLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:seeTypeLabel];
         [seeTypeLabel release];
         
         
-        
         UIButton *createButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        createButton.frame = CGRectMake(187.5,125,55,51);
+        createButton.frame = CGRectMake(190,130,55,51);
         createButton.tag=kCreateActivity;
         [createButton setImage:[UIImage imageNamed:@"S04.1_create.png"] forState:UIControlStateNormal];
         
@@ -205,26 +205,26 @@
         [filterPaneView addSubview:createButton];
         
         UIImageView *createTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_activityTypeCheck.png"]];
-        createTickImageView.frame=CGRectMake(207, 135, 16, 15);
+        createTickImageView.frame=CGRectMake(210, 140, 16, 15);
         createTickImageView.tag=kCreateTickImage;
         [filterPaneView addSubview:createTickImageView];
         [createTickImageView release];
         
-        CGRect createTypeLabelRect=CGRectMake(195,155,45,15);
+        CGRect createTypeLabelRect=CGRectMake(190,160,55,15);
         UILabel *createTypeLabel=[[UILabel alloc] initWithFrame:createTypeLabelRect];
         createTypeLabel.textAlignment=UITextAlignmentLeft;
         createTypeLabel.text=[NSString stringWithFormat:@"Create"];
         createTypeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         createTypeLabel.textColor=[UIColor whiteColor];
+        createTypeLabel.textAlignment = UITextAlignmentCenter;
         createTypeLabel.tag=kCreateLabelText;
         createTypeLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:createTypeLabel];
         [createTypeLabel release];
         
         
-        
         UIButton *learnButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        learnButton.frame = CGRectMake(241.5,125,55,51);
+        learnButton.frame = CGRectMake(245,130,55,51);
         learnButton.tag=kLearnActivity;
         [learnButton setImage:[UIImage imageNamed:@"S04.1_learn.png"] forState:UIControlStateNormal];
         
@@ -232,26 +232,24 @@
         [filterPaneView addSubview:learnButton];
         
         UIImageView *learnTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_activityTypeCheck.png"]];
-        learnTickImageView.frame=CGRectMake(256, 135, 16, 15);
+        learnTickImageView.frame=CGRectMake(265, 140, 16, 15);
         learnTickImageView.tag=kLearnTickImage;
         [filterPaneView addSubview:learnTickImageView];
         [learnTickImageView release];
         
-        CGRect learnTypeLabelRect=CGRectMake(250,155,45,15);
+        CGRect learnTypeLabelRect=CGRectMake(245,160,55,15);
         UILabel *learnTypeLabel=[[UILabel alloc] initWithFrame:learnTypeLabelRect];
         learnTypeLabel.textAlignment=UITextAlignmentLeft;
         learnTypeLabel.text=[NSString stringWithFormat:@"Learn"];
         learnTypeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         learnTypeLabel.textColor=[UIColor whiteColor];
+        learnTypeLabel.textAlignment = UITextAlignmentCenter;
         learnTypeLabel.tag=kLearnLabelText;
         learnTypeLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:learnTypeLabel];
         [learnTypeLabel release];
         
-        
-        
-        
-        
+        // Calendar section
         UIImageView *calendarIconImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_calendarIcon.png"]];
         calendarIconImageView.frame=CGRectMake(10, 195, 26, 25);
         [filterPaneView addSubview:calendarIconImageView];
