@@ -69,6 +69,8 @@
 		68F23C5C1594BE93006F4637 /* S04.1.1_tick@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68F23C561594BE93006F4637 /* S04.1.1_tick@2x.png */; };
 		68F23C5D1594BE93006F4637 /* S04.1.1_topbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 68F23C571594BE93006F4637 /* S04.1.1_topbar.png */; };
 		68F23C5E1594BE93006F4637 /* S04.1.1_topbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68F23C581594BE93006F4637 /* S04.1.1_topbar@2x.png */; };
+		68F23C62159556D7006F4637 /* S04.1_buttonSelected copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 68F23C60159556D7006F4637 /* S04.1_buttonSelected copy.png */; };
+		68F23C63159556D7006F4637 /* S04.1_buttonSelected@2x copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 68F23C61159556D7006F4637 /* S04.1_buttonSelected@2x copy.png */; };
 		EA13F5CF158C74AB004B8192 /* EventShareActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = EA13F5CE158C74AB004B8192 /* EventShareActivity.m */; };
 		EA13F5D1158C74D7004B8192 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA13F5D0158C74D7004B8192 /* EventKit.framework */; };
 		EA3ABAE81565709100B262F7 /* GetLoginInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3ABAE71565709100B262F7 /* GetLoginInvocation.m */; };
@@ -518,6 +520,8 @@
 		68F23C561594BE93006F4637 /* S04.1.1_tick@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S04.1.1_tick@2x.png"; sourceTree = "<group>"; };
 		68F23C571594BE93006F4637 /* S04.1.1_topbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S04.1.1_topbar.png; sourceTree = "<group>"; };
 		68F23C581594BE93006F4637 /* S04.1.1_topbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S04.1.1_topbar@2x.png"; sourceTree = "<group>"; };
+		68F23C60159556D7006F4637 /* S04.1_buttonSelected copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S04.1_buttonSelected copy.png"; sourceTree = "<group>"; };
+		68F23C61159556D7006F4637 /* S04.1_buttonSelected@2x copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S04.1_buttonSelected@2x copy.png"; sourceTree = "<group>"; };
 		EA13F5CD158C74AB004B8192 /* EventShareActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventShareActivity.h; sourceTree = "<group>"; };
 		EA13F5CE158C74AB004B8192 /* EventShareActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventShareActivity.m; sourceTree = "<group>"; };
 		EA13F5D0158C74D7004B8192 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
@@ -1412,6 +1416,8 @@
 		EA90FF4B1582074E00CA0C4F /* S04.1 Dropdown */ = {
 			isa = PBXGroup;
 			children = (
+				68F23C60159556D7006F4637 /* S04.1_buttonSelected copy.png */,
+				68F23C61159556D7006F4637 /* S04.1_buttonSelected@2x copy.png */,
 				EA8323EA15945EBA0063B786 /* S04.1_button.png */,
 				EA8323EB15945EBA0063B786 /* S04.1_button@2x.png */,
 				EA8B19431593BC94009C9851 /* S4.1_search-bar@2x.png */,
@@ -2390,6 +2396,8 @@
 				68F23C5C1594BE93006F4637 /* S04.1.1_tick@2x.png in Resources */,
 				68F23C5D1594BE93006F4637 /* S04.1.1_topbar.png in Resources */,
 				68F23C5E1594BE93006F4637 /* S04.1.1_topbar@2x.png in Resources */,
+				68F23C62159556D7006F4637 /* S04.1_buttonSelected copy.png in Resources */,
+				68F23C63159556D7006F4637 /* S04.1_buttonSelected@2x copy.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -62,13 +62,13 @@
         self.backgroundColor=[UIColor clearColor];
         
         SOC=[SoclivityManager SharedInstance];                     
-        filterPaneView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 640, 402)];//402
+        filterPaneView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 640, 402)];
         filterPaneView.backgroundColor=[UIColor whiteColor];
         self.homeSearchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 40.0,320, 44.0)] autorelease];
         self.homeSearchBar.delegate = self;
         self.homeSearchBar.showsCancelButton =NO;
         self.homeSearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-        self.homeSearchBar.placeholder=@"Search for activities";
+        self.homeSearchBar.placeholder=@"Search for activities or people";
 
         self.homeSearchBar.backgroundImage=[UIImage imageNamed: @"S4.1_search-background.png"];
         [filterPaneView addSubview:self.homeSearchBar];
@@ -87,7 +87,7 @@
             if (cancelButton){
                 NSLog(@"cancelButton");
                 [cancelButton setBackgroundImage:[UIImage imageNamed:@"S04.1_button.png"] forState:UIControlStateNormal];
-                [cancelButton setBackgroundImage:[UIImage imageNamed:@"S04.1_button.png"] forState:UIControlStateHighlighted];
+                [cancelButton setBackgroundImage:[UIImage imageNamed:@"S04.1_buttonSelected.png"] forState:UIControlStateHighlighted];
                 
                 
             }
