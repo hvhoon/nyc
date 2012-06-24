@@ -350,7 +350,7 @@
         [clockIconImageView release];
         
         UIImageView *horizontalDividerImageView2=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_horizontalDivider.png"]];
-        horizontalDividerImageView2.frame=CGRectMake(44, 299, 269, 1);
+        horizontalDividerImageView2.frame=CGRectMake(41, 299, 269, 1);
         [filterPaneView addSubview:horizontalDividerImageView2];
         [horizontalDividerImageView2 release];
         
