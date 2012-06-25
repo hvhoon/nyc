@@ -31,7 +31,7 @@
         toggleOnTap = YES;
         
         // Creates the handle view. Subclasses should resize, reposition and style this view
-        handleView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height - 40, 320, 40)];
+        handleView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height-40, 320, 40)];
         [self addSubview:handleView];
         [handleView release];
         
