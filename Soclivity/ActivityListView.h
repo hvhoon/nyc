@@ -24,6 +24,7 @@
     NSArray *plays;
     id <ActivityListViewDelegate>delegate;
     UIView *refreshHeaderView;
+    UILabel *lastUpdateLabel;
     UILabel *refreshLabel;
     UIImageView *refreshArrow;
     UIActivityIndicatorView *refreshSpinner;

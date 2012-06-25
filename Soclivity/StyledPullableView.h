@@ -14,7 +14,8 @@
     UISearchBar*homeSearchBar;
     BOOL learn;
     FCRangeSlider *rangeSlider;
-    SoclivityManager *SOC; 
+    SoclivityManager *SOC;
+    CalendarDateView *calendarDate;
     
     
 }

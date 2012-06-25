@@ -1044,7 +1044,6 @@
 		680CE3E81551258700B8E937 /* Soclivity */ = {
 			isa = PBXGroup;
 			children = (
-				EA83244F159477F30063B786 /* src */,
 				EA91C2C5155A716300BE5BB1 /* App Delegate */,
 				687F3A701551300E00B694DA /* Welcome */,
 				687F3A721551301D00B694DA /* Registration */,
@@ -1053,6 +1052,7 @@
 				EAF2AEB915875DF1008EAE27 /* Sliding Drawer Effect */,
 				EA96E856155E66ED00BE82DF /* Home */,
 				EAF2AE9E15874B90008EAE27 /* Activity Event */,
+				EA83244F159477F30063B786 /* KAL */,
 				EA976C301584AD4D00474EAF /* Sqlite */,
 				EA87EDBD157340AB00DE1762 /* Address Book */,
 				EA5BC966156CCC0700AC8C0C /* JSON */,
@@ -1285,7 +1285,7 @@
 			name = "Cell Utilities";
 			sourceTree = "<group>";
 		};
-		EA83244F159477F30063B786 /* src */ = {
+		EA83244F159477F30063B786 /* KAL */ = {
 			isa = PBXGroup;
 			children = (
 				EA832450159477F30063B786 /* Kal.bundle */,
@@ -1314,6 +1314,7 @@
 				EA832469159477F30063B786 /* UIViewAdditions.h */,
 				EA83246A159477F30063B786 /* UIViewAdditions.m */,
 			);
+			name = KAL;
 			path = src;
 			sourceTree = "<group>";
 		};

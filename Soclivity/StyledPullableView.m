@@ -341,7 +341,7 @@
         
         CGRect pickADayLabelRect=CGRectMake(230,250,90,15);
         UILabel *pickADayLabel=[[UILabel alloc] initWithFrame:pickADayLabelRect];
-        pickADayLabel.textAlignment=UITextAlignmentLeft;
+        pickADayLabel.textAlignment=UITextAlignmentCenter;
         pickADayLabel.text=[NSString stringWithFormat:@"Pick A Day"];
         pickADayLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         pickADayLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
@@ -588,7 +588,7 @@
         [dateCalendarView addSubview:tickButton];
 
         
-        CalendarDateView *calendarDate=[[CalendarDateView alloc]initWithFrame:CGRectMake(0, 84, 320,354)];
+        calendarDate=[[CalendarDateView alloc]initWithFrame:CGRectMake(0, 84, 320,354)];
         calendarDate.KALDelegate=self;
         [dateCalendarView addSubview:calendarDate];
 
@@ -825,7 +825,7 @@
             
         case kTickDateSelection:
         {
-            
+             [(UILabel*)[self viewWithTag:kPickADayText] setText:SOC.filterObject.pickADateString];
         }
             break;
     
@@ -864,6 +864,10 @@
             }   
         }
     
+}
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
+    NSLog(@"searchBarTextDidEndEditing=%@",searchBar.text);
+    SOC.filterObject.searchText=searchBar.text;
 }
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar{
     

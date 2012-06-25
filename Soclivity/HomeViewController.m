@@ -277,7 +277,7 @@
     [activityTableView setHidden:NO];
     [socEventMapView setHidden:YES];
         //kanav location test
-    [socEventMapView.mapView setShowsUserLocation:NO];
+    //[socEventMapView.mapView setShowsUserLocation:NO];
     [UIView commitAnimations];
     
     
@@ -313,7 +313,7 @@
         [UIView commitAnimations];
         //kanav location test
 
-        [socEventMapView.mapView setShowsUserLocation:YES];
+        //[socEventMapView.mapView setShowsUserLocation:YES];
         
         context = UIGraphicsGetCurrentContext();
         [UIView beginAnimations:nil context:context];
@@ -382,11 +382,17 @@
 
 -(void)alphaLess{
     gradient=gradient-0.007;
+    if(gradient<=0.4){
+        gradient=0.4;
+    }
     socEventMapView.alpha =gradient;
     activityTableView.alpha =gradient;
 }
 -(void)alphaMore{
     gradient=gradient+0.007;
+    if(gradient>=0.94){
+        gradient=0.94;
+    }
     socEventMapView.alpha = gradient;
     activityTableView.alpha =gradient;
 }
@@ -484,6 +490,16 @@
              
          
      }
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [dateFormatter setTimeZone:gmt];
+
+    NSString  *currentTime=[dateFormatter stringFromDate:[NSDate date]];
+    
+    [[NSUserDefaults standardUserDefaults] setValue:currentTime forKey:@"SOCLastTimeUpdate"];
+
     //[devServer getActivitiesInvocation:[SOC.loggedInUser.idSoc intValue] latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude timeSpanFilter:@"today" updatedAt:@"today" delegate:self];
 //    NSString *timeStamp=[[NSUserDefaults standardUserDefaults] valueForKey:@"SOCTimeStamp"];
 //    if(timeStamp==nil)

@@ -24,4 +24,6 @@
 +(NSString*)getStartAndFinishTimeLabel:(float)sliderValue;
 +(NSInteger)DoTheTimeLogic:(NSString*)formatStringGMTObj;
 +(BOOL)ValidActivityDate:(NSString*)activityDate;
++(BOOL)DoTheSearchFiltering:(NSString*)activityInfo address:(NSString*)activityAddress organizer:(NSString*) organizerName;
++(NSString*)lastUpdate:(NSString*)time;
 @end

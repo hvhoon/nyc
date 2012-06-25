@@ -266,13 +266,26 @@
     refreshHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 - REFRESH_HEADER_HEIGHT, 320, REFRESH_HEADER_HEIGHT)];
     refreshHeaderView.backgroundColor = [SoclivityUtilities returnTextFontColor:7];
     
-    refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, REFRESH_HEADER_HEIGHT)];
+    refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 320, 15)];//REFRESH_HEADER_HEIGHT
     refreshLabel.backgroundColor = [UIColor clearColor];
     refreshLabel.shadowColor = [SoclivityUtilities returnTextFontColor:7];
     refreshLabel.shadowOffset = CGSizeMake(0,-1);
     refreshLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     refreshLabel.textColor = [SoclivityUtilities returnTextFontColor:1];
     refreshLabel.textAlignment = UITextAlignmentCenter;
+    
+    
+    lastUpdateLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 40, 320, 15)];//REFRESH_HEADER_HEIGHT
+    lastUpdateLabel.backgroundColor = [UIColor clearColor];
+    lastUpdateLabel.shadowColor = [SoclivityUtilities returnTextFontColor:7];
+    lastUpdateLabel.shadowOffset = CGSizeMake(0,-1);
+    lastUpdateLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    lastUpdateLabel.textColor = [SoclivityUtilities returnTextFontColor:1];
+    lastUpdateLabel.textAlignment = UITextAlignmentCenter;
+    NSString *timeStamp=[[NSUserDefaults standardUserDefaults] valueForKey:@"SOCLastTimeUpdate"];
+    lastUpdateLabel.text=[SoclivityUtilities lastUpdate:timeStamp];
+    
+
     
     topDivider=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_sectionDivider.png"]];
     topDivider.frame=CGRectMake(0, REFRESH_HEADER_HEIGHT-1, 320, 1);
@@ -289,6 +302,7 @@
     
     [refreshHeaderView addSubview:topDivider];
     [refreshHeaderView addSubview:refreshLabel];
+    [refreshHeaderView addSubview:lastUpdateLabel];
     [refreshHeaderView addSubview:refreshArrow];
     [refreshHeaderView addSubview:refreshSpinner];
     [self.tableView addSubview:refreshHeaderView];
@@ -311,6 +325,9 @@
     } else if (isDragging && scrollView.contentOffset.y < 0) {
         // Update the arrow direction and label
         [UIView beginAnimations:nil context:NULL];
+        NSString *timeStamp=[[NSUserDefaults standardUserDefaults] valueForKey:@"SOCLastTimeUpdate"];
+        lastUpdateLabel.text=[SoclivityUtilities lastUpdate:timeStamp];
+
         if (scrollView.contentOffset.y < -REFRESH_HEADER_HEIGHT) {
             // User is scrolling above the header
             refreshLabel.text = self.textRelease;
@@ -344,6 +361,8 @@
     [refreshSpinner startAnimating];
     [UIView commitAnimations];
     
+    
+   
     // Refresh action!
     [self refresh];
 }
@@ -366,6 +385,7 @@
     refreshLabel.text = self.textPull;
     refreshArrow.hidden = NO;
     [refreshSpinner stopAnimating];
+    
 }
 
 - (void)refresh {
@@ -441,6 +461,9 @@
 }
 -(void)sortingFilterRefresh{
     
+    NSString *timeStamp=[[NSUserDefaults standardUserDefaults] valueForKey:@"SOCLastTimeUpdate"];
+    lastUpdateLabel.text=[SoclivityUtilities lastUpdate:timeStamp];
+    
     if(sectionOpenClose){
         sectionOpenClose=FALSE;
         SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:self.openSectionIndex];
@@ -471,6 +494,7 @@
             
         if([SoclivityUtilities DoTheTimeLogic:play.when]){
             
+        if([SoclivityUtilities DoTheSearchFiltering:play.activityName address:play.where_address organizer:play.organizerName]){
         SectionInfo *sectionInfo = [[SectionInfo alloc] init];
         
         sectionInfo.play = play;
@@ -483,6 +507,7 @@
         
         [infoArray addObject:sectionInfo];
         [sectionInfo release];
+            }
             }
         }
     }

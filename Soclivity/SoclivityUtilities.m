@@ -86,11 +86,9 @@ if(timer%2==0){
 
 }
 
-
-+(NSString*)NetworkTime:(InfoActivityClass*)formatStringGMTObj{
++(NSString*)lastUpdate:(NSString*)time{
 #if 1    
     
-    //formatStringGMTObj.dateFormatterString=@"2012-06-18T09:25:36Z";
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //dateFormatter.dateFormat = @"yyyy-MM-dd_HH:mm:ss";
     dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
@@ -99,11 +97,11 @@ if(timer%2==0){
     
     // how to get back time from current time in the same format
     
-    NSDate *lastDate = [dateFormatter dateFromString:formatStringGMTObj.when];//add the string
+    NSDate *lastDate = [dateFormatter dateFromString:time];//add the string
     NSString *todayDate = [dateFormatter stringFromDate:[NSDate date]];
     NSDate *currentDate=[dateFormatter dateFromString:todayDate];	
     
-    NSTimeInterval interval = [lastDate timeIntervalSinceDate:currentDate];
+    NSTimeInterval interval = [currentDate timeIntervalSinceDate:lastDate];
     NSLog(@"initail interval=%f",interval);
     unsigned long seconds = interval;
     unsigned long minutes = seconds / 60;
@@ -146,9 +144,120 @@ if(timer%2==0){
     NSDate *backwardDate = [currentDateTime dateByAddingTimeInterval:-3600];
     NSString *forwardDateTime=[dateFormatter stringFromDate:forwardDate];
     NSString  *backwardDateTime=[dateFormatter stringFromDate:backwardDate];
-
+    
     NSLog(@"forwardDate=%@",forwardDateTime);
     NSLog(@"backwardDate=%@",backwardDateTime);
+    
+    
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    int differenceInDays =
+    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:destinationDate]-
+    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:currentDateTime];
+    BOOL checkTime=TRUE;
+    switch (differenceInDays) {
+        case -1:
+        {
+            NSLog(@"Yesterday");
+            dateFormatter.dateFormat=@"h:mm a";
+            
+            NSString*timeUpdate=[NSString stringWithFormat:@"'Last Update:Yesterday, %@'",[dateFormatter stringFromDate:destinationDate]];
+            [result appendFormat:timeUpdate];
+
+        }
+            break;
+        case 0:
+        {
+            NSLog(@"Today");
+            
+            if(hours && checkTime){
+                [result appendFormat: @"'Last Update: %d hrs ", hours];
+            }
+            
+            if(minutes && checkTime){
+                
+                if(hours==0){
+                    [result appendFormat: @"'Last Update: %d mins ago'", minutes];
+                }
+                else
+                    [result appendFormat: @" %d mins ago'", minutes];
+                
+                checkTime=FALSE;
+                
+            }
+            if(seconds && checkTime){
+                if(minutes==0){
+                     [result appendFormat: @"'Last Update: a min ago'"];
+                }
+                checkTime=FALSE;
+            }
+            
+        }
+            break;
+        default: {
+            NSLog(@"later");
+            NSString*timeUpdate=[NSString stringWithFormat:@"'Last Update:%@'",activityTime];
+            [result appendFormat:timeUpdate];
+        }
+            break;
+            
+    }
+    
+    
+    return result;
+    
+    
+#endif
+    
+}
++(NSString*)NetworkTime:(InfoActivityClass*)formatStringGMTObj{
+#if 1    
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //dateFormatter.dateFormat = @"yyyy-MM-dd_HH:mm:ss";
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [dateFormatter setTimeZone:gmt];
+    
+    // how to get back time from current time in the same format
+    
+    NSDate *lastDate = [dateFormatter dateFromString:formatStringGMTObj.when];//add the string
+    NSString *todayDate = [dateFormatter stringFromDate:[NSDate date]];
+    NSDate *currentDate=[dateFormatter dateFromString:todayDate];	
+    
+    NSTimeInterval interval = [lastDate timeIntervalSinceDate:currentDate];
+    NSLog(@"initail interval=%f",interval);
+    unsigned long seconds = interval;
+    unsigned long minutes = seconds / 60;
+    seconds %= 60;
+    unsigned long hours = minutes / 60;
+    if(hours)
+        minutes %= 60;
+    unsigned long days=hours/24;
+    if(days)
+        hours %=24;
+    
+    NSMutableString * result = [[NSMutableString new] autorelease];
+    dateFormatter.dateFormat=@"EEE, MMM d, h:mm a";
+    
+    
+    
+    NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
+    
+    NSInteger destinationGMTOffset1 = [destinationTimeZone secondsFromGMTForDate:lastDate];
+    NSInteger destinationGMTOffset2 = [destinationTimeZone secondsFromGMTForDate:currentDate];
+    
+    NSTimeInterval interval2 = destinationGMTOffset1;
+    NSTimeInterval interval3 = destinationGMTOffset2;
+    
+    NSDate* destinationDate = [[[NSDate alloc] initWithTimeInterval:interval2 sinceDate:lastDate] autorelease];
+    
+    NSDate* currentDateTime = [[[NSDate alloc] initWithTimeInterval:interval3 sinceDate:currentDate] autorelease];
+    
+    
+    NSString *activityTime=[dateFormatter stringFromDate:destinationDate];
+    NSString  *currentTime=[dateFormatter stringFromDate:currentDateTime];
+    NSLog(@"activityTime=%@",activityTime);
+    NSLog(@"currentTime=%@",currentTime);
     
     
     NSCalendar* calendar = [NSCalendar currentCalendar];
@@ -463,6 +572,9 @@ if(timer%2==0){
             break;
     }
 }
+
+
+
 #if 1
 +(NSInteger)DoTheTimeLogic:(NSString*)formatStringGMTObj{
 
@@ -941,5 +1053,32 @@ if(timer%2==0){
 
 }
 #endif
+
++(BOOL)DoTheSearchFiltering:(NSString*)activityInfo address:(NSString*)activityAddress organizer:(NSString*) organizerName{
+    
+     SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    NSLog(@"text search=%@",SOC.filterObject.searchText);
+    if((SOC.filterObject.searchText==(NSString*)[NSNull null])||([SOC.filterObject.searchText isEqualToString:@""]||SOC.filterObject.searchText==nil)||([SOC.filterObject.searchText isEqualToString:@"(null)"])){
+        return YES;
+    }
+    NSRange activityInfoResultsRange = [activityInfo rangeOfString:SOC.filterObject.searchText options:NSCaseInsensitiveSearch];
+    NSRange activityAddressResultRange = [activityAddress rangeOfString:SOC.filterObject.searchText options:NSCaseInsensitiveSearch];
+    
+    NSRange organizerNameResultsRange = [organizerName rangeOfString:SOC.filterObject.searchText options:NSCaseInsensitiveSearch];
+    
+    if (activityInfoResultsRange.length > 0 ||activityAddressResultRange.length > 0||organizerNameResultsRange.length > 0){
+        return YES;
+    }
+    else{
+        return FALSE;
+    }
+/*    
+    NSComparisonResult result = [activityInfo compare:SOC.filterObject.searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [SOC.filterObject.searchText length])];
+    if (result == NSOrderedSame)
+    {
+        return YES;
+    }
+ */
+}
 
 @end

@@ -69,7 +69,6 @@
     return self;
 }
 
-
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
@@ -78,11 +77,15 @@
 
     self.mapView.mapType = MKMapTypeStandard;
     //[self.mapView setShowsUserLocation:YES];
+    if ([CLLocationManager locationServicesEnabled])
+        [self findUserLocation];
     self.mapView.showsUserLocation=YES;
+    [self.mapView setUserTrackingMode:MKUserTrackingModeNone animated:NO];
     /*[self.mapView.userLocation addObserver:self  
                                 forKeyPath:@"location"  
                                    options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld)  
                                    context:NULL];*/
+     
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath  
@@ -94,6 +97,23 @@
         NSLog(@"observeValueForKeyPath for showsUserLocation");
         // and of course you can use here old and new location values
     }
+}
+- (void)findUserLocation
+{
+    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
+    [locationManager startUpdatingLocation];
+}
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    if ([newLocation horizontalAccuracy] < [manager desiredAccuracy])
+    {
+        // Accuracy is good enough, zoom to current location
+        [manager stopUpdatingLocation];
+        NSLog(@"Told location to stop updating");
+    }
+    // else keep trying...
 }
 #if 0
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation{
@@ -160,19 +180,20 @@
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
     NSLog(@"Region updated!");
+     //self.mapView.showsUserLocation=NO;
 }
 -(void)setUpMapAnnotations{
     int index=0;
-     [self gotoLocation];
      [self.mapView removeAnnotations:self.mapView.annotations];
      self.plays=[SoclivitySqliteClass returnAllValidActivities];
      self.mapAnnotations = [[NSMutableArray alloc] initWithCapacity:[self.plays count]];
     for (InfoActivityClass *play in self.plays){
         
-        if([SoclivityUtilities ValidActivityDate:play.when]){
+if([SoclivityUtilities ValidActivityDate:play.when]){
     if([SoclivityUtilities validFilterActivity:play.type]){
         
         if([SoclivityUtilities DoTheTimeLogic:play.when]){
+            if([SoclivityUtilities DoTheSearchFiltering:play.activityName address:play.where_address organizer:play.organizerName]){
             
         CLLocationCoordinate2D theCoordinate;
         theCoordinate.latitude = [play.where_lat doubleValue];
@@ -183,12 +204,15 @@
         
             index++;
         }
+        }
     }
     }
         
     }
     for(SocAnnotation *sfAnn in self.mapAnnotations)
        [self.mapView addAnnotation:sfAnn];
+    
+    [self gotoLocation];
         
 }
 -(void)currentLocation:(CLLocationCoordinate2D)theCoord{
@@ -196,10 +220,10 @@
     theCoordinate.latitude = theCoord.latitude;
     theCoordinate.longitude =theCoord.longitude;
     currentCoord=theCoordinate;
-    [self gotoLocation];
+   
     
     [self.mapView removeAnnotations:self.mapView.annotations];  // remove any annotations that exist
-    self.plays=[SoclivityUtilities getPlayerActivities];
+    self.plays=[SoclivitySqliteClass returnAllValidActivities];
     [self setUpMapAnnotations];
 }
 
@@ -343,9 +367,9 @@
 
 -(UIView*)DrawAMapLeftAccessoryView:(SocAnnotation *)locObject{
 	
-	UIView *mapLeftView=[[UIView alloc] initWithFrame:CGRectMake(0,0, 150, 30)];
+	UIView *mapLeftView=[[UIView alloc] initWithFrame:CGRectMake(0,0, 155, 30)];
 	
-	CGRect nameLabelRect=CGRectMake(10,0,140,15);
+	CGRect nameLabelRect=CGRectMake(10,0,145,15);
 	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
 	nameLabel.textAlignment=UITextAlignmentLeft;
 	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
@@ -370,7 +394,7 @@
 	
 	
 }
-
+#if 0
 - (void)locationUpdate:(CLLocation *)location {
     
     NSLog(@"locationUpdate");
@@ -379,6 +403,7 @@
         [mapView setShowsUserLocation:YES];
     }
 }
+#endif
 -(void)pushTodetailActivity:(UIButton*)sender{
     SocAnnotation *detailAnnotation=[self.mapAnnotations objectAtIndex:[sender tag]];
     [delegate PushToDetailActivityView:detailAnnotation._socAnnotation];

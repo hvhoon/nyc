@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
 @class SocAnnotation;
 @class InfoActivityClass;
 
@@ -17,7 +18,7 @@
 -(void)PushToDetailActivityView:(InfoActivityClass*)detailedInfo;
 @end
 
-@interface EventsMapView : UIView<MKMapViewDelegate>{
+@interface EventsMapView : UIView<MKMapViewDelegate,CLLocationManagerDelegate>{
     MKMapView *mapView;
 	MKAnnotationView *_selectedAnnotationView;
 	SocAnnotation *_customAnnotation;
@@ -40,4 +41,5 @@
 -(UIView*)DrawAMapLeftAccessoryView:(SocAnnotation *)locObject;
 -(void)pushTodetailActivity:(id)sender;
 -(void)doFilteringByActivities;
+- (void)findUserLocation;
 @end

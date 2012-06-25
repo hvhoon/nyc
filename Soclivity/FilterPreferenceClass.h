@@ -22,6 +22,11 @@
     NSInteger finishTime_48;
     NSDate *startPickDateTime;
     NSDate *endPickDateTime;
+    NSString *searchText;
+    NSString *dateString;
+    NSString *pickADateString;
+    
+    
 }
 @property (nonatomic,assign)BOOL playAct;
 @property (nonatomic,assign)BOOL eatAct;
@@ -36,4 +41,7 @@
 @property (nonatomic,assign)NSInteger finishTime_48;
 @property (nonatomic,retain)NSDate *startPickDateTime;
 @property (nonatomic,retain)NSDate *endPickDateTime;
+@property (nonatomic,retain)NSString *searchText;
+@property (nonatomic,retain)NSString *dateString;
+@property (nonatomic,retain)NSString *pickADateString;
 @end
