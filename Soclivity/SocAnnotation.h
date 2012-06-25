@@ -18,7 +18,6 @@
     CLLocationDegrees _latitude;
 	CLLocationDegrees _longitude;
 
-
 }
 @property (copy) NSString *name;
 @property (copy) NSString *address;
