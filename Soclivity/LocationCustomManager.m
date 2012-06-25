@@ -20,6 +20,7 @@
 
     self.locationManager = [[[CLLocationManager alloc] init] autorelease];
     locationManager.delegate = self;
+    successGeo=FALSE;
     
     // This is the most important property to set for the manager. It ultimately determines how the manager will
     // attempt to acquire location and thus, the amount of power that will be consumed.
@@ -99,19 +100,25 @@
 - (void)stopUpdatingLocation:(NSString *)state{
     [locationManager stopUpdatingLocation];
     locationManager.delegate = nil;
-    
+    NSLog(@"Latiude=%f",bestEffortAtLocation.coordinate.latitude);
+    NSLog(@"Longitude=%f",bestEffortAtLocation.coordinate.longitude);
+
       
-    if((theTag==kOnlyLatLong) &&(bestEffortAtLocation.coordinate.latitude!=0.0f && bestEffortAtLocation.coordinate.longitude!=0.0f)){
+    if(!successGeo &&(theTag==kLatLongAndActivities) &&(bestEffortAtLocation.coordinate.latitude!=0.0f && bestEffortAtLocation.coordinate.longitude!=0.0f)){
+        successGeo=TRUE;
         CLLocationCoordinate2D theCoordinate;
         theCoordinate.latitude = bestEffortAtLocation.coordinate.latitude;
         theCoordinate.longitude =bestEffortAtLocation.coordinate.longitude;
         [delegate currentLocation:theCoordinate];
 
     }
-    else{    
+    else if(!successGeo &&(theTag==kOnlyLatLong) &&(bestEffortAtLocation.coordinate.latitude!=0.0f && bestEffortAtLocation.coordinate.longitude!=0.0f)){
+        
+        successGeo=TRUE;
+        [delegate currentGeoUpdate];
+    }
+    else if(theTag==kNoLocation){    
     
-    NSLog(@"Latiude=%f",bestEffortAtLocation.coordinate.latitude);
-    NSLog(@"Longitude=%f",bestEffortAtLocation.coordinate.longitude);
     if(bestEffortAtLocation.coordinate.latitude!=0.0f && bestEffortAtLocation.coordinate.longitude!=0.0f){
         
     

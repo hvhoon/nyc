@@ -45,7 +45,6 @@
     float animationDuration;
     MainServiceManager *devServer;
     SoclivityManager *SOC;
-    BOOL locationPulled;
 }
 
 @property (nonatomic,retain)id <HomeScreenDelegate>delegate;
@@ -53,7 +52,6 @@
 @property (nonatomic,retain)ActivityListView *activityTableView;
 -(IBAction)profileSlidingDrawerTapped:(id)sender;
 -(IBAction)AddANewActivity:(id)sender;
--(IBAction)FilterBtnClicked:(id)sender;
 -(IBAction)FlipToListOrBackToMap:(id)sender;
 -(IBAction)RefreshButtonTapped:(id)sender;
 -(IBAction)CurrentLocation:(id)sender;
@@ -62,4 +60,5 @@
 -(IBAction)TimeSortingClicked:(id)sender;
 -(void)DelegateProperty:(id)delegateView;
 -(void)StartGettingActivities;
+-(void)getUpdatedLocationWithActivities;
 @end

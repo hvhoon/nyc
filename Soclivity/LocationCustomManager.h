@@ -16,6 +16,7 @@
 -(void)LocationAcquired:(NSString*)SoclivityLoc;
 -(void)TagNearbyLocations:(NSMutableArray*)tagLocationsArray;
 -(void)currentLocation:(CLLocationCoordinate2D)theCoord;
+-(void)currentGeoUpdate;
 @end
 
 @interface LocationCustomManager : NSObject<CLLocationManagerDelegate>{
@@ -24,6 +25,7 @@
     CLLocationManager *locationManager;
     CLLocation *bestEffortAtLocation;
     NSInteger theTag;
+    BOOL successGeo;
 
 
     

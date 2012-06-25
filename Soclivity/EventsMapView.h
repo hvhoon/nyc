@@ -27,6 +27,7 @@
     NSArray *plays;
     id <EventsMapViewDelegate>delegate;
     NSMutableArray *mapAnnotations;
+    BOOL centerLocation;
 
 }
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
@@ -42,4 +43,5 @@
 -(void)pushTodetailActivity:(id)sender;
 -(void)doFilteringByActivities;
 - (void)findUserLocation;
+@property(nonatomic,assign)BOOL centerLocation;
 @end

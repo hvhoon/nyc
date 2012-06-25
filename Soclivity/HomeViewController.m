@@ -55,10 +55,7 @@
         [self StartGettingActivities];
     }
     else{
-        locationPulled=FALSE;
-    LocationCustomManager *SocLocation=[[LocationCustomManager alloc]init];
-    SocLocation.delegate=self;
-    SocLocation.theTag=kOnlyLatLong;
+        [self getUpdatedLocationWithActivities];
     }
 
    
@@ -131,7 +128,11 @@
     
     // Do any additional setup after loading the view from its nib.
 }
-
+-(void)getUpdatedLocationWithActivities{
+    LocationCustomManager *SocLocation=[[LocationCustomManager alloc]init];
+    SocLocation.delegate=self;
+    SocLocation.theTag=kLatLongAndActivities;
+}
 
 -(void)timeToScrollDown{
     SettingsViewController *settingsViewController=[[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
@@ -199,9 +200,7 @@
     
 }
 
--(IBAction)FilterBtnClicked:(id)sender{
-    
-}
+
 #if 0
 -(IBAction)FlipToListOrBackToMap:(id)sender{
     
@@ -444,13 +443,20 @@
 #pragma mark Refresh Btn Tapped
 
 -(IBAction)RefreshButtonTapped:(id)sender{
-    [self StartGettingActivities];
+   [self getUpdatedLocationWithActivities];
+}
+
+-(void)currentGeoUpdate{
+    [socEventMapView gotoLocation];
 }
 #pragma mark -
 #pragma mark CurrentLocation Btn Tapped
 
 -(IBAction)CurrentLocation:(id)sender{
-    [socEventMapView gotoLocation];
+    
+    LocationCustomManager *SocLocation=[[LocationCustomManager alloc]init];
+    SocLocation.delegate=self;
+    SocLocation.theTag=kOnlyLatLong;
 }
 
 #pragma mark -
@@ -532,16 +538,14 @@
     
     [SoclivitySqliteClass InsertNewActivities:responses];
     [activityTableView startPopulatingListView];
+    socEventMapView.centerLocation=TRUE;
     [socEventMapView setUpMapAnnotations];
 }
 
 -(void)currentLocation:(CLLocationCoordinate2D)theCoord{
     
     
-    if(!locationPulled){
-        locationPulled=TRUE;
-        [self StartGettingActivities];
-    }
+[self StartGettingActivities];
      
 }
 - (void)viewDidUnload
@@ -553,7 +557,7 @@
 
 -(void)RefreshFromTheListView{
     
-    [self StartGettingActivities];
+    [self getUpdatedLocationWithActivities];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

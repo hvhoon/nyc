@@ -32,7 +32,7 @@
 @synthesize calloutAnnotation = _calloutAnnotation;
 @synthesize selectedAnnotationView = _selectedAnnotationView;
 @synthesize customAnnotation = _customAnnotation;
-@synthesize plays,delegate,mapAnnotations;
+@synthesize plays,delegate,mapAnnotations,centerLocation;
 #pragma mark -
 
 + (CGFloat)annotationPadding;
@@ -212,7 +212,10 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
     for(SocAnnotation *sfAnn in self.mapAnnotations)
        [self.mapView addAnnotation:sfAnn];
     
-      [self gotoLocation];
+    if(centerLocation){
+        centerLocation=FALSE;
+       [self gotoLocation];
+    }
         
 }
 -(void)currentLocation:(CLLocationCoordinate2D)theCoord{
