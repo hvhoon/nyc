@@ -113,17 +113,17 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
     NSString *formattedDateString = [dateFormatter stringFromDate:[date NSDate]];
      NSLog(@"Today is the %@ day", formattedDateString);
     
-    [dateFormatter setDateFormat:@"MMMM"];
-    formattedDateString = [dateFormatter stringFromDate:[date NSDate]];
-    NSLog(@"Today is the %@ month", formattedDateString);
+     [dateFormatter setDateFormat:@"MMMM"];
+     formattedDateString = [dateFormatter stringFromDate:[date NSDate]];
+     NSLog(@"Today is the %@ month", formattedDateString);
 
-    [dateFormatter release];
-    self.selectedDate = [date NSDate];
+      [dateFormatter release];
+      self.selectedDate = [date NSDate];
       NSDate *fromDate = [[date NSDate] cc_dateByMovingToBeginningOfDay];
       NSDate *toDate = [[date NSDate] cc_dateByMovingToEndOfDay];
-     SOC.filterObject.startPickDateTime=fromDate;
-     SOC.filterObject.endPickDateTime=toDate;
-     SOC.filterObject.pickADateString=[NSString stringWithFormat:@"%@ %d",formattedDateString,dayInMonth];
+      SOC.filterObject.startPickDateTime=fromDate;
+      SOC.filterObject.endPickDateTime=toDate;
+      SOC.filterObject.pickADateString=[NSString stringWithFormat:@"%@ , %d",formattedDateString,dayInMonth];
 
       [self clearTable];
       [dataSource loadItemsFromDate:fromDate toDate:toDate];

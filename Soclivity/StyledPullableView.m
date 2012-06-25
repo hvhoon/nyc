@@ -341,7 +341,7 @@
         
         CGRect pickADayLabelRect=CGRectMake(230,250,90,15);
         UILabel *pickADayLabel=[[UILabel alloc] initWithFrame:pickADayLabelRect];
-        pickADayLabel.textAlignment=UITextAlignmentCenter;
+        pickADayLabel.textAlignment=UITextAlignmentLeft;
         pickADayLabel.text=[NSString stringWithFormat:@"Pick A Day"];
         pickADayLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         pickADayLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
