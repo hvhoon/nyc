@@ -158,7 +158,16 @@
                 
             case kSortByDegree:
             {
+                CGRect goingLabelRect=CGRectMake(155,72,143,15);
+                UILabel *goingLabel=[[UILabel alloc] initWithFrame:goingLabelRect];
+                goingLabel.textAlignment=UITextAlignmentRight;
+                goingLabel.text=[NSString stringWithFormat:@"%@ of friends going",detailSectionInfo.goingCount];
+                goingLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
+                goingLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+                goingLabel.backgroundColor=[UIColor clearColor];
                 
+                [self addSubview:goingLabel];
+                [goingLabel release];
             }
                 break;
                 

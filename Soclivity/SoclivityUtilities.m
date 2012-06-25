@@ -170,23 +170,23 @@ if(timer%2==0){
             NSLog(@"Today");
             
             if(hours && checkTime){
-                [result appendFormat: @"'Last Update: %d hrs ", hours];
+                [result appendFormat: @"Last Update: %d hrs", hours];
             }
             
             if(minutes && checkTime){
                 
                 if(hours==0){
-                    [result appendFormat: @"'Last Update: %d mins ago'", minutes];
+                    [result appendFormat: @"Last Update: %d mins ago", minutes];
                 }
                 else
-                    [result appendFormat: @" %d mins ago'", minutes];
+                    [result appendFormat: @"%d mins ago", minutes];
                 
                 checkTime=FALSE;
                 
             }
             if(seconds && checkTime){
                 if(minutes==0){
-                     [result appendFormat: @"'Last Update: a min ago'"];
+                     [result appendFormat: @"Last Update: a min ago"];
                 }
                 checkTime=FALSE;
             }
@@ -195,7 +195,7 @@ if(timer%2==0){
             break;
         default: {
             NSLog(@"later");
-            NSString*timeUpdate=[NSString stringWithFormat:@"'Last Update:%@'",activityTime];
+            NSString*timeUpdate=[NSString stringWithFormat:@"Last Update:%@",activityTime];
             [result appendFormat:timeUpdate];
         }
             break;
