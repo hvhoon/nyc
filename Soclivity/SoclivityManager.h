@@ -23,6 +23,7 @@
     CLLocation *currentLocation;
     GetPlayersClass *loggedInUser;
     FilterPreferenceClass *filterObject;
+    BOOL AllowTapAndDrag;
    
    
 }
@@ -32,5 +33,6 @@
 @property (nonatomic,retain)CLLocation *currentLocation;
 @property (nonatomic,retain)GetPlayersClass *loggedInUser;
 @property (nonatomic,retain)FilterPreferenceClass *filterObject;
+@property (nonatomic,assign)BOOL AllowTapAndDrag;
 + (id)SharedInstance;
 @end

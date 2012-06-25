@@ -10,7 +10,7 @@
 #import "GetPlayersClass.h"
 #import "FilterPreferenceClass.h"
 @implementation SoclivityManager
-@synthesize delegate,registrationObject,basicInfoDone,currentLocation,loggedInUser,filterObject;
+@synthesize delegate,registrationObject,basicInfoDone,currentLocation,loggedInUser,filterObject,AllowTapAndDrag;
 
 
 + (id) SharedInstance {
@@ -26,6 +26,7 @@
     
     if(self=[super init]){
         registrationObject=[[GetPlayersClass alloc]init];
+        AllowTapAndDrag=TRUE;
         filterObject=[[FilterPreferenceClass alloc]init];
         filterObject.playAct=TRUE;
         filterObject.eatAct=TRUE;

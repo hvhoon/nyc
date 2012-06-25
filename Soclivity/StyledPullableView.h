@@ -16,6 +16,7 @@
     FCRangeSlider *rangeSlider;
     SoclivityManager *SOC;
     CalendarDateView *calendarDate;
+    int tracker;
     
     
 }

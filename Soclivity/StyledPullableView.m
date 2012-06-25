@@ -60,7 +60,7 @@
     if ((self = [super initWithFrame:frame])) {
         
         self.backgroundColor=[UIColor clearColor];
-        
+        tracker=0;
         SOC=[SoclivityManager SharedInstance];                     
         filterPaneView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 640, 402)];
         filterPaneView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
@@ -331,9 +331,9 @@
         [filterPaneView addSubview:pickADayTickImageView];
         [pickADayTickImageView release];
         
-        CGRect pickADayLabelRect=CGRectMake(230,253,100,15);
+        CGRect pickADayLabelRect=CGRectMake(220,253,90,15);
         UILabel *pickADayLabel=[[UILabel alloc] initWithFrame:pickADayLabelRect];
-        pickADayLabel.textAlignment=UITextAlignmentLeft;
+        pickADayLabel.textAlignment=UITextAlignmentCenter;
         pickADayLabel.text=[NSString stringWithFormat:@"Pick A Day"];
         pickADayLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         pickADayLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -626,6 +626,7 @@
             
         case kNextTwoDays:
         {
+            tracker=0;
             SOC.filterObject.whenSearchType=1;
             [(UILabel*)[self viewWithTag:kNextTwoDaysText] setAlpha:1.0f];
             [(UIImageView*)[self viewWithTag:kNextTwoDaysTickImage]setAlpha:1.0f];
@@ -640,6 +641,7 @@
             
         case kNextSevenDays:
         {
+            tracker=1;
             SOC.filterObject.whenSearchType=2;
             [(UILabel*)[self viewWithTag:kNextTwoDaysText] setAlpha:0.3f];
             [(UIImageView*)[self viewWithTag:kNextTwoDaysTickImage]setAlpha:0.3f];
@@ -736,7 +738,44 @@
     switch (tag) {
         case kCrossDateSelection:
         {
-            
+            switch (tracker) {
+                case 0:
+                {
+                    SOC.filterObject.whenSearchType=1;
+                    tracker=0;
+                    [(UILabel*)[self viewWithTag:kNextTwoDaysText] setAlpha:1.0f];
+                    [(UIImageView*)[self viewWithTag:kNextTwoDaysTickImage]setAlpha:1.0f];
+                    [(UILabel*)[self viewWithTag:kNextSevenDaysText] setAlpha:0.3f];
+                    [(UIImageView*)[self viewWithTag:kNextSevenDaysTickImage]setAlpha:0.3f];
+                    [(UILabel*)[self viewWithTag:kPickADayText] setAlpha:0.3f];
+                    [(UIImageView*)[self viewWithTag:kPickADayTickImage]setAlpha:0.3f];
+                    //[(UILabel*)[self viewWithTag:kPickADayText] setText:@"Pick A Day"];
+
+                    
+                }
+                    break;
+                    
+                case 1:
+                {
+                    tracker=1;
+                    SOC.filterObject.whenSearchType=2;
+                    [(UILabel*)[self viewWithTag:kNextTwoDaysText] setAlpha:0.3f];
+                    [(UIImageView*)[self viewWithTag:kNextTwoDaysTickImage]setAlpha:0.3f];
+                    [(UILabel*)[self viewWithTag:kNextSevenDaysText] setAlpha:1.0f];
+                    [(UIImageView*)[self viewWithTag:kNextSevenDaysTickImage]setAlpha:1.0f];
+                    [(UILabel*)[self viewWithTag:kPickADayText] setAlpha:0.3f];
+                    [(UIImageView*)[self viewWithTag:kPickADayTickImage]setAlpha:0.3f];
+                    //[(UILabel*)[self viewWithTag:kPickADayText] setText:@"Pick A Day"];
+
+                    
+                }
+                    break;
+   
+                    
+                    
+                default:
+                    break;
+            }
         }
             break;
             

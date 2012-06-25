@@ -8,7 +8,8 @@
     
 #import "PullableView.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "SoclivityManager.h"
+#import "FilterPreferenceClass.h"
 @implementation PullableView
 
 @synthesize handleView;
@@ -55,6 +56,19 @@
 }
 
 - (void)handleDrag:(UIPanGestureRecognizer *)sender {
+    
+    
+    
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];   
+    if(SOC.AllowTapAndDrag){
+        filterPaneView.transform = CGAffineTransformIdentity;
+
+    }
+    else{
+        NSLog(@"Allow Dragging With Normal View");
+        return;
+
+    }
     crossImageView.hidden=NO;
     searchLensImageView.hidden=YES;
     filterPaneView.layer.shadowOpacity = 1 ? 0.8f : 0.0f;
@@ -151,13 +165,17 @@
 }
 
 - (void)handleTap:(UITapGestureRecognizer *)sender {
-    
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
     if(!opened){
         filterPaneView.layer.shadowOpacity = 1 ? 0.8f : 0.0f;
         filterPaneView.layer.cornerRadius = 4.0f;
         filterPaneView.layer.shadowOffset = CGSizeZero;
         filterPaneView.layer.shadowRadius = 14.0f;
         filterPaneView.layer.shadowPath = [UIBezierPath bezierPathWithRect:filterPaneView.bounds].CGPath;
+        if(!SOC.AllowTapAndDrag){
+        filterPaneView.transform = CGAffineTransformIdentity;
+            SOC.AllowTapAndDrag=TRUE;
+        }
         
     }
     
@@ -285,9 +303,19 @@
     CGRect tapLowerPaneRect =CGRectMake(70, 402, 320, 58);
    
     if(CGRectContainsPoint(tapLowerPaneRect,startPoint)){
-        [self setOpened:NO animated:YES];
+        
+        
         NSLog(@"Tap Detected Inside Lower Pane");
+        SoclivityManager *SOC=[SoclivityManager SharedInstance];   
+        if(SOC.AllowTapAndDrag){
+            [self setOpened:NO animated:YES];
 
+        }
+        else{
+            [(UILabel*)[self viewWithTag:38] setText:SOC.filterObject.pickADateString];
+            NSLog(@"Not Allow To Close Pane");
+
+        }
     }
     }
     else{
@@ -306,8 +334,8 @@
 }
 
 - (void)slideOutFilterPane {
-    
-    
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    SOC.AllowTapAndDrag=FALSE;
     [UIView animateWithDuration:0.3 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut  | UIViewAnimationOptionBeginFromCurrentState animations:^{
         
         filterPaneView.transform = CGAffineTransformMakeTranslation(-320.0f, 0.0f);
@@ -320,6 +348,8 @@
 }
 
 - (void)bringInFilterPane{
+        SoclivityManager *SOC=[SoclivityManager SharedInstance];
+        SOC.AllowTapAndDrag=TRUE;
     
     [UIView animateWithDuration:0.3 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState animations:^{
         

@@ -16,6 +16,7 @@
 #import "GetPlayersClass.h"
 #import "SoclivitySqliteClass.h"
 #import "LocationCustomManager.h"
+#import "FilterPreferenceClass.h"
 @implementation HomeViewController
 @synthesize delegate,socEventMapView,activityTableView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -410,6 +411,8 @@
     }
 }
 -(void)AddHideAnOverlay:(Boolean)open{
+    
+    
     if(open){
         overLayView.hidden=NO;
          NSLog(@"show!");
@@ -424,9 +427,16 @@
 
 - (void)handleTap:(UITapGestureRecognizer *)sender {
     NSLog(@"UITapGestureRecognizer");
+    if(SOC.AllowTapAndDrag){
+        
+    
     if ([sender state] == UIGestureRecognizerStateEnded) {
         [pullDownView setOpened:NO animated:YES];
-        NSLog(@"Pull Down");
+         NSLog(@"Pull Down");
+    }
+    }
+    else{
+        [(UILabel*)[pullDownView viewWithTag:38] setText:SOC.filterObject.pickADateString];
     }
 }
 #pragma mark -
