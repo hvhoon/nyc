@@ -456,6 +456,10 @@ if(timer%2==0){
         // Color for the list detailed and middle section
         case 7:
             return [UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.0];
+        
+        // Color for the filter pane
+        case 8:
+            return [UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0];
             
         default:
         {
