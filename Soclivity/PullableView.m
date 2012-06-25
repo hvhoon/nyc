@@ -175,7 +175,9 @@
         if(!SOC.AllowTapAndDrag){
         filterPaneView.transform = CGAffineTransformIdentity;
             SOC.AllowTapAndDrag=TRUE;
+            [(UILabel*)[self viewWithTag:38] setText:SOC.filterObject.pickADateString];
         }
+        
         
     }
     
