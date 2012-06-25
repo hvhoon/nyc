@@ -160,7 +160,7 @@ if(timer%2==0){
             NSLog(@"Yesterday");
             dateFormatter.dateFormat=@"h:mm a";
             
-            NSString*timeUpdate=[NSString stringWithFormat:@"'Last Update:Yesterday, %@'",[dateFormatter stringFromDate:destinationDate]];
+            NSString*timeUpdate=[NSString stringWithFormat:@"Last Update:Yesterday, %@",[dateFormatter stringFromDate:destinationDate]];
             [result appendFormat:timeUpdate];
 
         }
@@ -170,25 +170,19 @@ if(timer%2==0){
             NSLog(@"Today");
             
             if(hours && checkTime){
-                [result appendFormat: @"Last Update: %d hrs", hours];
+                [result appendFormat: @"Last Update: %d hrs ago", hours];
+                checkTime=FALSE;
             }
             
             if(minutes && checkTime){
                 
-                if(hours==0){
                     [result appendFormat: @"Last Update: %d mins ago", minutes];
-                }
-                else
-                    [result appendFormat: @"%d mins ago", minutes];
-                
-                checkTime=FALSE;
+                    checkTime=FALSE;
                 
             }
             if(seconds && checkTime){
-                if(minutes==0){
-                     [result appendFormat: @"Last Update: a min ago"];
-                }
-                checkTime=FALSE;
+                     [result appendFormat: @"Last Update: a few moments ago"];
+                     checkTime=FALSE;
             }
             
         }
@@ -1058,7 +1052,7 @@ if(timer%2==0){
 }
 #endif
 
-+(BOOL)DoTheSearchFiltering:(NSString*)activityInfo address:(NSString*)activityAddress organizer:(NSString*) organizerName{
++(BOOL)DoTheSearchFiltering:(NSString*)activityInfo  organizer:(NSString*) organizerName{
     
      SoclivityManager *SOC=[SoclivityManager SharedInstance];
     NSLog(@"text search=%@",SOC.filterObject.searchText);
@@ -1066,11 +1060,9 @@ if(timer%2==0){
         return YES;
     }
     NSRange activityInfoResultsRange = [activityInfo rangeOfString:SOC.filterObject.searchText options:NSCaseInsensitiveSearch];
-    NSRange activityAddressResultRange = [activityAddress rangeOfString:SOC.filterObject.searchText options:NSCaseInsensitiveSearch];
-    
     NSRange organizerNameResultsRange = [organizerName rangeOfString:SOC.filterObject.searchText options:NSCaseInsensitiveSearch];
     
-    if (activityInfoResultsRange.length > 0 ||activityAddressResultRange.length > 0||organizerNameResultsRange.length > 0){
+    if (activityInfoResultsRange.length > 0 ||organizerNameResultsRange.length > 0){
         return YES;
     }
     else{

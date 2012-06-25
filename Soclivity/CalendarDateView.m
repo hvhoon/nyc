@@ -123,7 +123,7 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
       NSDate *toDate = [[date NSDate] cc_dateByMovingToEndOfDay];
       SOC.filterObject.startPickDateTime=fromDate;
       SOC.filterObject.endPickDateTime=toDate;
-      SOC.filterObject.pickADateString=[NSString stringWithFormat:@"%@ , %d",formattedDateString,dayInMonth];
+      SOC.filterObject.pickADateString=[NSString stringWithFormat:@"%@ %d",formattedDateString,dayInMonth];
 
       [self clearTable];
       [dataSource loadItemsFromDate:fromDate toDate:toDate];

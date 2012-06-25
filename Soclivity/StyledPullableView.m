@@ -763,6 +763,7 @@
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
 	
+#if 1   
     self.homeSearchBar.showsCancelButton = YES;
     for (UIView *subview in [self.homeSearchBar subviews]) {
         UIButton *cancelButton = nil;
@@ -780,7 +781,7 @@
             [cancelButton setBackgroundImage:[UIImage imageNamed:@"S04.1_buttonSelected.png"] forState:UIControlStateHighlighted];
             }   
         }
-    
+#endif
 }
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
     NSLog(@"searchBarTextDidEndEditing=%@",searchBar.text);
@@ -788,13 +789,15 @@
 }
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar{
     
-    self.homeSearchBar.showsCancelButton = NO;
+     self.homeSearchBar.text=@"";
+     self.homeSearchBar.showsCancelButton = NO;
      [self.homeSearchBar resignFirstResponder];
 }
 // called when keyboard search button pressed
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-     self.homeSearchBar.showsCancelButton = NO;
+     self.homeSearchBar.showsCancelButton = YES;
     [self.homeSearchBar resignFirstResponder];
+    [self setOpened:NO animated:animate];
 }
 
 @end

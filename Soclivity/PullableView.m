@@ -241,17 +241,17 @@
 -(void)showShadow{
     if(opened){
         filterPaneView.layer.shadowOpacity = opened ? 0.8f : 0.0f;
-        filterPaneView.layer.cornerRadius = 1.0f;
+        filterPaneView.layer.cornerRadius = 4.0f;
         filterPaneView.layer.shadowOffset = CGSizeZero;
         filterPaneView.layer.shadowRadius = 14.0f;
         filterPaneView.layer.shadowPath = [UIBezierPath bezierPathWithRect:filterPaneView.bounds].CGPath;
         
     }
     else{
-        filterPaneView.layer.shadowOpacity = opened ? 0.8f : 0.0f;
-        filterPaneView.layer.cornerRadius = 0.0f;
+        filterPaneView.layer.shadowOpacity = 1 ? 0.8f : 0.0f;
+        filterPaneView.layer.cornerRadius = 4.0f;
         filterPaneView.layer.shadowOffset = CGSizeZero;
-        filterPaneView.layer.shadowRadius = 0.0f;
+        filterPaneView.layer.shadowRadius = 14.0f;
         filterPaneView.layer.shadowPath = [UIBezierPath bezierPathWithRect:filterPaneView.bounds].CGPath;
         
     }

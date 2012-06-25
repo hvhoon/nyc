@@ -193,7 +193,7 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
     if([SoclivityUtilities validFilterActivity:play.type]){
         
         if([SoclivityUtilities DoTheTimeLogic:play.when]){
-            if([SoclivityUtilities DoTheSearchFiltering:play.activityName address:play.where_address organizer:play.organizerName]){
+            if([SoclivityUtilities DoTheSearchFiltering:play.activityName organizer:play.organizerName]){
             
         CLLocationCoordinate2D theCoordinate;
         theCoordinate.latitude = [play.where_lat doubleValue];

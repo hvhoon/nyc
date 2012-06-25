@@ -266,7 +266,7 @@
     refreshHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 - REFRESH_HEADER_HEIGHT, 320, REFRESH_HEADER_HEIGHT)];
     refreshHeaderView.backgroundColor = [SoclivityUtilities returnTextFontColor:7];
     
-    refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 320, 15)];//REFRESH_HEADER_HEIGHT
+    refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 20, 320, 15)];//REFRESH_HEADER_HEIGHT
     refreshLabel.backgroundColor = [UIColor clearColor];
     refreshLabel.shadowColor = [SoclivityUtilities returnTextFontColor:7];
     refreshLabel.shadowOffset = CGSizeMake(0,-1);
@@ -494,7 +494,7 @@
             
         if([SoclivityUtilities DoTheTimeLogic:play.when]){
             
-        if([SoclivityUtilities DoTheSearchFiltering:play.activityName address:play.where_address organizer:play.organizerName]){
+        if([SoclivityUtilities DoTheSearchFiltering:play.activityName organizer:play.organizerName]){
         SectionInfo *sectionInfo = [[SectionInfo alloc] init];
         
         sectionInfo.play = play;

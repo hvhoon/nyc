@@ -63,7 +63,7 @@
    
     gradient=0.94;
     CGFloat xOffset = 0;
-    animationDuration = 0.2;
+    animationDuration = 0.1;
   
     NSLog(@"offset=%f",xOffset);
     pullDownView = [[StyledPullableView alloc] initWithFrame:CGRectMake(xOffset, 0, 640, 460)];
@@ -348,9 +348,9 @@
                               delay: 0.0
                             options: UIViewAnimationOptionCurveEaseOut
                          animations:^{
-                             socEventMapView.alpha = 0.4;
-                             activityTableView.alpha = 0.4;
-                             gradient=0.4;
+                             socEventMapView.alpha = 0.3;
+                             activityTableView.alpha = 0.3;
+                             gradient=0.3;
 //                             socEventMapView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
 //                             activityTableView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
 
@@ -381,15 +381,15 @@
 }
 
 -(void)alphaLess{
-    gradient=gradient-0.007;
-    if(gradient<=0.4){
-        gradient=0.4;
+    gradient=gradient-0.011;
+    if(gradient<=0.3){
+        gradient=0.3;
     }
     socEventMapView.alpha =gradient;
     activityTableView.alpha =gradient;
 }
 -(void)alphaMore{
-    gradient=gradient+0.007;
+    gradient=gradient+0.011;
     if(gradient>=0.94){
         gradient=0.94;
     }
