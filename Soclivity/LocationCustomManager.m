@@ -101,7 +101,7 @@
     locationManager.delegate = nil;
     
       
-    if(theTag==kOnlyLatLong){
+    if((theTag==kOnlyLatLong) &&(bestEffortAtLocation.coordinate.latitude!=0.0f && bestEffortAtLocation.coordinate.longitude!=0.0f)){
         CLLocationCoordinate2D theCoordinate;
         theCoordinate.latitude = bestEffortAtLocation.coordinate.latitude;
         theCoordinate.longitude =bestEffortAtLocation.coordinate.longitude;

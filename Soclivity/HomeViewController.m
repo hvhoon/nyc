@@ -117,14 +117,15 @@
 //    [pullDownView release];
 
     
-    [activityTableView setHidden:YES];
+    [activityTableView setHidden:NO];
+    [socEventMapView setHidden:YES];
     [activityTableView LoadTable];
-    listFlipBtn.hidden=YES;
-    sortDistanceBtn.hidden=YES;
-    sortDOSBtn.hidden=YES;
-    sortByTimeBtn.hidden=YES;
-    refreshBtn.hidden=NO;
-    currentLocationBtn.hidden=NO;
+    listFlipBtn.hidden=NO;
+    sortDistanceBtn.hidden=NO;
+    sortDOSBtn.hidden=NO;
+    sortByTimeBtn.hidden=NO;
+    refreshBtn.hidden=YES;
+    currentLocationBtn.hidden=YES;
     UserContactList *addressBook=[[UserContactList alloc]init];
     [addressBook GetAddressBook];
     
@@ -216,19 +217,19 @@
               {
               } 
                              completion:^(BOOL finished){
-                                 listFlipBtn.hidden=NO;
-                                 mapflipBtn.hidden=YES;
-                                 refreshBtn.hidden=YES;
-                                 currentLocationBtn.hidden=YES;
-                                 sortDistanceBtn.hidden=NO;
-                                 sortDOSBtn.hidden=NO;
-                                 sortByTimeBtn.hidden=NO;
+                                 listFlipBtn.hidden=YES;
+                                 mapflipBtn.hidden=NO;
+                                 refreshBtn.hidden=NO;
+                                 currentLocationBtn.hidden=NO;
+                                 sortDistanceBtn.hidden=YES;
+                                 sortDOSBtn.hidden=YES;
+                                 sortByTimeBtn.hidden=YES;
 
                              }] ;
          } 
                         completion:^(BOOL finished){
-                            [activityTableView setHidden:NO];
-                            [socEventMapView setHidden:YES];
+                            [activityTableView setHidden:YES];
+                            [socEventMapView setHidden:NO];
                         }] ;
     });
         
@@ -243,20 +244,20 @@
                   {
                   } 
                                  completion:^(BOOL finished){
-                                     listFlipBtn.hidden=YES;
-                                     mapflipBtn.hidden=NO;
-                                     sortDistanceBtn.hidden=YES;
-                                     sortDOSBtn.hidden=YES;
-                                     sortByTimeBtn.hidden=YES;
-                                     refreshBtn.hidden=NO;
-                                     currentLocationBtn.hidden=NO;
+                                     listFlipBtn.hidden=NO;
+                                     mapflipBtn.hidden=YES;
+                                     sortDistanceBtn.hidden=NO;
+                                     sortDOSBtn.hidden=NO;
+                                     sortByTimeBtn.hidden=NO;
+                                     refreshBtn.hidden=YES;
+                                     currentLocationBtn.hidden=YES;
 
                                      
                                  }] ;
              } 
                             completion:^(BOOL finished){
-                                [activityTableView setHidden:YES];
-                                [socEventMapView setHidden:NO];
+                                [activityTableView setHidden:NO];
+                                [socEventMapView setHidden:YES];
                             }] ;
         });
 
@@ -275,8 +276,8 @@
     [UIView setAnimationDuration:1.0];
     [UIView setAnimationDelegate:self];
     
-    [activityTableView setHidden:NO];
-    [socEventMapView setHidden:YES];
+    [activityTableView setHidden:YES];
+    [socEventMapView setHidden:NO];
         //kanav location test
     //[socEventMapView.mapView setShowsUserLocation:NO];
     [UIView commitAnimations];
@@ -289,14 +290,14 @@
     [UIView setAnimationDuration:1.0];
     [UIView setAnimationDelegate:self];
     
-    listFlipBtn.hidden=NO;
-    mapflipBtn.hidden=YES;
-    refreshBtn.hidden=YES;
-    currentLocationBtn.hidden=YES;
+    listFlipBtn.hidden=YES;
+    mapflipBtn.hidden=NO;
+    refreshBtn.hidden=NO;
+    currentLocationBtn.hidden=NO;
 
-    sortDistanceBtn.hidden=NO;
-    sortDOSBtn.hidden=NO;
-    sortByTimeBtn.hidden=NO;
+    sortDistanceBtn.hidden=YES;
+    sortDOSBtn.hidden=YES;
+    sortByTimeBtn.hidden=YES;
     
     [UIView commitAnimations];
     }
@@ -309,8 +310,8 @@
         [UIView setAnimationDuration:1.0];
         [UIView setAnimationDelegate:self];
         
-        [activityTableView setHidden:YES];
-        [socEventMapView setHidden:NO];
+        [activityTableView setHidden:NO];
+        [socEventMapView setHidden:YES];
         [UIView commitAnimations];
         //kanav location test
 
@@ -323,14 +324,14 @@
         [UIView setAnimationDuration:1.0];
         [UIView setAnimationDelegate:self];
         
-        listFlipBtn.hidden=YES;
-        mapflipBtn.hidden=NO;
-        refreshBtn.hidden=NO;
-        currentLocationBtn.hidden=NO;
+        listFlipBtn.hidden=NO;
+        mapflipBtn.hidden=YES;
+        refreshBtn.hidden=YES;
+        currentLocationBtn.hidden=YES;
 
-        sortDistanceBtn.hidden=YES;
-        sortDOSBtn.hidden=YES;
-        sortByTimeBtn.hidden=YES;
+        sortDistanceBtn.hidden=NO;
+        sortDOSBtn.hidden=NO;
+        sortByTimeBtn.hidden=NO;
         [UIView commitAnimations];
     }
     
