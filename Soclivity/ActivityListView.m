@@ -431,9 +431,16 @@
     
 
     self.plays = [self.plays sortedArrayUsingComparator: ^(InfoActivityClass *a, InfoActivityClass *b) {
-        NSString *s1=a.goingCount;
-        NSString *s2=b.goingCount;
-        return [s1 compare:s2];
+        NSNumber *s1=[NSNumber numberWithInt:a.DOS1];
+        NSNumber *s2=[NSNumber numberWithInt:b.DOS1];
+        
+        if (s1>s2)
+            return NSOrderedDescending ;
+        else if (s1<s2)
+            return NSOrderedAscending;
+        
+        return NSOrderedSame;
+        //return [s1 compare:s2];
     }];
     sortType=2;
     [self sortingFilterRefresh];
