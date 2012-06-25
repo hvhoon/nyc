@@ -212,7 +212,7 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
     for(SocAnnotation *sfAnn in self.mapAnnotations)
        [self.mapView addAnnotation:sfAnn];
     
-    [self gotoLocation];
+      [self gotoLocation];
         
 }
 -(void)currentLocation:(CLLocationCoordinate2D)theCoord{
