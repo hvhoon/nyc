@@ -642,7 +642,7 @@
             [(UILabel*)[self viewWithTag:kPickADayText] setAlpha:0.3f];
             [(UIImageView*)[self viewWithTag:kPickADayTickImage]setAlpha:0.3f];
             [(UILabel*)[self viewWithTag:kPickADayText] setText:@"Pick A Day"];
-            SOC.filterObject.lastDateString=@"Pick A Day";
+            SOC.filterObject.lastDateString=[NSString stringWithFormat:@"Pick A Date"];
 
             
          }
@@ -659,7 +659,7 @@
             [(UILabel*)[self viewWithTag:kPickADayText] setAlpha:0.3f];
             [(UIImageView*)[self viewWithTag:kPickADayTickImage]setAlpha:0.3f];
             [(UILabel*)[self viewWithTag:kPickADayText] setText:@"Pick A Day"];
-             SOC.filterObject.lastDateString=@"Pick A Day";
+             SOC.filterObject.lastDateString=[NSString stringWithFormat:@"Pick A Date"];
 
         }
             break;
@@ -851,10 +851,20 @@
     SOC.filterObject.searchText=searchBar.text;
 }
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    self.homeSearchBar.showsCancelButton = NO;
-    self.homeSearchBar.showClearButton=YES;
 
+    
+    if([self.homeSearchBar.text isEqualToString:@""]){
+        self.homeSearchBar.showsCancelButton = NO;
+        self.homeSearchBar.showClearButton=NO;
+        
+    }
+    else{
+        self.homeSearchBar.showsCancelButton = NO;
+        self.homeSearchBar.showClearButton=YES;
+        
+    }
     self.homeSearchBar.showsCancelButton = YES;
+
 }
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar{
     
@@ -872,8 +882,9 @@
 -(void)customCancelButtonHit{
     
     self.homeSearchBar.text=@"";
+    SOC.filterObject.searchText=self.homeSearchBar.text;
     self.homeSearchBar.showsCancelButton = NO;
-     self.homeSearchBar.showClearButton=NO;
+    self.homeSearchBar.showClearButton=NO;
     [self.homeSearchBar resignFirstResponder];
 }
 

@@ -522,6 +522,19 @@
     }
     self.sectionInfoArray = infoArray;
     [infoArray release];
+    
+    if([self.sectionInfoArray count]==0){
+        self.tableView.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_NoActivities.png"]];
+        self.tableView.scrollEnabled=NO;
+        self.tableView.bounces=NO;
+
+    }
+    else{
+        self.tableView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
+        self.tableView.scrollEnabled=YES;
+        self.tableView.bounces=YES;
+
+    }
 
     [self.tableView reloadData];
     [self.tableView beginUpdates];
