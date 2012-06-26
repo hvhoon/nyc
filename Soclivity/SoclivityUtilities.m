@@ -176,8 +176,14 @@ if(timer%2==0){
             
             if(minutes && checkTime){
                 
+                if(minutes ==1){
+                    [result appendFormat: @"Last update: %d min ago", minutes];
+                    checkTime=FALSE;
+                }
+                else {
                     [result appendFormat: @"Last update: %d mins ago", minutes];
                     checkTime=FALSE;
+                }
                 
             }
             if(seconds && checkTime){

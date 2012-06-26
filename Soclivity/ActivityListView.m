@@ -266,7 +266,7 @@
     refreshHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 - REFRESH_HEADER_HEIGHT, 320, REFRESH_HEADER_HEIGHT)];
     refreshHeaderView.backgroundColor = [SoclivityUtilities returnTextFontColor:7];
     
-    refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, 320, 15)];//REFRESH_HEADER_HEIGHT
+    refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 30-1, 320, 16)];//REFRESH_HEADER_HEIGHT
     refreshLabel.backgroundColor = [UIColor clearColor];
     refreshLabel.shadowColor = [SoclivityUtilities returnTextFontColor:7];
     refreshLabel.shadowOffset = CGSizeMake(0,-1);
