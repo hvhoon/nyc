@@ -25,7 +25,7 @@
     NSString *searchText;
     NSString *dateString;
     NSString *pickADateString;
-    
+    NSString *lastDateString;
     
 }
 @property (nonatomic,assign)BOOL playAct;
@@ -44,4 +44,5 @@
 @property (nonatomic,retain)NSString *searchText;
 @property (nonatomic,retain)NSString *dateString;
 @property (nonatomic,retain)NSString *pickADateString;
+@property (nonatomic,retain)NSString *lastDateString;
 @end

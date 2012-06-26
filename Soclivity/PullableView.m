@@ -176,6 +176,7 @@
         filterPaneView.transform = CGAffineTransformIdentity;
             SOC.AllowTapAndDrag=TRUE;
             [(UILabel*)[self viewWithTag:38] setText:SOC.filterObject.pickADateString];
+            SOC.filterObject.lastDateString=SOC.filterObject.pickADateString;
         }
         
         

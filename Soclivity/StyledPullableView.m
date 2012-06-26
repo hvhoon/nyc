@@ -65,7 +65,7 @@
         filterPaneView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 640, 402)];
         filterPaneView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
         
-        
+        SOC.filterObject.lastDateString=[NSString stringWithFormat:@"Pick A Date"];
          
         
         self.homeSearchBar = [[[CustomSearchbar alloc] initWithFrame:CGRectMake(0, 40, 320, 44)] autorelease];
@@ -641,6 +641,8 @@
             [(UIImageView*)[self viewWithTag:kNextSevenDaysTickImage]setAlpha:0.3f];
             [(UILabel*)[self viewWithTag:kPickADayText] setAlpha:0.3f];
             [(UIImageView*)[self viewWithTag:kPickADayTickImage]setAlpha:0.3f];
+            [(UILabel*)[self viewWithTag:kPickADayText] setText:@"Pick A Day"];
+            SOC.filterObject.lastDateString=@"Pick A Day";
 
             
          }
@@ -656,12 +658,18 @@
             [(UIImageView*)[self viewWithTag:kNextSevenDaysTickImage]setAlpha:1.0f];
             [(UILabel*)[self viewWithTag:kPickADayText] setAlpha:0.3f];
             [(UIImageView*)[self viewWithTag:kPickADayTickImage]setAlpha:0.3f];
+            [(UILabel*)[self viewWithTag:kPickADayText] setText:@"Pick A Day"];
+             SOC.filterObject.lastDateString=@"Pick A Day";
 
         }
             break;
             
         case kPickADay:
         {
+            NSString *firstLetter = [SOC.filterObject.lastDateString  substringToIndex:1];
+            if(![firstLetter isEqualToString:@"P"]){
+                tracker=2;
+            }
             SOC.filterObject.whenSearchType=3;
             [(UILabel*)[self viewWithTag:kNextTwoDaysText] setAlpha:0.3f];
             [(UIImageView*)[self viewWithTag:kNextTwoDaysTickImage]setAlpha:0.3f];
@@ -777,7 +785,13 @@
                     
                 }
                     break;
-   
+                    
+                case 2:
+                {
+                    [(UILabel*)[self viewWithTag:kPickADayText] setText:SOC.filterObject.lastDateString];
+                    
+                }
+                 
                     
                     
                 default:
@@ -788,6 +802,7 @@
             
         case kTickDateSelection:
         {
+             SOC.filterObject.lastDateString=SOC.filterObject.pickADateString;
              [(UILabel*)[self viewWithTag:kPickADayText] setText:SOC.filterObject.pickADateString];
         }
             break;

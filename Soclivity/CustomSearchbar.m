@@ -43,8 +43,8 @@
             [customBackButtom addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
             if(showClearButton){
 
-                [customBackButtom setBackgroundImage:[UIImage imageNamed:@"S04.1_button.png"] forState:UIControlStateNormal];
-                [customBackButtom setBackgroundImage:[UIImage imageNamed:@"S04.1_buttonSelected.png"] forState:UIControlStateHighlighted];
+                [customBackButtom setBackgroundImage:[UIImage imageNamed:@"S04.1_clear.png"] forState:UIControlStateNormal];
+                [customBackButtom setBackgroundImage:[UIImage imageNamed:@"S04.1_clearPressed.png"] forState:UIControlStateHighlighted];
 
             }
             else{
