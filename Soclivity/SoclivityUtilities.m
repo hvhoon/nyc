@@ -301,7 +301,7 @@ if(timer%2==0){
             [result appendFormat: @"Tommorow"];
             dateFormatter.dateFormat=@"h:mm a";
             
-            NSString*timeUpdate=[NSString stringWithFormat:@"Tomorrow,%@",[dateFormatter stringFromDate:destinationDate]];
+            NSString*timeUpdate=[NSString stringWithFormat:@"Tomorrow, %@",[dateFormatter stringFromDate:destinationDate]];
             formatStringGMTObj.dateAndTime=timeUpdate;
    
             
