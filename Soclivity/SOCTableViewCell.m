@@ -63,7 +63,7 @@ static UIFont *boldText = nil;
     
     // Time info.
     [[UIImage imageNamed:@"S04_smallClock.png"] drawInRect:CGRectMake(50,15,12,12)];
-    [playActivity.dateAndTime drawInRect:CGRectMake(50+25, 12, 200, 14) withFont:firstTextFont];
+    [playActivity.dateAndTime drawInRect:CGRectMake(50+25, 12-1, 200, 15) withFont:firstTextFont];
     
     // First divider
     [[UIImage imageNamed:@"S04_detailDivider.png"] drawInRect:CGRectMake(22,38,283,1)];
@@ -71,7 +71,7 @@ static UIFont *boldText = nil;
     // Distance info.
     [[UIImage imageNamed:@"S04_smallLocation.png"] drawInRect:CGRectMake(50,51,12,12)];
     NSString* distanceInfo = [NSString stringWithFormat:@"%@ miles away", playActivity.distance];
-    [distanceInfo drawInRect:CGRectMake(50+25,48,200,14) withFont:firstTextFont];
+    [distanceInfo drawInRect:CGRectMake(50+25,48-1,200,15) withFont:firstTextFont];
     
     // Second divider
     [[UIImage imageNamed:@"S04_detailDivider.png"] drawInRect:CGRectMake(22,75,283,1)];
