@@ -266,7 +266,7 @@
     refreshHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 - REFRESH_HEADER_HEIGHT, 320, REFRESH_HEADER_HEIGHT)];
     refreshHeaderView.backgroundColor = [SoclivityUtilities returnTextFontColor:7];
     
-    refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 20, 320, 15)];//REFRESH_HEADER_HEIGHT
+    refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, 320, 15)];//REFRESH_HEADER_HEIGHT
     refreshLabel.backgroundColor = [UIColor clearColor];
     refreshLabel.shadowColor = [SoclivityUtilities returnTextFontColor:7];
     refreshLabel.shadowOffset = CGSizeMake(0,-1);
@@ -275,7 +275,7 @@
     refreshLabel.textAlignment = UITextAlignmentCenter;
     
     
-    lastUpdateLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 40, 320, 15)];//REFRESH_HEADER_HEIGHT
+    lastUpdateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 50, 320, 15)];//REFRESH_HEADER_HEIGHT
     lastUpdateLabel.backgroundColor = [UIColor clearColor];
     lastUpdateLabel.shadowColor = [SoclivityUtilities returnTextFontColor:7];
     lastUpdateLabel.shadowOffset = CGSizeMake(0,-1);
@@ -292,12 +292,10 @@
 
     
     refreshArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S04_listrefresh.png"]];
-    refreshArrow.frame = CGRectMake(floorf((REFRESH_HEADER_HEIGHT + 20) / 2),
-                                    (floorf(REFRESH_HEADER_HEIGHT - 60) / 2),
-                                    23, 60);
+    refreshArrow.frame = CGRectMake(20,(floorf(REFRESH_HEADER_HEIGHT - 60) / 2), 23, 60);
     
     refreshSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    refreshSpinner.frame = CGRectMake(floorf(floorf(REFRESH_HEADER_HEIGHT + 20) / 2), floorf((REFRESH_HEADER_HEIGHT - 20) / 2), 20, 20);
+    refreshSpinner.frame = CGRectMake(20, floorf((REFRESH_HEADER_HEIGHT - 20) / 2), 20, 20);
     refreshSpinner.hidesWhenStopped = YES;
     
     [refreshHeaderView addSubview:topDivider];
