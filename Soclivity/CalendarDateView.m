@@ -104,21 +104,6 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     NSLog(@"didSelectDate =%@",[date NSDate]);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-   
-    /*
-    [dateFormatter setDateFormat:@"dd"];
-    NSString *dayInMonthStr = [dateFormatter stringFromDate:[date NSDate]];
-    int dayInMonth = [dayInMonthStr intValue];
-    
-    NSLog(@"Today is the %i. day of the month", dayInMonth);
-    [dateFormatter setDateFormat:@"EEEE"];
-    NSString *formattedDateString = [dateFormatter stringFromDate:[date NSDate]];
-     NSLog(@"Today is the %@ day", formattedDateString);
-    
-     [dateFormatter setDateFormat:@"MMMM"];
-     formattedDateString = [dateFormatter stringFromDate:[date NSDate]];
-     NSLog(@"Today is the %@ month", formattedDateString);
-    */
      
     [dateFormatter setDateFormat:@"EEE, MMM d"];
     NSString *formattedDateString = [dateFormatter stringFromDate:[date NSDate]];
