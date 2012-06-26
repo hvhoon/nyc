@@ -63,7 +63,7 @@ static UIFont *boldText = nil;
     
     // Time info.
     [[UIImage imageNamed:@"S04_smallClock.png"] drawInRect:CGRectMake(50,15,12,12)];
-    [playActivity.dateAndTime drawInRect:CGRectMake(50+25, 12-1, 200, 15) withFont:firstTextFont];
+    [playActivity.dateAndTime drawInRect:CGRectMake(50+25, 12, 200, 15) withFont:firstTextFont];
     
     // First divider
     [[UIImage imageNamed:@"S04_detailDivider.png"] drawInRect:CGRectMake(22,38,283,1)];
@@ -71,7 +71,7 @@ static UIFont *boldText = nil;
     // Distance info.
     [[UIImage imageNamed:@"S04_smallLocation.png"] drawInRect:CGRectMake(50,51,12,12)];
     NSString* distanceInfo = [NSString stringWithFormat:@"%@ miles away", playActivity.distance];
-    [distanceInfo drawInRect:CGRectMake(50+25,48-1,200,15) withFont:firstTextFont];
+    [distanceInfo drawInRect:CGRectMake(50+25,48,200,15) withFont:firstTextFont];
     
     // Second divider
     [[UIImage imageNamed:@"S04_detailDivider.png"] drawInRect:CGRectMake(22,75,283,1)];
@@ -81,7 +81,7 @@ static UIFont *boldText = nil;
         [[UIImage imageNamed:@"S04_smallDOS1.png"] drawInRect:CGRectMake(50-3,88,19,11)];
         
         NSString *firstLabel=[NSString stringWithFormat:@"%d Friends",detailPlay.DOS_1];
-        [firstLabel drawInRect:CGRectMake(50+25,85,60,14) withFont:firstTextFont];
+        [firstLabel drawInRect:CGRectMake(50+25,85,60,15) withFont:firstTextFont];
         
         [[UIImage imageNamed:@"S04_smallDOS2.png"] drawInRect:CGRectMake(50+95,88,19,11)];
         NSString *secondLabel=[NSString stringWithFormat:@"%d Friends of friends",detailPlay.DOS_2];

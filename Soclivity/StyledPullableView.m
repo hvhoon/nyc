@@ -133,7 +133,7 @@
         [filterPaneView addSubview:playTickImageView];
         [playTickImageView release];
         
-        CGRect playTypeLabelRect=CGRectMake(25,155,55,15);
+        CGRect playTypeLabelRect=CGRectMake(25,155-1,55,16);
         UILabel *playTypeLabel=[[UILabel alloc] initWithFrame:playTypeLabelRect];
         playTypeLabel.textAlignment=UITextAlignmentLeft;
         playTypeLabel.text=[NSString stringWithFormat:@"Play"];
@@ -276,7 +276,7 @@
         [filterPaneView addSubview:next2DaysTickImageView];
         [next2DaysTickImageView release];
         
-        CGRect next2DaysLabelRect=CGRectMake(12,253,100,15);
+        CGRect next2DaysLabelRect=CGRectMake(12,253-1,100,16);
         UILabel *next2DaysLabel=[[UILabel alloc] initWithFrame:next2DaysLabelRect];
         next2DaysLabel.textAlignment=UITextAlignmentCenter;
         next2DaysLabel.text=[NSString stringWithFormat:@"Next 2 Days"];
@@ -307,7 +307,7 @@
         [filterPaneView addSubview:next7DaysTickImageView];
         [next7DaysTickImageView release];
         
-        CGRect next7DaysLabelRect=CGRectMake(113,253,100,15);
+        CGRect next7DaysLabelRect=CGRectMake(113,253-1,100,16);
         UILabel *next7DaysLabel=[[UILabel alloc] initWithFrame:next7DaysLabelRect];
         next7DaysLabel.textAlignment=UITextAlignmentCenter;
         next7DaysLabel.text=[NSString stringWithFormat:@"Next 7 Days"];
@@ -338,7 +338,7 @@
         [filterPaneView addSubview:pickADayTickImageView];
         [pickADayTickImageView release];
         
-        CGRect pickADayLabelRect=CGRectMake(220,253,90,15);
+        CGRect pickADayLabelRect=CGRectMake(220,253-1,90,16);
         UILabel *pickADayLabel=[[UILabel alloc] initWithFrame:pickADayLabelRect];
         pickADayLabel.textAlignment=UITextAlignmentCenter;
         pickADayLabel.text=[NSString stringWithFormat:@"Pick A Day"];
@@ -373,7 +373,7 @@
         [filterPaneView addSubview:sunriseImageView];
         [sunriseImageView release];
         
-        CGRect morningLabelRect=CGRectMake(12,335,100,15);
+        CGRect morningLabelRect=CGRectMake(12,335-1,100,16);
         UILabel *morningLabel=[[UILabel alloc] initWithFrame:morningLabelRect];
         morningLabel.textAlignment=UITextAlignmentCenter;
         morningLabel.text=[NSString stringWithFormat:@"Morning"];
@@ -413,7 +413,7 @@
         [filterPaneView addSubview:sunSelectedImageView];
         [sunSelectedImageView release];
         
-        CGRect afternoonLabelRect=CGRectMake(113,335,100,15);
+        CGRect afternoonLabelRect=CGRectMake(113,335-1,100,16);
         UILabel *afternoonLabel=[[UILabel alloc] initWithFrame:afternoonLabelRect];
         afternoonLabel.textAlignment=UITextAlignmentCenter;
         afternoonLabel.text=[NSString stringWithFormat:@"Afternoon"];
@@ -452,7 +452,7 @@
         [filterPaneView addSubview:moonSelectedImageView];
         [moonSelectedImageView release];
         
-        CGRect eveningLabelRect=CGRectMake(214,335,100,15);
+        CGRect eveningLabelRect=CGRectMake(214,335-1,100,16);
         UILabel *eveningLabel=[[UILabel alloc] initWithFrame:eveningLabelRect];
         eveningLabel.textAlignment=UITextAlignmentCenter;
         eveningLabel.text=[NSString stringWithFormat:@"Evening"];

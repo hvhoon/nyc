@@ -378,7 +378,7 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
 	
 	UIView *mapLeftView=[[UIView alloc] initWithFrame:CGRectMake(0,0, 155, 30)];
 	
-	CGRect nameLabelRect=CGRectMake(10,0,145,15);
+	CGRect nameLabelRect=CGRectMake(10,0,145,16);
 	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
 	nameLabel.textAlignment=UITextAlignmentLeft;
 	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
@@ -388,7 +388,7 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
 	[mapLeftView addSubview:nameLabel];
 	[nameLabel release];
 	
-	CGRect timeLabelRect=CGRectMake(10,16,140,12);
+	CGRect timeLabelRect=CGRectMake(10,17,140,13);
 	UILabel *timeLabel=[[UILabel alloc] initWithFrame:timeLabelRect];
 	timeLabel.textAlignment=UITextAlignmentLeft;
 	timeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
