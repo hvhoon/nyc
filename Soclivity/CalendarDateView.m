@@ -104,6 +104,8 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     NSLog(@"didSelectDate =%@",[date NSDate]);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+   
+    /*
     [dateFormatter setDateFormat:@"dd"];
     NSString *dayInMonthStr = [dateFormatter stringFromDate:[date NSDate]];
     int dayInMonth = [dayInMonthStr intValue];
@@ -116,19 +118,23 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
      [dateFormatter setDateFormat:@"MMMM"];
      formattedDateString = [dateFormatter stringFromDate:[date NSDate]];
      NSLog(@"Today is the %@ month", formattedDateString);
+    */
+     
+    [dateFormatter setDateFormat:@"EEE, MMM d"];
+    NSString *formattedDateString = [dateFormatter stringFromDate:[date NSDate]];
 
-      [dateFormatter release];
-      self.selectedDate = [date NSDate];
-      NSDate *fromDate = [[date NSDate] cc_dateByMovingToBeginningOfDay];
-      NSDate *toDate = [[date NSDate] cc_dateByMovingToEndOfDay];
-      SOC.filterObject.startPickDateTime=fromDate;
-      SOC.filterObject.endPickDateTime=toDate;
-      SOC.filterObject.pickADateString=[NSString stringWithFormat:@"%@ %d",formattedDateString,dayInMonth];
+    [dateFormatter release];
+    self.selectedDate = [date NSDate];
+    NSDate *fromDate = [[date NSDate] cc_dateByMovingToBeginningOfDay];
+    NSDate *toDate = [[date NSDate] cc_dateByMovingToEndOfDay];
+    SOC.filterObject.startPickDateTime=fromDate;
+    SOC.filterObject.endPickDateTime=toDate;
+    SOC.filterObject.pickADateString=[NSString stringWithFormat:@"%@",formattedDateString];
 
-      [self clearTable];
-      [dataSource loadItemsFromDate:fromDate toDate:toDate];
-      [tableView reloadData];
-      [tableView flashScrollIndicators];
+    [self clearTable];
+    [dataSource loadItemsFromDate:fromDate toDate:toDate];
+    [tableView reloadData];
+    [tableView flashScrollIndicators];
 }
 
 
