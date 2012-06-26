@@ -50,6 +50,7 @@
 }
 - (void)gotoLocation
 {
+    self.mapView.showsUserLocation=YES;
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     // start off by default in San Francisco
     MKCoordinateRegion newRegion;
@@ -215,7 +216,7 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
     
     if(centerLocation){
         centerLocation=FALSE;
-         self.mapView.showsUserLocation=YES;
+         
        [self gotoLocation];
     }
     else{
