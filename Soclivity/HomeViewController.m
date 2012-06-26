@@ -117,7 +117,8 @@
     [activityTableView setHidden:NO];
     [socEventMapView setHidden:YES];
     [activityTableView LoadTable];
-    listFlipBtn.hidden=NO;
+    listFlipBtn.hidden=YES;
+    mapflipBtn.hidden=NO;
     sortDistanceBtn.hidden=NO;
     sortDOSBtn.hidden=NO;
     sortByTimeBtn.hidden=NO;
@@ -216,8 +217,8 @@
               {
               } 
                              completion:^(BOOL finished){
-                                 listFlipBtn.hidden=YES;
-                                 mapflipBtn.hidden=NO;
+                                 listFlipBtn.hidden=NO;
+                                 mapflipBtn.hidden=YES;
                                  refreshBtn.hidden=NO;
                                  currentLocationBtn.hidden=NO;
                                  sortDistanceBtn.hidden=YES;
@@ -243,8 +244,8 @@
                   {
                   } 
                                  completion:^(BOOL finished){
-                                     listFlipBtn.hidden=NO;
-                                     mapflipBtn.hidden=YES;
+                                     listFlipBtn.hidden=YES;
+                                     mapflipBtn.hidden=NO;
                                      sortDistanceBtn.hidden=NO;
                                      sortDOSBtn.hidden=NO;
                                      sortByTimeBtn.hidden=NO;
@@ -289,8 +290,8 @@
     [UIView setAnimationDuration:1.0];
     [UIView setAnimationDelegate:self];
     
-    listFlipBtn.hidden=YES;
-    mapflipBtn.hidden=NO;
+    listFlipBtn.hidden=NO;
+    mapflipBtn.hidden=YES;
     refreshBtn.hidden=NO;
     currentLocationBtn.hidden=NO;
 
@@ -323,8 +324,8 @@
         [UIView setAnimationDuration:1.0];
         [UIView setAnimationDelegate:self];
         
-        listFlipBtn.hidden=NO;
-        mapflipBtn.hidden=YES;
+        listFlipBtn.hidden=YES;
+        mapflipBtn.hidden=NO;
         refreshBtn.hidden=YES;
         currentLocationBtn.hidden=YES;
 
