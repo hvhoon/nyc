@@ -64,17 +64,24 @@
         SOC=[SoclivityManager SharedInstance];                     
         filterPaneView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 640, 402)];
         filterPaneView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
-        self.homeSearchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0, 40, 320, 44)] autorelease];
+        
+        
+         
+        
+        self.homeSearchBar = [[[CustomSearchbar alloc] initWithFrame:CGRectMake(0, 40, 320, 44)] autorelease];
         self.homeSearchBar.delegate = self;
-        self.homeSearchBar.showsCancelButton =NO;
+        self.homeSearchBar.CSDelegate=self;
+        if(self.homeSearchBar.text!=nil){
+            self.homeSearchBar.showsCancelButton = YES;
+        }
+        
         self.homeSearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
         self.homeSearchBar.placeholder=@"Search for activities or people";
-
         self.homeSearchBar.backgroundImage=[UIImage imageNamed: @"S4.1_search-background.png"];
         [filterPaneView addSubview:self.homeSearchBar];
         
         
-        
+#if 0        
         for (UIView *subview in [self.homeSearchBar subviews]) {
             if ([subview isKindOfClass:NSClassFromString(@"UISearchBarBackground")])
             {
@@ -100,7 +107,7 @@
                 [(UITextField *)subview setBorderStyle:UITextBorderStyleNone];
             }
         }
-        
+#endif        
         // Block of code for the activity types
         CGRect actTypesLabelRect=CGRectMake(10,95,165,15);
         UILabel *actTypesLabel=[[UILabel alloc] initWithFrame:actTypesLabelRect];
@@ -749,7 +756,7 @@
                     [(UIImageView*)[self viewWithTag:kNextSevenDaysTickImage]setAlpha:0.3f];
                     [(UILabel*)[self viewWithTag:kPickADayText] setAlpha:0.3f];
                     [(UIImageView*)[self viewWithTag:kPickADayTickImage]setAlpha:0.3f];
-                    //[(UILabel*)[self viewWithTag:kPickADayText] setText:@"Pick A Day"];
+                    [(UILabel*)[self viewWithTag:kPickADayText] setText:@"Pick A Day"];
 
                     
                 }
@@ -765,7 +772,7 @@
                     [(UIImageView*)[self viewWithTag:kNextSevenDaysTickImage]setAlpha:1.0f];
                     [(UILabel*)[self viewWithTag:kPickADayText] setAlpha:0.3f];
                     [(UIImageView*)[self viewWithTag:kPickADayTickImage]setAlpha:0.3f];
-                    //[(UILabel*)[self viewWithTag:kPickADayText] setText:@"Pick A Day"];
+                    [(UILabel*)[self viewWithTag:kPickADayText] setText:@"Pick A Day"];
 
                     
                 }
@@ -802,8 +809,9 @@
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
 	
-#if 1   
     self.homeSearchBar.showsCancelButton = YES;
+#if 0   
+    
     for (UIView *subview in [self.homeSearchBar subviews]) {
         UIButton *cancelButton = nil;
         if([subview isKindOfClass:[UIButton class]]){
@@ -812,6 +820,7 @@
             cancelLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
             cancelLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
             cancelLabel.backgroundColor=[UIColor clearColor];
+            cancelLabel.text=@"Clear";
 
         }
         if (cancelButton){
@@ -826,17 +835,31 @@
     NSLog(@"searchBarTextDidEndEditing=%@",searchBar.text);
     SOC.filterObject.searchText=searchBar.text;
 }
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    self.homeSearchBar.showsCancelButton = NO;
+    self.homeSearchBar.showClearButton=YES;
+
+    self.homeSearchBar.showsCancelButton = YES;
+}
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar{
     
      self.homeSearchBar.text=@"";
      self.homeSearchBar.showsCancelButton = NO;
+     
      [self.homeSearchBar resignFirstResponder];
 }
 // called when keyboard search button pressed
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+     
+     [self.homeSearchBar resignFirstResponder];
      self.homeSearchBar.showsCancelButton = YES;
+}
+-(void)customCancelButtonHit{
+    
+    self.homeSearchBar.text=@"";
+    self.homeSearchBar.showsCancelButton = NO;
+     self.homeSearchBar.showClearButton=NO;
     [self.homeSearchBar resignFirstResponder];
-    [self setOpened:NO animated:animate];
 }
 
 @end

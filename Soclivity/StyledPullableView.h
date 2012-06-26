@@ -8,10 +8,11 @@
 #import "PullableView.h"
 #import "FCRangeSlider.h"
 #import "CalendarDateView.h"
+#import "CustomSearchBar.h"
 @class SoclivityManager;
 
-@interface StyledPullableView : PullableView<UISearchBarDelegate,CalendarDateViewDelegate>{
-    UISearchBar*homeSearchBar;
+@interface StyledPullableView : PullableView<UISearchBarDelegate,CalendarDateViewDelegate,CustomSearchBarDelegate>{
+    CustomSearchbar*homeSearchBar;
     BOOL learn;
     FCRangeSlider *rangeSlider;
     SoclivityManager *SOC;
@@ -20,6 +21,6 @@
     
     
 }
-@property (nonatomic, retain) UISearchBar *homeSearchBar;
+@property (nonatomic, retain) CustomSearchbar *homeSearchBar;
 - (void)sliderValueChanged:(FCRangeSlider *)sender;
 @end

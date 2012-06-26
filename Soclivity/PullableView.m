@@ -303,8 +303,22 @@
      NSLog(@"Start Point_X=%f,Start Point_Y=%f",startPoint.x,startPoint.y);
     if(opened){
     CGRect tapLowerPaneRect =CGRectMake(70, 402, 320, 58);
+    CGRect tapClearSearchRect =CGRectMake(270, 44, 57, 30);
+        
+        SoclivityManager *SOC=[SoclivityManager SharedInstance];
+        NSLog(@"text search=%@",SOC.filterObject.searchText);
+        
+
+        if(CGRectContainsPoint(tapClearSearchRect,startPoint)){
+            
+            if((SOC.filterObject.searchText==(NSString*)[NSNull null])||([SOC.filterObject.searchText isEqualToString:@""]||SOC.filterObject.searchText==nil)||([SOC.filterObject.searchText isEqualToString:@"(null)"])){
+            }
+            else{
+                [self customCancelButtonHit];
+            }
+        }
    
-    if(CGRectContainsPoint(tapLowerPaneRect,startPoint)){
+    else if(CGRectContainsPoint(tapLowerPaneRect,startPoint)){
         
         
         NSLog(@"Tap Detected Inside Lower Pane");

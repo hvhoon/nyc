@@ -184,6 +184,7 @@
 }
 -(void)setUpMapAnnotations{
     int index=0;
+     self.mapView.showsUserLocation=NO;
      [self.mapView removeAnnotations:self.mapView.annotations];
      self.plays=[SoclivitySqliteClass returnAllValidActivities];
      self.mapAnnotations = [[NSMutableArray alloc] initWithCapacity:[self.plays count]];
@@ -214,6 +215,7 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
     
     if(centerLocation){
         centerLocation=FALSE;
+         self.mapView.showsUserLocation=YES;
        [self gotoLocation];
     }
         

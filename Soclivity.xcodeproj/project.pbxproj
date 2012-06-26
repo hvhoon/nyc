@@ -164,6 +164,7 @@
 		EA8B19481593BC94009C9851 /* S4.1_search-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8B19441593BC94009C9851 /* S4.1_search-bar.png */; };
 		EA8B19491593BC94009C9851 /* S4.1_search-background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8B19451593BC94009C9851 /* S4.1_search-background@2x.png */; };
 		EA8B194A1593BC94009C9851 /* S4.1_search-background.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8B19461593BC94009C9851 /* S4.1_search-background.png */; };
+		EA8D608D15998B19000A099C /* CustomSearchbar.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8D608C15998B19000A099C /* CustomSearchbar.m */; };
 		EA8F65AB1574CF2F00EFAE8A /* EventsMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F65AA1574CF2F00EFAE8A /* EventsMapView.m */; };
 		EA8F65AD1574D4CB00EFAE8A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8F65AC1574D4CA00EFAE8A /* MapKit.framework */; };
 		EA8F65B31574D76E00EFAE8A /* SocAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F65B21574D76E00EFAE8A /* SocAnnotation.m */; };
@@ -661,6 +662,8 @@
 		EA8B19441593BC94009C9851 /* S4.1_search-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S4.1_search-bar.png"; sourceTree = "<group>"; };
 		EA8B19451593BC94009C9851 /* S4.1_search-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S4.1_search-background@2x.png"; sourceTree = "<group>"; };
 		EA8B19461593BC94009C9851 /* S4.1_search-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S4.1_search-background.png"; sourceTree = "<group>"; };
+		EA8D608B15998B19000A099C /* CustomSearchbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSearchbar.h; sourceTree = "<group>"; };
+		EA8D608C15998B19000A099C /* CustomSearchbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSearchbar.m; sourceTree = "<group>"; };
 		EA8F65A91574CF2F00EFAE8A /* EventsMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsMapView.h; sourceTree = "<group>"; };
 		EA8F65AA1574CF2F00EFAE8A /* EventsMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsMapView.m; sourceTree = "<group>"; };
 		EA8F65AC1574D4CA00EFAE8A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -1414,6 +1417,8 @@
 				EA893AA615887DFD003FD793 /* CalendarDateView.m */,
 				EA9058971589A88900E78B54 /* FilterPreferenceClass.h */,
 				EA9058981589A88900E78B54 /* FilterPreferenceClass.m */,
+				EA8D608B15998B19000A099C /* CustomSearchbar.h */,
+				EA8D608C15998B19000A099C /* CustomSearchbar.m */,
 			);
 			name = "PullDown Filter Pane";
 			sourceTree = "<group>";
@@ -2521,6 +2526,7 @@
 				EA832475159477F30063B786 /* KalView.m in Sources */,
 				EA832477159477F30063B786 /* NSDateAdditions.m in Sources */,
 				EA832478159477F30063B786 /* UIViewAdditions.m in Sources */,
+				EA8D608D15998B19000A099C /* CustomSearchbar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
