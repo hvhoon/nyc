@@ -285,8 +285,6 @@
     NSString *timeStamp=[[NSUserDefaults standardUserDefaults] valueForKey:@"SOCLastTimeUpdate"];
     lastUpdateLabel.text=[SoclivityUtilities lastUpdate:timeStamp];
     
-
-    
     topDivider=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_sectionDivider.png"]];
     topDivider.frame=CGRectMake(0, REFRESH_HEADER_HEIGHT-1, 320, 1);
 
