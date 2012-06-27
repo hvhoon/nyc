@@ -17,6 +17,7 @@
 #import "SoclivitySqliteClass.h"
 #import "LocationCustomManager.h"
 #import "FilterPreferenceClass.h"
+
 @implementation HomeViewController
 @synthesize delegate,socEventMapView,activityTableView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -75,8 +76,6 @@
     pullDownView.handleView.frame = CGRectMake(5, 402, 58, 58);
     pullDownView.delegate = self;
     
-    
-    
     overLayView=[[UIView alloc]initWithFrame:CGRectMake(0, 360, 320, 100)];
     overLayView.backgroundColor=[UIColor clearColor];
     [self.view addSubview:overLayView];
@@ -117,7 +116,9 @@
     [activityTableView setHidden:NO];
     [socEventMapView setHidden:YES];
     [activityTableView LoadTable];
-    listFlipBtn.hidden=NO;
+
+    listFlipBtn.hidden=YES;
+    mapflipBtn.hidden=NO;
     sortDistanceBtn.hidden=NO;
     sortDOSBtn.hidden=NO;
     sortByTimeBtn.hidden=NO;
@@ -216,8 +217,8 @@
               {
               } 
                              completion:^(BOOL finished){
-                                 listFlipBtn.hidden=YES;
-                                 mapflipBtn.hidden=NO;
+                                 listFlipBtn.hidden=NO;
+                                 mapflipBtn.hidden=YES;
                                  refreshBtn.hidden=NO;
                                  currentLocationBtn.hidden=NO;
                                  sortDistanceBtn.hidden=YES;
@@ -243,8 +244,8 @@
                   {
                   } 
                                  completion:^(BOOL finished){
-                                     listFlipBtn.hidden=NO;
-                                     mapflipBtn.hidden=YES;
+                                     listFlipBtn.hidden=YES;
+                                     mapflipBtn.hidden=NO;
                                      sortDistanceBtn.hidden=NO;
                                      sortDOSBtn.hidden=NO;
                                      sortByTimeBtn.hidden=NO;
@@ -289,8 +290,8 @@
     [UIView setAnimationDuration:1.0];
     [UIView setAnimationDelegate:self];
     
-    listFlipBtn.hidden=YES;
-    mapflipBtn.hidden=NO;
+    listFlipBtn.hidden=NO;
+    mapflipBtn.hidden=YES;
     refreshBtn.hidden=NO;
     currentLocationBtn.hidden=NO;
 
@@ -323,8 +324,8 @@
         [UIView setAnimationDuration:1.0];
         [UIView setAnimationDelegate:self];
         
-        listFlipBtn.hidden=NO;
-        mapflipBtn.hidden=YES;
+        listFlipBtn.hidden=YES;
+        mapflipBtn.hidden=NO;
         refreshBtn.hidden=YES;
         currentLocationBtn.hidden=YES;
 
@@ -443,7 +444,7 @@
 #pragma mark Refresh Btn Tapped
 
 -(IBAction)RefreshButtonTapped:(id)sender{
-   [self getUpdatedLocationWithActivities];
+    [self getUpdatedLocationWithActivities];
 }
 
 -(void)currentGeoUpdate{
@@ -566,4 +567,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)dealloc {
+    [super dealloc];
+}
 @end

@@ -14,6 +14,8 @@
 #import "LocationCustomManager.h"
 @class MainServiceManager;
 @class SoclivityManager;
+@class MBProgressHUD;
+
 @protocol HomeScreenDelegate <NSObject>
 
 @optional

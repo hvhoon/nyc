@@ -80,7 +80,7 @@
         [self addSubview:activityTypeImageView];
         
         // Activity name
-        CGRect activityLabelFrame = CGRectMake(45,20,210,20);
+        CGRect activityLabelFrame = CGRectMake(45,20-2,210,22);
         activitytitleLabel = [[UILabel alloc] initWithFrame:activityLabelFrame];
         activitytitleLabel.text = detailSectionInfo.activityName;
         activitytitleLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:20];
@@ -89,7 +89,7 @@
         [self addSubview:activitytitleLabel];
         
         // Organizer name
-        CGRect organizerLabelRect=CGRectMake(45,45,210,15);
+        CGRect organizerLabelRect=CGRectMake(45,45-1,210,16);
         UILabel *oglabel=[[UILabel alloc] initWithFrame:organizerLabelRect];
         oglabel.textAlignment=UITextAlignmentLeft;
         oglabel.text=detailSectionInfo.organizerName;
@@ -106,12 +106,12 @@
         // Use the appropriate degree of seperation icon
         if(detailSectionInfo.DOS==1) {
             UIImageView *DOSImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_dos1.png"]];
-            DOSImgView.frame=CGRectMake(55+size.width-3, 46, 21, 12);
+            DOSImgView.frame=CGRectMake(55+size.width-3, 45, 21, 12);
             [self addSubview:DOSImgView];
         }
         else if(detailSectionInfo.DOS==2) {
             UIImageView *DOSImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_dos2.png"]];
-            DOSImgView.frame=CGRectMake(55+size.width-3, 46, 21, 12);
+            DOSImgView.frame=CGRectMake(55+size.width-3, 45, 21, 12);
             [self addSubview:DOSImgView];
         }
         
@@ -131,7 +131,12 @@
         CGRect countLabelRect=CGRectMake(15,72,180,15);
         UILabel *label=[[UILabel alloc] initWithFrame:countLabelRect];
         label.textAlignment=UITextAlignmentLeft;
-        label.text=[NSString stringWithFormat:@"%@ People going",detailSectionInfo.goingCount];
+        
+        // Add plural logic here
+        if ([detailSectionInfo.goingCount isEqualToString:@"1"])
+            label.text=[NSString stringWithFormat:@"%@ person going",detailSectionInfo.goingCount];
+        else
+            label.text=[NSString stringWithFormat:@"%@ people going",detailSectionInfo.goingCount];
         label.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
         label.textColor=[SoclivityUtilities returnTextFontColor:1];
         label.backgroundColor=[UIColor clearColor];
@@ -158,10 +163,15 @@
                 
             case kSortByDegree:
             {
-                CGRect goingLabelRect=CGRectMake(155,72,143,15);
+                CGRect goingLabelRect=CGRectMake(160,72,143,15);
                 UILabel *goingLabel=[[UILabel alloc] initWithFrame:goingLabelRect];
                 goingLabel.textAlignment=UITextAlignmentRight;
-                goingLabel.text=[NSString stringWithFormat:@"%d of friends going",detailSectionInfo.DOS1];
+                
+                // Add plural logic here
+                if(detailSectionInfo.DOS1==1)
+                    goingLabel.text=[NSString stringWithFormat:@"%d friend going",detailSectionInfo.DOS1];
+                else
+                    goingLabel.text=[NSString stringWithFormat:@"%d friends going",detailSectionInfo.DOS1];
                 goingLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
                 goingLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
                 goingLabel.backgroundColor=[UIColor clearColor];

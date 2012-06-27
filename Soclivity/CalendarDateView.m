@@ -104,31 +104,22 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     NSLog(@"didSelectDate =%@",[date NSDate]);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd"];
-    NSString *dayInMonthStr = [dateFormatter stringFromDate:[date NSDate]];
-    int dayInMonth = [dayInMonthStr intValue];
-    
-    NSLog(@"Today is the %i. day of the month", dayInMonth);
-    [dateFormatter setDateFormat:@"EEEE"];
+     
+    [dateFormatter setDateFormat:@"EEE, MMM d"];
     NSString *formattedDateString = [dateFormatter stringFromDate:[date NSDate]];
-     NSLog(@"Today is the %@ day", formattedDateString);
-    
-     [dateFormatter setDateFormat:@"MMMM"];
-     formattedDateString = [dateFormatter stringFromDate:[date NSDate]];
-     NSLog(@"Today is the %@ month", formattedDateString);
 
-      [dateFormatter release];
-      self.selectedDate = [date NSDate];
-      NSDate *fromDate = [[date NSDate] cc_dateByMovingToBeginningOfDay];
-      NSDate *toDate = [[date NSDate] cc_dateByMovingToEndOfDay];
-      SOC.filterObject.startPickDateTime=fromDate;
-      SOC.filterObject.endPickDateTime=toDate;
-      SOC.filterObject.pickADateString=[NSString stringWithFormat:@"%@ %d",formattedDateString,dayInMonth];
+    [dateFormatter release];
+    self.selectedDate = [date NSDate];
+    NSDate *fromDate = [[date NSDate] cc_dateByMovingToBeginningOfDay];
+    NSDate *toDate = [[date NSDate] cc_dateByMovingToEndOfDay];
+    SOC.filterObject.startPickDateTime=fromDate;
+    SOC.filterObject.endPickDateTime=toDate;
+    SOC.filterObject.pickADateString=[NSString stringWithFormat:@"%@",formattedDateString];
 
-      [self clearTable];
-      [dataSource loadItemsFromDate:fromDate toDate:toDate];
-      [tableView reloadData];
-      [tableView flashScrollIndicators];
+    [self clearTable];
+    [dataSource loadItemsFromDate:fromDate toDate:toDate];
+    [tableView reloadData];
+    [tableView flashScrollIndicators];
 }
 
 
