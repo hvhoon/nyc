@@ -756,6 +756,8 @@
             switch (tracker) {
                 case 0:
                 {
+                   
+                    
                     SOC.filterObject.whenSearchType=1;
                     tracker=0;
                     [(UILabel*)[self viewWithTag:kNextTwoDaysText] setAlpha:1.0f];
@@ -772,6 +774,7 @@
                     
                 case 1:
                 {
+                    
                     tracker=1;
                     SOC.filterObject.whenSearchType=2;
                     [(UILabel*)[self viewWithTag:kNextTwoDaysText] setAlpha:0.3f];
@@ -788,6 +791,12 @@
                     
                 case 2:
                 {
+                     NSString *firstLetter = [SOC.filterObject.lastDateString  substringToIndex:1];
+                     if(![firstLetter isEqualToString:@"P"]){
+                        SOC.filterObject.startPickDateTime=SOC.filterObject.lastStartPickDateTime;
+                        SOC.filterObject.endPickDateTime=SOC.filterObject.lastEndPickDateTime;
+                        
+                    }
                     [(UILabel*)[self viewWithTag:kPickADayText] setText:SOC.filterObject.lastDateString];
                     
                 }
@@ -803,6 +812,8 @@
         case kTickDateSelection:
         {
              SOC.filterObject.lastDateString=SOC.filterObject.pickADateString;
+            SOC.filterObject.lastStartPickDateTime=SOC.filterObject.startPickDateTime;
+            SOC.filterObject.lastEndPickDateTime=SOC.filterObject.endPickDateTime;
              [(UILabel*)[self viewWithTag:kPickADayText] setText:SOC.filterObject.pickADateString];
         }
             break;
@@ -869,6 +880,7 @@
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar{
     
      self.homeSearchBar.text=@"";
+     SOC.filterObject.searchText=self.homeSearchBar.text;
      self.homeSearchBar.showsCancelButton = NO;
      
      [self.homeSearchBar resignFirstResponder];

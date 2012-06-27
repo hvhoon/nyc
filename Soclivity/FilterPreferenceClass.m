@@ -9,7 +9,7 @@
 #import "FilterPreferenceClass.h"
 
 @implementation FilterPreferenceClass
-@synthesize playAct,eatAct,seeAct,createAct,learnAct,whenSearchType,startTime_48,finishTime_48,morning,afternoon,evening,startPickDateTime,endPickDateTime,searchText,dateString,pickADateString,lastDateString;
+@synthesize playAct,eatAct,seeAct,createAct,learnAct,whenSearchType,startTime_48,finishTime_48,morning,afternoon,evening,startPickDateTime,endPickDateTime,searchText,dateString,pickADateString,lastDateString,lastStartPickDateTime,lastEndPickDateTime;
 
 
 -(void)dealloc{
@@ -20,5 +20,7 @@
     [dateString release];
     [pickADateString release];
     [lastDateString release];
+    [lastStartPickDateTime release];
+    [lastEndPickDateTime release];
 }
 @end

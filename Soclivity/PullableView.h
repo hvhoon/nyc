@@ -112,4 +112,5 @@
 -(void)showHideCross:(BOOL)op;
 - (void)slideOutFilterPane;
 - (void)bringInFilterPane;
+
 @end

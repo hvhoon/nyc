@@ -22,4 +22,5 @@
 }
 @property (nonatomic, retain) CustomSearchbar *homeSearchBar;
 - (void)sliderValueChanged:(FCRangeSlider *)sender;
+-(void)customCancelButtonHit;
 @end

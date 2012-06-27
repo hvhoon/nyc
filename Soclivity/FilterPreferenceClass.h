@@ -26,6 +26,9 @@
     NSString *dateString;
     NSString *pickADateString;
     NSString *lastDateString;
+    NSDate *lastStartPickDateTime;
+    NSDate *lastEndPickDateTime;
+
     
 }
 @property (nonatomic,assign)BOOL playAct;
@@ -45,4 +48,6 @@
 @property (nonatomic,retain)NSString *dateString;
 @property (nonatomic,retain)NSString *pickADateString;
 @property (nonatomic,retain)NSString *lastDateString;
+@property (nonatomic,retain)NSDate *lastStartPickDateTime;
+@property (nonatomic,retain)NSDate *lastEndPickDateTime;
 @end

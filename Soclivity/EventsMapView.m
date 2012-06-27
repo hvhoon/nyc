@@ -220,7 +220,7 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
        [self gotoLocation];
     }
     else{
-        self.mapView.showsUserLocation=NO;
+        //self.mapView.showsUserLocation=NO;
     }
         
 }

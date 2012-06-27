@@ -177,6 +177,9 @@
             SOC.AllowTapAndDrag=TRUE;
             [(UILabel*)[self viewWithTag:38] setText:SOC.filterObject.pickADateString];
             SOC.filterObject.lastDateString=SOC.filterObject.pickADateString;
+            SOC.filterObject.lastStartPickDateTime=SOC.filterObject.startPickDateTime;
+            SOC.filterObject.lastEndPickDateTime=SOC.filterObject.endPickDateTime;
+
         }
         
         
@@ -330,6 +333,7 @@
         }
         else{
             [(UILabel*)[self viewWithTag:38] setText:SOC.filterObject.pickADateString];
+            
             NSLog(@"Not Allow To Close Pane");
 
         }

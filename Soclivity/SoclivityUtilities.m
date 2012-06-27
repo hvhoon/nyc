@@ -199,7 +199,8 @@ if(timer%2==0){
             
         }
             break;
-        default: {
+        default:
+        {
             NSLog(@"later");
             NSString*timeUpdate=[NSString stringWithFormat:@"Last update: %@",activityTime];
             [result appendFormat:timeUpdate];
