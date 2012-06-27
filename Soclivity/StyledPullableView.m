@@ -811,7 +811,7 @@
             
         case kTickDateSelection:
         {
-             SOC.filterObject.lastDateString=SOC.filterObject.pickADateString;
+            SOC.filterObject.lastDateString=SOC.filterObject.pickADateString;
             SOC.filterObject.lastStartPickDateTime=SOC.filterObject.startPickDateTime;
             SOC.filterObject.lastEndPickDateTime=SOC.filterObject.endPickDateTime;
              [(UILabel*)[self viewWithTag:kPickADayText] setText:SOC.filterObject.pickADateString];
