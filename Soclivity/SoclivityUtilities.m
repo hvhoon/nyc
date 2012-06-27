@@ -160,7 +160,7 @@ if(timer%2==0){
             NSLog(@"Yesterday");
             dateFormatter.dateFormat=@"h:mm a";
             
-            NSString*timeUpdate=[NSString stringWithFormat:@"Last update: Yesterday, %@",[dateFormatter stringFromDate:destinationDate]];
+            NSString*timeUpdate=[NSString stringWithFormat:@"Updated yesterday at %@",[dateFormatter stringFromDate:destinationDate]];
             [result appendFormat:timeUpdate];
 
         }
@@ -170,24 +170,30 @@ if(timer%2==0){
             NSLog(@"Today");
             
             if(hours && checkTime){
-                [result appendFormat: @"Last update: %d hrs ago", hours];
-                checkTime=FALSE;
+                if(hours==1) {
+                    [result appendFormat: @"Updated %ld hr ago", hours];
+                    checkTime=FALSE;
+                }
+                else {
+                    [result appendFormat: @"Updated %ld hrs ago", hours];
+                    checkTime=FALSE;
+                }
             }
             
             if(minutes && checkTime){
                 
                 if(minutes ==1){
-                    [result appendFormat: @"Last update: %d min ago", minutes];
+                    [result appendFormat: @"Updated %ld min ago", minutes];
                     checkTime=FALSE;
                 }
                 else {
-                    [result appendFormat: @"Last update: %d mins ago", minutes];
+                    [result appendFormat: @"Updated %ld mins ago", minutes];
                     checkTime=FALSE;
                 }
                 
             }
             if(seconds && checkTime){
-                     [result appendFormat: @"Last update: a few moments ago"];
+                     [result appendFormat: @"Updated a few moments ago"];
                      checkTime=FALSE;
             }
             
