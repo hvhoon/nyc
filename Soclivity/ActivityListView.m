@@ -430,9 +430,9 @@
         NSNumber *s1=[NSNumber numberWithInt:a.DOS1];
         NSNumber *s2=[NSNumber numberWithInt:b.DOS1];
         
-        if (s1<s2)
+        if ([s1 intValue]<[s2 intValue])
             return NSOrderedDescending ;
-        else if (s1>s2)
+        else if ([s1 intValue]>[s2 intValue])
             return NSOrderedAscending;
         
         return NSOrderedSame;
