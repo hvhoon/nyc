@@ -620,7 +620,7 @@ if(timer%2==0){
     
     
     NSDate *activityDate = [dateFormatter dateFromString:formatStringGMTObj];
-    NSString *startFilterDateString = [dateFormatter stringFromDate:startFilterDate];
+    NSString *startFilterDateString =[NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:startFilterDate]];
     NSDate *startFilterDateFormatted=[dateFormatter dateFromString:startFilterDateString];	
     
     NSString *finishFilterDateString = [dateFormatter stringFromDate:finishFilterDate];

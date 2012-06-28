@@ -14,6 +14,7 @@
 @synthesize activityObject;
 - (id)initWithFrame:(CGRect)frame info:(InfoActivityClass*)info
 {
+    
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code

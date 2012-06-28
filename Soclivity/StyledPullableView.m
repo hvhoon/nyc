@@ -265,7 +265,7 @@
         
         
         UIButton *next2DaysButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        next2DaysButton.frame = CGRectMake(12,228,100,40);
+        [next2DaysButton setFrame:CGRectMake(12,228,100,40)];
         next2DaysButton.tag=kNextTwoDays;
         [next2DaysButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [filterPaneView addSubview:next2DaysButton];
@@ -295,7 +295,7 @@
         
         
         UIButton *next7DaysButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        next7DaysButton.frame = CGRectMake(113,228,100,40);
+        [next7DaysButton setFrame:CGRectMake(113,228,100,40)];
         next7DaysButton.tag=kNextSevenDays;
         [next7DaysButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [filterPaneView addSubview:next7DaysButton];
@@ -441,7 +441,7 @@
         [timeVerticalDividerImageView2 release];
         
         UIButton *eveningButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        eveningButton.frame =CGRectMake(214,320,100,55);
+        [eveningButton setFrame:CGRectMake(214,320,100,55)];
         eveningButton.tag=kEveningButton;
         [eveningButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [filterPaneView addSubview:eveningButton];
