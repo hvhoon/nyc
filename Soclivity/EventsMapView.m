@@ -186,7 +186,6 @@
 -(void)setUpMapAnnotations{
     int index=0;
      
-     //[self.mapView removeAnnotations:self.mapView.annotations];
     
     for (id annotation in self.mapView.annotations) {
         NSLog(@"annotation %@", annotation);
