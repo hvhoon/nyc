@@ -896,8 +896,8 @@
     
     self.homeSearchBar.text=@"";
     SOC.filterObject.searchText=self.homeSearchBar.text;
-    self.homeSearchBar.showsCancelButton = NO;
     self.homeSearchBar.showClearButton=NO;
+    [homeSearchBar setShowsCancelButton:NO animated:YES];
     [self.homeSearchBar resignFirstResponder];
 }
 
