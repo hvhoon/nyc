@@ -835,7 +835,7 @@
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
 	
-    self.homeSearchBar.showsCancelButton = YES;
+    [searchBar setShowsCancelButton:YES animated:YES];
 #if 0   
     
     for (UIView *subview in [self.homeSearchBar subviews]) {
@@ -865,23 +865,24 @@
 
     
     if([self.homeSearchBar.text isEqualToString:@""]){
-        self.homeSearchBar.showsCancelButton = NO;
+        
+        [searchBar setShowsCancelButton:NO animated:YES];
         self.homeSearchBar.showClearButton=NO;
         
     }
     else{
-        self.homeSearchBar.showsCancelButton = NO;
-        self.homeSearchBar.showClearButton=YES;
+        [searchBar setShowsCancelButton:NO animated:NO];
+         self.homeSearchBar.showClearButton=YES;
         
     }
-    self.homeSearchBar.showsCancelButton = YES;
+    [searchBar setShowsCancelButton:YES animated:NO];
 
 }
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar{
     
      self.homeSearchBar.text=@"";
      SOC.filterObject.searchText=self.homeSearchBar.text;
-     self.homeSearchBar.showsCancelButton = NO;
+    [searchBar setShowsCancelButton:NO animated:YES];
      
      [self.homeSearchBar resignFirstResponder];
 }
@@ -889,7 +890,7 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
      
      [self.homeSearchBar resignFirstResponder];
-     self.homeSearchBar.showsCancelButton = YES;
+    [searchBar setShowsCancelButton:YES animated:YES];
 }
 -(void)customCancelButtonHit{
     
