@@ -186,7 +186,18 @@
 -(void)setUpMapAnnotations{
     int index=0;
      
-     [self.mapView removeAnnotations:self.mapView.annotations];
+     //[self.mapView removeAnnotations:self.mapView.annotations];
+    
+    for (id annotation in self.mapView.annotations) {
+        NSLog(@"annotation %@", annotation);
+        
+        if (![annotation isKindOfClass:[MKUserLocation class]]){
+            NSLog(@"remove annotation");
+            [self.mapView removeAnnotation:annotation];
+        }
+    }
+       
+
      self.plays=[SoclivitySqliteClass returnAllValidActivities];
      self.mapAnnotations = [[NSMutableArray alloc] initWithCapacity:[self.plays count]];
     for (InfoActivityClass *play in self.plays){
@@ -237,7 +248,6 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
 }
 
 -(void)doFilteringByActivities{
-    [self.mapView removeAnnotations:self.mapView.annotations];  // remove any annotations that exist
     [self setUpMapAnnotations];
 
 }
