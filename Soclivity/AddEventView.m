@@ -37,7 +37,7 @@
             case 2:
             {
                 activityBarImgView.image=[UIImage imageNamed:@"S5_yellow-bar.png"];
-                activityBarTextImgView.image=[UIImage imageNamed:@"S5_play.png"];
+                activityBarTextImgView.image=[UIImage imageNamed:@"S5_eat.png"];
                 backgroundBoxImgView.image=[UIImage imageNamed:@"S5_yellow-box.png"];
                 
                 
@@ -46,7 +46,7 @@
             case 3:
             {
                 activityBarImgView.image=[UIImage imageNamed:@"S5_purple-bar.png"];
-                activityBarTextImgView.image=[UIImage imageNamed:@"S5_play.png"];
+                activityBarTextImgView.image=[UIImage imageNamed:@"S5_see.png"];
                 backgroundBoxImgView.image=[UIImage imageNamed:@"S5_purple-box.png"];
                 
                 
@@ -55,7 +55,7 @@
             case 4:
             {
                 activityBarImgView.image=[UIImage imageNamed:@"S5_red-bar.png"];
-                activityBarTextImgView.image=[UIImage imageNamed:@"S5_play.png"];
+                activityBarTextImgView.image=[UIImage imageNamed:@"S5_create.png"];
                 backgroundBoxImgView.image=[UIImage imageNamed:@"S5_red-box.png"];
                 
                 
@@ -64,7 +64,7 @@
             case 5:
             {
                 activityBarImgView.image=[UIImage imageNamed:@"S5_aqua-marine-bar.png"];
-                activityBarTextImgView.image=[UIImage imageNamed:@"S5_play.png"];
+                activityBarTextImgView.image=[UIImage imageNamed:@"S5_learn.png"];
                 backgroundBoxImgView.image=[UIImage imageNamed:@"S5_aqua-marine-box.png"];
             }
                 break;
@@ -106,7 +106,7 @@
 
 
 		whatDescTextView.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
-		whatDescTextView.text=[NSString stringWithFormat:@"%@",@"cghchgc ffhvf nbtyfhv nbfhvnvn jvn vn jkvn jhkvn jkhvbn kuvbn hvh njh n hjvnvhkjvbnvfhvnvhfhvbvhvh"];
+		whatDescTextView.text=[NSString stringWithFormat:@"%@",@"cghchgc ffhvf nbtyfhv nbfhvnvn jvn vn jkvn jhkvn jkhvbn kuvbn hvh njh n hjvnvhkjvbnv fhvnvhfhvbvhvh"];
 		whatDescTextView.editable=NO;
 		whatDescTextView.scrollEnabled=NO;
 		whatDescTextView.textAlignment=UITextAlignmentLeft;
@@ -160,7 +160,7 @@
         if(size.width+105>310){
             size.width=size.width-310;
         }
-        whereAddressActivityLabel.frame=CGRectMake(105, 210, size.width, size.height);
+        whereAddressActivityLabel.frame=CGRectMake(91, 210, size.width, size.height);
 
         
         
