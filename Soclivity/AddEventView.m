@@ -145,22 +145,20 @@
         NSLog(@"%@", dateString);
         
         
-        whenActivityButton.tintColor=[SoclivityUtilities returnTextFontColor:1];
-        whenActivityButton.titleLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
-        whenActivityButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
-
-        [whenActivityButton setTitle:dateString forState:UIControlStateNormal];
+        whenActivityLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
+        whenActivityLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+        whenActivityLabel.text=dateString;
         
         
-        whereAddressActivityButton.titleLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
-        whereAddressActivityButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
-        [whereAddressActivityButton setTitle:info.where_address forState:UIControlStateNormal];
+        whereAddressActivityLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
+        whereAddressActivityLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+        whereAddressActivityLabel.text=info.where_address;
         size = [info.where_address sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14]];
 		NSLog(@"width=%f",size.width);
         if(size.width+105>310){
             size.width=size.width-310;
         }
-        whereAddressActivityButton.frame=CGRectMake(105, 199, size.width, size.height);
+        whereAddressActivityLabel.frame=CGRectMake(105, 199, size.width, size.height);
 
         
         
@@ -207,6 +205,22 @@
 -(IBAction)OneDOSFriendListSelect:(id)sender{
     
 }
+#if 0
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch *touch =[touches anyObject]; 
+    CGPoint startPoint =[touch locationInView:self];
+    NSLog(@"Start Point_X=%f,Start Point_Y=%f",startPoint.x,startPoint.y);
+        CGRect tapLowerPaneRect =CGRectMake(70, 402, 320, 58);
+        CGRect tapClearSearchRect =CGRectMake(270, 44, 57, 30);
+        
+        
+        
+        if(CGRectContainsPoint(tapClearSearchRect,startPoint)){
+            
+        }
+    }
+    
+#endif
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

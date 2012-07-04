@@ -31,8 +31,8 @@
     IBOutlet UIImageView *DOSConnectionImgView;
     IBOutlet UIImageView *backgroundBoxImgView;
     id <AddEventViewDelegate>delegate;
-    IBOutlet UIButton *whenActivityButton;
-    IBOutlet UIButton *whereAddressActivityButton;
+    IBOutlet UILabel *whenActivityLabel;
+    IBOutlet UILabel *whereAddressActivityLabel;
     IBOutlet UIImageView *profileImgView;
 
 }
