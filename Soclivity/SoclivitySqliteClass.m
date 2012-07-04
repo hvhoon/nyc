@@ -173,6 +173,7 @@ static sqlite3 *database = nil;
 		if(where_addressChars != NULL)
 		{
 			quotation.location = [NSString stringWithUTF8String: where_addressChars];
+            play.where_address = [NSString stringWithUTF8String: where_addressChars];
 		}
 		
 		const char *accessChars = (const char *)sqlite3_column_text(SOCTableActivityGetStmt,6);

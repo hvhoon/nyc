@@ -199,7 +199,7 @@
 
      self.plays=[SoclivitySqliteClass returnAllValidActivities];
      self.mapAnnotations = [[NSMutableArray alloc] initWithCapacity:[self.plays count]];
-    for (InfoActivityClass *play in self.plays){
+     for (InfoActivityClass *play in self.plays){
         
 if([SoclivityUtilities ValidActivityDate:play.when]){
     if([SoclivityUtilities validFilterActivity:play.type]){

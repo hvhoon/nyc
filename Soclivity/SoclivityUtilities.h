@@ -26,4 +26,6 @@
 +(BOOL)ValidActivityDate:(NSString*)activityDate;
 +(BOOL)DoTheSearchFiltering:(NSString*)activityInfo organizer:(NSString*) organizerName;
 +(NSString*)lastUpdate:(NSString*)time;
++(UIImage*) compressImage:(UIImage *)image size:(CGSize)size;
++(UIImage*) autoCrop:(UIImage*)image;
 @end

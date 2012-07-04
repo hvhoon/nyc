@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@class EventDetailView;
+#import "AddEventView.h"
 @class InfoActivityClass;
-@interface ActivityEventViewController : UIViewController{
+@interface ActivityEventViewController : UIViewController<AddEventViewDelegate>{
     
-    EventDetailView *eventView;
+    AddEventView *eventView;
     InfoActivityClass *activityInfo;
 }
 @property (nonatomic,retain)InfoActivityClass *activityInfo;
