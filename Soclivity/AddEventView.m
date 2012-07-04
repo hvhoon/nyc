@@ -106,7 +106,7 @@
 
 
 		whatDescTextView.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
-		whatDescTextView.text=[NSString stringWithFormat:@"%@",info.what];
+		whatDescTextView.text=[NSString stringWithFormat:@"%@",@"cghchgc ffhvf nbtyfhv nbfhvnvn jvn vn jkvn jhkvn jkhvbn kuvbn hvh njh n hjvnvhkjvbnvfhvnvhfhvbvhvh"];
 		whatDescTextView.editable=NO;
 		whatDescTextView.scrollEnabled=NO;
 		whatDescTextView.textAlignment=UITextAlignmentLeft;
@@ -114,6 +114,8 @@
 		whatDescTextView.textColor=[SoclivityUtilities returnTextFontColor:1];
 		whatDescTextView.backgroundColor=[UIColor clearColor];
 		whatDescTextView.autocorrectionType=UITextAutocorrectionTypeNo;
+        [whatDescTextView sizeToFit];
+        whatDescTextView.contentInset = UIEdgeInsetsMake(-12.0,0.0,0,0.0);
         
         
         
@@ -158,7 +160,7 @@
         if(size.width+105>310){
             size.width=size.width-310;
         }
-        whereAddressActivityLabel.frame=CGRectMake(105, 199, size.width, size.height);
+        whereAddressActivityLabel.frame=CGRectMake(105, 210, size.width, size.height);
 
         
         
