@@ -34,6 +34,11 @@
     IBOutlet UILabel *whenActivityLabel;
     IBOutlet UILabel *whereAddressActivityLabel;
     IBOutlet UIImageView *profileImgView;
+    IBOutlet UIButton *locationButton;
+    IBOutlet UIButton *chatButton;
+    IBOutlet UIButton *DOS2_ArrowButton;
+    IBOutlet UIButton *leaveActivityButton;
+    IBOutlet UIImageView *bottomBarImageView;
 
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;
@@ -42,4 +47,7 @@
 -(IBAction)backButtonPressed:(id)sender;
 -(IBAction)addEventActivityPressed:(id)sender;
 -(IBAction)OneDOSFriendListSelect:(id)sender;
+-(IBAction)SecondDOSFriendListSelect:(id)sender;
+-(IBAction)leaveEventActivityPressed:(id)sender;
+-(IBAction)mapSelect:(id)sender;
 @end

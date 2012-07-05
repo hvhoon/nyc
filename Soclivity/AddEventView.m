@@ -23,7 +23,10 @@
         // prevent memory leak
         [self release];
         self = [[nib objectAtIndex:0] retain];
-        
+        locationButton.hidden=YES;
+        chatButton.hidden=YES;
+        DOS2_ArrowButton.hidden=YES;
+        leaveActivityButton.hidden=YES;
         switch (info.type) {
             case 1:
             {
@@ -130,7 +133,7 @@
         NSDate *date = activityDate;
         NSDateFormatter *prefixDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
         [prefixDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-        [prefixDateFormatter setDateFormat:@"h:mm | EEE, MMM d"];
+        [prefixDateFormatter setDateFormat:@"h:mm a | EEE, MMM d"];
         NSString *prefixDateString = [prefixDateFormatter stringFromDate:date];
         NSDateFormatter *monthDayFormatter = [[[NSDateFormatter alloc] init] autorelease];
         [monthDayFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
@@ -202,7 +205,14 @@
 }
 
 -(IBAction)addEventActivityPressed:(id)sender{
-    
+ 
+    locationButton.hidden=NO;
+    chatButton.hidden=NO;
+    DOS2_ArrowButton.hidden=NO;
+    leaveActivityButton.hidden=NO;
+    addEventButton.hidden=YES;
+    bottomBarImageView.hidden=YES;
+
 }
 -(IBAction)OneDOSFriendListSelect:(id)sender{
     
@@ -223,6 +233,23 @@
     }
     
 #endif
+
+-(IBAction)SecondDOSFriendListSelect:(id)sender{
+    
+}
+-(IBAction)leaveEventActivityPressed:(id)sender{
+    locationButton.hidden=YES;
+    chatButton.hidden=YES;
+    DOS2_ArrowButton.hidden=YES;
+    leaveActivityButton.hidden=YES;
+    addEventButton.hidden=NO;
+    bottomBarImageView.hidden=NO;
+
+}
+-(IBAction)mapSelect:(id)sender{
+    
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

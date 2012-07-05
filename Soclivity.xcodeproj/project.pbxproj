@@ -221,6 +221,10 @@
 		EA91C33B155A749400BE5BB1 /* GetPlayersDetailInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C33A155A749400BE5BB1 /* GetPlayersDetailInvocation.m */; };
 		EA91C348155A834000BE5BB1 /* ParseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C347155A833500BE5BB1 /* ParseOperation.m */; };
 		EA91C34B155A899900BE5BB1 /* GetPlayersClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EA91C34A155A899800BE5BB1 /* GetPlayersClass.m */; };
+		EA92515915A5931700C15993 /* S5_location-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA92515515A5931600C15993 /* S5_location-icon@2x.png */; };
+		EA92515A15A5931700C15993 /* S5_location-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EA92515615A5931700C15993 /* S5_location-icon.png */; };
+		EA92515B15A5931700C15993 /* S5_chat-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA92515715A5931700C15993 /* S5_chat-icon@2x.png */; };
+		EA92515C15A5931700C15993 /* S5_chat-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EA92515815A5931700C15993 /* S5_chat-icon.png */; };
 		EA92976815A3739200C99725 /* AddEventView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA92976715A3739200C99725 /* AddEventView.m */; };
 		EA92976A15A373E900C99725 /* AddEventView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA92976915A373E900C99725 /* AddEventView.xib */; };
 		EA9297B515A3748D00C99725 /* S5_add-event.png in Resources */ = {isa = PBXBuildFile; fileRef = EA92976C15A3748D00C99725 /* S5_add-event.png */; };
@@ -806,6 +810,10 @@
 		EA91C347155A833500BE5BB1 /* ParseOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseOperation.m; sourceTree = "<group>"; };
 		EA91C349155A899800BE5BB1 /* GetPlayersClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetPlayersClass.h; sourceTree = "<group>"; };
 		EA91C34A155A899800BE5BB1 /* GetPlayersClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetPlayersClass.m; sourceTree = "<group>"; };
+		EA92515515A5931600C15993 /* S5_location-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S5_location-icon@2x.png"; sourceTree = "<group>"; };
+		EA92515615A5931700C15993 /* S5_location-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S5_location-icon.png"; sourceTree = "<group>"; };
+		EA92515715A5931700C15993 /* S5_chat-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S5_chat-icon@2x.png"; sourceTree = "<group>"; };
+		EA92515815A5931700C15993 /* S5_chat-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S5_chat-icon.png"; sourceTree = "<group>"; };
 		EA92976615A3739200C99725 /* AddEventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddEventView.h; sourceTree = "<group>"; };
 		EA92976715A3739200C99725 /* AddEventView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddEventView.m; sourceTree = "<group>"; };
 		EA92976915A373E900C99725 /* AddEventView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddEventView.xib; sourceTree = "<group>"; };
@@ -1741,6 +1749,10 @@
 		EA92976B15A3748D00C99725 /* S05_Activity_3 */ = {
 			isa = PBXGroup;
 			children = (
+				EA92515515A5931600C15993 /* S5_location-icon@2x.png */,
+				EA92515615A5931700C15993 /* S5_location-icon.png */,
+				EA92515715A5931700C15993 /* S5_chat-icon@2x.png */,
+				EA92515815A5931700C15993 /* S5_chat-icon.png */,
 				EA8531CD15A4B45500AE1239 /* S5_divide-border-line@2x.png */,
 				EA8531CE15A4B45500AE1239 /* S5_divide-border-line.png */,
 				EA8531CF15A4B45500AE1239 /* S5_see@2x.png */,
@@ -2641,6 +2653,10 @@
 				EA8531E415A4B45500AE1239 /* S5_white-background.png in Resources */,
 				EA8531E515A4B45500AE1239 /* S5_bottom-bar@2x.png in Resources */,
 				EA8531E615A4B45500AE1239 /* S5_bottom-bar.png in Resources */,
+				EA92515915A5931700C15993 /* S5_location-icon@2x.png in Resources */,
+				EA92515A15A5931700C15993 /* S5_location-icon.png in Resources */,
+				EA92515B15A5931700C15993 /* S5_chat-icon@2x.png in Resources */,
+				EA92515C15A5931700C15993 /* S5_chat-icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
