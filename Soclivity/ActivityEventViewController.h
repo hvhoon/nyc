@@ -11,8 +11,17 @@
 @class InfoActivityClass;
 @interface ActivityEventViewController : UIViewController<AddEventViewDelegate>{
     
-    AddEventView *eventView;
+    IBOutlet AddEventView *eventView;
     InfoActivityClass *activityInfo;
+    IBOutlet UIButton *chatButton;
+    IBOutlet UIButton *addEventButton;
+    IBOutlet UIButton *leaveActivityButton;
+    IBOutlet UIImageView *bottomBarImageView;
+
 }
 @property (nonatomic,retain)InfoActivityClass *activityInfo;
+-(IBAction)backButtonPressed:(id)sender;
+-(IBAction)addEventActivityPressed:(id)sender;
+-(IBAction)leaveEventActivityPressed:(id)sender;
+
 @end

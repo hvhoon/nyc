@@ -26,7 +26,6 @@
     IBOutlet UILabel *peopleYouKnowCountLabel;
     IBOutlet UIButton *DOS1_ArrowButton;
     IBOutlet UILabel *peopleYouMayKnowCountLabel;
-    IBOutlet UIButton *addEventButton;
     IBOutlet UITextView *whatDescTextView;
     IBOutlet UIImageView *DOSConnectionImgView;
     IBOutlet UIImageView *backgroundBoxImgView;
@@ -35,19 +34,17 @@
     IBOutlet UILabel *whereAddressActivityLabel;
     IBOutlet UIImageView *profileImgView;
     IBOutlet UIButton *locationButton;
-    IBOutlet UIButton *chatButton;
     IBOutlet UIButton *DOS2_ArrowButton;
-    IBOutlet UIButton *leaveActivityButton;
     IBOutlet UIImageView *bottomBarImageView;
 
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;
 @property (nonatomic,retain)id <AddEventViewDelegate>delegate;
+@property (nonatomic,retain)IBOutlet UIButton *DOS2_ArrowButton;
+@property (nonatomic,retain)IBOutlet UIButton *locationButton;
 - (id)initWithFrame:(CGRect)frame info:(InfoActivityClass*)info;
--(IBAction)backButtonPressed:(id)sender;
--(IBAction)addEventActivityPressed:(id)sender;
 -(IBAction)OneDOSFriendListSelect:(id)sender;
 -(IBAction)SecondDOSFriendListSelect:(id)sender;
--(IBAction)leaveEventActivityPressed:(id)sender;
 -(IBAction)mapSelect:(id)sender;
+-(void)loadViewWithActivityDetails:(InfoActivityClass*)info;
 @end

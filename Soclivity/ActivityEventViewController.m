@@ -39,25 +39,38 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    leaveActivityButton.hidden=YES;
     [self.navigationController.navigationBar setHidden:YES];
-
-
-    eventView = [[AddEventView alloc]initWithFrame:CGRectMake(0,0,320,460) info:activityInfo];
-    eventView.delegate=self;
-    [self.view addSubview:eventView];
+     [eventView loadViewWithActivityDetails:activityInfo];
 
     // Do any additional setup after loading the view from its nib.
 }
--(void)backArrowPressed:(id)sender{
+-(IBAction)backButtonPressed:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)pushToHomeViewController{
-    [self.navigationController popViewControllerAnimated:YES];
+
+-(IBAction)addEventActivityPressed:(id)sender{
+    
+    chatButton.hidden=NO;
+    leaveActivityButton.hidden=NO;
+    addEventButton.hidden=YES;
+    bottomBarImageView.hidden=YES;
+    eventView.DOS2_ArrowButton.hidden=NO;
+    eventView.locationButton.hidden=NO;
+    
 }
--(void)addEventPressed:(id)sender{
-    NSLog(@"addEventPressed");
+
+-(IBAction)leaveEventActivityPressed:(id)sender{
+    eventView.locationButton.hidden=YES;
+    chatButton.hidden=YES;
+    eventView.DOS2_ArrowButton.hidden=YES;
+    leaveActivityButton.hidden=YES;
+    addEventButton.hidden=NO;
+    bottomBarImageView.hidden=NO;
+    
 }
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];

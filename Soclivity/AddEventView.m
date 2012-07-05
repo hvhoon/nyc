@@ -12,21 +12,12 @@
 #import "DetailInfoActivityClass.h"
 
 @implementation AddEventView
-@synthesize activityObject,delegate;
-- (id)initWithFrame:(CGRect)frame info:(InfoActivityClass*)info
-{
-    
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-        NSArray * nib = [[NSBundle mainBundle] loadNibNamed: @"AddEventView" owner:self options: nil];
-        // prevent memory leak
-        [self release];
-        self = [[nib objectAtIndex:0] retain];
+@synthesize activityObject,delegate,DOS2_ArrowButton,locationButton;
+
+
+-(void)loadViewWithActivityDetails:(InfoActivityClass*)info{
         locationButton.hidden=YES;
-        chatButton.hidden=YES;
         DOS2_ArrowButton.hidden=YES;
-        leaveActivityButton.hidden=YES;
         switch (info.type) {
             case 1:
             {
@@ -80,10 +71,10 @@
         activityTextLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
         CGSize size = [info.activityName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:15]];
 		NSLog(@"width=%f",size.width);
-        activityTextLabel.frame=CGRectMake(50, 50, size.width, size.height);
+        activityTextLabel.frame=CGRectMake(50, 6, size.width, size.height);
         activityTextLabel.text=info.activityName;
         
-        activityBarTextImgView.frame=CGRectMake(50+size.width+5, 56, 26, 9);
+        activityBarTextImgView.frame=CGRectMake(50+size.width+5, 12, 26, 9);
         
         goingCountLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
         goingCountLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
@@ -92,10 +83,10 @@
         activityorganizerTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:11];
         activityorganizerTextLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
         activityorganizerTextLabel.text=[NSString stringWithFormat:@"%@",info.organizerName];
-         size = [info.organizerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:11]];
+        size = [info.organizerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:11]];
 		NSLog(@"width=%f",size.width);
-        activityorganizerTextLabel.frame=CGRectMake(119, 290, size.width, 11);
-        activityCreatedImgView.frame=CGRectMake(119+5+size.width, 290, 75, 9);
+        activityorganizerTextLabel.frame=CGRectMake(119, 246, size.width, 11);
+        activityCreatedImgView.frame=CGRectMake(119+5+size.width, 246, 75, 9);
         
         peopleYouKnowCountLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:13];
         peopleYouKnowCountLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
@@ -104,10 +95,10 @@
         peopleYouMayKnowCountLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:13];
         peopleYouMayKnowCountLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
         peopleYouMayKnowCountLabel.text=[NSString stringWithFormat:@"You may know %d people going",info.DOS2];
-
-
-
-
+        
+        
+        
+        
 		whatDescTextView.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
 		whatDescTextView.text=[NSString stringWithFormat:@"%@",@"cghchgc ffhvf nbtyfhv nbfhvnvn jvn vn jkvn jhkvn jkhvbn kuvbn hvh njh n hjvnvhkjvbnv fhvnvhfhvbvhvh"];
 		whatDescTextView.editable=NO;
@@ -129,7 +120,7 @@
         
         
         NSDate *activityDate = [dateFormatter dateFromString:info.when];
-
+        
         NSDate *date = activityDate;
         NSDateFormatter *prefixDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
         [prefixDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
@@ -163,8 +154,8 @@
         if(size.width+105>310){
             size.width=size.width-310;
         }
-        whereAddressActivityLabel.frame=CGRectMake(91, 210, size.width, size.height);
-
+        whereAddressActivityLabel.frame=CGRectMake(91, 166, size.width, size.height);
+        
         
         
         UIImage *imageProfile=[UIImage imageNamed:@"p1.png"];
@@ -176,10 +167,10 @@
         if(imageProfile.size.height > 80 || imageProfile.size.width > 84)
             profileImgView.image = [SoclivityUtilities compressImage:imageProfile size:CGSizeMake(84,80)];
         
-
-
         
-
+        
+        
+        
         switch (info.DOS){
             case 1:
                 DOSConnectionImgView.image=[UIImage imageNamed:@"S5_DOS-1.png"];
@@ -188,32 +179,28 @@
             case 2:
                 DOSConnectionImgView.image=[UIImage imageNamed:@"S5_DOS-2.png"];
                 break;
-
+                
                 
             default:
                 break;
         }
-
-
-
-       // Initialization code
+        
+        
+        
+        // Initialization code
+    
+}
+- (id)initWithFrame:(CGRect)frame info:(InfoActivityClass*)info
+{
+    
+    self = [super initWithFrame:frame];
+    if (self) {
+        
     }
     return self;
 }
--(IBAction)backButtonPressed:(id)sender{
-    [delegate pushToHomeViewController];
-}
 
--(IBAction)addEventActivityPressed:(id)sender{
- 
-    locationButton.hidden=NO;
-    chatButton.hidden=NO;
-    DOS2_ArrowButton.hidden=NO;
-    leaveActivityButton.hidden=NO;
-    addEventButton.hidden=YES;
-    bottomBarImageView.hidden=YES;
 
-}
 -(IBAction)OneDOSFriendListSelect:(id)sender{
     
 }
@@ -236,15 +223,6 @@
 
 -(IBAction)SecondDOSFriendListSelect:(id)sender{
     
-}
--(IBAction)leaveEventActivityPressed:(id)sender{
-    locationButton.hidden=YES;
-    chatButton.hidden=YES;
-    DOS2_ArrowButton.hidden=YES;
-    leaveActivityButton.hidden=YES;
-    addEventButton.hidden=NO;
-    bottomBarImageView.hidden=NO;
-
 }
 -(IBAction)mapSelect:(id)sender{
     
