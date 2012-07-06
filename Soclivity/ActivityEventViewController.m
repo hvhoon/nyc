@@ -40,8 +40,11 @@
 {
     [super viewDidLoad];
     leaveActivityButton.hidden=YES;
-    [self.navigationController.navigationBar setHidden:YES];
-     [eventView loadViewWithActivityDetails:activityInfo];
+    chatButton.hidden=YES;
+    eventView.delegate=self;
+    [eventView loadViewWithActivityDetails:activityInfo];
+     eventView.DOS2_ArrowButton.hidden=YES;
+     eventView.locationButton.hidden=YES;
 
     // Do any additional setup after loading the view from its nib.
 }

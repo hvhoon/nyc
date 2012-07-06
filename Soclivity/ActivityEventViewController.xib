@@ -185,7 +185,6 @@
 						<string key="NSFrame">{{270, 426}, {37, 29}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -927,15 +926,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">OneDOSFriendListSelect:</string>
-						<reference key="source" ref="1041424234"/>
-						<reference key="destination" ref="647438086"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">70</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">SecondDOSFriendListSelect:</string>
 						<reference key="source" ref="1041424234"/>
 						<reference key="destination" ref="647438086"/>
@@ -945,12 +935,12 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">mapSelect:</string>
+						<string key="label">plotActivityOnMap:</string>
 						<reference key="source" ref="480767868"/>
 						<reference key="destination" ref="647438086"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">69</int>
+					<int key="connectionID">78</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -959,7 +949,7 @@
 						<reference key="destination" ref="647438086"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">68</int>
+					<int key="connectionID">79</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1263,7 +1253,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">77</int>
+			<int key="maxID">79</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1330,6 +1320,7 @@
 						<string key="OneDOSFriendListSelect:">id</string>
 						<string key="SecondDOSFriendListSelect:">id</string>
 						<string key="mapSelect:">id</string>
+						<string key="plotActivityOnMap:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="OneDOSFriendListSelect:">
@@ -1342,6 +1333,10 @@
 						</object>
 						<object class="IBActionInfo" key="mapSelect:">
 							<string key="name">mapSelect:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="plotActivityOnMap:">
+							<string key="name">plotActivityOnMap:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

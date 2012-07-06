@@ -35,16 +35,14 @@
     IBOutlet UIImageView *profileImgView;
     IBOutlet UIButton *locationButton;
     IBOutlet UIButton *DOS2_ArrowButton;
-    IBOutlet UIImageView *bottomBarImageView;
 
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;
 @property (nonatomic,retain)id <AddEventViewDelegate>delegate;
 @property (nonatomic,retain)IBOutlet UIButton *DOS2_ArrowButton;
 @property (nonatomic,retain)IBOutlet UIButton *locationButton;
-- (id)initWithFrame:(CGRect)frame info:(InfoActivityClass*)info;
 -(IBAction)OneDOSFriendListSelect:(id)sender;
 -(IBAction)SecondDOSFriendListSelect:(id)sender;
--(IBAction)mapSelect:(id)sender;
+-(IBAction)plotActivityOnMap:(id)sender;
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info;
 @end

@@ -14,6 +14,14 @@
 @implementation AddEventView
 @synthesize activityObject,delegate,DOS2_ArrowButton,locationButton;
 
+- (id)initWithFrame:(CGRect)frame
+{
+   self = [super initWithFrame:frame];
+    if (self) {
+        
+    }
+    return self;
+}
 
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info{
         locationButton.hidden=YES;
@@ -190,20 +198,9 @@
         // Initialization code
     
 }
-- (id)initWithFrame:(CGRect)frame info:(InfoActivityClass*)info
-{
-    
-    self = [super initWithFrame:frame];
-    if (self) {
-        
-    }
-    return self;
-}
 
 
--(IBAction)OneDOSFriendListSelect:(id)sender{
-    
-}
+
 #if 0
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch =[touches anyObject]; 
@@ -221,10 +218,14 @@
     
 #endif
 
+
+-(IBAction)OneDOSFriendListSelect:(id)sender{
+    
+}
 -(IBAction)SecondDOSFriendListSelect:(id)sender{
     
 }
--(IBAction)mapSelect:(id)sender{
+-(IBAction)plotActivityOnMap:(id)sender{
     
 }
 
