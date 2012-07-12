@@ -31,8 +31,7 @@
 {
   NSDate *d = nil;
   BOOL ok = [[NSCalendar currentCalendar] rangeOfUnit:NSMonthCalendarUnit startDate:&d interval:NULL forDate:self];
-  NSAssert1(ok, @"Failed to calculate the first day the month based on %@", self);
-  return d;
+    NSLog(@"%d Failed to calculate the first day the month based on %@",ok,self);return d;
 }
 
 - (NSDate *)cc_dateByMovingToFirstDayOfThePreviousMonth
