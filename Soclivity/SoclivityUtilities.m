@@ -1136,5 +1136,29 @@ if(timer%2==0){
     
     return image;
 }
-
++(NSString*)getFirstAndLastName:(NSString*)firstName lastName:(NSString*)lastName{
+    BOOL fName=TRUE;
+    BOOL lName=TRUE;
+    NSString *fullName=nil;
+    if ((firstName==(NSString*)[NSNull null])||([firstName isEqualToString:@""]||firstName==nil)||([firstName isEqualToString:@"(null)"])){
+        fName=FALSE;
+    }
+    
+    if ((lastName==(NSString*)[NSNull null])||([lastName isEqualToString:@""]||lastName==nil)||([lastName isEqualToString:@"(null)"])){
+        lName=FALSE;
+    }
+    
+    if(fName && lName){
+        fullName=[NSString stringWithFormat:@"%@ %@",firstName,lastName];
+    }
+    
+    if(fName && !lName){
+        fullName=[NSString stringWithFormat:@"%@",firstName];
+    }
+    
+    if(!fName && lName){
+        fullName=[NSString stringWithFormat:@"%@",lastName];
+    }
+    return fullName;
+}
 @end

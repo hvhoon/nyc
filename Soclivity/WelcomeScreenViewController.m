@@ -15,7 +15,7 @@
 #import "MBProgressHUD.h"
 #import "HomeViewController.h"
 #import "SettingsViewController.h"
-#import "UpComingEventsViewController.h"
+#import "UpComingCompletedEventsViewController.h"
 #import "SlidingDrawerViewController.h"
 #import "EventShareActivity.h"
 @interface WelcomeScreenViewController(Private) <MBProgressHUDDelegate>

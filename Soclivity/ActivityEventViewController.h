@@ -23,5 +23,5 @@
 -(IBAction)backButtonPressed:(id)sender;
 -(IBAction)addEventActivityPressed:(id)sender;
 -(IBAction)leaveEventActivityPressed:(id)sender;
-
+-(IBAction)createANewActivityButtonPressed:(id)sender;
 @end

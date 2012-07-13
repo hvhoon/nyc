@@ -60,7 +60,6 @@
 -(IBAction)DistanceSortingClicked:(id)sender;
 -(IBAction)DOSSortingClicked:(id)sender;
 -(IBAction)TimeSortingClicked:(id)sender;
--(void)DelegateProperty:(id)delegateView;
 -(void)StartGettingActivities;
 -(void)getUpdatedLocationWithActivities;
 @end

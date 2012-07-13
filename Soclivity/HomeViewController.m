@@ -141,9 +141,7 @@
 	[[self navigationController] pushViewController:settingsViewController animated:YES];
     [settingsViewController release];
 }
--(void)DelegateProperty:(id)delegateView{
-    self.delegate=delegateView;
-}
+
 #if 0 
 -(void)navSingleTap{
    

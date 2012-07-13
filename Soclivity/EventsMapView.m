@@ -81,7 +81,10 @@
     if ([CLLocationManager locationServicesEnabled])
         [self findUserLocation];
     self.mapView.showsUserLocation=YES;
-    [self.mapView setUserTrackingMode:MKUserTrackingModeNone animated:NO];
+    
+    //[self.mapView setUserTrackingMode:MKUserTrackingModeNone animated:NO];
+    
+    
     /*[self.mapView.userLocation addObserver:self  
                                 forKeyPath:@"location"  
                                    options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld)  

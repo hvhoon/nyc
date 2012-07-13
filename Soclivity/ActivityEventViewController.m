@@ -73,7 +73,10 @@
     bottomBarImageView.hidden=NO;
     
 }
-
+-(IBAction)createANewActivityButtonPressed:(id)sender{
+    
+    
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];

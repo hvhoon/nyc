@@ -6,10 +6,33 @@
 #import "SlideViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "HomeViewController.h"
+#import "SoclivityUtilities.h"
+#import "ProfileViewController.h"
+#import "NotificationsViewController.h"
+#import "UpComingCompletedEventsViewController.h"
+#import "InvitesViewController.h"
+#import "BlockedListViewController.h"
 #define kSVCLeftAnchorX                 100.0f
 #define kSVCRightAnchorX                190.0f
 #define kSVCSwipeNavigationBarOnly      YES
 
+
+#define kActivityFeed 1
+#define kProfileView 2
+#define kWaitingOnU 3
+#define kUpcoming_Completed 4
+#define kInvite 5
+#define kBlockedList 6
+#define kCalendarSync 7
+#define kLinkFacebook 8
+#define kEmailNotifications 9
+#define kSignOut 10
+
+#define cellHeightMedium 45.0f
+#define cellHeightLarge  55.0f
+
+@interface SlideViewController (private)<HomeScreenDelegate,ProfileScreenViewDelegate,NotificationsScreenViewDelegate,UpcomingCompletedEvnetsViewDelegate,InvitesViewDelegate,BlockedListViewDelegate>
+@end
 
 @interface SlideViewNavigationBar : UINavigationBar {
 @private
@@ -66,7 +89,20 @@
     
     if (self) {
         
-        UIImageView *background = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
+        
+        self.backgroundColor = [UIColor clearColor];
+        
+        self.textLabel.textColor = [SoclivityUtilities returnTextFontColor:1];
+        self.textLabel.highlightedTextColor = self.textLabel.textColor;
+        self.textLabel.shadowColor = [SoclivityUtilities returnTextFontColor:1];
+        self.textLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+        self.textLabel.backgroundColor = [UIColor clearColor];
+        self.textLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+        
+        self.imageView.clipsToBounds = YES;
+        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+#if 0        
+        UIImageView *background = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 269.0f, 44.0f)];
         [background setImage:[[UIImage imageNamed:@"cell_background"] stretchableImageWithLeftCapWidth:0.0f topCapHeight:0.0f]];
         self.backgroundView = background;
         [background release];
@@ -85,7 +121,7 @@
         
         self.imageView.clipsToBounds = YES;
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        
+#endif        
     }
     
     return self;
@@ -139,8 +175,12 @@
 }
 - (void)viewDidLoad {
     
+    self.view.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S7_background.png"]];
+    _tableView.scrollEnabled=NO;
+    _tableView.bounces=NO;
+    _tableView.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S7_background.png"]];
     if (![self.delegate respondsToSelector:@selector(configureSearchDatasourceWithString:)] || ![self.delegate respondsToSelector:@selector(searchDatasource)]) {
-        _tableView.frame = CGRectMake(0.0f, 0.0f, 320.0f, 460.0f);
+        _tableView.frame = CGRectMake(0.0f, 0.0f, 269.0f, 460.0f);
     }
     
     _slideNavigationController.view.layer.shadowColor = [[UIColor blackColor] CGColor];
@@ -154,6 +194,13 @@
     
     
     UIViewController *initalViewController = [self.delegate initialViewController];
+    
+    
+    if([initalViewController isKindOfClass:[HomeViewController class]]){
+        
+        HomeViewController *homeController=(HomeViewController*)initalViewController;
+        homeController.delegate=self;
+    }
     [self configureViewController:initalViewController];
     
     [_slideNavigationController setViewControllers:[NSArray arrayWithObject:initalViewController] animated:NO];
@@ -217,7 +264,7 @@
 
     [UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut  | UIViewAnimationOptionBeginFromCurrentState animations:^{
         
-        _slideNavigationController.view.transform = CGAffineTransformMakeTranslation(260.0f, 0.0f);
+        _slideNavigationController.view.transform = CGAffineTransformMakeTranslation(270.0f, 0.0f);//260
         
     } completion:^(BOOL finished) {
         
@@ -382,18 +429,78 @@
     if (_slideNavigationControllerState == kSlideNavigationControllerStateSearching) {
         return [[self.delegate searchDatasource] count];
     } else {
-        return [[[[self.delegate datasource] objectAtIndex:section] objectForKey:kSlideViewControllerSectionViewControllersKey] count];        
+        return [[[[self.delegate datasource] objectAtIndex:section] objectForKey:kSlideViewControllerSectionViewControllersKey] count]; 
     }
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (_slideNavigationControllerState == kSlideNavigationControllerStateSearching) {
-        return 1;
-    } else {
-        return [[self.delegate datasource] count];
+    NSDictionary *viewControllerDictionary = nil;
+    
+    viewControllerDictionary = [[[[self.delegate datasource] objectAtIndex:indexPath.section] objectForKey:kSlideViewControllerSectionViewControllersKey] objectAtIndex:indexPath.row];
+    
+    NSNumber *tagNumber = [viewControllerDictionary objectForKey:kSlideViewControllerViewControllerTagKey];
+
+    
+    switch ([tagNumber intValue]) {
+        case kActivityFeed:
+        {
+            return cellHeightMedium;
+        }
+            break;
+        case kProfileView:
+        {
+            return cellHeightLarge;            
+        }
+            break;
+        case kWaitingOnU:
+        {
+            return cellHeightMedium;            
+        }
+            break;
+        case kUpcoming_Completed:
+        {
+            return cellHeightMedium;            
+        }
+            break;
+        case kInvite:
+        {
+            return cellHeightMedium;            
+        }
+            break;
+        case kBlockedList:
+        {
+            return cellHeightMedium;            
+        }
+            break;
+        case kCalendarSync:
+        {
+            return cellHeightMedium;            
+        }
+            break;
+        case kLinkFacebook:
+        {
+            return cellHeightMedium;            
+        }
+            break;
+        case kEmailNotifications:
+        {
+            return cellHeightMedium;            
+        }
+            break;
+        case kSignOut:
+        {
+            return cellHeightMedium;            
+        }
+            break;
+            
+        default:
+        {
+            return 45.0f;
+        }
     }
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
@@ -414,11 +521,198 @@
     } else {
         viewControllerDictionary = [[[[self.delegate datasource] objectAtIndex:indexPath.section] objectForKey:kSlideViewControllerSectionViewControllersKey] objectAtIndex:indexPath.row];
     }
+    cell.selectionStyle=UITableViewCellSelectionStyleNone;
+    NSNumber *tagNumber = [viewControllerDictionary objectForKey:kSlideViewControllerViewControllerTagKey];
+
     
-    cell.textLabel.text = [viewControllerDictionary objectForKey:kSlideViewControllerViewControllerTitleKey];
+    float yCompLine;
+    float yLeftImage;
+    float yTextLabel;
+    BOOL showLineOrSwitch;
     
+    
+    switch ([tagNumber intValue]) {
+        case kActivityFeed:
+        {
+            showLineOrSwitch=TRUE;
+            yCompLine=43.0f;
+            yLeftImage=5.0f;
+            yTextLabel=15.0f;
+            cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
+
+        }
+            break;
+            
+        case kProfileView:
+        {
+            yCompLine=53.0f;
+            yTextLabel=20.0f;
+            showLineOrSwitch=TRUE;
+            UIImageView *profilePicBorder=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_picture.png"]];
+            profilePicBorder.frame=CGRectMake(2.5, 3.5, 50, 48);
+            [cell.contentView addSubview:profilePicBorder];
+            [profilePicBorder release];
+            cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
+
+
+        }
+            break;
+            
+            
+        case kWaitingOnU:
+        {
+            yCompLine=43.0f;
+            yTextLabel=17.0f;
+            showLineOrSwitch=TRUE;
+            yLeftImage=12.0f;
+            CGRect notificationNoLabelRect=CGRectMake(20,17,15,14);
+            UILabel *notificationNoLabel=[[UILabel alloc] initWithFrame:notificationNoLabelRect];
+            notificationNoLabel.textAlignment=UITextAlignmentCenter;
+            notificationNoLabel.text=@"0";
+            notificationNoLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
+            notificationNoLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+            notificationNoLabel.backgroundColor=[UIColor clearColor];
+            [cell.contentView addSubview:notificationNoLabel];
+            [notificationNoLabel release];
+            cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
+
+
+            
+        }
+            break;
+         case kUpcoming_Completed:
+        {
+            yCompLine=43.0f;
+            yTextLabel=17.0f;
+            showLineOrSwitch=TRUE;
+            yLeftImage=15.0f;
+            cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
+
+
+        }
+            break;
+            
+        case kInvite:
+        {
+            yCompLine=43;
+            yTextLabel=15.0f;
+            showLineOrSwitch=TRUE;
+            yLeftImage=15.0f;
+            cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
+
+            
+        }
+            break;
+            
+        case kBlockedList:
+        {
+            yCompLine=43;
+            yTextLabel=15.0f;
+            showLineOrSwitch=TRUE;
+            yLeftImage=15.0f;
+            cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
+
+            
+        }
+            break;
+        case kCalendarSync:
+        {
+            yCompLine=43;
+            yTextLabel=16.0f;
+            showLineOrSwitch=FALSE;
+            yLeftImage=10.0f;
+            
+        }
+            break;
+        case kLinkFacebook:
+        {
+            yCompLine=43;
+            yTextLabel=15.0f;
+            showLineOrSwitch=FALSE;
+            yLeftImage=11.0f;
+            
+        }
+            break;
+        case kEmailNotifications:
+        {
+            yCompLine=43;
+            showLineOrSwitch=FALSE;
+            yLeftImage=16.0f;
+            yTextLabel=17.0f;
+            
+        }
+            break;
+        case kSignOut:
+        {
+            yCompLine=43;
+            showLineOrSwitch=FALSE;
+            yLeftImage=16.0f;
+            yTextLabel=15.0f;
+            
+        }
+            break;
+
+    }
+    
+    CGRect textLabelRect=CGRectMake(60,yTextLabel,200,15);
+    UILabel *descriptionLabel=[[UILabel alloc] initWithFrame:textLabelRect];
+    descriptionLabel.textAlignment=UITextAlignmentLeft;
+    descriptionLabel.text=[viewControllerDictionary objectForKey:kSlideViewControllerViewControllerTitleKey];
+    descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
+    descriptionLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    descriptionLabel.backgroundColor=[UIColor clearColor];
+    [cell.contentView addSubview:descriptionLabel];
+    [descriptionLabel release];
+
+    if([tagNumber intValue]!=kSignOut){
+    if(showLineOrSwitch){
+    UIImageView *longLineImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_long-line.png"]];
+    
+    if(([tagNumber intValue]==kWaitingOnU) ||([tagNumber intValue]==kUpcoming_Completed)||([tagNumber intValue]==kInvite)){
+        longLineImageView.image=[UIImage imageNamed:@"S7_short-line.png"];
+        longLineImageView.frame=CGRectMake(25,yCompLine, longLineImageView.image.size.width, longLineImageView.image.size.height);
+
+    }
+    else
+    longLineImageView.frame=CGRectMake(0,yCompLine, longLineImageView.image.size.width, longLineImageView.image.size.height);
+    [cell.contentView addSubview:longLineImageView];
+    [longLineImageView release];
+    }
+    else{
+        //draw a custom switch control
+    }
+    }
+    else{
+        UIImageView *longLineImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_long-line.png"]];
+        longLineImageView.frame=CGRectMake(0,0, longLineImageView.image.size.width, longLineImageView.image.size.height);
+        [cell.contentView addSubview:longLineImageView];
+        [longLineImageView release];
+
+
+    }
     if ([[viewControllerDictionary objectForKey:kSlideViewControllerViewControllerIconKey] isKindOfClass:[UIImage class]]) {
-        cell.imageView.image = [viewControllerDictionary objectForKey:kSlideViewControllerViewControllerIconKey];
+
+        UIImage *imageProfile=[viewControllerDictionary objectForKey:kSlideViewControllerViewControllerIconKey];
+        
+        UIImageView *slideImageView=[[UIImageView alloc]initWithImage:imageProfile];
+
+        if([tagNumber intValue]==kProfileView){
+        
+        if(imageProfile.size.height != imageProfile.size.width)
+            imageProfile = [SoclivityUtilities autoCrop:imageProfile];
+        
+        // If the image needs to be compressed
+        if(imageProfile.size.height > 80 || imageProfile.size.width > 84)
+            slideImageView.image = [SoclivityUtilities compressImage:imageProfile size:CGSizeMake(84,80)];
+            
+            slideImageView.frame=CGRectMake(6.5, 7.5, 42, 40);
+        }
+        else
+         slideImageView.frame=CGRectMake(15, yLeftImage, slideImageView.image.size.width, slideImageView.image.size.height);
+        
+        [cell.contentView addSubview:slideImageView];
+        [slideImageView release];
+        
     } else {
         cell.imageView.image = nil;
     }
@@ -426,7 +720,16 @@
     return cell;
     
 }
+#if 1
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    if (_slideNavigationControllerState == kSlideNavigationControllerStateSearching) {
+        return 1;
+    } else {
+        return [[self.delegate datasource] count];
+    }
+}
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
     if (_slideNavigationControllerState == kSlideNavigationControllerStateSearching)
@@ -495,7 +798,7 @@
         return 0.0f;
     }
 }
-
+#endif
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         
     NSDictionary *viewControllerDictionary = nil;
@@ -506,9 +809,53 @@
         viewControllerDictionary = [[[[self.delegate datasource] objectAtIndex:indexPath.section] objectForKey:kSlideViewControllerSectionViewControllersKey] objectAtIndex:indexPath.row];
     }
     
+    NSString *tapAndDrawerEffect = [viewControllerDictionary objectForKey:kSlideViewControllerViewControllerTapAndDrawerKey];
+    
+    if(![tapAndDrawerEffect isEqualToString:@"TRUE"])
+        return;
+
+    
     Class viewControllerClass = [viewControllerDictionary objectForKey:kSlideViewControllerViewControllerClassKey];
     NSString *nibNameOrNil = [viewControllerDictionary objectForKey:kSlideViewControllerViewControllerNibNameKey];
     UIViewController *viewController = [[viewControllerClass alloc] initWithNibName:nibNameOrNil bundle:nil];
+    
+    if([viewController isKindOfClass:[HomeViewController class]]){
+        
+        HomeViewController *homeController=(HomeViewController*)viewController;
+        homeController.delegate=self;
+        
+    }
+    
+    else if([viewController isKindOfClass:[ProfileViewController class]]){
+        ProfileViewController *profileController=(ProfileViewController*)viewController;
+        profileController.delegate=self;
+        
+    }
+    
+    else if([viewController isKindOfClass:[NotificationsViewController class]]){
+        NotificationsViewController *notifyController=(NotificationsViewController*)viewController;
+        notifyController.delegate=self;
+        
+    }
+    else if([viewController isKindOfClass:[UpComingCompletedEventsViewController class]]){
+        UpComingCompletedEventsViewController *upcomingCompletedController=(UpComingCompletedEventsViewController*)viewController;
+        upcomingCompletedController.delegate=self;
+        
+    }
+    
+    else if([viewController isKindOfClass:[InvitesViewController class]]){
+        InvitesViewController *invitesController=(InvitesViewController*)viewController;
+        invitesController.delegate=self;
+        
+    }
+    
+    else if([viewController isKindOfClass:[BlockedListViewController class]]){
+        BlockedListViewController *blockListController=(BlockedListViewController*)viewController;
+        blockListController.delegate=self;
+        
+    }
+
+
     
     if ([self.delegate respondsToSelector:@selector(configureViewController:userInfo:)])
         [self.delegate configureViewController:viewController userInfo:[viewControllerDictionary objectForKey:kSlideViewControllerViewControllerUserInfoKey]];

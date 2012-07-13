@@ -8,7 +8,7 @@
 
 #import "SettingsViewController.h"
 #import "HomeViewController.h"
-#import "UpComingEventsViewController.h"
+#import "UpComingCompletedEventsViewController.h"
 #import "DDMenuController.h"
 #import "WelcomeScreenViewController.h"
 

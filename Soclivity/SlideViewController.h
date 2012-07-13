@@ -14,6 +14,12 @@
 #define kSlideViewControllerViewControllerUserInfoKey @"slideViewControllerViewControllerUserInfo"
 #define kSlideViewControllerViewControllerIconKey @"slideViewControllerViewControllerIcon"
 
+#define kSlideViewControllerViewControllerTagKey @"slideViewControllerViewControllerTagKey"
+
+#define kSlideViewControllerViewControllerTapAndDrawerKey @"slideViewControllerViewControllerTapAndDrawerKey"
+
+
+
 typedef enum {
     
     kSlideNavigationControllerStateNormal,

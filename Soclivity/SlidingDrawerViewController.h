@@ -7,8 +7,7 @@
 //
 
 #import "SlideViewController.h"
-#import "HomeViewController.h"
-@interface SlidingDrawerViewController : SlideViewController<SlideViewControllerDelegate,HomeScreenDelegate>{
+@interface SlidingDrawerViewController : SlideViewController<SlideViewControllerDelegate>{
     NSArray *_datasource;
     NSMutableArray *_searchDatasource;
     BOOL isFBlogged;

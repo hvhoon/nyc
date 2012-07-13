@@ -11,7 +11,7 @@
 #import "GetPlayersDetailInvocation.h"
 #import "DDMenuController.h"
 #import "SettingsViewController.h"
-#import "UpComingEventsViewController.h"
+#import "UpComingCompletedEventsViewController.h"
 #import "AppDelegate.h"
 #import "GetPlayersClass.h"
 #import "SoclivityUtilities.h"

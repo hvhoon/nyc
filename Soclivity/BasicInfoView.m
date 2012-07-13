@@ -122,28 +122,9 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
          NSLog(@"No current_location Selected");
          }*/
         
-        BOOL fName=TRUE;
-        BOOL lName=TRUE;
-        if ((playerObj.first_name==(NSString*)[NSNull null])||([playerObj.first_name isEqualToString:@""]||playerObj.first_name==nil)||([playerObj.first_name isEqualToString:@"(null)"])){
-            fName=FALSE;
-        }
+                
         
-        if ((playerObj.last_name==(NSString*)[NSNull null])||([playerObj.last_name isEqualToString:@""]||playerObj.last_name==nil)||([playerObj.last_name isEqualToString:@"(null)"])){
-            lName=FALSE;
-        }
-        
-        
-        if(fName && lName){
-            playerObj.fullName=[NSString stringWithFormat:@"%@ %@",playerObj.first_name,playerObj.last_name];
-        }
-        
-        if(fName && !lName){
-           playerObj.fullName=[NSString stringWithFormat:@"%@",playerObj.first_name];
-        }
-        
-        if(!fName && lName){
-            playerObj.fullName=[NSString stringWithFormat:@"%@",playerObj.last_name];
-        }
+        playerObj.fullName=[SoclivityUtilities getFirstAndLastName:playerObj.first_name lastName:playerObj.last_name];
         
         enterNameTextField.text=playerObj.fullName;
         NSInteger length;
