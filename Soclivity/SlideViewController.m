@@ -628,6 +628,12 @@
     }
     else{
         //draw a custom switch control
+        UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectMake(185, 10, 50, 50)];
+        switchView.transform = CGAffineTransformMakeScale(0.75, 0.75);
+        [cell.contentView addSubview:switchView];
+        [switchView setOn:NO animated:NO];
+        [switchView addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
+        [switchView release];
     }
     }
     else{
@@ -667,6 +673,11 @@
     
     return cell;
     
+}
+
+- (void) switchChanged:(id)sender {
+    UISwitch* switchControl = sender;
+    NSLog( @"The switch is %@", switchControl.on ? @"ON" : @"OFF" );
 }
 #if 1
 
