@@ -262,6 +262,12 @@
         if ([mappedKey isEqualToString:@"atypes"]) {
             self.playerObject.activityTypes = string;
             SoclivityManager *SOC=[SoclivityManager SharedInstance];
+            SOC.filterObject.playAct=FALSE;
+            SOC.filterObject.eatAct=FALSE;
+            SOC.filterObject.seeAct=FALSE;
+            SOC.filterObject.createAct=FALSE;
+            SOC.filterObject.learnAct=FALSE;
+            
             NSArray *timeArray = [string componentsSeparatedByString:@","];
             
             for(NSString *actType in timeArray){
