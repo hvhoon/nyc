@@ -8,6 +8,8 @@
 
 #import "ParseOperation.h"
 #import "GetPlayersClass.h"
+#import "SoclivityManager.h"
+#import "FilterPreferenceClass.h"
 @interface ParseOperation ()
 @property (nonatomic, assign) id <ParseOperationDelegate> delegate;
 @property (nonatomic, retain) NSData *dataToParse;
@@ -134,6 +136,10 @@
         if ([key isEqualToString:@"registered"]) {
 			mappedKey=key;
         }
+        if ([key isEqualToString:@"atypes"]) {
+			mappedKey=key;
+        }
+
 
         
     }
@@ -206,6 +212,7 @@
             mappedKey=nil;
         }
         
+        
     }
     
 }
@@ -251,8 +258,52 @@
             
             mappedKey=nil;
         }
-
         
+        if ([mappedKey isEqualToString:@"atypes"]) {
+            self.playerObject.activityTypes = string;
+            SoclivityManager *SOC=[SoclivityManager SharedInstance];
+            NSArray *timeArray = [string componentsSeparatedByString:@","];
+            
+            for(NSString *actType in timeArray){
+                
+                int activity=[actType intValue];
+                switch (activity) {
+                    case 1:
+                    {
+                        SOC.filterObject.playAct=TRUE;
+                    }
+                        break;
+                    case 2:
+                    {
+                        SOC.filterObject.eatAct=TRUE;
+                        
+                    }
+                        break;
+                    case 3:
+                    {
+                        SOC.filterObject.seeAct=TRUE;
+                        
+                    }
+                        break;
+                    case 4:
+                    {
+                        SOC.filterObject.createAct=TRUE;
+                        
+                    }
+                        break;
+                    case 5:
+                    {
+                        SOC.filterObject.learnAct=TRUE;
+                        
+                    }
+                        break;
+                        
+                }
+            }
+            
+            mappedKey=nil;
+        }
+
         if ([mappedKey isEqualToString:@"status"]) {
             self.playerObject.statusMessage = string;
             responseStatus=TRUE;

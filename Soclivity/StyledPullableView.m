@@ -123,6 +123,8 @@
         playButton.frame = CGRectMake(25,125,55,51);
         playButton.tag=kPlayActivity;
         [playButton setImage:[UIImage imageNamed:@"S04.1_play.png"] forState:UIControlStateNormal];
+        
+        
 
         [playButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [filterPaneView addSubview:playButton];
@@ -131,7 +133,7 @@
         playTickImageView.frame=CGRectMake(45, 135, 16, 15);
         playTickImageView.tag=kPlayTickImage;
         [filterPaneView addSubview:playTickImageView];
-        [playTickImageView release];
+        
         
         CGRect playTypeLabelRect=CGRectMake(25,155-1,55,16);
         UILabel *playTypeLabel=[[UILabel alloc] initWithFrame:playTypeLabelRect];
@@ -143,9 +145,15 @@
         playTypeLabel.tag=kPlayLabelText;
         playTypeLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:playTypeLabel];
+        
+        
+        if(!SOC.filterObject.playAct){
+            playTickImageView.alpha=0.3f;
+            playTypeLabel.alpha=0.3f;
+
+        }
+        [playTickImageView release];
         [playTypeLabel release];
-        
-        
         UIButton *eatButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         eatButton.frame = CGRectMake(80,125,55,51);
         eatButton.tag=kEatActivity;
@@ -158,7 +166,7 @@
         eatTickImageView.frame=CGRectMake(100, 135, 16, 15);
         eatTickImageView.tag=kEatTickImage;
         [filterPaneView addSubview:eatTickImageView];
-        [eatTickImageView release];
+        
         
         CGRect eatTypeLabelRect=CGRectMake(80,155,55,15);
         UILabel *eatTypeLabel=[[UILabel alloc] initWithFrame:eatTypeLabelRect];
@@ -170,8 +178,16 @@
         eatTypeLabel.tag=kEatLabelText;
         eatTypeLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:eatTypeLabel];
-        [eatTypeLabel release];
         
+        
+        
+        if(!SOC.filterObject.eatAct){
+            eatTickImageView.alpha=0.3f;
+            eatTypeLabel.alpha=0.3f;
+            
+        }
+        [eatTickImageView release];
+        [eatTypeLabel release];
         UIButton *seeButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         seeButton.frame = CGRectMake(135,125,55,51);
         seeButton.tag=kSeeActivity;
@@ -184,7 +200,7 @@
         seeTickImageView.frame=CGRectMake(155, 135, 16, 15);
         seeTickImageView.tag=kSeeTickImage;
         [filterPaneView addSubview:seeTickImageView];
-        [seeTickImageView release];
+        
         
         CGRect seeTypeLabelRect=CGRectMake(135,155,55,15);
         UILabel *seeTypeLabel=[[UILabel alloc] initWithFrame:seeTypeLabelRect];
@@ -196,8 +212,16 @@
         seeTypeLabel.tag=kSeeLabelText;
         seeTypeLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:seeTypeLabel];
-        [seeTypeLabel release];
         
+        
+        
+        if(!SOC.filterObject.seeAct){
+            seeTickImageView.alpha=0.3f;
+            seeTypeLabel.alpha=0.3f;
+            
+        }
+        [seeTickImageView release];
+        [seeTypeLabel release];
         
         UIButton *createButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         createButton.frame = CGRectMake(190,125,55,51);
@@ -211,7 +235,7 @@
         createTickImageView.frame=CGRectMake(210, 135, 16, 15);
         createTickImageView.tag=kCreateTickImage;
         [filterPaneView addSubview:createTickImageView];
-        [createTickImageView release];
+        
         
         CGRect createTypeLabelRect=CGRectMake(190,155,55,15);
         UILabel *createTypeLabel=[[UILabel alloc] initWithFrame:createTypeLabelRect];
@@ -223,8 +247,16 @@
         createTypeLabel.tag=kCreateLabelText;
         createTypeLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:createTypeLabel];
-        [createTypeLabel release];
         
+        
+        
+        if(!SOC.filterObject.createAct){
+            createTickImageView.alpha=0.3f;
+            createTypeLabel.alpha=0.3f;
+            
+        }
+        [createTickImageView release];
+        [createTypeLabel release];
         
         UIButton *learnButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         learnButton.frame = CGRectMake(245,125,55,51);
@@ -238,7 +270,7 @@
         learnTickImageView.frame=CGRectMake(265, 135, 16, 15);
         learnTickImageView.tag=kLearnTickImage;
         [filterPaneView addSubview:learnTickImageView];
-        [learnTickImageView release];
+        
         
         CGRect learnTypeLabelRect=CGRectMake(245,155,55,15);
         UILabel *learnTypeLabel=[[UILabel alloc] initWithFrame:learnTypeLabelRect];
@@ -250,6 +282,15 @@
         learnTypeLabel.tag=kLearnLabelText;
         learnTypeLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:learnTypeLabel];
+        
+        
+        
+        if(!SOC.filterObject.learnAct){
+            learnTickImageView.alpha=0.3f;
+            learnTypeLabel.alpha=0.3f;
+            
+        }
+        [learnTickImageView release];
         [learnTypeLabel release];
         
         // Dates selection section

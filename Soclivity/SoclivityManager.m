@@ -28,11 +28,11 @@
         registrationObject=[[GetPlayersClass alloc]init];
         AllowTapAndDrag=TRUE;
         filterObject=[[FilterPreferenceClass alloc]init];
-        filterObject.playAct=TRUE;
-        filterObject.eatAct=TRUE;
-        filterObject.seeAct=TRUE;
-        filterObject.createAct=TRUE;
-        filterObject.learnAct=TRUE;
+        filterObject.playAct=FALSE;
+        filterObject.eatAct=FALSE;
+        filterObject.seeAct=FALSE;
+        filterObject.createAct=FALSE;
+        filterObject.learnAct=FALSE;
         filterObject.whenSearchType=1;
         filterObject.startTime_48=0;
         filterObject.finishTime_48=48;
