@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "AddEventView.h"
+#import "ParticipantListTableView.h"
 @class InfoActivityClass;
 @interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate>{
     IBOutlet UIScrollView* scrollView;
     IBOutlet AddEventView *eventView;
+    IBOutlet ParticipantListTableView *participantListTableView;
     InfoActivityClass *activityInfo;
     IBOutlet UIButton *chatButton;
     IBOutlet UILabel *activityNameLabel;

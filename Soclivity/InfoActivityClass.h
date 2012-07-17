@@ -41,6 +41,8 @@
     NSString*ownerProfilePhotoUrl;
     UIImage *organizerImage;
     NSMutableArray *friendsOfFriendsArray;
+    NSMutableArray *friendsArray;
+    
     
 }
 @property (nonatomic,assign)NSInteger type;
@@ -78,4 +80,5 @@
 @property (nonatomic,retain)UIImage *organizerImage;
 
 @property(nonatomic,retain)NSMutableArray *friendsOfFriendsArray;
+@property(nonatomic,retain)NSMutableArray *friendsArray;
 @end
