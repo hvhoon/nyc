@@ -170,6 +170,9 @@
 		EA8531E515A4B45500AE1239 /* S5_bottom-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8531D815A4B45500AE1239 /* S5_bottom-bar@2x.png */; };
 		EA8531E615A4B45500AE1239 /* S5_bottom-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8531D915A4B45500AE1239 /* S5_bottom-bar.png */; };
 		EA85522B15B5C88400AA44C3 /* ParticipantClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EA85522A15B5C88400AA44C3 /* ParticipantClass.m */; };
+		EA85522E15B5DD5000AA44C3 /* ParticipantListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA85522D15B5DD5000AA44C3 /* ParticipantListTableView.m */; };
+		EA85523415B5DF2300AA44C3 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = EA85523315B5DF2300AA44C3 /* IconDownloader.m */; };
+		EA85523715B5E20600AA44C3 /* ParticipantTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA85523615B5E20600AA44C3 /* ParticipantTableViewCell.m */; };
 		EA85DC1615AFDD6A00AAD964 /* S7_activity-feed.png in Resources */ = {isa = PBXBuildFile; fileRef = EA85DBDF15AFDD6A00AAD964 /* S7_activity-feed.png */; };
 		EA85DC1715AFDD6A00AAD964 /* S7_activity-feed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA85DBE015AFDD6A00AAD964 /* S7_activity-feed@2x.png */; };
 		EA85DC1815AFDD6A00AAD964 /* S7_activity-feed_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EA85DBE115AFDD6A00AAD964 /* S7_activity-feed_icon.png */; };
@@ -852,6 +855,12 @@
 		EA8531D915A4B45500AE1239 /* S5_bottom-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S5_bottom-bar.png"; sourceTree = "<group>"; };
 		EA85522915B5C88400AA44C3 /* ParticipantClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticipantClass.h; sourceTree = "<group>"; };
 		EA85522A15B5C88400AA44C3 /* ParticipantClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticipantClass.m; sourceTree = "<group>"; };
+		EA85522C15B5DD5000AA44C3 /* ParticipantListTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticipantListTableView.h; sourceTree = "<group>"; };
+		EA85522D15B5DD5000AA44C3 /* ParticipantListTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticipantListTableView.m; sourceTree = "<group>"; };
+		EA85523215B5DF2300AA44C3 /* IconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconDownloader.h; sourceTree = "<group>"; };
+		EA85523315B5DF2300AA44C3 /* IconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconDownloader.m; sourceTree = "<group>"; };
+		EA85523515B5E20600AA44C3 /* ParticipantTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticipantTableViewCell.h; sourceTree = "<group>"; };
+		EA85523615B5E20600AA44C3 /* ParticipantTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticipantTableViewCell.m; sourceTree = "<group>"; };
 		EA85DBDF15AFDD6A00AAD964 /* S7_activity-feed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S7_activity-feed.png"; sourceTree = "<group>"; };
 		EA85DBE015AFDD6A00AAD964 /* S7_activity-feed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S7_activity-feed@2x.png"; sourceTree = "<group>"; };
 		EA85DBE115AFDD6A00AAD964 /* S7_activity-feed_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S7_activity-feed_icon.png"; sourceTree = "<group>"; };
@@ -1573,6 +1582,8 @@
 		687F3A761551307C00B694DA /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				EA85523215B5DF2300AA44C3 /* IconDownloader.h */,
+				EA85523315B5DF2300AA44C3 /* IconDownloader.m */,
 				EA97008C156624CE005A271A /* AlertPrompt.h */,
 				EA97008B156624CE005A271A /* AlertPrompt.m */,
 				EAD44FF11564FA190075C8CA /* Base64.h */,
@@ -1677,6 +1688,8 @@
 				EA7D64BE157780CF0034E4DB /* ABTableViewCell.m */,
 				EA7D64BF157780CF0034E4DB /* SOCTableViewCell.h */,
 				EA7D64C0157780CF0034E4DB /* SOCTableViewCell.m */,
+				EA85523515B5E20600AA44C3 /* ParticipantTableViewCell.h */,
+				EA85523615B5E20600AA44C3 /* ParticipantTableViewCell.m */,
 			);
 			name = "Cell Utilities";
 			sourceTree = "<group>";
@@ -1895,8 +1908,6 @@
 				EA7D64A5157769040034E4DB /* DetailInfoActivityClass.m */,
 				EA976C3F1584D0CE00474EAF /* InfoActivityClass+Parse.h */,
 				EA976C401584D0CF00474EAF /* InfoActivityClass+Parse.m */,
-				EA85522915B5C88400AA44C3 /* ParticipantClass.h */,
-				EA85522A15B5C88400AA44C3 /* ParticipantClass.m */,
 			);
 			name = ListView;
 			sourceTree = "<group>";
@@ -2120,6 +2131,10 @@
 			children = (
 				EA92976615A3739200C99725 /* AddEventView.h */,
 				EA92976715A3739200C99725 /* AddEventView.m */,
+				EA85522915B5C88400AA44C3 /* ParticipantClass.h */,
+				EA85522A15B5C88400AA44C3 /* ParticipantClass.m */,
+				EA85522C15B5DD5000AA44C3 /* ParticipantListTableView.h */,
+				EA85522D15B5DD5000AA44C3 /* ParticipantListTableView.m */,
 			);
 			name = "Detail Activty";
 			sourceTree = "<group>";
@@ -3342,6 +3357,9 @@
 				EA85DC6B15B01AE700AAD964 /* BlockedListViewController.m in Sources */,
 				EA889EAC15B5281100FAABA1 /* DetailedActivityInfoInvocation.m in Sources */,
 				EA85522B15B5C88400AA44C3 /* ParticipantClass.m in Sources */,
+				EA85522E15B5DD5000AA44C3 /* ParticipantListTableView.m in Sources */,
+				EA85523415B5DF2300AA44C3 /* IconDownloader.m in Sources */,
+				EA85523715B5E20600AA44C3 /* ParticipantTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

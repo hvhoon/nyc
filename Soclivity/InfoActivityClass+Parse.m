@@ -108,6 +108,21 @@
          play.isParticipant=FALSE;
     }
     
+    
+    NSArray*friendsArray =[ACTDict objectForKey:@"friends"];
+    NSMutableArray *DOS1Array=[NSMutableArray new];
+
+    for(id obj in friendsArray){
+        ParticipantClass *pObject=[[[ParticipantClass alloc]init]autorelease];
+        pObject.name=[obj objectForKey:@"name"];
+        pObject.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[obj objectForKey:@"photo"]];
+        [DOS1Array addObject:pObject];
+        
+    }
+    if([DOS1Array count]>0){
+        play.friendsArray=DOS1Array; 
+    }
+
     NSArray *friendsOfFriends=[ACTDict objectForKey:@"friendsoffriends"];
     NSMutableArray *DOS2Array=[NSMutableArray new];
     

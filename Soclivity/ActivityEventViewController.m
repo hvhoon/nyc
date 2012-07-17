@@ -55,6 +55,9 @@
     scrollView.bounces=NO;
     
     eventView.delegate=self;
+    participantListTableView.DOS1_friendsArray=activityInfo.friendsArray;
+    
+    participantListTableView.DOS2_friendsArray=activityInfo.friendsOfFriendsArray;
 
     
     for (int i = 0; i < 2; i++) {
@@ -235,9 +238,8 @@
                 break;
             case 1:
             {
-                UIView*participanttableView=[[UIView alloc]initWithFrame:CGRectMake(0, 376, 320, 376)];
-                participanttableView.backgroundColor=[UIColor grayColor];
-                [self.scrollView addSubview:participanttableView];
+                [participantListTableView setFrame:CGRectMake(0, 376, 320, 376)];
+                [self.scrollView addSubview:participantListTableView];
             }
                 break;
                 

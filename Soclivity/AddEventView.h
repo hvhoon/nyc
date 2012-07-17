@@ -46,4 +46,5 @@
 @property (nonatomic,retain)InfoActivityClass *activityObject;
 @property (nonatomic,retain)id <AddEventViewDelegate>delegate;
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info;
+-(void)setOpened;
 @end
