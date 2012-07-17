@@ -453,7 +453,7 @@ if(timer%2==0){
         
         case 5:
         {
-            return [UIColor colorWithRed:90.0/255.0 green:90.0/255.0 blue:90.0/255.0 alpha:1.0];
+            return [UIColor colorWithRed:88.0/255.0 green:89.0/255.0 blue:91.0/255.0 alpha:1.0];
         }
 
         // Color for the Home List view text

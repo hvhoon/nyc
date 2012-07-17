@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1280</int>
-		<string key="IBDocument.SystemVersion">10K549</string>
-		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
-		<string key="IBDocument.AppKitVersion">1038.36</string>
-		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<int key="IBDocument.SystemTarget">1296</int>
+		<string key="IBDocument.SystemVersion">12A269</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2507</string>
+		<string key="IBDocument.AppKitVersion">1187</string>
+		<string key="IBDocument.HIToolboxVersion">624.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">933</string>
+			<string key="NS.object.0">1478</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
-			<string>IBUIScrollView</string>
+			<string>IBProxyObject</string>
 			<string>IBUIButton</string>
 			<string>IBUIImageView</string>
-			<string>IBUIView</string>
 			<string>IBUILabel</string>
-			<string>IBProxyObject</string>
+			<string>IBUIScrollView</string>
+			<string>IBUIView</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -188,7 +188,6 @@
 						<string key="NSFrame">{{270, 426}, {37, 29}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -263,7 +262,7 @@
 					<object class="IBUIImageView" id="303255778">
 						<reference key="NSNextResponder" ref="647438086"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{37, 8}, {51, 48}}</string>
+						<string key="NSFrame">{{37, 8}, {51, 51}}</string>
 						<reference key="NSSuperview" ref="647438086"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="338245859"/>
@@ -277,7 +276,7 @@
 					<object class="IBUIImageView" id="338245859">
 						<reference key="NSNextResponder" ref="647438086"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{40, 10}, {42, 41}}</string>
+						<string key="NSFrame">{{41, 11}, {40, 40}}</string>
 						<reference key="NSSuperview" ref="647438086"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="691039737"/>
@@ -525,7 +524,6 @@
 								<string key="NSFrame">{{94, 145}, {212, 14}}</string>
 								<reference key="NSSuperview" ref="1045809916"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -847,11 +845,11 @@
 							<reference ref="566771528"/>
 							<reference ref="1019007781"/>
 							<reference ref="335882716"/>
-							<reference ref="338245859"/>
 							<reference ref="691039737"/>
 							<reference ref="303255778"/>
 							<reference ref="552833456"/>
 							<reference ref="188852943"/>
+							<reference ref="338245859"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1170,6 +1168,10 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
+		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
+			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
+			<real value="1296" key="NS.object.0"/>
+		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
@@ -1187,6 +1189,6 @@
 			<string key="S5_leave-button.png">{114, 29}</string>
 			<string key="S5_topbar.png">{320, 44}</string>
 		</dictionary>
-		<string key="IBCocoaTouchPluginVersion">933</string>
+		<string key="IBCocoaTouchPluginVersion">1478</string>
 	</data>
 </archive>
