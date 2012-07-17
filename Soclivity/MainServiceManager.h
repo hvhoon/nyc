@@ -15,6 +15,7 @@
 #import "ForgotPasswordInvocation.h"
 #import "FBSignInInvocation.h"
 #import "GetActivitiesInvocation.h"
+#import "DetailedActivityInfoInvocation.h"
 @interface MainServiceManager : SAService{
     
 }
@@ -27,4 +28,8 @@
 -(void)postFBSignInInvocation:(NSString*)emailAddress facebookUid:(NSString*)facebookUid fbAccessToken:(NSString*)fbAccessToken delegate:(id<FBSignInInvocationDelegate>)delegate;
 -(void)getActivitiesInvocation:(NSInteger)userId latitude:(float)latitude longitude:(float)longitude timeSpanFilter:(NSString*)timeSpanFilter updatedAt:(NSString*)updatedAt  delegate:(id<GetActivitiesInvocationDelegate>)delegate;
 -(void)getActivitiesInvocation:(NSInteger)userId latitude:(float)latitude longitude:(float)longitude delegate:(id<GetActivitiesInvocationDelegate>)delegate;
+
+-(void)getDetailedActivityInfoInvocation:(NSInteger)pId actId:(NSInteger)actId delegate:(id<DetailedActivityInfoInvocationDelegate>)delegate;
+
+
 @end

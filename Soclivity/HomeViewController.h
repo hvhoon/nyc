@@ -12,6 +12,8 @@
 #import "StyledPullableView.h"
 #import "GetActivitiesInvocation.h"
 #import "LocationCustomManager.h"
+#import "DetailedActivityInfoInvocation.h"
+
 @class MainServiceManager;
 @class SoclivityManager;
 @class MBProgressHUD;
@@ -22,7 +24,7 @@
 - (void)showLeft:(id)sender;
 @end
 
-@interface HomeViewController : UIViewController<PullableViewDelegate,GetActivitiesInvocationDelegate,ActivityListViewDelegate,EventsMapViewDelegate,CoreLocationDelegate>{
+@interface HomeViewController : UIViewController<PullableViewDelegate,GetActivitiesInvocationDelegate,ActivityListViewDelegate,EventsMapViewDelegate,CoreLocationDelegate,DetailedActivityInfoInvocationDelegate>{
    
     IBOutlet UIButton *profileBtn;
     IBOutlet UIButton *addBtn;

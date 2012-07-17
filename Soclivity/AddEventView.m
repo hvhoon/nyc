@@ -12,7 +12,7 @@
 #import "DetailInfoActivityClass.h"
 
 @implementation AddEventView
-@synthesize activityObject,delegate,DOS2_ArrowButton,locationButton;
+@synthesize activityObject,delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -24,76 +24,215 @@
 }
 
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info{
-        locationButton.hidden=YES;
-        DOS2_ArrowButton.hidden=YES;
+    
+    locationInfoLabel.hidden=YES;
+#if 1   
         switch (info.type) {
             case 1:
             {
-                activityBarImgView.image=[UIImage imageNamed:@"S5_green-bar.png"];
-                activityBarTextImgView.image=[UIImage imageNamed:@"S5_play.png"];
-                backgroundBoxImgView.image=[UIImage imageNamed:@"S5_green-box.png"];
+                activityBarImgView.image=[UIImage imageNamed:@"S05_green-bar.png"];
+                backgroundBoxImgView.image=[UIImage imageNamed:@"S05_green-box.png"];
                 
                 
             }
                 break;
             case 2:
             {
-                activityBarImgView.image=[UIImage imageNamed:@"S5_yellow-bar.png"];
-                activityBarTextImgView.image=[UIImage imageNamed:@"S5_eat.png"];
-                backgroundBoxImgView.image=[UIImage imageNamed:@"S5_yellow-box.png"];
+                activityBarImgView.image=[UIImage imageNamed:@"S05_yellow-bar.png"];
+                backgroundBoxImgView.image=[UIImage imageNamed:@"S05_yellow-box.png"];
                 
                 
             }
                 break;
             case 3:
             {
-                activityBarImgView.image=[UIImage imageNamed:@"S5_purple-bar.png"];
-                activityBarTextImgView.image=[UIImage imageNamed:@"S5_see.png"];
-                backgroundBoxImgView.image=[UIImage imageNamed:@"S5_purple-box.png"];
+                activityBarImgView.image=[UIImage imageNamed:@"S05_purple-bar.png"];
+                backgroundBoxImgView.image=[UIImage imageNamed:@"S05_purple-box.png"];
                 
                 
             }
                 break;
             case 4:
             {
-                activityBarImgView.image=[UIImage imageNamed:@"S5_red-bar.png"];
-                activityBarTextImgView.image=[UIImage imageNamed:@"S5_create.png"];
-                backgroundBoxImgView.image=[UIImage imageNamed:@"S5_red-box.png"];
+                activityBarImgView.image=[UIImage imageNamed:@"S05_red-bar.png"];
+                backgroundBoxImgView.image=[UIImage imageNamed:@"S05_red-box.png"];
                 
                 
             }
                 break;
             case 5:
             {
-                activityBarImgView.image=[UIImage imageNamed:@"S5_aqua-marine-bar.png"];
-                activityBarTextImgView.image=[UIImage imageNamed:@"S5_learn.png"];
-                backgroundBoxImgView.image=[UIImage imageNamed:@"S5_aqua-marine-box.png"];
+                activityBarImgView.image=[UIImage imageNamed:@"S05_aqua-marine-bar.png"];
+                backgroundBoxImgView.image=[UIImage imageNamed:@"S05_aqua-marine-box.png"];
             }
                 break;
                 
                 
                 
         }
+#endif    
+       NSOperationQueue *queue = [NSOperationQueue new];
+       NSInvocationOperation *operation = [[NSInvocationOperation alloc] 
+                                    initWithTarget:self
+                                           selector:@selector(loadProfileImage:) 
+                                    object:info.ownerProfilePhotoUrl];
+       [queue addOperation:operation]; 
+       [operation release];
+    
+    
+    
+    
+    activityorganizerTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
+    activityorganizerTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    activityorganizerTextLabel.text=[NSString stringWithFormat:@"%@",info.organizerName];
+     CGSize  size = [info.organizerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15]];
+     NSLog(@"width=%f",size.width);
+     activityorganizerTextLabel.frame=CGRectMake(100, 20, size.width, 15);
+    
+    DOSConnectionImgView.frame=CGRectMake(100+5+size.width, 23, 20, 12);
+    switch (info.DOS){
+        case 1:
+            DOSConnectionImgView.image=[UIImage imageNamed:@"S5_DOS-1.png"];
+            break;
+            
+        case 2:
+            DOSConnectionImgView.image=[UIImage imageNamed:@"S5_DOS-2.png"];
+            break;
+            
+            
+        default:
+            break;
+    }
+    
+    
+    organizerLinkLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Medium" size:12];
+    organizerLinkLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    
+    switch (info.DOS){
+        case 1:
+            organizerLinkLabel.text=[NSString stringWithFormat:@"Created by a friend!"];
+            break;
+            
+        case 2:
+            organizerLinkLabel.text=[NSString stringWithFormat:@"Created by a friend of a friend!"];
+            break;
+            
+            
+        case 0:
+            organizerLinkLabel.text=[NSString stringWithFormat:@"Created this event!"];
+            break;
+    }
+    
+    if((info.what==(NSString*)[NSNull null])||([info.what isEqualToString:@""]||info.what==nil)||([info.what isEqualToString:@"(null)"])){
+        activityTextLabel.text=@"No description given.";
+    }
+    else
+     activityTextLabel.text = info.what;
+    
+    activityTextLabel.numberOfLines = 0;
+    activityTextLabel.lineBreakMode = UILineBreakModeWordWrap;
+
+	activityTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Medium" size:14];
+    activityTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    activityTextLabel.backgroundColor=[UIColor clearColor];
+
+    
+    CGSize labelSize = [activityTextLabel.text sizeWithFont:activityTextLabel.font constrainedToSize:activityTextLabel.frame.size 
+            lineBreakMode:UILineBreakModeWordWrap];
+    
+    CGFloat labelHeight = labelSize.height;
+    
+    
+    
+    int lines = labelHeight/14;
+    
+    if(lines>3){
+        //time to bother
+        collapse=TRUE;
+        delta=labelHeight-42;
+        yTextLabel=42.0f;
+    }
+    else{
+        yTextLabel=labelHeight;
+        collapse=FALSE;
+    }
+    NSLog(@"lines=%d",lines);
+	[activityTextLabel setFrame:CGRectMake(40, 70, 240, yTextLabel)];
+
+
+   if ([info.access isEqualToString:@"public"]){
+            activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_private.png.png"];
+    }else{
+            activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_private.png.png"];
+    }
+    
+    calendarDateLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Medium" size:14];
+    calendarDateLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    
+    activityTimeLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Medium" size:14];
+    activityTimeLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    
+    
+    distanceLocationLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Medium" size:14];
+    distanceLocationLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+
+    
+    locationInfoLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Medium" size:14];
+    locationInfoLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+
+
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [dateFormatter setTimeZone:gmt];
+    
+    
+    NSDate *activityDate = [dateFormatter dateFromString:info.when];
+    
+    NSDate *date = activityDate;
+    NSDateFormatter *prefixDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [prefixDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+    [prefixDateFormatter setDateFormat:@"EEEE, MMMM d, YYYY"];
+    NSString *prefixDateString = [prefixDateFormatter stringFromDate:date];
+    calendarDateLabel.text=prefixDateString;
+   [prefixDateFormatter setDateFormat:@"h:mm a"];
+    NSString *prefixTimeString = [prefixDateFormatter stringFromDate:date];
+    activityTimeLabel.text=prefixTimeString;
+
+
+    distanceLocationLabel.text=info.distance;
+    locationInfoLabel.text=info.where_address;
+    
+    
         
-        activityTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
-        activityTextLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
-        CGSize size = [info.activityName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:15]];
-		NSLog(@"width=%f",size.width);
-        activityTextLabel.frame=CGRectMake(50, 6, size.width, size.height);
-        activityTextLabel.text=info.activityName;
-        
-        activityBarTextImgView.frame=CGRectMake(50+size.width+5, 12, 26, 9);
-        
-        goingCountLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
-        goingCountLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
-        goingCountLabel.text=[NSString stringWithFormat:@"%d People going",info.num_of_people];
-        
-        activityorganizerTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:11];
-        activityorganizerTextLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
-        activityorganizerTextLabel.text=[NSString stringWithFormat:@"%@",info.organizerName];
-        size = [info.organizerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:11]];
-		NSLog(@"width=%f",size.width);
-        activityorganizerTextLabel.frame=CGRectMake(119, 246, size.width, 11);
+
+#if 0        
+    
+    whatDescTextView.font=[UIFont fontWithName:@"Helvetica-Condensed-Medium" size:14];
+    whatDescTextView.text=info.what;
+    whatDescTextView.editable=NO;
+    whatDescTextView.scrollEnabled=NO;
+    whatDescTextView.textAlignment=UITextAlignmentLeft;
+    whatDescTextView.tag=23;
+    whatDescTextView.textColor=[SoclivityUtilities returnTextFontColor:5];
+    whatDescTextView.backgroundColor=[UIColor clearColor];
+    whatDescTextView.autocorrectionType=UITextAutocorrectionTypeNo;
+    [whatDescTextView sizeToFit];
+    whatDescTextView.contentInset = UIEdgeInsetsMake(-12.0,0.0,0,0.0);
+
+    
+    size = [info.activityName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:15]];
+    NSLog(@"width=%f",size.width);
+    activityTextLabel.frame=CGRectMake(50, 6, size.width, size.height);
+    activityTextLabel.text=info.activityName;
+    
+    activityBarTextImgView.frame=CGRectMake(50+size.width+5, 12, 26, 9);
+    
+    
+    activityTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    activityTextLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+
         activityCreatedImgView.frame=CGRectMake(119+5+size.width, 246, 75, 9);
         
         peopleYouKnowCountLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:13];
@@ -107,17 +246,6 @@
         
         
         
-		whatDescTextView.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
-		whatDescTextView.text=[NSString stringWithFormat:@"%@",@"cghchgc ffhvf nbtyfhv nbfhvnvn jvn vn jkvn jhkvn jkhvbn kuvbn hvh njh n hjvnvhkjvbnv fhvnvhfhvbvhvh"];
-		whatDescTextView.editable=NO;
-		whatDescTextView.scrollEnabled=NO;
-		whatDescTextView.textAlignment=UITextAlignmentLeft;
-		whatDescTextView.tag=23;
-		whatDescTextView.textColor=[SoclivityUtilities returnTextFontColor:1];
-		whatDescTextView.backgroundColor=[UIColor clearColor];
-		whatDescTextView.autocorrectionType=UITextAutocorrectionTypeNo;
-        [whatDescTextView sizeToFit];
-        whatDescTextView.contentInset = UIEdgeInsetsMake(-12.0,0.0,0,0.0);
         
         
         
@@ -166,68 +294,121 @@
         
         
         
-        UIImage *imageProfile=[UIImage imageNamed:@"p1.png"];
         
-        if(imageProfile.size.height != imageProfile.size.width)
-            imageProfile = [SoclivityUtilities autoCrop:imageProfile];
-        
-        // If the image needs to be compressed
-        if(imageProfile.size.height > 80 || imageProfile.size.width > 84)
-            profileImgView.image = [SoclivityUtilities compressImage:imageProfile size:CGSizeMake(84,80)];
+#endif        
         
         
-        
-        
-        
-        switch (info.DOS){
-            case 1:
-                DOSConnectionImgView.image=[UIImage imageNamed:@"S5_DOS-1.png"];
-                break;
                 
-            case 2:
-                DOSConnectionImgView.image=[UIImage imageNamed:@"S5_DOS-2.png"];
-                break;
-                
-                
-            default:
-                break;
-        }
-        
         
         
         // Initialization code
     
 }
+- (void)loadProfileImage:(NSString*)url {
+    NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:url]];
+    UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];
+    [imageData release];
+    [self performSelectorOnMainThread:@selector(displayImage:) withObject:image waitUntilDone:NO];
+}
+- (void)displayImage:(UIImage *)image {
+    
+    
+    if(image.size.height != image.size.width)
+        image = [SoclivityUtilities autoCrop:image];
+    
+    // If the image needs to be compressed
+    if(image.size.height > 84 || image.size.width > 82)
+        profileImgView.image = [SoclivityUtilities compressImage:image size:CGSizeMake(84,82)];
+    
+   [profileImgView setImage:image]; //UIImageView
+}
 
-
-
-#if 0
+#if 1
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch =[touches anyObject]; 
     CGPoint startPoint =[touch locationInView:self];
+    
+    
+    
     NSLog(@"Start Point_X=%f,Start Point_Y=%f",startPoint.x,startPoint.y);
-        CGRect tapLowerPaneRect =CGRectMake(70, 402, 320, 58);
-        CGRect tapClearSearchRect =CGRectMake(270, 44, 57, 30);
+        CGRect tapDescriptionSection =CGRectMake(40, 70, 240, 60);
         
         
         
-        if(CGRectContainsPoint(tapClearSearchRect,startPoint)){
-            
+        if(CGRectContainsPoint(tapDescriptionSection,startPoint)){
+            [self setOpened];
         }
     }
     
 #endif
 
 
--(IBAction)OneDOSFriendListSelect:(id)sender{
+-(void)setOpened{
     
-}
--(IBAction)SecondDOSFriendListSelect:(id)sender{
+    if(collapse){
+    opened=!opened;
+    if(opened){
+    CGRect acessImageFrame = activityAccessStatusImgView.frame;
+    acessImageFrame.origin.y=169.0f;
+    CGRect barImageFrame = activityBarImgView.frame;
+    barImageFrame.size.height=200.0f;
+    CGRect boxImageFrame = backgroundBoxImgView.frame;
+    boxImageFrame.size.height=140;
+
+    CGRect whatTextFrame = activityTextLabel.frame;
+    whatTextFrame.size.height=yTextLabel+delta;
+        
+    CGRect bottomViewFrame = bottomView.frame;
+    bottomViewFrame.origin.y=bottomView.frame.origin.y+50;
+
+
     
+    [UIView animateWithDuration:0.5
+                          delay:0.0
+                        options: UIViewAnimationCurveEaseOut
+                     animations:^{
+                         activityAccessStatusImgView.frame = acessImageFrame;
+                         activityBarImgView.frame=barImageFrame;
+                         backgroundBoxImgView.frame=boxImageFrame;
+                         activityTextLabel.frame=whatTextFrame;
+                         bottomView.frame=bottomViewFrame;
+                     } 
+                     completion:^(BOOL finished){
+                         NSLog(@"Done!");
+                     }];
+    }
+    else{
+        CGRect acessImageFrame = activityAccessStatusImgView.frame;
+        acessImageFrame.origin.y=123.0f;
+        CGRect barImageFrame = activityBarImgView.frame;
+        barImageFrame.size.height=150.0f;
+        CGRect boxImageFrame = backgroundBoxImgView.frame;
+        boxImageFrame.size.height=90;
+        CGRect whatTextFrame = activityTextLabel.frame;
+        whatTextFrame.size.height=yTextLabel;
+        CGRect bottomViewFrame = bottomView.frame;
+        bottomViewFrame.origin.y=bottomView.frame.origin.y-50;
+
+
+        [UIView animateWithDuration:0.5
+                              delay:0.0
+                            options: UIViewAnimationCurveEaseOut
+                         animations:^{
+                             activityAccessStatusImgView.frame = acessImageFrame;
+                             activityBarImgView.frame=barImageFrame;
+                             backgroundBoxImgView.frame=boxImageFrame;
+                             activityTextLabel.frame=whatTextFrame;
+                             bottomView.frame=bottomViewFrame;
+                             
+                         } 
+                         completion:^(BOOL finished){
+                             NSLog(@"Done!");
+                         }];
+        
+    }
+    }
 }
--(IBAction)plotActivityOnMap:(id)sender{
-    
-}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

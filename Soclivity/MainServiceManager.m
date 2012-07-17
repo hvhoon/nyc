@@ -78,5 +78,12 @@
    [self invoke:invocation withDelegate:delegate];
     
 }
+-(void)getDetailedActivityInfoInvocation:(NSInteger)pId actId:(NSInteger)actId delegate:(id<DetailedActivityInfoInvocationDelegate>)delegate{
+    DetailedActivityInfoInvocation *invocation = [[[DetailedActivityInfoInvocation alloc] init] autorelease];
+    invocation.playerId = pId;
+    invocation.activityId = actId;
+    [self invoke:invocation withDelegate:delegate];
+    
+}
 
 @end

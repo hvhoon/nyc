@@ -18,31 +18,32 @@
 @interface AddEventView : UIView{
     InfoActivityClass *activityObject;
     IBOutlet UIImageView *activityBarImgView;
-    IBOutlet UIImageView *activityBarTextImgView;
+    
+    IBOutlet UIImageView *backgroundBoxImgView;
+    
+    IBOutlet UIImageView *activityAccessStatusImgView;
+
     IBOutlet UILabel*activityTextLabel;
-    IBOutlet UILabel *goingCountLabel;
+    IBOutlet UILabel *organizerLinkLabel;
     IBOutlet UIImageView *activityCreatedImgView;
     IBOutlet UILabel*activityorganizerTextLabel;
-    IBOutlet UILabel *peopleYouKnowCountLabel;
-    IBOutlet UIButton *DOS1_ArrowButton;
-    IBOutlet UILabel *peopleYouMayKnowCountLabel;
     IBOutlet UITextView *whatDescTextView;
     IBOutlet UIImageView *DOSConnectionImgView;
-    IBOutlet UIImageView *backgroundBoxImgView;
     id <AddEventViewDelegate>delegate;
-    IBOutlet UILabel *whenActivityLabel;
-    IBOutlet UILabel *whereAddressActivityLabel;
     IBOutlet UIImageView *profileImgView;
-    IBOutlet UIButton *locationButton;
-    IBOutlet UIButton *DOS2_ArrowButton;
+    
+    IBOutlet UILabel*calendarDateLabel;
+    IBOutlet UILabel*activityTimeLabel;
+    IBOutlet UILabel*distanceLocationLabel;
+    IBOutlet UILabel*locationInfoLabel;
+    IBOutlet UIView *bottomView;
+    BOOL opened;
+    int delta;
+    float yTextLabel;
+    BOOL collapse;
 
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;
 @property (nonatomic,retain)id <AddEventViewDelegate>delegate;
-@property (nonatomic,retain)IBOutlet UIButton *DOS2_ArrowButton;
-@property (nonatomic,retain)IBOutlet UIButton *locationButton;
--(IBAction)OneDOSFriendListSelect:(id)sender;
--(IBAction)SecondDOSFriendListSelect:(id)sender;
--(IBAction)plotActivityOnMap:(id)sender;
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info;
 @end

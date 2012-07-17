@@ -27,7 +27,7 @@
     NSString *access;
     NSString *created_at;
     NSInteger num_of_people;
-    NSString *activityId;
+    NSInteger activityId;
     NSString *activityName;
     NSInteger organizerId;
     NSString *updated_at;
@@ -37,6 +37,9 @@
     NSString *where_city;
     NSString *where_state;
     NSString *where_zip;
+    BOOL isParticipant;
+    NSString*ownerProfilePhotoUrl;
+    UIImage *organizerImage;
     
 }
 @property (nonatomic,assign)NSInteger type;
@@ -59,7 +62,7 @@
 @property(nonatomic,retain) NSString *access;
 @property(nonatomic,retain) NSString *created_at;
 @property (nonatomic,assign) NSInteger num_of_people;
-@property (nonatomic,retain) NSString *activityId;
+@property (nonatomic,assign) NSInteger activityId;
 @property (nonatomic,assign) NSInteger organizerId;
 @property(nonatomic,retain) NSString *updated_at;
 @property (nonatomic,retain)NSString *what;
@@ -68,5 +71,10 @@
 @property (nonatomic,retain)NSString *where_city;
 @property (nonatomic,retain)NSString *where_state;
 @property (nonatomic,retain)NSString *where_zip;
+
+@property (nonatomic,assign)BOOL isParticipant;
+@property (nonatomic,retain)NSString*ownerProfilePhotoUrl;
+@property (nonatomic,retain)UIImage *organizerImage;
+
 
 @end

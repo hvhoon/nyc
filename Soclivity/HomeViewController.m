@@ -482,11 +482,21 @@
 
 -(void)PushToDetailActivityView:(InfoActivityClass*)detailedInfo{
     NSLog(@"PushToDetailActivityView");
-    ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:@"ActivityEventViewController" bundle:nil];
-    activityEventViewController.activityInfo=detailedInfo;
-	[[self navigationController] pushViewController:activityEventViewController animated:YES];
-    [activityEventViewController release];
-
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+    [devServer getDetailedActivityInfoInvocation:[SOC.loggedInUser.idSoc intValue]    actId:detailedInfo.activityId delegate:self];
+    }
+    else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil 
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
 }
 
 -(void)StartGettingActivities{
@@ -547,6 +557,24 @@
 [self StartGettingActivities];
      
 }
+
+#pragma mark -
+#pragma mark DetailedActivityInfoInvocationDelegate Method
+
+-(void)DetailedActivityInfoInvocationDidFinish:(DetailedActivityInfoInvocation*)invocation
+                                  withResponse:(InfoActivityClass*)responses
+                                     withError:(NSError*)error{
+    
+    
+    ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:@"ActivityEventViewController" bundle:nil];
+    
+    activityEventViewController.activityInfo=responses;
+	[[self navigationController] pushViewController:activityEventViewController animated:YES];
+    //[activityEventViewController release];
+
+    
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];

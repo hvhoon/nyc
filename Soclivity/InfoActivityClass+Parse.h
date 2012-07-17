@@ -13,5 +13,5 @@
 
 +(InfoActivityClass*) ActivitiesFromDictionary:(NSDictionary*)ACTDict;
 +(NSArray*) ActivitiesFromArray:(NSArray*) ActivitiesSchedulesAt;
-
++(InfoActivityClass*) DetailInfoParse:(NSDictionary*)ACTDict;
 @end
