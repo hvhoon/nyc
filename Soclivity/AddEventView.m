@@ -161,11 +161,13 @@
     NSLog(@"lines=%d",lines);
 	[activityTextLabel setFrame:CGRectMake(40, 70, 240, yTextLabel)];
 
-
-   if ([info.access isEqualToString:@"public"]){
-            activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_private.png.png"];
-    }else{
-            activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_private.png.png"];
+    
+    // Privacy icons
+    if ([info.access isEqualToString:@"public"]){
+            activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_public.png"];
+    }
+    else {
+            activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_private.png"];
     }
     
     calendarDateLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
