@@ -105,7 +105,7 @@
     }
     
     
-    organizerLinkLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Medium" size:12];
+    organizerLinkLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
     organizerLinkLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     
     switch (info.DOS){
@@ -117,10 +117,12 @@
             organizerLinkLabel.text=[NSString stringWithFormat:@"Created by a friend of a friend!"];
             break;
             
-            
         case 0:
-            organizerLinkLabel.text=[NSString stringWithFormat:@"Created this event!"];
+            organizerLinkLabel.text=[NSString stringWithFormat:@"You this event!"];
             break;
+            
+        default:
+            organizerLinkLabel.text=[NSString stringWithFormat:@"Created this event!"];
     }
     
     if((info.what==(NSString*)[NSNull null])||([info.what isEqualToString:@""]||info.what==nil)||([info.what isEqualToString:@"(null)"])){
@@ -132,7 +134,7 @@
     activityTextLabel.numberOfLines = 0;
     activityTextLabel.lineBreakMode = UILineBreakModeWordWrap;
 
-	activityTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Medium" size:14];
+	activityTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     activityTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     activityTextLabel.backgroundColor=[UIColor clearColor];
 
@@ -166,18 +168,18 @@
             activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_private.png.png"];
     }
     
-    calendarDateLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Medium" size:14];
+    calendarDateLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     calendarDateLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     
-    activityTimeLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Medium" size:14];
+    activityTimeLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     activityTimeLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     
     
-    distanceLocationLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Medium" size:14];
+    distanceLocationLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     distanceLocationLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
 
     
-    locationInfoLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Medium" size:14];
+    locationInfoLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     locationInfoLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
 
 
@@ -209,7 +211,7 @@
 
 #if 0        
     
-    whatDescTextView.font=[UIFont fontWithName:@"Helvetica-Condensed-Medium" size:14];
+    whatDescTextView.font=[UIFont fontWithName:@"Helvetica-Condensed" size:14];
     whatDescTextView.text=info.what;
     whatDescTextView.editable=NO;
     whatDescTextView.scrollEnabled=NO;
