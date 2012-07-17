@@ -80,30 +80,29 @@
        [operation release];
     
     
-    
-    
+    // Activity organizer name
     activityorganizerTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     activityorganizerTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     activityorganizerTextLabel.text=[NSString stringWithFormat:@"%@",info.organizerName];
-     CGSize  size = [info.organizerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15]];
-     NSLog(@"width=%f",size.width);
-     activityorganizerTextLabel.frame=CGRectMake(100, 20, size.width, 15);
+    CGSize  size = [info.organizerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15]];
+    NSLog(@"width=%f",size.width);
+    activityorganizerTextLabel.frame=CGRectMake(100, 25, size.width, 16);
     
-    DOSConnectionImgView.frame=CGRectMake(100+5+size.width, 23, 20, 12);
+    // Activity organizer DOS
+    DOSConnectionImgView.frame=CGRectMake(100+6+size.width, 26, 21, 12);
     switch (info.DOS){
         case 1:
-            DOSConnectionImgView.image=[UIImage imageNamed:@"S5_DOS-1.png"];
+            DOSConnectionImgView.image=[UIImage imageNamed:@"S05_dos1.png"];
             break;
             
         case 2:
-            DOSConnectionImgView.image=[UIImage imageNamed:@"S5_DOS-2.png"];
+            DOSConnectionImgView.image=[UIImage imageNamed:@"S05_dos2.png"];
             break;
             
             
         default:
             break;
     }
-    
     
     organizerLinkLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
     organizerLinkLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -118,7 +117,7 @@
             break;
             
         case 0:
-            organizerLinkLabel.text=[NSString stringWithFormat:@"You this event!"];
+            organizerLinkLabel.text=[NSString stringWithFormat:@"You created this event!"];
             break;
             
         default:
@@ -321,8 +320,8 @@
         image = [SoclivityUtilities autoCrop:image];
     
     // If the image needs to be compressed
-    if(image.size.height > 84 || image.size.width > 82)
-        profileImgView.image = [SoclivityUtilities compressImage:image size:CGSizeMake(84,82)];
+    if(image.size.height > 74 || image.size.width > 74)
+        profileImgView.image = [SoclivityUtilities compressImage:image size:CGSizeMake(74,74)];
     
    [profileImgView setImage:image]; //UIImageView
 }
