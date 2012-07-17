@@ -152,7 +152,7 @@
 
     
 #else
-    NSNumber *distance =[ACTDict objectForKey:@"Distance"];
+    NSNumber *distance =[ACTDict objectForKey:@"distance"];
     play.distance=[NSString stringWithFormat:@"%.02f miles",[distance doubleValue]];
  #endif   
     NSNumber *dosOwner = [ACTDict objectForKey:@"dos0"];
