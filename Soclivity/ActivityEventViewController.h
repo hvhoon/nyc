@@ -10,13 +10,16 @@
 #import "AddEventView.h"
 @class InfoActivityClass;
 @interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate>{
-    UIScrollView* scrollView;
+    IBOutlet UIScrollView* scrollView;
     IBOutlet AddEventView *eventView;
     InfoActivityClass *activityInfo;
     IBOutlet UIButton *chatButton;
     IBOutlet UILabel *activityNameLabel;
     IBOutlet UIButton *addEventButton;
     IBOutlet UIButton *leaveActivityButton;
+    BOOL pageControlBeingUsed;
+    int page;
+
 
 }
 @property (nonatomic, retain) UIScrollView* scrollView;
@@ -25,4 +28,5 @@
 -(IBAction)addEventActivityPressed:(id)sender;
 -(IBAction)leaveEventActivityPressed:(id)sender;
 -(IBAction)createANewActivityButtonPressed:(id)sender;
+-(void)scrollViewToTheTopOrBottom;
 @end

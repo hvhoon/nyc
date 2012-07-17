@@ -484,7 +484,7 @@
     NSLog(@"PushToDetailActivityView");
     
     if([SoclivityUtilities hasNetworkConnection]){
-    [devServer getDetailedActivityInfoInvocation:[SOC.loggedInUser.idSoc intValue]    actId:detailedInfo.activityId delegate:self];
+    [devServer getDetailedActivityInfoInvocation:[SOC.loggedInUser.idSoc intValue]    actId:detailedInfo.activityId  latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude delegate:self];
     }
     else{
         

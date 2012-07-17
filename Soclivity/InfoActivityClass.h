@@ -40,6 +40,7 @@
     BOOL isParticipant;
     NSString*ownerProfilePhotoUrl;
     UIImage *organizerImage;
+    NSMutableArray *friendsOfFriendsArray;
     
 }
 @property (nonatomic,assign)NSInteger type;
@@ -76,5 +77,5 @@
 @property (nonatomic,retain)NSString*ownerProfilePhotoUrl;
 @property (nonatomic,retain)UIImage *organizerImage;
 
-
+@property(nonatomic,retain)NSMutableArray *friendsOfFriendsArray;
 @end

@@ -78,10 +78,13 @@
    [self invoke:invocation withDelegate:delegate];
     
 }
--(void)getDetailedActivityInfoInvocation:(NSInteger)pId actId:(NSInteger)actId delegate:(id<DetailedActivityInfoInvocationDelegate>)delegate{
+-(void)getDetailedActivityInfoInvocation:(NSInteger)pId actId:(NSInteger)actId  latitude:(float)latitude longitude:(float)longitude delegate:(id<DetailedActivityInfoInvocationDelegate>)delegate{
     DetailedActivityInfoInvocation *invocation = [[[DetailedActivityInfoInvocation alloc] init] autorelease];
     invocation.playerId = pId;
     invocation.activityId = actId;
+    invocation.currentLatitude = latitude;
+    invocation.currentLongitude = longitude;
+
     [self invoke:invocation withDelegate:delegate];
     
 }

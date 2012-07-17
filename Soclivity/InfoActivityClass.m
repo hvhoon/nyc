@@ -9,7 +9,7 @@
 #import "InfoActivityClass.h"
 
 @implementation InfoActivityClass
-@synthesize type,activityName,organizerName,DOS,DOS1,DOS2,DOS3,distance,goingCount,quotations,where_lat,where_lng,stamp,dateAndTime;
+@synthesize type,activityName,organizerName,DOS,DOS1,DOS2,DOS3,distance,goingCount,quotations,where_lat,where_lng,stamp,dateAndTime,friendsOfFriendsArray;
 
 @synthesize access,activityType,created_at,num_of_people,activityId,organizerId,updated_at,what,when,where_address,where_city;
 @synthesize where_state,where_zip,isParticipant,ownerProfilePhotoUrl,organizerImage;
@@ -34,6 +34,7 @@
     [where_zip release];
     [ownerProfilePhotoUrl release];
     [organizerImage release];
+    [friendsOfFriendsArray release];
      
 }
 

@@ -10,6 +10,7 @@
 #import "InfoActivityClass.h"
 #import "JSON.h"
 #import "SoclivityManager.h"
+#import "ParticipantClass.h"
 @implementation InfoActivityClass (Parse)
 
 
@@ -107,7 +108,21 @@
          play.isParticipant=FALSE;
     }
     
-#if 1        
+    NSArray *friendsOfFriends=[ACTDict objectForKey:@"friendsoffriends"];
+    NSMutableArray *DOS2Array=[NSMutableArray new];
+    
+    for(id object in friendsOfFriends){
+        ParticipantClass *pObject=[[[ParticipantClass alloc]init]autorelease];
+        pObject.name=[object objectForKey:@"name"];
+        pObject.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[object objectForKey:@"photo"]];
+        [DOS2Array addObject:pObject];
+        
+    }
+    if([DOS2Array count]>0){
+        play.friendsOfFriendsArray=DOS2Array; 
+    }
+    
+#if 0        
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     CLLocationDegrees latitude  = [play.where_lat  doubleValue];
     CLLocationDegrees longitude = [play.where_lng  doubleValue];
@@ -118,10 +133,13 @@
                                                        longitude:SOC.currentLocation.coordinate.longitude];
     
     play.distance =[NSString stringWithFormat:@"%.02f miles",[newCenter distanceFromLocation:tempLocObj] / 1000];
-#endif            
+            
 
-    //NSNumber *distance =[ACTDict objectForKey:@"Distance"];
-    //play.distance=[NSString stringWithFormat:@"%.02f",[distance doubleValue]];
+    
+#else
+    NSNumber *distance =[ACTDict objectForKey:@"Distance"];
+    play.distance=[NSString stringWithFormat:@"%.02f",[distance doubleValue]];
+ #endif   
     NSNumber *dosOwner = [ACTDict objectForKey:@"dos0"];
     play.DOS =[dosOwner intValue];
     play.organizerName=[ACTDict objectForKey:@"owner_name"];
@@ -132,6 +150,8 @@
     NSNumber *dos3 = [ACTDict objectForKey:@"dos3"];
     play.DOS3 =[dos3 intValue];
     
+    play.goingCount=[NSString stringWithFormat:@"%d",play.DOS1+play.DOS2+play.DOS3];
+
     
 	return play;
     

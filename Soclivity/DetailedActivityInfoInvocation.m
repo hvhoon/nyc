@@ -10,7 +10,7 @@
 #import "JSON.h"
 
 @implementation DetailedActivityInfoInvocation
-@synthesize playerId,activityId;
+@synthesize playerId,activityId,currentLongitude,currentLatitude;
 
 
 
@@ -18,7 +18,7 @@
 	[super dealloc];
 }
 -(void)invoke {
-    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/getactivity.json?id=%d&pid=%d",activityId,playerId];
+    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/getactivity.json?id=%d&pid=%d&lat=%f&lng=%f",activityId,playerId,currentLatitude,currentLongitude];
      [self get:a];
 }
 

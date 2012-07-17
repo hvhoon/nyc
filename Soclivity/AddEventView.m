@@ -349,17 +349,17 @@
     opened=!opened;
     if(opened){
     CGRect acessImageFrame = activityAccessStatusImgView.frame;
-    acessImageFrame.origin.y=169.0f;
+    acessImageFrame.origin.y=154.0f;
     CGRect barImageFrame = activityBarImgView.frame;
-    barImageFrame.size.height=200.0f;
+    barImageFrame.size.height=185.0f;
     CGRect boxImageFrame = backgroundBoxImgView.frame;
-    boxImageFrame.size.height=140;
+    boxImageFrame.size.height=125;
 
     CGRect whatTextFrame = activityTextLabel.frame;
     whatTextFrame.size.height=yTextLabel+delta;
         
     CGRect bottomViewFrame = bottomView.frame;
-    bottomViewFrame.origin.y=bottomView.frame.origin.y+50;
+    bottomViewFrame.origin.y=bottomView.frame.origin.y+30;
 
 
     
@@ -387,7 +387,7 @@
         CGRect whatTextFrame = activityTextLabel.frame;
         whatTextFrame.size.height=yTextLabel;
         CGRect bottomViewFrame = bottomView.frame;
-        bottomViewFrame.origin.y=bottomView.frame.origin.y-50;
+        bottomViewFrame.origin.y=bottomView.frame.origin.y-30;
 
 
         [UIView animateWithDuration:0.5

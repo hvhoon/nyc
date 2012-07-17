@@ -29,7 +29,7 @@
 -(void)getActivitiesInvocation:(NSInteger)userId latitude:(float)latitude longitude:(float)longitude timeSpanFilter:(NSString*)timeSpanFilter updatedAt:(NSString*)updatedAt  delegate:(id<GetActivitiesInvocationDelegate>)delegate;
 -(void)getActivitiesInvocation:(NSInteger)userId latitude:(float)latitude longitude:(float)longitude delegate:(id<GetActivitiesInvocationDelegate>)delegate;
 
--(void)getDetailedActivityInfoInvocation:(NSInteger)pId actId:(NSInteger)actId delegate:(id<DetailedActivityInfoInvocationDelegate>)delegate;
+-(void)getDetailedActivityInfoInvocation:(NSInteger)pId actId:(NSInteger)actId latitude:(float)latitude longitude:(float)longitude delegate:(id<DetailedActivityInfoInvocationDelegate>)delegate;
 
 
 @end

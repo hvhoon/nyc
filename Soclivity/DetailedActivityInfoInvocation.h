@@ -26,4 +26,7 @@
 
 @property (nonatomic, assign) NSInteger playerId;
 @property (nonatomic,assign) NSInteger activityId;
+@property (nonatomic, assign) float  currentLatitude;
+@property (nonatomic, assign) float  currentLongitude;
+
 @end
