@@ -188,6 +188,7 @@
 						<string key="NSFrame">{{270, 426}, {37, 29}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -262,7 +263,7 @@
 					<object class="IBUIImageView" id="303255778">
 						<reference key="NSNextResponder" ref="647438086"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{37, 8}, {51, 51}}</string>
+						<string key="NSFrame">{{37, 4}, {54, 54}}</string>
 						<reference key="NSSuperview" ref="647438086"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="338245859"/>
@@ -276,7 +277,7 @@
 					<object class="IBUIImageView" id="338245859">
 						<reference key="NSNextResponder" ref="647438086"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{41, 11}, {40, 40}}</string>
+						<string key="NSFrame">{{45, 11}, {37, 37}}</string>
 						<reference key="NSSuperview" ref="647438086"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="691039737"/>
@@ -524,6 +525,7 @@
 								<string key="NSFrame">{{94, 145}, {212, 14}}</string>
 								<reference key="NSSuperview" ref="1045809916"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -1181,7 +1183,7 @@
 			<string key="S05_detailsLine.png">{272, 2}</string>
 			<string key="S05_joinButton.png">{115, 31}</string>
 			<string key="S05_locationIcon.png">{19, 18}</string>
-			<string key="S05_organizerPic.png">{51, 48}</string>
+			<string key="S05_organizerPic.png">{54, 54}</string>
 			<string key="S5_DOS-1.png">{20, 12}</string>
 			<string key="S5_back-button.png">{37, 29}</string>
 			<string key="S5_bottom-bar.png">{320, 40}</string>
