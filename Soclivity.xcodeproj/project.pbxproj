@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6802EC3815B6611E00FF0048 /* picbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 6802EC3615B6611E00FF0048 /* picbox.png */; };
+		6802EC3915B6611E00FF0048 /* picbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6802EC3715B6611E00FF0048 /* picbox@2x.png */; };
 		680CE3E31551258700B8E937 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 680CE3E21551258700B8E937 /* UIKit.framework */; };
 		680CE3E51551258700B8E937 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 680CE3E41551258700B8E937 /* Foundation.framework */; };
 		680CE3E71551258700B8E937 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 680CE3E61551258700B8E937 /* CoreGraphics.framework */; };
@@ -378,7 +380,6 @@
 		EA85DC6615B00C7400AAD964 /* InvitesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA85DC6415B00C7400AAD964 /* InvitesViewController.xib */; };
 		EA85DC6B15B01AE700AAD964 /* BlockedListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA85DC6915B01AE700AAD964 /* BlockedListViewController.m */; };
 		EA85DC6C15B01AE700AAD964 /* BlockedListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA85DC6A15B01AE700AAD964 /* BlockedListViewController.xib */; };
-		EA8653DD15A41E7900342731 /* p1.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8653DC15A41E7900342731 /* p1.png */; };
 		EA86D2D7156FEDE900E3EABD /* FBSignInInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA86D2D6156FEDE900E3EABD /* FBSignInInvocation.m */; };
 		EA87EDC1157340EE00DE1762 /* UserContactList.m in Sources */ = {isa = PBXBuildFile; fileRef = EA87EDC0157340EE00DE1762 /* UserContactList.m */; };
 		EA87EDC6157346A700DE1762 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA87EDC5157346A700DE1762 /* AddressBook.framework */; };
@@ -636,6 +637,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6802EC3615B6611E00FF0048 /* picbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = picbox.png; sourceTree = "<group>"; };
+		6802EC3715B6611E00FF0048 /* picbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "picbox@2x.png"; sourceTree = "<group>"; };
 		680CE3DE1551258700B8E937 /* Soclivity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soclivity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		680CE3E21551258700B8E937 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		680CE3E41551258700B8E937 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1072,7 +1075,6 @@
 		EA85DC6815B01AE700AAD964 /* BlockedListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockedListViewController.h; sourceTree = "<group>"; };
 		EA85DC6915B01AE700AAD964 /* BlockedListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockedListViewController.m; sourceTree = "<group>"; };
 		EA85DC6A15B01AE700AAD964 /* BlockedListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlockedListViewController.xib; sourceTree = "<group>"; };
-		EA8653DC15A41E7900342731 /* p1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = p1.png; sourceTree = "<group>"; };
 		EA86D2D5156FEDE900E3EABD /* FBSignInInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSignInInvocation.h; sourceTree = "<group>"; };
 		EA86D2D6156FEDE900E3EABD /* FBSignInInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBSignInInvocation.m; sourceTree = "<group>"; };
 		EA87EDBF157340EE00DE1762 /* UserContactList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserContactList.h; sourceTree = "<group>"; };
@@ -1406,6 +1408,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6802EC3515B6611E00FF0048 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				6802EC3615B6611E00FF0048 /* picbox.png */,
+				6802EC3715B6611E00FF0048 /* picbox@2x.png */,
+			);
+			name = Common;
+			path = Soclivity/Common;
+			sourceTree = "<group>";
+		};
 		680CE3D31551258700B8E937 = {
 			isa = PBXGroup;
 			children = (
@@ -1500,9 +1512,9 @@
 		680CE4271551286D00B8E937 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				EA8653DC15A41E7900342731 /* p1.png */,
 				686C79881557C471001358E0 /* Icon.png */,
 				686C798A1557C475001358E0 /* Icon@2x.png */,
+				6802EC3515B6611E00FF0048 /* Common */,
 				68BF4F6E155CAEF5005399B3 /* Fonts */,
 				EAED843D1554016200124D7D /* S01 Welcome */,
 				EAED84141554016200124D7D /* S01.1 Login */,
@@ -3028,7 +3040,6 @@
 				EA8D609B1599C122000A099C /* S04.1_clearPressed@2x.png in Resources */,
 				EA8D609C1599C122000A099C /* S04.1_clear.png in Resources */,
 				EA8D609D1599C122000A099C /* S04.1_clear@2x.png in Resources */,
-				EA8653DD15A41E7900342731 /* p1.png in Resources */,
 				EA85DC1615AFDD6A00AAD964 /* S7_activity-feed.png in Resources */,
 				EA85DC1715AFDD6A00AAD964 /* S7_activity-feed@2x.png in Resources */,
 				EA85DC1815AFDD6A00AAD964 /* S7_activity-feed_icon.png in Resources */,
@@ -3243,6 +3254,8 @@
 				686E7B2C15B5E3A800A05C7C /* S5_you-have-2-friends-going@2x.png in Resources */,
 				686E7B2D15B5E3A800A05C7C /* S5_you-may-know.png in Resources */,
 				686E7B2E15B5E3A800A05C7C /* S5_you-may-know@2x.png in Resources */,
+				6802EC3815B6611E00FF0048 /* picbox.png in Resources */,
+				6802EC3915B6611E00FF0048 /* picbox@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
