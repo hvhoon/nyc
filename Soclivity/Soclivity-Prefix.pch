@@ -32,3 +32,5 @@
 #define kSignOutSoclivity @"dev.soclivity.com/signout.json"
 #define kStopScrolling @"StopScrolling"
 #define kStartScrolling @"StartScrolling"
+#define kCustomRowHeight    60.0
+#define kSectionHeaderHeight    35.0

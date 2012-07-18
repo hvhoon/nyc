@@ -4,7 +4,6 @@
 
 @class SectionHeaderView;
 @class InfoActivityClass;
-
 @interface SectionInfo : NSObject {
 	
 }
@@ -12,7 +11,6 @@
 @property (assign) BOOL open;
 @property (retain) InfoActivityClass* play;
 @property (retain) SectionHeaderView* headerView;
-
 @property (nonatomic,retain,readonly) NSMutableArray *rowHeights;
 
 - (NSUInteger)countOfRowHeights;

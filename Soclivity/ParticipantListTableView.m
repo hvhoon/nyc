@@ -10,6 +10,7 @@
 #import "ParticipantClass.h"
 #import "ParticipantTableViewCell.h"
 #import "SoclivityUtilities.h"
+#import "SectionInfo.h"
 #define kCustomRowHeight    60.0
 #define kSectionHeaderHeight    35.0
 #pragma mark -
@@ -21,7 +22,7 @@
 @end
 
 @implementation ParticipantListTableView
-@synthesize DOS1_friendsArray,DOS2_friendsArray,imageDownloadsInProgress;
+@synthesize DOS1_friendsArray,DOS2_friendsArray,imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -42,71 +43,93 @@
     [participantTableView setRowHeight:kCustomRowHeight];
      participantTableView.scrollEnabled=YES;
     participantTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
-    [participantTableView reloadData];
+    self.participantTableView.sectionHeaderHeight = kSectionHeaderHeight;
     participantTableView.separatorColor=[UIColor clearColor];
-
-}
-#pragma mark -
-#pragma mark Table view creation (UITableViewDataSource)
-
-
-#pragma mark -
-#pragma  mark Table Data Source Methods
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 2;
-}
-
-
-// customize the number of rows in the table view
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+    rowHeight_ = kCustomRowHeight;
+    openSectionIndex_ = NSNotFound;
     
-    switch (section) {
-        case 0:
-        {
-            
-            if([DOS1_friendsArray count]==0)
-                return 1;
-            
-            return [DOS1_friendsArray count];
-        }
-            break;
-            
-        case 1:
-        {
-            
-            if([DOS2_friendsArray count]==0)
-                return 1;
+    
+    if ((self.sectionInfoArray == nil) || ([self.sectionInfoArray count] != [self numberOfSectionsInTableView:self.participantTableView])) {
+		
+        // For each play, set up a corresponding SectionInfo object to contain the default height for each row.
+		NSMutableArray *infoArray = [[NSMutableArray alloc] init];
+		
+        for(int index=0;index<2;index++){
+			InfoActivityClass *play=[[InfoActivityClass alloc]init];
+			SectionInfo *sectionInfo = [[SectionInfo alloc] init];			
+			sectionInfo.open = NO;
+			sectionInfo.play=play;
+            NSNumber *defaultRowHeight = [NSNumber numberWithInteger:kCustomRowHeight];
+            NSInteger countOfQuotations;
+            switch (index) {
+                case 0:
+                {
+                    play.quotations=self.DOS1_friendsArray;
+                    countOfQuotations = [play.quotations count];
+                    for (NSInteger i = 0; i < countOfQuotations; i++) {
+                        [sectionInfo insertObject:defaultRowHeight inRowHeightsAtIndex:i];
+                    }
+                }
+                    break;
+                    
+                case 1:
+                {
+                    play.quotations=self.DOS2_friendsArray;
+                    countOfQuotations = [play.quotations count];
+                    for (NSInteger i = 0; i < countOfQuotations; i++) {
+                        [sectionInfo insertObject:defaultRowHeight inRowHeightsAtIndex:i];
+                    }
+                }
+                    break;
+            }
+			
+			[infoArray addObject:sectionInfo];
+		}
+		
+		self.sectionInfoArray = infoArray;
+	}
 
-            return [DOS2_friendsArray count];
-        }
-            break;
-   
-            
-            
-        default:
-        {
-            return 0;
-        }
-            break;
-    }
+    [self.participantTableView reloadData];
+}
+
+- (void)dealloc {
+    
+    [super dealloc];
+    
+    // To reduce memory pressure, reset the section info array if the view is unloaded.
+	self.sectionInfoArray = nil;
+}
+
+#pragma mark Table view data source and delegate
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
+    
+    return 2;
+}
+
+-(NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
+    
+	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
+	NSInteger numStoriesInSection = [[sectionInfo.play quotations] count];
+	
+    return sectionInfo.open ? numStoriesInSection : 0;
 }
 
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+-(CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
     
-  return kSectionHeaderHeight;
-    
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return kCustomRowHeight;
+	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:indexPath.section];
+    return [[sectionInfo objectInRowHeightsAtIndex:indexPath.row] floatValue];
+    // Alternatively, return rowHeight.
 }
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
+    
+    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
+
     UIView *sectionHeaderview=[[[UIView alloc]initWithFrame:CGRectMake(0,0,320,30)]autorelease];
     sectionHeaderview.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
     
@@ -130,14 +153,14 @@
         case 0:
         {
             DOSImageView.image=[UIImage imageNamed:@"S05_smallDOS1.png"];
-            DOScountLabel.text=[NSString stringWithFormat:@"%d Friends",[self.DOS1_friendsArray count]];
+            DOScountLabel.text=[NSString stringWithFormat:@"%d Friends",[sectionInfo.play.quotations count]];
         }
             break;
             
         case 1:
         {
             DOSImageView.image=[UIImage imageNamed:@"S05_smallDOS2.png"];
-            DOScountLabel.text=[NSString stringWithFormat:@"%d Friends of friends",[self.DOS2_friendsArray count]];
+            DOScountLabel.text=[NSString stringWithFormat:@"%d Friends of friends",[sectionInfo.play.quotations count]];
         }
             break;
             
@@ -163,42 +186,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
     static NSString *CellIdentifier = @"MediaTableCell";
-    static NSString *PlaceholderCellIdentifier = @"PlaceholderCell";
-    int nodeCount;
-    switch (indexPath.section) {
-        case 0:
-        {
-            nodeCount = [self.DOS1_friendsArray count];
-        }
-            break;
-            
-        case 1:
-        {
-            nodeCount = [self.DOS2_friendsArray count];
-        }
-            break;
-    }
     
-    if (nodeCount == 0 && indexPath.row == 0)
-        {
-            ParticipantTableViewCell *cell = (ParticipantTableViewCell *)[tableView dequeueReusableCellWithIdentifier:PlaceholderCellIdentifier];
-            if (cell == nil)
-            {
-                cell = [[[ParticipantTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                                          reuseIdentifier:PlaceholderCellIdentifier] autorelease];   
-                
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            }
-            if(indexPath.section==0)
-            cell.textLabel.text = @"No friends have joined yet…";
-            else{
-                cell.textLabel.text = @"No friends of friends have joined yet…";
-            }
-            
-            return cell;
-        }
         
-        ParticipantTableViewCell *cell =  (ParticipantTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+ ParticipantTableViewCell *cell =  (ParticipantTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil)
         {
             cell = [[[ParticipantTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
@@ -208,24 +199,12 @@
         }
         
         // Leave cells empty if there's no data yet
-        if (nodeCount > 0)
-        {
             // Set up the cell...
-            ParticipantClass *appRecord=nil;
-            switch (indexPath.section) {
-                case 0:
-                {
-                    appRecord = [self.DOS1_friendsArray objectAtIndex:indexPath.row];
-                }
-                    break;
-                    
-                case 1:
-                {
-                    appRecord = [self.DOS2_friendsArray objectAtIndex:indexPath.row];
-                }
-                    break;
-            }
             
+            
+            InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
+            ParticipantClass *appRecord = [play.quotations objectAtIndex:indexPath.row];
+
             cell.nameText=appRecord.name;
             
             
@@ -244,7 +223,7 @@
                 cell.profileImage = appRecord.profilePhotoImage;
             }
             
-        }
+        
         
         [cell setNeedsDisplay];
         return cell;
@@ -256,9 +235,8 @@
 #pragma mark -
 #pragma mark Table cell image support
 
-// Override to support row selection in the table view.
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Selection Made");
+-(void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark -
@@ -280,12 +258,14 @@
 
 // this method is used in case the user scrolled into a set of cells that don't have their app icons yet
 - (void)loadImagesForOnscreenRows{
-    if ([self.DOS1_friendsArray count] > 0)
+    if ([self.sectionInfoArray count] > 0)
     {
         NSArray *visiblePaths = [participantTableView indexPathsForVisibleRows];
         for (NSIndexPath *indexPath in visiblePaths)
         {
-            ParticipantClass *appRecord = [self.DOS1_friendsArray objectAtIndex:indexPath.row];
+            InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
+            ParticipantClass *appRecord = [play.quotations objectAtIndex:indexPath.row];
+
             
             if (!appRecord.profilePhotoImage) // avoid the app icon download if the app already has an icon
             {
@@ -295,19 +275,6 @@
     }
     
     
-    if ([self.DOS2_friendsArray count] > 0)
-    {
-        NSArray *visiblePaths = [participantTableView indexPathsForVisibleRows];
-        for (NSIndexPath *indexPath in visiblePaths)
-        {
-            ParticipantClass *appRecord = [self.DOS2_friendsArray objectAtIndex:indexPath.row];
-            
-            if (!appRecord.profilePhotoImage) // avoid the app icon download if the app already has an icon
-            {
-                [self startIconDownload:appRecord forIndexPath:indexPath];
-            }
-        }
-    }
 }
 
 - (void)appImageDidLoad:(NSIndexPath *)indexPath
@@ -316,7 +283,6 @@
     if (iconDownloader != nil)
     {
         ParticipantTableViewCell *cell = (ParticipantTableViewCell*)[participantTableView cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         // Display the newly loaded image
         cell.profileImage = iconDownloader.appRecord.profilePhotoImage;
     }
@@ -340,11 +306,78 @@
         [self loadImagesForOnscreenRows];
 }
 
+#pragma mark Section header delegate
 
-
-- (void)dealloc {
-    [super dealloc];
+-(void)sectionHeaderView:(NSInteger)sectionOpened{
+	
+	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:sectionOpened];
+	
+	sectionInfo.open = YES;
+    
+    /*
+     Create an array containing the index paths of the rows to insert: These correspond to the rows for each quotation in the current section.
+     */
+    NSInteger countOfRowsToInsert = [sectionInfo.play.quotations count];
+    NSMutableArray *indexPathsToInsert = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0; i < countOfRowsToInsert; i++) {
+        [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:i inSection:sectionOpened]];
+    }
+    
+    /*
+     Create an array containing the index paths of the rows to delete: These correspond to the rows for each quotation in the previously-open section, if there was one.
+     */
+    NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
+    
+    NSInteger previousOpenSectionIndex = self.openSectionIndex;
+    if (previousOpenSectionIndex != NSNotFound) {
+		
+		SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:previousOpenSectionIndex];
+        previousOpenSection.open = NO;
+        //[previousOpenSection.headerView toggleOpenWithUserAction:NO];
+        NSInteger countOfRowsToDelete = [previousOpenSection.play.quotations count];
+        for (NSInteger i = 0; i < countOfRowsToDelete; i++) {
+            [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:i inSection:previousOpenSectionIndex]];
+        }
+    }
+    
+    // Style the animation so that there's a smooth flow in either direction.
+    UITableViewRowAnimation insertAnimation;
+    UITableViewRowAnimation deleteAnimation;
+    if (previousOpenSectionIndex == NSNotFound || sectionOpened < previousOpenSectionIndex) {
+        insertAnimation = UITableViewRowAnimationTop;
+        deleteAnimation = UITableViewRowAnimationBottom;
+    }
+    else {
+        insertAnimation = UITableViewRowAnimationBottom;
+        deleteAnimation = UITableViewRowAnimationTop;
+    }
+    
+    // Apply the updates.
+    [self.participantTableView beginUpdates];
+    [self.participantTableView insertRowsAtIndexPaths:indexPathsToInsert withRowAnimation:insertAnimation];
+    [self.participantTableView deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:deleteAnimation];
+    [self.participantTableView endUpdates];
+    self.openSectionIndex = sectionOpened;
+    
 }
-
+-(void)closeSectionHeaderView:(NSInteger)sectionClosed {
+    
+    /*
+     Create an array of the index paths of the rows in the section that was closed, then delete those rows from the table view.
+     */
+	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:sectionClosed];
+	
+    sectionInfo.open = NO;
+    NSInteger countOfRowsToDelete = [self.participantTableView numberOfRowsInSection:sectionClosed];
+    
+    if (countOfRowsToDelete > 0) {
+        NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
+        for (NSInteger i = 0; i < countOfRowsToDelete; i++) {
+            [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:i inSection:sectionClosed]];
+        }
+        [self.participantTableView deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:UITableViewRowAnimationTop];
+    }
+    self.openSectionIndex = NSNotFound;
+}
 
 @end

@@ -71,28 +71,38 @@
             {
                 eventView.frame=CGRectMake(0, 0, 320, 329);
                 [self.scrollView addSubview:eventView];
-                UIImageView *participantBarImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_participantBar.png"]];
-                participantBarImgView.frame=CGRectMake(0, 329, 320, 47);
-                [self.scrollView addSubview:participantBarImgView];
+                
+             }
+                break;
+            case 1:
+            {
+                //int delta=329;
+                int delta=0;
 
+                UIView *headerView=[[UIView alloc]initWithFrame:CGRectMake(0, delta, 320, 47)];
+                headerView.backgroundColor=[UIColor clearColor];
+                UIImageView *participantBarImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_participantBar.png"]];
+                participantBarImgView.frame=CGRectMake(0, delta, 320, 47);
+                [headerView addSubview:participantBarImgView];
+                
                 
                 UIButton *pArrowButton=[UIButton buttonWithType:UIButtonTypeCustom];
-                pArrowButton.frame=CGRectMake(16,343,10,18);
+                pArrowButton.frame=CGRectMake(16,delta+14,10,18);
                 [pArrowButton setBackgroundImage:[UIImage imageNamed:@"S05_participantArrow.png"] forState:UIControlStateNormal];
                 [pArrowButton addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 pArrowButton.tag=103;
-                [self.scrollView addSubview:pArrowButton];
+                [headerView addSubview:pArrowButton];
                 
                 
                 
                 UIButton *goingButton=[UIButton buttonWithType:UIButtonTypeCustom];
-                goingButton.frame=CGRectMake(34,329,74,47);
+                goingButton.frame=CGRectMake(34,delta,74,47);
                 [goingButton addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 goingButton.tag=104;
-                [self.scrollView addSubview:goingButton];
-
+                [headerView addSubview:goingButton];
                 
-                CGRect goingCountLabelRect=CGRectMake(40,340,40,12);
+                
+                CGRect goingCountLabelRect=CGRectMake(40,delta+11,40,12);
                 UILabel *goingCountLabel=[[UILabel alloc] initWithFrame:goingCountLabelRect];
                 goingCountLabel.textAlignment=UITextAlignmentCenter;
                 goingCountLabel.text=[NSString stringWithFormat:@"%@",activityInfo.goingCount];
@@ -100,11 +110,11 @@
                 goingCountLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
                 goingCountLabel.tag=235;
                 goingCountLabel.backgroundColor=[UIColor clearColor];
-                [self.scrollView addSubview:goingCountLabel];
+                [headerView addSubview:goingCountLabel];
                 [goingCountLabel release];
                 
                 
-                CGRect goingLabelTextRect=CGRectMake(46,355,55,12);
+                CGRect goingLabelTextRect=CGRectMake(46,delta+26,55,12);
                 UILabel *goingTextLabel=[[UILabel alloc] initWithFrame:goingLabelTextRect];
                 goingTextLabel.textAlignment=UITextAlignmentLeft;
                 goingTextLabel.text=[NSString stringWithFormat:@"GOING"];
@@ -112,20 +122,20 @@
                 goingTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
                 goingTextLabel.tag=236;
                 goingTextLabel.backgroundColor=[UIColor clearColor];
-                [self.scrollView addSubview:goingTextLabel];
+                [headerView addSubview:goingTextLabel];
                 [goingTextLabel release];
                 
                 
                 
                 UIButton *DOS1Button=[UIButton buttonWithType:UIButtonTypeCustom];
-                DOS1Button.frame=CGRectMake(118,329,74,47);
+                DOS1Button.frame=CGRectMake(118,delta,74,47);
                 [DOS1Button addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 DOS1Button.tag=105;
-                [self.scrollView addSubview:DOS1Button];
-
+                [headerView addSubview:DOS1Button];
                 
                 
-                CGRect DOS_1LabelRect=CGRectMake(101,340,40,12);
+                
+                CGRect DOS_1LabelRect=CGRectMake(101,delta+11,40,12);
                 UILabel *DOS_1countLabel=[[UILabel alloc] initWithFrame:DOS_1LabelRect];
                 DOS_1countLabel.textAlignment=UITextAlignmentCenter;
                 DOS_1countLabel.text=[NSString stringWithFormat:@"%d",activityInfo.DOS1];
@@ -133,19 +143,19 @@
                 DOS_1countLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
                 DOS_1countLabel.tag=237;
                 DOS_1countLabel.backgroundColor=[UIColor clearColor];
-                [self.scrollView addSubview:DOS_1countLabel];
+                [headerView addSubview:DOS_1countLabel];
                 [DOS_1countLabel release];
                 
                 
                 UIImageView *DOS_1ImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_smallDOS1.png"]];
-                DOS_1ImageView.frame=CGRectMake(130, 340, 19, 11);
+                DOS_1ImageView.frame=CGRectMake(130, delta+11, 19, 11);
                 DOS_1ImageView.tag=238;
-                [self.scrollView addSubview:DOS_1ImageView];
+                [headerView addSubview:DOS_1ImageView];
                 [DOS_1ImageView release];
- 
                 
                 
-                CGRect friendsLabelTextRect=CGRectMake(111,355,55,12);
+                
+                CGRect friendsLabelTextRect=CGRectMake(111,delta+26,55,12);
                 UILabel *friendsTextLabel=[[UILabel alloc] initWithFrame:friendsLabelTextRect];
                 friendsTextLabel.textAlignment=UITextAlignmentLeft;
                 friendsTextLabel.text=[NSString stringWithFormat:@"FRIENDS"];
@@ -153,18 +163,18 @@
                 friendsTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
                 friendsTextLabel.tag=239;
                 friendsTextLabel.backgroundColor=[UIColor clearColor];
-                [self.scrollView addSubview:friendsTextLabel];
+                [headerView addSubview:friendsTextLabel];
                 [friendsTextLabel release];
                 
                 
                 UIButton *DOS2Button=[UIButton buttonWithType:UIButtonTypeCustom];
-                DOS2Button.frame=CGRectMake(192,329,74,47);
+                DOS2Button.frame=CGRectMake(192,delta,74,47);
                 [DOS2Button addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 DOS2Button.tag=106;
-                [self.scrollView addSubview:DOS2Button];
-
+                [headerView addSubview:DOS2Button];
                 
-                CGRect DOS_2LabelRect=CGRectMake(186,340,40,12);
+                
+                CGRect DOS_2LabelRect=CGRectMake(186,delta+11,40,12);
                 UILabel *DOS_2countLabel=[[UILabel alloc] initWithFrame:DOS_2LabelRect];
                 DOS_2countLabel.textAlignment=UITextAlignmentCenter;
                 DOS_2countLabel.text=[NSString stringWithFormat:@"%d",activityInfo.DOS2];
@@ -172,19 +182,19 @@
                 DOS_2countLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
                 DOS_2countLabel.tag=240;
                 DOS_2countLabel.backgroundColor=[UIColor clearColor];
-                [self.scrollView addSubview:DOS_2countLabel];
+                [headerView addSubview:DOS_2countLabel];
                 [DOS_2countLabel release];
                 
                 
                 UIImageView *DOS_2ImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_smallDOS2.png"]];
-                DOS_2ImageView.frame=CGRectMake(215, 340, 19, 11);
+                DOS_2ImageView.frame=CGRectMake(215, delta+11, 19, 11);
                 DOS_2ImageView.tag=241;
-                [self.scrollView addSubview:DOS_2ImageView];
+                [headerView addSubview:DOS_2ImageView];
                 [DOS_2ImageView release];
                 
                 
                 
-                CGRect mayknowLabelTextRect=CGRectMake(191,355,70,12);
+                CGRect mayknowLabelTextRect=CGRectMake(191,delta+26,70,12);
                 UILabel *mayknowTextLabel=[[UILabel alloc] initWithFrame:mayknowLabelTextRect];
                 mayknowTextLabel.textAlignment=UITextAlignmentLeft;
                 mayknowTextLabel.text=[NSString stringWithFormat:@"MAY KNOW"];
@@ -192,18 +202,18 @@
                 mayknowTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
                 mayknowTextLabel.tag=242;
                 mayknowTextLabel.backgroundColor=[UIColor clearColor];
-                [self.scrollView addSubview:mayknowTextLabel];
+                [headerView addSubview:mayknowTextLabel];
                 [mayknowTextLabel release];
                 
                 
                 UIButton *DOS3Button=[UIButton buttonWithType:UIButtonTypeCustom];
-                DOS3Button.frame=CGRectMake(266,329,74,47);
+                DOS3Button.frame=CGRectMake(266,delta,74,47);
                 [DOS3Button addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 DOS2Button.tag=107;
-                [self.scrollView addSubview:DOS3Button];
-
+                [headerView addSubview:DOS3Button];
                 
-                CGRect DOS_3LabelRect=CGRectMake(266,340,40,12);
+                
+                CGRect DOS_3LabelRect=CGRectMake(266,delta+11,40,12);
                 UILabel *DOS_3countLabel=[[UILabel alloc] initWithFrame:DOS_3LabelRect];
                 DOS_3countLabel.textAlignment=UITextAlignmentCenter;
                 DOS_3countLabel.text=[NSString stringWithFormat:@"%d",activityInfo.DOS3];
@@ -211,14 +221,14 @@
                 DOS_3countLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
                 DOS_3countLabel.tag=243;
                 DOS_3countLabel.backgroundColor=[UIColor clearColor];
-                [self.scrollView addSubview:DOS_3countLabel];
+                [headerView addSubview:DOS_3countLabel];
                 [DOS_3countLabel release];
                 
                 
                 
                 
                 
-                CGRect othersLabelTextRect=CGRectMake(266,355,55,12);
+                CGRect othersLabelTextRect=CGRectMake(266,delta+26,55,12);
                 UILabel *othersTextLabel=[[UILabel alloc] initWithFrame:othersLabelTextRect];
                 othersTextLabel.textAlignment=UITextAlignmentLeft;
                 othersTextLabel.text=[NSString stringWithFormat:@"OTHERS"];
@@ -226,19 +236,10 @@
                 othersTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
                 othersTextLabel.tag=244;
                 othersTextLabel.backgroundColor=[UIColor clearColor];
-                [self.scrollView addSubview:othersTextLabel];
+                [headerView addSubview:othersTextLabel];
                 [othersTextLabel release];
-
-
-
-                
-                
-                
-            }
-                break;
-            case 1:
-            {
-                [participantListTableView setFrame:CGRectMake(0, 376, 320, 376)];
+                participantListTableView.participantTableView.tableHeaderView=headerView;
+                [participantListTableView setFrame:CGRectMake(0, 329, 320, 423)];
                 [self.scrollView addSubview:participantListTableView];
             }
                 break;
@@ -298,7 +299,14 @@
             break;
         case 105:
         {
-            
+            toggleFriends=!toggleFriends;
+            if(toggleFriends){
+            [participantListTableView sectionHeaderView:0];
+                toogleFriendsOfFriends=FALSE;
+            }
+            else{
+                [participantListTableView closeSectionHeaderView:1];
+            }
         }
             break;
         case 106:
@@ -308,6 +316,15 @@
             break;
         case 107:
         {
+            toogleFriendsOfFriends=!toogleFriendsOfFriends;
+            if(toogleFriendsOfFriends)
+            {
+                [participantListTableView sectionHeaderView:1];
+                toggleFriends=FALSE;
+            }
+            else{
+                [participantListTableView closeSectionHeaderView:0];
+            }
             
         }
             break;
@@ -333,7 +350,7 @@
         switch (page) {
             case 1:
             {
-                [(UIButton*)[self.scrollView viewWithTag:103] setFrame:CGRectMake(16, 343, 19, 10)];
+                [(UIButton*)[self.scrollView viewWithTag:103] setFrame:CGRectMake(16, 14, 19, 10)];//343
                 [(UIButton*)[self.scrollView viewWithTag:103] setBackgroundImage:[UIImage imageNamed:@"S05_participantDownArrow.png"] forState:UIControlStateNormal];
 
             }
@@ -342,7 +359,7 @@
                 
             case 0:
             {
-                [(UIButton*)[self.scrollView viewWithTag:103] setFrame:CGRectMake(16,343,10,18)];
+                [(UIButton*)[self.scrollView viewWithTag:103] setFrame:CGRectMake(16,14,10,18)];//343
                 [(UIButton*)[self.scrollView viewWithTag:103] setBackgroundImage:[UIImage imageNamed:@"S05_participantArrow.png"] forState:UIControlStateNormal];
 
             }

@@ -21,6 +21,8 @@
     IBOutlet UIButton *leaveActivityButton;
     BOOL pageControlBeingUsed;
     int page;
+    BOOL toggleFriends;
+    BOOL toogleFriendsOfFriends;
 
 
 }

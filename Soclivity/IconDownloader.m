@@ -2,11 +2,11 @@
 #import "IconDownloader.h"
 #import "ParticipantClass.h"
 
-#define kIconHeight 84
-#define kIconWidth 82
+#define kIconHeight 56
+#define kIconWidth 56
 
-#define kIconThumbHeight 42
-#define kIconThumbWidth 41
+#define kIconThumbHeight 28
+#define kIconThumbWidth 28
 
 
 

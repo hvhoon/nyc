@@ -14,9 +14,17 @@
     NSMutableDictionary *imageDownloadsInProgress;
     NSMutableArray *DOS1_friendsArray;
     NSMutableArray *DOS2_friendsArray;
+    NSMutableArray* sectionInfoArray;
+
 }
 @property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
 @property (nonatomic,retain)NSMutableArray *DOS1_friendsArray;
 @property (nonatomic,retain)NSMutableArray *DOS2_friendsArray;
+@property (nonatomic,retain)UITableView *participantTableView;
 - (void)appImageDidLoad:(NSIndexPath *)indexPath;
+@property (nonatomic, assign) NSInteger openSectionIndex;
+@property (nonatomic, assign) NSInteger uniformRowHeight;
+@property (nonatomic, retain) NSMutableArray* sectionInfoArray;
+-(void)sectionHeaderView:(NSInteger)sectionOpened;
+-(void)closeSectionHeaderView:(NSInteger)sectionClosed;
 @end

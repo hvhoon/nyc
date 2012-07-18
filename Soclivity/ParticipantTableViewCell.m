@@ -9,7 +9,7 @@
 #import "ParticipantTableViewCell.h"
 #import "SoclivityUtilities.h"
 @implementation ParticipantTableViewCell
-@synthesize nameText,profileImage;
+@synthesize nameText,profileImage,isOpen;
 static UIFont *firstTextFont = nil;
 static UIFont *secondTextFont = nil;
 static UIFont *boldText = nil;
@@ -25,6 +25,15 @@ static UIFont *boldText = nil;
     }
 }
 
+- (void) setOpen 
+{
+    isOpen=YES;
+}
+
+- (void) setClosed
+{
+     isOpen=NO;
+}
 - (void)dealloc
 {
     [super dealloc];
@@ -53,16 +62,16 @@ static UIFont *boldText = nil;
     [textColor set];
     
     
-    [[UIImage imageNamed:@"S05_participantPic.png"] drawInRect:CGRectMake(38,7,51,48)];
+    [[UIImage imageNamed:@"S05_participantPic.png"] drawInRect:CGRectMake(38,7,38,38)];
 
-    CGRect profileImageP = CGRectMake(40,10, 42, 41);
+    CGRect profileImageP = CGRectMake(42,11, 28, 28);
     [profileImage drawInRect:profileImageP];
     
     
     CGRect nameLabelRectP = CGRectMake(100, 20, 180, 15);
     [nameText drawInRect:nameLabelRectP withFont:firstTextFont];
     
-    //[[UIImage imageNamed:@"S05_detailsLine.png"] drawInRect:CGRectMake(40,58,272,2)];
+    [[UIImage imageNamed:@"S05_detailsLine.png"] drawInRect:CGRectMake(28,58,272,2)];
 
 
     // Graphics in the details table cell

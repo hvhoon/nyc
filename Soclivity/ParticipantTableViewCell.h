@@ -12,7 +12,12 @@
     
     NSString *nameText;
     UIImage *profileImage;
+    BOOL isOpen;
 }
 @property (nonatomic,retain) NSString *nameText;
 @property (nonatomic,retain)UIImage *profileImage;
+@property (nonatomic,assign)BOOL isOpen;
+- (void) setOpen;
+- (void) setClosed;
+
 @end
