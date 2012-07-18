@@ -147,6 +147,41 @@
     
     int lines = labelHeight/14;
     
+    switch (lines) {
+        case 1:
+        case 2:
+        {
+            activityBarImgView.frame=CGRectMake(0, 0, 26, 146);
+            activityAccessStatusImgView.frame=CGRectMake(256, 127, 50, 15);
+            backgroundBoxImgView.frame=CGRectMake(0, 66, 320, 80);
+            bottomView.frame=CGRectMake(0, 146, 320, 180);
+            
+        }
+            break;
+        case 3:
+        {
+            activityBarImgView.frame=CGRectMake(0, 0, 26, 160);
+            activityAccessStatusImgView.frame=CGRectMake(256, 141, 50, 15);
+            backgroundBoxImgView.frame=CGRectMake(0, 80, 320, 80);
+            bottomView.frame=CGRectMake(0, 160, 320, 180);
+        }
+            break;
+        case 4:
+        {
+            activityBarImgView.frame=CGRectMake(0, 0, 26, 174);
+            activityAccessStatusImgView.frame=CGRectMake(256, 155, 50, 15);
+            backgroundBoxImgView.frame=CGRectMake(0, 94, 320, 80);
+            bottomView.frame=CGRectMake(0, 174, 320, 180);
+        }
+            break;
+
+            
+    }
+    
+    if(labelHeight>72){
+        labelHeight=72;
+    }
+#if 0    
     if(lines>3){
         //time to bother
         collapse=TRUE;
@@ -157,8 +192,9 @@
         yTextLabel=labelHeight;
         collapse=FALSE;
     }
+#endif    
     NSLog(@"lines=%d",lines);
-	[activityTextLabel setFrame:CGRectMake(40, 80, 240, yTextLabel)];
+	[activityTextLabel setFrame:CGRectMake(40, 80, 240, labelHeight)];
 
     
     // Privacy icons
@@ -336,7 +372,7 @@
         
         
         if(CGRectContainsPoint(tapDescriptionSection,startPoint)){
-            [self setOpened];
+            //[self setOpened];
         }
     }
     

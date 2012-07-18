@@ -45,8 +45,14 @@
     scrollView.clipsToBounds = YES;
     
     // Initially disabled scrolling. This is not enabled till all the fields on the basic info page have been filled.
-    scrollView.scrollEnabled = YES;
     
+    
+    if([activityInfo.goingCount intValue]==0){
+        scrollView.scrollEnabled=NO;
+    }
+    else{
+    scrollView.scrollEnabled = YES;
+    }
     
     scrollView.pagingEnabled = YES;
     scrollView.showsVerticalScrollIndicator =NO;
@@ -58,8 +64,11 @@
     participantListTableView.DOS1_friendsArray=activityInfo.friendsArray;
     
     participantListTableView.DOS2_friendsArray=activityInfo.friendsOfFriendsArray;
-
-    
+    participantListTableView.participantTableView.bounces=NO;
+    if(page==0){
+        participantListTableView.participantTableView.scrollEnabled=NO;
+    }
+    participantListTableView.participantTableView.clipsToBounds=YES;
     for (int i = 0; i < 2; i++) {
 		CGRect frame;
 		frame.origin.x = 0;
@@ -276,9 +285,16 @@
     int tag=sender.tag;
     NSLog(@"tag=%d",tag);
     if(page==0){
-        [self scrollViewToTheTopOrBottom];
         
-        return;
+        if([activityInfo.goingCount intValue]==0){
+            return;
+        }
+        else{
+        [self scrollViewToTheTopOrBottom];
+            return;
+        }
+        
+        
     }
     
     
@@ -364,6 +380,7 @@
             {
                 [(UIButton*)[self.scrollView viewWithTag:103] setFrame:CGRectMake(16, 14, 19, 10)];//343
                 [(UIButton*)[self.scrollView viewWithTag:103] setBackgroundImage:[UIImage imageNamed:@"S05_participantDownArrow.png"] forState:UIControlStateNormal];
+                participantListTableView.participantTableView.scrollEnabled=YES;
 
             }
                 break;
@@ -373,6 +390,7 @@
             {
                 [(UIButton*)[self.scrollView viewWithTag:103] setFrame:CGRectMake(16,14,10,18)];//343
                 [(UIButton*)[self.scrollView viewWithTag:103] setBackgroundImage:[UIImage imageNamed:@"S05_participantArrow.png"] forState:UIControlStateNormal];
+                participantListTableView.participantTableView.scrollEnabled=NO;
 
             }
                 break;
