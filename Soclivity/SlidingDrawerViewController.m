@@ -74,7 +74,7 @@
         [profileViewControllerDictionary setObject:profileTag forKey:kSlideViewControllerViewControllerTagKey];
 
         [profileViewControllerDictionary setObject:[ProfileViewController class] forKey:kSlideViewControllerViewControllerClassKey];
-        [profileViewControllerDictionary setObject:[UIImage imageNamed:@"p1.png"] forKey:kSlideViewControllerViewControllerIconKey];
+        [profileViewControllerDictionary setObject:[UIImage imageNamed:@"picbox.png"] forKey:kSlideViewControllerViewControllerIconKey];
         
         
         [sectionTwo setObject:[NSArray arrayWithObject:profileViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];

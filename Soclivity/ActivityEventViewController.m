@@ -249,17 +249,14 @@
 		
 	}
 
-
-    
-   activityNameLabel.text=[NSString stringWithFormat:@"%@",activityInfo.activityName];
+    // Activity label
+    activityNameLabel.text=[NSString stringWithFormat:@"%@",activityInfo.activityName];
     activityNameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
     activityNameLabel.textColor=[UIColor whiteColor];
     activityNameLabel.backgroundColor=[UIColor clearColor];
-    activityNameLabel.shadowColor = [UIColor whiteColor];
-    activityNameLabel.shadowOffset = CGSizeMake(0,1);
-//    activityNameLabel.layer.shadowColor = [activityNameLabel.textColor CGColor];
-//    activityNameLabel.layer.shadowOffset = CGSizeMake(0.0, 0.0); 
-    //activityNameLabel.layer.shadowOpacity = 1.0;
+    activityNameLabel.shadowColor = [UIColor blackColor];
+    activityNameLabel.shadowOffset = CGSizeMake(0,-1);
+
     leaveActivityButton.hidden=YES;
     chatButton.hidden=YES;
     [eventView loadViewWithActivityDetails:activityInfo];

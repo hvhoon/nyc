@@ -237,7 +237,7 @@
                     [self startIconDownload:appRecord forIndexPath:indexPath];
                 }
                 // if a download is deferred or in progress, return a placeholder image
-                cell.profileImage = [UIImage imageNamed:@"p1.png"];                
+                cell.profileImage = [UIImage imageNamed:@"picbox.png"];                
             }
             else
             {
