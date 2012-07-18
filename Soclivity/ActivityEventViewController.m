@@ -294,6 +294,14 @@
             break;
         case 104:
         {
+            if(colpseExpdType==0){
+                //we have alrwady taken care of the open sections
+            }
+            else{
+                [participantListTableView setUpArrayWithBothSectionsOpen];
+                toggleFriends=TRUE;
+                colpseExpdType=0;
+            }
             
         }
             break;
@@ -303,7 +311,7 @@
             if(toggleFriends){
                 toggleFriends=FALSE;
                 colpseExpdType=1;
-                [participantListTableView setUpSectionArray];
+                [participantListTableView setUpArrayWithBothSectionsClosed];
             }
             
             if(colpseExpdType==1){
@@ -322,7 +330,7 @@
             if(toggleFriends){
                 toggleFriends=FALSE;
                 colpseExpdType=2;
-                [participantListTableView setUpSectionArray];
+                [participantListTableView setUpArrayWithBothSectionsClosed];
             }
 
             if(colpseExpdType==2){

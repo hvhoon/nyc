@@ -12,12 +12,9 @@
     
     NSString *nameText;
     UIImage *profileImage;
-    BOOL isOpen;
+    BOOL noSeperatorLine;
 }
 @property (nonatomic,retain) NSString *nameText;
 @property (nonatomic,retain)UIImage *profileImage;
-@property (nonatomic,assign)BOOL isOpen;
-- (void) setOpen;
-- (void) setClosed;
-
+@property (nonatomic,assign)BOOL noSeperatorLine;
 @end

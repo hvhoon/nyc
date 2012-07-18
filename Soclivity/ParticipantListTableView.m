@@ -46,10 +46,17 @@
     self.participantTableView.sectionHeaderHeight = kSectionHeaderHeight;
     participantTableView.separatorColor=[UIColor clearColor];
     rowHeight_ = kCustomRowHeight;
+    self.participantTableView.showsVerticalScrollIndicator=NO;
     
     
+    if ((self.sectionInfoArray == nil) || ([self.sectionInfoArray count] != [self numberOfSectionsInTableView:self.participantTableView])){
+        [self setUpArrayWithBothSectionsOpen];
+    }
+}
+
+
+-(void)setUpArrayWithBothSectionsOpen{
     
-    if ((self.sectionInfoArray == nil) || ([self.sectionInfoArray count] != [self numberOfSectionsInTableView:self.participantTableView])) {
 		
         // For each play, set up a corresponding SectionInfo object to contain the default height for each row.
 		NSMutableArray *infoArray = [[NSMutableArray alloc] init];
@@ -87,13 +94,12 @@
 		}
 		
 		self.sectionInfoArray = infoArray;
-	}
+	
     openSectionIndex_ = NSNotFound;
     [self.participantTableView reloadData];
 }
 
-
--(void)setUpSectionArray{
+-(void)setUpArrayWithBothSectionsClosed{
     
 		
         // For each play, set up a corresponding SectionInfo object to contain the default height for each row.
@@ -250,7 +256,12 @@
             ParticipantClass *appRecord = [play.quotations objectAtIndex:indexPath.row];
 
             cell.nameText=appRecord.name;
-            
+           if(indexPath.row==[play.quotations count]-1){
+                cell.noSeperatorLine=TRUE;
+             }
+          else{
+                cell.noSeperatorLine=FALSE;
+            }
             
             // Only load cached images; defer new downloads until scrolling ends
             if (!appRecord.profilePhotoImage)

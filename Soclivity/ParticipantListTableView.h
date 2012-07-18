@@ -27,5 +27,6 @@
 @property (nonatomic, retain) NSMutableArray* sectionInfoArray;
 -(void)sectionHeaderView:(NSInteger)sectionOpened;
 -(void)closeSectionHeaderView:(NSInteger)sectionClosed;
--(void)setUpSectionArray;
+-(void)setUpArrayWithBothSectionsClosed;
+-(void)setUpArrayWithBothSectionsOpen;
 @end
