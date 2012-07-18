@@ -86,10 +86,10 @@
     activityorganizerTextLabel.text=[NSString stringWithFormat:@"%@",info.organizerName];
     CGSize  size = [info.organizerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15]];
     NSLog(@"width=%f",size.width);
-    activityorganizerTextLabel.frame=CGRectMake(100, 25, size.width, 16);
+    activityorganizerTextLabel.frame=CGRectMake(102, 23, size.width, 16);
     
     // Activity organizer DOS
-    DOSConnectionImgView.frame=CGRectMake(100+6+size.width, 26, 21, 12);
+    DOSConnectionImgView.frame=CGRectMake(102+6+size.width, 24, 21, 12);
     switch (info.DOS){
         case 1:
             DOSConnectionImgView.image=[UIImage imageNamed:@"S05_dos1.png"];

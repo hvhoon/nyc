@@ -296,7 +296,7 @@
 					<object class="IBUIImageView" id="303255778">
 						<reference key="NSNextResponder" ref="647438086"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{37, 8}, {54, 54}}</string>
+						<string key="NSFrame">{{42, 10}, {47, 47}}</string>
 						<reference key="NSSuperview" ref="647438086"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="338245859"/>
@@ -310,7 +310,7 @@
 					<object class="IBUIImageView" id="338245859">
 						<reference key="NSNextResponder" ref="647438086"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{45, 15}, {37, 37}}</string>
+						<string key="NSFrame">{{46, 14}, {37, 37}}</string>
 						<reference key="NSSuperview" ref="647438086"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="691039737"/>
@@ -341,7 +341,7 @@
 					<object class="IBUILabel" id="188852943">
 						<reference key="NSNextResponder" ref="647438086"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{100, 42}, {179, 15}}</string>
+						<string key="NSFrame">{{102, 40}, {179, 15}}</string>
 						<reference key="NSSuperview" ref="647438086"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1019007781"/>
@@ -1294,7 +1294,7 @@
 			<string key="S05_detailsLine.png">{272, 2}</string>
 			<string key="S05_joinButton.png">{115, 31}</string>
 			<string key="S05_locationIcon.png">{19, 18}</string>
-			<string key="S05_organizerPic.png">{54, 54}</string>
+			<string key="S05_organizerPic.png">{47, 47}</string>
 			<string key="S5_DOS-1.png">{20, 12}</string>
 			<string key="S5_back-button.png">{37, 29}</string>
 			<string key="S5_bottom-bar.png">{320, 40}</string>

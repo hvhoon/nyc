@@ -511,7 +511,7 @@ if(timer%2==0){
     }
 	
 }
-#pragrma mark -
+#pragma mark -
 
 +(UIImage*)updateResult:(CGSize)sizeToFitTheImage originalImage:(UIImage*)originalImage switchCaseIndex:(int)switchCaseIndex
 {
