@@ -303,6 +303,7 @@
             if(toggleFriends){
                 toggleFriends=FALSE;
                 colpseExpdType=1;
+                [participantListTableView setUpSectionArray];
             }
             
             if(colpseExpdType==1){
@@ -321,6 +322,7 @@
             if(toggleFriends){
                 toggleFriends=FALSE;
                 colpseExpdType=2;
+                [participantListTableView setUpSectionArray];
             }
 
             if(colpseExpdType==2){

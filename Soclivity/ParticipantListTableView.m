@@ -46,10 +46,55 @@
     self.participantTableView.sectionHeaderHeight = kSectionHeaderHeight;
     participantTableView.separatorColor=[UIColor clearColor];
     rowHeight_ = kCustomRowHeight;
-    openSectionIndex_ = NSNotFound;
+    
     
     
     if ((self.sectionInfoArray == nil) || ([self.sectionInfoArray count] != [self numberOfSectionsInTableView:self.participantTableView])) {
+		
+        // For each play, set up a corresponding SectionInfo object to contain the default height for each row.
+		NSMutableArray *infoArray = [[NSMutableArray alloc] init];
+		
+        for(int index=0;index<2;index++){
+			InfoActivityClass *play=[[InfoActivityClass alloc]init];
+			SectionInfo *sectionInfo = [[SectionInfo alloc] init];			
+			sectionInfo.open = YES;
+			sectionInfo.play=play;
+            NSNumber *defaultRowHeight = [NSNumber numberWithInteger:kCustomRowHeight];
+            NSInteger countOfQuotations;
+            switch (index) {
+                case 0:
+                {
+                    play.quotations=self.DOS1_friendsArray;
+                    countOfQuotations = [play.quotations count];
+                    for (NSInteger i = 0; i < countOfQuotations; i++) {
+                        [sectionInfo insertObject:defaultRowHeight inRowHeightsAtIndex:i];
+                    }
+                }
+                    break;
+                    
+                case 1:
+                {
+                    play.quotations=self.DOS2_friendsArray;
+                    countOfQuotations = [play.quotations count];
+                    for (NSInteger i = 0; i < countOfQuotations; i++) {
+                        [sectionInfo insertObject:defaultRowHeight inRowHeightsAtIndex:i];
+                    }
+                }
+                    break;
+            }
+			
+			[infoArray addObject:sectionInfo];
+		}
+		
+		self.sectionInfoArray = infoArray;
+	}
+    openSectionIndex_ = NSNotFound;
+    [self.participantTableView reloadData];
+}
+
+
+-(void)setUpSectionArray{
+    
 		
         // For each play, set up a corresponding SectionInfo object to contain the default height for each row.
 		NSMutableArray *infoArray = [[NSMutableArray alloc] init];
@@ -87,11 +132,10 @@
 		}
 		
 		self.sectionInfoArray = infoArray;
-	}
-
-    [self.participantTableView reloadData];
+	
+    openSectionIndex_ = NSNotFound;
+     [self.participantTableView reloadData];
 }
-
 - (void)dealloc {
     
     [super dealloc];
