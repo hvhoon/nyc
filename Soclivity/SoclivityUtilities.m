@@ -412,7 +412,47 @@ if(timer%2==0){
 	return label;
 	
 }
-+(UIColor*)returnTextFontColor:(NSInteger)colorType{
+
+#pragma mark -
+#pragma mark Formatting 
++(UIColor*)returnBackgroundColor:(NSInteger)colorType {
+    
+    switch(colorType){
+        // Light gray background (usage: Home screen details section)
+        case 0:
+            return [UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.0];
+            
+        // Off-white background (usage: Filter pane background)
+        case 1:
+            return [UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0];
+        
+        // Light green (play)
+        case 10:
+            return [UIColor colorWithRed:240.0/255.0 green:243.0/255.0 blue:229.0/255 alpha:1.0];
+        
+        // Light yellow (eat)
+        case 11:
+            return [UIColor colorWithRed:253.0/255.0 green:246.0/255.0 blue:229.0/255 alpha:1.0];
+            
+        // Light purple (see)
+        case 12:
+            return [UIColor colorWithRed:247.0/255.0 green:229.0/255.0 blue:249.0/255 alpha:1.0];
+            
+        // Light red (create)
+        case 13:
+            return [UIColor colorWithRed:250.0/255.0 green:233.0/255.0 blue:231.0/255 alpha:1.0];
+            
+        // Light blue (learn)
+        case 14:
+            return [UIColor colorWithRed:229.0/255.0 green:248.0/255.0 blue:246.0/255 alpha:1.0];
+        
+        // If nothing else matches
+        default:
+            break;
+    }
+    
+}
++(UIColor*)returnTextFontColor:(NSInteger)colorType {
     
     switch(colorType){
         case 0:
@@ -421,8 +461,6 @@ if(timer%2==0){
             
             break;
         }
-            
-            
         case 1:
         {
             return [UIColor colorWithRed:119.0/255.0 green:119.0/255.0 blue:119.0/255.0 alpha:1.0];
@@ -442,15 +480,12 @@ if(timer%2==0){
             
             break;
         }
-            
-            
         case 4:
         {
             return [UIColor colorWithRed:130.0/255.0 green:130.0/255.0 blue:130.0/255.0 alpha:1.0];
             
             break;
         }
-        
         case 5:
         {
             return [UIColor colorWithRed:88.0/255.0 green:89.0/255.0 blue:91.0/255.0 alpha:1.0];
@@ -476,6 +511,7 @@ if(timer%2==0){
     }
 	
 }
+#pragrma mark -
 
 +(UIImage*)updateResult:(CGSize)sizeToFitTheImage originalImage:(UIImage*)originalImage switchCaseIndex:(int)switchCaseIndex
 {

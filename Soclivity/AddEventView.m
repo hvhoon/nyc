@@ -158,7 +158,7 @@
         collapse=FALSE;
     }
     NSLog(@"lines=%d",lines);
-	[activityTextLabel setFrame:CGRectMake(40, 70, 240, yTextLabel)];
+	[activityTextLabel setFrame:CGRectMake(40, 80, 240, yTextLabel)];
 
     
     // Privacy icons
@@ -175,16 +175,13 @@
     activityTimeLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     activityTimeLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     
-    
     distanceLocationLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     distanceLocationLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
 
-    
     locationInfoLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     locationInfoLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
 
 
-    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
     NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
@@ -302,10 +299,9 @@
         
         
                 
-        
-        
-        // Initialization code
-    
+#pragma mark -
+#pragma mark Profile Picture Functions
+// Profile picture loading functions
 }
 - (void)loadProfileImage:(NSString*)url {
     NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:url]];
@@ -325,6 +321,7 @@
     
    [profileImgView setImage:image]; //UIImageView
 }
+#pragma mark -
 
 #if 1
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
@@ -356,7 +353,7 @@
     CGRect barImageFrame = activityBarImgView.frame;
     barImageFrame.size.height=185.0f;
     CGRect boxImageFrame = backgroundBoxImgView.frame;
-    boxImageFrame.size.height=125;
+    boxImageFrame.size.height=109;
 
     CGRect whatTextFrame = activityTextLabel.frame;
     whatTextFrame.size.height=yTextLabel+delta;
@@ -386,7 +383,7 @@
         CGRect barImageFrame = activityBarImgView.frame;
         barImageFrame.size.height=150.0f;
         CGRect boxImageFrame = backgroundBoxImgView.frame;
-        boxImageFrame.size.height=90;
+        boxImageFrame.size.height=109;
         CGRect whatTextFrame = activityTextLabel.frame;
         whatTextFrame.size.height=yTextLabel;
         CGRect bottomViewFrame = bottomView.frame;
