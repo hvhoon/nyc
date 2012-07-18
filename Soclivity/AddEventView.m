@@ -80,23 +80,23 @@
        [operation release];
     
     
-    
-    
+    // Activity organizer name
     activityorganizerTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     activityorganizerTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     activityorganizerTextLabel.text=[NSString stringWithFormat:@"%@",info.organizerName];
-     CGSize  size = [info.organizerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15]];
-     NSLog(@"width=%f",size.width);
-     activityorganizerTextLabel.frame=CGRectMake(100, 20, size.width, 15);
+    CGSize  size = [info.organizerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15]];
+    NSLog(@"width=%f",size.width);
+    activityorganizerTextLabel.frame=CGRectMake(102, 23, size.width, 16);
     
-    DOSConnectionImgView.frame=CGRectMake(100+5+size.width, 23, 20, 12);
+    // Activity organizer DOS
+    DOSConnectionImgView.frame=CGRectMake(102+6+size.width, 24, 21, 12);
     switch (info.DOS){
         case 1:
-            DOSConnectionImgView.image=[UIImage imageNamed:@"S5_DOS-1.png"];
+            DOSConnectionImgView.image=[UIImage imageNamed:@"S05_dos1.png"];
             break;
             
         case 2:
-            DOSConnectionImgView.image=[UIImage imageNamed:@"S5_DOS-2.png"];
+            DOSConnectionImgView.image=[UIImage imageNamed:@"S05_dos2.png"];
             break;
             
             
@@ -104,8 +104,7 @@
             break;
     }
     
-    
-    organizerLinkLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Medium" size:12];
+    organizerLinkLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
     organizerLinkLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     
     switch (info.DOS){
@@ -117,10 +116,12 @@
             organizerLinkLabel.text=[NSString stringWithFormat:@"Created by a friend of a friend!"];
             break;
             
-            
         case 0:
-            organizerLinkLabel.text=[NSString stringWithFormat:@"Created this event!"];
+            organizerLinkLabel.text=[NSString stringWithFormat:@"You created this event!"];
             break;
+            
+        default:
+            organizerLinkLabel.text=[NSString stringWithFormat:@"Created this event!"];
     }
     
     if((info.what==(NSString*)[NSNull null])||([info.what isEqualToString:@""]||info.what==nil)||([info.what isEqualToString:@"(null)"])){
@@ -132,7 +133,7 @@
     activityTextLabel.numberOfLines = 0;
     activityTextLabel.lineBreakMode = UILineBreakModeWordWrap;
 
-	activityTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Medium" size:14];
+	activityTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     activityTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     activityTextLabel.backgroundColor=[UIColor clearColor];
 
@@ -157,31 +158,30 @@
         collapse=FALSE;
     }
     NSLog(@"lines=%d",lines);
-	[activityTextLabel setFrame:CGRectMake(40, 70, 240, yTextLabel)];
+	[activityTextLabel setFrame:CGRectMake(40, 80, 240, yTextLabel)];
 
-
-   if ([info.access isEqualToString:@"public"]){
-            activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_private.png.png"];
-    }else{
-            activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_private.png.png"];
+    
+    // Privacy icons
+    if ([info.access isEqualToString:@"public"]){
+            activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_public.png"];
+    }
+    else {
+            activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_private.png"];
     }
     
-    calendarDateLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Medium" size:14];
+    calendarDateLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     calendarDateLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     
-    activityTimeLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Medium" size:14];
+    activityTimeLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     activityTimeLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     
-    
-    distanceLocationLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Medium" size:14];
+    distanceLocationLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     distanceLocationLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
 
-    
-    locationInfoLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Medium" size:14];
+    locationInfoLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     locationInfoLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
 
 
-    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
     NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
@@ -209,7 +209,7 @@
 
 #if 0        
     
-    whatDescTextView.font=[UIFont fontWithName:@"Helvetica-Condensed-Medium" size:14];
+    whatDescTextView.font=[UIFont fontWithName:@"Helvetica-Condensed" size:14];
     whatDescTextView.text=info.what;
     whatDescTextView.editable=NO;
     whatDescTextView.scrollEnabled=NO;
@@ -299,10 +299,9 @@
         
         
                 
-        
-        
-        // Initialization code
-    
+#pragma mark -
+#pragma mark Profile Picture Functions
+// Profile picture loading functions
 }
 - (void)loadProfileImage:(NSString*)url {
     NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:url]];
@@ -317,11 +316,12 @@
         image = [SoclivityUtilities autoCrop:image];
     
     // If the image needs to be compressed
-    if(image.size.height > 84 || image.size.width > 82)
-        profileImgView.image = [SoclivityUtilities compressImage:image size:CGSizeMake(84,82)];
+    if(image.size.height > 74 || image.size.width > 74)
+        profileImgView.image = [SoclivityUtilities compressImage:image size:CGSizeMake(74,74)];
     
    [profileImgView setImage:image]; //UIImageView
 }
+#pragma mark -
 
 #if 1
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
@@ -353,7 +353,7 @@
     CGRect barImageFrame = activityBarImgView.frame;
     barImageFrame.size.height=185.0f;
     CGRect boxImageFrame = backgroundBoxImgView.frame;
-    boxImageFrame.size.height=125;
+    boxImageFrame.size.height=109;
 
     CGRect whatTextFrame = activityTextLabel.frame;
     whatTextFrame.size.height=yTextLabel+delta;
@@ -383,7 +383,7 @@
         CGRect barImageFrame = activityBarImgView.frame;
         barImageFrame.size.height=150.0f;
         CGRect boxImageFrame = backgroundBoxImgView.frame;
-        boxImageFrame.size.height=90;
+        boxImageFrame.size.height=109;
         CGRect whatTextFrame = activityTextLabel.frame;
         whatTextFrame.size.height=yTextLabel;
         CGRect bottomViewFrame = bottomView.frame;
