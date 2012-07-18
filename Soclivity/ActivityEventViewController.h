@@ -23,6 +23,7 @@
     int page;
     BOOL toggleFriends;
     BOOL toogleFriendsOfFriends;
+    int colpseExpdType;
 
 
 }

@@ -39,7 +39,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    toggleFriends=TRUE;
     
     scrollView.indicatorStyle=UIScrollViewIndicatorStyleBlack;
     scrollView.clipsToBounds = YES;
@@ -299,13 +299,15 @@
             break;
         case 105:
         {
-            toggleFriends=!toggleFriends;
+            
             if(toggleFriends){
-            [participantListTableView sectionHeaderView:0];
-                toogleFriendsOfFriends=FALSE;
+                toggleFriends=FALSE;
+                colpseExpdType=1;
             }
-            else{
-                [participantListTableView closeSectionHeaderView:1];
+            
+            if(colpseExpdType==1){
+            [participantListTableView sectionHeaderView:0];
+                colpseExpdType=2;
             }
         }
             break;
@@ -316,14 +318,14 @@
             break;
         case 107:
         {
-            toogleFriendsOfFriends=!toogleFriendsOfFriends;
-            if(toogleFriendsOfFriends)
-            {
-                [participantListTableView sectionHeaderView:1];
+            if(toggleFriends){
                 toggleFriends=FALSE;
+                colpseExpdType=2;
             }
-            else{
-                [participantListTableView closeSectionHeaderView:0];
+
+            if(colpseExpdType==2){
+                [participantListTableView sectionHeaderView:1];
+                colpseExpdType=1;
             }
             
         }
