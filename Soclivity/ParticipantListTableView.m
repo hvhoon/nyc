@@ -20,7 +20,7 @@
 @end
 
 @implementation ParticipantListTableView
-@synthesize DOS1_friendsArray,DOS2_friendsArray,imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_,noLine;
+@synthesize DOS1_friendsArray,DOS2_friendsArray,imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -243,12 +243,10 @@
     
     //second section don't draw the first line
     
-    if(!noLine){
         UIView *topDividerLineview=[[[UIView alloc]initWithFrame:CGRectMake(0,0,320,2)]autorelease];
         topDividerLineview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_descriptionLine.png"]];
         [sectionHeaderview addSubview:topDividerLineview];
         
-    }
     UIImageView *DOSImageView=[[UIImageView alloc]initWithFrame:CGRectMake(30, 7.5, 19, 11)];
     
 
