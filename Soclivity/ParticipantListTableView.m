@@ -20,7 +20,7 @@
 @end
 
 @implementation ParticipantListTableView
-@synthesize DOS1_friendsArray,DOS2_friendsArray,imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_;
+@synthesize DOS1_friendsArray,DOS2_friendsArray,imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_,noLine;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -242,11 +242,28 @@
     
     
     //second section don't draw the first line
-    
-        UIView *topDividerLineview=[[[UIView alloc]initWithFrame:CGRectMake(0,0,320,2)]autorelease];
-        topDividerLineview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_descriptionLine.png"]];
-        [sectionHeaderview addSubview:topDividerLineview];
+    if(!noLine || section==0){
         
+        
+        UIButton *topDividerLineButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        topDividerLineButton.frame = CGRectMake(0, 0, 320, 2);
+        [topDividerLineButton setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_descriptionLine.png"]]];
+        topDividerLineButton.tag=[[NSString stringWithFormat:@"777%d",section]intValue];
+        [sectionHeaderview addSubview:topDividerLineButton];
+
+//        UIView *topDividerLineview=[[[UIView alloc]initWithFrame:CGRectMake(0,0,320,2)]autorelease];
+//        topDividerLineview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_descriptionLine.png"]];
+//        topDividerLineview.tag=777;
+//        [sectionHeaderview addSubview:topDividerLineview];
+    }
+    else{
+        UIButton *topDividerLineButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        topDividerLineButton.frame = CGRectMake(0, 0, 320, 2);
+        [topDividerLineButton setBackgroundColor:[UIColor clearColor]];
+        //[topDividerLineButton setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_descriptionLine.png"]]];
+        topDividerLineButton.tag=[[NSString stringWithFormat:@"777%d",section]intValue];
+        [sectionHeaderview addSubview:topDividerLineButton];
+    }
     UIImageView *DOSImageView=[[UIImageView alloc]initWithFrame:CGRectMake(30, 7.5, 19, 11)];
     
 
@@ -424,6 +441,18 @@
 #pragma mark Section header delegate
 
 -(void)sectionHeaderView:(NSInteger)sectionOpened{
+    
+    
+    if(sectionOpened==1){
+        noLine=TRUE; 
+        [(UIButton*)[self viewWithTag:7771] setHidden:YES];
+        
+    }
+    else{
+        [(UIButton*)[self viewWithTag:7771] setHidden:NO];
+        [(UIButton*)[self viewWithTag:7771]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_descriptionLine.png"]]];
+        noLine=FALSE;
+    }
 	
 	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:sectionOpened];
 	
@@ -475,6 +504,8 @@
     self.openSectionIndex = sectionOpened;
     
 }
+
+
 -(void)closeSectionHeaderView:(NSInteger)sectionClosed {
     
     /*
@@ -485,13 +516,22 @@
     sectionInfo.open = NO;
     NSInteger countOfRowsToDelete = [self.participantTableView numberOfRowsInSection:sectionClosed];
     
+    [self.participantTableView beginUpdates];
     if (countOfRowsToDelete > 0) {
         NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
         for (NSInteger i = 0; i < countOfRowsToDelete; i++) {
             [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:i inSection:sectionClosed]];
         }
-        [self.participantTableView deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:UITableViewRowAnimationTop];
+        UITableViewRowAnimation deleteAnimation;
+        if(sectionClosed==1){
+            deleteAnimation=UITableViewRowAnimationBottom;
+        }
+        else{
+            deleteAnimation=UITableViewRowAnimationTop;
+        }
+        [self.participantTableView deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:deleteAnimation];
     }
+    [self.participantTableView endUpdates];
     self.openSectionIndex = NSNotFound;
 }
 

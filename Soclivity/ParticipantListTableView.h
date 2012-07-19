@@ -15,7 +15,7 @@
     NSMutableArray *DOS1_friendsArray;
     NSMutableArray *DOS2_friendsArray;
     NSMutableArray* sectionInfoArray;
-    
+    BOOL noLine;
 
 }
 @property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
@@ -30,4 +30,5 @@
 -(void)closeSectionHeaderView:(NSInteger)sectionClosed;
 -(void)setUpArrayWithBothSectionsClosed;
 -(void)setUpArrayWithBothSectionsOpen;
+@property (nonatomic,assign)BOOL noLine;
 @end

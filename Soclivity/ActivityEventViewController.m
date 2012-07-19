@@ -318,6 +318,7 @@
                 //we have alrwady taken care of the open sections
             }
             else{
+                participantListTableView.noLine=FALSE;
                 [participantListTableView setUpArrayWithBothSectionsOpen];
                 toggleFriends=TRUE;
                 colpseExpdType=0;
@@ -334,6 +335,7 @@
             if(toggleFriends){
                 toggleFriends=FALSE;
                 colpseExpdType=1;
+                [participantListTableView closeSectionHeaderView:1];
                 [participantListTableView setUpArrayWithBothSectionsClosed];
             }
             
@@ -358,6 +360,7 @@
             if(toggleFriends){
                 toggleFriends=FALSE;
                 colpseExpdType=2;
+                [participantListTableView closeSectionHeaderView:0];
                 [participantListTableView setUpArrayWithBothSectionsClosed];
             }
 
