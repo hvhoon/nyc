@@ -26,58 +26,14 @@
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info{
     
     locationInfoLabel.hidden=YES;
-#if 1   
-        switch (info.type) {
-            case 1:
-            {
-                activityBarImgView.image=[UIImage imageNamed:@"S05_green-bar.png"];
-                backgroundBoxImgView.image=[UIImage imageNamed:@"S05_green-box.png"];
-                
-                
-            }
-                break;
-            case 2:
-            {
-                activityBarImgView.image=[UIImage imageNamed:@"S05_yellow-bar.png"];
-                backgroundBoxImgView.image=[UIImage imageNamed:@"S05_yellow-box.png"];
-                
-                
-            }
-                break;
-            case 3:
-            {
-                activityBarImgView.image=[UIImage imageNamed:@"S05_purple-bar.png"];
-                backgroundBoxImgView.image=[UIImage imageNamed:@"S05_purple-box.png"];
-                
-                
-            }
-                break;
-            case 4:
-            {
-                activityBarImgView.image=[UIImage imageNamed:@"S05_red-bar.png"];
-                backgroundBoxImgView.image=[UIImage imageNamed:@"S05_red-box.png"];
-                
-                
-            }
-                break;
-            case 5:
-            {
-                activityBarImgView.image=[UIImage imageNamed:@"S05_aqua-marine-bar.png"];
-                backgroundBoxImgView.image=[UIImage imageNamed:@"S05_aqua-marine-box.png"];
-            }
-                break;
-                
-                
-                
-        }
-#endif    
-       NSOperationQueue *queue = [NSOperationQueue new];
-       NSInvocationOperation *operation = [[NSInvocationOperation alloc] 
+        
+    NSOperationQueue *queue = [NSOperationQueue new];
+    NSInvocationOperation *operation = [[NSInvocationOperation alloc]
                                     initWithTarget:self
                                            selector:@selector(loadProfileImage:) 
                                     object:info.ownerProfilePhotoUrl];
-       [queue addOperation:operation]; 
-       [operation release];
+    [queue addOperation:operation];
+    [operation release];
     
     
     // Activity organizer name
@@ -86,7 +42,7 @@
     activityorganizerTextLabel.text=[NSString stringWithFormat:@"%@",info.organizerName];
     CGSize  size = [info.organizerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15]];
     NSLog(@"width=%f",size.width);
-    activityorganizerTextLabel.frame=CGRectMake(102, 23, size.width, 16);
+    activityorganizerTextLabel.frame=CGRectMake(102, 24, size.width, 16);
     
     // Activity organizer DOS
     DOSConnectionImgView.frame=CGRectMake(102+6+size.width, 24, 21, 12);
@@ -104,6 +60,7 @@
             break;
     }
     
+    // Determing the user's relationship to the organizer
     organizerLinkLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
     organizerLinkLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     
@@ -124,11 +81,14 @@
             organizerLinkLabel.text=[NSString stringWithFormat:@"Created this event!"];
     }
     
-    if((info.what==(NSString*)[NSNull null])||([info.what isEqualToString:@""]||info.what==nil)||([info.what isEqualToString:@"(null)"])){
+    
+    // Moving to the description field
+    
+    // Checking to see if the description is empty first.
+    if((info.what==(NSString*)[NSNull null])||([info.what isEqualToString:@""]||info.what==nil)||([info.what isEqualToString:@"(null)"]))
         activityTextLabel.text=@"No description given.";
-    }
     else
-     activityTextLabel.text = info.what;
+        activityTextLabel.text = info.what;
     
     activityTextLabel.numberOfLines = 0;
     activityTextLabel.lineBreakMode = UILineBreakModeWordWrap;
@@ -136,17 +96,72 @@
 	activityTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     activityTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     activityTextLabel.backgroundColor=[UIColor clearColor];
-
     
-    CGSize labelSize = [activityTextLabel.text sizeWithFont:activityTextLabel.font constrainedToSize:activityTextLabel.frame.size 
+    CGSize labelSize = [activityTextLabel.text sizeWithFont:activityTextLabel.font constrainedToSize:activityTextLabel.frame.size
             lineBreakMode:UILineBreakModeWordWrap];
     
-    CGFloat labelHeight = labelSize.height;
+    // Cap the description at 160 characters or 4 lines
+    if(labelSize.height>72){
+        labelSize.height=72;
+    }
+    
+    CGRect descriptionBox=CGRectMake(26, 65, 294, labelSize.height+42);
+    UIView *description = [[UIView alloc] initWithFrame:descriptionBox];
+    
+    // Change the description box and activity bar color based on the activity type
+    switch (info.type) {
+        case 1:
+            activityBarImgView.image=[UIImage imageNamed:@"S05_green-bar.png"];
+            description.backgroundColor=[SoclivityUtilities returnBackgroundColor:10];
+            break;
+        case 2:
+            activityBarImgView.image=[UIImage imageNamed:@"S05_yellow-bar.png"];
+            description.backgroundColor=[SoclivityUtilities returnBackgroundColor:11];
+            break;
+        case 3:
+            activityBarImgView.image=[UIImage imageNamed:@"S05_purple-bar.png"];
+            description.backgroundColor=[SoclivityUtilities returnBackgroundColor:12];
+            break;
+        case 4:
+            activityBarImgView.image=[UIImage imageNamed:@"S05_red-bar.png"];
+            description.backgroundColor=[SoclivityUtilities returnBackgroundColor:13];
+            break;
+        case 5:
+            activityBarImgView.image=[UIImage imageNamed:@"S05_aqua-marine-bar.png"];
+            description.backgroundColor=[SoclivityUtilities returnBackgroundColor:14];
+            break;
+        default:
+            description.backgroundColor=[SoclivityUtilities returnBackgroundColor:1];
+            break;
+    }
+
+    [self addSubview:description];
+    
+    // Adding description text to the view
+    [activityTextLabel setFrame:CGRectMake(20, 12, 266, labelSize.height)];
+    [description addSubview:activityTextLabel];
+    
+    CGSize privacySize;
+    
+    // Privacy icons
+    if ([info.access isEqualToString:@"public"]){
+        activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_public.png"];
+        privacySize = activityAccessStatusImgView.frame.size;
+        activityAccessStatusImgView.frame=CGRectMake(288-privacySize.width, (labelSize.height+42)-(privacySize.height+6), 47, 15);
+    }
+    else {
+        activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_private.png"];
+        privacySize = activityAccessStatusImgView.frame.size;
+        activityAccessStatusImgView.frame=CGRectMake(288-privacySize.width, (labelSize.height+42)-(privacySize.height+6), 50, 15);
+    }
+    
+    // Adding privacy settings to the description view
+    [description addSubview:activityAccessStatusImgView];
     
     
     
-    int lines = labelHeight/14;
     
+    /*
     switch (lines) {
         case 1:
         case 2:
@@ -177,34 +192,9 @@
 
             
     }
+     */
     
-    if(labelHeight>72){
-        labelHeight=72;
-    }
-#if 0    
-    if(lines>3){
-        //time to bother
-        collapse=TRUE;
-        delta=labelHeight-42;
-        yTextLabel=42.0f;
-    }
-    else{
-        yTextLabel=labelHeight;
-        collapse=FALSE;
-    }
-#endif    
-    NSLog(@"lines=%d",lines);
-	[activityTextLabel setFrame:CGRectMake(40, 80, 240, labelHeight)];
 
-    
-    // Privacy icons
-    if ([info.access isEqualToString:@"public"]){
-            activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_public.png"];
-    }
-    else {
-            activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_private.png"];
-    }
-    
     calendarDateLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     calendarDateLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     
@@ -332,13 +322,11 @@
         
         
 #endif        
-        
-        
-                
+}
+
 #pragma mark -
 #pragma mark Profile Picture Functions
 // Profile picture loading functions
-}
 - (void)loadProfileImage:(NSString*)url {
     NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:url]];
     UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];
@@ -378,7 +366,7 @@
     
 #endif
 
-
+/*
 -(void)setOpened{
     
     if(collapse){
@@ -444,7 +432,7 @@
     }
     }
 }
-
+*/
 
 /*
 // Only override drawRect: if you perform custom drawing.

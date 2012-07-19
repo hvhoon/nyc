@@ -18,11 +18,7 @@
 @interface AddEventView : UIView{
     InfoActivityClass *activityObject;
     IBOutlet UIImageView *activityBarImgView;
-    
-    IBOutlet UIImageView *backgroundBoxImgView;
-    
     IBOutlet UIImageView *activityAccessStatusImgView;
-
     IBOutlet UILabel*activityTextLabel;
     IBOutlet UILabel *organizerLinkLabel;
     IBOutlet UIImageView *activityCreatedImgView;
