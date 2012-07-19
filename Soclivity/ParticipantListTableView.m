@@ -11,8 +11,6 @@
 #import "ParticipantTableViewCell.h"
 #import "SoclivityUtilities.h"
 #import "SectionInfo.h"
-#define kCustomRowHeight    60.0
-#define kSectionHeaderHeight    35.0
 #pragma mark -
 
 @interface ParticipantListTableView ()
@@ -22,7 +20,7 @@
 @end
 
 @implementation ParticipantListTableView
-@synthesize DOS1_friendsArray,DOS2_friendsArray,imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_;
+@synthesize DOS1_friendsArray,DOS2_friendsArray,imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_,noLine;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -66,12 +64,15 @@
 			SectionInfo *sectionInfo = [[SectionInfo alloc] init];			
 			sectionInfo.open = YES;
 			sectionInfo.play=play;
+            
+            
             NSNumber *defaultRowHeight = [NSNumber numberWithInteger:kCustomRowHeight];
             NSInteger countOfQuotations;
             switch (index) {
                 case 0:
                 {
                     play.quotations=self.DOS1_friendsArray;
+                    sectionInfo.play.relationType=0;
                     countOfQuotations = [play.quotations count];
                     for (NSInteger i = 0; i < countOfQuotations; i++) {
                         [sectionInfo insertObject:defaultRowHeight inRowHeightsAtIndex:i];
@@ -82,6 +83,7 @@
                 case 1:
                 {
                     play.quotations=self.DOS2_friendsArray;
+                    sectionInfo.play.relationType=1;
                     countOfQuotations = [play.quotations count];
                     for (NSInteger i = 0; i < countOfQuotations; i++) {
                         [sectionInfo insertObject:defaultRowHeight inRowHeightsAtIndex:i];
@@ -89,10 +91,34 @@
                 }
                     break;
             }
+			switch (index) {
+                case 0:
+                {
+                    if([self.DOS1_friendsArray count]==0){
+                        
+                    }
+                    else{
+                        [infoArray addObject:sectionInfo];
+                    }
+                }
+                    break;
+                case 1:
+                {
+                    if([self.DOS2_friendsArray count]==0){
+                        
+                    }
+                    else{
+                        [infoArray addObject:sectionInfo];
+                    }
+
+                    
+                }
+                    break;
+            }
 			
-			[infoArray addObject:sectionInfo];
 		}
 		
+        
 		self.sectionInfoArray = infoArray;
 	
     openSectionIndex_ = NSNotFound;
@@ -110,12 +136,16 @@
 			SectionInfo *sectionInfo = [[SectionInfo alloc] init];			
 			sectionInfo.open = NO;
 			sectionInfo.play=play;
+            
+            
+
             NSNumber *defaultRowHeight = [NSNumber numberWithInteger:kCustomRowHeight];
             NSInteger countOfQuotations;
             switch (index) {
                 case 0:
                 {
                     play.quotations=self.DOS1_friendsArray;
+                    sectionInfo.play.relationType=0;
                     countOfQuotations = [play.quotations count];
                     for (NSInteger i = 0; i < countOfQuotations; i++) {
                         [sectionInfo insertObject:defaultRowHeight inRowHeightsAtIndex:i];
@@ -126,6 +156,7 @@
                 case 1:
                 {
                     play.quotations=self.DOS2_friendsArray;
+                    sectionInfo.play.relationType=1;
                     countOfQuotations = [play.quotations count];
                     for (NSInteger i = 0; i < countOfQuotations; i++) {
                         [sectionInfo insertObject:defaultRowHeight inRowHeightsAtIndex:i];
@@ -134,12 +165,37 @@
                     break;
             }
 			
-			[infoArray addObject:sectionInfo];
+			switch (index) {
+                case 0:
+                {
+                    if([self.DOS1_friendsArray count]==0){
+                        
+                    }
+                    else{
+                        [infoArray addObject:sectionInfo];
+                    }
+                }
+                    break;
+                case 1:
+                {
+                    if([self.DOS2_friendsArray count]==0){
+                        
+                    }
+                    else{
+                        [infoArray addObject:sectionInfo];
+                    }
+                    
+                    
+                }
+                    break;
+            }
+			
+		
 		}
 		
 		self.sectionInfoArray = infoArray;
 	
-    openSectionIndex_ = NSNotFound;
+     openSectionIndex_ = NSNotFound;
      [self.participantTableView reloadData];
 }
 - (void)dealloc {
@@ -154,7 +210,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
     
-    return 2;
+    return [self.sectionInfoArray count];
 }
 
 -(NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
@@ -178,19 +234,25 @@
 {
     
     
+    
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
-
-    UIView *sectionHeaderview=[[[UIView alloc]initWithFrame:CGRectMake(0,0,320,30)]autorelease];
+    InfoActivityClass *play=sectionInfo.play;
+    UIView *sectionHeaderview=[[[UIView alloc]initWithFrame:CGRectMake(0,0,320,27)]autorelease];
     sectionHeaderview.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
     
-    UIView *topDividerLineview=[[[UIView alloc]initWithFrame:CGRectMake(0,0,320,2)]autorelease];
-    topDividerLineview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_descriptionLine.png"]];
-    [sectionHeaderview addSubview:topDividerLineview];
     
-    UIImageView *DOSImageView=[[UIImageView alloc]initWithFrame:CGRectMake(30, 10, 19, 11)];
+    //second section don't draw the first line
+    
+    if(!noLine){
+        UIView *topDividerLineview=[[[UIView alloc]initWithFrame:CGRectMake(0,0,320,2)]autorelease];
+        topDividerLineview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_descriptionLine.png"]];
+        [sectionHeaderview addSubview:topDividerLineview];
+        
+    }
+    UIImageView *DOSImageView=[[UIImageView alloc]initWithFrame:CGRectMake(30, 7.5, 19, 11)];
     
 
-    CGRect DOSLabelRect=CGRectMake(55,10,140,12);
+    CGRect DOSLabelRect=CGRectMake(55,7.5,140,12);
     UILabel *DOScountLabel=[[UILabel alloc] initWithFrame:DOSLabelRect];
     DOScountLabel.textAlignment=UITextAlignmentLeft;
     
@@ -199,7 +261,7 @@
     DOScountLabel.backgroundColor=[UIColor clearColor];
     
     
-    switch (section) {
+    switch (play.relationType) {
         case 0:
         {
             DOSImageView.image=[UIImage imageNamed:@"S05_smallDOS1.png"];
@@ -224,7 +286,7 @@
     [sectionHeaderview addSubview:DOScountLabel];
     [DOScountLabel release];
 
-    UIView *bottomDividerLineview=[[[UIView alloc]initWithFrame:CGRectMake(0,33,320,2)]autorelease];
+    UIView *bottomDividerLineview=[[[UIView alloc]initWithFrame:CGRectMake(0,25,320,2)]autorelease];
     bottomDividerLineview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_descriptionLine.png"]];
      [sectionHeaderview addSubview:bottomDividerLineview];
         

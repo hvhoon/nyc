@@ -42,6 +42,7 @@
     UIImage *organizerImage;
     NSMutableArray *friendsOfFriendsArray;
     NSMutableArray *friendsArray;
+    NSInteger relationType;
     
     
 }
@@ -81,4 +82,5 @@
 
 @property(nonatomic,retain)NSMutableArray *friendsOfFriendsArray;
 @property(nonatomic,retain)NSMutableArray *friendsArray;
+@property (nonatomic,assign)NSInteger relationType;
 @end

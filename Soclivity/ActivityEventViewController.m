@@ -64,6 +64,10 @@
     participantListTableView.DOS1_friendsArray=activityInfo.friendsArray;
     
     participantListTableView.DOS2_friendsArray=activityInfo.friendsOfFriendsArray;
+    
+    if([activityInfo.friendsArray count]==0||[activityInfo.friendsOfFriendsArray count]==0){
+        animationJackTap=TRUE;
+    }
     participantListTableView.participantTableView.bounces=NO;
     if(page==0){
         participantListTableView.participantTableView.scrollEnabled=NO;
@@ -324,6 +328,9 @@
         case 105:
         {
             
+            if(!animationJackTap){
+            if(![activityInfo.friendsArray count]==0)
+            {
             if(toggleFriends){
                 toggleFriends=FALSE;
                 colpseExpdType=1;
@@ -334,6 +341,8 @@
             [participantListTableView sectionHeaderView:0];
                 colpseExpdType=2;
             }
+            }
+            }
         }
             break;
         case 106:
@@ -343,6 +352,9 @@
             break;
         case 107:
         {
+            if(!animationJackTap){
+            if(![activityInfo.friendsOfFriendsArray count]==0)
+            {
             if(toggleFriends){
                 toggleFriends=FALSE;
                 colpseExpdType=2;
@@ -353,7 +365,8 @@
                 [participantListTableView sectionHeaderView:1];
                 colpseExpdType=1;
             }
-            
+            }
+            }
         }
             break;
 

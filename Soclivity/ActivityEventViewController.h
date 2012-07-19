@@ -24,6 +24,7 @@
     BOOL toggleFriends;
     BOOL toogleFriendsOfFriends;
     int colpseExpdType;
+    BOOL animationJackTap;
 
 
 }

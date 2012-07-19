@@ -39,11 +39,11 @@ static UIFont *boldText = nil;
     backgroundColor = background;
     
     
-    UIColor *textColor =[SoclivityUtilities returnTextFontColor:1];
+    UIColor *textColor =[SoclivityUtilities returnTextFontColor:5];
     if(self.selected)
     {
         backgroundColor = background;
-        textColor = [SoclivityUtilities returnTextFontColor:1];
+        textColor = [SoclivityUtilities returnTextFontColor:5];
     }
     
     [backgroundColor set];
