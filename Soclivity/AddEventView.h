@@ -18,33 +18,25 @@
 @interface AddEventView : UIView{
     InfoActivityClass *activityObject;
     IBOutlet UIImageView *activityBarImgView;
-    
-    IBOutlet UIImageView *backgroundBoxImgView;
-    
     IBOutlet UIImageView *activityAccessStatusImgView;
-
     IBOutlet UILabel*activityTextLabel;
     IBOutlet UILabel *organizerLinkLabel;
-    IBOutlet UIImageView *activityCreatedImgView;
     IBOutlet UILabel*activityorganizerTextLabel;
-    IBOutlet UITextView *whatDescTextView;
     IBOutlet UIImageView *DOSConnectionImgView;
     id <AddEventViewDelegate>delegate;
     IBOutlet UIImageView *profileImgView;
     
     IBOutlet UILabel*calendarDateLabel;
     IBOutlet UILabel*activityTimeLabel;
-    IBOutlet UILabel*distanceLocationLabel;
-    IBOutlet UILabel*locationInfoLabel;
+    IBOutlet UILabel*locationInfoLabel1;
+    IBOutlet UILabel*locationInfoLabel2;
     IBOutlet UIView *bottomView;
-    BOOL opened;
-    int delta;
-    float yTextLabel;
-    BOOL collapse;
+    IBOutlet UIImageView *calendarIcon;
+    IBOutlet UIImageView *clockIcon;
+    IBOutlet UIImageView *locationIcon;
 
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;
 @property (nonatomic,retain)id <AddEventViewDelegate>delegate;
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info;
--(void)setOpened;
 @end
