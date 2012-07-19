@@ -41,10 +41,10 @@
     activityorganizerTextLabel.text=[NSString stringWithFormat:@"%@",info.organizerName];
     CGSize  size = [info.organizerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15]];
     NSLog(@"width=%f",size.width);
-    activityorganizerTextLabel.frame=CGRectMake(102, 24, size.width, 16);
+    activityorganizerTextLabel.frame=CGRectMake(104, 24, size.width, 16);
     
     // Activity organizer DOS
-    DOSConnectionImgView.frame=CGRectMake(102+6+size.width, 24, 21, 12);
+    DOSConnectionImgView.frame=CGRectMake(104+6+size.width, 24, 21, 12);
     switch (info.DOS){
         case 1:
             DOSConnectionImgView.image=[UIImage imageNamed:@"S05_dos1.png"];
@@ -259,8 +259,8 @@
         image = [SoclivityUtilities autoCrop:image];
     
     // If the image needs to be compressed
-    if(image.size.height > 74 || image.size.width > 74)
-        profileImgView.image = [SoclivityUtilities compressImage:image size:CGSizeMake(74,74)];
+    if(image.size.height > 42 || image.size.width > 42)
+        profileImgView.image = [SoclivityUtilities compressImage:image size:CGSizeMake(42,42)];
     
    [profileImgView setImage:image]; //UIImageView
 }
