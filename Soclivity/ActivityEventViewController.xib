@@ -421,7 +421,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{94, 45}, {202, 18}}</string>
 								<reference key="NSSuperview" ref="1045809916"/>
-								<reference key="NSNextKeyView" ref="728609123"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -442,29 +442,6 @@
 									<int key="NSfFlags">16</int>
 								</object>
 							</object>
-							<object class="IBUIImageView" id="728609123">
-								<reference key="NSNextResponder" ref="1045809916"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{26, 76}, {272, 2}}</string>
-								<reference key="NSSuperview" ref="1045809916"/>
-								<reference key="NSNextKeyView" ref="725884581"/>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<object class="NSCustomResource" key="IBUIImage" id="827633185">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">S05_detailsLine.png</string>
-								</object>
-							</object>
-							<object class="IBUIImageView" id="513999360">
-								<reference key="NSNextResponder" ref="1045809916"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{24, 120}, {272, 2}}</string>
-								<reference key="NSSuperview" ref="1045809916"/>
-								<reference key="NSNextKeyView" ref="100404978"/>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<reference key="IBUIImage" ref="827633185"/>
-							</object>
 							<object class="IBUIImageView" id="725884581">
 								<reference key="NSNextResponder" ref="1045809916"/>
 								<int key="NSvFlags">292</int>
@@ -483,7 +460,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{94, 93}, {212, 14}}</string>
 								<reference key="NSSuperview" ref="1045809916"/>
-								<reference key="NSNextKeyView" ref="513999360"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -737,27 +714,51 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">distanceLocationLabel</string>
-						<reference key="source" ref="647438086"/>
-						<reference key="destination" ref="225510430"/>
-					</object>
-					<int key="connectionID">111</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">locationInfoLabel</string>
-						<reference key="source" ref="647438086"/>
-						<reference key="destination" ref="225813464"/>
-					</object>
-					<int key="connectionID">112</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">bottomView</string>
 						<reference key="source" ref="647438086"/>
 						<reference key="destination" ref="1045809916"/>
 					</object>
 					<int key="connectionID">113</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">calendarIcon</string>
+						<reference key="source" ref="647438086"/>
+						<reference key="destination" ref="591857026"/>
+					</object>
+					<int key="connectionID">122</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">clockIcon</string>
+						<reference key="source" ref="647438086"/>
+						<reference key="destination" ref="725884581"/>
+					</object>
+					<int key="connectionID">123</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">locationIcon</string>
+						<reference key="source" ref="647438086"/>
+						<reference key="destination" ref="100404978"/>
+					</object>
+					<int key="connectionID">124</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">locationInfoLabel1</string>
+						<reference key="source" ref="647438086"/>
+						<reference key="destination" ref="225510430"/>
+					</object>
+					<int key="connectionID">125</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">locationInfoLabel2</string>
+						<reference key="source" ref="647438086"/>
+						<reference key="destination" ref="225813464"/>
+					</object>
+					<int key="connectionID">126</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -891,8 +892,6 @@
 							<reference ref="225813464"/>
 							<reference ref="591857026"/>
 							<reference ref="568008345"/>
-							<reference ref="728609123"/>
-							<reference ref="513999360"/>
 							<reference ref="725884581"/>
 							<reference ref="351083399"/>
 							<reference ref="100404978"/>
@@ -956,16 +955,6 @@
 						<reference key="parent" ref="1045809916"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">106</int>
-						<reference key="object" ref="513999360"/>
-						<reference key="parent" ref="1045809916"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">104</int>
-						<reference key="object" ref="728609123"/>
-						<reference key="parent" ref="1045809916"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">103</int>
 						<reference key="object" ref="725884581"/>
 						<reference key="parent" ref="1045809916"/>
@@ -1015,9 +1004,7 @@
 				<string key="100.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="101.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="103.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="104.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="105.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="106.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="107.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="108.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="109.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1048,7 +1035,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">121</int>
+			<int key="maxID">126</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
@@ -1063,7 +1050,6 @@
 			<string key="S04_addevent.png">{39, 31}</string>
 			<string key="S05_calendarIcon.png">{19, 20}</string>
 			<string key="S05_clockIcon.png">{20, 20}</string>
-			<string key="S05_detailsLine.png">{272, 2}</string>
 			<string key="S05_joinButton.png">{115, 31}</string>
 			<string key="S05_locationIcon.png">{19, 18}</string>
 			<string key="S05_organizerPic.png">{47, 47}</string>

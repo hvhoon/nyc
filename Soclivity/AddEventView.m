@@ -24,9 +24,8 @@
 }
 
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info{
-    
-    locationInfoLabel.hidden=YES;
-        
+            
+    // Loading picture information
     NSOperationQueue *queue = [NSOperationQueue new];
     NSInvocationOperation *operation = [[NSInvocationOperation alloc]
                                     initWithTarget:self
@@ -79,10 +78,18 @@
             
         default:
             organizerLinkLabel.text=[NSString stringWithFormat:@"Created this event!"];
+            break;
     }
     
     
     // Moving to the description field
+    
+    const int descriptionBuffer = 42; // buffer in the description box
+    
+    // Adding line at the top of the description box
+    UIImageView *topLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_descriptionLine.png"]];
+    topLine.frame = CGRectMake(26, 64, 294, 1);
+    [self addSubview:topLine];
     
     // Checking to see if the description is empty first.
     if((info.what==(NSString*)[NSNull null])||([info.what isEqualToString:@""]||info.what==nil)||([info.what isEqualToString:@"(null)"]))
@@ -105,7 +112,7 @@
         labelSize.height=72;
     }
     
-    CGRect descriptionBox=CGRectMake(26, 65, 294, labelSize.height+42);
+    CGRect descriptionBox=CGRectMake(26, 65, 294, labelSize.height+descriptionBuffer);
     UIView *description = [[UIView alloc] initWithFrame:descriptionBox];
     
     // Change the description box and activity bar color based on the activity type
@@ -141,79 +148,43 @@
     [activityTextLabel setFrame:CGRectMake(20, 12, 266, labelSize.height)];
     [description addSubview:activityTextLabel];
     
+    // Variable to store the size of the privacy image
     CGSize privacySize;
     
     // Privacy icons
     if ([info.access isEqualToString:@"public"]){
         activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_public.png"];
         privacySize = activityAccessStatusImgView.frame.size;
-        activityAccessStatusImgView.frame=CGRectMake(288-privacySize.width, (labelSize.height+42)-(privacySize.height+6), 47, 15);
+        activityAccessStatusImgView.frame=CGRectMake(288-privacySize.width, (labelSize.height+descriptionBuffer)-(privacySize.height+6), 47, 15);
     }
     else {
         activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_private.png"];
         privacySize = activityAccessStatusImgView.frame.size;
-        activityAccessStatusImgView.frame=CGRectMake(288-privacySize.width, (labelSize.height+42)-(privacySize.height+6), 50, 15);
+        activityAccessStatusImgView.frame=CGRectMake(288-privacySize.width, (labelSize.height+descriptionBuffer)-(privacySize.height+6), 50, 15);
     }
     
     // Adding privacy settings to the description view
     [description addSubview:activityAccessStatusImgView];
-    
-    
-    
-    
-    /*
-    switch (lines) {
-        case 1:
-        case 2:
-        {
-            activityBarImgView.frame=CGRectMake(0, 0, 26, 146);
-            activityAccessStatusImgView.frame=CGRectMake(256, 127, 50, 15);
-            backgroundBoxImgView.frame=CGRectMake(0, 66, 320, 80);
-            bottomView.frame=CGRectMake(0, 146, 320, 180);
-            
-        }
-            break;
-        case 3:
-        {
-            activityBarImgView.frame=CGRectMake(0, 0, 26, 160);
-            activityAccessStatusImgView.frame=CGRectMake(256, 141, 50, 15);
-            backgroundBoxImgView.frame=CGRectMake(0, 80, 320, 80);
-            bottomView.frame=CGRectMake(0, 160, 320, 180);
-        }
-            break;
-        case 4:
-        {
-            activityBarImgView.frame=CGRectMake(0, 0, 26, 174);
-            activityAccessStatusImgView.frame=CGRectMake(256, 155, 50, 15);
-            backgroundBoxImgView.frame=CGRectMake(0, 94, 320, 80);
-            bottomView.frame=CGRectMake(0, 174, 320, 180);
-        }
-            break;
+        
+    // Adding line at the bottom of the description box
+    UIImageView *bottomLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_descriptionLine.png"]];
+    bottomLine.frame = CGRectMake(26, 65+labelSize.height+descriptionBuffer, 294, 1);
+    [self addSubview:bottomLine];
 
-            
-    }
-     */
     
-
-    calendarDateLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
-    calendarDateLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    // Setting up the bottom view which includes all the date, time and location info.
     
-    activityTimeLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
-    activityTimeLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    // Fist lets add up what our Y starting point is
+    int fromTheTop = 65+labelSize.height+descriptionBuffer+1;
+    bottomView.frame = CGRectMake(0, fromTheTop, 320, 333-fromTheTop);
+
+    // Calendar
     
-    distanceLocationLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
-    distanceLocationLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-
-    locationInfoLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
-    locationInfoLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-
-
+    // Correctly formatting the date
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
     NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
     [dateFormatter setTimeZone:gmt];
-    
-    
     NSDate *activityDate = [dateFormatter dateFromString:info.when];
     
     NSDate *date = activityDate;
@@ -221,107 +192,55 @@
     [prefixDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
     [prefixDateFormatter setDateFormat:@"EEEE, MMMM d, YYYY"];
     NSString *prefixDateString = [prefixDateFormatter stringFromDate:date];
+
+    
+    // Now adding the date to the view
+    calendarIcon.image = [UIImage imageNamed:@"S05_calendarIcon.png"];
+    calendarIcon.frame = CGRectMake(50, 12, 19, 20);
+     
+    calendarDateLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    calendarDateLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    calendarDateLabel.frame = CGRectMake(84, 12+4, 200, 15);
+    
+    // Seperator line here
+    UIImageView *detailsLineCalendar = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_detailsLine.png"]];
+    detailsLineCalendar.frame = CGRectMake(26, 44, 272, 1);
+    [bottomView addSubview:detailsLineCalendar];
+    [detailsLineCalendar release];
+    
+    // Time
+    // Formatting the time string
     calendarDateLabel.text=prefixDateString;
-   [prefixDateFormatter setDateFormat:@"h:mm a"];
+    [prefixDateFormatter setDateFormat:@"h:mm a"];
+
     NSString *prefixTimeString = [prefixDateFormatter stringFromDate:date];
     activityTimeLabel.text=prefixTimeString;
+    
+    clockIcon.image = [UIImage imageNamed:@"S05_clockIcon.png"];
+    clockIcon.frame = CGRectMake(50, 57, 20, 20);
+    activityTimeLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    activityTimeLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    activityTimeLabel.frame = CGRectMake(84, 57+4, 200, 15);
+    
+    // Seperator line here
+    UIImageView *detailsLineTime = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_detailsLine.png"]];
+    detailsLineTime.frame = CGRectMake(26, 89, 272, 1);
+    [bottomView addSubview:detailsLineTime];
+    [detailsLineTime release];
+    
+    // Location
+    locationInfoLabel1.text=info.distance;
+    locationInfoLabel2.text=info.where_address;
+    
+    locationIcon.image = [UIImage imageNamed:@"S05_locationIcon.png"];
+    locationIcon.frame = CGRectMake(50, 102, 19, 18);
+    locationInfoLabel1.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    locationInfoLabel1.textColor=[SoclivityUtilities returnTextFontColor:5];
+    locationInfoLabel1.frame = CGRectMake(84, 102+1, 175, 15);
 
-
-    distanceLocationLabel.text=info.distance;
-    locationInfoLabel.text=info.where_address;
-    
-    
-        
-
-#if 0        
-    
-    whatDescTextView.font=[UIFont fontWithName:@"Helvetica-Condensed" size:14];
-    whatDescTextView.text=info.what;
-    whatDescTextView.editable=NO;
-    whatDescTextView.scrollEnabled=NO;
-    whatDescTextView.textAlignment=UITextAlignmentLeft;
-    whatDescTextView.tag=23;
-    whatDescTextView.textColor=[SoclivityUtilities returnTextFontColor:5];
-    whatDescTextView.backgroundColor=[UIColor clearColor];
-    whatDescTextView.autocorrectionType=UITextAutocorrectionTypeNo;
-    [whatDescTextView sizeToFit];
-    whatDescTextView.contentInset = UIEdgeInsetsMake(-12.0,0.0,0,0.0);
-
-    
-    size = [info.activityName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:15]];
-    NSLog(@"width=%f",size.width);
-    activityTextLabel.frame=CGRectMake(50, 6, size.width, size.height);
-    activityTextLabel.text=info.activityName;
-    
-    activityBarTextImgView.frame=CGRectMake(50+size.width+5, 12, 26, 9);
-    
-    
-    activityTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
-    activityTextLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
-
-        activityCreatedImgView.frame=CGRectMake(119+5+size.width, 246, 75, 9);
-        
-        peopleYouKnowCountLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:13];
-        peopleYouKnowCountLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
-        peopleYouKnowCountLabel.text=[NSString stringWithFormat:@"You have %d friends going",info.DOS1];
-        
-        peopleYouMayKnowCountLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:13];
-        peopleYouMayKnowCountLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
-        peopleYouMayKnowCountLabel.text=[NSString stringWithFormat:@"You may know %d people going",info.DOS2];
-        
-        
-        
-        
-        
-        
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
-        NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-        [dateFormatter setTimeZone:gmt];
-        
-        
-        NSDate *activityDate = [dateFormatter dateFromString:info.when];
-        
-        NSDate *date = activityDate;
-        NSDateFormatter *prefixDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-        [prefixDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-        [prefixDateFormatter setDateFormat:@"h:mm a | EEE, MMM d"];
-        NSString *prefixDateString = [prefixDateFormatter stringFromDate:date];
-        NSDateFormatter *monthDayFormatter = [[[NSDateFormatter alloc] init] autorelease];
-        [monthDayFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-        [monthDayFormatter setDateFormat:@"d"];         
-        int date_day = [[monthDayFormatter stringFromDate:date] intValue];      
-        NSString *suffix_string = @"|st|nd|rd|th|th|th|th|th|th|th|th|th|th|th|th|th|th|th|th|th|st|nd|rd|th|th|th|th|th|th|th|st";
-        NSArray *suffixes = [suffix_string componentsSeparatedByString: @"|"];
-        NSString *suffix = [suffixes objectAtIndex:date_day];   
-        NSString *dateString = [prefixDateString stringByAppendingString:suffix];       
-        
-        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:activityDate];
-        NSInteger year = [components year];
-        dateString=[dateString stringByAppendingFormat:@" %d",year];
-        NSLog(@"%@", dateString);
-        
-        
-        whenActivityLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
-        whenActivityLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
-        whenActivityLabel.text=dateString;
-        
-        
-        whereAddressActivityLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
-        whereAddressActivityLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
-        whereAddressActivityLabel.text=info.where_address;
-        size = [info.where_address sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14]];
-		NSLog(@"width=%f",size.width);
-        if(size.width+105>310){
-            size.width=size.width-310;
-        }
-        whereAddressActivityLabel.frame=CGRectMake(91, 166, size.width, size.height);
-        
-        
-        
-        
-#endif        
+    locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
+    locationInfoLabel2.frame = CGRectMake(84, 122, 175, 15);    
 }
 
 #pragma mark -
@@ -367,74 +286,6 @@
 #endif
 
 /*
--(void)setOpened{
-    
-    if(collapse){
-    opened=!opened;
-    if(opened){
-    CGRect acessImageFrame = activityAccessStatusImgView.frame;
-    acessImageFrame.origin.y=154.0f;
-    CGRect barImageFrame = activityBarImgView.frame;
-    barImageFrame.size.height=185.0f;
-    CGRect boxImageFrame = backgroundBoxImgView.frame;
-    boxImageFrame.size.height=109;
-
-    CGRect whatTextFrame = activityTextLabel.frame;
-    whatTextFrame.size.height=yTextLabel+delta;
-        
-    CGRect bottomViewFrame = bottomView.frame;
-    bottomViewFrame.origin.y=bottomView.frame.origin.y+30;
-
-
-    
-    [UIView animateWithDuration:0.5
-                          delay:0.0
-                        options: UIViewAnimationCurveEaseOut
-                     animations:^{
-                         activityAccessStatusImgView.frame = acessImageFrame;
-                         activityBarImgView.frame=barImageFrame;
-                         backgroundBoxImgView.frame=boxImageFrame;
-                         activityTextLabel.frame=whatTextFrame;
-                         bottomView.frame=bottomViewFrame;
-                     } 
-                     completion:^(BOOL finished){
-                         NSLog(@"Done!");
-                     }];
-    }
-    else{
-        CGRect acessImageFrame = activityAccessStatusImgView.frame;
-        acessImageFrame.origin.y=123.0f;
-        CGRect barImageFrame = activityBarImgView.frame;
-        barImageFrame.size.height=150.0f;
-        CGRect boxImageFrame = backgroundBoxImgView.frame;
-        boxImageFrame.size.height=109;
-        CGRect whatTextFrame = activityTextLabel.frame;
-        whatTextFrame.size.height=yTextLabel;
-        CGRect bottomViewFrame = bottomView.frame;
-        bottomViewFrame.origin.y=bottomView.frame.origin.y-30;
-
-
-        [UIView animateWithDuration:0.5
-                              delay:0.0
-                            options: UIViewAnimationCurveEaseOut
-                         animations:^{
-                             activityAccessStatusImgView.frame = acessImageFrame;
-                             activityBarImgView.frame=barImageFrame;
-                             backgroundBoxImgView.frame=boxImageFrame;
-                             activityTextLabel.frame=whatTextFrame;
-                             bottomView.frame=bottomViewFrame;
-                             
-                         } 
-                         completion:^(BOOL finished){
-                             NSLog(@"Done!");
-                         }];
-        
-    }
-    }
-}
-*/
-
-/*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
@@ -443,4 +294,10 @@
 }
 */
 
+- (void)dealloc {
+    [calendarIcon release];
+    [clockIcon release];
+    [locationIcon release];
+    [super dealloc];
+}
 @end
