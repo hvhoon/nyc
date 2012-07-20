@@ -22,7 +22,7 @@
 @property (nonatomic,retain)NSMutableArray *DOS1_friendsArray;
 @property (nonatomic,retain)NSMutableArray *DOS2_friendsArray;
 @property (nonatomic,retain)UITableView *participantTableView;
-- (void)appImageDidLoad:(NSIndexPath *)indexPath;
+@property (nonatomic,assign)BOOL noLine;
 @property (nonatomic, assign) NSInteger openSectionIndex;
 @property (nonatomic, assign) NSInteger uniformRowHeight;
 @property (nonatomic, retain) NSMutableArray* sectionInfoArray;
@@ -30,5 +30,5 @@
 -(void)closeSectionHeaderView:(NSInteger)sectionClosed;
 -(void)setUpArrayWithBothSectionsClosed;
 -(void)setUpArrayWithBothSectionsOpen;
-@property (nonatomic,assign)BOOL noLine;
+-(void)appImageDidLoad:(NSIndexPath *)indexPath;
 @end
