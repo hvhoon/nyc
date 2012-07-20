@@ -38,5 +38,6 @@
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;
 @property (nonatomic,retain)id <AddEventViewDelegate>delegate;
+@property (nonatomic,retain)UILabel*locationInfoLabel2;
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info;
 @end

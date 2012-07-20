@@ -12,7 +12,7 @@
 #import "DetailInfoActivityClass.h"
 
 @implementation AddEventView
-@synthesize activityObject,delegate;
+@synthesize activityObject,delegate,locationInfoLabel2;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -25,6 +25,7 @@
 
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info{
             
+    
     // Loading picture information
     NSOperationQueue *queue = [NSOperationQueue new];
     NSInvocationOperation *operation = [[NSInvocationOperation alloc]
@@ -240,7 +241,9 @@
 
     locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
-    locationInfoLabel2.frame = CGRectMake(84, 122, 175, 15);    
+    locationInfoLabel2.frame = CGRectMake(84, 122, 175, 15);   
+    
+    [locationInfoLabel2 setHidden:YES];
 }
 
 #pragma mark -
