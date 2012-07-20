@@ -17,6 +17,10 @@
 #import "SoclivitySqliteClass.h"
 #import "LocationCustomManager.h"
 #import "FilterPreferenceClass.h"
+#import "MBProgressHUD.h"
+#import "ParticipantClass.h"
+@interface HomeViewController(Private) <MBProgressHUDDelegate>
+@end
 
 @implementation HomeViewController
 @synthesize delegate,socEventMapView,activityTableView;
@@ -566,15 +570,86 @@
                                      withError:(NSError*)error{
     
     
-    ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:@"ActivityEventViewController" bundle:nil];
     
-    activityEventViewController.activityInfo=responses;
-	[[self navigationController] pushViewController:activityEventViewController animated:YES];
-    //[activityEventViewController release];
+     [self loadingActivityMonitor];
+    
+    NSOperationQueue *queue = [NSOperationQueue new];
+    NSInvocationOperation *operation = [[NSInvocationOperation alloc]
+                                        initWithTarget:self
+                                        selector:@selector(synchronousDownloadProfilePhotoBytes:) 
+                                        object:responses];
+    [queue addOperation:operation];
+    [operation release];
+
 
     
 }
 
+-(void)synchronousDownloadProfilePhotoBytes:(InfoActivityClass*)player{
+ 
+    int index=0;
+    for(ParticipantClass *pC in player.friendsArray){
+        index++;
+        NSLog(@"friendsArray=%d",index);
+            NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:pC.photoUrl]];
+            UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];
+             if(image.size.height != image.size.width)
+              pC.profilePhotoImage = [SoclivityUtilities autoCrop:image];
+        
+        // If the image needs to be compressed
+        if(image.size.height > 56 || image.size.width > 56)
+            pC.profilePhotoImage = [SoclivityUtilities compressImage:image size:CGSizeMake(56,56)];
+
+        
+    }
+    index=0;
+    for(ParticipantClass *pC in player.friendsOfFriendsArray){
+        index++;
+        NSLog(@"friendsOfFriendsArray=%d",index);
+        NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:pC.photoUrl]];
+        UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];
+        if(image.size.height != image.size.width)
+            pC.profilePhotoImage = [SoclivityUtilities autoCrop:image];
+        
+        // If the image needs to be compressed
+        if(image.size.height > 56 || image.size.width > 56)
+            pC.profilePhotoImage = [SoclivityUtilities compressImage:image size:CGSizeMake(56,56)];
+        }
+    
+    [self performSelectorOnMainThread:@selector(pushActivityController:) withObject:player waitUntilDone:NO];
+
+
+}
+-(void)pushActivityController:(InfoActivityClass*)response{
+    [HUD hide:YES];
+    
+    ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:@"ActivityEventViewController" bundle:nil];
+    
+    activityEventViewController.activityInfo=response;
+	[[self navigationController] pushViewController:activityEventViewController animated:YES];
+    [activityEventViewController release];
+    
+}
+
+-(void)loadingActivityMonitor{
+    // Setup animation settings
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    HUD.yOffset = -60.0;
+    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
+    HUD.labelText = @"Loading";
+    
+    [self.view addSubview:HUD];
+    HUD.delegate = self;
+    [HUD show:YES];
+    
+}
+
+-(void)hudWasHidden:(MBProgressHUD *)hud {
+    // Remove HUD from screen when the HUD was hidded
+	[HUD removeFromSuperview];
+	[HUD release];
+    HUD = nil;
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];

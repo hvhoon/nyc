@@ -49,6 +49,7 @@
     float animationDuration;
     MainServiceManager *devServer;
     SoclivityManager *SOC;
+    MBProgressHUD *HUD;
 }
 
 @property (nonatomic,retain)id <HomeScreenDelegate>delegate;
@@ -64,4 +65,6 @@
 -(IBAction)TimeSortingClicked:(id)sender;
 -(void)StartGettingActivities;
 -(void)getUpdatedLocationWithActivities;
+-(void)loadingActivityMonitor;
+-(void)synchronousDownloadProfilePhotoBytes:(InfoActivityClass*)player;
 @end

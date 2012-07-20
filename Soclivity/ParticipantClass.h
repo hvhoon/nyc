@@ -12,8 +12,10 @@
     NSString *photoUrl;
     UIImage *profilePhotoImage;
     NSString *name;
+    NSInteger participantId;
 }
 @property (nonatomic,retain)NSString *photoUrl;
 @property (nonatomic,retain)UIImage *profilePhotoImage;
 @property (nonatomic,retain)NSString *name;
+@property (nonatomic,assign)NSInteger participantId;
 @end
