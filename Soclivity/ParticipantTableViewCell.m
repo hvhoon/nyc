@@ -53,10 +53,10 @@ static UIFont *boldText = nil;
     [textColor set];
     
     
-    [[UIImage imageNamed:@"S05_participantPic.png"] drawInRect:CGRectMake(42,6,38,38)];
+    [[UIImage imageNamed:@"S05_participantPic.png"] drawInRect:CGRectMake(42,6,37,37)];
 
-    //CGRect profileImageP = CGRectMake(50,11, 28, 28);
-    //[profileImage drawInRect:profileImageP];
+    CGRect profileImageP = CGRectMake(46,9.5, 28, 28);
+    [profileImage drawInRect:profileImageP];
     
     
     CGRect nameLabelRectP = CGRectMake(100, 15, 180, 15);
