@@ -458,6 +458,7 @@
     chatButton.hidden=NO;
     leaveActivityButton.hidden=NO;
     addEventButton.hidden=YES;
+    eventView.locationInfoLabel2.hidden=NO;
     
 }
 
@@ -465,6 +466,7 @@
     chatButton.hidden=YES;
     leaveActivityButton.hidden=YES;
     addEventButton.hidden=NO;
+    eventView.locationInfoLabel2.hidden=YES;
     
 }
 -(IBAction)createANewActivityButtonPressed:(id)sender{

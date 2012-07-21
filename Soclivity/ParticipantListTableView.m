@@ -46,7 +46,6 @@
     rowHeight_ = kCustomRowHeight;
     self.participantTableView.showsVerticalScrollIndicator=NO;
     
-    
     if ((self.sectionInfoArray == nil) || ([self.sectionInfoArray count] != [self numberOfSectionsInTableView:self.participantTableView])){
         [self setUpArrayWithBothSectionsOpen];
     }
@@ -224,11 +223,14 @@
 
 -(CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
     
-	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:indexPath.section];
-    return [[sectionInfo objectInRowHeightsAtIndex:indexPath.row] floatValue];
+	//SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:indexPath.section];
+    //return [[sectionInfo objectInRowHeightsAtIndex:indexPath.row] floatValue];
+    return kCustomRowHeight;
     // Alternatively, return rowHeight.
 }
-
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return kSectionHeaderHeight;
+}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -237,7 +239,7 @@
     
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     InfoActivityClass *play=sectionInfo.play;
-    UIView *sectionHeaderview=[[[UIView alloc]initWithFrame:CGRectMake(0,0,320,27)]autorelease];
+    UIView *sectionHeaderview=[[[UIView alloc]initWithFrame:CGRectMake(0,0,320,kSectionHeaderHeight)]autorelease];
     sectionHeaderview.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
     
     
@@ -502,6 +504,9 @@
     [self.participantTableView deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:deleteAnimation];
     [self.participantTableView endUpdates];
     self.openSectionIndex = sectionOpened;
+    
+    [self.participantTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:sectionOpened] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+
     
 }
 

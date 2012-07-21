@@ -488,6 +488,8 @@
     NSLog(@"PushToDetailActivityView");
     
     if([SoclivityUtilities hasNetworkConnection]){
+        
+     [self loadingActivityMonitor];   
     [devServer getDetailedActivityInfoInvocation:[SOC.loggedInUser.idSoc intValue]    actId:detailedInfo.activityId  latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude delegate:self];
     }
     else{
@@ -571,7 +573,7 @@
     
     
     
-     [self loadingActivityMonitor];
+     
     
     NSOperationQueue *queue = [NSOperationQueue new];
     NSInvocationOperation *operation = [[NSInvocationOperation alloc]
