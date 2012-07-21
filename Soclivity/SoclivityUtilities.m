@@ -448,10 +448,10 @@ if(timer%2==0){
         
         // If nothing else matches
         default:
-            break;
+            return [UIColor colorWithRed:255.0/255.0 green:255./255.0 blue:255.0/255.0 alpha:1.0];
     }
-    
 }
+
 +(UIColor*)returnTextFontColor:(NSInteger)colorType {
     
     switch(colorType){

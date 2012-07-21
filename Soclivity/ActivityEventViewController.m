@@ -89,7 +89,6 @@
                 break;
             case 1:
             {
-                //int delta=329;
                 int delta=0;
 
                 UIView *headerView=[[UIView alloc]initWithFrame:CGRectMake(0, delta, 320, 47)];
@@ -107,15 +106,15 @@
                 [headerView addSubview:pArrowButton];
                 
                 
-                
+                // People going section in the participant bar
                 UIButton *goingButton=[UIButton buttonWithType:UIButtonTypeCustom];
-                goingButton.frame=CGRectMake(34,delta,74,47);
+                goingButton.frame=CGRectMake(34,delta,65,47);
                 [goingButton addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 goingButton.tag=104;
                 [headerView addSubview:goingButton];
                 
                 
-                CGRect goingCountLabelRect=CGRectMake(40,delta+11,40,12);
+                CGRect goingCountLabelRect=CGRectMake(40,delta+11,55,12);
                 UILabel *goingCountLabel=[[UILabel alloc] initWithFrame:goingCountLabelRect];
                 goingCountLabel.textAlignment=UITextAlignmentCenter;
                 goingCountLabel.text=[NSString stringWithFormat:@"%@",activityInfo.goingCount];
@@ -127,9 +126,9 @@
                 [goingCountLabel release];
                 
                 
-                CGRect goingLabelTextRect=CGRectMake(46,delta+26,55,12);
+                CGRect goingLabelTextRect=CGRectMake(40,delta+26,55,12);
                 UILabel *goingTextLabel=[[UILabel alloc] initWithFrame:goingLabelTextRect];
-                goingTextLabel.textAlignment=UITextAlignmentLeft;
+                goingTextLabel.textAlignment=UITextAlignmentCenter;
                 goingTextLabel.text=[NSString stringWithFormat:@"GOING"];
                 goingTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
                 goingTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -139,18 +138,16 @@
                 [goingTextLabel release];
                 
                 
-                
+                // Friends going section in the participant bar
                 UIButton *DOS1Button=[UIButton buttonWithType:UIButtonTypeCustom];
-                DOS1Button.frame=CGRectMake(118,delta,74,47);
+                DOS1Button.frame=CGRectMake(115,delta,74,47);
                 [DOS1Button addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 DOS1Button.tag=105;
                 [headerView addSubview:DOS1Button];
                 
-                
-                
-                CGRect DOS_1LabelRect=CGRectMake(101,delta+11,40,12);
+                CGRect DOS_1LabelRect=CGRectMake(104,delta+11,25,12);
                 UILabel *DOS_1countLabel=[[UILabel alloc] initWithFrame:DOS_1LabelRect];
-                DOS_1countLabel.textAlignment=UITextAlignmentCenter;
+                DOS_1countLabel.textAlignment=UITextAlignmentRight;
                 DOS_1countLabel.text=[NSString stringWithFormat:@"%d",activityInfo.DOS1];
                 DOS_1countLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
                 DOS_1countLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -159,18 +156,15 @@
                 [headerView addSubview:DOS_1countLabel];
                 [DOS_1countLabel release];
                 
-                
                 UIImageView *DOS_1ImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_smallDOS1.png"]];
-                DOS_1ImageView.frame=CGRectMake(130, delta+11, 19, 11);
+                DOS_1ImageView.frame=CGRectMake(133, delta+11, 19, 11);
                 DOS_1ImageView.tag=238;
                 [headerView addSubview:DOS_1ImageView];
                 [DOS_1ImageView release];
                 
-                
-                
-                CGRect friendsLabelTextRect=CGRectMake(111,delta+26,55,12);
+                CGRect friendsLabelTextRect=CGRectMake(108,delta+26,55,12);
                 UILabel *friendsTextLabel=[[UILabel alloc] initWithFrame:friendsLabelTextRect];
-                friendsTextLabel.textAlignment=UITextAlignmentLeft;
+                friendsTextLabel.textAlignment=UITextAlignmentCenter;
                 friendsTextLabel.text=[NSString stringWithFormat:@"FRIENDS"];
                 friendsTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
                 friendsTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -179,17 +173,16 @@
                 [headerView addSubview:friendsTextLabel];
                 [friendsTextLabel release];
                 
-                
+                // People you may know section in the participant bar
                 UIButton *DOS2Button=[UIButton buttonWithType:UIButtonTypeCustom];
-                DOS2Button.frame=CGRectMake(192,delta,74,47);
+                DOS2Button.frame=CGRectMake(176,delta,75,47);
                 [DOS2Button addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 DOS2Button.tag=106;
                 [headerView addSubview:DOS2Button];
                 
-                
-                CGRect DOS_2LabelRect=CGRectMake(186,delta+11,40,12);
+                CGRect DOS_2LabelRect=CGRectMake(180,delta+11,25,12);
                 UILabel *DOS_2countLabel=[[UILabel alloc] initWithFrame:DOS_2LabelRect];
-                DOS_2countLabel.textAlignment=UITextAlignmentCenter;
+                DOS_2countLabel.textAlignment=UITextAlignmentRight;
                 DOS_2countLabel.text=[NSString stringWithFormat:@"%d",activityInfo.DOS2];
                 DOS_2countLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
                 DOS_2countLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -198,18 +191,15 @@
                 [headerView addSubview:DOS_2countLabel];
                 [DOS_2countLabel release];
                 
-                
                 UIImageView *DOS_2ImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_smallDOS2.png"]];
-                DOS_2ImageView.frame=CGRectMake(215, delta+11, 19, 11);
+                DOS_2ImageView.frame=CGRectMake(209, delta+11, 19, 11);
                 DOS_2ImageView.tag=241;
                 [headerView addSubview:DOS_2ImageView];
                 [DOS_2ImageView release];
                 
-                
-                
-                CGRect mayknowLabelTextRect=CGRectMake(191,delta+26,70,12);
+                CGRect mayknowLabelTextRect=CGRectMake(181,delta+26,65,12);
                 UILabel *mayknowTextLabel=[[UILabel alloc] initWithFrame:mayknowLabelTextRect];
-                mayknowTextLabel.textAlignment=UITextAlignmentLeft;
+                mayknowTextLabel.textAlignment=UITextAlignmentCenter;
                 mayknowTextLabel.text=[NSString stringWithFormat:@"MAY KNOW"];
                 mayknowTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
                 mayknowTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -219,14 +209,15 @@
                 [mayknowTextLabel release];
                 
                 
+                // Other section in the participant bar
                 UIButton *DOS3Button=[UIButton buttonWithType:UIButtonTypeCustom];
-                DOS3Button.frame=CGRectMake(266,delta,74,47);
+                DOS3Button.frame=CGRectMake(257,delta,65,47);
                 [DOS3Button addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 DOS2Button.tag=107;
                 [headerView addSubview:DOS3Button];
                 
                 
-                CGRect DOS_3LabelRect=CGRectMake(266,delta+11,40,12);
+                CGRect DOS_3LabelRect=CGRectMake(262,delta+11,55,12);
                 UILabel *DOS_3countLabel=[[UILabel alloc] initWithFrame:DOS_3LabelRect];
                 DOS_3countLabel.textAlignment=UITextAlignmentCenter;
                 DOS_3countLabel.text=[NSString stringWithFormat:@"%d",activityInfo.DOS3];
@@ -238,12 +229,9 @@
                 [DOS_3countLabel release];
                 
                 
-                
-                
-                
-                CGRect othersLabelTextRect=CGRectMake(266,delta+26,55,12);
+                CGRect othersLabelTextRect=CGRectMake(262,delta+26,55,12);
                 UILabel *othersTextLabel=[[UILabel alloc] initWithFrame:othersLabelTextRect];
-                othersTextLabel.textAlignment=UITextAlignmentLeft;
+                othersTextLabel.textAlignment=UITextAlignmentCenter;
                 othersTextLabel.text=[NSString stringWithFormat:@"OTHERS"];
                 othersTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
                 othersTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -259,8 +247,6 @@
                 
                 
         }		
-        
-		
 	}
 
     // Activity label
@@ -394,7 +380,7 @@
         switch (page) {
             case 1:
             {
-                [(UIButton*)[self.scrollView viewWithTag:103] setFrame:CGRectMake(16, 14, 19, 10)];//343
+                [(UIButton*)[self.scrollView viewWithTag:103] setFrame:CGRectMake(16, 18, 19, 10)];//343
                 [(UIButton*)[self.scrollView viewWithTag:103] setBackgroundImage:[UIImage imageNamed:@"S05_participantDownArrow.png"] forState:UIControlStateNormal];
                 participantListTableView.participantTableView.scrollEnabled=YES;
 
@@ -404,7 +390,7 @@
                 
             case 0:
             {
-                [(UIButton*)[self.scrollView viewWithTag:103] setFrame:CGRectMake(16,14,10,18)];//343
+                [(UIButton*)[self.scrollView viewWithTag:103] setFrame:CGRectMake(16,16,10,18)];//343
                 [(UIButton*)[self.scrollView viewWithTag:103] setBackgroundImage:[UIImage imageNamed:@"S05_participantArrow.png"] forState:UIControlStateNormal];
                 participantListTableView.participantTableView.scrollEnabled=NO;
 

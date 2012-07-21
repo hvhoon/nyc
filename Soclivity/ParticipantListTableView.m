@@ -223,46 +223,33 @@
 
 -(CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
     
-	//SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:indexPath.section];
-    //return [[sectionInfo objectInRowHeightsAtIndex:indexPath.row] floatValue];
     return kCustomRowHeight;
-    // Alternatively, return rowHeight.
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return kSectionHeaderHeight;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    
-    
-    
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     InfoActivityClass *play=sectionInfo.play;
     UIView *sectionHeaderview=[[[UIView alloc]initWithFrame:CGRectMake(0,0,320,kSectionHeaderHeight)]autorelease];
-    sectionHeaderview.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
+    sectionHeaderview.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
     
     
     //second section don't draw the first line
     if(!noLine || section==0){
-        
-        
         UIButton *topDividerLineButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        topDividerLineButton.frame = CGRectMake(0, 0, 320, 2);
-        [topDividerLineButton setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_descriptionLine.png"]]];
+        topDividerLineButton.frame = CGRectMake(0, 0, 320, 1);
+        [topDividerLineButton setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]]];
         topDividerLineButton.tag=[[NSString stringWithFormat:@"777%d",section]intValue];
         [sectionHeaderview addSubview:topDividerLineButton];
-
-//        UIView *topDividerLineview=[[[UIView alloc]initWithFrame:CGRectMake(0,0,320,2)]autorelease];
-//        topDividerLineview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_descriptionLine.png"]];
-//        topDividerLineview.tag=777;
-//        [sectionHeaderview addSubview:topDividerLineview];
     }
     else{
         UIButton *topDividerLineButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        topDividerLineButton.frame = CGRectMake(0, 0, 320, 2);
+        topDividerLineButton.frame = CGRectMake(0, 0, 320, 1);
         [topDividerLineButton setBackgroundColor:[UIColor clearColor]];
-        //[topDividerLineButton setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_descriptionLine.png"]]];
         topDividerLineButton.tag=[[NSString stringWithFormat:@"777%d",section]intValue];
         [sectionHeaderview addSubview:topDividerLineButton];
     }
@@ -293,18 +280,14 @@
         }
             break;
             
-            
-            
     }
-    
-    
     [sectionHeaderview addSubview:DOSImageView];
     [DOSImageView release];
     [sectionHeaderview addSubview:DOScountLabel];
     [DOScountLabel release];
 
-    UIView *bottomDividerLineview=[[[UIView alloc]initWithFrame:CGRectMake(0,25,320,2)]autorelease];
-    bottomDividerLineview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_descriptionLine.png"]];
+    UIView *bottomDividerLineview=[[[UIView alloc]initWithFrame:CGRectMake(0,25,320,1)]autorelease];
+    bottomDividerLineview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]];
      [sectionHeaderview addSubview:bottomDividerLineview];
         
     return sectionHeaderview;  
@@ -329,8 +312,6 @@
         
         // Leave cells empty if there's no data yet
             // Set up the cell...
-            
-            
             InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
             ParticipantClass *appRecord = [play.quotations objectAtIndex:indexPath.row];
 
@@ -452,7 +433,7 @@
     }
     else{
         [(UIButton*)[self viewWithTag:7771] setHidden:NO];
-        [(UIButton*)[self viewWithTag:7771]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_descriptionLine.png"]]];
+        [(UIButton*)[self viewWithTag:7771]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]]];
         noLine=FALSE;
     }
 	
