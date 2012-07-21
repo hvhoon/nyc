@@ -108,13 +108,13 @@
                 
                 // People going section in the participant bar
                 UIButton *goingButton=[UIButton buttonWithType:UIButtonTypeCustom];
-                goingButton.frame=CGRectMake(34,delta,65,47);
+                goingButton.frame=CGRectMake(30,delta,65,47);
                 [goingButton addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 goingButton.tag=104;
                 [headerView addSubview:goingButton];
                 
                 
-                CGRect goingCountLabelRect=CGRectMake(40,delta+11,55,12);
+                CGRect goingCountLabelRect=CGRectMake(34,delta+11,55,12);
                 UILabel *goingCountLabel=[[UILabel alloc] initWithFrame:goingCountLabelRect];
                 goingCountLabel.textAlignment=UITextAlignmentCenter;
                 goingCountLabel.text=[NSString stringWithFormat:@"%@",activityInfo.goingCount];
@@ -126,7 +126,7 @@
                 [goingCountLabel release];
                 
                 
-                CGRect goingLabelTextRect=CGRectMake(40,delta+26,55,12);
+                CGRect goingLabelTextRect=CGRectMake(34,delta+26,55,12);
                 UILabel *goingTextLabel=[[UILabel alloc] initWithFrame:goingLabelTextRect];
                 goingTextLabel.textAlignment=UITextAlignmentCenter;
                 goingTextLabel.text=[NSString stringWithFormat:@"GOING"];
@@ -140,12 +140,12 @@
                 
                 // Friends going section in the participant bar
                 UIButton *DOS1Button=[UIButton buttonWithType:UIButtonTypeCustom];
-                DOS1Button.frame=CGRectMake(115,delta,74,47);
+                DOS1Button.frame=CGRectMake(111,delta,74,47);
                 [DOS1Button addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 DOS1Button.tag=105;
                 [headerView addSubview:DOS1Button];
                 
-                CGRect DOS_1LabelRect=CGRectMake(104,delta+11,25,12);
+                CGRect DOS_1LabelRect=CGRectMake(100,delta+11,25,12);
                 UILabel *DOS_1countLabel=[[UILabel alloc] initWithFrame:DOS_1LabelRect];
                 DOS_1countLabel.textAlignment=UITextAlignmentRight;
                 DOS_1countLabel.text=[NSString stringWithFormat:@"%d",activityInfo.DOS1];
@@ -157,12 +157,12 @@
                 [DOS_1countLabel release];
                 
                 UIImageView *DOS_1ImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_smallDOS1.png"]];
-                DOS_1ImageView.frame=CGRectMake(133, delta+11, 19, 11);
+                DOS_1ImageView.frame=CGRectMake(129, delta+11, 19, 11);
                 DOS_1ImageView.tag=238;
                 [headerView addSubview:DOS_1ImageView];
                 [DOS_1ImageView release];
                 
-                CGRect friendsLabelTextRect=CGRectMake(108,delta+26,55,12);
+                CGRect friendsLabelTextRect=CGRectMake(104,delta+26,55,12);
                 UILabel *friendsTextLabel=[[UILabel alloc] initWithFrame:friendsLabelTextRect];
                 friendsTextLabel.textAlignment=UITextAlignmentCenter;
                 friendsTextLabel.text=[NSString stringWithFormat:@"FRIENDS"];
@@ -380,7 +380,7 @@
         switch (page) {
             case 1:
             {
-                [(UIButton*)[self.scrollView viewWithTag:103] setFrame:CGRectMake(16, 18, 19, 10)];//343
+                [(UIButton*)[self.scrollView viewWithTag:103] setFrame:CGRectMake(14, 18, 19, 10)];//343
                 [(UIButton*)[self.scrollView viewWithTag:103] setBackgroundImage:[UIImage imageNamed:@"S05_participantDownArrow.png"] forState:UIControlStateNormal];
                 participantListTableView.participantTableView.scrollEnabled=YES;
 
@@ -390,7 +390,7 @@
                 
             case 0:
             {
-                [(UIButton*)[self.scrollView viewWithTag:103] setFrame:CGRectMake(16,16,10,18)];//343
+                [(UIButton*)[self.scrollView viewWithTag:103] setFrame:CGRectMake(14,16,10,18)];//343
                 [(UIButton*)[self.scrollView viewWithTag:103] setBackgroundImage:[UIImage imageNamed:@"S05_participantArrow.png"] forState:UIControlStateNormal];
                 participantListTableView.participantTableView.scrollEnabled=NO;
 

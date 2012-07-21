@@ -44,7 +44,7 @@
     self.participantTableView.sectionHeaderHeight = kSectionHeaderHeight;
     participantTableView.separatorColor=[UIColor clearColor];
     rowHeight_ = kCustomRowHeight;
-    self.participantTableView.showsVerticalScrollIndicator=NO;
+    self.participantTableView.showsVerticalScrollIndicator=YES;
     
     if ((self.sectionInfoArray == nil) || ([self.sectionInfoArray count] != [self numberOfSectionsInTableView:self.participantTableView])){
         [self setUpArrayWithBothSectionsOpen];
