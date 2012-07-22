@@ -207,7 +207,7 @@
         
         // Create and configure the disclosure button.
         UIButton *disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        disclosureButton.frame = CGRectMake(290.0, 30.0, 13.0, 18.0);
+        disclosureButton.frame = CGRectMake(276, 18, 38, 38);
         [disclosureButton setImage:[UIImage imageNamed:@"S04_moreinfoarrow.png"] forState:UIControlStateNormal];
         [disclosureButton setImage:[UIImage imageNamed:@"S04_moreinfoarrow.png"] forState:UIControlStateSelected];
         [disclosureButton addTarget:self action:@selector(detailActivity:) forControlEvents:UIControlEventTouchUpInside];

@@ -237,12 +237,11 @@
     UIView *sectionHeaderview=[[[UIView alloc]initWithFrame:CGRectMake(0,0,320,kSectionHeaderHeight)]autorelease];
     sectionHeaderview.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
     
-    
     //second section don't draw the first line
     if(!noLine || section==0){
         UIButton *topDividerLineButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         topDividerLineButton.frame = CGRectMake(0, 0, 320, 1);
-        [topDividerLineButton setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]]];
+        [topDividerLineButton setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]]];
         topDividerLineButton.tag=[[NSString stringWithFormat:@"777%d",section]intValue];
         [sectionHeaderview addSubview:topDividerLineButton];
     }
@@ -253,9 +252,9 @@
         topDividerLineButton.tag=[[NSString stringWithFormat:@"777%d",section]intValue];
         [sectionHeaderview addSubview:topDividerLineButton];
     }
+    
     UIImageView *DOSImageView=[[UIImageView alloc]initWithFrame:CGRectMake(30, 7.5, 19, 11)];
     
-
     CGRect DOSLabelRect=CGRectMake(55,7.5,140,12);
     UILabel *DOScountLabel=[[UILabel alloc] initWithFrame:DOSLabelRect];
     DOScountLabel.textAlignment=UITextAlignmentLeft;
@@ -286,12 +285,12 @@
     [sectionHeaderview addSubview:DOScountLabel];
     [DOScountLabel release];
 
-    UIView *bottomDividerLineview=[[[UIView alloc]initWithFrame:CGRectMake(0,25,320,1)]autorelease];
-    bottomDividerLineview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]];
-     [sectionHeaderview addSubview:bottomDividerLineview];
-        
-    return sectionHeaderview;  
     
+    UIView *bottomDividerLineview=[[[UIView alloc]initWithFrame:CGRectMake(0,kSectionHeaderHeight-1,320,1)]autorelease];
+    bottomDividerLineview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]];
+    [sectionHeaderview addSubview:bottomDividerLineview];
+    
+    return sectionHeaderview;
     
 }	
 
@@ -299,51 +298,47 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
     static NSString *CellIdentifier = @"MediaTableCell";
     
-        
-        
- ParticipantTableViewCell *cell =  (ParticipantTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil)
-        {
-            cell = [[[ParticipantTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+    ParticipantTableViewCell *cell =  (ParticipantTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil)
+    {
+        cell = [[[ParticipantTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                                       reuseIdentifier:CellIdentifier] autorelease];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        }
-        
-        // Leave cells empty if there's no data yet
-            // Set up the cell...
-            InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
-            ParticipantClass *appRecord = [play.quotations objectAtIndex:indexPath.row];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    }
+    // Leave cells empty if there's no data yet
 
-            cell.nameText=appRecord.name;
-           if(indexPath.row==[play.quotations count]-1){
-                cell.noSeperatorLine=TRUE;
-             }
-          else{
-                cell.noSeperatorLine=FALSE;
-            }
+    
+        // Set up the cell...
+        InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
+        ParticipantClass *appRecord = [play.quotations objectAtIndex:indexPath.row];
+
+        cell.nameText=appRecord.name;
+        if(indexPath.row==[play.quotations count]-1){
+            cell.noSeperatorLine=TRUE;
+        }
+        else{
+            cell.noSeperatorLine=FALSE;
+        }
             
-            // Only load cached images; defer new downloads until scrolling ends
-            if (!appRecord.profilePhotoImage)
+        // Only load cached images; defer new downloads until scrolling ends
+        if (!appRecord.profilePhotoImage)
+        {
+            if (participantTableView.dragging == NO && participantTableView.decelerating == NO)
             {
-                if (participantTableView.dragging == NO && participantTableView.decelerating == NO)
-                {
                     [self startIconDownload:appRecord forIndexPath:indexPath];
-                }
-                // if a download is deferred or in progress, return a placeholder image
-                cell.profileImage = [UIImage imageNamed:@"picbox.png"];                
             }
-            else
-            {
-                cell.profileImage = appRecord.profilePhotoImage;
-            }
+            // if a download is deferred or in progress, return a placeholder image
+            cell.profileImage = [UIImage imageNamed:@"picbox.png"];
             
-        
-        
+        }
+        else
+        {
+            cell.profileImage = appRecord.profilePhotoImage;
+        }
+            
         [cell setNeedsDisplay];
         return cell;
-        
-    
 }
 
 
@@ -413,7 +408,6 @@
         {
             [self loadImagesForOnscreenRows];
         }
-    
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
@@ -422,9 +416,7 @@
 }
 
 #pragma mark Section header delegate
-
 -(void)sectionHeaderView:(NSInteger)sectionOpened{
-    
     
     if(sectionOpened==1){
         noLine=TRUE; 
@@ -433,7 +425,7 @@
     }
     else{
         [(UIButton*)[self viewWithTag:7771] setHidden:NO];
-        [(UIButton*)[self viewWithTag:7771]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]]];
+        [(UIButton*)[self viewWithTag:7771]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]]];
         noLine=FALSE;
     }
 	
@@ -490,7 +482,6 @@
 
     
 }
-
 
 -(void)closeSectionHeaderView:(NSInteger)sectionClosed {
     
