@@ -501,7 +501,7 @@
             yTextLabel=17.0f;
             showLineOrSwitch=TRUE;
             yLeftImage=12.0f;
-            CGRect notificationNoLabelRect=CGRectMake(23,17,15,14);
+            CGRect notificationNoLabelRect=CGRectMake(25,17,15,14);
             UILabel *notificationNoLabel=[[UILabel alloc] initWithFrame:notificationNoLabelRect];
             notificationNoLabel.textAlignment=UITextAlignmentCenter;
             notificationNoLabel.text=@"0";
@@ -662,7 +662,7 @@
         if(imageProfile.size.height > 41 || imageProfile.size.width > 42)
             slideImageView.image = [SoclivityUtilities compressImage:imageProfile size:CGSizeMake(42,41)];
             
-            slideImageView.frame=CGRectMake(19, 10.5, 42, 41);
+            slideImageView.frame=CGRectMake(19, 11, 42, 41);
         }
         else
          slideImageView.frame=CGRectMake(19, yLeftImage, slideImageView.image.size.width, slideImageView.image.size.height);
