@@ -636,9 +636,9 @@
 -(void)loadingActivityMonitor{
     // Setup animation settings
     HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    HUD.yOffset = -60.0;
+    //HUD.yOffset = -60.0;
     HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
-    HUD.labelText = @"Loading";
+    HUD.labelText = @"Loading Activity";
     
     [self.view addSubview:HUD];
     HUD.delegate = self;

@@ -52,19 +52,16 @@ static UIFont *boldText = nil;
     CGContextFillRect(context, r);
     [textColor set];
     
-    
-    [[UIImage imageNamed:@"S05_participantPic.png"] drawInRect:CGRectMake(38,7,38,38)];
+    [[UIImage imageNamed:@"S05_participantPic.png"] drawInRect:CGRectMake(42,6,37,37)];
 
-    CGRect profileImageP = CGRectMake(42,11, 28, 28);
+    CGRect profileImageP = CGRectMake(46,9.5, 28, 28);
     [profileImage drawInRect:profileImageP];
     
-    
-    CGRect nameLabelRectP = CGRectMake(100, 20, 180, 15);
+    CGRect nameLabelRectP = CGRectMake(100, 15, 180, 15);
     [nameText drawInRect:nameLabelRectP withFont:firstTextFont];
     
-    
     if(!noSeperatorLine)
-    [[UIImage imageNamed:@"S05_detailsLine.png"] drawInRect:CGRectMake(28,58,272,2)];
+    [[UIImage imageNamed:@"S05_detailsLine.png"] drawInRect:CGRectMake(26,49,272,1)];
 
 
     // Graphics in the details table cell

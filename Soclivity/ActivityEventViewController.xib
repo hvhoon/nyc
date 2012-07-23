@@ -42,7 +42,7 @@
 					<object class="IBUIImageView" id="763120606">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrameSize">{320, 44}</string>
+						<string key="NSFrameSize">{320, 43}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="896231733"/>
@@ -189,7 +189,6 @@
 						<string key="NSFrame">{{277, 426}, {37, 29}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -234,7 +233,7 @@
 					<object class="IBUIScrollView" id="920055436">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{0, 43}, {320, 377}}</string>
+						<string key="NSFrame">{{0, 43}, {320, 376}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="532518821"/>
@@ -264,10 +263,9 @@
 					<object class="IBUITableView" id="586224429">
 						<reference key="NSNextResponder" ref="811797336"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrameSize">{320, 420}</string>
+						<string key="NSFrameSize">{320, 410}</string>
 						<reference key="NSSuperview" ref="811797336"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<reference key="IBUIBackgroundColor" ref="214588596"/>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -275,9 +273,9 @@
 						<int key="IBUISeparatorStyle">1</int>
 						<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>
 						<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>
-						<float key="IBUIRowHeight">44</float>
-						<float key="IBUISectionHeaderHeight">22</float>
-						<float key="IBUISectionFooterHeight">22</float>
+						<float key="IBUIRowHeight">50</float>
+						<float key="IBUISectionHeaderHeight">27</float>
+						<float key="IBUISectionFooterHeight">27</float>
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 460}</string>
@@ -298,7 +296,7 @@
 					<object class="IBUIImageView" id="303255778">
 						<reference key="NSNextResponder" ref="647438086"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{44, 10}, {47, 47}}</string>
+						<string key="NSFrame">{{44, 7}, {52, 52}}</string>
 						<reference key="NSSuperview" ref="647438086"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="338245859"/>
@@ -312,7 +310,7 @@
 					<object class="IBUIImageView" id="338245859">
 						<reference key="NSNextResponder" ref="647438086"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{48, 14}, {37, 37}}</string>
+						<string key="NSFrame">{{48, 11}, {42, 41}}</string>
 						<reference key="NSSuperview" ref="647438086"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="691039737"/>
@@ -343,7 +341,7 @@
 					<object class="IBUILabel" id="188852943">
 						<reference key="NSNextResponder" ref="647438086"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{102, 40}, {179, 15}}</string>
+						<string key="NSFrame">{{104, 40}, {179, 15}}</string>
 						<reference key="NSSuperview" ref="647438086"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="731809977"/>
@@ -541,7 +539,6 @@
 								<string key="NSFrame">{{94, 154}, {212, 14}}</string>
 								<reference key="NSSuperview" ref="1045809916"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -1267,7 +1264,7 @@
 			<string key="S05_clockIcon.png">{20, 20}</string>
 			<string key="S05_joinButton.png">{115, 31}</string>
 			<string key="S05_locationIcon.png">{19, 18}</string>
-			<string key="S05_organizerPic.png">{47, 47}</string>
+			<string key="S05_organizerPic.png">{52, 52}</string>
 			<string key="S05_topbar.png">{320, 43}</string>
 			<string key="S5_DOS-1.png">{16, 16}</string>
 			<string key="S5_chat-icon.png">{37, 29}</string>
