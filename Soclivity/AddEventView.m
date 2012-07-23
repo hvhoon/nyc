@@ -231,7 +231,7 @@
     
     // Location
     
-    locationInfoLabel2.text=[NSString stringWithFormat:@"%@,%@",info.where_city,info.where_state];
+    locationInfoLabel2.text=[NSString stringWithFormat:@"%@ %@",info.where_city,info.where_state];
     
     locationIcon.image = [UIImage imageNamed:@"S05_locationIcon.png"];
     locationIcon.frame = CGRectMake(50, 102, 19, 18);

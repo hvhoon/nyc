@@ -30,6 +30,7 @@
 @synthesize facebookUId;
 @synthesize facebookAccessToken;
 @synthesize registered;
+@synthesize profileImageUrl;
 -(void)dealloc{
     [super dealloc];
     [birth_date release];
@@ -51,5 +52,6 @@
     [FBProfileImage release];
     [facebookUId release];
     [facebookAccessToken release];
+    [profileImageUrl release];
 }
 @end

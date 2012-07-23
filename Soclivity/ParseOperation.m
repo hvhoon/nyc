@@ -108,39 +108,42 @@
         if ([key isEqualToString:@"birth_date"]) {
                 mappedKey=key;
         }
-        if ([key isEqualToString:@"created_at"]) {
+        else if ([key isEqualToString:@"created_at"]) {
 			mappedKey=key;
         }
-        if ([key isEqualToString:@"email"]) {
+        else if ([key isEqualToString:@"email"]) {
 			mappedKey=key;
         }
-        if ([key isEqualToString:@"first_name"]) {
+        else if ([key isEqualToString:@"first_name"]) {
 			mappedKey=key;
         }
-        if ([key isEqualToString:@"id"]){
+        else if ([key isEqualToString:@"id"]){
             mappedKey=key;
         }
-        if ([key isEqualToString:@"last_name"]) {
+        else if ([key isEqualToString:@"last_name"]) {
 			mappedKey=key;
         }
-        if ([key isEqualToString:@"updated_at"]) {
+        else if ([key isEqualToString:@"updated_at"]) {
 			mappedKey=key;
         }
-        if ([key isEqualToString:@"password_status"]) {
+        else if ([key isEqualToString:@"password_status"]) {
 			mappedKey=key;
         }
         
-        if ([key isEqualToString:@"status"]) {
+        else if ([key isEqualToString:@"status"]) {
 			mappedKey=key;
         }
-        if ([key isEqualToString:@"registered"]) {
+        else if ([key isEqualToString:@"registered"]) {
 			mappedKey=key;
         }
-        if ([key isEqualToString:@"atypes"]) {
+        else if ([key isEqualToString:@"atypes"]) {
+			mappedKey=key;
+        }
+        else if ([key isEqualToString:@"photo_url"]) {
 			mappedKey=key;
         }
 
-
+       
         
     }
         
@@ -227,39 +230,45 @@
             
             mappedKey=nil;
             }
-        if ([mappedKey isEqualToString:@"created_at"]) {
+        else if ([mappedKey isEqualToString:@"created_at"]) {
             self.playerObject.created_at = string;
             
             mappedKey=nil;
         }
-        if ([mappedKey isEqualToString:@"email"]) {
+        else if ([mappedKey isEqualToString:@"email"]) {
             self.playerObject.email = string;
             
             mappedKey=nil;
         }
-        if ([mappedKey isEqualToString:@"first_name"]) {
+        else if ([mappedKey isEqualToString:@"first_name"]) {
             self.playerObject.first_name = string;
             
             mappedKey=nil;
         }
-        if ([mappedKey isEqualToString:@"last_name"]) {
+        else if ([mappedKey isEqualToString:@"last_name"]) {
             self.playerObject.last_name = string;
             
             mappedKey=nil;
         }
-        if ([mappedKey isEqualToString:@"updated_at"]) {
+        else if ([mappedKey isEqualToString:@"updated_at"]) {
             self.playerObject.updated_at = string;
             
             mappedKey=nil;
         }
         
-        if ([mappedKey isEqualToString:@"password_status"]) {
+        else if ([mappedKey isEqualToString:@"password_status"]) {
             self.playerObject.password_status = string;
             
             mappedKey=nil;
         }
+        else if([mappedKey isEqualToString:@"photo_url"]){
+            self.playerObject.profileImageUrl = [NSString stringWithFormat:@"http://dev.soclivity.com%@",string];
+            
+            mappedKey=nil;
+
+        }
         
-        if ([mappedKey isEqualToString:@"atypes"]) {
+        else if ([mappedKey isEqualToString:@"atypes"]) {
             self.playerObject.activityTypes = string;
             SoclivityManager *SOC=[SoclivityManager SharedInstance];
             SOC.filterObject.playAct=FALSE;
@@ -310,7 +319,7 @@
             mappedKey=nil;
         }
 
-        if ([mappedKey isEqualToString:@"status"]) {
+        else if ([mappedKey isEqualToString:@"status"]) {
             self.playerObject.statusMessage = string;
             responseStatus=TRUE;
 			mappedKey=nil;

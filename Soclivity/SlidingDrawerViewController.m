@@ -52,7 +52,19 @@
         [profileViewControllerDictionary setObject:profileTag forKey:kSlideViewControllerViewControllerTagKey];
 
         [profileViewControllerDictionary setObject:[ProfileViewController class] forKey:kSlideViewControllerViewControllerClassKey];
-        [profileViewControllerDictionary setObject:[UIImage imageNamed:@"picbox.png"] forKey:kSlideViewControllerViewControllerIconKey];
+        
+        if([SOC.loggedInUser.profileImageData length]==0)
+             SOC.loggedInUser.profileImageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:SOC.loggedInUser.profileImageUrl]];
+        UIImage* image = [[[UIImage alloc] initWithData:SOC.loggedInUser.profileImageData ] autorelease];
+        if(image.size.height != image.size.width)
+            image = [SoclivityUtilities autoCrop:image];
+        
+        // If the image needs to be compressed
+        if(image.size.height > 50 || image.size.width > 50)
+            image = [SoclivityUtilities compressImage:image size:CGSizeMake(50,50)];
+    
+
+        [profileViewControllerDictionary setObject:image forKey:kSlideViewControllerViewControllerIconKey];
         
         
         [sectionOne setObject:[NSArray arrayWithObject:profileViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];

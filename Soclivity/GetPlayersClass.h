@@ -31,6 +31,7 @@
     NSString *facebookUId;
     NSString*facebookAccessToken;
     BOOL registered;
+    NSString*profileImageUrl;
 
     
 }
@@ -55,4 +56,5 @@
 @property (nonatomic,retain)NSString *facebookUId;
 @property (nonatomic,retain)NSString *facebookAccessToken;
 @property (nonatomic,assign)BOOL registered;
+@property (nonatomic,retain)NSString*profileImageUrl;
 @end
