@@ -604,24 +604,26 @@
 
     }
     
-    CGRect textLabelRect=CGRectMake(65,yTextLabel,205,15);
+    CGRect textLabelRect=CGRectMake(65,yTextLabel,205,16);
     UILabel *descriptionLabel=[[UILabel alloc] initWithFrame:textLabelRect];
     descriptionLabel.textAlignment=UITextAlignmentLeft;
     descriptionLabel.text=[viewControllerDictionary objectForKey:kSlideViewControllerViewControllerTitleKey];
-    if([tagNumber intValue]==kProfileView){
-        descriptionLabel.frame=CGRectMake(65,yTextLabel,205,17);
-        descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17];
-        
-    }
-    else
-    descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
+    
+    descriptionLabel.shadowColor = [UIColor blackColor];
+    descriptionLabel.shadowOffset = CGSizeMake(0,-1);
     descriptionLabel.textColor=[UIColor whiteColor];
     descriptionLabel.backgroundColor=[UIColor clearColor];
     
-    if(([tagNumber intValue]==kProfileView)||([tagNumber intValue]==kCalendarSync)||([tagNumber intValue]==kLinkFacebook)||([tagNumber intValue]==kEmailNotifications)||([tagNumber intValue]==kSignOut)){
-    descriptionLabel.shadowColor = [UIColor blackColor];
-    descriptionLabel.shadowOffset = CGSizeMake(0,-1);
+    if([tagNumber intValue]==kProfileView){
+        descriptionLabel.frame=CGRectMake(65,yTextLabel,205,17);
+        descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17];
     }
+    else if([tagNumber intValue]==kProfileView || ([tagNumber intValue]==kCalendarSync)||([tagNumber intValue]==kLinkFacebook)||([tagNumber intValue]==kEmailNotifications)||([tagNumber intValue]==kSignOut))
+        descriptionLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
+    
+    else
+        descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    
     [cell.contentView addSubview:descriptionLabel];
     [descriptionLabel release];
 
