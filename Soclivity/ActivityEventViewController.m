@@ -37,133 +37,12 @@
 #pragma mark - View lifecycle
 
 
--(void)BottonBarButtonHideAndShow:(NSInteger)type{
-    
-    switch (type) {
-            //join 
-        case 1:
-        {
-            cancelRequestActivityButton.hidden=YES;
-            addEventButton.hidden=NO;
-            organizerEditButton.hidden=YES;
-            goingActivityButton.hidden=YES;
-            notGoingActivityButton.hidden=YES;
-            inviteUsersToActivityButton.hidden=YES;
-            leaveActivityButton.hidden=YES;
-            chatButton.hidden=YES;
-            
-            
-        }
-            break;
-            //pending request
-        case 2:
-        {
-            cancelRequestActivityButton.hidden=NO;
-            addEventButton.hidden=YES;
-            organizerEditButton.hidden=YES;
-            inviteUsersToActivityButton.hidden=YES;
-            goingActivityButton.hidden=YES;
-            notGoingActivityButton.hidden=YES;
-            leaveActivityButton.hidden=YES;
-            chatButton.hidden=YES;
-            
-            
-            
-        }
-            break;
-            
-            //invited
-        case 3:
-        {
-            cancelRequestActivityButton.hidden=YES;
-            addEventButton.hidden=YES;
-            organizerEditButton.hidden=YES;
-            goingActivityButton.hidden=NO;
-            notGoingActivityButton.hidden=NO;
-            chatButton.hidden=YES;
-            inviteUsersToActivityButton.hidden=YES;
-            leaveActivityButton.hidden=YES;
-            
-            
-            
-            
-        }
-            break;
-            
-            // going/not Going
-        case 4:
-        {
-            cancelRequestActivityButton.hidden=YES;
-            addEventButton.hidden=YES;
-            chatButton.hidden=YES;
-            organizerEditButton.hidden=NO;
-            goingActivityButton.hidden=YES;
-            notGoingActivityButton.hidden=YES;
-            leaveActivityButton.hidden=YES;
-            
-            if([activityInfo.access isEqualToString:@"public"])
-                inviteUsersToActivityButton.hidden=NO;
-            
-            else
-                inviteUsersToActivityButton.hidden=YES;
-            
-            
-            
-        }
-            break;
-            
-            
-            
-            //going
-        case 5:
-        {
-            cancelRequestActivityButton.hidden=YES;
-            addEventButton.hidden=YES;
-            chatButton.hidden=NO;
-            organizerEditButton.hidden=YES;
-            goingActivityButton.hidden=YES;
-            notGoingActivityButton.hidden=YES;
-            leaveActivityButton.hidden=NO;
-            if([activityInfo.access isEqualToString:@"public"])
-                inviteUsersToActivityButton.hidden=NO;
-            
-            else
-                inviteUsersToActivityButton.hidden=YES;
-            
-            
-            
-        }
-            break;
-            
-            
-            
-            
-            //organizer
-        case 6:
-        {
-            cancelRequestActivityButton.hidden=YES;
-            addEventButton.hidden=YES;
-            chatButton.hidden=NO;
-            notGoingActivityButton.hidden=YES;
-            organizerEditButton.hidden=NO;
-            goingActivityButton.hidden=YES;
-            inviteUsersToActivityButton.hidden=NO;
-            leaveActivityButton.hidden=YES;
-            
-            
-            
-            
-        }
-            break;
-    }
-}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     toggleFriends=TRUE;
     
     
-    [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
     
 
 
@@ -381,10 +260,134 @@
 
     [eventView loadViewWithActivityDetails:activityInfo];
     
+    [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
+
+    
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,705);
 
 
     // Do any additional setup after loading the view from its nib.
+}
+
+-(void)BottonBarButtonHideAndShow:(NSInteger)type{
+    
+    switch (type) {
+            //join 
+        case 1:
+        {
+            cancelRequestActivityButton.hidden=YES;
+            addEventButton.hidden=NO;
+            organizerEditButton.hidden=YES;
+            goingActivityButton.hidden=YES;
+            notGoingActivityButton.hidden=YES;
+            inviteUsersToActivityButton.hidden=YES;
+            leaveActivityButton.hidden=YES;
+            chatButton.hidden=YES;
+            
+            
+        }
+            break;
+            //pending request
+        case 2:
+        {
+            cancelRequestActivityButton.hidden=NO;
+            addEventButton.hidden=YES;
+            organizerEditButton.hidden=YES;
+            inviteUsersToActivityButton.hidden=YES;
+            goingActivityButton.hidden=YES;
+            notGoingActivityButton.hidden=YES;
+            leaveActivityButton.hidden=YES;
+            chatButton.hidden=YES;
+            
+            
+            
+        }
+            break;
+            
+            //invited
+        case 3:
+        {
+            cancelRequestActivityButton.hidden=YES;
+            addEventButton.hidden=YES;
+            organizerEditButton.hidden=YES;
+            goingActivityButton.hidden=NO;
+            notGoingActivityButton.hidden=NO;
+            chatButton.hidden=YES;
+            inviteUsersToActivityButton.hidden=YES;
+            leaveActivityButton.hidden=YES;
+            
+            
+            
+            
+        }
+            break;
+            
+            // going/not Going
+        case 4:
+        {
+            cancelRequestActivityButton.hidden=YES;
+            addEventButton.hidden=YES;
+            chatButton.hidden=YES;
+            organizerEditButton.hidden=NO;
+            goingActivityButton.hidden=YES;
+            notGoingActivityButton.hidden=YES;
+            leaveActivityButton.hidden=YES;
+            
+            if([activityInfo.access isEqualToString:@"public"])
+                inviteUsersToActivityButton.hidden=NO;
+            
+            else
+                inviteUsersToActivityButton.hidden=YES;
+            
+            
+            
+        }
+            break;
+            
+            
+            
+            //going
+        case 5:
+        {
+            cancelRequestActivityButton.hidden=YES;
+            addEventButton.hidden=YES;
+            chatButton.hidden=NO;
+            organizerEditButton.hidden=YES;
+            goingActivityButton.hidden=YES;
+            notGoingActivityButton.hidden=YES;
+            leaveActivityButton.hidden=NO;
+            if([activityInfo.access isEqualToString:@"public"])
+                inviteUsersToActivityButton.hidden=NO;
+            
+            else
+                inviteUsersToActivityButton.hidden=YES;
+            
+            
+            
+        }
+            break;
+            
+            
+            
+            
+            //organizer
+        case 6:
+        {
+            cancelRequestActivityButton.hidden=YES;
+            addEventButton.hidden=YES;
+            chatButton.hidden=NO;
+            notGoingActivityButton.hidden=YES;
+            organizerEditButton.hidden=NO;
+            goingActivityButton.hidden=YES;
+            inviteUsersToActivityButton.hidden=NO;
+            leaveActivityButton.hidden=YES;
+            
+            
+            
+            
+        }
+            break;
+    }
 }
 -(IBAction)backButtonPressed:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];

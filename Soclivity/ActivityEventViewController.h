@@ -50,4 +50,5 @@
 -(IBAction)cancelRequestButtonPressed:(id)sender;
 -(void)scrollViewToTheTopOrBottom;
 -(void)highlightSelection:(int)selection;
+-(void)BottonBarButtonHideAndShow:(NSInteger)type;
 @end
