@@ -90,13 +90,13 @@
     if (self) {
         
         
-        self.backgroundColor = [UIColor clearColor];
+        //self.backgroundColor = [UIColor clearColor];
         
-        self.textLabel.textColor = [SoclivityUtilities returnTextFontColor:1];
+        self.textLabel.textColor = [SoclivityUtilities returnTextFontColor:0];
         self.textLabel.highlightedTextColor = self.textLabel.textColor;
-        self.textLabel.shadowColor = [SoclivityUtilities returnTextFontColor:1];
-        self.textLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
-        self.textLabel.backgroundColor = [UIColor clearColor];
+        self.textLabel.shadowColor = [SoclivityUtilities returnTextFontColor:9];
+        //self.textLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+        //self.textLabel.backgroundColor = [UIColor clearColor];
         self.textLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
         
         self.imageView.clipsToBounds = YES;
