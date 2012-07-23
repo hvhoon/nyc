@@ -28,8 +28,8 @@
 #define kEmailNotifications 9
 #define kSignOut 10
 
-#define cellHeightMedium 45.0f
-#define cellHeightLarge  55.0f
+#define cellHeightMedium 45
+#define cellHeightLarge  65
 
 @interface SlideViewController (private)<HomeScreenDelegate,ProfileScreenViewDelegate,NotificationsScreenViewDelegate,UpcomingCompletedEvnetsViewDelegate,InvitesViewDelegate,BlockedListViewDelegate>
 @end
@@ -421,7 +421,7 @@
     NSNumber *tagNumber = [viewControllerDictionary objectForKey:kSlideViewControllerViewControllerTagKey];
 
     
-    switch ([tagNumber intValue]) {
+    switch ([tagNumber integerValue]) {
         case kActivityFeed:
         case kWaitingOnU:
         case kUpcoming_Completed:
@@ -431,21 +431,11 @@
         case kLinkFacebook:
         case kEmailNotifications:
         case kSignOut:
-
-        {
             return cellHeightMedium;
-        }
-            break;
         case kProfileView:
-        {
-            return cellHeightLarge;            
-        }
-            break;
-            
+            return cellHeightLarge;
         default:
-        {
             return 45.0f;
-        }
     }
 }
 
@@ -493,16 +483,14 @@
             
         case kProfileView:
         {
-            yCompLine=53.0f;
-            yTextLabel=20.0f;
+            yCompLine=63.0f;
+            yTextLabel=30.0f;
             showLineOrSwitch=TRUE;
             UIImageView *profilePicBorder=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_organizerPic.png"]];
-            profilePicBorder.frame=CGRectMake(2.5, 1.5, 52, 52);
+            profilePicBorder.frame=CGRectMake(15, 7, 52, 52);
             [cell.contentView addSubview:profilePicBorder];
             [profilePicBorder release];
             cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
-
-
         }
             break;
             
@@ -513,7 +501,7 @@
             yTextLabel=17.0f;
             showLineOrSwitch=TRUE;
             yLeftImage=12.0f;
-            CGRect notificationNoLabelRect=CGRectMake(20,17,15,14);
+            CGRect notificationNoLabelRect=CGRectMake(23,17,15,14);
             UILabel *notificationNoLabel=[[UILabel alloc] initWithFrame:notificationNoLabelRect];
             notificationNoLabel.textAlignment=UITextAlignmentCenter;
             notificationNoLabel.text=@"0";
@@ -597,7 +585,7 @@
             yCompLine=43;
             showLineOrSwitch=FALSE;
             yLeftImage=16.0f;
-            yTextLabel=15.0f;
+            yTextLabel=10.0f;
             
         }
             break;
@@ -615,7 +603,7 @@
     descriptionLabel.backgroundColor=[UIColor clearColor];
     
     if([tagNumber intValue]==kProfileView){
-        descriptionLabel.frame=CGRectMake(65,yTextLabel,205,17);
+        descriptionLabel.frame=CGRectMake(75,yTextLabel,205,17);
         descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17];
     }
     else if([tagNumber intValue]==kProfileView || ([tagNumber intValue]==kCalendarSync)||([tagNumber intValue]==kLinkFacebook)||([tagNumber intValue]==kEmailNotifications)||([tagNumber intValue]==kSignOut))
@@ -671,13 +659,13 @@
             imageProfile = [SoclivityUtilities autoCrop:imageProfile];
         
         // If the image needs to be compressed
-        if(imageProfile.size.height > 48 || imageProfile.size.width > 48)
-            slideImageView.image = [SoclivityUtilities compressImage:imageProfile size:CGSizeMake(48,48)];
+        if(imageProfile.size.height > 41 || imageProfile.size.width > 42)
+            slideImageView.image = [SoclivityUtilities compressImage:imageProfile size:CGSizeMake(42,41)];
             
-            slideImageView.frame=CGRectMake(4.5, 3.5, 48, 48);
+            slideImageView.frame=CGRectMake(19, 10.5, 42, 41);
         }
         else
-         slideImageView.frame=CGRectMake(15, yLeftImage, slideImageView.image.size.width, slideImageView.image.size.height);
+         slideImageView.frame=CGRectMake(19, yLeftImage, slideImageView.image.size.width, slideImageView.image.size.height);
         
         [cell.contentView addSubview:slideImageView];
         [slideImageView release];
