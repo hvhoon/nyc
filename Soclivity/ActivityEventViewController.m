@@ -404,7 +404,6 @@
         }
         else{
             [self scrollViewToTheTopOrBottom];
-            return;
         }
     }
     
