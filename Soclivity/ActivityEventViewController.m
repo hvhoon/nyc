@@ -93,24 +93,22 @@
                 participantBarImgView.frame=CGRectMake(0, delta, 320, 47);
                 [headerView addSubview:participantBarImgView];
                 
-                
                 UIButton *pArrowButton=[UIButton buttonWithType:UIButtonTypeCustom];
-                pArrowButton.frame=CGRectMake(15,delta+14,10,18);
-                [pArrowButton setBackgroundImage:[UIImage imageNamed:@"S05_participantArrow.png"] forState:UIControlStateNormal];
+                pArrowButton.frame=CGRectMake(2,delta+4,33,40);
+                [pArrowButton setBackgroundImage:[UIImage imageNamed:@"S05_participantArrow"] forState:UIControlStateNormal];
                 [pArrowButton addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 pArrowButton.tag=103;
                 [headerView addSubview:pArrowButton];
                 
-                
                 // People going section in the participant bar
                 goingButton=[UIButton buttonWithType:UIButtonTypeCustom];
-                goingButton.frame=CGRectMake(25,delta,65,47);
+                goingButton.frame=CGRectMake(35,delta,55,47);
                 [goingButton addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 goingButton.tag=104;
                 [headerView addSubview:goingButton];
                 
                 
-                CGRect goingCountLabelRect=CGRectMake(34,delta+11,55,12);
+                CGRect goingCountLabelRect=CGRectMake(35,delta+11,55,12);
                 UILabel *goingCountLabel=[[UILabel alloc] initWithFrame:goingCountLabelRect];
                 goingCountLabel.textAlignment=UITextAlignmentCenter;
                 goingCountLabel.text=[NSString stringWithFormat:@"%@",activityInfo.goingCount];
@@ -122,7 +120,7 @@
                 [goingCountLabel release];
                 
                 
-                CGRect goingLabelTextRect=CGRectMake(34,delta+26,55,12);
+                CGRect goingLabelTextRect=CGRectMake(35,delta+26,55,12);
                 UILabel *goingTextLabel=[[UILabel alloc] initWithFrame:goingLabelTextRect];
                 goingTextLabel.textAlignment=UITextAlignmentCenter;
                 goingTextLabel.text=[NSString stringWithFormat:@"GOING"];
@@ -368,7 +366,7 @@
         switch (page) {
             case 1:
             {
-                [(UIButton*)[self.scrollView viewWithTag:103] setFrame:CGRectMake(14, 18, 19, 10)];//343
+                [(UIButton*)[self.scrollView viewWithTag:103] setFrame:CGRectMake(2, 3, 33, 40)];//343
                 [(UIButton*)[self.scrollView viewWithTag:103] setBackgroundImage:[UIImage imageNamed:@"S05_participantDownArrow.png"] forState:UIControlStateNormal];
                 participantListTableView.participantTableView.scrollEnabled=YES;
             }
@@ -377,7 +375,7 @@
                 
             case 0:
             {
-                [(UIButton*)[self.scrollView viewWithTag:103] setFrame:CGRectMake(14,16,10,18)];//343
+                [(UIButton*)[self.scrollView viewWithTag:103] setFrame:CGRectMake(2,4,33,40)];//343
                 [(UIButton*)[self.scrollView viewWithTag:103] setBackgroundImage:[UIImage imageNamed:@"S05_participantArrow.png"] forState:UIControlStateNormal];
                 participantListTableView.participantTableView.scrollEnabled=NO;
 
