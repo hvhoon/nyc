@@ -50,6 +50,7 @@
     MainServiceManager *devServer;
     SoclivityManager *SOC;
     MBProgressHUD *HUD;
+    int flipKeyViewTag;
 }
 
 @property (nonatomic,retain)id <HomeScreenDelegate>delegate;

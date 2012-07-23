@@ -43,6 +43,7 @@
     NSMutableArray *friendsOfFriendsArray;
     NSMutableArray *friendsArray;
     NSInteger relationType;
+    NSInteger activityRelationType;
     
     
 }
@@ -83,4 +84,5 @@
 @property(nonatomic,retain)NSMutableArray *friendsOfFriendsArray;
 @property(nonatomic,retain)NSMutableArray *friendsArray;
 @property (nonatomic,assign)NSInteger relationType;
+@property (nonatomic,assign)NSInteger activityRelationType;
 @end

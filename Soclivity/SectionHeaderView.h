@@ -18,6 +18,7 @@
 -(void)toggleOpenWithUserAction:(BOOL)userAction;
 -(void)detailActivity:(id)sender;
 -(IBAction)toggleOpen:(id)sender;
+-(void)spinnerCloseAndIfoDisclosureButtonUnhide;
 @end
 
 

@@ -13,7 +13,7 @@
 @protocol ActivityListViewDelegate <NSObject>
 
 @optional
--(void)PushToDetailActivityView:(InfoActivityClass*)detailedInfo;
+-(void)PushToDetailActivityView:(InfoActivityClass*)detailedInfo andFlipType:(NSInteger)andFlipType;
 -(void)RefreshFromTheListView;
 @end
 
@@ -36,6 +36,7 @@
     NSInteger sortType;
     BOOL sectionOpenClose;
     BOOL listRefresh;
+    int spinnerIndex;
 }
 
 @property (nonatomic, retain) NSArray *plays;
@@ -62,6 +63,7 @@
 -(void)sortingFilterRefresh;
 -(void)SortByTime;
 -(void)doFilteringByActivities;
+-(void)BytesDownloadedTimeToHideTheSpinner;
 @end
 NS_INLINE NSComparisonResult FilterSorting(NSString *s1, NSString *s2) {
     return [s1 compare:s2];

@@ -12,7 +12,7 @@
 #import "DetailInfoActivityClass.h"
 
 @implementation AddEventView
-@synthesize activityObject,delegate,locationInfoLabel2;
+@synthesize activityObject,delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -230,8 +230,8 @@
     [detailsLineTime release];
     
     // Location
-    locationInfoLabel1.text=info.distance;
-    locationInfoLabel2.text=info.where_address;
+    
+    locationInfoLabel2.text=[NSString stringWithFormat:@"%@,%@",info.where_city,info.where_state];
     
     locationIcon.image = [UIImage imageNamed:@"S05_locationIcon.png"];
     locationIcon.frame = CGRectMake(50, 102, 19, 18);
@@ -241,9 +241,44 @@
 
     locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
-    locationInfoLabel2.frame = CGRectMake(84, 122, 175, 15);   
+    locationInfoLabel2.frame = CGRectMake(84, 122, 175, 15);
     
-    [locationInfoLabel2 setHidden:YES];
+    
+    
+    switch (info.activityRelationType) {
+        case 1:
+        {
+            locationInfoLabel1.text=info.distance;
+        }
+            break;
+            
+        case 2:
+        {
+            
+        }
+            break;
+        case 3:
+        {
+            
+        }
+            break;
+        case 4:
+        {
+            
+        }
+            break;
+        case 5:
+        {
+            
+        }
+            break;
+        case 6:
+        {
+            locationInfoLabel1.text=info.where_address;
+        }
+            break;
+    }
+    
 }
 
 #pragma mark -

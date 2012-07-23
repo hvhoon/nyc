@@ -36,11 +36,137 @@
 }
 #pragma mark - View lifecycle
 
+
+-(void)BottonBarButtonHideAndShow:(NSInteger)type{
+    
+    switch (type) {
+            //join 
+        case 1:
+        {
+            cancelRequestActivityButton.hidden=YES;
+            addEventButton.hidden=NO;
+            organizerEditButton.hidden=YES;
+            goingActivityButton.hidden=YES;
+            notGoingActivityButton.hidden=YES;
+            inviteUsersToActivityButton.hidden=YES;
+            leaveActivityButton.hidden=YES;
+            chatButton.hidden=YES;
+            
+            
+        }
+            break;
+            //pending request
+        case 2:
+        {
+            cancelRequestActivityButton.hidden=NO;
+            addEventButton.hidden=YES;
+            organizerEditButton.hidden=YES;
+            inviteUsersToActivityButton.hidden=YES;
+            goingActivityButton.hidden=YES;
+            notGoingActivityButton.hidden=YES;
+            leaveActivityButton.hidden=YES;
+            chatButton.hidden=YES;
+            
+            
+            
+        }
+            break;
+            
+            //invited
+        case 3:
+        {
+            cancelRequestActivityButton.hidden=YES;
+            addEventButton.hidden=YES;
+            organizerEditButton.hidden=YES;
+            goingActivityButton.hidden=NO;
+            notGoingActivityButton.hidden=NO;
+            chatButton.hidden=YES;
+            inviteUsersToActivityButton.hidden=YES;
+            leaveActivityButton.hidden=YES;
+            
+            
+            
+            
+        }
+            break;
+            
+            // going/not Going
+        case 4:
+        {
+            cancelRequestActivityButton.hidden=YES;
+            addEventButton.hidden=YES;
+            chatButton.hidden=YES;
+            organizerEditButton.hidden=NO;
+            goingActivityButton.hidden=YES;
+            notGoingActivityButton.hidden=YES;
+            leaveActivityButton.hidden=YES;
+            
+            if([activityInfo.access isEqualToString:@"public"])
+                inviteUsersToActivityButton.hidden=NO;
+            
+            else
+                inviteUsersToActivityButton.hidden=YES;
+            
+            
+            
+        }
+            break;
+            
+            
+            
+            //going
+        case 5:
+        {
+            cancelRequestActivityButton.hidden=YES;
+            addEventButton.hidden=YES;
+            chatButton.hidden=NO;
+            organizerEditButton.hidden=YES;
+            goingActivityButton.hidden=YES;
+            notGoingActivityButton.hidden=YES;
+            leaveActivityButton.hidden=NO;
+            if([activityInfo.access isEqualToString:@"public"])
+                inviteUsersToActivityButton.hidden=NO;
+            
+            else
+                inviteUsersToActivityButton.hidden=YES;
+            
+            
+            
+        }
+            break;
+            
+            
+            
+            
+            //organizer
+        case 6:
+        {
+            cancelRequestActivityButton.hidden=YES;
+            addEventButton.hidden=YES;
+            chatButton.hidden=NO;
+            notGoingActivityButton.hidden=YES;
+            organizerEditButton.hidden=NO;
+            goingActivityButton.hidden=YES;
+            inviteUsersToActivityButton.hidden=NO;
+            leaveActivityButton.hidden=YES;
+            
+            
+            
+            
+        }
+            break;
+    }
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     toggleFriends=TRUE;
     
+    
+    [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
+    
+
+
     scrollView.indicatorStyle=UIScrollViewIndicatorStyleBlack;
     scrollView.clipsToBounds = YES;
     
@@ -69,6 +195,9 @@
         participantListTableView.participantTableView.scrollEnabled=NO;
     }
     participantListTableView.participantTableView.clipsToBounds=YES;
+    if([activityInfo.friendsArray count]==0||[activityInfo.friendsOfFriendsArray count]==0){
+        touchDisable=TRUE;
+    }
     for (int i = 0; i < 2; i++) {
 		CGRect frame;
 		frame.origin.x = 0;
@@ -207,7 +336,7 @@
                 DOS3Button=[UIButton buttonWithType:UIButtonTypeCustom];
                 DOS3Button.frame=CGRectMake(257,delta,75,47);
                 [DOS3Button addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-                DOS2Button.tag=107;
+                DOS3Button.tag=107;
                 [headerView addSubview:DOS3Button];
                 
                 
@@ -250,8 +379,6 @@
     activityNameLabel.shadowColor = [UIColor blackColor];
     activityNameLabel.shadowOffset = CGSizeMake(0,-1);
 
-    leaveActivityButton.hidden=YES;
-    chatButton.hidden=YES;
     [eventView loadViewWithActivityDetails:activityInfo];
     
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,705);
@@ -274,6 +401,7 @@
         }
         else{
             [self scrollViewToTheTopOrBottom];
+            return;
         }
     }
     
@@ -288,11 +416,13 @@
             break;
         case 104:
         {
+             [self highlightSelection:0];
             if(colpseExpdType==0){
-                //we have alrwady taken care of the open sections
+                //we have already taken care of the open sections
             }
             else{
-                [self highlightSelection:0];
+                
+               
                 participantListTableView.noLine=FALSE;
                 [participantListTableView setUpArrayWithBothSectionsOpen];
                 toggleFriends=TRUE;
@@ -303,6 +433,7 @@
             break;
         case 105:
         {
+            if(!touchDisable){
                 if(![activityInfo.friendsArray count]==0)
                 {
                     [self highlightSelection:1];
@@ -312,39 +443,40 @@
                         [participantListTableView closeSectionHeaderView:1];
                         [participantListTableView setUpArrayWithBothSectionsClosed];
                     }
-            
+                    
                     if(colpseExpdType==1){
                         [participantListTableView sectionHeaderView:0];
                         colpseExpdType=2;
                     }
                 }
-        }
-            break;
-        case 106:
-        {
-
+            }
         }
             break;
         case 107:
         {
+        // [self highlightSelection:3];
+        }
+            break;
+        case 106:
+        {
+            
+            if(!touchDisable){
                 if(![activityInfo.friendsOfFriendsArray count]==0)
                 {
-                    if(![activityInfo.friendsArray count]==0){
-                        [self highlightSelection:2];
-                        if(toggleFriends){
-                            toggleFriends=FALSE;
-                            colpseExpdType=2;
-                            [participantListTableView closeSectionHeaderView:0];
-                            [participantListTableView setUpArrayWithBothSectionsClosed];
-                        }
-                        
-                        if(colpseExpdType==2){
-                            [participantListTableView sectionHeaderView:1];
-                            colpseExpdType=1;
-                        }
- 
+                    [self highlightSelection:2];
+                    if(toggleFriends){
+                        toggleFriends=FALSE;
+                        colpseExpdType=2;
+                        [participantListTableView closeSectionHeaderView:0];
+                        [participantListTableView setUpArrayWithBothSectionsClosed];
+                    }
+                    
+                    if(colpseExpdType==2){
+                        [participantListTableView sectionHeaderView:1];
+                        colpseExpdType=1;
                     }
                 }
+            }
         }
             break;
 
@@ -423,21 +555,141 @@
 
 -(IBAction)addEventActivityPressed:(id)sender{
     
-    chatButton.hidden=NO;
-    leaveActivityButton.hidden=NO;
-    addEventButton.hidden=YES;
-    eventView.locationInfoLabel2.hidden=NO;
+    
+    
+    
+    
+    switch (activityInfo.activityRelationType) {
+        case 1:
+        {
+            //cancelRequestActivityButton.hidden=NO;
+            //addEventButton.hidden=YES;
+            activityInfo.activityRelationType=2;
+            [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
+
+            
+        }
+            break;
+            
+        case 2:
+        {
+            activityInfo.activityRelationType=1;
+            [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
+            
+        }
+            break;
+        case 3:
+        {
+            activityInfo.activityRelationType=1;
+            [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
+            
+        }
+            break;
+        case 4:
+        {
+            activityInfo.activityRelationType=1;
+            [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
+            
+        }
+            break;
+        case 5:
+        {
+            activityInfo.activityRelationType=1;
+            [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
+            
+        }
+            break;
+        case 6:
+        {
+            activityInfo.activityRelationType=1;
+            [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
+            
+        }
+            break;
+
+    }
+    
     
 }
 
 -(IBAction)leaveEventActivityPressed:(id)sender{
-    chatButton.hidden=YES;
-    leaveActivityButton.hidden=YES;
-    addEventButton.hidden=NO;
-    eventView.locationInfoLabel2.hidden=YES;
+    
+    switch (activityInfo.activityRelationType) {
+            
+        case 1:
+        {
+
+            
+            
+        }
+            break;
+            
+        case 2:
+        {
+
+            
+            
+        }
+            break;
+    
+        case 3:
+        {
+            
+        }
+            break;
+            
+        case 4:
+        {
+            
+        }
+            break;
+        case 5:
+        {
+            
+        }
+            break;
+
+            
+        case 6:
+        {
+            
+        }
+            break;
+    }
+    
     
 }
 -(IBAction)createANewActivityButtonPressed:(id)sender{
+    
+    
+}
+
+-(IBAction)goingActivityButtonPressed:(id)sender{
+    
+}
+-(IBAction)notGoingActivityButtonPressed:(id)sender{
+    
+}
+-(IBAction)inviteUsersButton:(id)sender{
+    
+}
+-(IBAction)editButtonClicked:(id)sender{
+    
+}
+-(IBAction)chatButtonPressed:(id)sender{
+    
+}
+-(IBAction)cancelRequestButtonPressed:(id)sender{
+    
+switch (activityInfo.activityRelationType) {
+        case 2:
+        {
+            activityInfo.activityRelationType=1;
+            [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
+            
+        }
+            break;
+    }
     
     
 }

@@ -512,4 +512,34 @@
     self.openSectionIndex = NSNotFound;
 }
 
+-(void)expandSectionHeaderView:(NSInteger)sectionOpened {
+    
+    /*
+     Create an array of the index paths of the rows in the section that was closed, then delete those rows from the table view.
+     */
+	SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:sectionOpened];
+	
+    sectionInfo.open = NO;
+    NSInteger countOfRowsToInsert = [self.participantTableView numberOfRowsInSection:sectionOpened];
+    
+    [self.participantTableView beginUpdates];
+    if (countOfRowsToInsert > 0) {
+        NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
+        for (NSInteger i = 0; i < countOfRowsToInsert; i++) {
+            [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:i inSection:sectionOpened]];
+        }
+        UITableViewRowAnimation insertAnimation;
+        if(sectionOpened==0){
+            insertAnimation=UITableViewRowAnimationBottom;
+        }
+        else{
+            insertAnimation=UITableViewRowAnimationTop;
+        }
+        [self.participantTableView insertRowsAtIndexPaths:indexPathsToDelete withRowAnimation:insertAnimation];
+    }
+    [self.participantTableView endUpdates];
+    self.openSectionIndex = NSNotFound;
+}
+
+
 @end

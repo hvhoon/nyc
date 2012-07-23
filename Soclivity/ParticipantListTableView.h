@@ -31,4 +31,5 @@
 -(void)setUpArrayWithBothSectionsClosed;
 -(void)setUpArrayWithBothSectionsOpen;
 -(void)appImageDidLoad:(NSIndexPath *)indexPath;
+-(void)expandSectionHeaderView:(NSInteger)sectionOpened;
 @end

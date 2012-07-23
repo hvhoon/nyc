@@ -28,7 +28,6 @@
     NSString *lastDateString;
     NSDate *lastStartPickDateTime;
     NSDate *lastEndPickDateTime;
-
     
 }
 @property (nonatomic,assign)BOOL playAct;

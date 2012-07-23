@@ -17,8 +17,8 @@
 #define kSVCSwipeNavigationBarOnly      YES
 
 
-#define kActivityFeed 1
-#define kProfileView 2
+#define kProfileView 1
+#define kActivityFeed 2
 #define kWaitingOnU 3
 #define kUpcoming_Completed 4
 #define kInvite 5
@@ -484,7 +484,7 @@
         {
             showLineOrSwitch=TRUE;
             yCompLine=43.0f;
-            yLeftImage=5.0f;
+            yLeftImage=11.0f;
             yTextLabel=15.0f;
             cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
 
@@ -496,8 +496,8 @@
             yCompLine=53.0f;
             yTextLabel=20.0f;
             showLineOrSwitch=TRUE;
-            UIImageView *profilePicBorder=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_picture.png"]];
-            profilePicBorder.frame=CGRectMake(2.5, 3.5, 50, 48);
+            UIImageView *profilePicBorder=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_organizerPic.png"]];
+            profilePicBorder.frame=CGRectMake(2.5, 1.5, 52, 52);
             [cell.contentView addSubview:profilePicBorder];
             [profilePicBorder release];
             cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
@@ -518,7 +518,9 @@
             notificationNoLabel.textAlignment=UITextAlignmentCenter;
             notificationNoLabel.text=@"0";
             notificationNoLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
-            notificationNoLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+            notificationNoLabel.textColor=[UIColor whiteColor];
+            notificationNoLabel.shadowColor = [UIColor blackColor];
+            notificationNoLabel.shadowOffset = CGSizeMake(0,-1);
             notificationNoLabel.backgroundColor=[UIColor clearColor];
             [cell.contentView addSubview:notificationNoLabel];
             [notificationNoLabel release];
@@ -557,7 +559,7 @@
             yCompLine=43;
             yTextLabel=15.0f;
             showLineOrSwitch=TRUE;
-            yLeftImage=15.0f;
+            yLeftImage=11.0f;
             cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
 
             
@@ -602,13 +604,24 @@
 
     }
     
-    CGRect textLabelRect=CGRectMake(60,yTextLabel,200,15);
+    CGRect textLabelRect=CGRectMake(65,yTextLabel,205,15);
     UILabel *descriptionLabel=[[UILabel alloc] initWithFrame:textLabelRect];
     descriptionLabel.textAlignment=UITextAlignmentLeft;
     descriptionLabel.text=[viewControllerDictionary objectForKey:kSlideViewControllerViewControllerTitleKey];
+    if([tagNumber intValue]==kProfileView){
+        descriptionLabel.frame=CGRectMake(65,yTextLabel,205,17);
+        descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17];
+        
+    }
+    else
     descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
-    descriptionLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    descriptionLabel.textColor=[UIColor whiteColor];
     descriptionLabel.backgroundColor=[UIColor clearColor];
+    
+    if(([tagNumber intValue]==kProfileView)||([tagNumber intValue]==kCalendarSync)||([tagNumber intValue]==kLinkFacebook)||([tagNumber intValue]==kEmailNotifications)||([tagNumber intValue]==kSignOut)){
+    descriptionLabel.shadowColor = [UIColor blackColor];
+    descriptionLabel.shadowOffset = CGSizeMake(0,-1);
+    }
     [cell.contentView addSubview:descriptionLabel];
     [descriptionLabel release];
 
@@ -656,10 +669,10 @@
             imageProfile = [SoclivityUtilities autoCrop:imageProfile];
         
         // If the image needs to be compressed
-        if(imageProfile.size.height > 80 || imageProfile.size.width > 84)
-            slideImageView.image = [SoclivityUtilities compressImage:imageProfile size:CGSizeMake(84,80)];
+        if(imageProfile.size.height > 48 || imageProfile.size.width > 48)
+            slideImageView.image = [SoclivityUtilities compressImage:imageProfile size:CGSizeMake(48,48)];
             
-            slideImageView.frame=CGRectMake(6.5, 7.5, 42, 40);
+            slideImageView.frame=CGRectMake(4.5, 3.5, 48, 48);
         }
         else
          slideImageView.frame=CGRectMake(15, yLeftImage, slideImageView.image.size.width, slideImageView.image.size.height);

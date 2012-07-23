@@ -258,9 +258,16 @@
 -(void)selectActivityView:(NSInteger)activitySection{
     
     NSLog(@"activitySection=%d",activitySection);
+    spinnerIndex=activitySection;
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:activitySection];
-    [delegate PushToDetailActivityView:sectionInfo.play];
+    [delegate PushToDetailActivityView:sectionInfo.play andFlipType:1];
 
+}
+
+-(void)BytesDownloadedTimeToHideTheSpinner{
+    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:spinnerIndex];
+    [sectionInfo.headerView spinnerCloseAndIfoDisclosureButtonUnhide];
+    
 }
 #pragma mark Pull To Refresh header 
 -(void)addPullToRefreshHeader {

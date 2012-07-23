@@ -363,12 +363,29 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
             annotationView.image = resizedImage;
             annotationView.opaque = NO;
             annotationView.leftCalloutAccessoryView=[self DrawAMapLeftAccessoryView:location];
+            
+            UIView *rightView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+            rightView.backgroundColor=[UIColor clearColor];
             UIButton *disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
             disclosureButton.frame = CGRectMake(0.0, 0.0, 29.0, 30.0);
             [disclosureButton setImage:[UIImage imageNamed:@"S02.1_rightarrow.png"] forState:UIControlStateNormal];
-            disclosureButton.tag=location._socAnnotation.stamp;
+            disclosureButton.tag=[[NSString stringWithFormat:@"555%d",location._socAnnotation.stamp]intValue];
             [disclosureButton addTarget:self action:@selector(pushTodetailActivity:) forControlEvents:UIControlEventTouchUpInside];
-            annotationView.rightCalloutAccessoryView=disclosureButton;
+            [rightView addSubview:disclosureButton];
+            
+            
+            UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] 
+                        initWithFrame:CGRectMake(4.5, 5.0f, 20.0f, 20.0f)];
+            [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
+            activityIndicator.tag=[[NSString stringWithFormat:@"666%d",location._socAnnotation.stamp]intValue];
+            [activityIndicator setHidden:YES];
+            [rightView addSubview:activityIndicator];
+            // release it
+            [activityIndicator release];
+
+            annotationView.rightCalloutAccessoryView=rightView;
+
+
 
             return annotationView;
         }
@@ -426,8 +443,30 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
 }
 #endif
 -(void)pushTodetailActivity:(UIButton*)sender{
-    SocAnnotation *detailAnnotation=[self.mapAnnotations objectAtIndex:[sender tag]];
-    [delegate PushToDetailActivityView:detailAnnotation._socAnnotation];
+    spinnerMapIndex=sender.tag;
+    NSLog(@"tagIndex=%d",spinnerMapIndex);
+
+    SocAnnotation *detailAnnotation=[self.mapAnnotations objectAtIndex:spinnerMapIndex%555];
+    [(UIButton*)[self viewWithTag:spinnerMapIndex] setHidden:YES];
+    
+    NSString *spinnerValue=[NSString stringWithFormat:@"666%d",[sender tag]%555];
+    
+    UIActivityIndicatorView *tmpimg = (UIActivityIndicatorView *)[self viewWithTag:[spinnerValue intValue]];
+    [tmpimg startAnimating];
+
+    [delegate PushToDetailActivityView:detailAnnotation._socAnnotation andFlipType:2];
 
 }
+-(void)spinnerCloseAndIfoDisclosureButtonUnhide{
+    
+    [(UIButton*)[self viewWithTag:spinnerMapIndex] setHidden:NO];
+    
+    NSString *spinnerValue=[NSString stringWithFormat:@"666%d",spinnerMapIndex%555];
+    
+    UIActivityIndicatorView *tmpimg = (UIActivityIndicatorView *)[self viewWithTag:[spinnerValue intValue]];
+    [tmpimg stopAnimating];
+    [tmpimg setHidden:YES];
+    
+}
+
 @end

@@ -19,6 +19,11 @@
     IBOutlet UILabel *activityNameLabel;
     IBOutlet UIButton *addEventButton;
     IBOutlet UIButton *leaveActivityButton;
+    IBOutlet UIButton *cancelRequestActivityButton;
+    IBOutlet UIButton *organizerEditButton;
+    IBOutlet UIButton *goingActivityButton;
+    IBOutlet UIButton *notGoingActivityButton;
+    IBOutlet UIButton *inviteUsersToActivityButton;
     UIButton *goingButton;
     UIButton *DOS1Button;
     UIButton *DOS3Button;
@@ -28,6 +33,7 @@
     BOOL toggleFriends;
     BOOL toogleFriendsOfFriends;
     int colpseExpdType;
+    BOOL touchDisable;
 
 }
 @property (nonatomic, retain) UIScrollView* scrollView;
@@ -36,6 +42,12 @@
 -(IBAction)addEventActivityPressed:(id)sender;
 -(IBAction)leaveEventActivityPressed:(id)sender;
 -(IBAction)createANewActivityButtonPressed:(id)sender;
+-(IBAction)goingActivityButtonPressed:(id)sender;
+-(IBAction)notGoingActivityButtonPressed:(id)sender;
+-(IBAction)inviteUsersButton:(id)sender;
+-(IBAction)editButtonClicked:(id)sender;
+-(IBAction)chatButtonPressed:(id)sender;
+-(IBAction)cancelRequestButtonPressed:(id)sender;
 -(void)scrollViewToTheTopOrBottom;
 -(void)highlightSelection:(int)selection;
 @end

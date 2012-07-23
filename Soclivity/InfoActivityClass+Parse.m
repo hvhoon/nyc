@@ -11,6 +11,7 @@
 #import "JSON.h"
 #import "SoclivityManager.h"
 #import "ParticipantClass.h"
+#import "GetPlayersClass.h"
 @implementation InfoActivityClass (Parse)
 
 
@@ -97,6 +98,16 @@
     play.where_city=[ACTDict objectForKey:@"where_city"];
     play.where_lat=[ACTDict objectForKey:@"where_lat"];
     play.where_lng=[ACTDict objectForKey:@"where_lng"];
+    
+    
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    GetPlayersClass *player=SOC.loggedInUser;
+    if([ownerId intValue]==[player.idSoc intValue]){
+        play.activityRelationType=6;
+    }
+    else{
+        play.activityRelationType=1;
+    }
     NSString *photoUrl=[ACTDict objectForKey:@"owner_photo"];
     play.ownerProfilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",photoUrl];
     NSString*relation=[ACTDict objectForKey:@"ura_member"];

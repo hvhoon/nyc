@@ -484,13 +484,18 @@
 #pragma mark -
 #pragma mark New Activity Push Method
 
--(void)PushToDetailActivityView:(InfoActivityClass*)detailedInfo{
+-(void)PushToDetailActivityView:(InfoActivityClass*)detailedInfo andFlipType:(NSInteger)andFlipType{
     NSLog(@"PushToDetailActivityView");
+    flipKeyViewTag=andFlipType;
+    
+   if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+
     
     if([SoclivityUtilities hasNetworkConnection]){
         
-     [self loadingActivityMonitor];   
-    [devServer getDetailedActivityInfoInvocation:[SOC.loggedInUser.idSoc intValue]    actId:detailedInfo.activityId  latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude delegate:self];
+     //[self loadingActivityMonitor];   
+     [devServer getDetailedActivityInfoInvocation:[SOC.loggedInUser.idSoc intValue]    actId:detailedInfo.activityId  latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude delegate:self];
     }
     else{
         
@@ -623,13 +628,35 @@
 
 }
 -(void)pushActivityController:(InfoActivityClass*)response{
-    [HUD hide:YES];
+    //[HUD hide:YES];
     
+    
+
     ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:@"ActivityEventViewController" bundle:nil];
     
     activityEventViewController.activityInfo=response;
 	[[self navigationController] pushViewController:activityEventViewController animated:YES];
     [activityEventViewController release];
+
+    if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+
+    switch (flipKeyViewTag) {
+        case 1:
+        {
+            [activityTableView BytesDownloadedTimeToHideTheSpinner];
+            
+        }
+            break;
+            
+        case 2:
+        {
+            [socEventMapView spinnerCloseAndIfoDisclosureButtonUnhide];
+            
+        }
+            break;
+    }
+
     
 }
 

@@ -208,10 +208,22 @@
         // Create and configure the disclosure button.
         UIButton *disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         disclosureButton.frame = CGRectMake(276, 18, 38, 38);
-        [disclosureButton setImage:[UIImage imageNamed:@"S04_moreinfoarrow.png"] forState:UIControlStateNormal];
+        disclosureButton.tag=[[NSString stringWithFormat:@"555%d",section]intValue];
+        [disclosureButton setImage:[UIImage imageNamed:
+                                    @"S04_moreinfoarrow.png"] forState:UIControlStateNormal];
         [disclosureButton setImage:[UIImage imageNamed:@"S04_moreinfoarrow.png"] forState:UIControlStateSelected];
         [disclosureButton addTarget:self action:@selector(detailActivity:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:disclosureButton];
+        
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] 
+                             initWithFrame:CGRectMake(285.0f, 27.0f, 20.0f, 20.0f)];
+        [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicator.tag=[[NSString stringWithFormat:@"666%d",section]intValue];
+        [activityIndicator setHidden:YES];
+        [self addSubview:activityIndicator];
+        // release it
+        [activityIndicator release];
+        
         
         static NSMutableArray *colors = nil;
         if (colors == nil) {
@@ -244,8 +256,29 @@
 -(void)detailActivity:(id)sender{
     NSLog(@"detailActivity");
     if ([delegate respondsToSelector:@selector(selectActivityView:)]) {
+        NSString *arrowButtonValue=[NSString stringWithFormat:@"555%d",section];
+        [(UIButton*)[self viewWithTag:[arrowButtonValue intValue]] setHidden:YES];
+
+        NSString *spinnerValue=[NSString stringWithFormat:@"666%d",section];
+
+        UIActivityIndicatorView *tmpimg = (UIActivityIndicatorView *)[self viewWithTag:[spinnerValue intValue]];
+        [tmpimg startAnimating];
         [delegate selectActivityView:section];
+
     }
+
+}
+
+-(void)spinnerCloseAndIfoDisclosureButtonUnhide{
+    
+    NSString *arrowButtonValue=[NSString stringWithFormat:@"555%d",section];
+    [(UIButton*)[self viewWithTag:[arrowButtonValue intValue]] setHidden:NO];
+    
+    NSString *spinnerValue=[NSString stringWithFormat:@"666%d",section];
+    
+    UIActivityIndicatorView *tmpimg = (UIActivityIndicatorView *)[self viewWithTag:[spinnerValue intValue]];
+    [tmpimg stopAnimating];
+    [tmpimg setHidden:YES];
 
 }
 -(void)toggleOpenWithUserAction:(BOOL)userAction {

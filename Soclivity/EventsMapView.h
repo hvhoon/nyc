@@ -15,7 +15,7 @@
 @protocol EventsMapViewDelegate <NSObject>
 
 @optional
--(void)PushToDetailActivityView:(InfoActivityClass*)detailedInfo;
+-(void)PushToDetailActivityView:(InfoActivityClass*)detailedInfo andFlipType:(NSInteger)andFlipType;
 @end
 
 @interface EventsMapView : UIView<MKMapViewDelegate,CLLocationManagerDelegate>{
@@ -28,6 +28,7 @@
     id <EventsMapViewDelegate>delegate;
     NSMutableArray *mapAnnotations;
     BOOL centerLocation;
+    int spinnerMapIndex;
 
 }
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
@@ -43,5 +44,6 @@
 -(void)pushTodetailActivity:(id)sender;
 -(void)doFilteringByActivities;
 - (void)findUserLocation;
+-(void)spinnerCloseAndIfoDisclosureButtonUnhide;
 @property(nonatomic,assign)BOOL centerLocation;
 @end

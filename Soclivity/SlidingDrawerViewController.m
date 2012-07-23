@@ -31,32 +31,10 @@
         _searchDatasource = [NSMutableArray new];
         
         NSMutableArray *datasource = [NSMutableArray array];
-#if 1        
+
+        
         NSMutableDictionary *sectionOne = [NSMutableDictionary dictionary];
         [sectionOne setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
-        
-        NSMutableDictionary *homeViewControllerDictionary = [NSMutableDictionary dictionary];
-        [homeViewControllerDictionary setObject:@"Activity Feed" forKey:kSlideViewControllerViewControllerTitleKey];
-        [homeViewControllerDictionary setObject:@"HomeViewController" forKey:kSlideViewControllerViewControllerNibNameKey];
-        
-        NSNumber *activityTag=[NSNumber numberWithInt:1];
-        [homeViewControllerDictionary setObject:activityTag forKey:kSlideViewControllerViewControllerTagKey];
-        
-        [homeViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
-
-
-        [homeViewControllerDictionary setObject:[HomeViewController class] forKey:kSlideViewControllerViewControllerClassKey];
-        [homeViewControllerDictionary setObject:[UIImage imageNamed:@"S7_activity-feed_icon.png"] forKey:kSlideViewControllerViewControllerIconKey];
-
-        
-        [sectionOne setObject:[NSArray arrayWithObject:homeViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
-        
-        [datasource addObject:sectionOne];
-#endif        
-
-        
-        NSMutableDictionary *sectionTwo = [NSMutableDictionary dictionary];
-        [sectionTwo setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
         
         NSMutableDictionary *profileViewControllerDictionary = [NSMutableDictionary dictionary];
         
@@ -70,18 +48,40 @@
         [profileViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
 
         
-        NSNumber *profileTag=[NSNumber numberWithInt:2];
+        NSNumber *profileTag=[NSNumber numberWithInt:1];
         [profileViewControllerDictionary setObject:profileTag forKey:kSlideViewControllerViewControllerTagKey];
 
         [profileViewControllerDictionary setObject:[ProfileViewController class] forKey:kSlideViewControllerViewControllerClassKey];
         [profileViewControllerDictionary setObject:[UIImage imageNamed:@"picbox.png"] forKey:kSlideViewControllerViewControllerIconKey];
         
         
-        [sectionTwo setObject:[NSArray arrayWithObject:profileViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
+        [sectionOne setObject:[NSArray arrayWithObject:profileViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
+        
+        [datasource addObject:sectionOne];
+        
+#if 1        
+        NSMutableDictionary *sectionTwo = [NSMutableDictionary dictionary];
+        [sectionTwo setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
+        
+        NSMutableDictionary *homeViewControllerDictionary = [NSMutableDictionary dictionary];
+        [homeViewControllerDictionary setObject:@"Activities around you" forKey:kSlideViewControllerViewControllerTitleKey];
+        [homeViewControllerDictionary setObject:@"HomeViewController" forKey:kSlideViewControllerViewControllerNibNameKey];
+        
+        NSNumber *activityTag=[NSNumber numberWithInt:2];
+        [homeViewControllerDictionary setObject:activityTag forKey:kSlideViewControllerViewControllerTagKey];
+        
+        [homeViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
+        
+        
+        [homeViewControllerDictionary setObject:[HomeViewController class] forKey:kSlideViewControllerViewControllerClassKey];
+        [homeViewControllerDictionary setObject:[UIImage imageNamed:@"S7_activity_icon.png"] forKey:kSlideViewControllerViewControllerIconKey];
+        
+        
+        [sectionTwo setObject:[NSArray arrayWithObject:homeViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
         
         [datasource addObject:sectionTwo];
-        
-        
+#endif        
+       
         
         NSMutableDictionary *sectionThree = [NSMutableDictionary dictionary];
         [sectionThree setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
@@ -111,7 +111,7 @@
         [sectionFour setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
         
         NSMutableDictionary *upcomingCompletedEventsViewControllerDictionary = [NSMutableDictionary dictionary];
-        [upcomingCompletedEventsViewControllerDictionary setObject:@"Upcoming/ Completed" forKey:kSlideViewControllerViewControllerTitleKey];
+        [upcomingCompletedEventsViewControllerDictionary setObject:@"Your Activities" forKey:kSlideViewControllerViewControllerTitleKey];
         [upcomingCompletedEventsViewControllerDictionary setObject:@"UpComingCompletedEventsViewController" forKey:kSlideViewControllerViewControllerNibNameKey];
         
         NSNumber *upcomingCompletedEventsTag=[NSNumber numberWithInt:4];
@@ -120,7 +120,7 @@
         [upcomingCompletedEventsViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
 
         [upcomingCompletedEventsViewControllerDictionary setObject:[UpComingCompletedEventsViewController class] forKey:kSlideViewControllerViewControllerClassKey];
-        [upcomingCompletedEventsViewControllerDictionary setObject:[UIImage imageNamed:@"S7_upcomingcompleted_icon.png"] forKey:kSlideViewControllerViewControllerIconKey];
+        [upcomingCompletedEventsViewControllerDictionary setObject:[UIImage imageNamed:@"S7_your_activities.png"] forKey:kSlideViewControllerViewControllerIconKey];
         
         
         [sectionFour setObject:[NSArray arrayWithObject:upcomingCompletedEventsViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
