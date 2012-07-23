@@ -62,12 +62,8 @@
     
     eventView.delegate=self;
     participantListTableView.DOS1_friendsArray=activityInfo.friendsArray;
-    
     participantListTableView.DOS2_friendsArray=activityInfo.friendsOfFriendsArray;
-    
-    if([activityInfo.friendsArray count]==0||[activityInfo.friendsOfFriendsArray count]==0){
-        animationJackTap=TRUE;
-    }
+
     participantListTableView.participantTableView.bounces=NO;
     if(page==0){
         participantListTableView.participantTableView.scrollEnabled=NO;
@@ -99,7 +95,7 @@
                 
                 
                 UIButton *pArrowButton=[UIButton buttonWithType:UIButtonTypeCustom];
-                pArrowButton.frame=CGRectMake(16,delta+14,10,18);
+                pArrowButton.frame=CGRectMake(15,delta+14,10,18);
                 [pArrowButton setBackgroundImage:[UIImage imageNamed:@"S05_participantArrow.png"] forState:UIControlStateNormal];
                 [pArrowButton addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 pArrowButton.tag=103;
@@ -107,8 +103,8 @@
                 
                 
                 // People going section in the participant bar
-                UIButton *goingButton=[UIButton buttonWithType:UIButtonTypeCustom];
-                goingButton.frame=CGRectMake(30,delta,65,47);
+                goingButton=[UIButton buttonWithType:UIButtonTypeCustom];
+                goingButton.frame=CGRectMake(25,delta,65,47);
                 [goingButton addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 goingButton.tag=104;
                 [headerView addSubview:goingButton];
@@ -139,8 +135,8 @@
                 
                 
                 // Friends going section in the participant bar
-                UIButton *DOS1Button=[UIButton buttonWithType:UIButtonTypeCustom];
-                DOS1Button.frame=CGRectMake(111,delta,74,47);
+                DOS1Button=[UIButton buttonWithType:UIButtonTypeCustom];
+                DOS1Button.frame=CGRectMake(95,delta,75,47);
                 [DOS1Button addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 DOS1Button.tag=105;
                 [headerView addSubview:DOS1Button];
@@ -174,8 +170,8 @@
                 [friendsTextLabel release];
                 
                 // People you may know section in the participant bar
-                UIButton *DOS2Button=[UIButton buttonWithType:UIButtonTypeCustom];
-                DOS2Button.frame=CGRectMake(176,delta,75,47);
+                DOS2Button=[UIButton buttonWithType:UIButtonTypeCustom];
+                DOS2Button.frame=CGRectMake(175,delta,75,47);
                 [DOS2Button addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 DOS2Button.tag=106;
                 [headerView addSubview:DOS2Button];
@@ -210,8 +206,8 @@
                 
                 
                 // Other section in the participant bar
-                UIButton *DOS3Button=[UIButton buttonWithType:UIButtonTypeCustom];
-                DOS3Button.frame=CGRectMake(257,delta,65,47);
+                DOS3Button=[UIButton buttonWithType:UIButtonTypeCustom];
+                DOS3Button.frame=CGRectMake(257,delta,75,47);
                 [DOS3Button addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 DOS2Button.tag=107;
                 [headerView addSubview:DOS3Button];
@@ -244,7 +240,6 @@
                 [self.scrollView addSubview:participantListTableView];
             }
                 break;
-                
                 
         }		
 	}
@@ -280,11 +275,8 @@
             return;
         }
         else{
-        [self scrollViewToTheTopOrBottom];
-            return;
+            [self scrollViewToTheTopOrBottom];
         }
-        
-        
     }
     
     
@@ -292,9 +284,7 @@
         case 103:
         {
             if(page==1){
-                
                 [self scrollViewToTheTopOrBottom];
-                
             }
         }
             break;
@@ -304,6 +294,7 @@
                 //we have alrwady taken care of the open sections
             }
             else{
+                [self highlightSelection:0];
                 participantListTableView.noLine=FALSE;
                 [participantListTableView setUpArrayWithBothSectionsOpen];
                 toggleFriends=TRUE;
@@ -314,48 +305,48 @@
             break;
         case 105:
         {
+                if(![activityInfo.friendsArray count]==0)
+                {
+                    [self highlightSelection:1];
+                    if(toggleFriends){
+                        toggleFriends=FALSE;
+                        colpseExpdType=1;
+                        [participantListTableView closeSectionHeaderView:1];
+                        [participantListTableView setUpArrayWithBothSectionsClosed];
+                    }
             
-            if(!animationJackTap){
-            if(![activityInfo.friendsArray count]==0)
-            {
-            if(toggleFriends){
-                toggleFriends=FALSE;
-                colpseExpdType=1;
-                [participantListTableView closeSectionHeaderView:1];
-                [participantListTableView setUpArrayWithBothSectionsClosed];
-            }
-            
-            if(colpseExpdType==1){
-            [participantListTableView sectionHeaderView:0];
-                colpseExpdType=2;
-            }
-            }
-            }
+                    if(colpseExpdType==1){
+                        [participantListTableView sectionHeaderView:0];
+                        colpseExpdType=2;
+                    }
+                }
         }
             break;
         case 106:
         {
-            
+
         }
             break;
         case 107:
         {
-            if(!animationJackTap){
-            if(![activityInfo.friendsOfFriendsArray count]==0)
-            {
-            if(toggleFriends){
-                toggleFriends=FALSE;
-                colpseExpdType=2;
-                [participantListTableView closeSectionHeaderView:0];
-                [participantListTableView setUpArrayWithBothSectionsClosed];
-            }
-
-            if(colpseExpdType==2){
-                [participantListTableView sectionHeaderView:1];
-                colpseExpdType=1;
-            }
-            }
-            }
+                if(![activityInfo.friendsOfFriendsArray count]==0)
+                {
+                    if(![activityInfo.friendsArray count]==0){
+                        [self highlightSelection:2];
+                        if(toggleFriends){
+                            toggleFriends=FALSE;
+                            colpseExpdType=2;
+                            [participantListTableView closeSectionHeaderView:0];
+                            [participantListTableView setUpArrayWithBothSectionsClosed];
+                        }
+                        
+                        if(colpseExpdType==2){
+                            [participantListTableView sectionHeaderView:1];
+                            colpseExpdType=1;
+                        }
+ 
+                    }
+                }
         }
             break;
 
@@ -367,9 +358,6 @@
 
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
-    
-    //NSLog(@"scrollViewDidScroll");
-    
     
     if (!pageControlBeingUsed) {
 		
@@ -383,7 +371,6 @@
                 [(UIButton*)[self.scrollView viewWithTag:103] setFrame:CGRectMake(14, 18, 19, 10)];//343
                 [(UIButton*)[self.scrollView viewWithTag:103] setBackgroundImage:[UIImage imageNamed:@"S05_participantDownArrow.png"] forState:UIControlStateNormal];
                 participantListTableView.participantTableView.scrollEnabled=YES;
-
             }
                 break;
                 
@@ -399,9 +386,6 @@
 
                 
         }
-        //NSLog(@"page=%d",page);
-        
-        
     }
 }
 
@@ -411,6 +395,7 @@
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+
 }
 
 -(void)scrollViewToTheTopOrBottom{
@@ -430,7 +415,6 @@
         case 1:
         {
             frame.origin.y = 0;
-            
         }
             break;
     }
@@ -473,6 +457,33 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)highlightSelection:(int)selection {
+    
+    // Highlight only the item selected and remove highlights from the other areas
+    
+    // Unhighlight all the other selections
+    DOS1Button.backgroundColor = [UIColor clearColor];
+    DOS2Button.backgroundColor = [UIColor clearColor];
+    DOS3Button.backgroundColor = [UIColor clearColor];
+    
+    // Highlight just the 'Going' or 'Requests' section
+    switch (selection) {
+        case 1:
+            DOS1Button.backgroundColor = [UIColor blackColor];
+            DOS1Button.alpha = 0.1;
+            break;
+        case 2:
+            DOS2Button.backgroundColor = [UIColor blackColor];
+            DOS2Button.alpha = 0.1;
+            break;
+        case 3:
+            DOS3Button.backgroundColor = [UIColor blackColor];
+            DOS3Button.alpha = 0.1;
+        default:
+            break;
+    }    
 }
 
 @end

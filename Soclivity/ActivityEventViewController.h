@@ -19,13 +19,15 @@
     IBOutlet UILabel *activityNameLabel;
     IBOutlet UIButton *addEventButton;
     IBOutlet UIButton *leaveActivityButton;
+    UIButton *goingButton;
+    UIButton *DOS1Button;
+    UIButton *DOS3Button;
+    UIButton *DOS2Button;
     BOOL pageControlBeingUsed;
     int page;
     BOOL toggleFriends;
     BOOL toogleFriendsOfFriends;
     int colpseExpdType;
-    BOOL animationJackTap;
-
 
 }
 @property (nonatomic, retain) UIScrollView* scrollView;
@@ -35,4 +37,5 @@
 -(IBAction)leaveEventActivityPressed:(id)sender;
 -(IBAction)createANewActivityButtonPressed:(id)sender;
 -(void)scrollViewToTheTopOrBottom;
+-(void)highlightSelection:(int)selection;
 @end
