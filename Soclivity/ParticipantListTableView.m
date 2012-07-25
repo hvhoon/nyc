@@ -45,9 +45,11 @@
     rowHeight_ = kCustomRowHeight;
     self.participantTableView.showsVerticalScrollIndicator=YES;
     
+     [self setUpArrayWithTableSections];
+    /*
     if ((self.sectionInfoArray == nil) || ([self.sectionInfoArray count] != [self numberOfSectionsInTableView:self.participantTableView])){
-        [self setUpArrayWithTableSections];
-    }
+       
+    }*/
 }
 
 
@@ -190,11 +192,24 @@
 	self.sectionInfoArray = nil;
 }
 
+-(NSInteger)returnNumberOfSections{
+    
+    NSMutableArray *checkArray=[NSMutableArray arrayWithCapacity:[self.sectionInfoArray count]];
+    for(int z=0;z<[self.sectionInfoArray count];z++){
+        SectionInfo*sectionInfo=[self.sectionInfoArray objectAtIndex:z];
+        InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:z] play];
+        if(![play.quotations  count]==0)
+            [checkArray addObject:sectionInfo];
+   }
+    self.sectionInfoArray=checkArray;
+    return [checkArray count];
+}
 #pragma mark Table view data source and delegate
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
     
-    return [self.sectionInfoArray count];
+    //return [self.sectionInfoArray count];
+    return [self returnNumberOfSections];
 }
 
 -(NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
