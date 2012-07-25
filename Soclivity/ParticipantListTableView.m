@@ -19,7 +19,7 @@
 @end
 
 @implementation ParticipantListTableView
-@synthesize DOS1_friendsArray,DOS2_friendsArray,imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_,noLine,pendingRequestArray,activityLinkIndex,otherParticipantsArray;
+@synthesize DOS1_friendsArray,DOS2_friendsArray,imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_,noLine,pendingRequestArray,activityLinkIndex,otherParticipantsArray,editingOn;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -315,7 +315,7 @@
         // Set up the cell...
         InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
         ParticipantClass *appRecord = [play.quotations objectAtIndex:indexPath.row];
-        cell.relationType=play.activityRelationType;
+        cell.relationType=play.relationType;
         cell.indexPath=indexPath;
         cell.delegate=self;
         cell.nameText=appRecord.name;
@@ -326,7 +326,7 @@
             cell.noSeperatorLine=FALSE;
         }
     
-    if(play.activityRelationType==0){
+    if(play.relationType==0 && activityLinkIndex==6){
         
         switch (appRecord.dosConnection) {
             case 1:
@@ -372,6 +372,41 @@
         [cell setNeedsDisplay];
         return cell;
 }
+
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"Remove";
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if(activityLinkIndex==6 && editingOn){
+    InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
+        
+        if(play.relationType!=0){
+            return UITableViewCellEditingStyleDelete;
+        }
+        else{
+            return UITableViewCellEditingStyleNone;
+        }
+
+    }
+    else
+        return UITableViewCellEditingStyleNone;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
+    
+    ParticipantClass *delete= [play.quotations objectAtIndex:indexPath.row];
+    NSMutableArray *localArray=[NSMutableArray arrayWithArray:play.quotations];
+    [localArray removeObjectIdenticalTo:delete];
+    play.quotations=localArray;
+    [participantTableView reloadData];	
+}
+
 
 #pragma mark -
 #pragma mark Table cell View  Delegate Methods

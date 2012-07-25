@@ -20,6 +20,7 @@
     NSMutableArray* otherParticipantsArray;
     BOOL noLine;
     int activityLinkIndex;
+    BOOL editingOn;
     
 
 }
@@ -34,6 +35,7 @@
 @property (nonatomic, retain) NSMutableArray* pendingRequestArray;
 @property (nonatomic, retain)NSMutableArray* otherParticipantsArray;
 @property (nonatomic,assign)int activityLinkIndex;
+@property (nonatomic,assign)BOOL editingOn;
 -(void)sectionHeaderView:(NSInteger)sectionOpened;
 -(void)closeSectionHeaderView:(NSInteger)sectionClosed;
 -(void)setUpArrayWithTableSections;

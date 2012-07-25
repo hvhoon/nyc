@@ -722,6 +722,9 @@
     eventView.calendarDateEditArrow.hidden=NO;
     eventView.timeEditArrow.hidden=NO;
     eventView.editMarkerButton.hidden=NO;
+    
+    participantListTableView.editingOn=YES;
+    [participantListTableView.participantTableView reloadData];
 }
 
 -(IBAction)crossClickedByOrganizer:(id)sender{
@@ -735,7 +738,10 @@
     eventView.calendarDateEditArrow.hidden=YES;
     eventView.timeEditArrow.hidden=YES;
     eventView.editMarkerButton.hidden=YES;
-    
+
+    participantListTableView.editingOn=NO;
+    [participantListTableView.participantTableView reloadData];
+
 }
 
 -(IBAction)tickClickedByOrganizer:(id)sender{
@@ -750,6 +756,9 @@
     eventView.calendarDateEditArrow.hidden=YES;
     eventView.timeEditArrow.hidden=YES;
     eventView.editMarkerButton.hidden=YES;
+    participantListTableView.editingOn=NO;
+    [participantListTableView.participantTableView reloadData];
+
 }
 
 -(IBAction)chatButtonPressed:(id)sender{
