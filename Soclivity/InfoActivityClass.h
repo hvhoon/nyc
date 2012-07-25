@@ -42,6 +42,9 @@
     UIImage *organizerImage;
     NSMutableArray *friendsOfFriendsArray;
     NSMutableArray *friendsArray;
+    NSMutableArray *otherParticipantsArray;
+    NSMutableArray* pendingRequestArray;
+
     NSInteger relationType;
     NSInteger activityRelationType;
     NSInteger pendingRequestCount;
@@ -87,4 +90,6 @@
 @property (nonatomic,assign)NSInteger relationType;
 @property (nonatomic,assign)NSInteger activityRelationType;
 @property (nonatomic,assign) NSInteger pendingRequestCount;
+@property(nonatomic,retain) NSMutableArray *otherParticipantsArray;
+@property (nonatomic, retain) NSMutableArray* pendingRequestArray;
 @end

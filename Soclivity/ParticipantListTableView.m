@@ -10,6 +10,7 @@
 #import "ParticipantClass.h"
 #import "SoclivityUtilities.h"
 #import "SectionInfo.h"
+#import "InfoActivityClass.h"
 #pragma mark -
 
 @interface ParticipantListTableView ()
@@ -19,7 +20,7 @@
 @end
 
 @implementation ParticipantListTableView
-@synthesize DOS1_friendsArray,DOS2_friendsArray,imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_,noLine,pendingRequestArray,activityLinkIndex,otherParticipantsArray,editingOn;
+@synthesize imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_,noLine,activityLinkIndex,editingOn,tableActivityInfo;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -95,11 +96,11 @@
                 case 0:
                 {
                     if(activityLinkIndex==6){
-                        play.quotations=self.pendingRequestArray;
+                        play.quotations=self.tableActivityInfo.pendingRequestArray;
                         sectionInfo.play.relationType=0;
                     }
                     else{
-                        play.quotations=self.DOS1_friendsArray;
+                        play.quotations=self.tableActivityInfo.friendsArray;
                         sectionInfo.play.relationType=1;
                     }
                     countOfQuotations = [play.quotations count];
@@ -113,11 +114,11 @@
                 {
                     
                     if(activityLinkIndex==6){
-                        play.quotations=self.DOS1_friendsArray;
+                        play.quotations=self.tableActivityInfo.friendsArray;
                         sectionInfo.play.relationType=1;
                     }
                     else{
-                        play.quotations=self.DOS2_friendsArray;
+                        play.quotations=self.tableActivityInfo.friendsOfFriendsArray;
                         sectionInfo.play.relationType=2;
                     }
                     countOfQuotations = [play.quotations count];
@@ -132,11 +133,11 @@
                 {
                     
                     if(activityLinkIndex==6){
-                        play.quotations=self.DOS2_friendsArray;
+                        play.quotations=self.tableActivityInfo.friendsOfFriendsArray;
                         sectionInfo.play.relationType=2;
                     }
                     else{
-                        play.quotations=self.otherParticipantsArray;
+                        play.quotations=self.tableActivityInfo.otherParticipantsArray;
                         sectionInfo.play.relationType=3;
                     }
                     countOfQuotations = [play.quotations count];
@@ -150,7 +151,7 @@
                 case 3:
                 {
                     
-                    play.quotations=self.otherParticipantsArray;
+                    play.quotations=self.tableActivityInfo.otherParticipantsArray;
                     sectionInfo.play.relationType=3;
                     countOfQuotations = [play.quotations count];
                     for (NSInteger i = 0; i < countOfQuotations; i++) {
@@ -414,15 +415,99 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
     InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
+
     
     ParticipantClass *delete= [play.quotations objectAtIndex:indexPath.row];
     NSMutableArray *localArray=[NSMutableArray arrayWithArray:play.quotations];
     [localArray removeObjectIdenticalTo:delete];
     play.quotations=localArray;
+#if 1
+    switch (play.relationType) {
+        case 1:
+        {
+            int count=tableActivityInfo.DOS1;
+            count=count-1;
+            tableActivityInfo.DOS1=count;
+            [self setTheSectionHeaderCount:play.relationType changeCountTo:count];
+
+        }
+            break;
+        case 2:
+        {
+            
+            int count=tableActivityInfo.DOS2;
+            count=count-1;
+            tableActivityInfo.DOS2=count;
+            [self setTheSectionHeaderCount:play.relationType changeCountTo:count];
+
+        }
+            break;
+        case 3:
+        {
+            int count=tableActivityInfo.DOS3;
+            count=count-1;
+            tableActivityInfo.DOS3=count;
+            [self setTheSectionHeaderCount:play.relationType changeCountTo:count];
+
+        }
+            break;
+            
+    }
+#endif
+
+    
     [participantTableView reloadData];	
 }
 
+-(void)setTheSectionHeaderCount:(NSInteger)type changeCountTo:(NSInteger)changeCountTo{
+    
+    switch (type) {
+            
+        case 1:
+        {
+            int count=[self.tableActivityInfo.goingCount intValue];
+            count=count-1;
+            if(count==0)
+                count=0;
+            NSString*going=[NSString stringWithFormat:@"%d",count];
+            NSString*changeCount=[NSString stringWithFormat:@"%d",changeCountTo];
+            [(UILabel*)[self viewWithTag:235] setText:going];
+            [(UILabel*)[self viewWithTag:237] setText:changeCount];
 
+            
+        }
+            break;
+        case 2:
+        {
+            int count=[self.tableActivityInfo.goingCount intValue];
+            count=count-1;
+            if(count==0)
+                count=0;
+            NSString*going=[NSString stringWithFormat:@"%d",count];
+            NSString*changeCount=[NSString stringWithFormat:@"%d",changeCountTo];
+            [(UILabel*)[self viewWithTag:235] setText:going];
+            [(UILabel*)[self viewWithTag:240] setText:changeCount];
+            
+        }
+            break;
+        case 3:
+        {
+            int count=[self.tableActivityInfo.goingCount intValue];
+            count=count-1;
+            if(count==0)
+                count=0;
+            NSString*going=[NSString stringWithFormat:@"%d",count];
+            NSString*changeCount=[NSString stringWithFormat:@"%d",changeCountTo];
+            [(UILabel*)[self viewWithTag:235] setText:going];
+            [(UILabel*)[self viewWithTag:243] setText:changeCount];
+            
+        }
+            break;
+
+            
+    }
+
+}
 #pragma mark -
 #pragma mark Table cell View  Delegate Methods
 

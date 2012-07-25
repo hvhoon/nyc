@@ -66,15 +66,14 @@
     scrollView.bounces=NO;
     
     eventView.delegate=self;
-    participantListTableView.DOS1_friendsArray=activityInfo.friendsArray;
-    participantListTableView.DOS2_friendsArray=activityInfo.friendsOfFriendsArray;
+    participantListTableView.tableActivityInfo=activityInfo;
     participantListTableView.activityLinkIndex=activityInfo.activityRelationType;
     participantListTableView.participantTableView.bounces=NO;
     if(page==0){
         participantListTableView.participantTableView.scrollEnabled=NO;
     }
     participantListTableView.participantTableView.clipsToBounds=YES;
-    if([activityInfo.friendsArray count]==0||[activityInfo.friendsOfFriendsArray count]==0){
+    if(activityInfo.DOS1==0||activityInfo.DOS2==0){
         touchDisable=TRUE;
     }
     for (int i = 0; i < 2; i++) {
@@ -141,6 +140,7 @@
                 if(activityInfo.activityRelationType==6){
                 
                     goingCountLabel.text=[NSString stringWithFormat:@"%d",activityInfo.pendingRequestCount];
+                    goingCountLabel.tag=335;
                     goingTextLabel.text=[NSString stringWithFormat:@"REQUESTS"];
                     goingCountLabel.textColor=[UIColor redColor];
                     goingTextLabel.textColor=[UIColor redColor];
@@ -470,7 +470,7 @@
         {
             if(lastIndex!=0){
             if(!touchDisable){
-                if(![activityInfo.friendsArray count]==0)
+                if(activityInfo.DOS1!=0)
                 {
                     [self highlightSelection:1];
                     if(toggleFriends){
@@ -498,7 +498,7 @@
         {
             if(lastIndex!=1){  
             if(!touchDisable){
-                if(![activityInfo.friendsOfFriendsArray count]==0)
+                if(activityInfo.DOS2!=0)
                 {
                     [self highlightSelection:2];
                     if(toggleFriends){
