@@ -498,7 +498,52 @@
             break;
         case 107:
         {
-        // [self highlightSelection:3];
+            int section_107;
+            if(activityInfo.activityRelationType==6 || activityInfo.activityRelationType==4){
+            if(lastIndex!=2){  
+                
+                if(activityInfo.DOS3!=0)
+                {
+                    [self highlightSelection:3];
+                    if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1!=0 && activityInfo.DOS2!=0){
+                        //we need to check the pending Requests
+                        section_107=3;
+                        
+                    }
+                    else if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1!=0 && activityInfo.DOS2==0){
+                        section_107=2;
+                    }
+                    else if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1==0 && activityInfo.DOS2!=0){
+                        section_107=2;
+                    }
+                    else if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount==0 && activityInfo.DOS1!=0 && activityInfo.DOS2!=0){
+                        section_107=2;
+                    }
+                    else if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount==0 && activityInfo.DOS1!=0 && activityInfo.DOS2==0){
+                        section_107=1;
+                    }
+                    else if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount==0 && activityInfo.DOS1==0 && activityInfo.DOS2!=0){
+                        section_107=1;
+                    }
+                    else if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1==0 && activityInfo.DOS2==0){
+                        section_107=1;
+                    }
+                    else {
+                        section_107=0;
+                    }
+                    if(toggleFriends){
+                        toggleFriends=FALSE;
+                        [participantListTableView collapseSectionsExceptOne:section_107];
+                        lastIndex=2;
+                    }
+                    
+                    else{
+                        [participantListTableView alternateBetweenSectionsWithCollapseOrExpand:section_107];
+                        lastIndex=2;
+                    }
+                }
+            }
+            }
         }
             break;
         case 106:
