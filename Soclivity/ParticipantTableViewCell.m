@@ -9,7 +9,7 @@
 #import "ParticipantTableViewCell.h"
 #import "SoclivityUtilities.h"
 @implementation ParticipantTableViewCell
-@synthesize nameText,profileImage,noSeperatorLine,leftCrossImage,rightCrossImage,relationType,dosConnectionImage,indexPath,delegate;
+@synthesize nameText,profileImage,noSeperatorLine,leftCrossImage,rightCrossImage,relationType,dosConnectionImage,cellIndexPath,delegate;
 static UIFont *firstTextFont = nil;
 static UIFont *secondTextFont = nil;
 static UIFont *boldText = nil;
@@ -91,10 +91,10 @@ static UIFont *boldText = nil;
     if(relationType==0){
     if(CGRectContainsPoint(rejectRect,startPoint)){
         
-        [delegate ApproveRejectSelection:indexPath request:NO];
+        [delegate ApproveRejectSelection:cellIndexPath request:NO];
     }
     else if(CGRectContainsPoint(approveRect,startPoint)){
-        [delegate ApproveRejectSelection:indexPath request:YES];
+        [delegate ApproveRejectSelection:cellIndexPath request:YES];
     }
     }
     [super touchesBegan:touches withEvent:event];

@@ -12,7 +12,7 @@
 @protocol ParticipantTableViewCellDelegate <NSObject>
 
 @optional
--(void)ApproveRejectSelection:(NSIndexPath*)indexP request:(BOOL)request;
+-(void)ApproveRejectSelection:(NSIndexPath*)indexPath request:(BOOL)request;
 @end
 
 
@@ -27,7 +27,7 @@
     UIImage *rightCrossImage;
     NSInteger relationType;
     UIImage*dosConnectionImage;
-    NSIndexPath *indexPath;
+    NSIndexPath *cellIndexPath;
     id <ParticipantTableViewCellDelegate>delegate;
 }
 @property (nonatomic,retain) NSString *nameText;
@@ -37,6 +37,6 @@
 @property (nonatomic,retain)UIImage *rightCrossImage;
 @property (nonatomic,assign)NSInteger relationType;
 @property (nonatomic,retain) UIImage*dosConnectionImage;
-@property (nonatomic,retain)NSIndexPath *indexPath;
+@property (nonatomic,retain)NSIndexPath *cellIndexPath;
 @property (nonatomic,retain)id <ParticipantTableViewCellDelegate>delegate;
 @end

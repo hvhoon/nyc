@@ -332,7 +332,7 @@
         InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
         ParticipantClass *appRecord = [play.quotations objectAtIndex:indexPath.row];
         cell.relationType=play.relationType;
-        cell.indexPath=indexPath;
+        cell.cellIndexPath=indexPath;
         cell.delegate=self;
         cell.nameText=appRecord.name;
         if(indexPath.row==[play.quotations count]-1){
@@ -414,6 +414,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    //service update
     InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
 
     
@@ -466,9 +467,10 @@
         case 1:
         {
             int count=[self.tableActivityInfo.goingCount intValue];
-            count=count-1;
-            if(count==0)
+            
+             if(count==0)
                 count=0;
+            count=count-1;
             NSString*going=[NSString stringWithFormat:@"%d",count];
             NSString*changeCount=[NSString stringWithFormat:@"%d",changeCountTo];
             [(UILabel*)[self viewWithTag:235] setText:going];
@@ -480,9 +482,10 @@
         case 2:
         {
             int count=[self.tableActivityInfo.goingCount intValue];
-            count=count-1;
-            if(count==0)
+            
+             if(count==0)
                 count=0;
+            count=count-1;
             NSString*going=[NSString stringWithFormat:@"%d",count];
             NSString*changeCount=[NSString stringWithFormat:@"%d",changeCountTo];
             [(UILabel*)[self viewWithTag:235] setText:going];
@@ -493,9 +496,10 @@
         case 3:
         {
             int count=[self.tableActivityInfo.goingCount intValue];
-            count=count-1;
-            if(count==0)
+            
+             if(count==0)
                 count=0;
+            count=count-1;
             NSString*going=[NSString stringWithFormat:@"%d",count];
             NSString*changeCount=[NSString stringWithFormat:@"%d",changeCountTo];
             [(UILabel*)[self viewWithTag:235] setText:going];
@@ -511,8 +515,29 @@
 #pragma mark -
 #pragma mark Table cell View  Delegate Methods
 
--(void)ApproveRejectSelection:(NSIndexPath*)indexP request:(BOOL)request{
+-(void)ApproveRejectSelection:(NSIndexPath*)indexPath request:(BOOL)request{
+ 
     
+    //service update
+    InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
+    
+    
+    ParticipantClass *delete= [play.quotations objectAtIndex:indexPath.row];
+    NSMutableArray *localArray=[NSMutableArray arrayWithArray:play.quotations];
+    [localArray removeObjectIdenticalTo:delete];
+    play.quotations=localArray;
+    [participantTableView reloadData];
+    
+    int count=self.tableActivityInfo.pendingRequestCount;
+    if(count==0)
+        count=0;
+
+     count=count-1;
+    self.tableActivityInfo.pendingRequestCount=count;
+    NSString*requestCount=[NSString stringWithFormat:@"%d",count];
+    [(UILabel*)[self viewWithTag:335] setText:requestCount];
+
+
 }
 
 #pragma mark -
