@@ -34,9 +34,17 @@
     IBOutlet UIImageView *calendarIcon;
     IBOutlet UIImageView *clockIcon;
     IBOutlet UIImageView *locationIcon;
+    
+    IBOutlet UIButton*calendarDateEditArrow;
+    IBOutlet UIButton*timeEditArrow;
+    IBOutlet UIButton*editMarkerButton;
+
 
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;
 @property (nonatomic,retain)id <AddEventViewDelegate>delegate;
+@property (nonatomic,retain) UIButton*calendarDateEditArrow;
+@property (nonatomic,retain) UIButton*timeEditArrow;
+@property (nonatomic,retain) UIButton*editMarkerButton;
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info;
 @end

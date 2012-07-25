@@ -42,7 +42,7 @@
     [super viewDidLoad];
     toggleFriends=TRUE;
     
-    
+    lastIndex=-1;
     
 
 
@@ -68,7 +68,7 @@
     eventView.delegate=self;
     participantListTableView.DOS1_friendsArray=activityInfo.friendsArray;
     participantListTableView.DOS2_friendsArray=activityInfo.friendsOfFriendsArray;
-
+    participantListTableView.activityLinkIndex=activityInfo.activityRelationType;
     participantListTableView.participantTableView.bounces=NO;
     if(page==0){
         participantListTableView.participantTableView.scrollEnabled=NO;
@@ -108,6 +108,9 @@
                 pArrowButton.tag=103;
                 [headerView addSubview:pArrowButton];
                 
+                
+                
+                
                 // People going section in the participant bar
                 goingButton=[UIButton buttonWithType:UIButtonTypeCustom];
                 goingButton.frame=CGRectMake(35,delta,55,47);
@@ -124,8 +127,6 @@
                 goingCountLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
                 goingCountLabel.tag=235;
                 goingCountLabel.backgroundColor=[UIColor clearColor];
-                [headerView addSubview:goingCountLabel];
-                [goingCountLabel release];
                 
                 
                 CGRect goingLabelTextRect=CGRectMake(35,delta+26,55,12);
@@ -136,9 +137,23 @@
                 goingTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
                 goingTextLabel.tag=236;
                 goingTextLabel.backgroundColor=[UIColor clearColor];
-                [headerView addSubview:goingTextLabel];
-                [goingTextLabel release];
                 
+                if(activityInfo.activityRelationType==6){
+                
+                    goingCountLabel.text=[NSString stringWithFormat:@"%d",activityInfo.pendingRequestCount];
+                    goingTextLabel.text=[NSString stringWithFormat:@"REQUESTS"];
+                    goingCountLabel.textColor=[UIColor redColor];
+                    goingTextLabel.textColor=[UIColor redColor];
+
+
+
+
+                }
+                
+                [headerView addSubview:goingCountLabel];
+                [headerView addSubview:goingTextLabel];
+                [goingCountLabel release];
+                [goingTextLabel release];
                 
                 // Friends going section in the participant bar
                 DOS1Button=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -298,6 +313,7 @@
             notGoingActivityButton.hidden=YES;
             leaveActivityButton.hidden=YES;
             chatButton.hidden=YES;
+
             
             
             
@@ -315,6 +331,7 @@
             chatButton.hidden=YES;
             inviteUsersToActivityButton.hidden=YES;
             leaveActivityButton.hidden=YES;
+
             
             
             
@@ -332,6 +349,7 @@
             goingActivityButton.hidden=YES;
             notGoingActivityButton.hidden=YES;
             leaveActivityButton.hidden=YES;
+
             
             if([activityInfo.access isEqualToString:@"public"])
                 inviteUsersToActivityButton.hidden=NO;
@@ -356,6 +374,7 @@
             goingActivityButton.hidden=YES;
             notGoingActivityButton.hidden=YES;
             leaveActivityButton.hidden=NO;
+
             if([activityInfo.access isEqualToString:@"public"])
                 inviteUsersToActivityButton.hidden=NO;
             
@@ -381,6 +400,7 @@
             goingActivityButton.hidden=YES;
             inviteUsersToActivityButton.hidden=NO;
             leaveActivityButton.hidden=YES;
+
             
             
             
@@ -399,13 +419,29 @@
     NSLog(@"tag=%d",tag);
     if(page==0){
         
-        if([activityInfo.goingCount intValue]==0){
-            return;
+        
+        if(activityInfo.activityRelationType==6){
+            
+            if(activityInfo.pendingRequestCount==0 && [activityInfo.goingCount intValue]==0){
+                //let c that
+                return;
+            }
+            if(activityInfo.pendingRequestCount==0){
+                [self scrollViewToTheTopOrBottom];
+            }
         }
+        else{
+        if([activityInfo.goingCount intValue]==0)
+            return;
         else{
             [self scrollViewToTheTopOrBottom];
         }
+        
+        }
+        
     }
+        
+    
     
     
     switch (sender.tag) {
@@ -419,38 +455,37 @@
         case 104:
         {
              [self highlightSelection:0];
-            if(colpseExpdType==0){
-                //we have already taken care of the open sections
-            }
-            else{
-                
+             if(lastIndex!=-1){
+                           
                
                 participantListTableView.noLine=FALSE;
-                [participantListTableView setUpArrayWithBothSectionsOpen];
+                 [participantListTableView openAllSectionsExceptOne];
                 toggleFriends=TRUE;
-                colpseExpdType=0;
+                lastIndex=-1;
             }
             
         }
             break;
         case 105:
         {
+            if(lastIndex!=0){
             if(!touchDisable){
                 if(![activityInfo.friendsArray count]==0)
                 {
                     [self highlightSelection:1];
                     if(toggleFriends){
                         toggleFriends=FALSE;
-                        colpseExpdType=1;
-                        [participantListTableView closeSectionHeaderView:1];
-                        [participantListTableView setUpArrayWithBothSectionsClosed];
+                        [participantListTableView closeTwoSections:0];
+                         lastIndex=0;
                     }
                     
-                    if(colpseExpdType==1){
-                        [participantListTableView sectionHeaderView:0];
-                        colpseExpdType=2;
+                    else{
+                        [participantListTableView alternateBetweenSectionsWithCollapseOrExpand:0];
+                        lastIndex=0;
+
                     }
                 }
+            }
             }
         }
             break;
@@ -461,23 +496,23 @@
             break;
         case 106:
         {
-            
+            if(lastIndex!=1){  
             if(!touchDisable){
                 if(![activityInfo.friendsOfFriendsArray count]==0)
                 {
                     [self highlightSelection:2];
                     if(toggleFriends){
                         toggleFriends=FALSE;
-                        colpseExpdType=2;
-                        [participantListTableView closeSectionHeaderView:0];
-                        [participantListTableView setUpArrayWithBothSectionsClosed];
+                        [participantListTableView closeTwoSections:1];
+                        lastIndex=1;
                     }
                     
-                    if(colpseExpdType==2){
-                        [participantListTableView sectionHeaderView:1];
-                        colpseExpdType=1;
+                    else{
+                        [participantListTableView alternateBetweenSectionsWithCollapseOrExpand:1];
+                        lastIndex=1;
                     }
                 }
+            }
             }
         }
             break;
@@ -677,8 +712,50 @@
 }
 -(IBAction)editButtonClicked:(id)sender{
     
+    crossEditButton.hidden=NO;
+    tickEditButton.hidden=NO;
+    backButton.hidden=YES;
+    newActivityButton.hidden=YES;
+    deleteActivityButton.hidden=NO;
+    inviteUsersToActivityButton.hidden=YES;
+    chatButton.hidden=YES;
+    eventView.calendarDateEditArrow.hidden=NO;
+    eventView.timeEditArrow.hidden=NO;
+    eventView.editMarkerButton.hidden=NO;
 }
+
+-(IBAction)crossClickedByOrganizer:(id)sender{
+    crossEditButton.hidden=YES;
+    tickEditButton.hidden=YES;
+    backButton.hidden=NO;
+    newActivityButton.hidden=NO;
+    deleteActivityButton.hidden=YES;
+    inviteUsersToActivityButton.hidden=NO;
+    chatButton.hidden=NO;
+    eventView.calendarDateEditArrow.hidden=YES;
+    eventView.timeEditArrow.hidden=YES;
+    eventView.editMarkerButton.hidden=YES;
+    
+}
+
+-(IBAction)tickClickedByOrganizer:(id)sender{
+
+    crossEditButton.hidden=YES;
+    tickEditButton.hidden=YES;
+    backButton.hidden=NO;
+    newActivityButton.hidden=NO;
+    deleteActivityButton.hidden=YES;
+    inviteUsersToActivityButton.hidden=NO;
+    chatButton.hidden=NO;
+    eventView.calendarDateEditArrow.hidden=YES;
+    eventView.timeEditArrow.hidden=YES;
+    eventView.editMarkerButton.hidden=YES;
+}
+
 -(IBAction)chatButtonPressed:(id)sender{
+    
+}
+-(IBAction)deleteActivtyPressed:(id)sender{
     
 }
 -(IBAction)cancelRequestButtonPressed:(id)sender{

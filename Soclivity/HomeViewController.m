@@ -498,6 +498,9 @@
      [devServer getDetailedActivityInfoInvocation:[SOC.loggedInUser.idSoc intValue]    actId:detailedInfo.activityId  latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude delegate:self];
     }
     else{
+        if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil 
                                                        delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];

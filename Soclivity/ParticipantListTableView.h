@@ -15,7 +15,10 @@
     NSMutableArray *DOS1_friendsArray;
     NSMutableArray *DOS2_friendsArray;
     NSMutableArray* sectionInfoArray;
+    NSMutableArray* pendingRequestArray;
+    NSMutableArray* otherParticipantsArray;
     BOOL noLine;
+    int activityLinkIndex;
 
 }
 @property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
@@ -26,10 +29,15 @@
 @property (nonatomic, assign) NSInteger openSectionIndex;
 @property (nonatomic, assign) NSInteger uniformRowHeight;
 @property (nonatomic, retain) NSMutableArray* sectionInfoArray;
+@property (nonatomic, retain) NSMutableArray* pendingRequestArray;
+@property (nonatomic, retain)NSMutableArray* otherParticipantsArray;
+@property (nonatomic,assign)int activityLinkIndex;
 -(void)sectionHeaderView:(NSInteger)sectionOpened;
 -(void)closeSectionHeaderView:(NSInteger)sectionClosed;
--(void)setUpArrayWithBothSectionsClosed;
--(void)setUpArrayWithBothSectionsOpen;
+-(void)setUpArrayWithTableSections;
 -(void)appImageDidLoad:(NSIndexPath *)indexPath;
 -(void)expandSectionHeaderView:(NSInteger)sectionOpened;
+-(void)closeTwoSections:(NSInteger)section;
+-(void)alternateBetweenSectionsWithCollapseOrExpand:(int)currentSectionIndex;
+-(void)openAllSectionsExceptOne;
 @end

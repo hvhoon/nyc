@@ -44,6 +44,7 @@
     NSMutableArray *friendsArray;
     NSInteger relationType;
     NSInteger activityRelationType;
+    NSInteger pendingRequestCount;
     
     
 }
@@ -85,4 +86,5 @@
 @property(nonatomic,retain)NSMutableArray *friendsArray;
 @property (nonatomic,assign)NSInteger relationType;
 @property (nonatomic,assign)NSInteger activityRelationType;
+@property (nonatomic,assign) NSInteger pendingRequestCount;
 @end

@@ -20,7 +20,7 @@
 @end
 
 @implementation ParticipantListTableView
-@synthesize DOS1_friendsArray,DOS2_friendsArray,imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_,noLine;
+@synthesize DOS1_friendsArray,DOS2_friendsArray,imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_,noLine,pendingRequestArray,activityLinkIndex,otherParticipantsArray;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -47,18 +47,41 @@
     self.participantTableView.showsVerticalScrollIndicator=YES;
     
     if ((self.sectionInfoArray == nil) || ([self.sectionInfoArray count] != [self numberOfSectionsInTableView:self.participantTableView])){
-        [self setUpArrayWithBothSectionsOpen];
+        [self setUpArrayWithTableSections];
     }
 }
 
 
--(void)setUpArrayWithBothSectionsOpen{
+-(void)setUpArrayWithTableSections{
     
 		
         // For each play, set up a corresponding SectionInfo object to contain the default height for each row.
-		NSMutableArray *infoArray = [[NSMutableArray alloc] init];
+    NSMutableArray *infoArray = [[NSMutableArray alloc] init];
+    
+    int index;
+    switch (activityLinkIndex) {
+        case 1:
+        case 2:
+        case 3:
+
+        {
+            index=2; 
+        }
+            break;
+        case 4:
+        case 5:
+        {
+            index=3;
+        }
+            break;
+        case 6:
+        {
+            index=4;
+        }
+            break;
+    }
 		
-        for(int index=0;index<2;index++){
+        for(int i=0;i<index;i++){
 			InfoActivityClass *play=[[InfoActivityClass alloc]init];
 			SectionInfo *sectionInfo = [[SectionInfo alloc] init];			
 			sectionInfo.open = YES;
@@ -67,11 +90,17 @@
             
             NSNumber *defaultRowHeight = [NSNumber numberWithInteger:kCustomRowHeight];
             NSInteger countOfQuotations;
-            switch (index) {
+            switch (i) {
                 case 0:
                 {
-                    play.quotations=self.DOS1_friendsArray;
-                    sectionInfo.play.relationType=0;
+                    if(activityLinkIndex==6){
+                        play.quotations=self.pendingRequestArray;
+                        sectionInfo.play.relationType=0;
+                    }
+                    else{
+                        play.quotations=self.DOS1_friendsArray;
+                        sectionInfo.play.relationType=1;
+                    }
                     countOfQuotations = [play.quotations count];
                     for (NSInteger i = 0; i < countOfQuotations; i++) {
                         [sectionInfo insertObject:defaultRowHeight inRowHeightsAtIndex:i];
@@ -81,35 +110,65 @@
                     
                 case 1:
                 {
-                    play.quotations=self.DOS2_friendsArray;
-                    sectionInfo.play.relationType=1;
+                    
+                    if(activityLinkIndex==6){
+                        play.quotations=self.DOS1_friendsArray;
+                        sectionInfo.play.relationType=1;
+                    }
+                    else{
+                        play.quotations=self.DOS2_friendsArray;
+                        sectionInfo.play.relationType=2;
+                    }
                     countOfQuotations = [play.quotations count];
                     for (NSInteger i = 0; i < countOfQuotations; i++) {
                         [sectionInfo insertObject:defaultRowHeight inRowHeightsAtIndex:i];
                     }
                 }
                     break;
-            }
-			switch (index) {
-                case 0:
+                    
+                    
+                case 2:
                 {
-                    if([self.DOS1_friendsArray count]==0){
-                        
+                    
+                    if(activityLinkIndex==6){
+                        play.quotations=self.DOS2_friendsArray;
+                        sectionInfo.play.relationType=2;
                     }
                     else{
-                        [infoArray addObject:sectionInfo];
+                        play.quotations=self.otherParticipantsArray;
+                        sectionInfo.play.relationType=3;
+                    }
+                    countOfQuotations = [play.quotations count];
+                    for (NSInteger i = 0; i < countOfQuotations; i++) {
+                        [sectionInfo insertObject:defaultRowHeight inRowHeightsAtIndex:i];
                     }
                 }
                     break;
-                case 1:
+                    
+                    
+                case 3:
                 {
-                    if([self.DOS2_friendsArray count]==0){
-                        
+                    
+                    play.quotations=self.otherParticipantsArray;
+                    sectionInfo.play.relationType=3;
+                    countOfQuotations = [play.quotations count];
+                    for (NSInteger i = 0; i < countOfQuotations; i++) {
+                        [sectionInfo insertObject:defaultRowHeight inRowHeightsAtIndex:i];
                     }
-                    else{
-                        [infoArray addObject:sectionInfo];
-                    }
+                }
+                    break;
 
+
+            }
+			switch (i) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+
+                {
+                    if(![play.quotations  count]==0)
+                        [infoArray addObject:sectionInfo];
                     
                 }
                     break;
@@ -118,85 +177,12 @@
 		}
 		
         
-		self.sectionInfoArray = infoArray;
+    self.sectionInfoArray = infoArray;
 	
     openSectionIndex_ = NSNotFound;
     [self.participantTableView reloadData];
 }
 
--(void)setUpArrayWithBothSectionsClosed{
-    
-		
-        // For each play, set up a corresponding SectionInfo object to contain the default height for each row.
-		NSMutableArray *infoArray = [[NSMutableArray alloc] init];
-		
-        for(int index=0;index<2;index++){
-			InfoActivityClass *play=[[InfoActivityClass alloc]init];
-			SectionInfo *sectionInfo = [[SectionInfo alloc] init];			
-			sectionInfo.open = NO;
-			sectionInfo.play=play;
-            
-            
-
-            NSNumber *defaultRowHeight = [NSNumber numberWithInteger:kCustomRowHeight];
-            NSInteger countOfQuotations;
-            switch (index) {
-                case 0:
-                {
-                    play.quotations=self.DOS1_friendsArray;
-                    sectionInfo.play.relationType=0;
-                    countOfQuotations = [play.quotations count];
-                    for (NSInteger i = 0; i < countOfQuotations; i++) {
-                        [sectionInfo insertObject:defaultRowHeight inRowHeightsAtIndex:i];
-                    }
-                }
-                    break;
-                    
-                case 1:
-                {
-                    play.quotations=self.DOS2_friendsArray;
-                    sectionInfo.play.relationType=1;
-                    countOfQuotations = [play.quotations count];
-                    for (NSInteger i = 0; i < countOfQuotations; i++) {
-                        [sectionInfo insertObject:defaultRowHeight inRowHeightsAtIndex:i];
-                    }
-                }
-                    break;
-            }
-			
-			switch (index) {
-                case 0:
-                {
-                    if([self.DOS1_friendsArray count]==0){
-                        
-                    }
-                    else{
-                        [infoArray addObject:sectionInfo];
-                    }
-                }
-                    break;
-                case 1:
-                {
-                    if([self.DOS2_friendsArray count]==0){
-                        
-                    }
-                    else{
-                        [infoArray addObject:sectionInfo];
-                    }
-                    
-                    
-                }
-                    break;
-            }
-			
-		
-		}
-		
-		self.sectionInfoArray = infoArray;
-	
-     openSectionIndex_ = NSNotFound;
-     [self.participantTableView reloadData];
-}
 - (void)dealloc {
     
     [super dealloc];
@@ -265,14 +251,23 @@
     
     
     switch (play.relationType) {
+            
         case 0:
+        {
+            [DOSImageView setHidden:YES];
+            DOScountLabel.frame=CGRectMake(30, 7.5, 240, 12);
+            DOScountLabel.text=[NSString stringWithFormat:@"%d Join Requests",[sectionInfo.play.quotations count]];
+        }
+            break;
+
+        case 1:
         {
             DOSImageView.image=[UIImage imageNamed:@"S05_smallDOS1.png"];
             DOScountLabel.text=[NSString stringWithFormat:@"%d Friends",[sectionInfo.play.quotations count]];
         }
             break;
             
-        case 1:
+        case 2:
         {
             DOSImageView.image=[UIImage imageNamed:@"S05_smallDOS2.png"];
             DOScountLabel.text=[NSString stringWithFormat:@"%d Friends of friends",[sectionInfo.play.quotations count]];
@@ -540,6 +535,232 @@
     [self.participantTableView endUpdates];
     self.openSectionIndex = NSNotFound;
 }
+-(void)closeTwoSections:(NSInteger)section{
+    NSMutableArray *indexPathsToDelete1 = [[NSMutableArray alloc] init];
+    NSMutableArray *indexPathsToDelete2 = [[NSMutableArray alloc] init];
+    NSMutableArray *indexPathsToDelete3 = [[NSMutableArray alloc] init];
+    for(int z=0;z<[self.sectionInfoArray count];z++){
+        switch (z) {
+            case 0:
+            {
+                if(z==section)
+                  continue;
+                else{
+                    SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:z];
+                    previousOpenSection.open = NO;
+                    NSInteger countOfRowsToDelete = [previousOpenSection.play.quotations count];
+                    for (NSInteger i = 0; i < countOfRowsToDelete; i++) {
+                        [indexPathsToDelete1 addObject:[NSIndexPath indexPathForRow:i inSection:z]];
+                    }
+                    
+                }
+            }
+                break;
+                
+            case 1:
+            {
+                if(z==section)
+                    continue;
+                else{
+                    SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:z];
+                    previousOpenSection.open = NO;
+                    NSInteger countOfRowsToDelete = [previousOpenSection.play.quotations count];
+                    for (NSInteger i = 0; i < countOfRowsToDelete; i++) {
+                        
+                            [indexPathsToDelete2 addObject:[NSIndexPath indexPathForRow:i inSection:z]];
+                    }
+                    
+                }
+            }
+                break;
+            case 2:
+            {
+                if(z==section)
+                    continue;
+                else{
+                    SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:z];
+                    previousOpenSection.open = NO;
+                    NSInteger countOfRowsToDelete = [previousOpenSection.play.quotations count];
+                    for (NSInteger i = 0; i < countOfRowsToDelete; i++) {
+                        [indexPathsToDelete3 addObject:[NSIndexPath indexPathForRow:i inSection:z]];
+                    }
+                    
+                }
+            }
+                break;
+        }
+    }
+    UITableViewRowAnimation deleteAnimation;
+    deleteAnimation = UITableViewRowAnimationBottom;
+    [self.participantTableView beginUpdates];
+      if([indexPathsToDelete1 count]>0)   
+    [self.participantTableView deleteRowsAtIndexPaths:indexPathsToDelete1 withRowAnimation:deleteAnimation];
+     if([indexPathsToDelete2 count]>0)
+    [self.participantTableView deleteRowsAtIndexPaths:indexPathsToDelete2 withRowAnimation:deleteAnimation];
+        
+    if([indexPathsToDelete3 count]>0)   
+            [self.participantTableView deleteRowsAtIndexPaths:indexPathsToDelete3 withRowAnimation:deleteAnimation];
 
+    [self.participantTableView endUpdates];
+    self.openSectionIndex = section;
+}
+-(void)alternateBetweenSectionsWithCollapseOrExpand:(int)currentSectionIndex{
+    
+     NSMutableArray *indexPathsToDelete1 = [[NSMutableArray alloc] init];
+     NSMutableArray *indexPathsToInsert1 = [[NSMutableArray alloc] init];
+     NSMutableArray *indexPathsToDelete2 = [[NSMutableArray alloc] init];
+     NSMutableArray *indexPathsToInsert2 = [[NSMutableArray alloc] init];
 
+    for(int z=0;z<[self.sectionInfoArray count];z++){
+        switch (z) {
+            case 0:
+            {
+                if(z==self.openSectionIndex){
+                    SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:z];
+                    previousOpenSection.open = NO;
+                    NSInteger countOfRowsToDelete = [previousOpenSection.play.quotations count];
+                    for (NSInteger i = 0; i < countOfRowsToDelete; i++) {
+                        [indexPathsToDelete1 addObject:[NSIndexPath indexPathForRow:i inSection:z]];
+                    }
+                }
+                else if(z==currentSectionIndex){
+                    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:z];
+                    
+                    sectionInfo.open = YES;
+                    
+                    /*
+                     Create an array containing the index paths of the rows to insert: These correspond to the rows for each quotation in the current section.
+                     */
+                    NSInteger countOfRowsToInsert = [sectionInfo.play.quotations count];
+                    
+                    for (NSInteger i = 0; i < countOfRowsToInsert; i++) {
+                        [indexPathsToInsert1 addObject:[NSIndexPath indexPathForRow:i inSection:z]];
+                    }
+
+                }
+                
+            }
+                break;
+                
+            case 1:
+            {
+                if(z==self.openSectionIndex){
+                    SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:z];
+                    previousOpenSection.open = NO;
+                    NSInteger countOfRowsToDelete = [previousOpenSection.play.quotations count];
+                    for (NSInteger i = 0; i < countOfRowsToDelete; i++) {
+                        [indexPathsToDelete2 addObject:[NSIndexPath indexPathForRow:i inSection:z]];
+                    }
+                }
+                else if(z==currentSectionIndex){
+                    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:z];
+                    
+                    sectionInfo.open = YES;
+                    
+                    /*
+                     Create an array containing the index paths of the rows to insert: These correspond to the rows for each quotation in the current section.
+                     */
+                    NSInteger countOfRowsToInsert = [sectionInfo.play.quotations count];
+                    
+                    for (NSInteger i = 0; i < countOfRowsToInsert; i++) {
+                        [indexPathsToInsert2 addObject:[NSIndexPath indexPathForRow:i inSection:z]];
+                    }
+                    
+                }
+                
+            }
+                break;
+        }
+    }
+    
+    [self.participantTableView beginUpdates];
+    UITableViewRowAnimation insertAnimation;
+    UITableViewRowAnimation deleteAnimation;
+
+    insertAnimation = UITableViewRowAnimationTop;
+    deleteAnimation = UITableViewRowAnimationBottom;
+
+    if([indexPathsToInsert1 count]>0)
+    [self.participantTableView insertRowsAtIndexPaths:indexPathsToInsert1 withRowAnimation:insertAnimation];
+    if([indexPathsToInsert2 count]>0)
+        [self.participantTableView insertRowsAtIndexPaths:indexPathsToInsert2 withRowAnimation:insertAnimation];
+
+    if([indexPathsToDelete1 count]>0)
+    [self.participantTableView deleteRowsAtIndexPaths:indexPathsToDelete1 withRowAnimation:deleteAnimation];
+    
+    if([indexPathsToDelete2 count]>0)
+        [self.participantTableView deleteRowsAtIndexPaths:indexPathsToDelete2 withRowAnimation:deleteAnimation];
+
+    
+    [self.participantTableView endUpdates];
+    self.openSectionIndex = currentSectionIndex;
+
+}
+
+-(void)openAllSectionsExceptOne{
+    
+     NSMutableArray *indexPathsToInsert1 = [[NSMutableArray alloc] init];
+     NSMutableArray *indexPathsToInsert2 = [[NSMutableArray alloc] init];
+    for(int z=0;z<[self.sectionInfoArray count];z++){
+        
+        switch (z) {
+            case 0:
+            {
+                if(z==self.openSectionIndex)
+                    continue;
+                else{
+                    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:z];
+                    
+                    sectionInfo.open = YES;
+                    
+                    /*
+                     Create an array containing the index paths of the rows to insert: These correspond to the rows for each quotation in the current section.
+                     */
+                    NSInteger countOfRowsToInsert = [sectionInfo.play.quotations count];
+                    
+                    for (NSInteger i = 0; i < countOfRowsToInsert; i++) {
+                        [indexPathsToInsert1 addObject:[NSIndexPath indexPathForRow:i inSection:z]];
+                    }
+                    
+                }
+                
+            }
+                break;
+                
+            case 1:
+            {
+                if(z==self.openSectionIndex)
+                    continue;
+                else{
+                    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:z];
+                    
+                    sectionInfo.open = YES;
+                    
+                    /*
+                     Create an array containing the index paths of the rows to insert: These correspond to the rows for each quotation in the current section.
+                     */
+                    NSInteger countOfRowsToInsert = [sectionInfo.play.quotations count];
+                    
+                    for (NSInteger i = 0; i < countOfRowsToInsert; i++) {
+                        [indexPathsToInsert2 addObject:[NSIndexPath indexPathForRow:i inSection:z]];
+                    }
+                    
+                }
+                
+            }
+                break;
+        }
+    }
+    
+    [self.participantTableView beginUpdates];
+    UITableViewRowAnimation insertAnimation;
+    insertAnimation = UITableViewRowAnimationTop;
+    if([indexPathsToInsert1 count]>0)
+        [self.participantTableView insertRowsAtIndexPaths:indexPathsToInsert1 withRowAnimation:insertAnimation];
+    if([indexPathsToInsert2 count]>0)
+        [self.participantTableView insertRowsAtIndexPaths:indexPathsToInsert2 withRowAnimation:insertAnimation];
+    [self.participantTableView endUpdates];
+    self.openSectionIndex = -1;
+
+}
 @end

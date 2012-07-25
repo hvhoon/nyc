@@ -24,6 +24,11 @@
     IBOutlet UIButton *goingActivityButton;
     IBOutlet UIButton *notGoingActivityButton;
     IBOutlet UIButton *inviteUsersToActivityButton;
+    IBOutlet UIButton *crossEditButton;
+    IBOutlet UIButton *tickEditButton;
+    IBOutlet UIButton *backButton;
+    IBOutlet UIButton *newActivityButton;
+    IBOutlet UIButton *deleteActivityButton;
     UIButton *goingButton;
     UIButton *DOS1Button;
     UIButton *DOS3Button;
@@ -32,8 +37,8 @@
     int page;
     BOOL toggleFriends;
     BOOL toogleFriendsOfFriends;
-    int colpseExpdType;
     BOOL touchDisable;
+    int lastIndex;
 
 }
 @property (nonatomic, retain) UIScrollView* scrollView;
@@ -51,4 +56,7 @@
 -(void)scrollViewToTheTopOrBottom;
 -(void)highlightSelection:(int)selection;
 -(void)BottonBarButtonHideAndShow:(NSInteger)type;
+-(IBAction)crossClickedByOrganizer:(id)sender;
+-(IBAction)tickClickedByOrganizer:(id)sender;
+-(IBAction)deleteActivtyPressed:(id)sender;
 @end

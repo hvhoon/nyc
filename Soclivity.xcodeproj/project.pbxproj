@@ -322,6 +322,10 @@
 		EA8D609B1599C122000A099C /* S04.1_clearPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8D60971599C122000A099C /* S04.1_clearPressed@2x.png */; };
 		EA8D609C1599C122000A099C /* S04.1_clear.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8D60981599C122000A099C /* S04.1_clear.png */; };
 		EA8D609D1599C122000A099C /* S04.1_clear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8D60991599C122000A099C /* S04.1_clear@2x.png */; };
+		EA8DF42215BFCD5A0081E612 /* S05_editIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8DF41E15BFCD5A0081E612 /* S05_editIcon.png */; };
+		EA8DF42315BFCD5A0081E612 /* S05_deleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8DF41F15BFCD5A0081E612 /* S05_deleteButton.png */; };
+		EA8DF42415BFCD5A0081E612 /* S05_editIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8DF42015BFCD5A0081E612 /* S05_editIcon@2x.png */; };
+		EA8DF42515BFCD5A0081E612 /* S05_deleteButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8DF42115BFCD5A0081E612 /* S05_deleteButton@2x.png */; };
 		EA8F65AB1574CF2F00EFAE8A /* EventsMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F65AA1574CF2F00EFAE8A /* EventsMapView.m */; };
 		EA8F65AD1574D4CB00EFAE8A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8F65AC1574D4CA00EFAE8A /* MapKit.framework */; };
 		EA8F65B31574D76E00EFAE8A /* SocAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F65B21574D76E00EFAE8A /* SocAnnotation.m */; };
@@ -946,6 +950,10 @@
 		EA8D60971599C122000A099C /* S04.1_clearPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S04.1_clearPressed@2x.png"; sourceTree = "<group>"; };
 		EA8D60981599C122000A099C /* S04.1_clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S04.1_clear.png; sourceTree = "<group>"; };
 		EA8D60991599C122000A099C /* S04.1_clear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S04.1_clear@2x.png"; sourceTree = "<group>"; };
+		EA8DF41E15BFCD5A0081E612 /* S05_editIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_editIcon.png; sourceTree = "<group>"; };
+		EA8DF41F15BFCD5A0081E612 /* S05_deleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_deleteButton.png; sourceTree = "<group>"; };
+		EA8DF42015BFCD5A0081E612 /* S05_editIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_editIcon@2x.png"; sourceTree = "<group>"; };
+		EA8DF42115BFCD5A0081E612 /* S05_deleteButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_deleteButton@2x.png"; sourceTree = "<group>"; };
 		EA8F65A91574CF2F00EFAE8A /* EventsMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsMapView.h; sourceTree = "<group>"; };
 		EA8F65AA1574CF2F00EFAE8A /* EventsMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsMapView.m; sourceTree = "<group>"; };
 		EA8F65AC1574D4CA00EFAE8A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -1390,6 +1398,10 @@
 		686E79F615B5E3A800A05C7C /* S05 Activity Event */ = {
 			isa = PBXGroup;
 			children = (
+				EA8DF41E15BFCD5A0081E612 /* S05_editIcon.png */,
+				EA8DF41F15BFCD5A0081E612 /* S05_deleteButton.png */,
+				EA8DF42015BFCD5A0081E612 /* S05_editIcon@2x.png */,
+				EA8DF42115BFCD5A0081E612 /* S05_deleteButton@2x.png */,
 				EA86028A15BD68B4004C39F7 /* S05_cancelRequestButton.png */,
 				EA86028B15BD68B4004C39F7 /* S05_cancelRequestButton@2x.png */,
 				EA86028C15BD68B4004C39F7 /* S05_chatButton.png */,
@@ -2952,6 +2964,10 @@
 				EA8602AF15BD68B6004C39F7 /* S05_participantRemove@2x.png in Resources */,
 				EA8602B015BD68B6004C39F7 /* S05_sectionLine.png in Resources */,
 				EA8602B115BD68B6004C39F7 /* S05_sectionLine@2x.png in Resources */,
+				EA8DF42215BFCD5A0081E612 /* S05_editIcon.png in Resources */,
+				EA8DF42315BFCD5A0081E612 /* S05_deleteButton.png in Resources */,
+				EA8DF42415BFCD5A0081E612 /* S05_editIcon@2x.png in Resources */,
+				EA8DF42515BFCD5A0081E612 /* S05_deleteButton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3103,8 +3119,8 @@
 					armv6,
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3121,6 +3137,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				PROVISIONING_PROFILE = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -3136,8 +3154,8 @@
 					armv6,
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_THUMB_SUPPORT = NO;
@@ -3148,6 +3166,8 @@
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -3160,8 +3180,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
@@ -3170,8 +3190,8 @@
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F0726047-015F-43F1-9FFB-3194BE14717C";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F0726047-015F-43F1-9FFB-3194BE14717C";
+				PROVISIONING_PROFILE = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				USER_HEADER_SEARCH_PATHS = "../../src/**";
 				WRAPPER_EXTENSION = app;
@@ -3183,8 +3203,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Harish Hoon";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Harish Hoon";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
@@ -3193,8 +3213,8 @@
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4F91E8F7-08B3-47F8-BA75-3FDF0D887D1E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4F91E8F7-08B3-47F8-BA75-3FDF0D887D1E";
+				PROVISIONING_PROFILE = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				USER_HEADER_SEARCH_PATHS = "../../src/**";
 				WRAPPER_EXTENSION = app;

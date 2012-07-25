@@ -12,7 +12,7 @@
 #import "DetailInfoActivityClass.h"
 
 @implementation AddEventView
-@synthesize activityObject,delegate;
+@synthesize activityObject,delegate,calendarDateEditArrow,timeEditArrow,editMarkerButton;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -203,6 +203,9 @@
     calendarDateLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     calendarDateLabel.frame = CGRectMake(84, 12+4, 200, 15);
     
+    
+    calendarDateEditArrow.frame=CGRectMake(281, 4, 38, 38);
+    
     // Seperator line here
     UIImageView *detailsLineCalendar = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_detailsLine.png"]];
     detailsLineCalendar.frame = CGRectMake(26, 44, 272, 1);
@@ -222,6 +225,8 @@
     activityTimeLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     activityTimeLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     activityTimeLabel.frame = CGRectMake(84, 57+4, 200, 15);
+    
+    timeEditArrow.frame=CGRectMake(281, 49, 38, 38);
     
     // Seperator line here
     UIImageView *detailsLineTime = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_detailsLine.png"]];
