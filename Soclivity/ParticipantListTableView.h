@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "IconDownloader.h"
-@interface ParticipantListTableView : UIView<UITableViewDataSource,UITableViewDelegate,IconDownloaderDelegate>{
+#import "ParticipantTableViewCell.h"
+@interface ParticipantListTableView : UIView<UITableViewDataSource,UITableViewDelegate,IconDownloaderDelegate,ParticipantTableViewCellDelegate>{
     
     IBOutlet UITableView *participantTableView;
     NSMutableDictionary *imageDownloadsInProgress;
@@ -19,6 +20,7 @@
     NSMutableArray* otherParticipantsArray;
     BOOL noLine;
     int activityLinkIndex;
+    
 
 }
 @property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;

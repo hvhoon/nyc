@@ -8,7 +8,6 @@
 
 #import "ParticipantListTableView.h"
 #import "ParticipantClass.h"
-#import "ParticipantTableViewCell.h"
 #import "SoclivityUtilities.h"
 #import "SectionInfo.h"
 #pragma mark -
@@ -274,6 +273,15 @@
         }
             break;
             
+        case 3:
+        {
+            [DOSImageView setHidden:YES];
+            DOScountLabel.frame=CGRectMake(30, 7.5, 240, 12);
+            DOScountLabel.text=[NSString stringWithFormat:@"%d Others",[sectionInfo.play.quotations count]];
+        }
+            break;
+
+            
     }
     [sectionHeaderview addSubview:DOSImageView];
     [DOSImageView release];
@@ -307,7 +315,9 @@
         // Set up the cell...
         InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
         ParticipantClass *appRecord = [play.quotations objectAtIndex:indexPath.row];
-
+        cell.relationType=play.activityRelationType;
+        cell.indexPath=indexPath;
+        cell.delegate=self;
         cell.nameText=appRecord.name;
         if(indexPath.row==[play.quotations count]-1){
             cell.noSeperatorLine=TRUE;
@@ -315,6 +325,33 @@
         else{
             cell.noSeperatorLine=FALSE;
         }
+    
+    if(play.activityRelationType==0){
+        
+        switch (appRecord.dosConnection) {
+            case 1:
+            {
+                cell.dosConnectionImage=[UIImage imageNamed:@"S05_smallDOS1.png"];
+            }
+                break;
+                
+                
+            case 2:
+            {
+                cell.dosConnectionImage=[UIImage imageNamed:@"S05_smallDOS2.png"];
+                
+            }
+                break;
+   
+                
+            default:
+                break;
+        }
+        
+        cell.leftCrossImage=[UIImage imageNamed:@"S05_participantRemove.png"];
+        cell.rightCrossImage=[UIImage imageNamed:@"S05_participantApprove.png"];
+
+    }
             
         // Only load cached images; defer new downloads until scrolling ends
         if (!appRecord.profilePhotoImage)
@@ -336,6 +373,12 @@
         return cell;
 }
 
+#pragma mark -
+#pragma mark Table cell View  Delegate Methods
+
+-(void)ApproveRejectSelection:(NSIndexPath*)indexP request:(BOOL)request{
+    
+}
 
 #pragma mark -
 #pragma mark Table cell image support

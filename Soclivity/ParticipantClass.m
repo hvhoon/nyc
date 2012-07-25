@@ -9,7 +9,7 @@
 #import "ParticipantClass.h"
 
 @implementation ParticipantClass
-@synthesize photoUrl,profilePhotoImage,name,participantId;
+@synthesize photoUrl,profilePhotoImage,name,participantId,dosConnection;
 
 -(void)dealloc{
     [super dealloc];

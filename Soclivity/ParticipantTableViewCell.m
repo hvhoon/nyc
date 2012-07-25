@@ -9,7 +9,7 @@
 #import "ParticipantTableViewCell.h"
 #import "SoclivityUtilities.h"
 @implementation ParticipantTableViewCell
-@synthesize nameText,profileImage,noSeperatorLine;
+@synthesize nameText,profileImage,noSeperatorLine,leftCrossImage,rightCrossImage,relationType,dosConnectionImage,indexPath,delegate;
 static UIFont *firstTextFont = nil;
 static UIFont *secondTextFont = nil;
 static UIFont *boldText = nil;
@@ -60,6 +60,19 @@ static UIFont *boldText = nil;
     CGRect nameLabelRectP = CGRectMake(100, 15, 180, 15);
     [nameText drawInRect:nameLabelRectP withFont:firstTextFont];
     
+    if(relationType==0){
+        rejectRect = CGRectMake(18,13.5, 18, 17);
+        [leftCrossImage drawInRect:rejectRect];
+        
+        approveRect = CGRectMake(266,13.5, 18, 17);
+        [rightCrossImage drawInRect:approveRect];
+     
+        CGSize  size = [nameText sizeWithFont:firstTextFont];
+        NSLog(@"width=%f",size.width);
+
+        [dosConnectionImage drawInRect:CGRectMake(100+10+size.width,13.5, 19,11)];
+    }
+    
     if(!noSeperatorLine)
     [[UIImage imageNamed:@"S05_detailsLine.png"] drawInRect:CGRectMake(26,49,272,1)];
 
@@ -75,6 +88,15 @@ static UIFont *boldText = nil;
     NSLog(@"startpointX=%f",startPoint.x);
 	NSLog(@"Tap Detected");
     
+    if(relationType==0){
+    if(CGRectContainsPoint(rejectRect,startPoint)){
+        
+        [delegate ApproveRejectSelection:indexPath request:NO];
+    }
+    else if(CGRectContainsPoint(approveRect,startPoint)){
+        [delegate ApproveRejectSelection:indexPath request:YES];
+    }
+    }
     [super touchesBegan:touches withEvent:event];
 }
 @end
