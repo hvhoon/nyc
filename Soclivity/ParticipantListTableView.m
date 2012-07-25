@@ -427,7 +427,15 @@
         case 1:
         {
             int count=tableActivityInfo.DOS1;
+            if(count==0){
+                count=0;
+                
+            }
+            else
             count=count-1;
+            
+            if(count==0)
+                self.openSectionIndex = -1;
             tableActivityInfo.DOS1=count;
             [self setTheSectionHeaderCount:play.relationType changeCountTo:count];
 
@@ -437,7 +445,14 @@
         {
             
             int count=tableActivityInfo.DOS2;
-            count=count-1;
+            if(count==0){
+                count=0;
+            }
+            else
+                count=count-1;
+            if(count==0)
+                self.openSectionIndex = -1;
+
             tableActivityInfo.DOS2=count;
             [self setTheSectionHeaderCount:play.relationType changeCountTo:count];
 
@@ -446,7 +461,15 @@
         case 3:
         {
             int count=tableActivityInfo.DOS3;
-            count=count-1;
+            if(count==0){
+                count=0;
+            }
+            else
+                count=count-1;
+
+            if(count==0)
+                self.openSectionIndex = -1;
+            
             tableActivityInfo.DOS3=count;
             [self setTheSectionHeaderCount:play.relationType changeCountTo:count];
 
@@ -470,7 +493,9 @@
             
              if(count==0)
                 count=0;
+             else
             count=count-1;
+            
             NSString*going=[NSString stringWithFormat:@"%d",count];
             NSString*changeCount=[NSString stringWithFormat:@"%d",changeCountTo];
             [(UILabel*)[self viewWithTag:235] setText:going];
@@ -483,9 +508,10 @@
         {
             int count=[self.tableActivityInfo.goingCount intValue];
             
-             if(count==0)
+            if(count==0)
                 count=0;
-            count=count-1;
+            else
+                count=count-1;
             NSString*going=[NSString stringWithFormat:@"%d",count];
             NSString*changeCount=[NSString stringWithFormat:@"%d",changeCountTo];
             [(UILabel*)[self viewWithTag:235] setText:going];
@@ -497,9 +523,11 @@
         {
             int count=[self.tableActivityInfo.goingCount intValue];
             
-             if(count==0)
+            if(count==0)
                 count=0;
-            count=count-1;
+            else
+                count=count-1;
+            
             NSString*going=[NSString stringWithFormat:@"%d",count];
             NSString*changeCount=[NSString stringWithFormat:@"%d",changeCountTo];
             [(UILabel*)[self viewWithTag:235] setText:going];
@@ -531,8 +559,8 @@
     int count=self.tableActivityInfo.pendingRequestCount;
     if(count==0)
         count=0;
-
-     count=count-1;
+    else
+        count=count-1;
     self.tableActivityInfo.pendingRequestCount=count;
     NSString*requestCount=[NSString stringWithFormat:@"%d",count];
     [(UILabel*)[self viewWithTag:335] setText:requestCount];

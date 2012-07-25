@@ -153,18 +153,6 @@
         play.friendsOfFriendsArray=DOS2Array; 
     }
     
-    if(play.activityRelationType==6){
-     play.pendingRequestArray=DOS2Array;
-     play.pendingRequestCount=[DOS2Array count];
-
-#if 0        
-        NSMutableArray *testArray=[NSMutableArray new];
-        for(int i=0;i<1;i++){
-            [testArray addObject:[play.pendingRequestArray objectAtIndex:i]];
-        }
-        play.otherParticipantsArray=testArray;
-#endif        
-    }
     
 #if 0        
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
@@ -195,6 +183,17 @@
     play.DOS3 =[dos3 intValue];
     
     play.goingCount=[NSString stringWithFormat:@"%d",play.DOS1+play.DOS2+play.DOS3];
+    if(play.activityRelationType==6){
+        play.pendingRequestArray=DOS2Array;
+        play.pendingRequestCount=[DOS2Array count];
+        
+        NSMutableArray *testArray=[NSMutableArray new];
+        for(int i=0;i<play.DOS3;i++){
+            [testArray addObject:[play.pendingRequestArray objectAtIndex:i]];
+        }
+        play.otherParticipantsArray=testArray;
+    }
+
 
     
 	return play;
