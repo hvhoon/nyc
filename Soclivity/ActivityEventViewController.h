@@ -36,8 +36,6 @@
     BOOL pageControlBeingUsed;
     int page;
     BOOL toggleFriends;
-    BOOL toogleFriendsOfFriends;
-    BOOL touchDisable;
     int lastIndex;
 
 }

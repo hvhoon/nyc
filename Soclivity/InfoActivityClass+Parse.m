@@ -153,6 +153,9 @@
         play.friendsOfFriendsArray=DOS2Array; 
     }
     
+    play.pendingRequestArray=DOS2Array;
+    play.pendingRequestCount=[DOS2Array count];
+    
 #if 0        
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     CLLocationDegrees latitude  = [play.where_lat  doubleValue];

@@ -37,7 +37,7 @@
 -(void)setUpArrayWithTableSections;
 -(void)appImageDidLoad:(NSIndexPath *)indexPath;
 -(void)expandSectionHeaderView:(NSInteger)sectionOpened;
--(void)closeTwoSections:(NSInteger)section;
+-(void)collapseSectionsExceptOne:(NSInteger)section;
 -(void)alternateBetweenSectionsWithCollapseOrExpand:(int)currentSectionIndex;
 -(void)openAllSectionsExceptOne;
 -(void)setTheSectionHeaderCount:(NSInteger)type changeCountTo:(NSInteger)changeCountTo;

@@ -738,10 +738,12 @@
     [self.participantTableView endUpdates];
     self.openSectionIndex = NSNotFound;
 }
--(void)closeTwoSections:(NSInteger)section{
+
+-(void)collapseSectionsExceptOne:(NSInteger)section{
     NSMutableArray *indexPathsToDelete1 = [[NSMutableArray alloc] init];
     NSMutableArray *indexPathsToDelete2 = [[NSMutableArray alloc] init];
     NSMutableArray *indexPathsToDelete3 = [[NSMutableArray alloc] init];
+    NSMutableArray *indexPathsToDelete4 = [[NSMutableArray alloc] init];
     for(int z=0;z<[self.sectionInfoArray count];z++){
         switch (z) {
             case 0:
@@ -791,6 +793,24 @@
                 }
             }
                 break;
+                
+                
+            case 3:
+            {
+                if(z==section)
+                    continue;
+                else{
+                    SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:z];
+                    previousOpenSection.open = NO;
+                    NSInteger countOfRowsToDelete = [previousOpenSection.play.quotations count];
+                    for (NSInteger i = 0; i < countOfRowsToDelete; i++) {
+                        [indexPathsToDelete4 addObject:[NSIndexPath indexPathForRow:i inSection:z]];
+                    }
+                    
+                }
+            }
+                break;
+
         }
     }
     UITableViewRowAnimation deleteAnimation;
@@ -803,6 +823,10 @@
         
     if([indexPathsToDelete3 count]>0)   
             [self.participantTableView deleteRowsAtIndexPaths:indexPathsToDelete3 withRowAnimation:deleteAnimation];
+    
+    if([indexPathsToDelete4 count]>0)   
+        [self.participantTableView deleteRowsAtIndexPaths:indexPathsToDelete4 withRowAnimation:deleteAnimation];
+
 
     [self.participantTableView endUpdates];
     self.openSectionIndex = section;
@@ -813,6 +837,10 @@
      NSMutableArray *indexPathsToInsert1 = [[NSMutableArray alloc] init];
      NSMutableArray *indexPathsToDelete2 = [[NSMutableArray alloc] init];
      NSMutableArray *indexPathsToInsert2 = [[NSMutableArray alloc] init];
+    NSMutableArray *indexPathsToDelete3 = [[NSMutableArray alloc] init];
+    NSMutableArray *indexPathsToInsert3 = [[NSMutableArray alloc] init];
+    NSMutableArray *indexPathsToDelete4 = [[NSMutableArray alloc] init];
+    NSMutableArray *indexPathsToInsert4 = [[NSMutableArray alloc] init];
 
     for(int z=0;z<[self.sectionInfoArray count];z++){
         switch (z) {
@@ -831,9 +859,6 @@
                     
                     sectionInfo.open = YES;
                     
-                    /*
-                     Create an array containing the index paths of the rows to insert: These correspond to the rows for each quotation in the current section.
-                     */
                     NSInteger countOfRowsToInsert = [sectionInfo.play.quotations count];
                     
                     for (NSInteger i = 0; i < countOfRowsToInsert; i++) {
@@ -860,9 +885,6 @@
                     
                     sectionInfo.open = YES;
                     
-                    /*
-                     Create an array containing the index paths of the rows to insert: These correspond to the rows for each quotation in the current section.
-                     */
                     NSInteger countOfRowsToInsert = [sectionInfo.play.quotations count];
                     
                     for (NSInteger i = 0; i < countOfRowsToInsert; i++) {
@@ -873,6 +895,59 @@
                 
             }
                 break;
+                
+            case 2:
+            {
+                if(z==self.openSectionIndex){
+                    SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:z];
+                    previousOpenSection.open = NO;
+                    NSInteger countOfRowsToDelete = [previousOpenSection.play.quotations count];
+                    for (NSInteger i = 0; i < countOfRowsToDelete; i++) {
+                        [indexPathsToDelete3 addObject:[NSIndexPath indexPathForRow:i inSection:z]];
+                    }
+                }
+                else if(z==currentSectionIndex){
+                    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:z];
+                    
+                    sectionInfo.open = YES;
+                    
+                    NSInteger countOfRowsToInsert = [sectionInfo.play.quotations count];
+                    
+                    for (NSInteger i = 0; i < countOfRowsToInsert; i++) {
+                        [indexPathsToInsert3 addObject:[NSIndexPath indexPathForRow:i inSection:z]];
+                    }
+                    
+                }
+                
+            }
+                break;
+
+            case 3:
+            {
+                if(z==self.openSectionIndex){
+                    SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:z];
+                    previousOpenSection.open = NO;
+                    NSInteger countOfRowsToDelete = [previousOpenSection.play.quotations count];
+                    for (NSInteger i = 0; i < countOfRowsToDelete; i++) {
+                        [indexPathsToDelete4 addObject:[NSIndexPath indexPathForRow:i inSection:z]];
+                    }
+                }
+                else if(z==currentSectionIndex){
+                    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:z];
+                    
+                    sectionInfo.open = YES;
+                    
+                    NSInteger countOfRowsToInsert = [sectionInfo.play.quotations count];
+                    
+                    for (NSInteger i = 0; i < countOfRowsToInsert; i++) {
+                        [indexPathsToInsert4 addObject:[NSIndexPath indexPathForRow:i inSection:z]];
+                    }
+                    
+                }
+                
+            }
+                break;
+
         }
     }
     
@@ -885,14 +960,31 @@
 
     if([indexPathsToInsert1 count]>0)
     [self.participantTableView insertRowsAtIndexPaths:indexPathsToInsert1 withRowAnimation:insertAnimation];
-    if([indexPathsToInsert2 count]>0)
-        [self.participantTableView insertRowsAtIndexPaths:indexPathsToInsert2 withRowAnimation:insertAnimation];
 
     if([indexPathsToDelete1 count]>0)
     [self.participantTableView deleteRowsAtIndexPaths:indexPathsToDelete1 withRowAnimation:deleteAnimation];
     
+    if([indexPathsToInsert2 count]>0)
+        [self.participantTableView insertRowsAtIndexPaths:indexPathsToInsert2 withRowAnimation:insertAnimation];
+
+    
     if([indexPathsToDelete2 count]>0)
         [self.participantTableView deleteRowsAtIndexPaths:indexPathsToDelete2 withRowAnimation:deleteAnimation];
+    
+    if([indexPathsToInsert3 count]>0)
+        [self.participantTableView insertRowsAtIndexPaths:indexPathsToInsert3 withRowAnimation:insertAnimation];
+    
+    
+    if([indexPathsToDelete3 count]>0)
+        [self.participantTableView deleteRowsAtIndexPaths:indexPathsToDelete3 withRowAnimation:deleteAnimation];
+
+    if([indexPathsToInsert4 count]>0)
+        [self.participantTableView insertRowsAtIndexPaths:indexPathsToInsert4 withRowAnimation:insertAnimation];
+    
+    
+    if([indexPathsToDelete4 count]>0)
+        [self.participantTableView deleteRowsAtIndexPaths:indexPathsToDelete4 withRowAnimation:deleteAnimation];
+
 
     
     [self.participantTableView endUpdates];
@@ -904,7 +996,11 @@
     
      NSMutableArray *indexPathsToInsert1 = [[NSMutableArray alloc] init];
      NSMutableArray *indexPathsToInsert2 = [[NSMutableArray alloc] init];
-    for(int z=0;z<[self.sectionInfoArray count];z++){
+     NSMutableArray *indexPathsToInsert3 = [[NSMutableArray alloc] init];
+     NSMutableArray *indexPathsToInsert4 = [[NSMutableArray alloc] init];
+
+    
+     for(int z=0;z<[self.sectionInfoArray count];z++){
         
         switch (z) {
             case 0:
@@ -916,9 +1012,6 @@
                     
                     sectionInfo.open = YES;
                     
-                    /*
-                     Create an array containing the index paths of the rows to insert: These correspond to the rows for each quotation in the current section.
-                     */
                     NSInteger countOfRowsToInsert = [sectionInfo.play.quotations count];
                     
                     for (NSInteger i = 0; i < countOfRowsToInsert; i++) {
@@ -939,9 +1032,6 @@
                     
                     sectionInfo.open = YES;
                     
-                    /*
-                     Create an array containing the index paths of the rows to insert: These correspond to the rows for each quotation in the current section.
-                     */
                     NSInteger countOfRowsToInsert = [sectionInfo.play.quotations count];
                     
                     for (NSInteger i = 0; i < countOfRowsToInsert; i++) {
@@ -952,6 +1042,46 @@
                 
             }
                 break;
+                
+            case 2:
+            {
+                if(z==self.openSectionIndex)
+                    continue;
+                else{
+                    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:z];
+                    
+                    sectionInfo.open = YES;
+                    
+                    NSInteger countOfRowsToInsert = [sectionInfo.play.quotations count];
+                    
+                    for (NSInteger i = 0; i < countOfRowsToInsert; i++) {
+                        [indexPathsToInsert3 addObject:[NSIndexPath indexPathForRow:i inSection:z]];
+                    }
+                    
+                }
+                
+            }
+                break;
+            case 3:
+            {
+                if(z==self.openSectionIndex)
+                    continue;
+                else{
+                    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:z];
+                    
+                    sectionInfo.open = YES;
+                    
+                    NSInteger countOfRowsToInsert = [sectionInfo.play.quotations count];
+                    
+                    for (NSInteger i = 0; i < countOfRowsToInsert; i++) {
+                        [indexPathsToInsert4 addObject:[NSIndexPath indexPathForRow:i inSection:z]];
+                    }
+                    
+                }
+                
+            }
+                break;
+
         }
     }
     
@@ -962,6 +1092,12 @@
         [self.participantTableView insertRowsAtIndexPaths:indexPathsToInsert1 withRowAnimation:insertAnimation];
     if([indexPathsToInsert2 count]>0)
         [self.participantTableView insertRowsAtIndexPaths:indexPathsToInsert2 withRowAnimation:insertAnimation];
+    if([indexPathsToInsert3 count]>0)
+        [self.participantTableView insertRowsAtIndexPaths:indexPathsToInsert3 withRowAnimation:insertAnimation];
+
+    if([indexPathsToInsert4 count]>0)
+        [self.participantTableView insertRowsAtIndexPaths:indexPathsToInsert4 withRowAnimation:insertAnimation];
+
     [self.participantTableView endUpdates];
     self.openSectionIndex = -1;
 

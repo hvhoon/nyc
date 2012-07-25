@@ -49,8 +49,6 @@
     scrollView.indicatorStyle=UIScrollViewIndicatorStyleBlack;
     scrollView.clipsToBounds = YES;
     
-    // Initially disabled scrolling. This is not enabled till all the fields on the basic info page have been filled.
-    
     
     if([activityInfo.goingCount intValue]==0){
         scrollView.scrollEnabled=NO;
@@ -72,10 +70,9 @@
     if(page==0){
         participantListTableView.participantTableView.scrollEnabled=NO;
     }
-    participantListTableView.participantTableView.clipsToBounds=YES;
-    if(activityInfo.DOS1==0||activityInfo.DOS2==0){
-        touchDisable=TRUE;
-    }
+     participantListTableView.participantTableView.clipsToBounds=YES;
+    
+    
     for (int i = 0; i < 2; i++) {
 		CGRect frame;
 		frame.origin.x = 0;
@@ -423,10 +420,10 @@
         if(activityInfo.activityRelationType==6){
             
             if(activityInfo.pendingRequestCount==0 && [activityInfo.goingCount intValue]==0){
-                //let c that
+                
                 return;
             }
-            if(activityInfo.pendingRequestCount==0){
+            else{
                 [self scrollViewToTheTopOrBottom];
             }
         }
@@ -468,24 +465,34 @@
             break;
         case 105:
         {
+            int section_105;
             if(lastIndex!=0){
-            if(!touchDisable){
+           //this section may be zero or one 
                 if(activityInfo.DOS1!=0)
                 {
                     [self highlightSelection:1];
+                    
+                    if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount!=0){
+                        //we need to check the pending Requests
+                        section_105=1;
+                        
+                    }
+                    else{
+                        section_105=0;
+                    }
                     if(toggleFriends){
                         toggleFriends=FALSE;
-                        [participantListTableView closeTwoSections:0];
+                         [participantListTableView collapseSectionsExceptOne:section_105];
                          lastIndex=0;
                     }
                     
                     else{
-                        [participantListTableView alternateBetweenSectionsWithCollapseOrExpand:0];
+                        [participantListTableView alternateBetweenSectionsWithCollapseOrExpand:section_105];
                         lastIndex=0;
 
                     }
                 }
-            }
+            
             }
         }
             break;
@@ -496,23 +503,38 @@
             break;
         case 106:
         {
+            int section_106;
             if(lastIndex!=1){  
-            if(!touchDisable){
+            
                 if(activityInfo.DOS2!=0)
                 {
                     [self highlightSelection:2];
+                    if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1!=0){
+                        //we need to check the pending Requests
+                        section_106=2;
+                        
+                    }
+                    else if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1==0){
+                        section_106=1;
+                    }
+                    else if(activityInfo.DOS1==0){
+                         section_106=0;
+                    }
+                    else if(activityInfo.DOS1!=0){
+                        section_106=1;
+                    }
                     if(toggleFriends){
                         toggleFriends=FALSE;
-                        [participantListTableView closeTwoSections:1];
+                        [participantListTableView collapseSectionsExceptOne:section_106];
                         lastIndex=1;
                     }
                     
                     else{
-                        [participantListTableView alternateBetweenSectionsWithCollapseOrExpand:1];
+                        [participantListTableView alternateBetweenSectionsWithCollapseOrExpand:section_106];
                         lastIndex=1;
                     }
                 }
-            }
+            
             }
         }
             break;
