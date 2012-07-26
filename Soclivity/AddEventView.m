@@ -13,7 +13,7 @@
 #import "SoclivityManager.h"
 #import "ActivityAnnotation.h"
 @implementation AddEventView
-@synthesize activityObject,delegate,calendarDateEditArrow,timeEditArrow,editMarkerButton,mapView,mapAnnotations;
+@synthesize activityObject,delegate,calendarDateEditArrow,timeEditArrow,editMarkerButton,mapView,mapAnnotations,addressSearchBar,addressResultsArray;
 
 
 #pragma mark -
@@ -29,7 +29,7 @@
 
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info{
             
-    
+    addressResultsArray=[[NSMutableArray alloc]init];
     // Loading picture information
     NSOperationQueue *queue = [NSOperationQueue new];
     NSInvocationOperation *operation = [[NSInvocationOperation alloc]
@@ -297,6 +297,31 @@
             break;
     }
     
+    self.addressSearchBar = [[[CustomSearchbar alloc] initWithFrame:CGRectMake(320,0, 320, 44)] autorelease];
+    self.addressSearchBar.delegate = self;
+    self.addressSearchBar.CSDelegate=self;
+    if(self.addressSearchBar.text!=nil){
+        self.addressSearchBar.showsCancelButton = YES;
+    }
+    
+    self.addressSearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.addressSearchBar.placeholder=@"Search";
+    self.addressSearchBar.backgroundImage=[UIImage imageNamed: @"S4.1_search-background.png"];
+    [self addSubview:self.addressSearchBar];
+    [self.addressSearchBar setHidden:YES];
+    
+    
+    locationResultsTableView=[[UITableView alloc]initWithFrame:CGRectMake(320, 376, 320, 188) style:UITableViewStylePlain];
+    [locationResultsTableView setRowHeight:kCustomRowHeight];
+    locationResultsTableView.scrollEnabled=YES;
+    locationResultsTableView.delegate=self;
+    locationResultsTableView.dataSource=self;
+    locationResultsTableView.separatorStyle=UITableViewCellSeparatorStyleSingleLine;
+    locationResultsTableView.separatorColor=[UIColor blackColor];
+    locationResultsTableView.showsVerticalScrollIndicator=YES;
+    locationResultsTableView.clipsToBounds=YES;
+    [self addSubview:locationResultsTableView];
+    [locationResultsTableView setHidden:YES];
 }
 
 
@@ -424,6 +449,181 @@
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
 }
+
+
+-(void)showSearchBarAndAnimateWithListViewInMiddle{
+    
+    [locationResultsTableView setHidden:NO];
+    
+    if (!footerActivated) {
+		[UIView beginAnimations:@"expandFooter" context:nil];
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationDuration:0.3];
+		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+		
+		
+		// Resize the map.
+		CGRect mapFrame = [self.mapView frame];
+		mapFrame.size.height -= 188;//200 original
+		[self.mapView setFrame:mapFrame];
+        
+        CGRect tableViewFrame = [locationResultsTableView frame];
+		tableViewFrame.origin.y -= 188;//200 original
+		[locationResultsTableView setFrame:tableViewFrame];
+
+        
+        [self.addressSearchBar setHidden:NO];
+        labelView.hidden=YES;
+        
+		[UIView commitAnimations];
+		footerActivated = YES;
+	}
+
+}
+-(void)hideSearchBarAndAnimateWithListViewInMiddle{
+ 
+    if (footerActivated) {
+		[UIView beginAnimations:@"collapseFooter" context:nil];
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationDuration:0.3];
+		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+		
+		
+		// Resize the map.
+		CGRect mapFrame = [self.mapView frame];
+		mapFrame.size.height += 188;
+		[self.mapView setFrame:mapFrame];
+        
+        CGRect tableViewFrame = [locationResultsTableView frame];
+		tableViewFrame.origin.y += 188;//200 original
+		[locationResultsTableView setFrame:tableViewFrame];
+        
+        [locationResultsTableView setHidden:YES];
+
+        
+        [self.addressSearchBar setHidden:YES];
+        labelView.hidden=NO;
+
+		[UIView commitAnimations];
+		footerActivated = NO;
+	}
+
+}
+#pragma mark -
+#pragma mark UISearchBarDelegate
+
+
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+	
+    [searchBar setShowsCancelButton:YES animated:YES];
+}
+
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
+    NSLog(@"searchBarTextDidEndEditing=%@",searchBar.text);
+}
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    
+    
+    if([self.addressSearchBar.text isEqualToString:@""]){
+        
+        [searchBar setShowsCancelButton:NO animated:YES];
+        self.addressSearchBar.showClearButton=NO;
+        
+    }
+    else{
+        [searchBar setShowsCancelButton:NO animated:NO];
+        self.addressSearchBar.showClearButton=YES;
+        
+    }
+    [searchBar setShowsCancelButton:YES animated:NO];
+    
+}
+- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar{
+    
+    self.addressSearchBar.text=@"";
+    [searchBar setShowsCancelButton:NO animated:YES];
+    
+    [self.addressSearchBar resignFirstResponder];
+}
+// called when keyboard search button pressed
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    
+    [self.addressSearchBar resignFirstResponder];
+    [searchBar setShowsCancelButton:YES animated:YES];
+}
+-(void)customCancelButtonHit{
+    
+    self.addressSearchBar.text=@"";
+    self.addressSearchBar.showClearButton=NO;
+    [addressSearchBar setShowsCancelButton:NO animated:YES];
+    [self.addressSearchBar resignFirstResponder];
+}
+
+
+#pragma mark Table view data source and delegate
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
+    
+    return 1;
+}
+
+
+-(NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    //return [addressResultsArray count];
+    return 1;
+}
+
+
+-(CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
+    
+    return kCustomRowHeight;
+}
+
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
+    
+	static NSString *profilEditIdentifier = @"ProfileEditCell";
+	
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:profilEditIdentifier];
+	if (cell == nil) {
+    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:profilEditIdentifier] autorelease];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+	}
+	
+        
+        
+        CGRect addressLabelRect=CGRectMake(35,10,200,14);
+        UILabel *addressLabel=[[UILabel alloc] initWithFrame:addressLabelRect];
+        addressLabel.textAlignment=UITextAlignmentLeft;
+        addressLabel.text=@"New York Sports Club";
+        addressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+        addressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+
+        addressLabel.backgroundColor=[UIColor clearColor];
+        [cell.contentView addSubview:addressLabel];
+        [addressLabel release];
+    
+        CGRect zipStreetLabelRect=CGRectMake(35,28,200,14);
+        UILabel *zipStreetLabel=[[UILabel alloc] initWithFrame:zipStreetLabelRect];
+        zipStreetLabel.textAlignment=UITextAlignmentLeft;
+        zipStreetLabel.text=@"123 N Dutch Street NY 1323823";
+        zipStreetLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+        zipStreetLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+        zipStreetLabel.backgroundColor=[UIColor clearColor];
+        [cell.contentView addSubview:zipStreetLabel];
+        [zipStreetLabel release];
+    
+        return cell;
+}
+#pragma mark -
+#pragma mark Table cell image support
+
+-(void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 
 - (void)dealloc {
     [super dealloc];

@@ -939,6 +939,7 @@ switch (activityInfo.activityRelationType) {
 }
 -(void)slideInTransitionToLocationView{
     
+    scrollView.scrollEnabled=NO;
     backButton.hidden=YES;
     [participantListTableView setHidden:YES];
     backToActivityFromMapButton.hidden=NO;
@@ -960,6 +961,7 @@ switch (activityInfo.activityRelationType) {
 }
 -(IBAction)backToActivityAnimateTransition:(id)sender{
     
+    scrollView.scrollEnabled=YES;
     backButton.hidden=NO;
     backToActivityFromMapButton.hidden=YES;
     newActivityButton.hidden=NO;
@@ -968,7 +970,6 @@ switch (activityInfo.activityRelationType) {
     editLocationButton.hidden=YES;
     locationEditLeftCrossButton.hidden=YES;
     locationEditRightCheckButton.hidden=YES;
-    eventView.frame=CGRectMake(0, 0, 640, 329);
      [participantListTableView setHidden:NO];
     [UIView animateWithDuration:0.3 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState animations:^{
         
@@ -984,18 +985,29 @@ switch (activityInfo.activityRelationType) {
     locationEditLeftCrossButton.hidden=NO;
     locationEditRightCheckButton.hidden=NO;
     backToActivityFromMapButton.hidden=YES;
+    chatButton.hidden=YES;
+    editLocationButton.hidden=YES;
+    [eventView showSearchBarAndAnimateWithListViewInMiddle];
+    
 
 }
 -(IBAction)crossClickedInLocationEdit:(id)sender{
     locationEditLeftCrossButton.hidden=YES;
     locationEditRightCheckButton.hidden=YES;
     backToActivityFromMapButton.hidden=NO;
+    chatButton.hidden=NO;
+    editLocationButton.hidden=NO;
+    [eventView hideSearchBarAndAnimateWithListViewInMiddle];
     
 }
 -(IBAction)tickClickedInLocationEdit:(id)sender{
     locationEditLeftCrossButton.hidden=YES;
     locationEditRightCheckButton.hidden=YES;
     backToActivityFromMapButton.hidden=NO;
+    chatButton.hidden=NO;
+    editLocationButton.hidden=NO;
+    [eventView hideSearchBarAndAnimateWithListViewInMiddle];
+
     
 }
 

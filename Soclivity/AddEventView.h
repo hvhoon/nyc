@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import <CoreLocation/CoreLocation.h>
-
+#import "CustomSearchBar.h"
 @protocol AddEventViewDelegate <NSObject>
 
 @optional
@@ -18,7 +17,7 @@
 @end
 
 
-@interface AddEventView : UIView<MKMapViewDelegate>{
+@interface AddEventView : UIView<MKMapViewDelegate,UISearchBarDelegate,CustomSearchBarDelegate,UITableViewDataSource,UITableViewDelegate>{
     InfoActivityClass *activityObject;
     IBOutlet UIImageView *activityBarImgView;
     IBOutlet UIImageView *activityAccessStatusImgView;
@@ -48,8 +47,11 @@
     IBOutlet MKMapView *mapView;
     CGRect locationTapRect;
     NSMutableArray *mapAnnotations;
-    
-
+    CustomSearchbar*addressSearchBar;
+    IBOutlet UIView *labelView;
+    BOOL footerActivated;
+    UITableView *locationResultsTableView;
+    NSMutableArray *addressResultsArray;
 
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;
@@ -59,8 +61,12 @@
 @property (nonatomic,retain) UIButton*editMarkerButton;
 @property (nonatomic,retain)IBOutlet MKMapView *mapView;
 @property (nonatomic, retain) NSMutableArray *mapAnnotations;
+@property (nonatomic, retain) CustomSearchbar *addressSearchBar;
+@property (nonatomic,retain)NSMutableArray *addressResultsArray;
+-(void)showSearchBarAndAnimateWithListViewInMiddle;
 -(void)ActivityEventOnMap;
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info;
 -(IBAction)currentLocationBtnClicked:(id)sender;
 - (void)gotoLocation;
+-(void)hideSearchBarAndAnimateWithListViewInMiddle;
 @end
