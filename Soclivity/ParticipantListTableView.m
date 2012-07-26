@@ -772,6 +772,22 @@
     NSMutableArray *indexPathsToDelete2 = [[NSMutableArray alloc] init];
     NSMutableArray *indexPathsToDelete3 = [[NSMutableArray alloc] init];
     NSMutableArray *indexPathsToDelete4 = [[NSMutableArray alloc] init];
+    
+#if 0    
+    if(section==1){
+        noLine=TRUE; 
+        [(UIButton*)[self viewWithTag:7771] setHidden:YES];
+        
+    }
+    else{
+        [(UIButton*)[self viewWithTag:7771] setHidden:NO];
+        [(UIButton*)[self viewWithTag:7771]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]]];
+        noLine=FALSE;
+    }
+#endif
+    
+    
+    
     for(int z=0;z<[self.sectionInfoArray count];z++){
         switch (z) {
             case 0:

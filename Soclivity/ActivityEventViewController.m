@@ -82,7 +82,7 @@
         switch (i) {
             case 0:
             {
-                eventView.frame=CGRectMake(0, 0, 320, 329);
+                eventView.frame=CGRectMake(0, 0, 640, 329);
                 [self.scrollView addSubview:eventView];
                 
              }
@@ -830,6 +830,53 @@
 
 -(IBAction)chatButtonPressed:(id)sender{
     
+    if(!footerActivated){
+        footerActivated=TRUE;
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        [UIView beginAnimations:nil context:context];
+        [UIView setAnimationTransition: UIViewAnimationTransitionFlipFromLeft forView:staticView cache:YES];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+        [UIView setAnimationDuration:1.0];
+        [UIView setAnimationDelegate:self];
+        
+        [scrollView setHidden:YES];
+        [chatView setHidden:NO];
+        [UIView commitAnimations];
+        
+        
+        context = UIGraphicsGetCurrentContext();
+        [UIView beginAnimations:nil context:context];
+        [UIView setAnimationTransition: UIViewAnimationTransitionFlipFromLeft forView:chatButton cache:YES];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+        [UIView setAnimationDuration:1.0];
+        [UIView setAnimationDelegate:self];
+        
+        
+        [UIView commitAnimations];
+    }
+    else{
+        footerActivated=FALSE;
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        [UIView beginAnimations:nil context:context];
+        [UIView setAnimationTransition: UIViewAnimationTransitionFlipFromRight forView:staticView cache:YES];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+        [UIView setAnimationDuration:1.0];
+        [UIView setAnimationDelegate:self];
+        
+        [scrollView setHidden:NO];
+        [chatView setHidden:YES];
+        [UIView commitAnimations];
+        
+        context = UIGraphicsGetCurrentContext();
+        [UIView beginAnimations:nil context:context];
+        [UIView setAnimationTransition: UIViewAnimationTransitionFlipFromRight forView:chatButton cache:YES];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+        [UIView setAnimationDuration:1.0];
+        [UIView setAnimationDelegate:self];
+        
+        [UIView commitAnimations];
+    }
+    
 }
 -(IBAction)deleteActivtyPressed:(id)sender{
     
@@ -889,6 +936,67 @@ switch (activityInfo.activityRelationType) {
         default:
             break;
     }    
+}
+-(void)slideInTransitionToLocationView{
+    
+    backButton.hidden=YES;
+    [participantListTableView setHidden:YES];
+    backToActivityFromMapButton.hidden=NO;
+    chatButton.hidden=NO;
+    editLocationButton.hidden=NO;
+    newActivityButton.hidden=YES;
+    organizerEditButton.hidden=YES;
+    inviteUsersToActivityButton.hidden=YES;
+    eventView.frame=CGRectMake(0, 0, 640, 376);
+    [UIView animateWithDuration:0.3 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut  | UIViewAnimationOptionBeginFromCurrentState animations:^{
+            
+            eventView.transform = CGAffineTransformMakeTranslation(-320.0f, 0.0f);
+            
+        } completion:^(BOOL finished) {
+            
+            
+        }];
+        
+}
+-(IBAction)backToActivityAnimateTransition:(id)sender{
+    
+    backButton.hidden=NO;
+    backToActivityFromMapButton.hidden=YES;
+    newActivityButton.hidden=NO;
+    organizerEditButton.hidden=NO;
+    inviteUsersToActivityButton.hidden=NO;
+    editLocationButton.hidden=YES;
+    locationEditLeftCrossButton.hidden=YES;
+    locationEditRightCheckButton.hidden=YES;
+    eventView.frame=CGRectMake(0, 0, 640, 329);
+     [participantListTableView setHidden:NO];
+    [UIView animateWithDuration:0.3 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState animations:^{
+        
+        eventView.transform = CGAffineTransformIdentity;
+        
+    } completion:^(BOOL finished) {
+        
+        
+    }];
+
+}
+-(IBAction)editLocationButtonClicked:(id)sender{
+    locationEditLeftCrossButton.hidden=NO;
+    locationEditRightCheckButton.hidden=NO;
+    backToActivityFromMapButton.hidden=YES;
+
+}
+-(IBAction)crossClickedInLocationEdit:(id)sender{
+    locationEditLeftCrossButton.hidden=YES;
+    locationEditRightCheckButton.hidden=YES;
+    backToActivityFromMapButton.hidden=NO;
+    
+}
+-(IBAction)tickClickedInLocationEdit:(id)sender{
+    locationEditLeftCrossButton.hidden=YES;
+    locationEditRightCheckButton.hidden=YES;
+    backToActivityFromMapButton.hidden=NO;
+    
 }
 
 @end

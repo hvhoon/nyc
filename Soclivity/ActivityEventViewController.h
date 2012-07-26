@@ -37,7 +37,14 @@
     int page;
     BOOL toggleFriends;
     int lastIndex;
-
+    IBOutlet UIView *staticView;
+    IBOutlet UIView *chatView;
+    BOOL footerActivated;
+    IBOutlet UIButton *backToActivityFromMapButton;
+    IBOutlet UIButton *editLocationButton;
+    
+    IBOutlet UIButton *locationEditLeftCrossButton;
+    IBOutlet UIButton *locationEditRightCheckButton;
 }
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property (nonatomic,retain)InfoActivityClass *activityInfo;
@@ -57,4 +64,8 @@
 -(IBAction)crossClickedByOrganizer:(id)sender;
 -(IBAction)tickClickedByOrganizer:(id)sender;
 -(IBAction)deleteActivtyPressed:(id)sender;
+-(IBAction)backToActivityAnimateTransition:(id)sender;
+-(IBAction)editLocationButtonClicked:(id)sender;
+-(IBAction)crossClickedInLocationEdit:(id)sender;
+-(IBAction)tickClickedInLocationEdit:(id)sender;
 @end

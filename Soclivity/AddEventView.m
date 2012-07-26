@@ -10,9 +10,13 @@
 #import "InfoActivityClass.h"
 #import "SoclivityUtilities.h"
 #import "DetailInfoActivityClass.h"
-
+#import "SoclivityManager.h"
+#import "ActivityAnnotation.h"
 @implementation AddEventView
-@synthesize activityObject,delegate,calendarDateEditArrow,timeEditArrow,editMarkerButton;
+@synthesize activityObject,delegate,calendarDateEditArrow,timeEditArrow,editMarkerButton,mapView,mapAnnotations;
+
+
+#pragma mark -
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -35,7 +39,7 @@
     [queue addOperation:operation];
     [operation release];
     
-    
+    activityObject=[info retain];
     // Activity organizer name
     activityorganizerTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     activityorganizerTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -242,12 +246,13 @@
     locationIcon.frame = CGRectMake(50, 102, 19, 18);
     locationInfoLabel1.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     locationInfoLabel1.textColor=[SoclivityUtilities returnTextFontColor:5];
+    
+    locationTapRect=CGRectMake(84,fromTheTop+102+1, 175, 15+19);
     locationInfoLabel1.frame = CGRectMake(84, 102+1, 175, 15);
 
     locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
     locationInfoLabel2.frame = CGRectMake(84, 122, 175, 15);
-    
     
     
     switch (info.activityRelationType) {
@@ -279,12 +284,21 @@
             break;
         case 6:
         {
+            firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+            firstALineddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+            secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+            secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+
             locationInfoLabel1.text=info.where_address;
+            firstALineddressLabel.text=info.where_address;
+            secondLineAddressLabel.text=[NSString stringWithFormat:@"%@ %@",info.where_city,info.where_state];
+
         }
             break;
     }
     
 }
+
 
 #pragma mark -
 #pragma mark Profile Picture Functions
@@ -317,17 +331,55 @@
     
     
     NSLog(@"Start Point_X=%f,Start Point_Y=%f",startPoint.x,startPoint.y);
-        CGRect tapDescriptionSection =CGRectMake(40, 70, 240, 60);
         
         
-        
-        if(CGRectContainsPoint(tapDescriptionSection,startPoint)){
-            //[self setOpened];
+    if(activityObject.activityRelationType==6){
+        if(CGRectContainsPoint(locationTapRect,startPoint)){
+            [self ActivityEventOnMap];
         }
     }
     
+}   
 #endif
 
+-(void)ActivityEventOnMap{
+    self.mapView.mapType = MKMapTypeStandard;
+    self.mapView.showsUserLocation=YES;
+    [self gotoLocation];
+    
+    self.mapAnnotations = [[NSMutableArray alloc] initWithCapacity:1];
+    
+    CLLocationCoordinate2D theCoordinate;
+    theCoordinate.latitude = [activityObject.where_lat doubleValue];
+    theCoordinate.longitude = [activityObject.where_lng doubleValue];
+
+    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:firstALineddressLabel.text address:secondLineAddressLabel.text coordinate:theCoordinate]autorelease];
+    [self.mapAnnotations insertObject:sfAnnotation atIndex:0];
+    
+    [self.mapView removeAnnotations:self.mapView.annotations];  // remove any annotations that exist
+    
+    [self.mapView addAnnotation:[self.mapAnnotations objectAtIndex:0]];
+
+
+    [delegate slideInTransitionToLocationView];
+}
+
+- (void)gotoLocation
+{
+
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    
+    MKCoordinateRegion newRegion;
+    newRegion.center.latitude = SOC.currentLocation.coordinate.latitude;
+    newRegion.center.longitude = SOC.currentLocation.coordinate.longitude;
+    newRegion.span.latitudeDelta = 0.06;
+    newRegion.span.longitudeDelta = 0.06;
+    
+    [self.mapView setRegion:newRegion animated:YES];
+}
+-(IBAction)currentLocationBtnClicked:(id)sender{
+    [self gotoLocation];
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -337,10 +389,50 @@
 }
 */
 
+- (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    static NSString *identifier = @"activityLocation";
+    // if it's the user location, just return nil.
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+        return nil;
+    
+    
+    if ([annotation isKindOfClass:[ActivityAnnotation class]]){
+        MKPinAnnotationView *annotationView = (MKPinAnnotationView *) [self.mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+        if (annotationView == nil) {
+            annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
+        } else {
+            annotationView.annotation = annotation;
+        }
+		[annotationView setMultipleTouchEnabled:YES];
+		
+        
+        [annotationView setImage:[UIImage imageNamed:@"S05.1_map-tag.png"]];
+        annotationView.enabled = YES;
+    
+		annotationView.canShowCallout = YES;
+        
+        return annotationView;
+    }
+    
+    return nil;
+}
+-(void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view{
+    
+}
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
+}
+
 - (void)dealloc {
+    [super dealloc];
+
     [calendarIcon release];
     [clockIcon release];
     [locationIcon release];
-    [super dealloc];
+    [mapView release];
+    [mapAnnotations release];
+
 }
 @end
