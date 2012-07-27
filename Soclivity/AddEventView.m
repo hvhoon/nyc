@@ -487,7 +487,7 @@
         
         searching=FALSE;
         ActivityAnnotation *loc=view.annotation;
-        //view.image=[UIImage imageNamed:@"S05.1_map-tag.png"];
+        view.image=[UIImage imageNamed:@"S05.1_map-tag.png"];
         
         //now ask the table to scrollAtThat Row in the table and become highlighted    
         pointTag=loc.annotTag;
@@ -508,7 +508,7 @@
     
     if(searching){
 	ActivityAnnotation *loc=view.annotation;
-    //view.image=[UIImage imageNamed:@"S04_location_create.png"];
+    view.image=[UIImage imageNamed:@"S04_location_create.png"];
         
     //now ask the table to scrollAtThat Row in the table and become highlighted    
     pointTag=loc.annotTag;
