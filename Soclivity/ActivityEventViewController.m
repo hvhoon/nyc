@@ -948,6 +948,7 @@ switch (activityInfo.activityRelationType) {
     newActivityButton.hidden=YES;
     organizerEditButton.hidden=YES;
     inviteUsersToActivityButton.hidden=YES;
+    [eventView.addressSearchBar setHidden:YES];
     eventView.frame=CGRectMake(0, 0, 640, 376);
     [UIView animateWithDuration:0.3 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut  | UIViewAnimationOptionBeginFromCurrentState animations:^{
             
@@ -961,6 +962,13 @@ switch (activityInfo.activityRelationType) {
 }
 -(IBAction)backToActivityAnimateTransition:(id)sender{
     
+    
+    if(footerActivated){
+        
+        footerActivated=FALSE;
+        chatView.hidden=YES;
+        scrollView.hidden=NO;
+    }
     scrollView.scrollEnabled=YES;
     backButton.hidden=NO;
     backToActivityFromMapButton.hidden=YES;
@@ -987,7 +995,13 @@ switch (activityInfo.activityRelationType) {
     backToActivityFromMapButton.hidden=YES;
     chatButton.hidden=YES;
     editLocationButton.hidden=YES;
-    [eventView showSearchBarAndAnimateWithListViewInMiddle];
+    
+    
+    eventView.addressSearchBar.text=@"";
+    [eventView.addressSearchBar setHidden:NO];
+     eventView.labelView.hidden=YES;
+
+    //[eventView showSearchBarAndAnimateWithListViewInMiddle];
     
 
 }
@@ -997,7 +1011,9 @@ switch (activityInfo.activityRelationType) {
     backToActivityFromMapButton.hidden=NO;
     chatButton.hidden=NO;
     editLocationButton.hidden=NO;
+    [eventView.addressSearchBar setHidden:YES];
     [eventView hideSearchBarAndAnimateWithListViewInMiddle];
+    eventView.labelView.hidden=NO;
     
 }
 -(IBAction)tickClickedInLocationEdit:(id)sender{
@@ -1006,7 +1022,15 @@ switch (activityInfo.activityRelationType) {
     backToActivityFromMapButton.hidden=NO;
     chatButton.hidden=NO;
     editLocationButton.hidden=NO;
+    [eventView.addressSearchBar setHidden:YES];
     [eventView hideSearchBarAndAnimateWithListViewInMiddle];
+    eventView.labelView.hidden=NO;
+    
+    if(eventView.searching){
+        eventView.searching=FALSE;
+        [eventView setNewLocation];
+        //now get the updated result from
+    }
 
     
 }

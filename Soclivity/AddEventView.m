@@ -12,8 +12,11 @@
 #import "DetailInfoActivityClass.h"
 #import "SoclivityManager.h"
 #import "ActivityAnnotation.h"
+#import <CoreLocation/CoreLocation.h>
+#import <AddressBookUI/AddressBookUI.h>
+#define METERS_PER_MILE 1609.344
 @implementation AddEventView
-@synthesize activityObject,delegate,calendarDateEditArrow,timeEditArrow,editMarkerButton,mapView,mapAnnotations,addressSearchBar,addressResultsArray;
+@synthesize activityObject,delegate,calendarDateEditArrow,timeEditArrow,editMarkerButton,mapView,mapAnnotations,addressSearchBar,_geocodingResults,labelView,searching;
 
 
 #pragma mark -
@@ -29,7 +32,6 @@
 
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info{
             
-    addressResultsArray=[[NSMutableArray alloc]init];
     // Loading picture information
     NSOperationQueue *queue = [NSOperationQueue new];
     NSInvocationOperation *operation = [[NSInvocationOperation alloc]
@@ -370,7 +372,17 @@
 -(void)ActivityEventOnMap{
     self.mapView.mapType = MKMapTypeStandard;
     self.mapView.showsUserLocation=YES;
-    [self gotoLocation];
+    searching=FALSE;
+    self.addressSearchBar.text=@"";
+    
+    CLLocation* avgLoc = [self avgLocation];
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(avgLoc.coordinate.latitude, avgLoc.coordinate.longitude), [self maxDistanceBetweenPoints:avgLoc], [self maxDistanceBetweenPoints:avgLoc]);
+    MKCoordinateRegion adjustedRegion = [mapView regionThatFits:viewRegion];                
+    [mapView setRegion:adjustedRegion animated:YES];
+
+    _geocodingResults=[NSMutableArray new];
+
+    _geocoder = [[CLGeocoder alloc] init];
     
     self.mapAnnotations = [[NSMutableArray alloc] initWithCapacity:1];
     
@@ -378,7 +390,7 @@
     theCoordinate.latitude = [activityObject.where_lat doubleValue];
     theCoordinate.longitude = [activityObject.where_lng doubleValue];
 
-    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:firstALineddressLabel.text address:secondLineAddressLabel.text coordinate:theCoordinate]autorelease];
+    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:firstALineddressLabel.text address:secondLineAddressLabel.text coordinate:theCoordinate tagIndex:0]autorelease];
     [self.mapAnnotations insertObject:sfAnnotation atIndex:0];
     
     [self.mapView removeAnnotations:self.mapView.annotations];  // remove any annotations that exist
@@ -391,7 +403,6 @@
 
 - (void)gotoLocation
 {
-
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     
     MKCoordinateRegion newRegion;
@@ -416,38 +427,96 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
-    static NSString *identifier = @"activityLocation";
     // if it's the user location, just return nil.
     if ([annotation isKindOfClass:[MKUserLocation class]])
         return nil;
     
     
-    if ([annotation isKindOfClass:[ActivityAnnotation class]]){
-        MKPinAnnotationView *annotationView = (MKPinAnnotationView *) [self.mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
-        if (annotationView == nil) {
-            annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
-        } else {
-            annotationView.annotation = annotation;
+    else if ([annotation isKindOfClass:[ActivityAnnotation class]]){
+        static NSString* SFAnnotationIdentifier = @"SFAnnotationIdentifier";
+        MKPinAnnotationView* pinView =
+        (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:SFAnnotationIdentifier];
+        if (!pinView)
+        {
+            MKAnnotationView *annotationView = [[[MKAnnotationView alloc] initWithAnnotation:annotation
+            reuseIdentifier:SFAnnotationIdentifier] autorelease];
+            UIImage *flagImage=[UIImage imageNamed:@"S05.1_map-tag.png"];
+            
+            
+            CGRect resizeRect;
+            
+            resizeRect.size = flagImage.size;
+            CGSize maxSize = CGRectInset(self.bounds,
+                                          10.0f,
+                                          10.0f).size;
+            maxSize.height -= 44 +  40.0f;
+            if (resizeRect.size.width > maxSize.width)
+                resizeRect.size = CGSizeMake(maxSize.width, resizeRect.size.height / resizeRect.size.width * maxSize.width);
+            if (resizeRect.size.height > maxSize.height)
+                resizeRect.size = CGSizeMake(resizeRect.size.width / resizeRect.size.height * maxSize.height, maxSize.height);
+            
+            resizeRect.origin = (CGPoint){0.0f, 0.0f};
+            UIGraphicsBeginImageContext(resizeRect.size);
+            [flagImage drawInRect:resizeRect];
+            UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
+            annotationView.image = resizedImage;
+            annotationView.opaque = NO;
+            
+            annotationView.canShowCallout=YES;
+            
+            return annotationView;
         }
-		[annotationView setMultipleTouchEnabled:YES];
-		
-        
-        [annotationView setImage:[UIImage imageNamed:@"S05.1_map-tag.png"]];
-        annotationView.enabled = YES;
-    
-		annotationView.canShowCallout = YES;
-        
-        return annotationView;
+        else
+         {
+         pinView.annotation = annotation;
+         }
+        return pinView;
     }
     
     return nil;
 }
 -(void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view{
     
+    
+    if(searching){
+        
+        searching=FALSE;
+        ActivityAnnotation *loc=view.annotation;
+        //view.image=[UIImage imageNamed:@"S05.1_map-tag.png"];
+        
+        //now ask the table to scrollAtThat Row in the table and become highlighted    
+        pointTag=loc.annotTag;
+        NSIndexPath *indexPath=[NSIndexPath indexPathForRow:pointTag inSection:0];
+        UITableViewCell* theCell = [locationResultsTableView cellForRowAtIndexPath:indexPath];
+        
+        theCell.contentView.backgroundColor=[UIColor clearColor];
+        [locationResultsTableView deselectRowAtIndexPath:indexPath animated:YES];
+        
+        [locationResultsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
+
+    
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
+    
+    if(searching){
+	ActivityAnnotation *loc=view.annotation;
+    //view.image=[UIImage imageNamed:@"S04_location_create.png"];
+        
+    //now ask the table to scrollAtThat Row in the table and become highlighted    
+    pointTag=loc.annotTag;
+    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:pointTag inSection:0];
+    UITableViewCell* theCell = [locationResultsTableView cellForRowAtIndexPath:indexPath];
+    
+        theCell.contentView.backgroundColor=[SoclivityUtilities returnBackgroundColor:1];
+    [locationResultsTableView deselectRowAtIndexPath:indexPath animated:YES];
+        
+    [locationResultsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
 }
 
 
@@ -464,11 +533,11 @@
 		
 		// Resize the map.
 		CGRect mapFrame = [self.mapView frame];
-		mapFrame.size.height -= 188;//200 original
+		mapFrame.size.height -= 188;
 		[self.mapView setFrame:mapFrame];
         
         CGRect tableViewFrame = [locationResultsTableView frame];
-		tableViewFrame.origin.y -= 188;//200 original
+		tableViewFrame.origin.y -= 188;
 		[locationResultsTableView setFrame:tableViewFrame];
 
         
@@ -495,7 +564,7 @@
 		[self.mapView setFrame:mapFrame];
         
         CGRect tableViewFrame = [locationResultsTableView frame];
-		tableViewFrame.origin.y += 188;//200 original
+		tableViewFrame.origin.y += 188;
 		[locationResultsTableView setFrame:tableViewFrame];
         
         [locationResultsTableView setHidden:YES];
@@ -548,6 +617,8 @@
 // called when keyboard search button pressed
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     
+    [self geocodeFromSearchBar];
+    
     [self.addressSearchBar resignFirstResponder];
     [searchBar setShowsCancelButton:YES animated:YES];
 }
@@ -570,8 +641,11 @@
 
 -(NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
     
-    //return [addressResultsArray count];
-    return 1;
+    
+    if([_geocodingResults count]==0)
+        return 1;
+    else
+        return [_geocodingResults count];
 }
 
 
@@ -585,19 +659,27 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
     
 	static NSString *profilEditIdentifier = @"ProfileEditCell";
-	
+	int nodeCount=[_geocodingResults count];
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:profilEditIdentifier];
-	if (cell == nil) {
+	//if (cell == nil) {
     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:profilEditIdentifier] autorelease];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-	}
+	//}
 	
+    if(nodeCount==0 && indexPath.row==0){
+        cell.textLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:14];
+         cell.textLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+        cell.textLabel.text=@"No results found";
+    }
+    if(nodeCount>0){
+     CLPlacemark * placemark = [_geocodingResults objectAtIndex:indexPath.row];
+    
+     NSString * formattedAddress = ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
         
-        
-        CGRect addressLabelRect=CGRectMake(35,10,200,14);
+        CGRect addressLabelRect=CGRectMake(35,10,270,14);
         UILabel *addressLabel=[[UILabel alloc] initWithFrame:addressLabelRect];
         addressLabel.textAlignment=UITextAlignmentLeft;
-        addressLabel.text=@"New York Sports Club";
+        addressLabel.text=formattedAddress;
         addressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
         addressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
 
@@ -605,23 +687,235 @@
         [cell.contentView addSubview:addressLabel];
         [addressLabel release];
     
-        CGRect zipStreetLabelRect=CGRectMake(35,28,200,14);
+        CGRect zipStreetLabelRect=CGRectMake(35,28,270,14);
         UILabel *zipStreetLabel=[[UILabel alloc] initWithFrame:zipStreetLabelRect];
         zipStreetLabel.textAlignment=UITextAlignmentLeft;
-        zipStreetLabel.text=@"123 N Dutch Street NY 1323823";
+        zipStreetLabel.text=[NSString stringWithFormat:@"%@ %@ %@",placemark.subLocality,placemark.subAdministrativeArea,placemark.postalCode];
         zipStreetLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
         zipStreetLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
         zipStreetLabel.backgroundColor=[UIColor clearColor];
         [cell.contentView addSubview:zipStreetLabel];
         [zipStreetLabel release];
-    
+    }
         return cell;
 }
 #pragma mark -
 #pragma mark Table cell image support
 
 -(void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+    if([_geocodingResults count]>0){ 
+        
+    searching=TRUE;   
+    pointTag=indexPath.row;
+    UITableViewCell* theCell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    theCell.contentView.backgroundColor=[SoclivityUtilities returnBackgroundColor:1];
+    CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:indexPath.row];
+
+    [self zoomMapToPlacemark:selectedPlacemark];
+    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    
+}
+
+-(void)setNewLocation{
+    
+    CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
+    activityObject.where_lat=[NSString stringWithFormat:@"%f",selectedPlacemark.location.coordinate.latitude];
+    activityObject.where_lng=[NSString stringWithFormat:@"%f",selectedPlacemark.location.coordinate.longitude];
+    NSString * formattedAddress = ABCreateStringWithAddressDictionary(selectedPlacemark.addressDictionary, NO);
+    locationInfoLabel1.text=firstALineddressLabel.text=formattedAddress;
+    locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@ %@ %@",selectedPlacemark.subLocality,selectedPlacemark.subAdministrativeArea,selectedPlacemark.postalCode];
+     
+
+}
+
+- (void) geocodeFromSearchBar{
+    
+    
+    // Cancel any active geocoding. Note: Cancelling calls the completion handler on the geocoder
+    if (_geocoder.isGeocoding)
+        [_geocoder cancelGeocode];
+    
+    [_geocoder geocodeAddressString:addressSearchBar.text
+                  completionHandler:^(NSArray *placemark, NSError *error) {
+                      if (!error)
+                          [self processForwardGeocodingResults:placemark];
+                  }
+     ];
+}
+
+- (void) processForwardGeocodingResults:(NSArray *)placemarks {
+    [_geocodingResults removeAllObjects];
+    
+     searching=FALSE;
+    // check if the location is less than 50 miles
+    NSMutableArray *lessThan50Miles=[NSMutableArray new];
+    
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    if([placemarks count]>0){
+        
+
+        
+        for (CLPlacemark *placemark in placemarks){
+            CLLocationDegrees latitude  = placemark.location.coordinate.latitude;
+            CLLocationDegrees longitude = placemark.location.coordinate.longitude;
+            CLLocation *tempLocObj = [[CLLocation alloc] initWithLatitude:latitude
+                                                                longitude:longitude];
+            
+            CLLocation *newCenter = [[CLLocation alloc] initWithLatitude:SOC.currentLocation.coordinate.latitude
+                                                               longitude:SOC.currentLocation.coordinate.longitude];
+            
+            float distance =[newCenter distanceFromLocation:tempLocObj] / 1000;
+            NSLog(@"distance=%f",distance);
+            //if(distance<=50){
+                [lessThan50Miles addObject:placemark];
+            //}
+
+        }
+
+    }
+    
+    if([lessThan50Miles count]>0){
+        searching=TRUE;
+        [self.mapView removeAnnotations:self.mapView.annotations];
+        [self addPinAnnotationForPlacemark:lessThan50Miles];
+        currentLocationArray =[NSMutableArray arrayWithCapacity:[lessThan50Miles count]];
+        currentLocationArray=[lessThan50Miles retain];
+        
+        //Zoom in all results.
+        
+        CLLocation* avgLoc = [self ZoomToAllResultPointsOnMap];
+        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(avgLoc.coordinate.latitude, avgLoc.coordinate.longitude), [self maxDistanceBetweenAllResultPointsOnMap:avgLoc], [self maxDistanceBetweenAllResultPointsOnMap:avgLoc]);
+        MKCoordinateRegion adjustedRegion = [mapView regionThatFits:viewRegion];                
+        [mapView setRegion:adjustedRegion animated:YES];
+        [_geocodingResults addObjectsFromArray:placemarks];
+        
+    }
+    
+    [self showSearchBarAndAnimateWithListViewInMiddle];
+    [locationResultsTableView reloadData];
+}
+
+
+-(CLLocation*)ZoomToAllResultPointsOnMap{
+    CGFloat xAvg=0;
+    CGFloat yAvg=0;
+    for (int i=0; i<currentLocationArray.count; i++) {
+        
+        CLPlacemark * placemark = [currentLocationArray objectAtIndex:i];
+        xAvg+=placemark.location.coordinate.latitude;
+        yAvg+=placemark.location.coordinate.longitude;
+    }
+    return [[CLLocation alloc] initWithLatitude:xAvg/currentLocationArray.count longitude:yAvg/currentLocationArray.count];
+}
+
+-(CGFloat) maxDistanceBetweenAllResultPointsOnMap:(CLLocation*)avgLocation{
+    if (currentLocationArray.count==1) {
+        return 2*METERS_PER_MILE;
+    }
+    else{
+        CGFloat distance=0;
+        CLLocation *newCenter;
+
+        for (int i=0; i<currentLocationArray.count; i++) {
+            
+            CLPlacemark * placemark = [currentLocationArray objectAtIndex:i];
+            newCenter = [[CLLocation alloc] initWithLatitude:placemark.location.coordinate.latitude
+                                                   longitude:placemark.location.coordinate.longitude];
+            distance =(distance>[avgLocation distanceFromLocation:(CLLocation*)newCenter]?distance:[avgLocation distanceFromLocation:(CLLocation*)newCenter]);
+        }
+        return 2*distance;
+    }
+}
+- (void) addPinAnnotationForPlacemark:(NSArray*)placemarks {
+    
+    for(int i=0;i<[placemarks count];i++){
+        
+         CLPlacemark * placemark = [placemarks objectAtIndex:i];
+        
+        CLLocationCoordinate2D theCoordinate;
+        theCoordinate.latitude = [activityObject.where_lat doubleValue];
+        theCoordinate.longitude = [activityObject.where_lng doubleValue];
+        
+        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO) address:secondLineAddressLabel.text coordinate:placemark.location.coordinate tagIndex:i]autorelease];
+        
+        [self.mapView addAnnotation:sfAnnotation];
+
+
+    }
+}
+
+- (void) zoomMapToPlacemark:(CLPlacemark *)selectedPlacemark {
+    CLLocationCoordinate2D coordinate = selectedPlacemark.location.coordinate;
+    MKMapPoint mapPoint = MKMapPointForCoordinate(coordinate);
+    double radius = (MKMapPointsPerMeterAtLatitude(coordinate.latitude) * selectedPlacemark.region.radius)/2;
+    MKMapSize size = {radius, radius};
+    MKMapRect mapRect = {mapPoint, size};
+    mapRect = MKMapRectOffset(mapRect, -radius/2, -radius/2); // adjust the rect so the coordinate is in the middle
+    [self.mapView setVisibleMapRect:mapRect
+                       animated:YES];
+}
+
+-(CLLocation*)avgLocation{
+    CGFloat xAvg=0;
+    CGFloat yAvg=0;
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    for (int i=0; i<2; i++) {
+        
+        
+            switch (i) {
+                case 0:
+                {
+                    xAvg += SOC.currentLocation.coordinate.latitude;
+                    yAvg += SOC.currentLocation.coordinate.longitude;
+                }
+                    break;
+                    
+                case 1:
+                {
+                    xAvg += [activityObject.where_lat doubleValue];
+                    yAvg += [activityObject.where_lng doubleValue];
+                    
+                    
+                }
+                    break;
+            }
+            
+            
+        }
+        
+    return [[CLLocation alloc] initWithLatitude:xAvg/2 longitude:yAvg/2];
+}
+
+
+-(CGFloat) maxDistanceBetweenPoints:(CLLocation*)avgLocation{
+        CGFloat distance=0;
+      CLLocation *newCenter;
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+        for (int i=0; i<2; i++) {
+            
+            switch (i) {
+                case 0:
+                {
+                    newCenter = [[CLLocation alloc] initWithLatitude:SOC.currentLocation.coordinate.latitude
+                                                                       longitude:SOC.currentLocation.coordinate.longitude];
+
+                }
+                    break;
+                    
+                case 1:
+                {
+                    newCenter = [[CLLocation alloc] initWithLatitude:[activityObject.where_lat doubleValue]
+                                                                       longitude:[activityObject.where_lng doubleValue]];
+                    
+                }
+                    break;
+            }
+            distance =(distance>[avgLocation distanceFromLocation:(CLLocation*)newCenter]?distance:[avgLocation distanceFromLocation:(CLLocation*)newCenter]);
+        }
+        return 2*distance;
 }
 
 

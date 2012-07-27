@@ -15,11 +15,13 @@
     NSString *businessAdress;
     NSString *infoActivity;
     CLLocationCoordinate2D _coordinate;
+    NSInteger annotTag;
 }
 @property (nonatomic, retain) UIImage *image;
 @property (nonatomic, retain) NSNumber *latitude;
 @property (nonatomic, retain) NSNumber *longitude;
 @property   (nonatomic, retain) NSString *businessAdress;
 @property   (nonatomic, retain) NSString *infoActivity;
-- (id)initWithName:(NSString*)name address:(NSString*)address coordinate:(CLLocationCoordinate2D)coordinate ;
+@property (nonatomic,assign)NSInteger annotTag;
+- (id)initWithName:(NSString*)name address:(NSString*)address coordinate:(CLLocationCoordinate2D)coordinate tagIndex:(NSInteger)tagIndex;
 @end

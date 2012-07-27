@@ -13,18 +13,18 @@
 @synthesize latitude;
 @synthesize longitude;
 @synthesize businessAdress;
-@synthesize infoActivity;
+@synthesize infoActivity,annotTag;
 - (CLLocationCoordinate2D)coordinate;
 {
     return _coordinate; 
 }
 
-- (id)initWithName:(NSString*)name address:(NSString*)address coordinate:(CLLocationCoordinate2D)coordinate{
+- (id)initWithName:(NSString*)name address:(NSString*)address coordinate:(CLLocationCoordinate2D)coordinate tagIndex:(NSInteger)tagIndex{
     if ((self = [super init])) {
 		
 		businessAdress = [name copy];
         infoActivity = [address copy];
-		
+		annotTag=tagIndex;
 		_coordinate = coordinate;
         
     }

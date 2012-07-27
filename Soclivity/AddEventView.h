@@ -51,7 +51,11 @@
     IBOutlet UIView *labelView;
     BOOL footerActivated;
     UITableView *locationResultsTableView;
-    NSMutableArray *addressResultsArray;
+    NSMutableArray *_geocodingResults;
+    CLGeocoder * _geocoder;
+    NSMutableArray *currentLocationArray;
+    BOOL searching;
+    int pointTag;
 
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;
@@ -62,11 +66,22 @@
 @property (nonatomic,retain)IBOutlet MKMapView *mapView;
 @property (nonatomic, retain) NSMutableArray *mapAnnotations;
 @property (nonatomic, retain) CustomSearchbar *addressSearchBar;
-@property (nonatomic,retain)NSMutableArray *addressResultsArray;
+@property (nonatomic,retain)NSMutableArray *_geocodingResults;
+@property (nonatomic,retain)UIView*labelView;
+@property (nonatomic,assign)BOOL searching;
 -(void)showSearchBarAndAnimateWithListViewInMiddle;
 -(void)ActivityEventOnMap;
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info;
 -(IBAction)currentLocationBtnClicked:(id)sender;
 - (void)gotoLocation;
 -(void)hideSearchBarAndAnimateWithListViewInMiddle;
+- (void) processForwardGeocodingResults:(NSArray *)placemarks;
+- (void) addPinAnnotationForPlacemark:(NSArray*)placemarks;
+- (void) zoomMapToPlacemark:(CLPlacemark *)selectedPlacemark;
+- (void) geocodeFromSearchBar;
+-(CGFloat) maxDistanceBetweenPoints:(CLLocation*)avgLocation;
+-(CLLocation*)avgLocation;
+-(CLLocation*)ZoomToAllResultPointsOnMap;
+-(CGFloat) maxDistanceBetweenAllResultPointsOnMap:(CLLocation*)avgLocation;
+-(void)setNewLocation;
 @end
