@@ -18,4 +18,5 @@
 +(void)deleteAllActivitiesPriorToThisRequest;
 +(NSArray*)returnAllValidActivities;
 +(void)UpadateTheActivityEventTable:(InfoActivityClass*)ActObj;
++(void)deleteActivityRecords:(NSInteger)activityId;
 @end

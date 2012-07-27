@@ -263,7 +263,12 @@ static sqlite3 *database = nil;
 	
 +(void)UpadateTheActivityEventTable:(InfoActivityClass*)ActObj{
 	
+    
+    [SoclivitySqliteClass deleteActivityRecords:ActObj.activityId];
+    
 	sqlite3_stmt *insertStmtNewActivity=nil;
+    
+    
 		
 		if(insertStmtNewActivity == nil) {
 			
@@ -300,7 +305,27 @@ static sqlite3 *database = nil;
 		
 		sqlite3_reset(insertStmtNewActivity);
 }
+
++(void)deleteActivityRecords:(NSInteger)activityId{
+	sqlite3_stmt *deleteStmtRecord=nil;
 	
+	if(deleteStmtRecord == nil) {
+		
+		NSString *str_queryLevel2 = [NSString stringWithFormat:@"delete from Activities where activityId = %d",activityId];
+		const char *sql = [str_queryLevel2 UTF8String];
+		
+		
+		if(sqlite3_prepare_v2(database, sql, -1, &deleteStmtRecord, NULL) != SQLITE_OK)
+			NSAssert1(0, @"Error while creating delete statement. '%s'", sqlite3_errmsg(database));
+	}
+	
+	
+	if (SQLITE_DONE != sqlite3_step(deleteStmtRecord)) 
+		NSAssert1(0, @"Error while deleting. '%s'", sqlite3_errmsg(database));
+	
+	sqlite3_reset(deleteStmtRecord);
+}
+
 
     
 

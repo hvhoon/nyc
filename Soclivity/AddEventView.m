@@ -261,7 +261,7 @@
     switch (info.activityRelationType) {
         case 1:
         {
-            locationInfoLabel1.text=info.distance;
+            locationInfoLabel1.text=[NSString stringWithFormat:@"%@ miles away",info.distance];
         }
             break;
             
@@ -371,6 +371,8 @@
 #endif
 
 -(void)ActivityEventOnMap{
+    SOC=[SoclivityManager SharedInstance];
+
     self.mapView.mapType = MKMapTypeStandard;
     self.mapView.showsUserLocation=YES;
     searching=FALSE;
@@ -406,7 +408,6 @@
 }
 - (void)gotoLocation
 {
-    SoclivityManager *SOC=[SoclivityManager SharedInstance];
     
     MKCoordinateRegion newRegion;
     newRegion.center.latitude = SOC.currentLocation.coordinate.latitude;
@@ -485,7 +486,7 @@
     
     if(searching){
         
-        searching=FALSE;
+        
         ActivityAnnotation *loc=view.annotation;
         view.image=[UIImage imageNamed:@"S05.1_map-tag.png"];
         
@@ -544,7 +545,6 @@
     // check if the location is less than 50 miles
     NSMutableArray *lessThan50Miles=[NSMutableArray new];
     
-    SoclivityManager *SOC=[SoclivityManager SharedInstance];
     if([placemarks count]>0){
         
         
@@ -652,7 +652,6 @@
 -(CLLocation*)avgLocation{
     CGFloat xAvg=0;
     CGFloat yAvg=0;
-    SoclivityManager *SOC=[SoclivityManager SharedInstance];
     for (int i=0; i<2; i++) {
         
         
@@ -684,7 +683,6 @@
 -(CGFloat) maxDistanceBetweenPoints:(CLLocation*)avgLocation{
     CGFloat distance=0;
     CLLocation *newCenter;
-    SoclivityManager *SOC=[SoclivityManager SharedInstance];
     for (int i=0; i<2; i++) {
         
         switch (i) {
@@ -917,12 +915,20 @@
     locationInfoLabel1.text=firstALineddressLabel.text=formattedAddress;
     locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@ %@ %@",selectedPlacemark.subLocality,selectedPlacemark.subAdministrativeArea,selectedPlacemark.postalCode];
     
+    CLLocation *tempLocObj = [[CLLocation alloc] initWithLatitude:selectedPlacemark.location.coordinate.latitude
+                                                        longitude:selectedPlacemark.location.coordinate.longitude];
+    
+    CLLocation *newCenter = [[CLLocation alloc] initWithLatitude:SOC.currentLocation.coordinate.latitude
+                                                       longitude:SOC.currentLocation.coordinate.longitude];
+    
+    activityObject.distance =[NSString stringWithFormat:@"%.02f",[newCenter distanceFromLocation:tempLocObj] / 1000];
+
+    
     
     
     // also make sure you update the database for list and map View and refresh the list and map state
     
     [SoclivitySqliteClass UpadateTheActivityEventTable:activityObject];
-    SoclivityManager *SOC =[SoclivityManager SharedInstance];
     SOC.localCacheUpdate=TRUE;
      
 }

@@ -50,7 +50,7 @@
     NSLog(@"viewWillAppear called in HomeViewController");
     if(SOC.localCacheUpdate){
         SOC.localCacheUpdate=FALSE;
-        //[activityTableView startPopulatingListView];
+        [activityTableView startPopulatingListView];
     }
 }
 - (void)viewDidLoad

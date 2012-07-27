@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "CustomSearchBar.h"
+@class SoclivityManager;
 @protocol AddEventViewDelegate <NSObject>
 
 @optional
@@ -56,6 +57,7 @@
     NSMutableArray *currentLocationArray;
     BOOL searching;
     int pointTag;
+    SoclivityManager *SOC;
 
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;

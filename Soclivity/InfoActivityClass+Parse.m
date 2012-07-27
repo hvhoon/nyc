@@ -164,13 +164,13 @@
     CLLocation *newCenter = [[CLLocation alloc] initWithLatitude:SOC.currentLocation.coordinate.latitude
                                                        longitude:SOC.currentLocation.coordinate.longitude];
     
-    play.distance =[NSString stringWithFormat:@"%.02f miles",[newCenter distanceFromLocation:tempLocObj] / 1000];
+    play.distance =[NSString stringWithFormat:@"%.02f",[newCenter distanceFromLocation:tempLocObj] / 1000];
             
 
     
 #else
     NSNumber *distance =[ACTDict objectForKey:@"distance"];
-    play.distance=[NSString stringWithFormat:@"%.02f miles away",[distance doubleValue]];
+    play.distance=[NSString stringWithFormat:@"%.02f",[distance doubleValue]];
  #endif   
     NSNumber *dosOwner = [ACTDict objectForKey:@"dos0"];
     play.DOS =[dosOwner intValue];
