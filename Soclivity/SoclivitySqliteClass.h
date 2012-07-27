@@ -17,4 +17,5 @@
 +(void)InsertNewActivities:(NSArray*)ActivityArray;
 +(void)deleteAllActivitiesPriorToThisRequest;
 +(NSArray*)returnAllValidActivities;
++(void)UpadateTheActivityEventTable:(InfoActivityClass*)ActObj;
 @end

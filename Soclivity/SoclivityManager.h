@@ -24,6 +24,7 @@
     GetPlayersClass *loggedInUser;
     FilterPreferenceClass *filterObject;
     BOOL AllowTapAndDrag;
+    BOOL localCacheUpdate;
    
    
 }
@@ -34,5 +35,6 @@
 @property (nonatomic,retain)GetPlayersClass *loggedInUser;
 @property (nonatomic,retain)FilterPreferenceClass *filterObject;
 @property (nonatomic,assign)BOOL AllowTapAndDrag;
+@property (nonatomic,assign)BOOL localCacheUpdate;
 + (id)SharedInstance;
 @end

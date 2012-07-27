@@ -1014,6 +1014,7 @@ switch (activityInfo.activityRelationType) {
     [eventView.addressSearchBar setHidden:YES];
     [eventView hideSearchBarAndAnimateWithListViewInMiddle];
     eventView.labelView.hidden=NO;
+    [eventView cancelClicked];
     
 }
 -(IBAction)tickClickedInLocationEdit:(id)sender{

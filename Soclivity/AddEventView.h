@@ -84,4 +84,6 @@
 -(CLLocation*)ZoomToAllResultPointsOnMap;
 -(CGFloat) maxDistanceBetweenAllResultPointsOnMap:(CLLocation*)avgLocation;
 -(void)setNewLocation;
+-(void)CurrentMapZoomUpdate;
+-(void)cancelClicked;
 @end

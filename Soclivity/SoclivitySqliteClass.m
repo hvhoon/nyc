@@ -261,7 +261,47 @@ static sqlite3 *database = nil;
 	}
     
 	
++(void)UpadateTheActivityEventTable:(InfoActivityClass*)ActObj{
 	
+	sqlite3_stmt *insertStmtNewActivity=nil;
+		
+		if(insertStmtNewActivity == nil) {
+			
+            const char *sqlNewActivity ="INSERT OR REPLACE INTO Activities(name,activityId,atype,when_act,where_lat,where_lng,where_address,access,numofpeople,updated_at,Distance,ownnerid,dos0,ownername,dos1,dos2,dos3) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            
+			int error = sqlite3_prepare_v2(database, sqlNewActivity, -1, &insertStmtNewActivity, NULL);
+			if(error != SQLITE_OK)
+				NSAssert1(0, @"Error while creating add statement. '%s'", sqlite3_errmsg(database));
+		}
+		
+		sqlite3_bind_text(insertStmtNewActivity, 1, [ActObj.activityName UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(insertStmtNewActivity, 2, ActObj.activityId);
+        
+        sqlite3_bind_int(insertStmtNewActivity, 3, ActObj.type);
+		sqlite3_bind_text(insertStmtNewActivity, 4, [ActObj.when UTF8String], -1, SQLITE_TRANSIENT);
+		sqlite3_bind_text(insertStmtNewActivity, 5, [ActObj.where_lat UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStmtNewActivity, 6, [ActObj.where_lng UTF8String], -1, SQLITE_TRANSIENT);
+		sqlite3_bind_text(insertStmtNewActivity, 7, [ActObj.where_address UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStmtNewActivity,8, [ActObj.access UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(insertStmtNewActivity, 9, ActObj.num_of_people);
+		sqlite3_bind_text(insertStmtNewActivity, 10, [ActObj.updated_at UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStmtNewActivity, 11, [ActObj.distance UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(insertStmtNewActivity, 12, ActObj.organizerId);
+        
+        sqlite3_bind_int(insertStmtNewActivity, 13, ActObj.DOS);
+        sqlite3_bind_text(insertStmtNewActivity,14, [ActObj.organizerName UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(insertStmtNewActivity, 15, ActObj.DOS1);
+        sqlite3_bind_int(insertStmtNewActivity, 16, ActObj.DOS2);
+        sqlite3_bind_int(insertStmtNewActivity, 17, ActObj.DOS3);
+        
+		
+		if(SQLITE_DONE != sqlite3_step(insertStmtNewActivity))
+			NSAssert1(0, @"Error while inserting data. '%s'", sqlite3_errmsg(database));
+		
+		sqlite3_reset(insertStmtNewActivity);
+}
+	
+
     
 
 @end

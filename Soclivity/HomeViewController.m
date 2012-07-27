@@ -47,6 +47,11 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:YES];
+    NSLog(@"viewWillAppear called in HomeViewController");
+    if(SOC.localCacheUpdate){
+        SOC.localCacheUpdate=FALSE;
+        //[activityTableView startPopulatingListView];
+    }
 }
 - (void)viewDidLoad
 {

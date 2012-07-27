@@ -10,7 +10,7 @@
 #import "GetPlayersClass.h"
 #import "FilterPreferenceClass.h"
 @implementation SoclivityManager
-@synthesize delegate,registrationObject,basicInfoDone,currentLocation,loggedInUser,filterObject,AllowTapAndDrag;
+@synthesize delegate,registrationObject,basicInfoDone,currentLocation,loggedInUser,filterObject,AllowTapAndDrag,localCacheUpdate;
 
 
 + (id) SharedInstance {
