@@ -39,7 +39,7 @@
             
             
              //[(UIButton*)subview setTitle:@"Done" forState:UIControlStateNormal];
-            customBackButtom = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 55, 30)];
+            customBackButtom = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 57, 30)];
             [customBackButtom addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
             if(showClearButton){
 

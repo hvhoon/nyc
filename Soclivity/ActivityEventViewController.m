@@ -997,7 +997,7 @@ switch (activityInfo.activityRelationType) {
     editLocationButton.hidden=YES;
     
     
-    eventView.addressSearchBar.text=@"Enter an address or location";
+    eventView.addressSearchBar.text=@"";
     [eventView.addressSearchBar setHidden:NO];
      eventView.labelView.hidden=YES;
 
