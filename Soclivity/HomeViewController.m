@@ -51,6 +51,8 @@
     if(SOC.localCacheUpdate){
         SOC.localCacheUpdate=FALSE;
         [activityTableView startPopulatingListView];
+        [socEventMapView setUpMapAnnotations];
+
     }
 }
 - (void)viewDidLoad

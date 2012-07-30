@@ -333,6 +333,8 @@
 		EA86D2D7156FEDE900E3EABD /* FBSignInInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA86D2D6156FEDE900E3EABD /* FBSignInInvocation.m */; };
 		EA87EDC1157340EE00DE1762 /* UserContactList.m in Sources */ = {isa = PBXBuildFile; fileRef = EA87EDC0157340EE00DE1762 /* UserContactList.m */; };
 		EA87EDC6157346A700DE1762 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA87EDC5157346A700DE1762 /* AddressBook.framework */; };
+		EA884AAD15C6601C00367670 /* PostActivityRequestInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA884AAC15C6601C00367670 /* PostActivityRequestInvocation.m */; };
+		EA884ACE15C6B87600367670 /* PlacemarkClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EA884ACD15C6B87500367670 /* PlacemarkClass.m */; };
 		EA889EAC15B5281100FAABA1 /* DetailedActivityInfoInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA889EAB15B5281100FAABA1 /* DetailedActivityInfoInvocation.m */; };
 		EA893AA715887DFE003FD793 /* CalendarDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA893AA615887DFD003FD793 /* CalendarDateView.m */; };
 		EA8B19471593BC94009C9851 /* S4.1_search-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8B19431593BC94009C9851 /* S4.1_search-bar@2x.png */; };
@@ -985,6 +987,10 @@
 		EA87EDBF157340EE00DE1762 /* UserContactList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserContactList.h; sourceTree = "<group>"; };
 		EA87EDC0157340EE00DE1762 /* UserContactList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserContactList.m; sourceTree = "<group>"; };
 		EA87EDC5157346A700DE1762 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		EA884AAB15C6601C00367670 /* PostActivityRequestInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostActivityRequestInvocation.h; sourceTree = "<group>"; };
+		EA884AAC15C6601C00367670 /* PostActivityRequestInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostActivityRequestInvocation.m; sourceTree = "<group>"; };
+		EA884ACC15C6B87200367670 /* PlacemarkClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacemarkClass.h; sourceTree = "<group>"; };
+		EA884ACD15C6B87500367670 /* PlacemarkClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacemarkClass.m; sourceTree = "<group>"; };
 		EA889EAA15B5281100FAABA1 /* DetailedActivityInfoInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailedActivityInfoInvocation.h; sourceTree = "<group>"; };
 		EA889EAB15B5281100FAABA1 /* DetailedActivityInfoInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailedActivityInfoInvocation.m; sourceTree = "<group>"; };
 		EA893AA515887DFD003FD793 /* CalendarDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDateView.h; sourceTree = "<group>"; };
@@ -1921,6 +1927,15 @@
 			name = "Address Book";
 			sourceTree = "<group>";
 		};
+		EA884AAA15C65FBF00367670 /* Join Cancel Delete Activity Rquest */ = {
+			isa = PBXGroup;
+			children = (
+				EA884AAB15C6601C00367670 /* PostActivityRequestInvocation.h */,
+				EA884AAC15C6601C00367670 /* PostActivityRequestInvocation.m */,
+			);
+			name = "Join Cancel Delete Activity Rquest";
+			sourceTree = "<group>";
+		};
 		EA889EA915B5274100FAABA1 /* Detailed Activity Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -2111,6 +2126,7 @@
 		EA91C324155A71A500BE5BB1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				EA884AAA15C65FBF00367670 /* Join Cancel Delete Activity Rquest */,
 				EA889EA915B5274100FAABA1 /* Detailed Activity Service */,
 				EA976C371584C5EB00474EAF /* Get Activities Service */,
 				EA86D2D3156FEDB500E3EABD /* FB SignIn */,
@@ -2189,6 +2205,8 @@
 				EA85522D15B5DD5000AA44C3 /* ParticipantListTableView.m */,
 				EA863A5415C162790072C005 /* ActivityAnnotation.h */,
 				EA863A5515C162790072C005 /* ActivityAnnotation.m */,
+				EA884ACC15C6B87200367670 /* PlacemarkClass.h */,
+				EA884ACD15C6B87500367670 /* PlacemarkClass.m */,
 			);
 			name = "Detail Activty";
 			sourceTree = "<group>";
@@ -3208,6 +3226,8 @@
 				EA85523415B5DF2300AA44C3 /* IconDownloader.m in Sources */,
 				EA85523715B5E20600AA44C3 /* ParticipantTableViewCell.m in Sources */,
 				EA863A5615C1627A0072C005 /* ActivityAnnotation.m in Sources */,
+				EA884AAD15C6601C00367670 /* PostActivityRequestInvocation.m in Sources */,
+				EA884ACE15C6B87600367670 /* PlacemarkClass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

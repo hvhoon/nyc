@@ -137,18 +137,14 @@
                 goingTextLabel.tag=236;
                 goingTextLabel.backgroundColor=[UIColor clearColor];
                 
-                if(activityInfo.activityRelationType==6){
+                if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount>0){
                 
                     goingCountLabel.text=[NSString stringWithFormat:@"%d",activityInfo.pendingRequestCount];
-                    goingCountLabel.tag=335;
                     goingTextLabel.text=[NSString stringWithFormat:@"REQUESTS"];
                     goingCountLabel.textColor=[UIColor redColor];
                     goingTextLabel.textColor=[UIColor redColor];
 
-
-
-
-                }
+               }
                 
                 [headerView addSubview:goingCountLabel];
                 [headerView addSubview:goingTextLabel];
@@ -793,7 +789,6 @@
     eventView.timeEditArrow.hidden=NO;
     eventView.editMarkerButton.hidden=NO;
     
-    participantListTableView.editingOn=YES;
     [participantListTableView.participantTableView reloadData];
 }
 
@@ -808,8 +803,8 @@
     eventView.calendarDateEditArrow.hidden=YES;
     eventView.timeEditArrow.hidden=YES;
     eventView.editMarkerButton.hidden=YES;
+    [eventView.addressSearchBar resignFirstResponder];
 
-    participantListTableView.editingOn=NO;
     [participantListTableView.participantTableView reloadData];
 
 }
@@ -826,7 +821,7 @@
     eventView.calendarDateEditArrow.hidden=YES;
     eventView.timeEditArrow.hidden=YES;
     eventView.editMarkerButton.hidden=YES;
-    participantListTableView.editingOn=NO;
+     [eventView.addressSearchBar resignFirstResponder];
     [participantListTableView.participantTableView reloadData];
 
 }
@@ -1009,7 +1004,7 @@ switch (activityInfo.activityRelationType) {
     chatButton.hidden=YES;
     editLocationButton.hidden=YES;
     
-    
+    eventView.editMode=TRUE;
     eventView.addressSearchBar.text=@"";
     [eventView.addressSearchBar setHidden:NO];
      eventView.labelView.hidden=YES;
@@ -1028,6 +1023,8 @@ switch (activityInfo.activityRelationType) {
     [eventView hideSearchBarAndAnimateWithListViewInMiddle];
     eventView.labelView.hidden=NO;
     [eventView cancelClicked];
+    eventView.editMode=FALSE;
+
     
 }
 -(IBAction)tickClickedInLocationEdit:(id)sender{
@@ -1039,11 +1036,14 @@ switch (activityInfo.activityRelationType) {
     [eventView.addressSearchBar setHidden:YES];
     [eventView hideSearchBarAndAnimateWithListViewInMiddle];
     eventView.labelView.hidden=NO;
+    eventView.editMode=FALSE;
+
     
     if(eventView.searching){
         eventView.searching=FALSE;
+        //now get the updated result from event view
         [eventView setNewLocation];
-        //now get the updated result from
+        
     }
 
     

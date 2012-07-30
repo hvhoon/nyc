@@ -20,7 +20,7 @@
 @end
 
 @implementation ParticipantListTableView
-@synthesize imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_,noLine,activityLinkIndex,editingOn,tableActivityInfo;
+@synthesize imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_,noLine,activityLinkIndex,tableActivityInfo;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -397,7 +397,7 @@
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if(activityLinkIndex==6 && editingOn){
+    if(activityLinkIndex==6){
     InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
         
         if(play.relationType!=0){
@@ -496,10 +496,9 @@
              else
             count=count-1;
             
-            NSString*going=[NSString stringWithFormat:@"%d",count];
-            NSString*changeCount=[NSString stringWithFormat:@"%d",changeCountTo];
-            [(UILabel*)[self viewWithTag:235] setText:going];
-            [(UILabel*)[self viewWithTag:237] setText:changeCount];
+            self.tableActivityInfo.goingCount=[NSString stringWithFormat:@"%d",count];
+            [(UILabel*)[self viewWithTag:235] setText:self.tableActivityInfo.goingCount];
+            [(UILabel*)[self viewWithTag:237] setText:[NSString stringWithFormat:@"%d",changeCountTo]];
 
             
         }
@@ -512,10 +511,10 @@
                 count=0;
             else
                 count=count-1;
-            NSString*going=[NSString stringWithFormat:@"%d",count];
-            NSString*changeCount=[NSString stringWithFormat:@"%d",changeCountTo];
-            [(UILabel*)[self viewWithTag:235] setText:going];
-            [(UILabel*)[self viewWithTag:240] setText:changeCount];
+            
+            self.tableActivityInfo.goingCount=[NSString stringWithFormat:@"%d",count];
+            [(UILabel*)[self viewWithTag:235] setText:self.tableActivityInfo.goingCount];
+            [(UILabel*)[self viewWithTag:240] setText:[NSString stringWithFormat:@"%d",changeCountTo]];
             
         }
             break;
@@ -528,10 +527,9 @@
             else
                 count=count-1;
             
-            NSString*going=[NSString stringWithFormat:@"%d",count];
-            NSString*changeCount=[NSString stringWithFormat:@"%d",changeCountTo];
-            [(UILabel*)[self viewWithTag:235] setText:going];
-            [(UILabel*)[self viewWithTag:243] setText:changeCount];
+            self.tableActivityInfo.goingCount=[NSString stringWithFormat:@"%d",count];
+            [(UILabel*)[self viewWithTag:235] setText:self.tableActivityInfo.goingCount];
+            [(UILabel*)[self viewWithTag:243] setText:[NSString stringWithFormat:@"%d",changeCountTo]];
             
         }
             break;
@@ -561,9 +559,21 @@
         count=0;
     else
         count=count-1;
+    
+    if(count==0){
+         self.tableActivityInfo.pendingRequestCount=count;
+         self.openSectionIndex = -1;
+         [(UILabel*)[self viewWithTag:235] setText:self.tableActivityInfo.goingCount];
+        [(UILabel*)[self viewWithTag:235] setTextColor:[SoclivityUtilities returnTextFontColor:5]];
+        
+        [(UILabel*)[self viewWithTag:236] setText:@"GOING"];
+        [(UILabel*)[self viewWithTag:236] setTextColor:[SoclivityUtilities returnTextFontColor:5]];
+
+   }else{
     self.tableActivityInfo.pendingRequestCount=count;
     NSString*requestCount=[NSString stringWithFormat:@"%d",count];
-    [(UILabel*)[self viewWithTag:335] setText:requestCount];
+    [(UILabel*)[self viewWithTag:235] setText:requestCount];
+    }
 
 
 }

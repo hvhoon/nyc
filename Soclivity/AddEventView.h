@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "CustomSearchBar.h"
+@class PlacemarkClass;
 @class SoclivityManager;
 @protocol AddEventViewDelegate <NSObject>
 
@@ -58,7 +59,8 @@
     BOOL searching;
     int pointTag;
     SoclivityManager *SOC;
-
+    NSMutableData *responseData;
+    BOOL editMode;
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;
 @property (nonatomic,retain)id <AddEventViewDelegate>delegate;
@@ -71,6 +73,7 @@
 @property (nonatomic,retain)NSMutableArray *_geocodingResults;
 @property (nonatomic,retain)UIView*labelView;
 @property (nonatomic,assign)BOOL searching;
+@property (nonatomic,assign)BOOL editMode;
 -(void)showSearchBarAndAnimateWithListViewInMiddle;
 -(void)ActivityEventOnMap;
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info;
@@ -79,7 +82,11 @@
 -(void)hideSearchBarAndAnimateWithListViewInMiddle;
 - (void) processForwardGeocodingResults:(NSArray *)placemarks;
 - (void) addPinAnnotationForPlacemark:(NSArray*)placemarks;
+#if TESTING
 - (void) zoomMapToPlacemark:(CLPlacemark *)selectedPlacemark;
+#else
+- (void) zoomMapToPlacemark:(PlacemarkClass *)selectedPlacemark;
+#endif
 - (void) geocodeFromSearchBar;
 -(CGFloat) maxDistanceBetweenPoints:(CLLocation*)avgLocation;
 -(CLLocation*)avgLocation;
@@ -88,4 +95,7 @@
 -(void)setNewLocation;
 -(void)CurrentMapZoomUpdate;
 -(void)cancelClicked;
+-(void)openMapUrlApplication;
+- (void) reverseGeocodeCoordinate:(CLLocationCoordinate2D)coord;
+- (void) processReverseGeocodingResults:(NSArray *)placemarks;
 @end

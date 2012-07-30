@@ -34,3 +34,4 @@
 #define kStartScrolling @"StartScrolling"
 #define kCustomRowHeight    50.0
 #define kSectionHeaderHeight    27.0
+#define TESTING 0

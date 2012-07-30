@@ -19,7 +19,6 @@
     InfoActivityClass *tableActivityInfo;
     BOOL noLine;
     int activityLinkIndex;
-    BOOL editingOn;
     
 
 }
@@ -30,7 +29,6 @@
 @property (nonatomic, assign) NSInteger uniformRowHeight;
 @property (nonatomic, retain) NSMutableArray* sectionInfoArray;
 @property (nonatomic,assign)int activityLinkIndex;
-@property (nonatomic,assign)BOOL editingOn;
 @property (nonatomic,retain)InfoActivityClass *tableActivityInfo;
 -(void)sectionHeaderView:(NSInteger)sectionOpened;
 -(void)closeSectionHeaderView:(NSInteger)sectionClosed;

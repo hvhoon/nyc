@@ -16,6 +16,7 @@
 #import "FBSignInInvocation.h"
 #import "GetActivitiesInvocation.h"
 #import "DetailedActivityInfoInvocation.h"
+#import "PostActivityRequestInvocation.h"
 @interface MainServiceManager : SAService{
     
 }
@@ -30,6 +31,7 @@
 -(void)getActivitiesInvocation:(NSInteger)userId latitude:(float)latitude longitude:(float)longitude delegate:(id<GetActivitiesInvocationDelegate>)delegate;
 
 -(void)getDetailedActivityInfoInvocation:(NSInteger)pId actId:(NSInteger)actId latitude:(float)latitude longitude:(float)longitude delegate:(id<DetailedActivityInfoInvocationDelegate>)delegate;
+-(void)postActivityRequestInvocation:(NSInteger) rTag delegate:(id<PostActivityRequestInvocationDelegate>)delegate;
 
 
 @end

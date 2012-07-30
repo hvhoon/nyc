@@ -15,9 +15,10 @@
 #import <CoreLocation/CoreLocation.h>
 #import <AddressBookUI/AddressBookUI.h>
 #import "SoclivitySqliteClass.h"
+#import "PlacemarkClass.h"
 #define METERS_PER_MILE 1609.344
 @implementation AddEventView
-@synthesize activityObject,delegate,calendarDateEditArrow,timeEditArrow,editMarkerButton,mapView,mapAnnotations,addressSearchBar,_geocodingResults,labelView,searching;
+@synthesize activityObject,delegate,calendarDateEditArrow,timeEditArrow,editMarkerButton,mapView,mapAnnotations,addressSearchBar,_geocodingResults,labelView,searching,editMode;
 
 
 #pragma mark -
@@ -356,9 +357,13 @@
     CGPoint startPoint =[touch locationInView:self];
     
     CGRect clearTextRect=CGRectMake(580, 20, 57, 30);
+    CGRect mapURlRect=CGRectMake(370, 10, 270, 60);
     
     NSLog(@"Start Point_X=%f,Start Point_Y=%f",startPoint.x,startPoint.y);
-        
+       
+    if(CGRectContainsPoint(mapURlRect,startPoint)){
+        [self openMapUrlApplication];
+    }
         
     if(activityObject.activityRelationType==6){
         if(CGRectContainsPoint(locationTapRect,startPoint)){
@@ -374,6 +379,13 @@
 }   
 #endif
 
+
+-(void)openMapUrlApplication{
+    NSString *url=[NSString stringWithFormat:@"http://maps.google.com/maps?saddr=%f,%f&daddr=%f,%f",SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude, [activityObject.where_lat floatValue], [activityObject.where_lng floatValue]];
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+
+}
+
 -(void)ActivityEventOnMap{
     SOC=[SoclivityManager SharedInstance];
 
@@ -383,6 +395,12 @@
     self.addressSearchBar.text=@"";
     
     [self CurrentMapZoomUpdate];
+    
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] 
+                                          initWithTarget:self action:@selector(didLongPress:)];
+    lpgr.minimumPressDuration = 2.0; //user needs to press for 2 seconds
+    [self.mapView addGestureRecognizer:lpgr];
+    [lpgr release];
 
     [delegate slideInTransitionToLocationView];
 }
@@ -526,6 +544,74 @@
     }
 }
 
+- (void) didLongPress:(UILongPressGestureRecognizer *)gr {
+    
+    
+    if(!editMode)
+        return;
+    
+    if (gr.state == UIGestureRecognizerStateBegan) {
+        
+        // convert the touch point to a CLLocationCoordinate & geocode
+        CGPoint touchPoint = [gr locationInView:self.mapView];
+        CLLocationCoordinate2D coord = [self.mapView convertPoint:touchPoint 
+                                         toCoordinateFromView:self.mapView];
+        [self reverseGeocodeCoordinate:coord];
+    }
+}
+
+- (void) reverseGeocodeCoordinate:(CLLocationCoordinate2D)coord {
+    if ([_geocoder isGeocoding])
+        [_geocoder cancelGeocode];
+    
+    CLLocation * location = [[CLLocation alloc] initWithLatitude:coord.latitude 
+                                                       longitude:coord.longitude];
+    
+    [_geocoder reverseGeocodeLocation:location
+                    completionHandler:^(NSArray *placemarks, NSError *error) {
+                        if (!error)
+                            [self processReverseGeocodingResults:placemarks];
+                    }];
+}
+
+- (void) processReverseGeocodingResults:(NSArray *)placemarks {
+    
+    [_geocodingResults removeAllObjects];
+          searching=FALSE;
+    
+    if([placemarks count]>0){
+             CLPlacemark * placemark1 = [placemarks objectAtIndex:0];
+            PlacemarkClass *placemark=[[[PlacemarkClass alloc]init]autorelease];
+            placemark.latitude = placemark1.location.coordinate.latitude;
+            placemark.longitude = placemark1.location.coordinate.longitude;
+            
+            placemark.formattedAddress =ABCreateStringWithAddressDictionary(placemark1.addressDictionary, NO);
+          NSString * zipAddress=[NSString stringWithFormat:@"%@ %@ %@",placemark1.subLocality,placemark1.subAdministrativeArea,placemark1.postalCode];
+          placemark.vicinityAddress =zipAddress;
+            [_geocodingResults addObject:placemark];
+    }     
+        if([_geocodingResults count]>0){
+            searching=TRUE;
+            [self.mapView removeAnnotations:self.mapView.annotations];
+            [self addPinAnnotationForPlacemark:_geocodingResults];
+            currentLocationArray =[NSMutableArray arrayWithCapacity:[_geocodingResults count]];
+            currentLocationArray=[_geocodingResults retain];
+            
+            //Zoom in all results.
+            
+            CLLocation* avgLoc = [self ZoomToAllResultPointsOnMap];
+            MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(avgLoc.coordinate.latitude, avgLoc.coordinate.longitude), [self maxDistanceBetweenAllResultPointsOnMap:avgLoc], [self maxDistanceBetweenAllResultPointsOnMap:avgLoc]);
+            MKCoordinateRegion adjustedRegion = [mapView regionThatFits:viewRegion];                
+            [mapView setRegion:adjustedRegion animated:YES];
+            
+        }
+        
+        [self showSearchBarAndAnimateWithListViewInMiddle];
+        [locationResultsTableView reloadData];
+
+}
+
+#if TESTING
 - (void) geocodeFromSearchBar{
     
     
@@ -540,7 +626,54 @@
                   }
      ];
 }
+#else
 
+-(void) geocodeFromSearchBar{
+    // in case of error use api key like 
+    
+    responseData = [[NSMutableData data] retain];
+	 NSString*urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?keyword=%@&location=%f,%f&rankby=distance&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk",[addressSearchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+	
+	
+    // Create NSURL string from formatted string
+	NSURL *url = [NSURL URLWithString:urlString];
+	
+	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
+	
+   [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+#if 0    
+
+	// http://maps.google.com/maps/geo?q=%@&output=csv&key=YourGoogleMapsAPIKey
+    NSString *urlString3 = [NSString stringWithFormat:@"http://maps.google.com/maps/geo?q=%@&output=csv&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk", 
+                           [addressSearchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSString *urlString1 = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/geocode/json?address=Winnetka&bounds=34.172684,-118.604794|34.236144,-118.500938&sensor=false"];
+    
+    
+    NSString *urlString2 = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?keyword=coffee&location=37.16107,-122.806618&rankby=distance&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk"];
+    
+    NSString *locationString = [NSString stringWithContentsOfURL:[NSURL URLWithString:urlString]];
+    NSArray *listItems = [locationString componentsSeparatedByString:@","];
+	
+    double latitude = 0.0;
+    double longitude = 0.0;
+	
+    if([listItems count] >= 4 && [[listItems objectAtIndex:0] isEqualToString:@"200"]) {
+        latitude = [[listItems objectAtIndex:2] doubleValue];
+        longitude = [[listItems objectAtIndex:3] doubleValue];
+    }
+    else {
+		//Show error
+		NSLog(@"error:address not found");
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"ERROR" message:@"Address not found"
+													   delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+		[alert show];	
+		[alert release];		
+    }
+#endif   
+}
+#endif
 - (void) processForwardGeocodingResults:(NSArray *)placemarks {
     [_geocodingResults removeAllObjects];
     
@@ -591,16 +724,87 @@
     [self showSearchBarAndAnimateWithListViewInMiddle];
     [locationResultsTableView reloadData];
 }
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+	[responseData setLength:0];
+}
 
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+	[responseData appendData:data];
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+	
+	NSLog(@"Connection failed: %@", [error description]);
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Internet Connection"
+													message:@"Try Again Later" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+	[alert show];
+	[alert release];
+	return;
+	
+	
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {		
+	[connection release];
+    
+    [_geocodingResults removeAllObjects];
+    searching=FALSE;
+    NSDictionary* resultsd = [[[NSString alloc] initWithData:responseData 
+                                               encoding:NSUTF8StringEncoding] JSONValue];
+    
+     NSDictionary *dict = [resultsd objectForKey:@"results"];
+    
+    for(id object in dict){
+        PlacemarkClass *placemark=[[[PlacemarkClass alloc]init]autorelease];
+        NSDictionary *geometryDict = [object objectForKey:@"geometry"];
+        placemark.latitude = [[[geometryDict objectForKey:@"location"] objectForKey:@"lat"] floatValue];
+        placemark.longitude = [[[geometryDict objectForKey:@"location"] objectForKey:@"lng"] floatValue];
+        
+        placemark.formattedAddress =[object objectForKey:@"name"];
+        placemark.vicinityAddress =[object objectForKey:@"vicinity"];
+        [_geocodingResults addObject:placemark];
+    }
+    
+    if([_geocodingResults count]>0){
+        searching=TRUE;
+        [self.mapView removeAnnotations:self.mapView.annotations];
+        [self addPinAnnotationForPlacemark:_geocodingResults];
+        currentLocationArray =[NSMutableArray arrayWithCapacity:[_geocodingResults count]];
+        currentLocationArray=[_geocodingResults retain];
+        
+        //Zoom in all results.
+        
+        CLLocation* avgLoc = [self ZoomToAllResultPointsOnMap];
+        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(avgLoc.coordinate.latitude, avgLoc.coordinate.longitude), [self maxDistanceBetweenAllResultPointsOnMap:avgLoc], [self maxDistanceBetweenAllResultPointsOnMap:avgLoc]);
+        MKCoordinateRegion adjustedRegion = [mapView regionThatFits:viewRegion];                
+        [mapView setRegion:adjustedRegion animated:YES];
+        
+    }
+    
+    [self showSearchBarAndAnimateWithListViewInMiddle];
+    [locationResultsTableView reloadData];
+
+
+	
+	[responseData release];
+	
+}
 
 -(CLLocation*)ZoomToAllResultPointsOnMap{
     CGFloat xAvg=0;
     CGFloat yAvg=0;
     for (int i=0; i<currentLocationArray.count; i++) {
         
+#if TESTING        
         CLPlacemark * placemark = [currentLocationArray objectAtIndex:i];
         xAvg+=placemark.location.coordinate.latitude;
         yAvg+=placemark.location.coordinate.longitude;
+#else
+  PlacemarkClass * placemark = [currentLocationArray objectAtIndex:i];
+        xAvg+=placemark.latitude;
+        yAvg+=placemark.longitude;
+
+#endif        
     }
     return [[CLLocation alloc] initWithLatitude:xAvg/currentLocationArray.count longitude:yAvg/currentLocationArray.count];
 }
@@ -615,9 +819,16 @@
         
         for (int i=0; i<currentLocationArray.count; i++) {
             
+#if TESTING
             CLPlacemark * placemark = [currentLocationArray objectAtIndex:i];
             newCenter = [[CLLocation alloc] initWithLatitude:placemark.location.coordinate.latitude
                                                    longitude:placemark.location.coordinate.longitude];
+#else
+            PlacemarkClass * placemark = [currentLocationArray objectAtIndex:i];
+            newCenter = [[CLLocation alloc] initWithLatitude:placemark.latitude
+                                                   longitude:placemark.longitude];
+            
+#endif
             distance =(distance>[avgLocation distanceFromLocation:(CLLocation*)newCenter]?distance:[avgLocation distanceFromLocation:(CLLocation*)newCenter]);
         }
         return 2*distance;
@@ -627,20 +838,31 @@
     
     for(int i=0;i<[placemarks count];i++){
         
+#if TESTING        
         CLPlacemark * placemark = [placemarks objectAtIndex:i];
-        
+        NSString * formattedAddress = ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
+        NSString * zipAddress=[NSString stringWithFormat:@"%@ %@ %@",placemark.subLocality,placemark.subAdministrativeArea,placemark.postalCode];
+        CLLocationCoordinate2D theCoordinate=placemark.location.coordinate;
+
+#else
+     PlacemarkClass * placemark = [placemarks objectAtIndex:i];
+        NSString * formattedAddress = [NSString stringWithFormat:@"%@",placemark.formattedAddress];
+        NSString * zipAddress=[NSString stringWithFormat:@"%@",placemark.vicinityAddress];
         CLLocationCoordinate2D theCoordinate;
-        theCoordinate.latitude = [activityObject.where_lat doubleValue];
-        theCoordinate.longitude = [activityObject.where_lng doubleValue];
+        theCoordinate.latitude = placemark.latitude;
+        theCoordinate.longitude =placemark.longitude;
+
+
+#endif        
         
-        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO) address:secondLineAddressLabel.text coordinate:placemark.location.coordinate tagIndex:i]autorelease];
+        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:formattedAddress address:zipAddress coordinate:theCoordinate tagIndex:i]autorelease];
         
         [self.mapView addAnnotation:sfAnnotation];
         
         
     }
 }
-
+#if TESTING
 - (void) zoomMapToPlacemark:(CLPlacemark *)selectedPlacemark {
     CLLocationCoordinate2D coordinate = selectedPlacemark.location.coordinate;
     MKMapPoint mapPoint = MKMapPointForCoordinate(coordinate);
@@ -651,7 +873,23 @@
     [self.mapView setVisibleMapRect:mapRect
                            animated:YES];
 }
+#else
+-(void) zoomMapToPlacemark:(PlacemarkClass *)selectedPlacemark {
+    
+    CLLocationCoordinate2D coordinate;
+    coordinate.latitude = selectedPlacemark.latitude;
+    coordinate.longitude =selectedPlacemark.longitude;
 
+    //CLLocationCoordinate2D coordinate = selectedPlacemark.location.coordinate;
+    MKMapPoint mapPoint = MKMapPointForCoordinate(coordinate);
+    double radius = (MKMapPointsPerMeterAtLatitude(coordinate.latitude) * 2)/2;
+    MKMapSize size = {radius, radius};
+    MKMapRect mapRect = {mapPoint, size};
+    mapRect = MKMapRectOffset(mapRect, -radius/2, -radius/2); // adjust the rect so the coordinate is in the middle
+    [self.mapView setVisibleMapRect:mapRect
+                           animated:YES];
+}
+#endif
 -(CLLocation*)avgLocation{
     CGFloat xAvg=0;
     CGFloat yAvg=0;
@@ -862,10 +1100,16 @@
         cell.textLabel.text=@"No results found";
     }
     if(nodeCount>0){
+#if TESTING        
      CLPlacemark * placemark = [_geocodingResults objectAtIndex:indexPath.row];
-    
-     NSString * formattedAddress = ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
-        
+        NSString * formattedAddress = ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
+        NSString * zipAddress=[NSString stringWithFormat:@"%@ %@ %@",placemark.subLocality,placemark.subAdministrativeArea,placemark.postalCode];
+#else
+      PlacemarkClass * placemark = [_geocodingResults objectAtIndex:indexPath.row];
+      
+        NSString * formattedAddress=placemark.formattedAddress;
+        NSString * zipAddress=placemark.vicinityAddress;
+#endif 
         CGRect addressLabelRect=CGRectMake(35,10,270,14);
         UILabel *addressLabel=[[UILabel alloc] initWithFrame:addressLabelRect];
         addressLabel.textAlignment=UITextAlignmentLeft;
@@ -880,7 +1124,7 @@
         CGRect zipStreetLabelRect=CGRectMake(35,28,270,14);
         UILabel *zipStreetLabel=[[UILabel alloc] initWithFrame:zipStreetLabelRect];
         zipStreetLabel.textAlignment=UITextAlignmentLeft;
-        zipStreetLabel.text=[NSString stringWithFormat:@"%@ %@ %@",placemark.subLocality,placemark.subAdministrativeArea,placemark.postalCode];
+        zipStreetLabel.text=zipAddress;
         zipStreetLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
         zipStreetLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
         zipStreetLabel.backgroundColor=[UIColor clearColor];
@@ -900,9 +1144,14 @@
     UITableViewCell* theCell = [tableView cellForRowAtIndexPath:indexPath];
     
     theCell.contentView.backgroundColor=[SoclivityUtilities returnBackgroundColor:1];
+        
+ #if TESTING       
     CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:indexPath.row];
-
-    [self zoomMapToPlacemark:selectedPlacemark];
+        [self zoomMapToPlacemark:selectedPlacemark];
+#else
+        PlacemarkClass * placemark = [_geocodingResults objectAtIndex:indexPath.row];
+        [self zoomMapToPlacemark:placemark];
+#endif
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
@@ -911,15 +1160,30 @@
 
 -(void)setNewLocation{
     
-    CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
+    #if TESTING
+CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
     activityObject.where_lat=[NSString stringWithFormat:@"%f",selectedPlacemark.location.coordinate.latitude];
     activityObject.where_lng=[NSString stringWithFormat:@"%f",selectedPlacemark.location.coordinate.longitude];
     NSString * formattedAddress = ABCreateStringWithAddressDictionary(selectedPlacemark.addressDictionary, NO);
-    locationInfoLabel1.text=firstALineddressLabel.text=formattedAddress;
-    locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@ %@ %@",selectedPlacemark.subLocality,selectedPlacemark.subAdministrativeArea,selectedPlacemark.postalCode];
-    
+    NSString * zipAddress=[NSString stringWithFormat:@"%@ %@ %@",selectedPlacemark.subLocality,selectedPlacemark.subAdministrativeArea,selectedPlacemark.postalCode];
     CLLocation *tempLocObj = [[CLLocation alloc] initWithLatitude:selectedPlacemark.location.coordinate.latitude
                                                         longitude:selectedPlacemark.location.coordinate.longitude];
+
+
+    #else
+    PlacemarkClass * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
+    activityObject.where_lat=[NSString stringWithFormat:@"%f",selectedPlacemark.latitude];
+    activityObject.where_lng=[NSString stringWithFormat:@"%f",selectedPlacemark.longitude];
+    NSString * formattedAddress = [NSString stringWithFormat:@"%@",selectedPlacemark.formattedAddress];
+    NSString * zipAddress=[NSString stringWithFormat:@"%@",selectedPlacemark.vicinityAddress];
+    CLLocation *tempLocObj = [[CLLocation alloc] initWithLatitude:selectedPlacemark.latitude
+                                                        longitude:selectedPlacemark.longitude];
+
+
+#endif
+    locationInfoLabel1.text=firstALineddressLabel.text=formattedAddress;
+    locationInfoLabel2.text=secondLineAddressLabel.text=zipAddress;
+    
     
     CLLocation *newCenter = [[CLLocation alloc] initWithLatitude:SOC.currentLocation.coordinate.latitude
                                                        longitude:SOC.currentLocation.coordinate.longitude];
