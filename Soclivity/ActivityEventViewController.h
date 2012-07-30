@@ -10,7 +10,8 @@
 #import "AddEventView.h"
 #import "ParticipantListTableView.h"
 @class InfoActivityClass;
-@interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate>{
+@class SoclivityManager;
+@interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate>{
     IBOutlet UIScrollView* scrollView;
     IBOutlet AddEventView *eventView;
     IBOutlet ParticipantListTableView *participantListTableView;
@@ -42,7 +43,7 @@
     BOOL footerActivated;
     IBOutlet UIButton *backToActivityFromMapButton;
     IBOutlet UIButton *editLocationButton;
-    
+    SoclivityManager *SOC;
     IBOutlet UIButton *locationEditLeftCrossButton;
     IBOutlet UIButton *locationEditRightCheckButton;
 }

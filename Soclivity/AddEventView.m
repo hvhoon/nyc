@@ -355,7 +355,7 @@
     UITouch *touch =[touches anyObject]; 
     CGPoint startPoint =[touch locationInView:self];
     
-    
+    CGRect clearTextRect=CGRectMake(580, 20, 57, 30);
     
     NSLog(@"Start Point_X=%f,Start Point_Y=%f",startPoint.x,startPoint.y);
         
@@ -364,6 +364,11 @@
         if(CGRectContainsPoint(locationTapRect,startPoint)){
             [self ActivityEventOnMap];
         }
+        
+        if(CGRectContainsPoint(clearTextRect,startPoint)){
+            [self customCancelButtonHit];
+        }
+
     }
     
 }   

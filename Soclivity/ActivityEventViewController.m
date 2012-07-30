@@ -9,6 +9,9 @@
 #import "ActivityEventViewController.h"
 #import "SoclivityUtilities.h"
 #import "InfoActivityClass.h"
+#import "SoclivitySqliteClass.h"
+#import "SoclivityManager.h"
+#define kDeleteActivity 12
 @implementation ActivityEventViewController
 @synthesize activityInfo,scrollView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -41,7 +44,7 @@
 {
     [super viewDidLoad];
     toggleFriends=TRUE;
-    
+    SOC=[SoclivityManager SharedInstance];
     lastIndex=-1;
     
 
@@ -880,6 +883,16 @@
 }
 -(IBAction)deleteActivtyPressed:(id)sender{
     
+    if(activityInfo.activityRelationType==6){
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Are you sure you want to delete the Activity"
+                                                    message:nil
+                                                   delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancel",nil];
+    alert.tag=kDeleteActivity;
+    [alert show];
+    [alert release];
+    return;
+    }
+
 }
 -(IBAction)cancelRequestButtonPressed:(id)sender{
     
@@ -1035,5 +1048,19 @@ switch (activityInfo.activityRelationType) {
 
     
 }
-
+#pragma mark -
+#pragma mark UIAlertView methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    //[alertView resignFirstResponder];
+    
+    if(alertView.tag==kDeleteActivity){
+        if (buttonIndex == 0) {
+            //delete the Activity
+            SOC.localCacheUpdate=TRUE;
+            [SoclivitySqliteClass deleteActivityRecords:activityInfo.activityId];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
+}
 @end
