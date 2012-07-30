@@ -254,9 +254,9 @@
         [sectionHeaderview addSubview:topDividerLineButton];
     }
     
-    UIImageView *DOSImageView=[[UIImageView alloc]initWithFrame:CGRectMake(30, 7.5, 19, 11)];
+    UIImageView *DOSImageView=[[UIImageView alloc]initWithFrame:CGRectMake(12, 7.5, 19, 11)];
     
-    CGRect DOSLabelRect=CGRectMake(55,7.5,140,12);
+    CGRect DOSLabelRect=CGRectMake(38,7.5,140,12);
     UILabel *DOScountLabel=[[UILabel alloc] initWithFrame:DOSLabelRect];
     DOScountLabel.textAlignment=UITextAlignmentLeft;
     
@@ -270,21 +270,21 @@
         case 0:
         {
             [DOSImageView setHidden:YES];
-            DOScountLabel.frame=CGRectMake(30, 7.5, 240, 12);
+            DOScountLabel.frame=CGRectMake(12, 7.5, 240, 12);
             DOScountLabel.text=[NSString stringWithFormat:@"%d Join Requests",[sectionInfo.play.quotations count]];
         }
             break;
 
         case 1:
         {
-            DOSImageView.image=[UIImage imageNamed:@"S05_smallDOS1.png"];
+            DOSImageView.image=[UIImage imageNamed:@"smallDOS1.png"];
             DOScountLabel.text=[NSString stringWithFormat:@"%d Friends",[sectionInfo.play.quotations count]];
         }
             break;
             
         case 2:
         {
-            DOSImageView.image=[UIImage imageNamed:@"S05_smallDOS2.png"];
+            DOSImageView.image=[UIImage imageNamed:@"smallDOS2.png"];
             DOScountLabel.text=[NSString stringWithFormat:@"%d Friends of friends",[sectionInfo.play.quotations count]];
         }
             break;
@@ -292,7 +292,7 @@
         case 3:
         {
             [DOSImageView setHidden:YES];
-            DOScountLabel.frame=CGRectMake(30, 7.5, 240, 12);
+            DOScountLabel.frame=CGRectMake(12, 7.5, 240, 12);
             DOScountLabel.text=[NSString stringWithFormat:@"%d Others",[sectionInfo.play.quotations count]];
         }
             break;
@@ -347,14 +347,14 @@
         switch (appRecord.dosConnection) {
             case 1:
             {
-                cell.dosConnectionImage=[UIImage imageNamed:@"S05_smallDOS1.png"];
+                cell.dosConnectionImage=[UIImage imageNamed:@"smallDOS1.png"];
             }
                 break;
                 
                 
             case 2:
             {
-                cell.dosConnectionImage=[UIImage imageNamed:@"S05_smallDOS2.png"];
+                cell.dosConnectionImage=[UIImage imageNamed:@"smallDOS2.png"];
                 
             }
                 break;

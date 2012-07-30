@@ -78,10 +78,6 @@
 		686E7AC015B5E3A800A05C7C /* S05_purple-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 686E7A2415B5E3A800A05C7C /* S05_purple-bar@2x.png */; };
 		686E7AC315B5E3A800A05C7C /* S05_red-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 686E7A2715B5E3A800A05C7C /* S05_red-bar.png */; };
 		686E7AC415B5E3A800A05C7C /* S05_red-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 686E7A2815B5E3A800A05C7C /* S05_red-bar@2x.png */; };
-		686E7AC915B5E3A800A05C7C /* S05_smallDOS1.png in Resources */ = {isa = PBXBuildFile; fileRef = 686E7A2D15B5E3A800A05C7C /* S05_smallDOS1.png */; };
-		686E7ACA15B5E3A800A05C7C /* S05_smallDOS1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 686E7A2E15B5E3A800A05C7C /* S05_smallDOS1@2x.png */; };
-		686E7ACB15B5E3A800A05C7C /* S05_smallDOS2.png in Resources */ = {isa = PBXBuildFile; fileRef = 686E7A2F15B5E3A800A05C7C /* S05_smallDOS2.png */; };
-		686E7ACC15B5E3A800A05C7C /* S05_smallDOS2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 686E7A3015B5E3A800A05C7C /* S05_smallDOS2@2x.png */; };
 		686E7ACD15B5E3A800A05C7C /* S05_topbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 686E7A3115B5E3A800A05C7C /* S05_topbar.png */; };
 		686E7ACE15B5E3A800A05C7C /* S05_topbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 686E7A3215B5E3A800A05C7C /* S05_topbar@2x.png */; };
 		686E7ACF15B5E3A800A05C7C /* S05_yellow-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 686E7A3315B5E3A800A05C7C /* S05_yellow-bar.png */; };
@@ -680,10 +676,6 @@
 		686E7A2415B5E3A800A05C7C /* S05_purple-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_purple-bar@2x.png"; sourceTree = "<group>"; };
 		686E7A2715B5E3A800A05C7C /* S05_red-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_red-bar.png"; sourceTree = "<group>"; };
 		686E7A2815B5E3A800A05C7C /* S05_red-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_red-bar@2x.png"; sourceTree = "<group>"; };
-		686E7A2D15B5E3A800A05C7C /* S05_smallDOS1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_smallDOS1.png; sourceTree = "<group>"; };
-		686E7A2E15B5E3A800A05C7C /* S05_smallDOS1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_smallDOS1@2x.png"; sourceTree = "<group>"; };
-		686E7A2F15B5E3A800A05C7C /* S05_smallDOS2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_smallDOS2.png; sourceTree = "<group>"; };
-		686E7A3015B5E3A800A05C7C /* S05_smallDOS2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_smallDOS2@2x.png"; sourceTree = "<group>"; };
 		686E7A3115B5E3A800A05C7C /* S05_topbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_topbar.png; sourceTree = "<group>"; };
 		686E7A3215B5E3A800A05C7C /* S05_topbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_topbar@2x.png"; sourceTree = "<group>"; };
 		686E7A3315B5E3A800A05C7C /* S05_yellow-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_yellow-bar.png"; sourceTree = "<group>"; };
@@ -1552,10 +1544,6 @@
 				686E7A2415B5E3A800A05C7C /* S05_purple-bar@2x.png */,
 				686E7A2715B5E3A800A05C7C /* S05_red-bar.png */,
 				686E7A2815B5E3A800A05C7C /* S05_red-bar@2x.png */,
-				686E7A2D15B5E3A800A05C7C /* S05_smallDOS1.png */,
-				686E7A2E15B5E3A800A05C7C /* S05_smallDOS1@2x.png */,
-				686E7A2F15B5E3A800A05C7C /* S05_smallDOS2.png */,
-				686E7A3015B5E3A800A05C7C /* S05_smallDOS2@2x.png */,
 				686E7A3115B5E3A800A05C7C /* S05_topbar.png */,
 				686E7A3215B5E3A800A05C7C /* S05_topbar@2x.png */,
 				686E7A3315B5E3A800A05C7C /* S05_yellow-bar.png */,
@@ -3028,10 +3016,6 @@
 				686E7AC015B5E3A800A05C7C /* S05_purple-bar@2x.png in Resources */,
 				686E7AC315B5E3A800A05C7C /* S05_red-bar.png in Resources */,
 				686E7AC415B5E3A800A05C7C /* S05_red-bar@2x.png in Resources */,
-				686E7AC915B5E3A800A05C7C /* S05_smallDOS1.png in Resources */,
-				686E7ACA15B5E3A800A05C7C /* S05_smallDOS1@2x.png in Resources */,
-				686E7ACB15B5E3A800A05C7C /* S05_smallDOS2.png in Resources */,
-				686E7ACC15B5E3A800A05C7C /* S05_smallDOS2@2x.png in Resources */,
 				686E7ACD15B5E3A800A05C7C /* S05_topbar.png in Resources */,
 				686E7ACE15B5E3A800A05C7C /* S05_topbar@2x.png in Resources */,
 				686E7ACF15B5E3A800A05C7C /* S05_yellow-bar.png in Resources */,

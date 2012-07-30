@@ -170,7 +170,7 @@
                 [headerView addSubview:DOS_1countLabel];
                 [DOS_1countLabel release];
                 
-                UIImageView *DOS_1ImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_smallDOS1.png"]];
+                UIImageView *DOS_1ImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"smallDOS1.png"]];
                 DOS_1ImageView.frame=CGRectMake(129, delta+11, 19, 11);
                 DOS_1ImageView.tag=238;
                 [headerView addSubview:DOS_1ImageView];
@@ -205,7 +205,7 @@
                 [headerView addSubview:DOS_2countLabel];
                 [DOS_2countLabel release];
                 
-                UIImageView *DOS_2ImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_smallDOS2.png"]];
+                UIImageView *DOS_2ImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"smallDOS2.png"]];
                 DOS_2ImageView.frame=CGRectMake(209, delta+11, 19, 11);
                 DOS_2ImageView.tag=241;
                 [headerView addSubview:DOS_2ImageView];
