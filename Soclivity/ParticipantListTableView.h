@@ -10,7 +10,7 @@
 @class InfoActivityClass;
 #import "IconDownloader.h"
 #import "ParticipantTableViewCell.h"
-@interface ParticipantListTableView : UIView<UITableViewDataSource,UITableViewDelegate,IconDownloaderDelegate,ParticipantTableViewCellDelegate>{
+@interface ParticipantListTableView : UIView<UITableViewDataSource,UITableViewDelegate,IconDownloaderDelegate,ParticipantTableViewCellDelegate,UIGestureRecognizerDelegate>{
     
     IBOutlet UITableView *participantTableView;
     NSMutableDictionary *imageDownloadsInProgress;
@@ -19,6 +19,7 @@
     InfoActivityClass *tableActivityInfo;
     BOOL noLine;
     int activityLinkIndex;
+    BOOL editOn;
     
 
 }

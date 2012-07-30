@@ -361,7 +361,7 @@
     
     NSLog(@"Start Point_X=%f,Start Point_Y=%f",startPoint.x,startPoint.y);
        
-    if(CGRectContainsPoint(mapURlRect,startPoint)){
+    if(CGRectContainsPoint(mapURlRect,startPoint) && !editMode){
         [self openMapUrlApplication];
     }
         
@@ -370,7 +370,7 @@
             [self ActivityEventOnMap];
         }
         
-        if(CGRectContainsPoint(clearTextRect,startPoint)){
+        if(CGRectContainsPoint(clearTextRect,startPoint)&& editMode){
             [self customCancelButtonHit];
         }
 
@@ -577,6 +577,7 @@
 - (void) processReverseGeocodingResults:(NSArray *)placemarks {
     
     [_geocodingResults removeAllObjects];
+    [self.mapView removeAnnotations:self.mapView.annotations];
           searching=FALSE;
     
     if([placemarks count]>0){
@@ -592,7 +593,7 @@
     }     
         if([_geocodingResults count]>0){
             searching=TRUE;
-            [self.mapView removeAnnotations:self.mapView.annotations];
+            
             [self addPinAnnotationForPlacemark:_geocodingResults];
             currentLocationArray =[NSMutableArray arrayWithCapacity:[_geocodingResults count]];
             currentLocationArray=[_geocodingResults retain];
@@ -748,6 +749,8 @@
 	[connection release];
     
     [_geocodingResults removeAllObjects];
+    [self.mapView removeAnnotations:self.mapView.annotations];
+
     searching=FALSE;
     NSDictionary* resultsd = [[[NSString alloc] initWithData:responseData 
                                                encoding:NSUTF8StringEncoding] JSONValue];
@@ -767,7 +770,6 @@
     
     if([_geocodingResults count]>0){
         searching=TRUE;
-        [self.mapView removeAnnotations:self.mapView.annotations];
         [self addPinAnnotationForPlacemark:_geocodingResults];
         currentLocationArray =[NSMutableArray arrayWithCapacity:[_geocodingResults count]];
         currentLocationArray=[_geocodingResults retain];

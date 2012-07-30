@@ -38,6 +38,22 @@
     // Drawing code
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     
+#if 0    
+    //Add a left swipe gesture recognizer
+    UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self 
+                                action:@selector(handleSwipeLeft:)];
+    [recognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
+    [self.participantTableView addGestureRecognizer:recognizer];
+    [recognizer release];    
+    
+    //Add a right swipe gesture recognizer
+    recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self 
+                                                           action:@selector(handleSwipeRight:)];
+    recognizer.delegate = self;
+    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    [self.participantTableView addGestureRecognizer:recognizer];
+    [recognizer release];    
+#endif    
     [participantTableView setRowHeight:kCustomRowHeight];
      participantTableView.scrollEnabled=YES;
     participantTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
@@ -390,6 +406,94 @@
 }
 
 
+
+#if 0
+- (void)handleSwipeLeft:(UISwipeGestureRecognizer *)gestureRecognizer
+{
+    //Get location of the swipe
+    CGPoint location = [gestureRecognizer locationInView:self.participantTableView];
+    
+    //Get the corresponding index path within the table view
+    NSIndexPath *indexPath = [self.participantTableView indexPathForRowAtPoint:location];
+    if(editOn){
+        editOn=FALSE;
+        int tga=((indexPath.section & 0xFFFF) << 16) |
+        (indexPath.row & 0xFFFF);
+        [(UIButton*)[self viewWithTag:tga] setHidden:YES];
+
+    }
+    else
+    //Check if index path is valid
+    if(indexPath)
+    {
+        editOn=TRUE;
+        //Get the cell out of the table view
+        UITableViewCell *cell = [self.participantTableView cellForRowAtIndexPath:indexPath];
+        
+        //Update the cell or model 
+        UIButton *crossButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        crossButton.frame = CGRectMake(12, 15, 18, 17);
+        crossButton.tag=((indexPath.section & 0xFFFF) << 16) |
+        (indexPath.row & 0xFFFF);
+
+        crossButton.backgroundColor = [UIColor clearColor];
+        [crossButton setBackgroundImage:[UIImage imageNamed:@"S05_participantRemove.png"] forState:UIControlStateNormal];
+        
+        
+        
+        [crossButton addTarget:self action:@selector(participantRemoveAction:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:crossButton];  
+
+        
+    }
+}
+
+- (void)handleSwipeRight:(UISwipeGestureRecognizer *)gestureRecognizer
+{
+    //Get location of the swipe
+    CGPoint location = [gestureRecognizer locationInView:self.participantTableView];
+    
+    //Get the corresponding index path within the table view
+    NSIndexPath *indexPath = [self.participantTableView indexPathForRowAtPoint:location];
+    if(editOn){
+        editOn=FALSE;
+        int tga=((indexPath.section & 0xFFFF) << 16) |
+        (indexPath.row & 0xFFFF);
+        [(UIButton*)[self viewWithTag:tga] setHidden:YES];
+    }
+    else
+        //Check if index path is valid
+        if(indexPath)
+        {
+            editOn=TRUE;
+            //Get the cell out of the table view
+            UITableViewCell *cell = [self.participantTableView cellForRowAtIndexPath:indexPath];
+            
+            //Update the cell or model 
+            UIButton *crossButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+            crossButton.frame = CGRectMake(12, 15, 18, 17);
+            crossButton.tag=((indexPath.section & 0xFFFF) << 16) |
+            (indexPath.row & 0xFFFF);
+            
+            crossButton.backgroundColor = [UIColor clearColor];
+            [crossButton setBackgroundImage:[UIImage imageNamed:@"S05_participantRemove.png"] forState:UIControlStateNormal];
+            
+            
+            
+            [crossButton addTarget:self action:@selector(participantRemoveAction:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.contentView addSubview:crossButton];  
+            
+        }
+}
+
+-(void)participantRemoveAction:(UIButton*)sender{
+    NSUInteger section = ((sender.tag >> 16) & 0xFFFF);
+    NSUInteger row     = (sender.tag & 0xFFFF);
+    NSLog(@"Button in section %i on row %i was pressed.", section, row);
+
+}
+#else
+
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return @"Remove";
@@ -398,7 +502,7 @@
 - (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if(activityLinkIndex==6){
-    InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
+        InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
         
         if(play.relationType!=0){
             return UITableViewCellEditingStyleDelete;
@@ -406,12 +510,11 @@
         else{
             return UITableViewCellEditingStyleNone;
         }
-
+        
     }
     else
         return UITableViewCellEditingStyleNone;
 }
-
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
     //service update
@@ -482,7 +585,7 @@
     
     [participantTableView reloadData];	
 }
-
+#endif
 -(void)setTheSectionHeaderCount:(NSInteger)type changeCountTo:(NSInteger)changeCountTo{
     
     switch (type) {
