@@ -211,7 +211,7 @@
     calendarDateLabel.frame = CGRectMake(84, 12+4, 200, 15);
     
     
-    calendarDateEditArrow.frame=CGRectMake(281, 4, 38, 38);
+    calendarDateEditArrow.frame=CGRectMake(291, 12+4, 9, 14);
     
     // Seperator line here
     UIImageView *detailsLineCalendar = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_detailsLine.png"]];
@@ -233,7 +233,7 @@
     activityTimeLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     activityTimeLabel.frame = CGRectMake(84, 57+4, 200, 15);
     
-    timeEditArrow.frame=CGRectMake(281, 49, 38, 38);
+    timeEditArrow.frame=CGRectMake(291, 57+4, 9, 14);
     
     // Seperator line here
     UIImageView *detailsLineTime = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_detailsLine.png"]];
