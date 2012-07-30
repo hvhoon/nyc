@@ -211,7 +211,7 @@
     calendarDateLabel.frame = CGRectMake(84, 12+4, 200, 15);
     
     
-    calendarDateEditArrow.frame=CGRectMake(281, 4, 38, 38);
+    calendarDateEditArrow.frame=CGRectMake(291, 12+4, 9, 14);
     
     // Seperator line here
     UIImageView *detailsLineCalendar = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_detailsLine.png"]];
@@ -233,7 +233,7 @@
     activityTimeLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     activityTimeLabel.frame = CGRectMake(84, 57+4, 200, 15);
     
-    timeEditArrow.frame=CGRectMake(281, 49, 38, 38);
+    timeEditArrow.frame=CGRectMake(291, 57+4, 9, 14);
     
     // Seperator line here
     UIImageView *detailsLineTime = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_detailsLine.png"]];
@@ -287,9 +287,9 @@
             break;
         case 6:
         {
-            firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+            firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:16];
             firstALineddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-            secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+            secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:16];
             secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
 
             locationInfoLabel1.text=info.where_address;
@@ -299,7 +299,7 @@
         }
             break;
     }
-    
+ 
     self.addressSearchBar = [[[CustomSearchbar alloc] initWithFrame:CGRectMake(320,0, 320, 44)] autorelease];
     self.addressSearchBar.delegate = self;
     self.addressSearchBar.CSDelegate=self;
@@ -308,11 +308,10 @@
     }
     
     self.addressSearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.addressSearchBar.placeholder=@"Search";
+    self.addressSearchBar.placeholder=@"Enter an address or location";
     self.addressSearchBar.backgroundImage=[UIImage imageNamed: @"S4.1_search-background.png"];
     [self addSubview:self.addressSearchBar];
     [self.addressSearchBar setHidden:YES];
-    
     
     locationResultsTableView=[[UITableView alloc]initWithFrame:CGRectMake(320, 376, 320, 188) style:UITableViewStylePlain];
     [locationResultsTableView setRowHeight:kCustomRowHeight];

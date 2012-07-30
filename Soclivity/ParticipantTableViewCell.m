@@ -61,10 +61,10 @@ static UIFont *boldText = nil;
     [nameText drawInRect:nameLabelRectP withFont:firstTextFont];
     
     if(relationType==0){
-        rejectRect = CGRectMake(18,13.5, 18, 17);
+        rejectRect = CGRectMake(12,15, 18, 17);
         [leftCrossImage drawInRect:rejectRect];
         
-        approveRect = CGRectMake(266,13.5, 18, 17);
+        approveRect = CGRectMake(278,15, 21, 16);
         [rightCrossImage drawInRect:approveRect];
      
         CGSize  size = [nameText sizeWithFont:firstTextFont];
