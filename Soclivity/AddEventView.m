@@ -420,7 +420,7 @@
     theCoordinate.latitude = [activityObject.where_lat doubleValue];
     theCoordinate.longitude = [activityObject.where_lng doubleValue];
     
-    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:firstALineddressLabel.text address:secondLineAddressLabel.text coordinate:theCoordinate tagIndex:0]autorelease];
+    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:firstALineddressLabel.text address:secondLineAddressLabel.text coordinate:theCoordinate  firtsLine:@" " secondLine:@" " tagIndex:0]autorelease];
     [self.mapAnnotations insertObject:sfAnnotation atIndex:0];
     
     [self.mapView removeAnnotations:self.mapView.annotations];  // remove any annotations that exist
@@ -459,10 +459,12 @@
     
     
     else if ([annotation isKindOfClass:[ActivityAnnotation class]]){
+        
+        ActivityAnnotation *location = (ActivityAnnotation *) annotation;
         static NSString* SFAnnotationIdentifier = @"SFAnnotationIdentifier";
         MKPinAnnotationView* pinView =
         (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:SFAnnotationIdentifier];
-        if (!pinView)
+        //if (!pinView)
         {
             MKAnnotationView *annotationView = [[[MKAnnotationView alloc] initWithAnnotation:annotation
             reuseIdentifier:SFAnnotationIdentifier] autorelease];
@@ -489,23 +491,68 @@
             
             annotationView.image = resizedImage;
             annotationView.opaque = NO;
-            
+            annotationView.leftCalloutAccessoryView=[self DrawAMapLeftAccessoryView:location];
+
             annotationView.canShowCallout=YES;
             
             return annotationView;
         }
-        else
+        /*else
          {
          pinView.annotation = annotation;
-         }
+         }*/
         return pinView;
     }
     
     return nil;
 }
+
+-(UIView*)DrawAMapLeftAccessoryView:(ActivityAnnotation *)locObject{
+	
+    CGSize size;
+    CGSize  size1 = [locObject.businessAdress sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15]];
+    
+    
+    CGSize  size2 = [locObject.infoActivity sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:12]];
+    
+    if(size1.width>size2.width)
+        size=size1;
+    else{
+        size=size2;
+    }
+	UIView *mapLeftView=[[UIView alloc] initWithFrame:CGRectMake(0,0, size.width, 30)];
+	
+	CGRect nameLabelRect=CGRectMake(5,0,size1.width,16);
+	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
+	nameLabel.textAlignment=UITextAlignmentLeft;
+	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
+	nameLabel.textColor=[UIColor whiteColor];
+	nameLabel.backgroundColor=[UIColor clearColor];
+	nameLabel.text=locObject.businessAdress;
+	[mapLeftView addSubview:nameLabel];
+	[nameLabel release];
+	
+    size2 = [locObject.infoActivity sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:12]];
+	CGRect timeLabelRect=CGRectMake(5,17,size2.width,13);
+	UILabel *timeLabel=[[UILabel alloc] initWithFrame:timeLabelRect];
+	timeLabel.textAlignment=UITextAlignmentLeft;
+	timeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
+	timeLabel.textColor=[UIColor whiteColor];
+	timeLabel.backgroundColor=[UIColor clearColor];
+    timeLabel.text=locObject.infoActivity;
+    [mapLeftView addSubview:timeLabel];
+	[timeLabel release];
+	
+	
+	return mapLeftView;
+	
+	
+}
 -(void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view{
     
-    
+    if ([view.annotation isKindOfClass:[MKUserLocation class]]){
+        return;
+    }
     if(searching){
         
         
@@ -513,6 +560,7 @@
         //view.image=[UIImage imageNamed:@"S05.1_map-tag.png"];
         
         pointTag=loc.annotTag;
+        pointTag=pointTag%777;
         NSIndexPath *indexPath=[NSIndexPath indexPathForRow:pointTag inSection:0];
         UITableViewCell* theCell = [locationResultsTableView cellForRowAtIndexPath:indexPath];
         
@@ -527,17 +575,26 @@
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
-    
+
+    if ([view.annotation isKindOfClass:[MKUserLocation class]]){
+        return;
+    }
+
     if(searching){
+
 	ActivityAnnotation *loc=view.annotation;
+        
     //view.image=[UIImage imageNamed:@"S04_location_create.png"];
         
     //now ask the table to scrollAtThat Row in the table and become highlighted    
     pointTag=loc.annotTag;
+    pointTag=pointTag%777;
+
+    NSLog(@"pointTag=%d",pointTag);
     NSIndexPath *indexPath=[NSIndexPath indexPathForRow:pointTag inSection:0];
     UITableViewCell* theCell = [locationResultsTableView cellForRowAtIndexPath:indexPath];
     
-        theCell.contentView.backgroundColor=[SoclivityUtilities returnBackgroundColor:1];
+    theCell.contentView.backgroundColor=[SoclivityUtilities returnBackgroundColor:1];
     [locationResultsTableView deselectRowAtIndexPath:indexPath animated:YES];
         
     [locationResultsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
@@ -677,6 +734,8 @@
 #endif
 - (void) processForwardGeocodingResults:(NSArray *)placemarks {
     [_geocodingResults removeAllObjects];
+    [self.mapView removeAnnotations:self.mapView.annotations];
+
     
     searching=FALSE;
     // check if the location is less than 50 miles
@@ -707,7 +766,6 @@
     
     if([lessThan50Miles count]>0){
         searching=TRUE;
-        [self.mapView removeAnnotations:self.mapView.annotations];
         [self addPinAnnotationForPlacemark:lessThan50Miles];
         currentLocationArray =[NSMutableArray arrayWithCapacity:[lessThan50Miles count]];
         currentLocationArray=[lessThan50Miles retain];
@@ -856,8 +914,8 @@
 
 
 #endif        
-        
-        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:formattedAddress address:zipAddress coordinate:theCoordinate tagIndex:i]autorelease];
+        NSString*tryIndex=[NSString stringWithFormat:@"777%d",i];
+        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:formattedAddress address:zipAddress coordinate:theCoordinate firtsLine:@" " secondLine:@" " tagIndex:[tryIndex intValue]]autorelease];
         
         [self.mapView addAnnotation:sfAnnotation];
         
@@ -963,7 +1021,8 @@
 		
 		// Resize the map.
 		CGRect mapFrame = [self.mapView frame];
-		mapFrame.size.height -= 188;
+		 mapFrame.size.height -= 188;
+         mapFrame.origin.y += 44;
 		[self.mapView setFrame:mapFrame];
         
         CGRect tableViewFrame = [locationResultsTableView frame];
@@ -991,6 +1050,7 @@
 		// Resize the map.
 		CGRect mapFrame = [self.mapView frame];
 		mapFrame.size.height += 188;
+         mapFrame.origin.y -= 44;
 		[self.mapView setFrame:mapFrame];
         
         CGRect tableViewFrame = [locationResultsTableView frame];
@@ -1054,6 +1114,8 @@
 }
 -(void)customCancelButtonHit{
     
+    
+    [self cancelClicked];
     self.addressSearchBar.text=@"";
     self.addressSearchBar.showClearButton=NO;
     [addressSearchBar setShowsCancelButton:NO animated:YES];
@@ -1142,7 +1204,7 @@
     if([_geocodingResults count]>0){ 
         
     searching=TRUE;   
-    pointTag=indexPath.row;
+        pointTag=[[NSString stringWithFormat:@"777%d",indexPath.row]intValue];
     UITableViewCell* theCell = [tableView cellForRowAtIndexPath:indexPath];
     
     theCell.contentView.backgroundColor=[SoclivityUtilities returnBackgroundColor:1];
@@ -1202,6 +1264,29 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
      
 }
 -(void)cancelClicked{
+    
+    
+    if (footerActivated) {
+		[UIView beginAnimations:@"collapseFooter" context:nil];
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationDuration:0.3];
+		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+		
+		
+		// Resize the map.
+		CGRect mapFrame = [self.mapView frame];
+		mapFrame.size.height += 188;
+        mapFrame.origin.y -= 44;
+		[self.mapView setFrame:mapFrame];
+        
+        CGRect tableViewFrame = [locationResultsTableView frame];
+		tableViewFrame.origin.y += 188;
+		[locationResultsTableView setFrame:tableViewFrame];
+        
+        [locationResultsTableView setHidden:YES];
+        [UIView commitAnimations];
+		footerActivated = NO;
+	}
     self.mapView.showsUserLocation=YES;
     searching=FALSE;
     self.addressSearchBar.text=@"";

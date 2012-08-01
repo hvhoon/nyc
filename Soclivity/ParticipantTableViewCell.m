@@ -9,7 +9,7 @@
 #import "ParticipantTableViewCell.h"
 #import "SoclivityUtilities.h"
 @implementation ParticipantTableViewCell
-@synthesize nameText,profileImage,noSeperatorLine,leftCrossImage,rightCrossImage,relationType,dosConnectionImage,cellIndexPath,delegate;
+@synthesize nameText,profileImage,noSeperatorLine,leftCrossImage,rightCrossImage,relationType,dosConnectionImage,cellIndexPath,delegate,swiped;
 static UIFont *firstTextFont = nil;
 static UIFont *secondTextFont = nil;
 static UIFont *boldText = nil;
@@ -72,6 +72,11 @@ static UIFont *boldText = nil;
 
         [dosConnectionImage drawInRect:CGRectMake(100+10+size.width,13.5, 19,11)];
     }
+    if(swiped){
+        rejectRect = CGRectMake(12,15, 18, 17);
+        [[UIImage imageNamed:@"S05_participantRemove.png"] drawInRect:rejectRect];
+        
+    }
     
     if(!noSeperatorLine)
     [[UIImage imageNamed:@"S05_detailsLine.png"] drawInRect:CGRectMake(26,49,272,1)];
@@ -96,7 +101,12 @@ static UIFont *boldText = nil;
     else if(CGRectContainsPoint(approveRect,startPoint)){
         [delegate ApproveRejectSelection:cellIndexPath request:YES];
     }
+        
+    
     }
+//    if(!swiped){
+//        [delegate removeCrossButton:cellIndexPath];
+//    }
     [super touchesBegan:touches withEvent:event];
 }
 @end

@@ -13,19 +13,21 @@
 @synthesize latitude;
 @synthesize longitude;
 @synthesize businessAdress;
-@synthesize infoActivity,annotTag;
+@synthesize infoActivity,annotTag,firstLineAddress,secondLineAddress;
 - (CLLocationCoordinate2D)coordinate;
 {
     return _coordinate; 
 }
 
-- (id)initWithName:(NSString*)name address:(NSString*)address coordinate:(CLLocationCoordinate2D)coordinate tagIndex:(NSInteger)tagIndex{
+- (id)initWithName:(NSString*)name address:(NSString*)address coordinate:(CLLocationCoordinate2D)coordinate firtsLine:(NSString*)firtsLine secondLine: (NSString*)secondLine tagIndex:(NSInteger)tagIndex{
     if ((self = [super init])) {
 		
 		businessAdress = [name copy];
         infoActivity = [address copy];
 		annotTag=tagIndex;
 		_coordinate = coordinate;
+        firstLineAddress=[firtsLine copy];
+        secondLineAddress=[secondLine copy];
         
     }
     return self;
@@ -33,18 +35,22 @@
 - (void)dealloc
 {
     [image release];
+    [firstLineAddress release];
+    [secondLineAddress release];
+    [businessAdress release];
+    [infoActivity release];
     [super dealloc];
 }
 
 - (NSString *)title
 {
-    return businessAdress;
+    return firstLineAddress;
 }
 
 // optional
 - (NSString *)subtitle
 {
-    return infoActivity;
+    return secondLineAddress;
 }
 
 @end

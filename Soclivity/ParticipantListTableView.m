@@ -38,21 +38,13 @@
     // Drawing code
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     
-#if 0    
+#if 1    
     //Add a left swipe gesture recognizer
-    UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self 
-                                action:@selector(handleSwipeLeft:)];
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
-    [self.participantTableView addGestureRecognizer:recognizer];
-    [recognizer release];    
-    
-    //Add a right swipe gesture recognizer
-    recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self 
-                                                           action:@selector(handleSwipeRight:)];
-    recognizer.delegate = self;
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [self.participantTableView addGestureRecognizer:recognizer];
-    [recognizer release];    
+	UISwipeGestureRecognizer * swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(cellWasSwiped:)];
+	[swipeRecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft |
+								   UISwipeGestureRecognizerDirectionRight)];
+	[self.participantTableView addGestureRecognizer:swipeRecognizer];
+	[swipeRecognizer release];
 #endif    
     [participantTableView setRowHeight:kCustomRowHeight];
      participantTableView.scrollEnabled=YES;
@@ -407,68 +399,46 @@
 
 
 
-#if 0
-- (void)handleSwipeLeft:(UISwipeGestureRecognizer *)gestureRecognizer
+#if 1
+
+
+
+- (void)cellWasSwiped:(UISwipeGestureRecognizer *)gestureRecognizer
 {
     //Get location of the swipe
     CGPoint location = [gestureRecognizer locationInView:self.participantTableView];
     
     //Get the corresponding index path within the table view
     NSIndexPath *indexPath = [self.participantTableView indexPathForRowAtPoint:location];
-    if(editOn){
-        editOn=FALSE;
-        int tga=((indexPath.section & 0xFFFF) << 16) |
-        (indexPath.row & 0xFFFF);
-        [(UIButton*)[self viewWithTag:tga] setHidden:YES];
-
-    }
-    else
-    //Check if index path is valid
-    if(indexPath)
-    {
-        editOn=TRUE;
-        //Get the cell out of the table view
-        UITableViewCell *cell = [self.participantTableView cellForRowAtIndexPath:indexPath];
-        
-        //Update the cell or model 
-        UIButton *crossButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        crossButton.frame = CGRectMake(12, 15, 18, 17);
-        crossButton.tag=((indexPath.section & 0xFFFF) << 16) |
-        (indexPath.row & 0xFFFF);
-
-        crossButton.backgroundColor = [UIColor clearColor];
-        [crossButton setBackgroundImage:[UIImage imageNamed:@"S05_participantRemove.png"] forState:UIControlStateNormal];
-        
-        
-        
-        [crossButton addTarget:self action:@selector(participantRemoveAction:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.contentView addSubview:crossButton];  
-
-        
-    }
-}
-
-- (void)handleSwipeRight:(UISwipeGestureRecognizer *)gestureRecognizer
-{
-    //Get location of the swipe
-    CGPoint location = [gestureRecognizer locationInView:self.participantTableView];
-    
-    //Get the corresponding index path within the table view
-    NSIndexPath *indexPath = [self.participantTableView indexPathForRowAtPoint:location];
-    if(editOn){
-        editOn=FALSE;
-        int tga=((indexPath.section & 0xFFFF) << 16) |
-        (indexPath.row & 0xFFFF);
-        [(UIButton*)[self viewWithTag:tga] setHidden:YES];
-    }
-    else
         //Check if index path is valid
         if(indexPath)
         {
-            editOn=TRUE;
-            //Get the cell out of the table view
-            UITableViewCell *cell = [self.participantTableView cellForRowAtIndexPath:indexPath];
             
+            lastIndexPath=indexPath;
+            //Get the cell out of the table view
+            ParticipantTableViewCell *cell = (ParticipantTableViewCell*)[self.participantTableView cellForRowAtIndexPath:indexPath];
+            
+            if(swipeOn && cell.swiped){
+                cell.swiped=NO;
+                swipeOn=FALSE;
+                
+            }
+            else if(swipeOn && !cell.swiped){
+                ParticipantTableViewCell *cell1 = (ParticipantTableViewCell*)[self.participantTableView cellForRowAtIndexPath:lastIndexPath];
+                cell1.swiped=NO;
+                swipeOn=FALSE;
+
+            }
+            else{
+                swipeOn=YES;
+                cell.swiped=YES;
+                
+            }
+            
+            
+           
+            [participantTableView reloadData];
+#if 0           
             //Update the cell or model 
             UIButton *crossButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
             crossButton.frame = CGRectMake(12, 15, 18, 17);
@@ -481,11 +451,35 @@
             
             
             [crossButton addTarget:self action:@selector(participantRemoveAction:) forControlEvents:UIControlEventTouchUpInside];
-            [cell.contentView addSubview:crossButton];  
+            [cell.contentView addSubview:crossButton];
+#endif            
             
         }
 }
+-(void)removeCrossButton:(NSIndexPath*)indexPath{
+    ParticipantTableViewCell *cell = (ParticipantTableViewCell*)[self.participantTableView cellForRowAtIndexPath:indexPath];
+    //if([lastIndexPath isEqual:indexPath]){
+        cell.swiped=NO;
+       
+    //}
+    [participantTableView reloadData];
 
+}
+
+-(void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+    
+    ParticipantTableViewCell *cell = (ParticipantTableViewCell*)[self.participantTableView cellForRowAtIndexPath:indexPath];
+    
+    if(swipeOn && cell.swiped){
+        cell.swiped=NO;
+        swipeOn=FALSE;
+        [participantTableView reloadData];
+        
+    }
+
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSLog(@"didSelectRowAtIndexPath");
+}
 -(void)participantRemoveAction:(UIButton*)sender{
     NSUInteger section = ((sender.tag >> 16) & 0xFFFF);
     NSUInteger row     = (sender.tag & 0xFFFF);
@@ -681,12 +675,7 @@
 
 }
 
-#pragma mark -
-#pragma mark Table cell image support
 
--(void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
 
 #pragma mark -
 #pragma mark Table cell image support

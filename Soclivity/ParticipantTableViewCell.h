@@ -13,6 +13,7 @@
 
 @optional
 -(void)ApproveRejectSelection:(NSIndexPath*)indexPath request:(BOOL)request;
+-(void)removeCrossButton:(NSIndexPath*)indexPath;
 @end
 
 
@@ -29,6 +30,7 @@
     UIImage*dosConnectionImage;
     NSIndexPath *cellIndexPath;
     id <ParticipantTableViewCellDelegate>delegate;
+    BOOL swiped;
 }
 @property (nonatomic,retain) NSString *nameText;
 @property (nonatomic,retain)UIImage *profileImage;
@@ -38,5 +40,6 @@
 @property (nonatomic,assign)NSInteger relationType;
 @property (nonatomic,retain) UIImage*dosConnectionImage;
 @property (nonatomic,retain)NSIndexPath *cellIndexPath;
+@property (nonatomic,assign)BOOL swiped;
 @property (nonatomic,retain)id <ParticipantTableViewCellDelegate>delegate;
 @end

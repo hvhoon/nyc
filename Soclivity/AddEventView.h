@@ -11,6 +11,7 @@
 #import "CustomSearchBar.h"
 @class PlacemarkClass;
 @class SoclivityManager;
+@class ActivityAnnotation;
 @protocol AddEventViewDelegate <NSObject>
 
 @optional
@@ -98,4 +99,5 @@
 -(void)openMapUrlApplication;
 - (void) reverseGeocodeCoordinate:(CLLocationCoordinate2D)coord;
 - (void) processReverseGeocodingResults:(NSArray *)placemarks;
+-(UIView*)DrawAMapLeftAccessoryView:(ActivityAnnotation *)locObject;
 @end

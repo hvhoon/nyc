@@ -19,7 +19,8 @@
     InfoActivityClass *tableActivityInfo;
     BOOL noLine;
     int activityLinkIndex;
-    BOOL editOn;
+    NSIndexPath *lastIndexPath;
+    BOOL swipeOn;
     
 
 }
