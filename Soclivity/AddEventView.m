@@ -520,6 +520,9 @@
     else{
         size=size2;
     }
+    if(size.width>310){
+        size.width=310;
+    }
 	UIView *mapLeftView=[[UIView alloc] initWithFrame:CGRectMake(0,0, size.width, 30)];
 	
 	CGRect nameLabelRect=CGRectMake(5,0,size1.width,16);

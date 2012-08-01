@@ -11,6 +11,7 @@
 #import "SoclivityUtilities.h"
 #import "SectionInfo.h"
 #import "InfoActivityClass.h"
+#define  SWIPE_CELL 0
 #pragma mark -
 
 @interface ParticipantListTableView ()
@@ -38,7 +39,7 @@
     // Drawing code
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     
-#if 1    
+#if SWIPE_CELL    
     //Add a left swipe gesture recognizer
 	UISwipeGestureRecognizer * swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(cellWasSwiped:)];
 	[swipeRecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft |
@@ -399,7 +400,7 @@
 
 
 
-#if 1
+#if SWIPE_CELL
 
 
 
@@ -466,20 +467,7 @@
 
 }
 
--(void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    
-    ParticipantTableViewCell *cell = (ParticipantTableViewCell*)[self.participantTableView cellForRowAtIndexPath:indexPath];
-    
-    if(swipeOn && cell.swiped){
-        cell.swiped=NO;
-        swipeOn=FALSE;
-        [participantTableView reloadData];
-        
-    }
 
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSLog(@"didSelectRowAtIndexPath");
-}
 -(void)participantRemoveAction:(UIButton*)sender{
     NSUInteger section = ((sender.tag >> 16) & 0xFFFF);
     NSUInteger row     = (sender.tag & 0xFFFF);
@@ -508,6 +496,22 @@
     }
     else
         return UITableViewCellEditingStyleNone;
+}
+
+-(void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+    
+#if SWIPE_CELL
+    ParticipantTableViewCell *cell = (ParticipantTableViewCell*)[self.participantTableView cellForRowAtIndexPath:indexPath];
+    
+    if(swipeOn && cell.swiped){
+        cell.swiped=NO;
+        swipeOn=FALSE;
+        [participantTableView reloadData];
+        
+    }
+#endif
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSLog(@"didSelectRowAtIndexPath");
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -594,7 +598,8 @@
             count=count-1;
             
             self.tableActivityInfo.goingCount=[NSString stringWithFormat:@"%d",count];
-            [(UILabel*)[self viewWithTag:235] setText:self.tableActivityInfo.goingCount];
+            if(self.tableActivityInfo.pendingRequestCount==0)
+              [(UILabel*)[self viewWithTag:235] setText:self.tableActivityInfo.goingCount];
             [(UILabel*)[self viewWithTag:237] setText:[NSString stringWithFormat:@"%d",changeCountTo]];
 
             
@@ -610,6 +615,7 @@
                 count=count-1;
             
             self.tableActivityInfo.goingCount=[NSString stringWithFormat:@"%d",count];
+            if(self.tableActivityInfo.pendingRequestCount==0)
             [(UILabel*)[self viewWithTag:235] setText:self.tableActivityInfo.goingCount];
             [(UILabel*)[self viewWithTag:240] setText:[NSString stringWithFormat:@"%d",changeCountTo]];
             
@@ -625,6 +631,7 @@
                 count=count-1;
             
             self.tableActivityInfo.goingCount=[NSString stringWithFormat:@"%d",count];
+            if(self.tableActivityInfo.pendingRequestCount==0)
             [(UILabel*)[self viewWithTag:235] setText:self.tableActivityInfo.goingCount];
             [(UILabel*)[self viewWithTag:243] setText:[NSString stringWithFormat:@"%d",changeCountTo]];
             
