@@ -53,8 +53,7 @@
 
         [profileViewControllerDictionary setObject:[ProfileViewController class] forKey:kSlideViewControllerViewControllerClassKey];
         
-        if([SOC.loggedInUser.profileImageData length]==0)
-             SOC.loggedInUser.profileImageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:SOC.loggedInUser.profileImageUrl]];
+        SOC.loggedInUser.profileImageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:SOC.loggedInUser.profileImageUrl]];
         UIImage* image = [[[UIImage alloc] initWithData:SOC.loggedInUser.profileImageData ] autorelease];
         if(image.size.height != image.size.width)
             image = [SoclivityUtilities autoCrop:image];
@@ -63,7 +62,7 @@
         if(image.size.height > 50 || image.size.width > 50)
             image = [SoclivityUtilities compressImage:image size:CGSizeMake(50,50)];
     
-
+        if(SOC.loggedInUser.profileImageData.length!=0)
         [profileViewControllerDictionary setObject:image forKey:kSlideViewControllerViewControllerIconKey];
         
         

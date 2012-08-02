@@ -17,6 +17,7 @@
 @optional
 -(void)pushToHomeViewController;
 -(void)slideInTransitionToLocationView;
+-(void)enableDisableTickOnTheTopRight:(BOOL)show;
 @end
 
 
@@ -44,9 +45,19 @@
     IBOutlet UIButton*timeEditArrow;
     IBOutlet UIButton*editMarkerButton;
     
-    IBOutlet UIButton *currentLocationInMap;
+    
+    IBOutlet UIImageView *leftPinImageView;
+    IBOutlet UIImageView *leftMagifyImageView;
     IBOutlet UILabel *firstALineddressLabel;
     IBOutlet UILabel *secondLineAddressLabel;
+    IBOutlet UILabel *searchTextLabel;
+    IBOutlet UILabel *placeAndAddressLabel;
+    
+    IBOutlet UIImageView *verticalMiddleLine;
+    IBOutlet UIImageView *rightPinImageView;
+    IBOutlet UILabel *dropPinLabel;
+    IBOutlet UILabel *touchAndHoldMapLabel;
+
     IBOutlet MKMapView *mapView;
     CGRect locationTapRect;
     NSMutableArray *mapAnnotations;
@@ -62,6 +73,7 @@
     SoclivityManager *SOC;
     NSMutableData *responseData;
     BOOL editMode;
+    BOOL pinDrop;
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;
 @property (nonatomic,retain)id <AddEventViewDelegate>delegate;
@@ -78,7 +90,6 @@
 -(void)showSearchBarAndAnimateWithListViewInMiddle;
 -(void)ActivityEventOnMap;
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info;
--(IBAction)currentLocationBtnClicked:(id)sender;
 - (void)gotoLocation;
 -(void)hideSearchBarAndAnimateWithListViewInMiddle;
 - (void) processForwardGeocodingResults:(NSArray *)placemarks;
@@ -100,4 +111,5 @@
 - (void) reverseGeocodeCoordinate:(CLLocationCoordinate2D)coord;
 - (void) processReverseGeocodingResults:(NSArray *)placemarks;
 -(UIView*)DrawAMapLeftAccessoryView:(ActivityAnnotation *)locObject;
+-(void)setUpLabelViewElements:(BOOL)show;
 @end

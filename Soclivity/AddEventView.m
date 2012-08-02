@@ -17,6 +17,7 @@
 #import "SoclivitySqliteClass.h"
 #import "PlacemarkClass.h"
 #define METERS_PER_MILE 1609.344
+#define LISTVIEWREMOVE 0
 @implementation AddEventView
 @synthesize activityObject,delegate,calendarDateEditArrow,timeEditArrow,editMarkerButton,mapView,mapAnnotations,addressSearchBar,_geocodingResults,labelView,searching,editMode;
 
@@ -288,7 +289,7 @@
             break;
         case 6:
         {
-            firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:16];
+            firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:16];
             firstALineddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
             secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:16];
             secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -309,11 +310,13 @@
     }
     
     self.addressSearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.addressSearchBar.placeholder=@"Enter an address or location";
+    self.addressSearchBar.placeholder=@"Place or Address";
     self.addressSearchBar.backgroundImage=[UIImage imageNamed: @"S4.1_search-background.png"];
     [self addSubview:self.addressSearchBar];
     [self.addressSearchBar setHidden:YES];
     
+    
+#if LISTVIEWREMOVE    
     locationResultsTableView=[[UITableView alloc]initWithFrame:CGRectMake(320, 376, 320, 188) style:UITableViewStylePlain];
     [locationResultsTableView setRowHeight:kCustomRowHeight];
     locationResultsTableView.scrollEnabled=YES;
@@ -325,6 +328,7 @@
     locationResultsTableView.clipsToBounds=YES;
     [self addSubview:locationResultsTableView];
     [locationResultsTableView setHidden:YES];
+#endif    
 }
 
 
@@ -362,7 +366,7 @@
     NSLog(@"Start Point_X=%f,Start Point_Y=%f",startPoint.x,startPoint.y);
        
     if(CGRectContainsPoint(mapURlRect,startPoint) && !editMode){
-        [self openMapUrlApplication];
+        //[self openMapUrlApplication];
     }
         
     if(activityObject.activityRelationType==6){
@@ -386,8 +390,60 @@
 
 }
 
+-(void)setUpLabelViewElements:(BOOL)show{
+    
+    
+    if(show){
+        
+    [self.mapView removeAnnotations:self.mapView.annotations];
+
+    firstALineddressLabel.hidden=YES;
+    secondLineAddressLabel.hidden=YES;
+    leftPinImageView.hidden=YES;
+    searchTextLabel.hidden=NO;
+    placeAndAddressLabel.hidden=NO;
+
+    dropPinLabel.hidden=NO;
+    touchAndHoldMapLabel.hidden=NO;
+    verticalMiddleLine.hidden=NO;
+    leftMagifyImageView.hidden=NO;
+    rightPinImageView.hidden=NO;
+    }
+    else{
+        
+        firstALineddressLabel.hidden=NO;
+        secondLineAddressLabel.hidden=NO;
+        leftPinImageView.hidden=NO;
+        searchTextLabel.hidden=YES;
+        placeAndAddressLabel.hidden=YES;
+        
+        dropPinLabel.hidden=YES;
+        touchAndHoldMapLabel.hidden=YES;
+        verticalMiddleLine.hidden=YES;
+        leftMagifyImageView.hidden=YES;
+        rightPinImageView.hidden=YES;
+        
+    }
+
+}
 -(void)ActivityEventOnMap{
     SOC=[SoclivityManager SharedInstance];
+    
+    leftMagifyImageView.hidden=YES;
+
+    searchTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
+    searchTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    
+    placeAndAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
+    placeAndAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    
+    dropPinLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
+    dropPinLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    
+    touchAndHoldMapLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
+    touchAndHoldMapLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+
+
 
     self.mapView.mapType = MKMapTypeStandard;
     self.mapView.showsUserLocation=YES;
@@ -439,9 +495,7 @@
     
     [self.mapView setRegion:newRegion animated:YES];
 }
--(IBAction)currentLocationBtnClicked:(id)sender{
-    [self gotoLocation];
-}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -462,13 +516,14 @@
         
         ActivityAnnotation *location = (ActivityAnnotation *) annotation;
         static NSString* SFAnnotationIdentifier = @"SFAnnotationIdentifier";
+        static NSString* ActivityAnnotationIdentifier = @"ActivityAnnotationIdentifier";
         MKPinAnnotationView* pinView =
         (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:SFAnnotationIdentifier];
         //if (!pinView)
         {
             MKAnnotationView *annotationView = [[[MKAnnotationView alloc] initWithAnnotation:annotation
-            reuseIdentifier:SFAnnotationIdentifier] autorelease];
-            UIImage *flagImage=[UIImage imageNamed:@"S05.1_map-tag.png"];
+            reuseIdentifier:ActivityAnnotationIdentifier] autorelease];
+            UIImage *flagImage=[UIImage imageNamed:@"S05.1_pinUnselected.png"];
             
             
             CGRect resizeRect;
@@ -494,7 +549,7 @@
             annotationView.leftCalloutAccessoryView=[self DrawAMapLeftAccessoryView:location];
 
             annotationView.canShowCallout=YES;
-            
+            pinView.animatesDrop=YES;
             return annotationView;
         }
         /*else
@@ -506,6 +561,23 @@
     
     return nil;
 }
+
+
+- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views{
+    
+    if(pinDrop){
+        
+        pinDrop=FALSE;
+        [self.mapView selectAnnotation:[[self.mapView annotations] lastObject] animated:YES];
+    for (id<MKAnnotation> currentAnnotation in self.mapView.annotations) {       
+        if ([currentAnnotation isKindOfClass:[ActivityAnnotation class]]) {
+            //[self.mapView selectAnnotation:currentAnnotation animated:YES];
+            //[self.mapView selectAnnotation:[[self.mapView annotations] lastObject] animated:YES];
+        }
+    }
+    }
+}
+
 
 -(UIView*)DrawAMapLeftAccessoryView:(ActivityAnnotation *)locObject{
 	
@@ -520,8 +592,10 @@
     else{
         size=size2;
     }
-    if(size.width>310){
-        size.width=310;
+    if(size.width>280){
+        size.width=280;
+        size1.width=280;
+        size2.width=280;
     }
 	UIView *mapLeftView=[[UIView alloc] initWithFrame:CGRectMake(0,0, size.width, 30)];
 	
@@ -560,10 +634,16 @@
         
         
         ActivityAnnotation *loc=view.annotation;
-        //view.image=[UIImage imageNamed:@"S05.1_map-tag.png"];
+        view.image=[UIImage imageNamed:@"S05.1_pinUnselected.png"];
         
         pointTag=loc.annotTag;
         pointTag=pointTag%777;
+        
+        firstALineddressLabel.text=@"Pick a Location";
+        secondLineAddressLabel.text=@"Select a pin above to see it's full address";
+        [delegate enableDisableTickOnTheTopRight:NO];
+        
+#if LISTVIEWREMOVE       
         NSIndexPath *indexPath=[NSIndexPath indexPathForRow:pointTag inSection:0];
         UITableViewCell* theCell = [locationResultsTableView cellForRowAtIndexPath:indexPath];
         
@@ -571,6 +651,7 @@
         [locationResultsTableView deselectRowAtIndexPath:indexPath animated:YES];
         
         [locationResultsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+#endif        
     }
 
     
@@ -587,13 +668,19 @@
 
 	ActivityAnnotation *loc=view.annotation;
         
-    //view.image=[UIImage imageNamed:@"S04_location_create.png"];
+    view.image=[UIImage imageNamed:@"S05.1_pinSelected.png"];
         
     //now ask the table to scrollAtThat Row in the table and become highlighted    
     pointTag=loc.annotTag;
     pointTag=pointTag%777;
 
     NSLog(@"pointTag=%d",pointTag);
+    firstALineddressLabel.text=loc.businessAdress;
+    secondLineAddressLabel.text=loc.infoActivity;
+    [delegate enableDisableTickOnTheTopRight:YES];
+
+    
+#if LISTVIEWREMOVE        
     NSIndexPath *indexPath=[NSIndexPath indexPathForRow:pointTag inSection:0];
     UITableViewCell* theCell = [locationResultsTableView cellForRowAtIndexPath:indexPath];
     
@@ -601,6 +688,7 @@
     [locationResultsTableView deselectRowAtIndexPath:indexPath animated:YES];
         
     [locationResultsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+#endif        
     }
 }
 
@@ -654,6 +742,7 @@
         if([_geocodingResults count]>0){
             searching=TRUE;
             
+            pinDrop=TRUE;
             [self addPinAnnotationForPlacemark:_geocodingResults];
             currentLocationArray =[NSMutableArray arrayWithCapacity:[_geocodingResults count]];
             currentLocationArray=[_geocodingResults retain];
@@ -665,10 +754,18 @@
             MKCoordinateRegion adjustedRegion = [mapView regionThatFits:viewRegion];                
             [mapView setRegion:adjustedRegion animated:YES];
             
+            [self setUpLabelViewElements:NO];
+            firstALineddressLabel.text=@"Pick a Location";
+            secondLineAddressLabel.text=@"Select a pin above to see it's full address";
+
+            
         }
         
         [self showSearchBarAndAnimateWithListViewInMiddle];
+#if LISTVIEWREMOVE
+        
         [locationResultsTableView reloadData];
+#endif    
 
 }
 
@@ -784,7 +881,10 @@
     }
     
     [self showSearchBarAndAnimateWithListViewInMiddle];
+#if LISTVIEWREMOVE
+    
     [locationResultsTableView reloadData];
+#endif    
 }
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
 	[responseData setLength:0];
@@ -842,11 +942,17 @@
         MKCoordinateRegion adjustedRegion = [mapView regionThatFits:viewRegion];                
         [mapView setRegion:adjustedRegion animated:YES];
         
+        [self setUpLabelViewElements:NO];
+        firstALineddressLabel.text=@"Pick a Location";
+        secondLineAddressLabel.text=@"Select a pin above to see it's full address";
+        
     }
     
     [self showSearchBarAndAnimateWithListViewInMiddle];
+    
+#if LISTVIEWREMOVE
     [locationResultsTableView reloadData];
-
+#endif
 
 	
 	[responseData release];
@@ -1012,9 +1118,10 @@
 }
 
 -(void)showSearchBarAndAnimateWithListViewInMiddle{
-    
+
+#if LISTVIEWREMOVE 
     [locationResultsTableView setHidden:NO];
-    
+#endif    
     if (!footerActivated) {
 		[UIView beginAnimations:@"expandFooter" context:nil];
 		[UIView setAnimationDelegate:self];
@@ -1024,17 +1131,16 @@
 		
 		// Resize the map.
 		CGRect mapFrame = [self.mapView frame];
-		 mapFrame.size.height -= 188;
-         mapFrame.origin.y += 44;
+		 mapFrame.origin.y += 44;
+         mapFrame.size.height-=60;
 		[self.mapView setFrame:mapFrame];
-        
+#if LISTVIEWREMOVE        
         CGRect tableViewFrame = [locationResultsTableView frame];
 		tableViewFrame.origin.y -= 188;
 		[locationResultsTableView setFrame:tableViewFrame];
-
+#endif
         
         [self.addressSearchBar setHidden:NO];
-        labelView.hidden=YES;
         
 		[UIView commitAnimations];
 		footerActivated = YES;
@@ -1052,19 +1158,19 @@
 		
 		// Resize the map.
 		CGRect mapFrame = [self.mapView frame];
-		mapFrame.size.height += 188;
-         mapFrame.origin.y -= 44;
+		mapFrame.origin.y -= 44;
+        mapFrame.size.height+=60;
+
 		[self.mapView setFrame:mapFrame];
-        
+#if LISTVIEWREMOVE        
         CGRect tableViewFrame = [locationResultsTableView frame];
 		tableViewFrame.origin.y += 188;
 		[locationResultsTableView setFrame:tableViewFrame];
         
         [locationResultsTableView setHidden:YES];
-
+#endif
         
         [self.addressSearchBar setHidden:YES];
-        labelView.hidden=NO;
 
 		[UIView commitAnimations];
 		footerActivated = NO;
@@ -1118,14 +1224,18 @@
 -(void)customCancelButtonHit{
     
     
-    [self cancelClicked];
+    //[self cancelClicked];
+    searching=FALSE;
     self.addressSearchBar.text=@"";
     self.addressSearchBar.showClearButton=NO;
     [addressSearchBar setShowsCancelButton:NO animated:YES];
     [self.addressSearchBar resignFirstResponder];
+    [self setUpLabelViewElements:YES];
+    [delegate enableDisableTickOnTheTopRight:NO];
+
 }
 
-
+#if LISTVIEWREMOVE
 #pragma mark Table view data source and delegate
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
@@ -1224,7 +1334,7 @@
 
     
 }
-
+#endif
 -(void)setNewLocation{
     
     #if TESTING
@@ -1281,12 +1391,13 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
 		mapFrame.size.height += 188;
         mapFrame.origin.y -= 44;
 		[self.mapView setFrame:mapFrame];
-        
+#if LISTVIEWREMOVE       
         CGRect tableViewFrame = [locationResultsTableView frame];
 		tableViewFrame.origin.y += 188;
 		[locationResultsTableView setFrame:tableViewFrame];
         
         [locationResultsTableView setHidden:YES];
+#endif        
         [UIView commitAnimations];
 		footerActivated = NO;
 	}

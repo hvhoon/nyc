@@ -947,12 +947,18 @@ switch (activityInfo.activityRelationType) {
 }
 -(void)slideInTransitionToLocationView{
     
+    
+    if(activityInfo.activityRelationType==6)
+      editButtonForMapView.hidden=NO;//check for organizer
+    
+    
+    currentLocationInMap.hidden=NO;
+    
     scrollView.scrollEnabled=NO;
     backButton.hidden=YES;
     [participantListTableView setHidden:YES];
     backToActivityFromMapButton.hidden=NO;
     chatButton.hidden=NO;
-    editLocationButton.hidden=NO;
     newActivityButton.hidden=YES;
     organizerEditButton.hidden=YES;
     inviteUsersToActivityButton.hidden=YES;
@@ -970,6 +976,10 @@ switch (activityInfo.activityRelationType) {
 }
 -(IBAction)backToActivityAnimateTransition:(id)sender{
     
+    if(activityInfo.activityRelationType==6)
+      editButtonForMapView.hidden=YES;//check for organizer
+
+        currentLocationInMap.hidden=YES;
     
     if(footerActivated){
         
@@ -983,7 +993,6 @@ switch (activityInfo.activityRelationType) {
     newActivityButton.hidden=NO;
     organizerEditButton.hidden=NO;
     inviteUsersToActivityButton.hidden=NO;
-    editLocationButton.hidden=YES;
     locationEditLeftCrossButton.hidden=YES;
     locationEditRightCheckButton.hidden=YES;
      [participantListTableView setHidden:NO];
@@ -997,45 +1006,35 @@ switch (activityInfo.activityRelationType) {
     }];
 
 }
--(IBAction)editLocationButtonClicked:(id)sender{
-    locationEditLeftCrossButton.hidden=NO;
-    locationEditRightCheckButton.hidden=NO;
-    backToActivityFromMapButton.hidden=YES;
-    chatButton.hidden=YES;
-    editLocationButton.hidden=YES;
-    
-    eventView.editMode=TRUE;
-    eventView.addressSearchBar.text=@"";
-    [eventView.addressSearchBar setHidden:NO];
-     eventView.labelView.hidden=YES;
-
-    //[eventView showSearchBarAndAnimateWithListViewInMiddle];
-    
-
-}
 -(IBAction)crossClickedInLocationEdit:(id)sender{
+    
+    
+    if(activityInfo.activityRelationType==6)
+        editButtonForMapView.hidden=NO;//check for organizer
+    
     locationEditLeftCrossButton.hidden=YES;
     locationEditRightCheckButton.hidden=YES;
     backToActivityFromMapButton.hidden=NO;
     chatButton.hidden=NO;
-    editLocationButton.hidden=NO;
     [eventView.addressSearchBar setHidden:YES];
     [eventView hideSearchBarAndAnimateWithListViewInMiddle];
-    eventView.labelView.hidden=NO;
     [eventView cancelClicked];
     eventView.editMode=FALSE;
+    [eventView setUpLabelViewElements:NO];
 
     
 }
 -(IBAction)tickClickedInLocationEdit:(id)sender{
+    
+    if(activityInfo.activityRelationType==6)
+        editButtonForMapView.hidden=NO;//check for organizer
+    
     locationEditLeftCrossButton.hidden=YES;
     locationEditRightCheckButton.hidden=YES;
     backToActivityFromMapButton.hidden=NO;
     chatButton.hidden=NO;
-    editLocationButton.hidden=NO;
     [eventView.addressSearchBar setHidden:YES];
     [eventView hideSearchBarAndAnimateWithListViewInMiddle];
-    eventView.labelView.hidden=NO;
     eventView.editMode=FALSE;
 
     
@@ -1047,6 +1046,38 @@ switch (activityInfo.activityRelationType) {
     }
 
     
+}
+
+-(void)enableDisableTickOnTheTopRight:(BOOL)show{
+    
+    if(show)
+     locationEditRightCheckButton.hidden=NO;
+    else{
+        locationEditRightCheckButton.hidden=YES;
+        
+    }
+}
+
+-(IBAction)editViewToChangeActivityLocation:(id)sender{
+    locationEditLeftCrossButton.hidden=NO;
+   
+    backToActivityFromMapButton.hidden=YES;
+    chatButton.hidden=YES;
+    editButtonForMapView.hidden=YES;
+    
+    eventView.editMode=TRUE;
+    eventView.addressSearchBar.text=@"";
+    [eventView.addressSearchBar setHidden:NO];
+    
+    [eventView setUpLabelViewElements:YES];
+    
+    //[eventView showSearchBarAndAnimateWithListViewInMiddle];
+    
+    
+}
+
+-(IBAction)currentLocationBtnClicked:(id)sender{
+    [eventView gotoLocation];
 }
 #pragma mark -
 #pragma mark UIAlertView methods

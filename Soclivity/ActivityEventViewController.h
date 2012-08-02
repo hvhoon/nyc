@@ -42,10 +42,11 @@
     IBOutlet UIView *chatView;
     BOOL footerActivated;
     IBOutlet UIButton *backToActivityFromMapButton;
-    IBOutlet UIButton *editLocationButton;
     SoclivityManager *SOC;
     IBOutlet UIButton *locationEditLeftCrossButton;
     IBOutlet UIButton *locationEditRightCheckButton;
+    IBOutlet UIButton *currentLocationInMap;
+    IBOutlet UIButton *editButtonForMapView;
 }
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property (nonatomic,retain)InfoActivityClass *activityInfo;
@@ -66,7 +67,8 @@
 -(IBAction)tickClickedByOrganizer:(id)sender;
 -(IBAction)deleteActivtyPressed:(id)sender;
 -(IBAction)backToActivityAnimateTransition:(id)sender;
--(IBAction)editLocationButtonClicked:(id)sender;
 -(IBAction)crossClickedInLocationEdit:(id)sender;
 -(IBAction)tickClickedInLocationEdit:(id)sender;
+-(IBAction)currentLocationBtnClicked:(id)sender;
+-(IBAction)editViewToChangeActivityLocation:(id)sender;
 @end
