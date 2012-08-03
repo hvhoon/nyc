@@ -583,27 +583,6 @@
 
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views{
     
-    if(pinDrop){
-        
-        //[self.mapView selectAnnotation:[[self.mapView annotations]lastObject] animated:YES];
-        for (id<MKAnnotation> currentAnnotation in self.mapView.annotations) {       
-            if ([currentAnnotation isKindOfClass:[ActivityAnnotation class]]) {
-                [self.mapView selectAnnotation:currentAnnotation animated:YES];
-                //[self.mapView selectAnnotation:[[self.mapView annotations] lastObject] animated:YES];
-            }
-        }
-
-        //[self.mapView selectAnnotation:[[self.mapView annotations]lastObject] animated:YES];
-    }
-    else if(firstTime){
-        for (id<MKAnnotation> currentAnnotation in self.mapView.annotations) {       
-            if ([currentAnnotation isKindOfClass:[ActivityAnnotation class]]) {
-                [self.mapView selectAnnotation:currentAnnotation animated:YES];
-                //[self.mapView selectAnnotation:[[self.mapView annotations] lastObject] animated:YES];
-            }
-        }
-
-    }
     MKAnnotationView *aV; 
     for (aV in views) {
         
@@ -642,6 +621,29 @@
             }
         }];
     }
+    
+    if(pinDrop){
+        
+        //[self.mapView selectAnnotation:[[self.mapView annotations]lastObject] animated:YES];
+        for (id<MKAnnotation> currentAnnotation in self.mapView.annotations) {       
+            if ([currentAnnotation isKindOfClass:[ActivityAnnotation class]]) {
+                [self.mapView selectAnnotation:currentAnnotation animated:YES];
+                //[self.mapView selectAnnotation:[[self.mapView annotations] lastObject] animated:YES];
+            }
+        }
+        
+        //[self.mapView selectAnnotation:[[self.mapView annotations]lastObject] animated:YES];
+    }
+    else if(firstTime){
+        for (id<MKAnnotation> currentAnnotation in self.mapView.annotations) {       
+            if ([currentAnnotation isKindOfClass:[ActivityAnnotation class]]) {
+                [self.mapView selectAnnotation:currentAnnotation animated:YES];
+                //[self.mapView selectAnnotation:[[self.mapView annotations] lastObject] animated:YES];
+            }
+        }
+        
+    }
+
 }
 
 
