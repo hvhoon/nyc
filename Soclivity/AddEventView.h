@@ -87,13 +87,17 @@
 @property (nonatomic,retain)UIView*labelView;
 @property (nonatomic,assign)BOOL searching;
 @property (nonatomic,assign)BOOL editMode;
+@property (nonatomic,retain) UILabel *firstALineddressLabel;
+@property(nonatomic,retain) UILabel *secondLineAddressLabel;
+@property (nonatomic,assign)BOOL pinDrop;
+@property (nonatomic,assign)BOOL firstTime;
 -(void)showSearchBarAndAnimateWithListViewInMiddle;
 -(void)ActivityEventOnMap;
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info;
 - (void)gotoLocation;
 -(void)hideSearchBarAndAnimateWithListViewInMiddle;
 - (void) processForwardGeocodingResults:(NSArray *)placemarks;
-- (void) addPinAnnotationForPlacemark:(NSArray*)placemarks;
+- (void) addPinAnnotationForPlacemark:(NSArray*)placemarks droppedStatus:(BOOL)droppedStatus;
 #if TESTING
 - (void) zoomMapToPlacemark:(CLPlacemark *)selectedPlacemark;
 #else

@@ -18,6 +18,7 @@
     NSInteger annotTag;
     NSString *firstLineAddress;
     NSString *secondLineAddress;
+    BOOL pinDrop;
 }
 @property (nonatomic, retain) UIImage *image;
 @property (nonatomic, retain) NSNumber *latitude;
@@ -27,5 +28,6 @@
 @property   (nonatomic, retain) NSString *secondLineAddress;
 @property   (nonatomic, retain) NSString *infoActivity;
 @property (nonatomic,assign)NSInteger annotTag;
-- (id)initWithName:(NSString*)name address:(NSString*)address coordinate:(CLLocationCoordinate2D)coordinate firtsLine:(NSString*)firtsLine secondLine: (NSString*)secondLine tagIndex:(NSInteger)tagIndex;
+@property (nonatomic,assign)BOOL pinDrop;
+- (id)initWithName:(NSString*)name address:(NSString*)address coordinate:(CLLocationCoordinate2D)coordinate firtsLine:(NSString*)firtsLine secondLine: (NSString*)secondLine tagIndex:(NSInteger)tagIndex isDropped:(BOOL)isDropped;
 @end

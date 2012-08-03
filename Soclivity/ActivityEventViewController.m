@@ -1021,6 +1021,8 @@ switch (activityInfo.activityRelationType) {
     [eventView cancelClicked];
     eventView.editMode=FALSE;
     [eventView setUpLabelViewElements:NO];
+    eventView.firstALineddressLabel.text=activityInfo.where_address;
+    eventView.secondLineAddressLabel.text=activityInfo.where_zip;    
 
     
 }
@@ -1035,15 +1037,10 @@ switch (activityInfo.activityRelationType) {
     chatButton.hidden=NO;
     [eventView.addressSearchBar setHidden:YES];
     [eventView hideSearchBarAndAnimateWithListViewInMiddle];
+    [eventView setNewLocation];
+
     eventView.editMode=FALSE;
 
-    
-    if(eventView.searching){
-        eventView.searching=FALSE;
-        //now get the updated result from event view
-        [eventView setNewLocation];
-        
-    }
 
     
 }

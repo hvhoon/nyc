@@ -19,7 +19,7 @@
 #define METERS_PER_MILE 1609.344
 #define LISTVIEWREMOVE 0
 @implementation AddEventView
-@synthesize activityObject,delegate,calendarDateEditArrow,timeEditArrow,editMarkerButton,mapView,mapAnnotations,addressSearchBar,_geocodingResults,labelView,searching,editMode;
+@synthesize activityObject,delegate,calendarDateEditArrow,timeEditArrow,editMarkerButton,mapView,mapAnnotations,addressSearchBar,_geocodingResults,labelView,searching,editMode,firstALineddressLabel,secondLineAddressLabel,pinDrop,firstTime;
 
 
 #pragma mark -
@@ -430,7 +430,7 @@
     SOC=[SoclivityManager SharedInstance];
     
     leftMagifyImageView.hidden=YES;
-
+    firstTime=YES;
     searchTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     searchTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     
@@ -476,7 +476,7 @@
     theCoordinate.latitude = [activityObject.where_lat doubleValue];
     theCoordinate.longitude = [activityObject.where_lng doubleValue];
     
-    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:firstALineddressLabel.text address:secondLineAddressLabel.text coordinate:theCoordinate  firtsLine:@" " secondLine:@" " tagIndex:0]autorelease];
+    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:activityObject.where_address address:activityObject.where_zip coordinate:theCoordinate  firtsLine:@" " secondLine:@" " tagIndex:0 isDropped:NO]autorelease];
     [self.mapAnnotations insertObject:sfAnnotation atIndex:0];
     
     [self.mapView removeAnnotations:self.mapView.annotations];  // remove any annotations that exist
@@ -546,7 +546,22 @@
             
             annotationView.image = resizedImage;
             annotationView.opaque = NO;
+            
+            if(location.pinDrop){
+                CGRect pinDropLabelRect=CGRectMake(10,0,80,16);
+                UILabel *pinDropLabel=[[UILabel alloc] initWithFrame:pinDropLabelRect];
+                pinDropLabel.textAlignment=UITextAlignmentLeft;
+                pinDropLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
+                pinDropLabel.textColor=[UIColor whiteColor];
+                pinDropLabel.backgroundColor=[UIColor clearColor];
+                pinDropLabel.text=@"Dropped Pin";
+                annotationView.leftCalloutAccessoryView=pinDropLabel;
+                [pinDropLabel release];
+
+            }
+            else{
             annotationView.leftCalloutAccessoryView=[self DrawAMapLeftAccessoryView:location];
+            }
 
             annotationView.canShowCallout=YES;
             pinView.animatesDrop=YES;
@@ -568,38 +583,76 @@
     if(pinDrop){
         
         pinDrop=FALSE;
-        [self.mapView selectAnnotation:[[self.mapView annotations] lastObject] animated:YES];
-    for (id<MKAnnotation> currentAnnotation in self.mapView.annotations) {       
-        if ([currentAnnotation isKindOfClass:[ActivityAnnotation class]]) {
-            //[self.mapView selectAnnotation:currentAnnotation animated:YES];
-            //[self.mapView selectAnnotation:[[self.mapView annotations] lastObject] animated:YES];
+        searching=TRUE;
+        for (id<MKAnnotation> currentAnnotation in self.mapView.annotations) {       
+            if ([currentAnnotation isKindOfClass:[ActivityAnnotation class]]) {
+                [self.mapView selectAnnotation:currentAnnotation animated:YES];
+                //[self.mapView selectAnnotation:[[self.mapView annotations] lastObject] animated:YES];
+            }
         }
+
+        //[self.mapView selectAnnotation:[[self.mapView annotations]lastObject] animated:YES];
     }
+    else if(firstTime){
+        for (id<MKAnnotation> currentAnnotation in self.mapView.annotations) {       
+            if ([currentAnnotation isKindOfClass:[ActivityAnnotation class]]) {
+                [self.mapView selectAnnotation:currentAnnotation animated:YES];
+                //[self.mapView selectAnnotation:[[self.mapView annotations] lastObject] animated:YES];
+            }
+        }
+
+    }
+    MKAnnotationView *aV; 
+    for (aV in views) {
+        
+        // Don't pin drop if annotation is user location
+        if ([aV.annotation isKindOfClass:[MKUserLocation class]]) {
+            continue;
+        }
+        
+        // Check if current annotation is inside visible map rect, else go to next one
+        MKMapPoint point =  MKMapPointForCoordinate(aV.annotation.coordinate);
+        if (!MKMapRectContainsPoint(self.mapView.visibleMapRect, point)) {
+            continue;
+        }
+        
+        CGRect endFrame = aV.frame;
+        
+        // Move annotation out of view
+        aV.frame = CGRectMake(aV.frame.origin.x, aV.frame.origin.y - self.mapView.frame.size.height, aV.frame.size.width, aV.frame.size.height);
+        
+        // Animate drop
+        [UIView animateWithDuration:0.5 delay:0.04*[views indexOfObject:aV] options:UIViewAnimationCurveLinear animations:^{
+            
+            aV.frame = endFrame;
+            
+            // Animate squash
+        }completion:^(BOOL finished){
+            if (finished) {
+                [UIView animateWithDuration:0.05 animations:^{
+                    aV.transform = CGAffineTransformMakeScale(1.0, 0.8);
+                    
+                }completion:^(BOOL finished){
+                    [UIView animateWithDuration:0.1 animations:^{
+                        aV.transform = CGAffineTransformIdentity;
+                    }];
+                }];
+            }
+        }];
     }
 }
 
 
 -(UIView*)DrawAMapLeftAccessoryView:(ActivityAnnotation *)locObject{
 	
-    CGSize size;
-    CGSize  size1 = [locObject.businessAdress sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15]];
+    CGSize  size = [locObject.businessAdress sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15]];
     
-    
-    CGSize  size2 = [locObject.infoActivity sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:12]];
-    
-    if(size1.width>size2.width)
-        size=size1;
-    else{
-        size=size2;
-    }
-    if(size.width>280){
-        size.width=280;
-        size1.width=280;
-        size2.width=280;
+    if(size.width>300){
+        size.width=300;
     }
 	UIView *mapLeftView=[[UIView alloc] initWithFrame:CGRectMake(0,0, size.width, 30)];
 	
-	CGRect nameLabelRect=CGRectMake(5,0,size1.width,16);
+	CGRect nameLabelRect=CGRectMake(5,0,size.width,16);
 	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
 	nameLabel.textAlignment=UITextAlignmentLeft;
 	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
@@ -609,16 +662,6 @@
 	[mapLeftView addSubview:nameLabel];
 	[nameLabel release];
 	
-    size2 = [locObject.infoActivity sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:12]];
-	CGRect timeLabelRect=CGRectMake(5,17,size2.width,13);
-	UILabel *timeLabel=[[UILabel alloc] initWithFrame:timeLabelRect];
-	timeLabel.textAlignment=UITextAlignmentLeft;
-	timeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
-	timeLabel.textColor=[UIColor whiteColor];
-	timeLabel.backgroundColor=[UIColor clearColor];
-    timeLabel.text=locObject.infoActivity;
-    [mapLeftView addSubview:timeLabel];
-	[timeLabel release];
 	
 	
 	return mapLeftView;
@@ -690,6 +733,12 @@
     [locationResultsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 #endif        
     }
+    else if(firstTime){
+        firstTime=FALSE;
+        view.image=[UIImage imageNamed:@"S05.1_pinSelected.png"];
+        
+    }
+
 }
 
 - (void) didLongPress:(UILongPressGestureRecognizer *)gr {
@@ -724,6 +773,8 @@
 
 - (void) processReverseGeocodingResults:(NSArray *)placemarks {
     
+    
+    self.addressSearchBar.text=@"";
     [_geocodingResults removeAllObjects];
     [self.mapView removeAnnotations:self.mapView.annotations];
           searching=FALSE;
@@ -743,7 +794,7 @@
             searching=TRUE;
             
             pinDrop=TRUE;
-            [self addPinAnnotationForPlacemark:_geocodingResults];
+            [self addPinAnnotationForPlacemark:_geocodingResults droppedStatus:YES];
             currentLocationArray =[NSMutableArray arrayWithCapacity:[_geocodingResults count]];
             currentLocationArray=[_geocodingResults retain];
             
@@ -866,7 +917,7 @@
     
     if([lessThan50Miles count]>0){
         searching=TRUE;
-        [self addPinAnnotationForPlacemark:lessThan50Miles];
+        [self addPinAnnotationForPlacemark:lessThan50Miles droppedStatus:NO];
         currentLocationArray =[NSMutableArray arrayWithCapacity:[lessThan50Miles count]];
         currentLocationArray=[lessThan50Miles retain];
         
@@ -931,7 +982,7 @@
     
     if([_geocodingResults count]>0){
         searching=TRUE;
-        [self addPinAnnotationForPlacemark:_geocodingResults];
+        [self addPinAnnotationForPlacemark:_geocodingResults droppedStatus:NO];
         currentLocationArray =[NSMutableArray arrayWithCapacity:[_geocodingResults count]];
         currentLocationArray=[_geocodingResults retain];
         
@@ -1003,7 +1054,7 @@
         return 2*distance;
     }
 }
-- (void) addPinAnnotationForPlacemark:(NSArray*)placemarks {
+- (void) addPinAnnotationForPlacemark:(NSArray*)placemarks droppedStatus:(BOOL)droppedStatus {
     
     for(int i=0;i<[placemarks count];i++){
         
@@ -1024,7 +1075,7 @@
 
 #endif        
         NSString*tryIndex=[NSString stringWithFormat:@"777%d",i];
-        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:formattedAddress address:zipAddress coordinate:theCoordinate firtsLine:@" " secondLine:@" " tagIndex:[tryIndex intValue]]autorelease];
+        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:formattedAddress address:zipAddress coordinate:theCoordinate firtsLine:@" " secondLine:@" " tagIndex:[tryIndex intValue] isDropped:droppedStatus]autorelease];
         
         [self.mapView addAnnotation:sfAnnotation];
         
@@ -1358,6 +1409,8 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
 
 
 #endif
+    activityObject.where_address=formattedAddress;
+    activityObject.where_zip=zipAddress;
     locationInfoLabel1.text=firstALineddressLabel.text=formattedAddress;
     locationInfoLabel2.text=secondLineAddressLabel.text=zipAddress;
     
@@ -1368,6 +1421,10 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
     activityObject.distance =[NSString stringWithFormat:@"%.02f",[newCenter distanceFromLocation:tempLocObj] / 1000];
 
     
+     self.mapView.showsUserLocation=YES;
+     firstTime=TRUE;
+     searching=FALSE;
+    [self CurrentMapZoomUpdate];
     
     
     // also make sure you update the database for list and map View and refresh the list and map state
@@ -1378,6 +1435,7 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
 }
 -(void)cancelClicked{
     
+    firstTime=TRUE;
     
     if (footerActivated) {
 		[UIView beginAnimations:@"collapseFooter" context:nil];
@@ -1388,7 +1446,7 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
 		
 		// Resize the map.
 		CGRect mapFrame = [self.mapView frame];
-		mapFrame.size.height += 188;
+		mapFrame.size.height += 60;
         mapFrame.origin.y -= 44;
 		[self.mapView setFrame:mapFrame];
 #if LISTVIEWREMOVE       
