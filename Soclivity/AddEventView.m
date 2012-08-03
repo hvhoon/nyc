@@ -291,7 +291,7 @@
         {
             firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:16];
             firstALineddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-            secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:16];
+            secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
             secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
 
             locationInfoLabel1.text=info.where_address;
@@ -463,7 +463,7 @@
 -(void)CurrentMapZoomUpdate{
     CLLocation* avgLoc = [self avgLocation];
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(avgLoc.coordinate.latitude, avgLoc.coordinate.longitude), [self maxDistanceBetweenPoints:avgLoc], [self maxDistanceBetweenPoints:avgLoc]);
-    MKCoordinateRegion adjustedRegion = [mapView regionThatFits:viewRegion];                
+    adjustedRegion = [mapView regionThatFits:viewRegion];                
     [mapView setRegion:adjustedRegion animated:YES];
     
     _geocodingResults=[NSMutableArray new];
@@ -486,14 +486,17 @@
 }
 - (void)gotoLocation
 {
+    [mapView setRegion:adjustedRegion animated:YES];
     
+    //[self CurrentMapZoomUpdate];
+    /*
     MKCoordinateRegion newRegion;
     newRegion.center.latitude = SOC.currentLocation.coordinate.latitude;
     newRegion.center.longitude = SOC.currentLocation.coordinate.longitude;
     newRegion.span.latitudeDelta = 0.06;
     newRegion.span.longitudeDelta = 0.06;
     
-    [self.mapView setRegion:newRegion animated:YES];
+    [self.mapView setRegion:newRegion animated:YES];*/
 }
 
 /*
@@ -550,7 +553,7 @@
             if(location.pinDrop){
                 CGRect pinDropLabelRect=CGRectMake(10,0,80,16);
                 UILabel *pinDropLabel=[[UILabel alloc] initWithFrame:pinDropLabelRect];
-                pinDropLabel.textAlignment=UITextAlignmentLeft;
+                pinDropLabel.textAlignment=UITextAlignmentCenter;
                 pinDropLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
                 pinDropLabel.textColor=[UIColor whiteColor];
                 pinDropLabel.backgroundColor=[UIColor clearColor];
@@ -582,8 +585,7 @@
     
     if(pinDrop){
         
-        pinDrop=FALSE;
-        searching=TRUE;
+        //[self.mapView selectAnnotation:[[self.mapView annotations]lastObject] animated:YES];
         for (id<MKAnnotation> currentAnnotation in self.mapView.annotations) {       
             if ([currentAnnotation isKindOfClass:[ActivityAnnotation class]]) {
                 [self.mapView selectAnnotation:currentAnnotation animated:YES];
@@ -654,7 +656,7 @@
 	
 	CGRect nameLabelRect=CGRectMake(5,0,size.width,16);
 	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
-	nameLabel.textAlignment=UITextAlignmentLeft;
+	nameLabel.textAlignment=UITextAlignmentCenter;
 	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
 	nameLabel.textColor=[UIColor whiteColor];
 	nameLabel.backgroundColor=[UIColor clearColor];
@@ -668,6 +670,57 @@
 	
 	
 }
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
+    
+    if ([view.annotation isKindOfClass:[MKUserLocation class]]){
+        return;
+    }
+    
+    if(searching){
+        
+        ActivityAnnotation *loc=view.annotation;
+        
+        view.image=[UIImage imageNamed:@"S05.1_pinSelected.png"];
+        
+        //now ask the table to scrollAtThat Row in the table and become highlighted    
+        pointTag=loc.annotTag;
+        pointTag=pointTag%777;
+        
+        NSLog(@"pointTag=%d",pointTag);
+        firstALineddressLabel.text=loc.businessAdress;
+        secondLineAddressLabel.text=loc.infoActivity;
+        [delegate enableDisableTickOnTheTopRight:YES];
+        
+        
+#if LISTVIEWREMOVE        
+        NSIndexPath *indexPath=[NSIndexPath indexPathForRow:pointTag inSection:0];
+        UITableViewCell* theCell = [locationResultsTableView cellForRowAtIndexPath:indexPath];
+        
+        theCell.contentView.backgroundColor=[SoclivityUtilities returnBackgroundColor:1];
+        [locationResultsTableView deselectRowAtIndexPath:indexPath animated:YES];
+        
+        [locationResultsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+#endif        
+    }
+    else if(firstTime){
+        firstTime=FALSE;
+        view.image=[UIImage imageNamed:@"S05.1_pinSelected.png"];
+        
+    }
+    else if(pinDrop){
+        ActivityAnnotation *loc=view.annotation;
+        view.image=[UIImage imageNamed:@"S05.1_pinSelected.png"];
+        firstALineddressLabel.text=loc.businessAdress;
+        secondLineAddressLabel.text=loc.infoActivity;
+        [delegate enableDisableTickOnTheTopRight:YES];
+
+        //pinDrop=FALSE;
+    }
+
+    
+}
+
 -(void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view{
     
     if ([view.annotation isKindOfClass:[MKUserLocation class]]){
@@ -675,7 +728,7 @@
     }
     if(searching){
         
-        
+        pinDrop=FALSE;
         ActivityAnnotation *loc=view.annotation;
         view.image=[UIImage imageNamed:@"S05.1_pinUnselected.png"];
         
@@ -696,50 +749,14 @@
         [locationResultsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 #endif        
     }
-
+    else if(pinDrop){
+        pinDrop=FALSE;
+        [self setUpLabelViewElements:YES];
+        [delegate enableDisableTickOnTheTopRight:NO];
+    }
     
 }
 
-- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
-{
-
-    if ([view.annotation isKindOfClass:[MKUserLocation class]]){
-        return;
-    }
-
-    if(searching){
-
-	ActivityAnnotation *loc=view.annotation;
-        
-    view.image=[UIImage imageNamed:@"S05.1_pinSelected.png"];
-        
-    //now ask the table to scrollAtThat Row in the table and become highlighted    
-    pointTag=loc.annotTag;
-    pointTag=pointTag%777;
-
-    NSLog(@"pointTag=%d",pointTag);
-    firstALineddressLabel.text=loc.businessAdress;
-    secondLineAddressLabel.text=loc.infoActivity;
-    [delegate enableDisableTickOnTheTopRight:YES];
-
-    
-#if LISTVIEWREMOVE        
-    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:pointTag inSection:0];
-    UITableViewCell* theCell = [locationResultsTableView cellForRowAtIndexPath:indexPath];
-    
-    theCell.contentView.backgroundColor=[SoclivityUtilities returnBackgroundColor:1];
-    [locationResultsTableView deselectRowAtIndexPath:indexPath animated:YES];
-        
-    [locationResultsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-#endif        
-    }
-    else if(firstTime){
-        firstTime=FALSE;
-        view.image=[UIImage imageNamed:@"S05.1_pinSelected.png"];
-        
-    }
-
-}
 
 - (void) didLongPress:(UILongPressGestureRecognizer *)gr {
     
@@ -784,14 +801,46 @@
             PlacemarkClass *placemark=[[[PlacemarkClass alloc]init]autorelease];
             placemark.latitude = placemark1.location.coordinate.latitude;
             placemark.longitude = placemark1.location.coordinate.longitude;
+        NSLog(@"placemark.city=%@",[placemark1.addressDictionary objectForKey:@"City"]);
+        NSLog(@"placemark.country=%@",placemark1.country);
+        NSLog(@"placemark.subThoroughfare=%@",placemark1.subThoroughfare);
+        NSLog(@"placemark.locality=%@",placemark1.locality);
+        NSLog(@"placemark.subLocality=%@",placemark1.subLocality);
+        NSLog(@"placemark.administrativeArea=%@",placemark1.administrativeArea);
+        NSLog(@"placemark.subAdministrativeArea=%@",placemark1.subAdministrativeArea);
+        NSLog(@"placemark.inlandWater=%@",placemark1.inlandWater);
+        NSLog(@"placemark.ocean=%@",placemark1.ocean);
+        NSLog(@"placemark.postalCode=%@",placemark1.postalCode);
+        placemark.formattedAddress =ABCreateStringWithAddressDictionary(placemark1.addressDictionary, NO);
+
+        NSLog(@"placemark.formattedAddress=%@",placemark.formattedAddress);
+        placemark.formattedAddress = [placemark.formattedAddress stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        
+        placemark.formattedAddress = [[placemark.formattedAddress componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@" "];
+        
+            NSString *param = nil;
+            NSRange start = [placemark.formattedAddress rangeOfString:[placemark1.addressDictionary objectForKey:@"City"]];
+            if (start.location != NSNotFound)
+            {
+                param=[placemark.formattedAddress substringWithRange:NSMakeRange(0, start.location)];
+                placemark.formattedAddress=param;
+
             
-            placemark.formattedAddress =ABCreateStringWithAddressDictionary(placemark1.addressDictionary, NO);
-          NSString * zipAddress=[NSString stringWithFormat:@"%@ %@ %@",placemark1.subLocality,placemark1.subAdministrativeArea,placemark1.postalCode];
+           }
+
+        NSString * zipAddress=nil;
+        if(placemark1.postalCode==nil || [placemark1.postalCode isEqualToString:@""]){
+            zipAddress=[NSString stringWithFormat:@"%@ %@",[placemark1.addressDictionary objectForKey:@"City"],placemark1.administrativeArea];
+            
+        }
+        else{
+          zipAddress=[NSString stringWithFormat:@"%@ %@ %@",[placemark1.addressDictionary objectForKey:@"City"],placemark1.administrativeArea,placemark1.postalCode];
+        }
           placemark.vicinityAddress =zipAddress;
             [_geocodingResults addObject:placemark];
     }     
         if([_geocodingResults count]>0){
-            searching=TRUE;
+            searching=FALSE;
             
             pinDrop=TRUE;
             [self addPinAnnotationForPlacemark:_geocodingResults droppedStatus:YES];
@@ -799,11 +848,11 @@
             currentLocationArray=[_geocodingResults retain];
             
             //Zoom in all results.
-            
+/*            
             CLLocation* avgLoc = [self ZoomToAllResultPointsOnMap];
             MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(avgLoc.coordinate.latitude, avgLoc.coordinate.longitude), [self maxDistanceBetweenAllResultPointsOnMap:avgLoc], [self maxDistanceBetweenAllResultPointsOnMap:avgLoc]);
             MKCoordinateRegion adjustedRegion = [mapView regionThatFits:viewRegion];                
-            [mapView setRegion:adjustedRegion animated:YES];
+            [mapView setRegion:adjustedRegion animated:YES];*/
             
             [self setUpLabelViewElements:NO];
             firstALineddressLabel.text=@"Pick a Location";
@@ -925,7 +974,7 @@
         
         CLLocation* avgLoc = [self ZoomToAllResultPointsOnMap];
         MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(avgLoc.coordinate.latitude, avgLoc.coordinate.longitude), [self maxDistanceBetweenAllResultPointsOnMap:avgLoc], [self maxDistanceBetweenAllResultPointsOnMap:avgLoc]);
-        MKCoordinateRegion adjustedRegion = [mapView regionThatFits:viewRegion];                
+         adjustedRegion = [mapView regionThatFits:viewRegion];                
         [mapView setRegion:adjustedRegion animated:YES];
         [_geocodingResults addObjectsFromArray:placemarks];
         
@@ -990,7 +1039,7 @@
         
         CLLocation* avgLoc = [self ZoomToAllResultPointsOnMap];
         MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(avgLoc.coordinate.latitude, avgLoc.coordinate.longitude), [self maxDistanceBetweenAllResultPointsOnMap:avgLoc], [self maxDistanceBetweenAllResultPointsOnMap:avgLoc]);
-        MKCoordinateRegion adjustedRegion = [mapView regionThatFits:viewRegion];                
+        adjustedRegion = [mapView regionThatFits:viewRegion];                
         [mapView setRegion:adjustedRegion animated:YES];
         
         [self setUpLabelViewElements:NO];
@@ -1420,7 +1469,7 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
     
     activityObject.distance =[NSString stringWithFormat:@"%.02f",[newCenter distanceFromLocation:tempLocObj] / 1000];
 
-    
+     pinDrop=FALSE;
      self.mapView.showsUserLocation=YES;
      firstTime=TRUE;
      searching=FALSE;

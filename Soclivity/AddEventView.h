@@ -44,7 +44,7 @@
     IBOutlet UIButton*calendarDateEditArrow;
     IBOutlet UIButton*timeEditArrow;
     IBOutlet UIButton*editMarkerButton;
-    
+    MKCoordinateRegion adjustedRegion; 
     
     IBOutlet UIImageView *leftPinImageView;
     IBOutlet UIImageView *leftMagifyImageView;
