@@ -2661,7 +2661,7 @@
 		680CE3D51551258700B8E937 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0430;
 			};
 			buildConfigurationList = 680CE3D81551258700B8E937 /* Build configuration list for PBXProject "Soclivity" */;
 			compatibilityVersion = "Xcode 3.2";

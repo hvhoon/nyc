@@ -14,6 +14,7 @@
 @synthesize access,activityType,created_at,num_of_people,activityId,organizerId,updated_at,what,when,where_address,where_city;
 @synthesize where_state,where_zip,isParticipant,ownerProfilePhotoUrl,organizerImage,relationType,pendingRequestCount;
 -(void)dealloc{
+    [super dealloc];
     [activityName release];
     [organizerName release];
     [distance release];
