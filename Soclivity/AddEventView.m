@@ -712,6 +712,9 @@
     }
     else if(pinDrop){
         ActivityAnnotation *loc=view.annotation;
+        pointTag=loc.annotTag;
+        pointTag=pointTag%777;
+
         view.image=[UIImage imageNamed:@"S05.1_pinSelected.png"];
         firstALineddressLabel.text=loc.businessAdress;
         secondLineAddressLabel.text=loc.infoActivity;
@@ -752,6 +755,10 @@
 #endif        
     }
     else if(pinDrop){
+        ActivityAnnotation *loc=view.annotation;
+        pointTag=loc.annotTag;
+        pointTag=pointTag%777;
+
         pinDrop=FALSE;
         [self setUpLabelViewElements:YES];
         [delegate enableDisableTickOnTheTopRight:NO];
@@ -820,6 +827,10 @@
         
         placemark.formattedAddress = [[placemark.formattedAddress componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@" "];
         
+        if([placemark1.addressDictionary objectForKey:@"City"]==nil||[[placemark1.addressDictionary objectForKey:@"City"] isEqualToString:@""]|| [[placemark1.addressDictionary objectForKey:@"City"] isEqualToString:@"(null)"])
+        {
+        
+        }else{
             NSString *param = nil;
             NSRange start = [placemark.formattedAddress rangeOfString:[placemark1.addressDictionary objectForKey:@"City"]];
             if (start.location != NSNotFound)
@@ -829,7 +840,7 @@
 
             
            }
-
+        }
         NSString * zipAddress=nil;
         if(placemark1.postalCode==nil || [placemark1.postalCode isEqualToString:@""]){
             zipAddress=[NSString stringWithFormat:@"%@ %@",[placemark1.addressDictionary objectForKey:@"City"],placemark1.administrativeArea];
@@ -1450,7 +1461,7 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
 
 
     #else
-    PlacemarkClass * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
+    PlacemarkClass * selectedPlacemark = [currentLocationArray objectAtIndex:pointTag];
     activityObject.where_lat=[NSString stringWithFormat:@"%f",selectedPlacemark.latitude];
     activityObject.where_lng=[NSString stringWithFormat:@"%f",selectedPlacemark.longitude];
     NSString * formattedAddress = [NSString stringWithFormat:@"%@",selectedPlacemark.formattedAddress];
