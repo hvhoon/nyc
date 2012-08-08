@@ -255,7 +255,7 @@
     locationTapRect=CGRectMake(84,fromTheTop+102+1, 175, 15+19);
     locationInfoLabel1.frame = CGRectMake(84, 102+1, 175, 15);
 
-    locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
     locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
     locationInfoLabel2.frame = CGRectMake(84, 122, 175, 15);
     
