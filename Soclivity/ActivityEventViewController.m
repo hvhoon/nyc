@@ -620,6 +620,10 @@
                 
         }
     }
+    
+    if(activityInfo.pendingRequestCount==0 && [activityInfo.goingCount intValue]==0 && page==0){
+        self.scrollView.scrollEnabled=NO;
+    }
 }
 
 

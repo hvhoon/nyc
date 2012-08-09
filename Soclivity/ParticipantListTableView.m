@@ -882,6 +882,8 @@
     NSMutableArray *indexPathsToDelete3 = [[NSMutableArray alloc] init];
     NSMutableArray *indexPathsToDelete4 = [[NSMutableArray alloc] init];
     
+    
+    
 #if 0    
     if(section==1){
         noLine=TRUE; 

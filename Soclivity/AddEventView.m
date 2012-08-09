@@ -842,6 +842,7 @@
            }
         }
         NSString * zipAddress=nil;
+        
         if(placemark1.postalCode==nil || [placemark1.postalCode isEqualToString:@""]){
             zipAddress=[NSString stringWithFormat:@"%@ %@",[placemark1.addressDictionary objectForKey:@"City"],placemark1.administrativeArea];
             
@@ -850,6 +851,25 @@
           zipAddress=[NSString stringWithFormat:@"%@ %@ %@",[placemark1.addressDictionary objectForKey:@"City"],placemark1.administrativeArea,placemark1.postalCode];
         }
           placemark.vicinityAddress =zipAddress;
+        NSArray *stringValues=[placemark.vicinityAddress componentsSeparatedByString:@" "];
+        NSMutableArray*mutableArray=[NSMutableArray arrayWithArray:stringValues];
+        NSArray *copy = [mutableArray copy];
+        NSInteger index = [copy count] - 1;
+        for (id object in [copy reverseObjectEnumerator]) {
+            if ([mutableArray indexOfObject:object inRange:NSMakeRange(0, index)] != NSNotFound) {
+                [mutableArray removeObjectAtIndex:index];
+            }
+            index--;
+        }
+        [copy release];
+        NSMutableString*zipString=[NSMutableString string];
+        for(NSString*duplicate in mutableArray){
+            
+            NSString*newString=[NSString stringWithFormat:@"%@ ",duplicate];
+            [zipString appendString:newString];
+        }
+        NSLog(@"Zip=%@",zipString);
+           placemark.vicinityAddress =zipString;
             [_geocodingResults addObject:placemark];
     }     
         if([_geocodingResults count]>0){
