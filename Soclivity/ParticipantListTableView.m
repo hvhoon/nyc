@@ -245,7 +245,7 @@
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:section];
     InfoActivityClass *play=sectionInfo.play;
     UIView *sectionHeaderview=[[[UIView alloc]initWithFrame:CGRectMake(0,0,320,kSectionHeaderHeight)]autorelease];
-    sectionHeaderview.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
+    sectionHeaderview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"pattern.png"]];
     
     //second section don't draw the first line
     if(!noLine || section==0){

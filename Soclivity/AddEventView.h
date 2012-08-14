@@ -57,6 +57,8 @@
     IBOutlet UIImageView *rightPinImageView;
     IBOutlet UILabel *dropPinLabel;
     IBOutlet UILabel *touchAndHoldMapLabel;
+    
+    IBOutlet UIButton *activityInfoButton;
 
     IBOutlet MKMapView *mapView;
     CGRect locationTapRect;
@@ -74,6 +76,8 @@
     NSMutableData *responseData;
     BOOL editMode;
     BOOL pinDrop;
+    IBOutlet UIButton *activityPlotOnMapButton;
+    IBOutlet UIImageView*borderImageView;
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;
 @property (nonatomic,retain)id <AddEventViewDelegate>delegate;
@@ -91,6 +95,7 @@
 @property(nonatomic,retain) UILabel *secondLineAddressLabel;
 @property (nonatomic,assign)BOOL pinDrop;
 @property (nonatomic,assign)BOOL firstTime;
+@property (nonatomic,retain)UIButton *activityInfoButton;
 -(void)showSearchBarAndAnimateWithListViewInMiddle;
 -(void)ActivityEventOnMap;
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info;
@@ -116,4 +121,6 @@
 - (void) processReverseGeocodingResults:(NSArray *)placemarks;
 -(UIView*)DrawAMapLeftAccessoryView:(ActivityAnnotation *)locObject;
 -(void)setUpLabelViewElements:(BOOL)show;
+-(IBAction)activityInfoButtonClicked:(id)sender;
+-(IBAction)activityMapPlotButtonClicked:(id)sender;
 @end

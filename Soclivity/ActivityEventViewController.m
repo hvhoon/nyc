@@ -808,7 +808,6 @@
     eventView.timeEditArrow.hidden=YES;
     eventView.editMarkerButton.hidden=YES;
     [eventView.addressSearchBar resignFirstResponder];
-
     [participantListTableView.participantTableView reloadData];
 
 }
@@ -1027,6 +1026,7 @@ switch (activityInfo.activityRelationType) {
     [eventView setUpLabelViewElements:NO];
     eventView.firstALineddressLabel.text=activityInfo.where_address;
     eventView.secondLineAddressLabel.text=activityInfo.where_zip;    
+    eventView.activityInfoButton.hidden=NO;
 
     
 }
@@ -1042,7 +1042,7 @@ switch (activityInfo.activityRelationType) {
     [eventView.addressSearchBar setHidden:YES];
     [eventView hideSearchBarAndAnimateWithListViewInMiddle];
     [eventView setNewLocation];
-
+    eventView.activityInfoButton.hidden=NO;
     eventView.editMode=FALSE;
 
 
@@ -1071,8 +1071,9 @@ switch (activityInfo.activityRelationType) {
     [eventView.addressSearchBar setHidden:NO];
     
     [eventView setUpLabelViewElements:YES];
-    
-    //[eventView showSearchBarAndAnimateWithListViewInMiddle];
+    eventView.activityInfoButton.hidden=YES;
+
+    [eventView showSearchBarAndAnimateWithListViewInMiddle];
     
     
 }

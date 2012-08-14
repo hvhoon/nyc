@@ -19,7 +19,7 @@
 #define METERS_PER_MILE 1609.344
 #define LISTVIEWREMOVE 0
 @implementation AddEventView
-@synthesize activityObject,delegate,calendarDateEditArrow,timeEditArrow,editMarkerButton,mapView,mapAnnotations,addressSearchBar,_geocodingResults,labelView,searching,editMode,firstALineddressLabel,secondLineAddressLabel,pinDrop,firstTime;
+@synthesize activityObject,delegate,calendarDateEditArrow,timeEditArrow,editMarkerButton,mapView,mapAnnotations,addressSearchBar,_geocodingResults,labelView,searching,editMode,firstALineddressLabel,secondLineAddressLabel,pinDrop,firstTime,activityInfoButton;
 
 
 #pragma mark -
@@ -259,7 +259,9 @@
     locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
     locationInfoLabel2.frame = CGRectMake(84, 122, 175, 15);
     
-    
+    activityPlotOnMapButton.hidden=YES;
+    borderImageView.hidden=YES;
+
     switch (info.activityRelationType) {
         case 1:
         {
@@ -289,6 +291,14 @@
             break;
         case 6:
         {
+            
+            activityPlotOnMapButton.hidden=NO;
+            borderImageView.hidden=NO;
+            locationIcon.hidden=YES;
+            locationInfoLabel1.frame=CGRectMake(50, 102+1, 214, 14);
+            locationInfoLabel2.frame = CGRectMake(50, 122, 214, 15);
+            borderImageView.frame=CGRectMake(264, 98, 39, 39);
+            activityPlotOnMapButton.frame=CGRectMake(265, 99, 37, 37);
             firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:16];
             firstALineddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
             secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
@@ -371,7 +381,7 @@
         
     if(activityObject.activityRelationType==6){
         if(CGRectContainsPoint(locationTapRect,startPoint)){
-            [self ActivityEventOnMap];
+            //[self ActivityEventOnMap];
         }
         
         if(CGRectContainsPoint(clearTextRect,startPoint)&& editMode){
@@ -382,7 +392,12 @@
     
 }   
 #endif
-
+-(IBAction)activityMapPlotButtonClicked:(id)sender{
+    if(activityObject.activityRelationType==6){
+            [self ActivityEventOnMap];
+        }
+    
+}
 
 -(void)openMapUrlApplication{
     NSString *url=[NSString stringWithFormat:@"http://maps.google.com/maps?saddr=%f,%f&daddr=%f,%f",SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude, [activityObject.where_lat floatValue], [activityObject.where_lng floatValue]];
@@ -483,6 +498,9 @@
     
     [self.mapView addAnnotation:[self.mapAnnotations objectAtIndex:0]];
 
+}
+-(IBAction)activityInfoButtonClicked:(id)sender{
+    [self openMapUrlApplication];
 }
 - (void)gotoLocation
 {
@@ -894,9 +912,8 @@
             
         }
         
-        [self showSearchBarAndAnimateWithListViewInMiddle];
 #if LISTVIEWREMOVE
-        
+        [self showSearchBarAndAnimateWithListViewInMiddle];
         [locationResultsTableView reloadData];
 #endif    
 
@@ -1013,9 +1030,8 @@
         
     }
     
-    [self showSearchBarAndAnimateWithListViewInMiddle];
 #if LISTVIEWREMOVE
-    
+    [self showSearchBarAndAnimateWithListViewInMiddle];
     [locationResultsTableView reloadData];
 #endif    
 }
@@ -1080,10 +1096,9 @@
         secondLineAddressLabel.text=@"Select a pin above to see it's full address";
         
     }
-    
-    [self showSearchBarAndAnimateWithListViewInMiddle];
-    
+
 #if LISTVIEWREMOVE
+    [self showSearchBarAndAnimateWithListViewInMiddle];
     [locationResultsTableView reloadData];
 #endif
 
@@ -1252,6 +1267,9 @@
 
 -(void)showSearchBarAndAnimateWithListViewInMiddle{
 
+    
+    mapView.frame=CGRectMake(320, 44, 320, 376-95);
+#if 0
 #if LISTVIEWREMOVE 
     [locationResultsTableView setHidden:NO];
 #endif    
@@ -1264,8 +1282,8 @@
 		
 		// Resize the map.
 		CGRect mapFrame = [self.mapView frame];
-		 mapFrame.origin.y += 44;
-         mapFrame.size.height-=60;
+        mapFrame.size.height-=60;
+        mapFrame.origin.y += 44;
 		[self.mapView setFrame:mapFrame];
 #if LISTVIEWREMOVE        
         CGRect tableViewFrame = [locationResultsTableView frame];
@@ -1278,10 +1296,12 @@
 		[UIView commitAnimations];
 		footerActivated = YES;
 	}
-
+#endif
 }
 -(void)hideSearchBarAndAnimateWithListViewInMiddle{
  
+    mapView.frame=CGRectMake(320, -47, 320, 376);
+#if 0    
     if (footerActivated) {
 		[UIView beginAnimations:@"collapseFooter" context:nil];
 		[UIView setAnimationDelegate:self];
@@ -1308,7 +1328,7 @@
 		[UIView commitAnimations];
 		footerActivated = NO;
 	}
-
+#endif
 }
 #pragma mark -
 #pragma mark UISearchBarDelegate
@@ -1349,10 +1369,11 @@
 // called when keyboard search button pressed
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     
-    [self geocodeFromSearchBar];
     
     [self.addressSearchBar resignFirstResponder];
     [searchBar setShowsCancelButton:YES animated:YES];
+    [self geocodeFromSearchBar];
+
 }
 -(void)customCancelButtonHit{
     
