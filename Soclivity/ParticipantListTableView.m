@@ -248,14 +248,47 @@
     sectionHeaderview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"pattern.png"]];
     
     //second section don't draw the first line
-    if(!noLine || section==0){
+    
+    NSLog(@"section =%d",section);
+    NSLog(@"openSectionIndex_ =%d",openSectionIndex_);
+    
+    if(section==0){
+            NSLog(@"sectionZero");
         UIButton *topDividerLineButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         topDividerLineButton.frame = CGRectMake(0, 0, 320, 1);
         [topDividerLineButton setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]]];
         topDividerLineButton.tag=[[NSString stringWithFormat:@"777%d",section]intValue];
         [sectionHeaderview addSubview:topDividerLineButton];
     }
+    else if(sectionInfo.open && openSectionIndex_==section){
+            NSLog(@"section Collapsed All Except One");
+        UIButton *topDividerLineButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        topDividerLineButton.frame = CGRectMake(0, 0, 320, 1);
+        [topDividerLineButton setBackgroundColor:[UIColor clearColor]];
+        topDividerLineButton.tag=[[NSString stringWithFormat:@"777%d",section]intValue];
+        [sectionHeaderview addSubview:topDividerLineButton];
+    }
+    else if(sectionInfo.open && openSectionIndex_!=section){
+            NSLog(@"open but not tapped");
+        UIButton *topDividerLineButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        topDividerLineButton.frame = CGRectMake(0, 0, 320, 1);
+        [topDividerLineButton setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]]];
+        topDividerLineButton.tag=[[NSString stringWithFormat:@"777%d",section]intValue];
+        [sectionHeaderview addSubview:topDividerLineButton];
+    }
+    
+    else if(!sectionInfo.open && ((openSectionIndex_+1)==section)){
+            NSLog(@"next section other than collapsed");
+        UIButton *topDividerLineButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        topDividerLineButton.frame = CGRectMake(0, 0, 320, 1);
+        [topDividerLineButton setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]]];
+        topDividerLineButton.tag=[[NSString stringWithFormat:@"777%d",section]intValue];
+        [sectionHeaderview addSubview:topDividerLineButton];
+    }
+
+    
     else{
+            NSLog(@"No section found");
         UIButton *topDividerLineButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         topDividerLineButton.frame = CGRectMake(0, 0, 320, 1);
         [topDividerLineButton setBackgroundColor:[UIColor clearColor]];
@@ -884,20 +917,9 @@
     
     
     
-#if 0    
-    if(section==1){
-        noLine=TRUE; 
-        [(UIButton*)[self viewWithTag:7771] setHidden:YES];
-        
-    }
-    else{
-        [(UIButton*)[self viewWithTag:7771] setHidden:NO];
-        [(UIButton*)[self viewWithTag:7771]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]]];
-        noLine=FALSE;
-    }
-#endif
     
-    
+    NSString *stringIndex=[NSString stringWithFormat:@"777%d",section];
+    [(UIButton*)[self viewWithTag:[stringIndex intValue]] setHidden:YES];
     
     for(int z=0;z<[self.sectionInfoArray count];z++){
         switch (z) {
@@ -906,6 +928,11 @@
                 if(z==section)
                   continue;
                 else{
+                    NSString *stringIndex=[NSString stringWithFormat:@"777%d",z];
+
+                    [(UIButton*)[self viewWithTag:[stringIndex intValue]] setHidden:NO];
+                    [(UIButton*)[self viewWithTag:[stringIndex intValue]]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]]];
+
                     SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:z];
                     previousOpenSection.open = NO;
                     NSInteger countOfRowsToDelete = [previousOpenSection.play.quotations count];
@@ -922,6 +949,18 @@
                 if(z==section)
                     continue;
                 else{
+                    NSString *stringIndex=[NSString stringWithFormat:@"777%d",z];
+
+                    if(section+1==z){
+                            [(UIButton*)[self viewWithTag:[stringIndex intValue]] setHidden:YES];
+                    }else{
+                        [(UIButton*)[self viewWithTag:[stringIndex intValue]] setHidden:NO];
+                        [(UIButton*)[self viewWithTag:[stringIndex intValue]]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]]];
+                        
+                    }
+                    
+                    
+                    
                     SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:z];
                     previousOpenSection.open = NO;
                     NSInteger countOfRowsToDelete = [previousOpenSection.play.quotations count];
@@ -938,6 +977,16 @@
                 if(z==section)
                     continue;
                 else{
+                    NSString *stringIndex=[NSString stringWithFormat:@"777%d",z];
+                    
+                    if(section+1==z){
+                        [(UIButton*)[self viewWithTag:[stringIndex intValue]] setHidden:YES];
+                    }else{
+                        [(UIButton*)[self viewWithTag:[stringIndex intValue]] setHidden:NO];
+                        [(UIButton*)[self viewWithTag:[stringIndex intValue]]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]]];
+                        
+                    }
+
                     SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:z];
                     previousOpenSection.open = NO;
                     NSInteger countOfRowsToDelete = [previousOpenSection.play.quotations count];
@@ -955,6 +1004,16 @@
                 if(z==section)
                     continue;
                 else{
+                    NSString *stringIndex=[NSString stringWithFormat:@"777%d",z];
+                    
+                    if(section+1==z){
+                        [(UIButton*)[self viewWithTag:[stringIndex intValue]] setHidden:YES];
+                    }else{
+                        [(UIButton*)[self viewWithTag:[stringIndex intValue]] setHidden:NO];
+                        [(UIButton*)[self viewWithTag:[stringIndex intValue]]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]]];
+                        
+                    }
+
                     SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:z];
                     previousOpenSection.open = NO;
                     NSInteger countOfRowsToDelete = [previousOpenSection.play.quotations count];
@@ -968,6 +1027,8 @@
 
         }
     }
+    self.openSectionIndex = section;
+
     UITableViewRowAnimation deleteAnimation;
     deleteAnimation = UITableViewRowAnimationBottom;
     [self.participantTableView beginUpdates];
@@ -984,7 +1045,6 @@
 
 
     [self.participantTableView endUpdates];
-    self.openSectionIndex = section;
 }
 -(void)alternateBetweenSectionsWithCollapseOrExpand:(int)currentSectionIndex{
     
@@ -996,12 +1056,17 @@
     NSMutableArray *indexPathsToInsert3 = [[NSMutableArray alloc] init];
     NSMutableArray *indexPathsToDelete4 = [[NSMutableArray alloc] init];
     NSMutableArray *indexPathsToInsert4 = [[NSMutableArray alloc] init];
+    
+    NSString *stringIndex=[NSString stringWithFormat:@"777%d",currentSectionIndex];
+    [(UIButton*)[self viewWithTag:[stringIndex intValue]] setHidden:YES];
+
 
     for(int z=0;z<[self.sectionInfoArray count];z++){
         switch (z) {
             case 0:
             {
                 if(z==self.openSectionIndex){
+                    
                     SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:z];
                     previousOpenSection.open = NO;
                     NSInteger countOfRowsToDelete = [previousOpenSection.play.quotations count];
@@ -1010,6 +1075,7 @@
                     }
                 }
                 else if(z==currentSectionIndex){
+                    
                     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:z];
                     
                     sectionInfo.open = YES;
@@ -1105,7 +1171,8 @@
 
         }
     }
-    
+    self.openSectionIndex = currentSectionIndex;
+
     [self.participantTableView beginUpdates];
     UITableViewRowAnimation insertAnimation;
     UITableViewRowAnimation deleteAnimation;
@@ -1143,7 +1210,6 @@
 
     
     [self.participantTableView endUpdates];
-    self.openSectionIndex = currentSectionIndex;
 
 }
 
@@ -1239,7 +1305,8 @@
 
         }
     }
-    
+
+
     [self.participantTableView beginUpdates];
     UITableViewRowAnimation insertAnimation;
     insertAnimation = UITableViewRowAnimationTop;
@@ -1255,6 +1322,7 @@
 
     [self.participantTableView endUpdates];
     self.openSectionIndex = -1;
+
 
 }
 @end
