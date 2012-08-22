@@ -104,6 +104,7 @@ static UIFont *boldText = nil;
         
     
     }
+    
 //    if(!swiped){
 //        [delegate removeCrossButton:cellIndexPath];
 //    }

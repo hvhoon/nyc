@@ -11,7 +11,7 @@
 #import "SoclivityUtilities.h"
 #import "SectionInfo.h"
 #import "InfoActivityClass.h"
-#define  SWIPE_CELL 0
+#define  SWIPE_CELL 1
 #pragma mark -
 
 @interface ParticipantListTableView ()
@@ -41,11 +41,17 @@
     
 #if SWIPE_CELL    
     //Add a left swipe gesture recognizer
-	UISwipeGestureRecognizer * swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(cellWasSwiped:)];
-	[swipeRecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft |
-								   UISwipeGestureRecognizerDirectionRight)];
+	UISwipeGestureRecognizer * swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeLeft:)];
+	[swipeRecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
 	[self.participantTableView addGestureRecognizer:swipeRecognizer];
 	[swipeRecognizer release];
+    
+    swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self 
+                                                           action:@selector(handleSwipeRight:)];
+    swipeRecognizer.delegate = self;
+    [swipeRecognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    [self.participantTableView addGestureRecognizer:swipeRecognizer];
+    [swipeRecognizer release];    
 #endif    
     [participantTableView setRowHeight:kCustomRowHeight];
      participantTableView.scrollEnabled=YES;
@@ -437,20 +443,23 @@
 
 
 
-- (void)cellWasSwiped:(UISwipeGestureRecognizer *)gestureRecognizer
+- (void)handleSwipeLeft:(UISwipeGestureRecognizer *)gestureRecognizer
 {
     //Get location of the swipe
     CGPoint location = [gestureRecognizer locationInView:self.participantTableView];
     
     //Get the corresponding index path within the table view
     NSIndexPath *indexPath = [self.participantTableView indexPathForRowAtPoint:location];
+    ParticipantTableViewCell *cell = (ParticipantTableViewCell*)[self.participantTableView cellForRowAtIndexPath:indexPath];
+
+    
+#if 1           
         //Check if index path is valid
         if(indexPath)
         {
             
             lastIndexPath=indexPath;
             //Get the cell out of the table view
-            ParticipantTableViewCell *cell = (ParticipantTableViewCell*)[self.participantTableView cellForRowAtIndexPath:indexPath];
             
             if(swipeOn && cell.swiped){
                 cell.swiped=NO;
@@ -472,14 +481,15 @@
             
            
             [participantTableView reloadData];
-#if 0           
+        }
+#else
             //Update the cell or model 
             UIButton *crossButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
             crossButton.frame = CGRectMake(12, 15, 18, 17);
             crossButton.tag=((indexPath.section & 0xFFFF) << 16) |
             (indexPath.row & 0xFFFF);
             
-            crossButton.backgroundColor = [UIColor clearColor];
+            crossButton.backgroundColor = [UIColor blueColor];
             [crossButton setBackgroundImage:[UIImage imageNamed:@"S05_participantRemove.png"] forState:UIControlStateNormal];
             
             
@@ -488,7 +498,91 @@
             [cell.contentView addSubview:crossButton];
 #endif            
             
+        
+}
+
+-(void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+    NSLog(@"didSelectRowAtIndexPath");
+    
+#if SWIPE_CELL
+    
+        if(swipeOn){
+    ParticipantTableViewCell *cell = (ParticipantTableViewCell*)[self.participantTableView cellForRowAtIndexPath:indexPath];
+    
+    if(cell.swiped){
+        cell.swiped=NO;
+        
+    }
+    else{
+        ParticipantTableViewCell *cell1 = (ParticipantTableViewCell*)[self.participantTableView cellForRowAtIndexPath:lastIndexPath];
+        cell1.swiped=NO;
+        
+    }
+    swipeOn=FALSE;
+    [participantTableView reloadData];
+
         }
+#endif
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+}
+
+- (void)handleSwipeRight:(UISwipeGestureRecognizer *)gestureRecognizer
+{
+    //Get location of the swipe
+    CGPoint location = [gestureRecognizer locationInView:self.participantTableView];
+    
+    //Get the corresponding index path within the table view
+    NSIndexPath *indexPath = [self.participantTableView indexPathForRowAtPoint:location];
+    ParticipantTableViewCell *cell = (ParticipantTableViewCell*)[self.participantTableView cellForRowAtIndexPath:indexPath];
+    
+    
+#if 1           
+    //Check if index path is valid
+    if(indexPath)
+    {
+        
+        lastIndexPath=indexPath;
+        //Get the cell out of the table view
+        
+        if(swipeOn && cell.swiped){
+            cell.swiped=NO;
+            swipeOn=FALSE;
+            
+        }
+        else if(swipeOn && !cell.swiped){
+            ParticipantTableViewCell *cell1 = (ParticipantTableViewCell*)[self.participantTableView cellForRowAtIndexPath:lastIndexPath];
+            cell1.swiped=NO;
+            swipeOn=FALSE;
+            
+        }
+        else{
+            swipeOn=YES;
+            cell.swiped=YES;
+            
+        }
+        
+        
+        
+        [participantTableView reloadData];
+    }
+#else
+    //Update the cell or model 
+    UIButton *crossButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    crossButton.frame = CGRectMake(12, 15, 18, 17);
+    crossButton.tag=((indexPath.section & 0xFFFF) << 16) |
+    (indexPath.row & 0xFFFF);
+    
+    crossButton.backgroundColor = [UIColor blueColor];
+    [crossButton setBackgroundImage:[UIImage imageNamed:@"S05_participantRemove.png"] forState:UIControlStateNormal];
+    
+    
+    
+    [crossButton addTarget:self action:@selector(participantRemoveAction:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:crossButton];
+#endif            
+    
+    
 }
 -(void)removeCrossButton:(NSIndexPath*)indexPath{
     ParticipantTableViewCell *cell = (ParticipantTableViewCell*)[self.participantTableView cellForRowAtIndexPath:indexPath];
@@ -531,21 +625,6 @@
         return UITableViewCellEditingStyleNone;
 }
 
--(void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    
-#if SWIPE_CELL
-    ParticipantTableViewCell *cell = (ParticipantTableViewCell*)[self.participantTableView cellForRowAtIndexPath:indexPath];
-    
-    if(swipeOn && cell.swiped){
-        cell.swiped=NO;
-        swipeOn=FALSE;
-        [participantTableView reloadData];
-        
-    }
-#endif
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSLog(@"didSelectRowAtIndexPath");
-}
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
     //service update
