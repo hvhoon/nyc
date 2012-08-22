@@ -622,6 +622,15 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
         else
             passwordsMatched = NO;
     }
+    
+    if(textField == enterPasswordTextField){
+        if([textField.text isEqualToString:confirmPasswordTextField.text]){
+            passwordsMatched = YES;
+        }
+        else
+            passwordsMatched = NO;
+    }
+
 }
     
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

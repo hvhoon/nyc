@@ -11,7 +11,7 @@
 #import "SoclivityUtilities.h"
 #import "SectionInfo.h"
 #import "InfoActivityClass.h"
-#define  SWIPE_CELL 1
+#define  SWIPE_CELL 0
 #pragma mark -
 
 @interface ParticipantListTableView ()
@@ -501,31 +501,6 @@
         
 }
 
--(void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    NSLog(@"didSelectRowAtIndexPath");
-    
-#if SWIPE_CELL
-    
-        if(swipeOn){
-    ParticipantTableViewCell *cell = (ParticipantTableViewCell*)[self.participantTableView cellForRowAtIndexPath:indexPath];
-    
-    if(cell.swiped){
-        cell.swiped=NO;
-        
-    }
-    else{
-        ParticipantTableViewCell *cell1 = (ParticipantTableViewCell*)[self.participantTableView cellForRowAtIndexPath:lastIndexPath];
-        cell1.swiped=NO;
-        
-    }
-    swipeOn=FALSE;
-    [participantTableView reloadData];
-
-        }
-#endif
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-}
 
 - (void)handleSwipeRight:(UISwipeGestureRecognizer *)gestureRecognizer
 {
@@ -696,6 +671,33 @@
     [participantTableView reloadData];	
 }
 #endif
+
+-(void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+    NSLog(@"didSelectRowAtIndexPath");
+    
+#if SWIPE_CELL
+    
+    if(swipeOn){
+        ParticipantTableViewCell *cell = (ParticipantTableViewCell*)[self.participantTableView cellForRowAtIndexPath:indexPath];
+        
+        if(cell.swiped){
+            cell.swiped=NO;
+            
+        }
+        else{
+            ParticipantTableViewCell *cell1 = (ParticipantTableViewCell*)[self.participantTableView cellForRowAtIndexPath:lastIndexPath];
+            cell1.swiped=NO;
+            
+        }
+        swipeOn=FALSE;
+        [participantTableView reloadData];
+        
+    }
+#endif
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+}
+
 -(void)setTheSectionHeaderCount:(NSInteger)type changeCountTo:(NSInteger)changeCountTo{
     
     switch (type) {

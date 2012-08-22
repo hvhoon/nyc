@@ -883,8 +883,11 @@
         NSMutableString*zipString=[NSMutableString string];
         for(NSString*duplicate in mutableArray){
             
-            NSString*newString=[NSString stringWithFormat:@"%@ ",duplicate];
-            [zipString appendString:newString];
+            if(duplicate==nil||[duplicate isEqualToString:@""]|| [duplicate isEqualToString:@"(null)"])
+            
+                    NSLog(@"dont add nil or null values");
+             else
+                [zipString appendString:duplicate];
         }
         NSLog(@"Zip=%@",zipString);
            placemark.vicinityAddress =zipString;
