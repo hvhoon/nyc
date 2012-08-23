@@ -77,7 +77,6 @@
     BOOL editMode;
     BOOL pinDrop;
     IBOutlet UIButton *activityPlotOnMapButton;
-    IBOutlet UIImageView*borderImageView;
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;
 @property (nonatomic,retain)id <AddEventViewDelegate>delegate;
