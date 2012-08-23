@@ -262,7 +262,7 @@
             NSLog(@"sectionZero");
         UIButton *topDividerLineButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         topDividerLineButton.frame = CGRectMake(0, 0, 320, 1);
-        [topDividerLineButton setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]]];
+        [topDividerLineButton setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]]];
         topDividerLineButton.tag=[[NSString stringWithFormat:@"777%d",section]intValue];
         [sectionHeaderview addSubview:topDividerLineButton];
     }
@@ -278,7 +278,7 @@
             NSLog(@"open but not tapped");
         UIButton *topDividerLineButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         topDividerLineButton.frame = CGRectMake(0, 0, 320, 1);
-        [topDividerLineButton setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]]];
+        [topDividerLineButton setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]]];
         topDividerLineButton.tag=[[NSString stringWithFormat:@"777%d",section]intValue];
         [sectionHeaderview addSubview:topDividerLineButton];
     }
@@ -287,7 +287,7 @@
             NSLog(@"next section other than collapsed");
         UIButton *topDividerLineButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         topDividerLineButton.frame = CGRectMake(0, 0, 320, 1);
-        [topDividerLineButton setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]]];
+        [topDividerLineButton setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]]];
         topDividerLineButton.tag=[[NSString stringWithFormat:@"777%d",section]intValue];
         [sectionHeaderview addSubview:topDividerLineButton];
     }
@@ -354,7 +354,7 @@
 
     
     UIView *bottomDividerLineview=[[[UIView alloc]initWithFrame:CGRectMake(0,kSectionHeaderHeight-1,320,1)]autorelease];
-    bottomDividerLineview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]];
+    bottomDividerLineview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]];
     [sectionHeaderview addSubview:bottomDividerLineview];
     
     return sectionHeaderview;
@@ -874,7 +874,7 @@
     }
     else{
         [(UIButton*)[self viewWithTag:7771] setHidden:NO];
-        [(UIButton*)[self viewWithTag:7771]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]]];
+        [(UIButton*)[self viewWithTag:7771]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]]];
         noLine=FALSE;
     }
 	
@@ -1012,7 +1012,7 @@
                     NSString *stringIndex=[NSString stringWithFormat:@"777%d",z];
 
                     [(UIButton*)[self viewWithTag:[stringIndex intValue]] setHidden:NO];
-                    [(UIButton*)[self viewWithTag:[stringIndex intValue]]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]]];
+                    [(UIButton*)[self viewWithTag:[stringIndex intValue]]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]]];
 
                     SectionInfo *previousOpenSection = [self.sectionInfoArray objectAtIndex:z];
                     previousOpenSection.open = NO;
@@ -1036,7 +1036,7 @@
                             [(UIButton*)[self viewWithTag:[stringIndex intValue]] setHidden:YES];
                     }else{
                         [(UIButton*)[self viewWithTag:[stringIndex intValue]] setHidden:NO];
-                        [(UIButton*)[self viewWithTag:[stringIndex intValue]]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]]];
+                        [(UIButton*)[self viewWithTag:[stringIndex intValue]]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]]];
                         
                     }
                     
@@ -1064,7 +1064,7 @@
                         [(UIButton*)[self viewWithTag:[stringIndex intValue]] setHidden:YES];
                     }else{
                         [(UIButton*)[self viewWithTag:[stringIndex intValue]] setHidden:NO];
-                        [(UIButton*)[self viewWithTag:[stringIndex intValue]]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]]];
+                        [(UIButton*)[self viewWithTag:[stringIndex intValue]]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]]];
                         
                     }
 
@@ -1091,7 +1091,7 @@
                         [(UIButton*)[self viewWithTag:[stringIndex intValue]] setHidden:YES];
                     }else{
                         [(UIButton*)[self viewWithTag:[stringIndex intValue]] setHidden:NO];
-                        [(UIButton*)[self viewWithTag:[stringIndex intValue]]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_sectionDivider.png"]]];
+                        [(UIButton*)[self viewWithTag:[stringIndex intValue]]setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]]];
                         
                     }
 

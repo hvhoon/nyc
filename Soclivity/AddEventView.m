@@ -170,7 +170,7 @@
     else {
         activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_private.png"];
         privacySize = activityAccessStatusImgView.frame.size;
-        activityAccessStatusImgView.frame=CGRectMake(288-privacySize.width, (labelSize.height+descriptionBuffer)-(privacySize.height+6), 50, 15);
+        activityAccessStatusImgView.frame=CGRectMake(288-privacySize.width, (labelSize.height+descriptionBuffer)-(privacySize.height+6), 47, 15);
     }
     
     // Adding privacy settings to the description view
@@ -245,8 +245,6 @@
     
     // Location
     
-    locationInfoLabel2.text=[NSString stringWithFormat:@"%@ %@",info.where_city,info.where_state];
-    
     locationIcon.image = [UIImage imageNamed:@"S05_locationIcon.png"];
     locationIcon.frame = CGRectMake(50, 102, 19, 18);
     locationInfoLabel1.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
@@ -255,17 +253,16 @@
     locationTapRect=CGRectMake(84,fromTheTop+102+1, 175, 15+19);
     locationInfoLabel1.frame = CGRectMake(84, 102+1, 175, 15);
 
-    locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
+    locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
     locationInfoLabel2.frame = CGRectMake(84, 122, 175, 15);
     
     activityPlotOnMapButton.hidden=YES;
-    borderImageView.hidden=YES;
-
     switch (info.activityRelationType) {
         case 1:
         {
             locationInfoLabel1.text=[NSString stringWithFormat:@"%@ miles away",info.distance];
+            locationInfoLabel2.text=[NSString stringWithFormat:@" "];
         }
             break;
             
@@ -293,21 +290,17 @@
         {
             
             activityPlotOnMapButton.hidden=NO;
-            borderImageView.hidden=NO;
             locationIcon.hidden=YES;
             locationInfoLabel1.frame=CGRectMake(50, 102+1, 214, 14);
             locationInfoLabel2.frame = CGRectMake(50, 122, 214, 15);
-            borderImageView.frame=CGRectMake(264, 98, 39, 39);
-            activityPlotOnMapButton.frame=CGRectMake(265, 99, 37, 37);
-            firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:16];
-            firstALineddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-            secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
-            secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+            activityPlotOnMapButton.frame=CGRectMake(260, 101, 37, 37);
+            locationInfoLabel1.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
+            locationInfoLabel1.textColor=[SoclivityUtilities returnTextFontColor:5];
+            locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+            locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
 
             locationInfoLabel1.text=info.where_address;
-            firstALineddressLabel.text=info.where_address;
-            secondLineAddressLabel.text=[NSString stringWithFormat:@"%@ %@",info.where_city,info.where_state];
-
+            locationInfoLabel2.text=[NSString stringWithFormat:@"%@, %@ %@",info.where_city,info.where_state,info.where_zip];
         }
             break;
     }
