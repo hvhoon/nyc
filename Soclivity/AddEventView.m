@@ -170,7 +170,7 @@
     else {
         activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_private.png"];
         privacySize = activityAccessStatusImgView.frame.size;
-        activityAccessStatusImgView.frame=CGRectMake(288-privacySize.width, (labelSize.height+descriptionBuffer)-(privacySize.height+6), 50, 15);
+        activityAccessStatusImgView.frame=CGRectMake(288-privacySize.width, (labelSize.height+descriptionBuffer)-(privacySize.height+6), 47, 15);
     }
     
     // Adding privacy settings to the description view
