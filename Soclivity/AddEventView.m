@@ -955,6 +955,8 @@
     
 #if 0    
 
+    
+    NSString *urlString4 = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?location=-33.8670522,151.1957362&radius=50&types=food&name=harbour&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk"];
 	// http://maps.google.com/maps/geo?q=%@&output=csv&key=YourGoogleMapsAPIKey
     NSString *urlString3 = [NSString stringWithFormat:@"http://maps.google.com/maps/geo?q=%@&output=csv&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk", 
                            [addressSearchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
