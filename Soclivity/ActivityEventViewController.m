@@ -153,9 +153,17 @@
                 
                 // Friends going section in the participant bar
                 DOS1Button=[UIButton buttonWithType:UIButtonTypeCustom];
+                
+                // Highlight for the DOS1 button
+                DOS1ButtonHighlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_sectionHighlighted"]];
+                DOS1ButtonHighlight.frame = CGRectMake(98, delta, 72, 47);
+                DOS1ButtonHighlight.hidden = YES;
+                [headerView addSubview:DOS1ButtonHighlight];
+                
                 DOS1Button.frame=CGRectMake(95,delta,75,47);
                 [DOS1Button addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 DOS1Button.tag=105;
+                DOS1Button.backgroundColor = [UIColor clearColor];
                 [headerView addSubview:DOS1Button];
                 
                 CGRect DOS_1LabelRect=CGRectMake(100,delta+11,25,12);
@@ -170,12 +178,12 @@
                 [DOS_1countLabel release];
                 
                 UIImageView *DOS_1ImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"smallDOS1.png"]];
-                DOS_1ImageView.frame=CGRectMake(129, delta+11, 19, 11);
+                DOS_1ImageView.frame=CGRectMake(128, delta+11, 19, 11);
                 DOS_1ImageView.tag=238;
                 [headerView addSubview:DOS_1ImageView];
                 [DOS_1ImageView release];
                 
-                CGRect friendsLabelTextRect=CGRectMake(104,delta+26,55,12);
+                CGRect friendsLabelTextRect=CGRectMake(106,delta+26,55,12);
                 UILabel *friendsTextLabel=[[UILabel alloc] initWithFrame:friendsLabelTextRect];
                 friendsTextLabel.textAlignment=UITextAlignmentCenter;
                 friendsTextLabel.text=[NSString stringWithFormat:@"FRIENDS"];
@@ -188,12 +196,20 @@
                 
                 // People you may know section in the participant bar
                 DOS2Button=[UIButton buttonWithType:UIButtonTypeCustom];
-                DOS2Button.frame=CGRectMake(175,delta,75,47);
+                
+                // Highlight for the DOS2 button
+                DOS2ButtonHighlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_sectionHighlighted"]];
+                DOS2ButtonHighlight.frame = CGRectMake(176, delta, 72, 47);
+                DOS2ButtonHighlight.hidden = YES;
+                [headerView addSubview:DOS2ButtonHighlight];
+                
+                DOS2Button.frame=CGRectMake(174,delta,75,47);
                 [DOS2Button addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 DOS2Button.tag=106;
+                DOS2Button.backgroundColor = [UIColor clearColor];
                 [headerView addSubview:DOS2Button];
                 
-                CGRect DOS_2LabelRect=CGRectMake(180,delta+11,25,12);
+                CGRect DOS_2LabelRect=CGRectMake(178,delta+11,25,12);
                 UILabel *DOS_2countLabel=[[UILabel alloc] initWithFrame:DOS_2LabelRect];
                 DOS_2countLabel.textAlignment=UITextAlignmentRight;
                 DOS_2countLabel.text=[NSString stringWithFormat:@"%d",activityInfo.DOS2];
@@ -205,12 +221,12 @@
                 [DOS_2countLabel release];
                 
                 UIImageView *DOS_2ImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"smallDOS2.png"]];
-                DOS_2ImageView.frame=CGRectMake(209, delta+11, 19, 11);
+                DOS_2ImageView.frame=CGRectMake(207, delta+11, 19, 11);
                 DOS_2ImageView.tag=241;
                 [headerView addSubview:DOS_2ImageView];
                 [DOS_2ImageView release];
                 
-                CGRect mayknowLabelTextRect=CGRectMake(181,delta+26,65,12);
+                CGRect mayknowLabelTextRect=CGRectMake(179,delta+26,65,12);
                 UILabel *mayknowTextLabel=[[UILabel alloc] initWithFrame:mayknowLabelTextRect];
                 mayknowTextLabel.textAlignment=UITextAlignmentCenter;
                 mayknowTextLabel.text=[NSString stringWithFormat:@"MAY KNOW"];
@@ -224,13 +240,21 @@
                 
                 // Other section in the participant bar
                 DOS3Button=[UIButton buttonWithType:UIButtonTypeCustom];
-                DOS3Button.frame=CGRectMake(257,delta,75,47);
+                
+                // Highlight for the DOS1 button
+                DOS3ButtonHighlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_sectionHighlighted"]];
+                DOS3ButtonHighlight.frame = CGRectMake(248, delta, 72, 47);
+                DOS3ButtonHighlight.hidden = YES;
+                [headerView addSubview:DOS3ButtonHighlight];
+                
+                DOS3Button.frame=CGRectMake(248,delta,72,47);
                 [DOS3Button addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 DOS3Button.tag=107;
+                DOS3Button.backgroundColor = [UIColor clearColor];
                 [headerView addSubview:DOS3Button];
                 
                 
-                CGRect DOS_3LabelRect=CGRectMake(262,delta+11,55,12);
+                CGRect DOS_3LabelRect=CGRectMake(256,delta+11,55,12);
                 UILabel *DOS_3countLabel=[[UILabel alloc] initWithFrame:DOS_3LabelRect];
                 DOS_3countLabel.textAlignment=UITextAlignmentCenter;
                 DOS_3countLabel.text=[NSString stringWithFormat:@"%d",activityInfo.DOS3];
@@ -242,7 +266,7 @@
                 [DOS_3countLabel release];
                 
                 
-                CGRect othersLabelTextRect=CGRectMake(262,delta+26,55,12);
+                CGRect othersLabelTextRect=CGRectMake(256,delta+26,55,12);
                 UILabel *othersTextLabel=[[UILabel alloc] initWithFrame:othersLabelTextRect];
                 othersTextLabel.textAlignment=UITextAlignmentCenter;
                 othersTextLabel.text=[NSString stringWithFormat:@"OTHERS"];
@@ -927,23 +951,21 @@ switch (activityInfo.activityRelationType) {
     // Highlight only the item selected and remove highlights from the other areas
     
     // Unhighlight all the other selections
-    DOS1Button.backgroundColor = [UIColor clearColor];
-    DOS2Button.backgroundColor = [UIColor clearColor];
-    DOS3Button.backgroundColor = [UIColor clearColor];
+    DOS1ButtonHighlight.hidden = YES;
+    DOS2ButtonHighlight.hidden = YES;
+    DOS3ButtonHighlight.hidden = YES;
+
     
     // Highlight just the 'Going' or 'Requests' section
     switch (selection) {
         case 1:
-            DOS1Button.backgroundColor = [UIColor blackColor];
-            DOS1Button.alpha = 0.1;
+            DOS1ButtonHighlight.hidden = NO;
             break;
         case 2:
-            DOS2Button.backgroundColor = [UIColor blackColor];
-            DOS2Button.alpha = 0.1;
+            DOS2ButtonHighlight.hidden = NO;
             break;
         case 3:
-            DOS3Button.backgroundColor = [UIColor blackColor];
-            DOS3Button.alpha = 0.1;
+            DOS3ButtonHighlight.hidden = NO;
         default:
             break;
     }    
