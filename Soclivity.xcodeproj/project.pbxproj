@@ -460,7 +460,14 @@
 		EAB1364C1554681900C1607D /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB1364B1554681900C1607D /* libxml2.2.dylib */; };
 		EAB1364E1554682500C1607D /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB1364D1554682500C1607D /* libsqlite3.0.dylib */; };
 		EAB136501554682F00C1607D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB1364F1554682F00C1607D /* Security.framework */; };
+		EABCE21E15E7E9F0005B74E8 /* ContactsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EABCE21C15E7E9EF005B74E8 /* ContactsListViewController.m */; };
+		EABCE21F15E7E9F0005B74E8 /* ContactsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABCE21D15E7E9EF005B74E8 /* ContactsListViewController.xib */; };
+		EABCE22415E7F658005B74E8 /* ContactList.plist in Resources */ = {isa = PBXBuildFile; fileRef = EABCE22315E7F658005B74E8 /* ContactList.plist */; };
 		EAC94D041566C11800400404 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC94D021566C11800400404 /* SFHFKeychainUtils.m */; };
+		EAD0D6CF15E74A89009865D7 /* ActivityInvitesView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD0D6CE15E74A89009865D7 /* ActivityInvitesView.m */; };
+		EAD0D6D615E762C8009865D7 /* Invites.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAD0D6D515E762C8009865D7 /* Invites.plist */; };
+		EAD0D6DC15E76660009865D7 /* InviteObjectClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD0D6DB15E7665F009865D7 /* InviteObjectClass.m */; };
+		EAD0D6DF15E76E07009865D7 /* InviteUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD0D6DE15E76E07009865D7 /* InviteUserTableViewCell.m */; };
 		EAD44FF21564FA190075C8CA /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD44FF01564FA190075C8CA /* Base64.m */; };
 		EAED83C21553FBC700124D7D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAED83C01553FBC700124D7D /* LoginViewController.m */; };
 		EAED83C31553FBC700124D7D /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAED83C11553FBC700124D7D /* LoginViewController.xib */; };
@@ -1210,8 +1217,19 @@
 		EAB1364B1554681900C1607D /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		EAB1364D1554682500C1607D /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		EAB1364F1554682F00C1607D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		EABCE21B15E7E9EF005B74E8 /* ContactsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsListViewController.h; sourceTree = "<group>"; };
+		EABCE21C15E7E9EF005B74E8 /* ContactsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsListViewController.m; sourceTree = "<group>"; };
+		EABCE21D15E7E9EF005B74E8 /* ContactsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsListViewController.xib; sourceTree = "<group>"; };
+		EABCE22315E7F658005B74E8 /* ContactList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ContactList.plist; sourceTree = "<group>"; };
 		EAC94D021566C11800400404 /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
 		EAC94D031566C11800400404 /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
+		EAD0D6CD15E74A89009865D7 /* ActivityInvitesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityInvitesView.h; sourceTree = "<group>"; };
+		EAD0D6CE15E74A89009865D7 /* ActivityInvitesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityInvitesView.m; sourceTree = "<group>"; };
+		EAD0D6D515E762C8009865D7 /* Invites.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Invites.plist; sourceTree = "<group>"; };
+		EAD0D6DA15E7665F009865D7 /* InviteObjectClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteObjectClass.h; sourceTree = "<group>"; };
+		EAD0D6DB15E7665F009865D7 /* InviteObjectClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteObjectClass.m; sourceTree = "<group>"; };
+		EAD0D6DD15E76E07009865D7 /* InviteUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteUserTableViewCell.h; sourceTree = "<group>"; };
+		EAD0D6DE15E76E07009865D7 /* InviteUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteUserTableViewCell.m; sourceTree = "<group>"; };
 		EAD44FF01564FA190075C8CA /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
 		EAD44FF11564FA190075C8CA /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
 		EAED83BF1553FBC700124D7D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -1528,6 +1546,8 @@
 		680CE3E91551258700B8E937 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EABCE22315E7F658005B74E8 /* ContactList.plist */,
+				EAD0D6D515E762C8009865D7 /* Invites.plist */,
 				EA976C351584B50B00474EAF /* SoclivityDB.sqlite */,
 				EA7D64A715776A970034E4DB /* Activities.plist */,
 				680CE3EA1551258700B8E937 /* Soclivity-Info.plist */,
@@ -1823,6 +1843,8 @@
 				EA7D64C0157780CF0034E4DB /* SOCTableViewCell.m */,
 				EA85523515B5E20600AA44C3 /* ParticipantTableViewCell.h */,
 				EA85523615B5E20600AA44C3 /* ParticipantTableViewCell.m */,
+				EAD0D6DD15E76E07009865D7 /* InviteUserTableViewCell.h */,
+				EAD0D6DE15E76E07009865D7 /* InviteUserTableViewCell.m */,
 			);
 			name = "Cell Utilities";
 			sourceTree = "<group>";
@@ -1974,6 +1996,13 @@
 				EA85DC6215B00C7400AAD964 /* InvitesViewController.h */,
 				EA85DC6315B00C7400AAD964 /* InvitesViewController.m */,
 				EA85DC6415B00C7400AAD964 /* InvitesViewController.xib */,
+				EAD0D6CD15E74A89009865D7 /* ActivityInvitesView.h */,
+				EAD0D6CE15E74A89009865D7 /* ActivityInvitesView.m */,
+				EAD0D6DA15E7665F009865D7 /* InviteObjectClass.h */,
+				EAD0D6DB15E7665F009865D7 /* InviteObjectClass.m */,
+				EABCE21B15E7E9EF005B74E8 /* ContactsListViewController.h */,
+				EABCE21C15E7E9EF005B74E8 /* ContactsListViewController.m */,
+				EABCE21D15E7E9EF005B74E8 /* ContactsListViewController.xib */,
 			);
 			name = Invites;
 			sourceTree = "<group>";
@@ -3269,6 +3298,9 @@
 				EAAEF8B015DA60710085DBE5 /* S05.4_addressBook@2x.png in Resources */,
 				EAAEF8B115DA60710085DBE5 /* S05.4_invite.png in Resources */,
 				EAAEF8B215DA60710085DBE5 /* S05.4_invite@2x.png in Resources */,
+				EAD0D6D615E762C8009865D7 /* Invites.plist in Resources */,
+				EABCE21F15E7E9F0005B74E8 /* ContactsListViewController.xib in Resources */,
+				EABCE22415E7F658005B74E8 /* ContactList.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3397,6 +3429,10 @@
 				EA863A5615C1627A0072C005 /* ActivityAnnotation.m in Sources */,
 				EA884AAD15C6601C00367670 /* PostActivityRequestInvocation.m in Sources */,
 				EA884ACE15C6B87600367670 /* PlacemarkClass.m in Sources */,
+				EAD0D6CF15E74A89009865D7 /* ActivityInvitesView.m in Sources */,
+				EAD0D6DC15E76660009865D7 /* InviteObjectClass.m in Sources */,
+				EAD0D6DF15E76E07009865D7 /* InviteUserTableViewCell.m in Sources */,
+				EABCE21E15E7E9F0005B74E8 /* ContactsListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3423,8 +3459,8 @@
 					armv6,
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3441,6 +3477,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				PROVISIONING_PROFILE = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -3456,8 +3494,8 @@
 					armv6,
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_THUMB_SUPPORT = NO;
@@ -3468,6 +3506,8 @@
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -3480,8 +3520,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
@@ -3490,8 +3530,8 @@
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F0726047-015F-43F1-9FFB-3194BE14717C";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F0726047-015F-43F1-9FFB-3194BE14717C";
+				PROVISIONING_PROFILE = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				USER_HEADER_SEARCH_PATHS = "../../src/**";
 				WRAPPER_EXTENSION = app;
@@ -3503,8 +3543,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Harish Hoon";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Harish Hoon";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Navneet Gosal (3KXKR77VYT)";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
@@ -3513,8 +3553,8 @@
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4F91E8F7-08B3-47F8-BA75-3FDF0D887D1E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4F91E8F7-08B3-47F8-BA75-3FDF0D887D1E";
+				PROVISIONING_PROFILE = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				USER_HEADER_SEARCH_PATHS = "../../src/**";
 				WRAPPER_EXTENSION = app;

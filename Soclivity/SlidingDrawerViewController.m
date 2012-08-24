@@ -152,7 +152,7 @@
         
         [invitesViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
 
-        [invitesViewControllerDictionary setObject:[UpComingCompletedEventsViewController class] forKey:kSlideViewControllerViewControllerClassKey];
+        [invitesViewControllerDictionary setObject:[InvitesViewController class] forKey:kSlideViewControllerViewControllerClassKey];
         [invitesViewControllerDictionary setObject:[UIImage imageNamed:@"S7_invite_icon.png"] forKey:kSlideViewControllerViewControllerIconKey];
         
         

@@ -11,6 +11,7 @@
 #import "InfoActivityClass.h"
 #import "SoclivitySqliteClass.h"
 #import "SoclivityManager.h"
+#import "InvitesViewController.h"
 #define kDeleteActivity 12
 @implementation ActivityEventViewController
 @synthesize activityInfo,scrollView;
@@ -779,6 +780,13 @@
 }
 -(IBAction)inviteUsersButton:(id)sender{
     
+    InvitesViewController *invitesViewController=[[InvitesViewController alloc] initWithNibName:@"InvitesViewController" bundle:nil];
+    invitesViewController.activityName=[NSString stringWithFormat:@"%@",activityInfo.activityName];
+    invitesViewController.num_of_slots=activityInfo.num_of_people;
+    invitesViewController.inviteFriends=YES;
+	[[self navigationController] pushViewController:invitesViewController animated:YES];
+    [invitesViewController release];
+
 }
 -(IBAction)editButtonClicked:(id)sender{
     

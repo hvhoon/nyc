@@ -807,6 +807,7 @@
     
     else if([viewController isKindOfClass:[InvitesViewController class]]){
         InvitesViewController *invitesController=(InvitesViewController*)viewController;
+        invitesController.inviteFriends=NO;
         invitesController.delegate=self;
         
     }

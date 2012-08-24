@@ -40,7 +40,7 @@
 		NSMutableDictionary *row = [[[NSMutableDictionary alloc] init] autorelease];
 		NSMutableDictionary *elements=[[[NSMutableDictionary alloc] init] autorelease];
 		NSMutableArray *entries=[[[NSMutableArray alloc]init] autorelease];
-		ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i );
+		ABRecordRef ref = CFArrayGetValueAtIndex(allPeople,i);
 		NSString *name  = (NSString *)ABRecordCopyCompositeName(ref);
 		NSString *status=@"Invite";
 		NSMutableDictionary *dictionary = [[[NSMutableDictionary alloc] init]autorelease];
@@ -56,13 +56,13 @@
             if([words count]>=2){
                 firstName=[words objectAtIndex:0];
                 lastName=[words objectAtIndex:1];
-                [dictionary setObject:firstName forKey:@"first_name"];
-                [dictionary setObject:lastName forKey:@"last_name"];
+                [dictionary setObject:
+                               [NSString stringWithFormat:@"%@ %@",firstName,lastName]forKey:@"userName"];
 
             }
             else{
                 firstName=[words objectAtIndex:0];
-                [dictionary setObject:firstName forKey:@"first_name"];
+                [dictionary setObject:firstName forKey:@"userName"];
 
             }
 			}
@@ -116,13 +116,8 @@
 		CFRelease(multi);
 	}
     
-	
-	
-	
 	NSString *requestString =[jsonContentArray JSONRepresentation];
     NSLog(@"requestString=%@",requestString);
-	
-    
 	
 }
 @end
