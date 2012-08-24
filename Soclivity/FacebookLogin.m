@@ -34,7 +34,7 @@
 }
 -(void)setUpPermissions{
     permissions = [[NSArray alloc] initWithObjects:@"offline_access",@"user_likes", 
-                   @"read_stream",@"email", nil];//nice bit of research kanav got user's email id also
+                   @"read_stream",@"email", nil];//nice bit of research kanav got user's email id also..//subscribe
     [self login];
     
 }
