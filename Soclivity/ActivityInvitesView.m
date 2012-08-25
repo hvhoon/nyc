@@ -43,7 +43,17 @@
         inviteUserTableView.separatorColor=[UIColor clearColor];
         inviteUserTableView.showsVerticalScrollIndicator=YES;
         [self addSubview:inviteUserTableView];
-        [self SetUpDummyInvites];
+        
+        
+        NSOperationQueue *queue = [NSOperationQueue new];
+        NSInvocationOperation *operation = [[NSInvocationOperation alloc]
+                                            initWithTarget:self
+                                            selector:@selector(SetUpDummyInvites) 
+                                            object:nil];
+        [queue addOperation:operation];
+        [operation release];
+
+        //[self SetUpDummyInvites];
 
 
         
@@ -189,9 +199,13 @@
         
 }
         InviteEntriesArray=content;
-       [inviteUserTableView reloadData];
-}
+    [self performSelectorOnMainThread:@selector(loadTableView) withObject:nil waitUntilDone:NO];
 
+}
+-(void)loadTableView{
+    [inviteUserTableView reloadData];
+    
+}
 
 #pragma mark -
 #pragma  mark Table Data Source Methods
