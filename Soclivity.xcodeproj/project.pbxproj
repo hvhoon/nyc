@@ -3306,6 +3306,9 @@
 				EAAEF8B215DA60710085DBE5 /* S05.4_invite@2x.png in Resources */,
 				685FDBDC15E7E50C001C9549 /* S05_sectionHighlighted.png in Resources */,
 				685FDBDD15E7E50C001C9549 /* S05_sectionHighlighted@2x.png in Resources */,
+				EAD0D6D615E762C8009865D7 /* Invites.plist in Resources */,
+				EABCE21F15E7E9F0005B74E8 /* ContactsListViewController.xib in Resources */,
+				EABCE22415E7F658005B74E8 /* ContactList.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
