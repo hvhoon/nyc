@@ -9,7 +9,6 @@
 #import "HomeViewController.h"
 #import "SoclivityUtilities.h"
 #import "SettingsViewController.h"
-#import "UserContactList.h"
 #import "ActivityEventViewController.h"
 #import "MainServiceManager.h"
 #import "SoclivityManager.h"
@@ -135,8 +134,6 @@
     sortByTimeBtn.hidden=NO;
     refreshBtn.hidden=YES;
     currentLocationBtn.hidden=YES;
-    UserContactList *addressBook=[[UserContactList alloc]init];
-    [addressBook GetAddressBook];
     
     // Do any additional setup after loading the view from its nib.
 }

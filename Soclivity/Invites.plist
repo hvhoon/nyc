@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>userName</key>
+		<string>Avinash Thadani</string>
+		<key>typeOfRelation</key>
+		<integer>0</integer>
+		<key>DOS</key>
+		<integer>1</integer>
+		<key>profilePhotoUrl</key>
+		<string>/system/players/photos/000/000/062/thumb/stringio.txt?1338094596</string>
+		<key>status</key>
+		<true/>
+	</dict>
+	<dict>
+		<key>userName</key>
+		<string>Pritha Thadani</string>
+		<key>typeOfRelation</key>
+		<integer>0</integer>
+		<key>DOS</key>
+		<integer>1</integer>
+		<key>profilePhotoUrl</key>
+		<string>/system/players/photos/000/000/070/thumb/stringio.txt?1338524866</string>
+		<key>status</key>
+		<false/>
+	</dict>
+	<dict>
+		<key>userName</key>
+		<string>Kunal Guha</string>
+		<key>typeOfRelation</key>
+		<integer>1</integer>
+		<key>DOS</key>
+		<integer>1</integer>
+		<key>profilePhotoUrl</key>
+		<string>/system/players/photos/000/000/082/thumb/stringio.txt?1339954126</string>
+		<key>status</key>
+		<false/>
+	</dict>
+	<dict>
+		<key>userName</key>
+		<string>Harish Hoon</string>
+		<key>typeOfRelation</key>
+		<integer>1</integer>
+		<key>DOS</key>
+		<integer>2</integer>
+		<key>profilePhotoUrl</key>
+		<string>/system/players/photos/000/000/084/thumb/stringio.txt?1340397469</string>
+		<key>status</key>
+		<true/>
+	</dict>
+	<dict>
+		<key>userName</key>
+		<string>Raunak Shah</string>
+		<key>typeOfRelation</key>
+		<integer>2</integer>
+		<key>DOS</key>
+		<integer>2</integer>
+		<key>profilePhotoUrl</key>
+		<string>/system/players/photos/000/000/068/thumb/stringio.txt?1338257053</string>
+		<key>status</key>
+		<true/>
+	</dict>
+	<dict>
+		<key>userName</key>
+		<string>Shahved Katoch</string>
+		<key>typeOfRelation</key>
+		<integer>2</integer>
+		<key>DOS</key>
+		<integer>1</integer>
+		<key>profilePhotoUrl</key>
+		<string>/system/players/photos/000/000/064/thumb/stringio.txt?1338125286</string>
+		<key>status</key>
+		<false/>
+	</dict>
+</array>
+</plist>
