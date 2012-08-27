@@ -439,7 +439,7 @@
         rightPinImageView.hidden=YES;
         
     }
-
+    
 }
 -(void)ActivityEventOnMap{
     SOC=[SoclivityManager SharedInstance];
@@ -1305,7 +1305,7 @@
 }
 -(void)hideSearchBarAndAnimateWithListViewInMiddle{
  
-    mapView.frame=CGRectMake(320, -47, 320, 376);
+    mapView.frame=CGRectMake(320, 0, 320, 376-51);
 #if 0    
     if (footerActivated) {
 		[UIView beginAnimations:@"collapseFooter" context:nil];

@@ -1049,6 +1049,7 @@ switch (activityInfo.activityRelationType) {
     locationEditRightCheckButton.hidden=YES;
     backToActivityFromMapButton.hidden=NO;
     chatButton.hidden=NO;
+    [eventView.addressSearchBar resignFirstResponder];
     [eventView.addressSearchBar setHidden:YES];
     [eventView hideSearchBarAndAnimateWithListViewInMiddle];
     [eventView cancelClicked];
@@ -1069,6 +1070,7 @@ switch (activityInfo.activityRelationType) {
     locationEditRightCheckButton.hidden=YES;
     backToActivityFromMapButton.hidden=NO;
     chatButton.hidden=NO;
+    [eventView.addressSearchBar resignFirstResponder];
     [eventView.addressSearchBar setHidden:YES];
     [eventView hideSearchBarAndAnimateWithListViewInMiddle];
     [eventView setNewLocation];

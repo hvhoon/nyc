@@ -184,7 +184,7 @@
     
     play.goingCount=[NSString stringWithFormat:@"%d",play.DOS1+play.DOS2+play.DOS3];
     
-    /*
+    
     if(play.activityRelationType==6){
         play.pendingRequestArray=DOS2Array;
         play.pendingRequestCount=[DOS2Array count];
@@ -196,7 +196,7 @@
         play.otherParticipantsArray=testArray;
     }
 
- */
+ 
     
 	return play;
     
