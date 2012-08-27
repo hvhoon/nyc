@@ -298,9 +298,16 @@
             locationInfoLabel1.textColor=[SoclivityUtilities returnTextFontColor:5];
             locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
             locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
-
             locationInfoLabel1.text=info.where_address;
             locationInfoLabel2.text=[NSString stringWithFormat:@"%@, %@ %@",info.where_city,info.where_state,info.where_zip];
+            
+            // Setting the variables for the map screen
+            firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
+            firstALineddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+            secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+            secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+            firstALineddressLabel.text = info.where_address;
+            secondLineAddressLabel.text = [NSString stringWithFormat:@"%@, %@ %@",info.where_city,info.where_state,info.where_zip];
         }
             break;
     }
@@ -462,7 +469,7 @@
     
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] 
                                           initWithTarget:self action:@selector(didLongPress:)];
-    lpgr.minimumPressDuration = 2.0; //user needs to press for 2 seconds
+    lpgr.minimumPressDuration = 1.0; //user needs to press for 2 seconds
     [self.mapView addGestureRecognizer:lpgr];
     [lpgr release];
 
@@ -665,9 +672,9 @@
     if(size.width>300){
         size.width=300;
     }
-	UIView *mapLeftView=[[UIView alloc] initWithFrame:CGRectMake(0,0, size.width, 30)];
 	
-	CGRect nameLabelRect=CGRectMake(5,0,size.width,16);
+    CGRect nameLabelRect=CGRectMake(5,0,size.width,16);
+    UIView *mapLeftView=[[UIView alloc] initWithFrame:CGRectMake(0,0, size.width, 30)];
 	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
 	nameLabel.textAlignment=UITextAlignmentCenter;
 	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];

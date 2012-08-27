@@ -34,6 +34,9 @@
     UIButton *DOS1Button;
     UIButton *DOS3Button;
     UIButton *DOS2Button;
+    UIImageView *DOS1ButtonHighlight;
+    UIImageView *DOS2ButtonHighlight;
+    UIImageView *DOS3ButtonHighlight;
     BOOL pageControlBeingUsed;
     int page;
     BOOL toggleFriends;

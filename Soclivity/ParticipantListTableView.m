@@ -308,7 +308,7 @@
     UILabel *DOScountLabel=[[UILabel alloc] initWithFrame:DOSLabelRect];
     DOScountLabel.textAlignment=UITextAlignmentLeft;
     
-    DOScountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
+    DOScountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
     DOScountLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     DOScountLabel.backgroundColor=[UIColor clearColor];
     
@@ -319,21 +319,21 @@
         {
             [DOSImageView setHidden:YES];
             DOScountLabel.frame=CGRectMake(12, 7.5, 240, 12);
-            DOScountLabel.text=[NSString stringWithFormat:@"%d Join Requests",[sectionInfo.play.quotations count]];
+            DOScountLabel.text=[NSString stringWithFormat:@"%d JOIN REQUESTS",[sectionInfo.play.quotations count]];
         }
             break;
 
         case 1:
         {
             DOSImageView.image=[UIImage imageNamed:@"smallDOS1.png"];
-            DOScountLabel.text=[NSString stringWithFormat:@"%d Friends",[sectionInfo.play.quotations count]];
+            DOScountLabel.text=[NSString stringWithFormat:@"%d FRIENDS",[sectionInfo.play.quotations count]];
         }
             break;
             
         case 2:
         {
             DOSImageView.image=[UIImage imageNamed:@"smallDOS2.png"];
-            DOScountLabel.text=[NSString stringWithFormat:@"%d Friends of friends",[sectionInfo.play.quotations count]];
+            DOScountLabel.text=[NSString stringWithFormat:@"%d FRIENDS OF FRIENDS",[sectionInfo.play.quotations count]];
         }
             break;
             
