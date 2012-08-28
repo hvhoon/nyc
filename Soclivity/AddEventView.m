@@ -808,6 +808,16 @@
     CLLocation * location = [[CLLocation alloc] initWithLatitude:coord.latitude 
                                                        longitude:coord.longitude];
     
+    [self.mapView removeAnnotations:self.mapView.annotations];
+
+    searching=FALSE;
+    pinDrop=TRUE;
+
+    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:@" " address:@" " coordinate:coord firtsLine:@" " secondLine:@" " tagIndex:7770 isDropped:YES]autorelease];
+    
+    [self.mapView addAnnotation:sfAnnotation];
+
+    
     [_geocoder reverseGeocodeLocation:location
                     completionHandler:^(NSArray *placemarks, NSError *error) {
                         if (!error)
@@ -820,7 +830,7 @@
     
     self.addressSearchBar.text=@"";
     [_geocodingResults removeAllObjects];
-    [self.mapView removeAnnotations:self.mapView.annotations];
+    //[self.mapView removeAnnotations:self.mapView.annotations];
           searching=FALSE;
     
     if([placemarks count]>0){
@@ -897,7 +907,33 @@
             searching=FALSE;
             
             pinDrop=TRUE;
-            [self addPinAnnotationForPlacemark:_geocodingResults droppedStatus:YES];
+            
+                
+                for (id<MKAnnotation> currentAnnotation in self.mapView.annotations) {       
+                    if ([currentAnnotation isKindOfClass:[ActivityAnnotation class]]) {
+                        NSLog(@"annotation %@", currentAnnotation);
+                        
+                                ActivityAnnotation *location = (ActivityAnnotation *) currentAnnotation;
+                         PlacemarkClass * placemark = [_geocodingResults objectAtIndex:0];
+                        
+                        NSString * formattedAddress = [NSString stringWithFormat:@"%@",placemark.formattedAddress];
+                        NSString * zipAddress=[NSString stringWithFormat:@"%@",placemark.vicinityAddress];
+                        CLLocationCoordinate2D theCoordinate;
+                        theCoordinate.latitude = placemark.latitude;
+                        theCoordinate.longitude =placemark.longitude;
+                        
+                        location.businessAdress=formattedAddress;
+                        location.infoActivity=zipAddress;
+                        
+                        [self setUpLabelViewElements:NO];
+                        
+                        firstALineddressLabel.text=location.businessAdress;
+                        secondLineAddressLabel.text=location.infoActivity;
+
+                }
+            }
+
+            //[self addPinAnnotationForPlacemark:_geocodingResults droppedStatus:YES];
             currentLocationArray =[NSMutableArray arrayWithCapacity:[_geocodingResults count]];
             currentLocationArray=[_geocodingResults retain];
             
@@ -908,9 +944,9 @@
             MKCoordinateRegion adjustedRegion = [mapView regionThatFits:viewRegion];                
             [mapView setRegion:adjustedRegion animated:YES];*/
             
-            [self setUpLabelViewElements:NO];
-            firstALineddressLabel.text=@"Pick a Location";
-            secondLineAddressLabel.text=@"Select a pin above to see it's full address";
+
+//            firstALineddressLabel.text=@"Pick a Location";
+//            secondLineAddressLabel.text=@"Select a pin above to see it's full address";
 
             
         }

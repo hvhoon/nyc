@@ -123,6 +123,8 @@
         switch (alertView.tag) {
             case kAddressBookContacts:
             {
+                [[NSUserDefaults standardUserDefaults] setValue:@"TRUE" forKey:@"AddressBookConfirm"];
+
                 [self UserConfirmationReceived];
             }
                 break;
@@ -154,7 +156,6 @@
         [self UserConfirmationReceived];
     }
     else{
-        [[NSUserDefaults standardUserDefaults] setValue:@"TRUE" forKey:@"AddressBookConfirm"];
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Confirm"
                                                         message:@"Do you want to invite people from your address book"
