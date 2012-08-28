@@ -28,6 +28,14 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    [activityInvites closeAnimation];
+    
+
+}
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -52,7 +60,7 @@
     openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
 
 }
-    ActivityInvitesView *activityInvites=[[ActivityInvitesView alloc]initWithFrame:CGRectMake(0, 43, 320, 377)];
+    activityInvites=[[ActivityInvitesView alloc]initWithFrame:CGRectMake(0, 43, 320, 377)];
     activityInvites.delegate=self;
     [self.view addSubview:activityInvites];
     
@@ -60,7 +68,7 @@
 
     // Do any additional setup after loading the view from its nib.
 }
-- (void)pushContactsInvitesScreen:(id)sender{
+- (void)pushContactsInvitesScreen{
  
     ContactsListViewController *contactsListViewController=[[ContactsListViewController alloc] initWithNibName:@"ContactsListViewController" bundle:nil];
     contactsListViewController.activityName=[NSString stringWithFormat:@"%@",activityName];
@@ -68,6 +76,10 @@
 
 	[[self navigationController] pushViewController:contactsListViewController animated:YES];
     [contactsListViewController release];
+    
+    if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+
 
 }
 

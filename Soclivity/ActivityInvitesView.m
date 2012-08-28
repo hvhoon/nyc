@@ -9,6 +9,7 @@
 #import "ActivityInvitesView.h"
 #import "InviteObjectClass.h"
 #import "SoclivityUtilities.h"
+#define kAddressBookContacts 123
 @implementation ActivityInvitesView
 @synthesize searchBarForInvites,InviteEntriesArray,filteredListContent,delegate;
 - (id)initWithFrame:(CGRect)frame
@@ -44,16 +45,8 @@
         inviteUserTableView.showsVerticalScrollIndicator=YES;
         [self addSubview:inviteUserTableView];
         
-        
-        NSOperationQueue *queue = [NSOperationQueue new];
-        NSInvocationOperation *operation = [[NSInvocationOperation alloc]
-                                            initWithTarget:self
-                                            selector:@selector(SetUpDummyInvites) 
-                                            object:nil];
-        [queue addOperation:operation];
-        [operation release];
 
-        //[self SetUpDummyInvites];
+        [self SetUpDummyInvites];
 
 
         
@@ -96,8 +89,20 @@
     UIButton *disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     disclosureButton.frame = CGRectMake(296, 21.5, 9, 14);
     [disclosureButton setBackgroundImage:[UIImage imageNamed:@"smallNextArrow.png"] forState:UIControlStateNormal];
+    disclosureButton.tag=555;
     [disclosureButton addTarget:self action:@selector(inviteUsersFromAddressBook:) forControlEvents:UIControlEventTouchUpInside];
     [contactHeaderView addSubview:disclosureButton];
+    
+    
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] 
+                                                  initWithFrame:CGRectMake(287.0f, 18.0f, 20.0f, 20.0f)];
+    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.tag=[[NSString stringWithFormat:@"666"]intValue];
+    [activityIndicator setHidden:YES];
+    [contactHeaderView addSubview:activityIndicator];
+    // release it
+    [activityIndicator release];
+
     
     return contactHeaderView;
 
@@ -107,10 +112,86 @@
     [super dealloc];
 }
 
+#pragma mark -
+#pragma mark UIAlertView methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    //[alertView resignFirstResponder];
+    
+    if (buttonIndex == 0) {
+        
+        switch (alertView.tag) {
+            case kAddressBookContacts:
+            {
+                [self UserConfirmationReceived];
+            }
+                break;
+            default:
+                break;
+        }
+    }
+    else
+        NSLog(@"Clicked Cancel Button");
+    
+}
 
+
+-(void)closeAnimation{
+    
+    [(UIButton*)[self viewWithTag:555] setHidden:NO];
+    UIActivityIndicatorView *tmpimg = (UIActivityIndicatorView *)[self viewWithTag:666];
+    [tmpimg stopAnimating];
+    [tmpimg setHidden:YES];
+
+}
 -(void)inviteUsersFromAddressBook:(id)sender{
     
-    [delegate pushContactsInvitesScreen:sender];
+    
+    
+    NSString *confirmationDialog=[[NSUserDefaults standardUserDefaults] valueForKey:@"AddressBookConfirm"];
+    
+    if([confirmationDialog isEqualToString:@"TRUE"]){
+        [self UserConfirmationReceived];
+    }
+    else{
+        [[NSUserDefaults standardUserDefaults] setValue:@"TRUE" forKey:@"AddressBookConfirm"];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Confirm"
+                                                        message:@"Do you want to invite people from your address book"
+                                                       delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancel",nil];
+        
+        alert.tag=kAddressBookContacts;
+        [alert show];
+        [alert release];
+        
+        
+    }
+
+}
+
+-(void)UserConfirmationReceived{
+    if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    
+    [(UIButton*)[self viewWithTag:555] setHidden:YES];
+    UIActivityIndicatorView *tmpimg = (UIActivityIndicatorView *)[self viewWithTag:666];
+    [tmpimg setHidden:NO];
+    [tmpimg startAnimating];
+    
+    
+    
+    NSOperationQueue *queue = [NSOperationQueue new];
+    NSInvocationOperation *operation = [[NSInvocationOperation alloc]
+                                        initWithTarget:self
+                                        selector:@selector(SetUpActivityInvites) 
+                                        object:nil];
+    [queue addOperation:operation];
+    [operation release];
+    
+}
+
+-(void)SetUpActivityInvites{
+    [delegate pushContactsInvitesScreen];   
 }
 -(void) SetUpDummyInvites{
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"Invites" withExtension:@"plist"];
@@ -199,7 +280,8 @@
         
 }
         InviteEntriesArray=content;
-    [self performSelectorOnMainThread:@selector(loadTableView) withObject:nil waitUntilDone:NO];
+        [inviteUserTableView reloadData];
+//    [self performSelectorOnMainThread:@selector(loadTableView) withObject:nil waitUntilDone:NO];
 
 }
 -(void)loadTableView{

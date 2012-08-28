@@ -130,6 +130,8 @@
 		EA3ABAE81565709100B262F7 /* GetLoginInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3ABAE71565709100B262F7 /* GetLoginInvocation.m */; };
 		EA3ABAED15657D3600B262F7 /* ResetPasswordInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3ABAEC15657D3600B262F7 /* ResetPasswordInvocation.m */; };
 		EA3ABAF115657FC800B262F7 /* ForgotPasswordInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3ABAF015657FC800B262F7 /* ForgotPasswordInvocation.m */; };
+		EA59834715ECCC1700422197 /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = EA59834515ECCC1700422197 /* button.png */; };
+		EA59834815ECCC1700422197 /* button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA59834615ECCC1700422197 /* button@2x.png */; };
 		EA5BC9A8156CDD3D00AC8C0C /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5BC995156CDD3D00AC8C0C /* NSObject+JSON.m */; };
 		EA5BC9A9156CDD3D00AC8C0C /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5BC997156CDD3D00AC8C0C /* NSObject+SBJSON.m */; };
 		EA5BC9AA156CDD3D00AC8C0C /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5BC999156CDD3D00AC8C0C /* NSString+SBJSON.m */; };
@@ -785,6 +787,8 @@
 		EA3ABAEC15657D3600B262F7 /* ResetPasswordInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordInvocation.m; sourceTree = "<group>"; };
 		EA3ABAEF15657FC800B262F7 /* ForgotPasswordInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordInvocation.h; sourceTree = "<group>"; };
 		EA3ABAF015657FC800B262F7 /* ForgotPasswordInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordInvocation.m; sourceTree = "<group>"; };
+		EA59834515ECCC1700422197 /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
+		EA59834615ECCC1700422197 /* button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button@2x.png"; sourceTree = "<group>"; };
 		EA5BC993156CDD3D00AC8C0C /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		EA5BC994156CDD3D00AC8C0C /* NSObject+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSON.h"; sourceTree = "<group>"; };
 		EA5BC995156CDD3D00AC8C0C /* NSObject+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JSON.m"; sourceTree = "<group>"; };
@@ -1429,6 +1433,8 @@
 		6802EC3515B6611E00FF0048 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				EA59834515ECCC1700422197 /* button.png */,
+				EA59834615ECCC1700422197 /* button@2x.png */,
 				EAAEF89215DA3C070085DBE5 /* pattern.png */,
 				EAAEF89315DA3C070085DBE5 /* pattern@2x.png */,
 				EAAEF89415DA3C070085DBE5 /* searchBackground.png */,
@@ -3309,6 +3315,8 @@
 				EAD0D6D615E762C8009865D7 /* Invites.plist in Resources */,
 				EABCE21F15E7E9F0005B74E8 /* ContactsListViewController.xib in Resources */,
 				EABCE22415E7F658005B74E8 /* ContactList.plist in Resources */,
+				EA59834715ECCC1700422197 /* button.png in Resources */,
+				EA59834815ECCC1700422197 /* button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

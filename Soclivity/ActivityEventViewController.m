@@ -36,6 +36,12 @@
     [super viewWillAppear:animated];
     NSLog(@"viewWillAppear in slide View Controller Called");
     
+    inviteUsersToActivityButton.hidden=NO;
+    blankInviteUsersAnimationButton.hidden=YES;
+    [spinnerView stopAnimating];
+    [spinnerView setHidden:YES];
+
+    
     [self.navigationController.navigationBar setHidden:YES];
 }
 #pragma mark - View lifecycle
@@ -804,12 +810,36 @@
 }
 -(IBAction)inviteUsersButton:(id)sender{
     
+    if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+
+    inviteUsersToActivityButton.hidden=YES;
+    blankInviteUsersAnimationButton.hidden=NO;
+    [spinnerView startAnimating];
+    [spinnerView setHidden:NO];
+    
+    
+    
+     NSOperationQueue *queue = [NSOperationQueue new];
+     NSInvocationOperation *operation = [[NSInvocationOperation alloc]
+     initWithTarget:self
+     selector:@selector(SetUpActivityInvites) 
+     object:nil];
+     [queue addOperation:operation];
+     [operation release];
+
+}
+
+-(void)SetUpActivityInvites{
     InvitesViewController *invitesViewController=[[InvitesViewController alloc] initWithNibName:@"InvitesViewController" bundle:nil];
     invitesViewController.activityName=[NSString stringWithFormat:@"%@",activityInfo.activityName];
     invitesViewController.num_of_slots=activityInfo.num_of_people;
     invitesViewController.inviteFriends=YES;
-	[[self navigationController] pushViewController:invitesViewController animated:YES];
+    [[self navigationController] pushViewController:invitesViewController animated:YES];
     [invitesViewController release];
+    
+    if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
 
 }
 -(IBAction)editButtonClicked:(id)sender{

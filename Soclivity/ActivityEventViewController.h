@@ -25,6 +25,8 @@
     IBOutlet UIButton *goingActivityButton;
     IBOutlet UIButton *notGoingActivityButton;
     IBOutlet UIButton *inviteUsersToActivityButton;
+    IBOutlet UIButton *blankInviteUsersAnimationButton;
+    IBOutlet UIActivityIndicatorView *spinnerView;
     IBOutlet UIButton *crossEditButton;
     IBOutlet UIButton *tickEditButton;
     IBOutlet UIButton *backButton;

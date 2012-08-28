@@ -13,11 +13,11 @@
 @protocol ActivityInvitesViewDelegate <NSObject>
 
 @optional
-- (void)pushContactsInvitesScreen:(id)sender;
+- (void)pushContactsInvitesScreen;
 @end
 
 
-@interface ActivityInvitesView : UIView<CustomSearchBarDelegate,UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,InviteTableViewCellDelegate>{
+@interface ActivityInvitesView : UIView<CustomSearchBarDelegate,UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,InviteTableViewCellDelegate,UIAlertViewDelegate>{
     
     CustomSearchbar *searchBarForInvites;
     BOOL searching;
@@ -32,4 +32,5 @@
 @property (nonatomic,retain)id<ActivityInvitesViewDelegate>delegate;
 -(void)inviteUsersFromAddressBook:(id)sender;
 -(UIView*)SetupHeaderView;
+-(void)loadTableView;
 @end

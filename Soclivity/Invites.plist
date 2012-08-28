@@ -20,7 +20,7 @@
 		<key>typeOfRelation</key>
 		<integer>0</integer>
 		<key>DOS</key>
-		<integer>1</integer>
+		<integer>2</integer>
 		<key>profilePhotoUrl</key>
 		<string>/system/players/photos/000/000/070/thumb/stringio.txt?1338524866</string>
 		<key>status</key>
@@ -44,7 +44,7 @@
 		<key>typeOfRelation</key>
 		<integer>1</integer>
 		<key>DOS</key>
-		<integer>2</integer>
+		<integer>1</integer>
 		<key>profilePhotoUrl</key>
 		<string>/system/players/photos/000/000/084/thumb/stringio.txt?1340397469</string>
 		<key>status</key>
@@ -56,7 +56,7 @@
 		<key>typeOfRelation</key>
 		<integer>2</integer>
 		<key>DOS</key>
-		<integer>2</integer>
+		<integer>3</integer>
 		<key>profilePhotoUrl</key>
 		<string>/system/players/photos/000/000/068/thumb/stringio.txt?1338257053</string>
 		<key>status</key>
@@ -68,7 +68,7 @@
 		<key>typeOfRelation</key>
 		<integer>2</integer>
 		<key>DOS</key>
-		<integer>1</integer>
+		<integer>3</integer>
 		<key>profilePhotoUrl</key>
 		<string>/system/players/photos/000/000/064/thumb/stringio.txt?1338125286</string>
 		<key>status</key>

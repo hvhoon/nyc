@@ -24,6 +24,7 @@
     NSInteger num_of_slots;
     NSString *activityName;
     BOOL inviteFriends;
+    ActivityInvitesView *activityInvites;
 }
 @property (nonatomic,retain)id <InvitesViewDelegate>delegate;
 @property (nonatomic,retain)UIButton*settingsButton;
