@@ -14,7 +14,7 @@
 @end
 
 @implementation ContactsListViewController
-@synthesize activityBackButton,inviteTitleLabel,openSlotsNoLabel,activityName,num_of_slots,searchBarForContacts,filteredListContent,contactsListContentArray;
+@synthesize activityBackButton,inviteTitleLabel,openSlotsNoLabel,activityName,num_of_slots,searchBarForContacts,filteredListContent,contactsListContentArray,delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -69,10 +69,17 @@
     //self.contactsListContentArray=[addressBook GetAddressBook];
     
     self.contactsListContentArray=[self setUpDummyContactList];
-    [contactListTableView reloadData];
+    
+    [self performSelectorOnMainThread:@selector(loadTableView) withObject:nil waitUntilDone:NO];
+
 
 
     // Do any additional setup after loading the view from its nib.
+}
+
+-(void)loadTableView{
+    [contactListTableView reloadData];
+    
 }
 
 -(NSArray*)setUpDummyContactList{
@@ -347,6 +354,17 @@
                     objectAtIndex:indexPath.row]objectForKey:@"ActivityInvite"];
     }
     product.status=!product.status;
+    
+    if(product.status){
+        num_of_slots++;
+        [delegate OpenSlotsUpdate:YES];
+    }
+    else{
+         num_of_slots--;
+        [delegate OpenSlotsUpdate:NO];
+    }
+
+    openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
     
     [contactListTableView reloadData];
 }

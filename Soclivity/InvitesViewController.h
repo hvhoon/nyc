@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "ActivityInvitesView.h"
-
+#import "ContactsListViewController.h"
 @protocol InvitesViewDelegate <NSObject>
 
 @optional
 - (void)showLeft:(id)sender;
 @end
 
-@interface InvitesViewController : UIViewController<ActivityInvitesViewDelegate>{
+@interface InvitesViewController : UIViewController<ActivityInvitesViewDelegate,ContactsListViewDelegate>{
     id <InvitesViewDelegate>delegate;
     IBOutlet UIButton*settingsButton;
     IBOutlet UIButton*activityBackButton;
@@ -36,4 +36,5 @@
 @property (nonatomic,assign)BOOL inviteFriends;
 -(IBAction)profileSliderPressed:(id)sender;
 -(IBAction)popBackToActivityScreen:(id)sender;
+-(void)OpenSlotsUpdate:(BOOL)increment;
 @end

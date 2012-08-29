@@ -14,6 +14,7 @@
 
 @optional
 - (void)pushContactsInvitesScreen;
+-(void)OpenSlotsUpdate:(BOOL)increment;
 @end
 
 
@@ -33,4 +34,5 @@
 -(void)inviteUsersFromAddressBook:(id)sender;
 -(UIView*)SetupHeaderView;
 -(void)loadTableView;
+-(void)closeAnimation;
 @end

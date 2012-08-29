@@ -36,10 +36,13 @@
     [super viewWillAppear:animated];
     NSLog(@"viewWillAppear in slide View Controller Called");
     
+    if(inviteAnimation){
+        inviteAnimation=FALSE;
     inviteUsersToActivityButton.hidden=NO;
     blankInviteUsersAnimationButton.hidden=YES;
     [spinnerView stopAnimating];
     [spinnerView setHidden:YES];
+    }
 
     
     [self.navigationController.navigationBar setHidden:YES];
@@ -53,7 +56,10 @@
     toggleFriends=TRUE;
     SOC=[SoclivityManager SharedInstance];
     lastIndex=-1;
-    
+    inviteAnimation=FALSE;
+    [spinnerView stopAnimating];
+    [spinnerView setHidden:YES];
+
 
 
     scrollView.indicatorStyle=UIScrollViewIndicatorStyleBlack;
@@ -810,6 +816,8 @@
 }
 -(IBAction)inviteUsersButton:(id)sender{
     
+    inviteAnimation=TRUE;
+    
     if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
 
@@ -905,6 +913,10 @@
         [scrollView setHidden:YES];
         [chatView setHidden:NO];
         [UIView commitAnimations];
+        [editButtonForMapView setHidden:YES];
+        
+        if(inTransition)
+        currentLocationInMap.hidden=YES;
         
         
         context = UIGraphicsGetCurrentContext();
@@ -929,6 +941,12 @@
         [scrollView setHidden:NO];
         [chatView setHidden:YES];
         [UIView commitAnimations];
+        
+        if(activityInfo.activityRelationType==6)
+            [editButtonForMapView setHidden:NO];
+        
+        if(inTransition)
+            currentLocationInMap.hidden=NO;
         
         context = UIGraphicsGetCurrentContext();
         [UIView beginAnimations:nil context:context];
@@ -1010,6 +1028,7 @@ switch (activityInfo.activityRelationType) {
 }
 -(void)slideInTransitionToLocationView{
     
+    inTransition=TRUE;
     
     if(activityInfo.activityRelationType==6)
       editButtonForMapView.hidden=NO;//check for organizer
@@ -1039,6 +1058,8 @@ switch (activityInfo.activityRelationType) {
 }
 -(IBAction)backToActivityAnimateTransition:(id)sender{
     
+    
+    inTransition=FALSE;
     if(activityInfo.activityRelationType==6)
       editButtonForMapView.hidden=YES;//check for organizer
 

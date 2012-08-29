@@ -8,7 +8,6 @@
 
 #import "InvitesViewController.h"
 #import "SoclivityUtilities.h"
-#import "ContactsListViewController.h"
 @implementation InvitesViewController
 @synthesize delegate,settingsButton,activityBackButton,inviteTitleLabel,openSlotsNoLabel,activityName,num_of_slots,inviteFriends;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -73,7 +72,7 @@
     ContactsListViewController *contactsListViewController=[[ContactsListViewController alloc] initWithNibName:@"ContactsListViewController" bundle:nil];
     contactsListViewController.activityName=[NSString stringWithFormat:@"%@",activityName];
     contactsListViewController.num_of_slots=num_of_slots;
-
+    contactsListViewController.delegate=self;
 	[[self navigationController] pushViewController:contactsListViewController animated:YES];
     [contactsListViewController release];
     
@@ -81,6 +80,16 @@
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
 
 
+}
+
+-(void)OpenSlotsUpdate:(BOOL)increment{
+    if(increment){
+        num_of_slots++;   
+    }
+    else{
+        num_of_slots--;
+    }
+        openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
 }
 
 - (void)viewDidUnload

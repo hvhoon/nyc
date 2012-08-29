@@ -9,6 +9,7 @@
 #import "ActivityInvitesView.h"
 #import "InviteObjectClass.h"
 #import "SoclivityUtilities.h"
+#import "InvitesViewController.h"
 #define kAddressBookContacts 123
 @implementation ActivityInvitesView
 @synthesize searchBarForInvites,InviteEntriesArray,filteredListContent,delegate;
@@ -281,8 +282,8 @@
         
 }
         InviteEntriesArray=content;
-        [inviteUserTableView reloadData];
-//    [self performSelectorOnMainThread:@selector(loadTableView) withObject:nil waitUntilDone:NO];
+        //[inviteUserTableView reloadData];
+    [self performSelectorOnMainThread:@selector(loadTableView) withObject:nil waitUntilDone:NO];
 
 }
 -(void)loadTableView{
@@ -494,6 +495,14 @@
                     objectAtIndex:indexPath.row]objectForKey:@"ActivityInvite"];
         }
       product.status=!product.status;
+    
+    if(product.status){
+        [delegate OpenSlotsUpdate:YES];
+    }
+    else{
+      [delegate OpenSlotsUpdate:NO];
+    }
+    
                 
    [inviteUserTableView reloadData];
 }

@@ -52,6 +52,8 @@
     IBOutlet UIButton *locationEditRightCheckButton;
     IBOutlet UIButton *currentLocationInMap;
     IBOutlet UIButton *editButtonForMapView;
+    BOOL inviteAnimation;
+    BOOL inTransition;
 }
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property (nonatomic,retain)InfoActivityClass *activityInfo;
