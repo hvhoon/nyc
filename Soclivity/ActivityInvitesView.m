@@ -46,7 +46,6 @@
         inviteUserTableView.showsVerticalScrollIndicator=YES;
         [self addSubview:inviteUserTableView];
         
-
         [self SetUpDummyInvites];
 
 
@@ -148,8 +147,6 @@
 
 }
 -(void)inviteUsersFromAddressBook:(id)sender{
-    
-    
     
     NSString *confirmationDialog=[[NSUserDefaults standardUserDefaults] valueForKey:@"AddressBookConfirm"];
     

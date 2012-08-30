@@ -30,6 +30,7 @@
     NSMutableArray *filteredListContent;
     NSArray *contactsListContentArray;
     id<ContactsListViewDelegate>delegate;
+    BOOL inviteFriends;
 
 }
 @property (nonatomic,retain)UIButton*activityBackButton;
@@ -39,6 +40,7 @@
 @property (nonatomic,retain)NSString *activityName;
 @property (nonatomic,retain)id<ContactsListViewDelegate>delegate;
 @property (nonatomic,retain) CustomSearchbar *searchBarForContacts;
+@property (nonatomic,assign)BOOL inviteFriends;
 -(IBAction)popBackToActivityInviteScreen:(id)sender;
 @property (nonatomic,retain)NSMutableArray *filteredListContent;
 @property (nonatomic,retain)NSArray*contactsListContentArray;

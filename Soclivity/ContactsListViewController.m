@@ -14,7 +14,7 @@
 @end
 
 @implementation ContactsListViewController
-@synthesize activityBackButton,inviteTitleLabel,openSlotsNoLabel,activityName,num_of_slots,searchBarForContacts,filteredListContent,contactsListContentArray,delegate;
+@synthesize activityBackButton,inviteTitleLabel,openSlotsNoLabel,activityName,num_of_slots,searchBarForContacts,filteredListContent,contactsListContentArray,delegate,inviteFriends;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,6 +28,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if(inviteFriends){
     inviteTitleLabel.text=[NSString stringWithFormat:@"%@",activityName];
     
     inviteTitleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
@@ -41,6 +43,7 @@
     openSlotsNoLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     openSlotsNoLabel.textColor=[UIColor grayColor];
     openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
+    }
     
     searching=FALSE;
     filteredListContent=[NSMutableArray new];
@@ -355,6 +358,9 @@
     }
     product.status=!product.status;
     
+    
+    if(inviteFriends){
+
     if(product.status){
         num_of_slots++;
         [delegate OpenSlotsUpdate:YES];
@@ -364,7 +370,8 @@
         [delegate OpenSlotsUpdate:NO];
     }
 
-    openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
+     openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
+    }
     
     [contactListTableView reloadData];
 }

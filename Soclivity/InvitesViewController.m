@@ -72,6 +72,7 @@
     ContactsListViewController *contactsListViewController=[[ContactsListViewController alloc] initWithNibName:@"ContactsListViewController" bundle:nil];
     contactsListViewController.activityName=[NSString stringWithFormat:@"%@",activityName];
     contactsListViewController.num_of_slots=num_of_slots;
+    contactsListViewController.inviteFriends=inviteFriends;
     contactsListViewController.delegate=self;
 	[[self navigationController] pushViewController:contactsListViewController animated:YES];
     [contactsListViewController release];
@@ -83,6 +84,8 @@
 }
 
 -(void)OpenSlotsUpdate:(BOOL)increment{
+    
+    if(inviteFriends){
     if(increment){
         num_of_slots++;   
     }
@@ -90,6 +93,7 @@
         num_of_slots--;
     }
         openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
+    }
 }
 
 - (void)viewDidUnload
