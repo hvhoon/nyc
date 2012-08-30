@@ -291,8 +291,8 @@
             
             activityPlotOnMapButton.hidden=NO;
             locationIcon.hidden=YES;
-            locationInfoLabel1.frame=CGRectMake(50, 102+1, 180, 14);
-            locationInfoLabel2.frame = CGRectMake(50, 122, 180, 15);
+            locationInfoLabel1.frame=CGRectMake(50, 102+1, 190, 14);
+            locationInfoLabel2.frame = CGRectMake(50, 122, 190, 15);
             activityPlotOnMapButton.frame=CGRectMake(260, 101, 37, 37);
             locationInfoLabel1.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
             locationInfoLabel1.textColor=[SoclivityUtilities returnTextFontColor:5];
