@@ -233,6 +233,8 @@ static sqlite3 *database = nil;
             
             
             NSString *message=[SoclivityUtilities NetworkTime:play];
+            
+            if([play.distance floatValue]<=50.0){
 #if 0        
             SoclivityManager *SOC=[SoclivityManager SharedInstance];
             CLLocationDegrees latitude  = [play.where_lat  doubleValue];
@@ -255,8 +257,11 @@ static sqlite3 *database = nil;
              play.quotations = quotations;
                 
             [listOfValidActivitiesArray addObject:play];
-            }
         }
+            }
+        
+             }
+    
       return listOfValidActivitiesArray;
 	}
     

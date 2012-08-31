@@ -450,8 +450,8 @@
 }
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar{
     
-    self.searchBarForContacts.text=@"";
-    searching=NO;
+     self.searchBarForContacts.text=@"";
+     searching=NO;
     [contactListTableView reloadData];
     
     [searchBar setShowsCancelButton:NO animated:YES];
@@ -460,7 +460,6 @@
 }
 // called when keyboard search button pressed
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-    
     searching=YES;
     [self filterContentForSearchText:searchBar.text];
     [self.searchBarForContacts resignFirstResponder];
@@ -468,7 +467,6 @@
     
 }
 -(void)customCancelButtonHit{
-    
     
     searching=NO;
     [contactListTableView reloadData];
