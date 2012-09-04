@@ -79,8 +79,6 @@
     
     if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
-
-
 }
 
 -(void)OpenSlotsUpdate:(BOOL)increment{
