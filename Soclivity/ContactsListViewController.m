@@ -40,8 +40,11 @@
     
     
     
-    openSlotsNoLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
-    openSlotsNoLabel.textColor=[UIColor grayColor];
+    openSlotsNoLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    openSlotsNoLabel.textColor=[UIColor whiteColor];
+    openSlotsNoLabel.backgroundColor=[UIColor clearColor];
+    openSlotsNoLabel.shadowColor = [UIColor blackColor];
+    openSlotsNoLabel.shadowOffset = CGSizeMake(0,-1);
     openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
     }
     
