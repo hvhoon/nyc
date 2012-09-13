@@ -52,8 +52,6 @@
     inviteTitleLabel.shadowColor = [UIColor blackColor];
     inviteTitleLabel.shadowOffset = CGSizeMake(0,-1);
 
-
-    
     openSlotsNoLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     openSlotsNoLabel.textColor=[UIColor whiteColor];
     openSlotsNoLabel.backgroundColor=[UIColor clearColor];
@@ -66,9 +64,7 @@
     activityInvites.delegate=self;
     [self.view addSubview:activityInvites];
     
-
-
-    // Do any additional setup after loading the view from its nib.
+   // Do any additional setup after loading the view from its nib.
 }
 - (void)pushContactsInvitesScreen{
  
