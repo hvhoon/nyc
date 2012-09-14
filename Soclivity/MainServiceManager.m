@@ -96,4 +96,12 @@
 
 }
 
+-(void)editActivityEventRequestInvocation:(InfoActivityClass*)acTClass requestType:(int)requestType delegate:(id<EditActivityEventInvocationDelegate>)delegate{
+    EditActivityEventInvocation *invocation = [[[EditActivityEventInvocation alloc] init] autorelease];
+    invocation.activityObj = acTClass;
+    invocation.changePutUrlMethod=requestType;
+    [self invoke:invocation withDelegate:delegate];
+    
+}
+
 @end

@@ -17,6 +17,7 @@
 #import "GetActivitiesInvocation.h"
 #import "DetailedActivityInfoInvocation.h"
 #import "PostActivityRequestInvocation.h"
+#import "EditActivityEventInvocation.h"
 @interface MainServiceManager : SAService{
     
 }
@@ -32,6 +33,7 @@
 
 -(void)getDetailedActivityInfoInvocation:(NSInteger)pId actId:(NSInteger)actId latitude:(float)latitude longitude:(float)longitude delegate:(id<DetailedActivityInfoInvocationDelegate>)delegate;
 -(void)postActivityRequestInvocation:(NSInteger) rTag delegate:(id<PostActivityRequestInvocationDelegate>)delegate;
+-(void)editActivityEventRequestInvocation:(InfoActivityClass*)acTClass requestType:(int)requestType delegate:(id<EditActivityEventInvocationDelegate>)delegate;
 
 
 @end

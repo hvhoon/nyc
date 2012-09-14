@@ -158,7 +158,7 @@
 				switch (tok) {
 					case sbjson_token_object_start:
 						if (depth >= maxDepth) {
-							self.error = [NSString stringWithFormat:@"Parser exceeded max depth of %lu", maxDepth];
+							self.error = [NSString stringWithFormat:@"Parser exceeded max depth of %ud", maxDepth];
 							states[depth] = kSBJsonStreamParserStateError;
 
 						} else {
@@ -174,7 +174,7 @@
 						
 					case sbjson_token_array_start:
 						if (depth >= maxDepth) {
-							self.error = [NSString stringWithFormat:@"Parser exceeded max depth of %lu", maxDepth];
+							self.error = [NSString stringWithFormat:@"Parser exceeded max depth of %ud", maxDepth];
 							states[depth] = kSBJsonStreamParserStateError;
 						} else {
 							[delegate parserFoundArrayStart:self];

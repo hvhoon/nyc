@@ -283,16 +283,16 @@ if(timer%2==0){
             NSLog(@"Today");
             
             if(hours && checkTime){
-                [result appendFormat: @"in %d hrs", hours];
+                [result appendFormat: @"in %ld hrs", hours];
             }
             
             if(minutes && checkTime){
                 
                 if(hours==0){
-                    [result appendFormat: @"in %d min", minutes];
+                    [result appendFormat: @"in %ld min", minutes];
                 }
                 else
-                [result appendFormat: @" %d min", minutes];
+                [result appendFormat: @" %ld min", minutes];
                 
                 checkTime=FALSE;
                 

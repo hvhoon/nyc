@@ -11,6 +11,8 @@
 #import "ParticipantListTableView.h"
 @class InfoActivityClass;
 @class SoclivityManager;
+@class MainServiceManager;
+@class MBProgressHUD;
 @interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate>{
     IBOutlet UIScrollView* scrollView;
     IBOutlet AddEventView *eventView;
@@ -54,6 +56,8 @@
     IBOutlet UIButton *editButtonForMapView;
     BOOL inviteAnimation;
     BOOL inTransition;
+    MainServiceManager *devServer;
+    MBProgressHUD *HUD;
 }
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property (nonatomic,retain)InfoActivityClass *activityInfo;
@@ -77,5 +81,6 @@
 -(IBAction)crossClickedInLocationEdit:(id)sender;
 -(IBAction)tickClickedInLocationEdit:(id)sender;
 -(IBAction)currentLocationBtnClicked:(id)sender;
+-(void)startAnimation:(int)type;
 -(IBAction)editViewToChangeActivityLocation:(id)sender;
 @end

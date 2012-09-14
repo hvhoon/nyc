@@ -12,7 +12,16 @@
 #import "SoclivitySqliteClass.h"
 #import "SoclivityManager.h"
 #import "InvitesViewController.h"
+#import "MainServiceManager.h"
+#import "EditActivityEventInvocation.h"
+#import "MBProgressHUD.h"
 #define kDeleteActivity 12
+
+#define kEditMapElements 10
+
+@interface ActivityEventViewController (private)<EditActivityEventInvocationDelegate,MBProgressHUDDelegate>
+@end
+
 @implementation ActivityEventViewController
 @synthesize activityInfo,scrollView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -54,6 +63,7 @@
 {
     [super viewDidLoad];
     toggleFriends=TRUE;
+    devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
     lastIndex=-1;
     inviteAnimation=FALSE;
@@ -1114,22 +1124,79 @@ switch (activityInfo.activityRelationType) {
 }
 -(IBAction)tickClickedInLocationEdit:(id)sender{
     
-    if(activityInfo.activityRelationType==6)
-        editButtonForMapView.hidden=NO;//check for organizer
     
-    locationEditLeftCrossButton.hidden=YES;
-    locationEditRightCheckButton.hidden=YES;
-    backToActivityFromMapButton.hidden=NO;
-    chatButton.hidden=NO;
-    [eventView.addressSearchBar resignFirstResponder];
-    [eventView.addressSearchBar setHidden:YES];
-    [eventView hideSearchBarAndAnimateWithListViewInMiddle];
-    [eventView setNewLocation];
-    eventView.activityInfoButton.hidden=NO;
-    eventView.editMode=FALSE;
+    if([SoclivityUtilities hasNetworkConnection]){
+        [eventView setNewLocation];
+        [self startAnimation:kEditMapElements];
+        [devServer editActivityEventRequestInvocation:activityInfo requestType:kEditMapElements delegate:self];
+    }
+    else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
 
+}
 
+-(void)startAnimation:(int)type{
+    // Setup animation settings
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    HUD.yOffset = -50.0;
+    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
+    switch (type) {
+        case kEditMapElements:
+        {
+            HUD.labelText = @"Updating Location";
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
     
+    [self.view addSubview:HUD];
+    HUD.delegate = self;
+    [HUD show:YES];
+    
+}
+
+-(void)EditActivityEventInvocationDidFinish:(EditActivityEventInvocation*)invocation
+                               withResponse:(NSString*)responses requestType:(int)requestType withError:(NSError*)error{
+    
+    
+        NSLog(@"responses=%@",responses);
+    [HUD hide:YES];
+    switch (requestType) {
+        case kEditMapElements:
+        {
+            if(activityInfo.activityRelationType==6)
+                editButtonForMapView.hidden=NO;//check for organizer
+            
+            locationEditLeftCrossButton.hidden=YES;
+            locationEditRightCheckButton.hidden=YES;
+            backToActivityFromMapButton.hidden=NO;
+            chatButton.hidden=NO;
+            [eventView.addressSearchBar resignFirstResponder];
+            [eventView.addressSearchBar setHidden:YES];
+            [eventView hideSearchBarAndAnimateWithListViewInMiddle];
+
+            eventView.activityInfoButton.hidden=NO;
+            eventView.editMode=FALSE;
+
+        }
+            break;
+            
+        default:
+            break;
+    }
+
 }
 
 -(void)enableDisableTickOnTheTopRight:(BOOL)show{
