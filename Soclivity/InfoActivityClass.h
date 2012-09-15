@@ -11,6 +11,7 @@
 @interface InfoActivityClass : NSObject{
     NSInteger type;
     NSInteger stamp;
+    NSString *btnstate;
     
     NSString *organizerName;
     NSInteger DOS;
@@ -53,6 +54,7 @@
 }
 @property (nonatomic,assign)NSInteger type;
 @property (nonatomic,assign)NSInteger stamp;
+@property(nonatomic,retain)NSString*btnstate;
 @property (nonatomic,retain)NSString *activityName;
 @property (nonatomic,retain)NSString *organizerName;
 @property (nonatomic,assign)NSInteger DOS;

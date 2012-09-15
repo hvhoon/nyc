@@ -98,16 +98,34 @@
     play.where_city=[ACTDict objectForKey:@"where_city"];
     play.where_lat=[ACTDict objectForKey:@"where_lat"];
     play.where_lng=[ACTDict objectForKey:@"where_lng"];
+    play.btnstate=[ACTDict objectForKey:@"btnstate"];    
     
     
-    SoclivityManager *SOC=[SoclivityManager SharedInstance];
-    GetPlayersClass *player=SOC.loggedInUser;
-    if([ownerId intValue]==[player.idSoc intValue]){
-        play.activityRelationType=6;
-    }
-    else{
+    if([play.btnstate isEqualToString:@"join"]){
         play.activityRelationType=1;
+        
     }
+    else if([play.btnstate isEqualToString:@"cancel"]){
+        play.activityRelationType=2;
+        
+    }
+    
+    else if([play.btnstate isEqualToString:@"gng"]){
+        play.activityRelationType=4;
+        
+    }
+    
+    else if([play.btnstate isEqualToString:@"leave"]){
+        play.activityRelationType=5;
+        
+    }
+
+    else if([play.btnstate isEqualToString:@"edit"]){
+        play.activityRelationType=6;
+
+    }
+    
+    
     NSString *photoUrl=[ACTDict objectForKey:@"owner_photo"];
     play.ownerProfilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",photoUrl];
     NSString*relation=[ACTDict objectForKey:@"ura_member"];

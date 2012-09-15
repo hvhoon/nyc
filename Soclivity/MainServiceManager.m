@@ -88,10 +88,12 @@
     [self invoke:invocation withDelegate:delegate];
     
 }
--(void)postActivityRequestInvocation:(NSInteger) rTag delegate:(id<PostActivityRequestInvocationDelegate>)delegate{
+-(void)postActivityRequestInvocation:(NSInteger) rTag playerId:(NSInteger)playerid actId:(NSInteger)actId delegate:(id<PostActivityRequestInvocationDelegate>)delegate{
     
     PostActivityRequestInvocation *invocation = [[[PostActivityRequestInvocation alloc] init] autorelease];
     invocation.relationshipId=rTag;
+    invocation.playerId=playerid;
+    invocation.activityId=actId;
     [self invoke:invocation withDelegate:delegate];
 
 }

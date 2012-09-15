@@ -13,7 +13,7 @@
 @class SoclivityManager;
 @class MainServiceManager;
 @class MBProgressHUD;
-@interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate>{
+@interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate,ParticipantListDelegate>{
     IBOutlet UIScrollView* scrollView;
     IBOutlet AddEventView *eventView;
     IBOutlet ParticipantListTableView *participantListTableView;

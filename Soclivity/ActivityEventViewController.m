@@ -15,11 +15,21 @@
 #import "MainServiceManager.h"
 #import "EditActivityEventInvocation.h"
 #import "MBProgressHUD.h"
-#define kDeleteActivity 12
+#import "PostActivityRequestInvocation.h"
+#import "GetPlayersClass.h"
+
 
 #define kEditMapElements 10
-
-@interface ActivityEventViewController (private)<EditActivityEventInvocationDelegate,MBProgressHUDDelegate>
+#define kJoinRequest 11
+#define kDeleteActivity 12
+#define kCancelPendingRequest 13
+#define kConfirmPresenceRequest 14
+#define kSorryNotGoingRequest 15
+#define kLeavingActivityRequest 16
+#define kPlayerConfirmedRequest 17
+#define kDeclinePlayerRequest 18
+#define kRemovePlayerRequest 19
+@interface ActivityEventViewController (private)<EditActivityEventInvocationDelegate,MBProgressHUDDelegate,PostActivityRequestInvocationDelegate>
 @end
 
 @implementation ActivityEventViewController
@@ -90,6 +100,7 @@
     scrollView.bounces=NO;
     
     eventView.delegate=self;
+    participantListTableView.delegate=self;
     participantListTableView.tableActivityInfo=activityInfo;
     participantListTableView.activityLinkIndex=activityInfo.activityRelationType;
     participantListTableView.participantTableView.bounces=NO;
@@ -334,7 +345,13 @@
         case 1:
         {
             cancelRequestActivityButton.hidden=YES;
-            addEventButton.hidden=NO;
+            
+            if([activityInfo.access isEqualToString:@"public"])
+               addEventButton.hidden=NO;
+            
+              else
+                  addEventButton.hidden=YES;
+            
             organizerEditButton.hidden=YES;
             goingActivityButton.hidden=YES;
             notGoingActivityButton.hidden=YES;
@@ -371,7 +388,7 @@
             organizerEditButton.hidden=YES;
             goingActivityButton.hidden=NO;
             notGoingActivityButton.hidden=NO;
-            chatButton.hidden=YES;
+            chatButton.hidden=NO;
             inviteUsersToActivityButton.hidden=YES;
             leaveActivityButton.hidden=YES;
 
@@ -388,26 +405,18 @@
             cancelRequestActivityButton.hidden=YES;
             addEventButton.hidden=YES;
             chatButton.hidden=YES;
-            organizerEditButton.hidden=NO;
-            goingActivityButton.hidden=YES;
-            notGoingActivityButton.hidden=YES;
+            organizerEditButton.hidden=YES;
+            goingActivityButton.hidden=NO;
+            notGoingActivityButton.hidden=NO;
             leaveActivityButton.hidden=YES;
-
-            
-            if([activityInfo.access isEqualToString:@"public"])
-                inviteUsersToActivityButton.hidden=NO;
-            
-            else
-                inviteUsersToActivityButton.hidden=YES;
-            
-            
+            inviteUsersToActivityButton.hidden=YES;
             
         }
             break;
             
             
             
-            //going
+            //going //request approved(invited)
         case 5:
         {
             cancelRequestActivityButton.hidden=YES;
@@ -444,11 +453,7 @@
             inviteUsersToActivityButton.hidden=NO;
             leaveActivityButton.hidden=YES;
 
-            
-            
-            
-            
-        }
+         }
             break;
     }
 }
@@ -710,16 +715,25 @@
 -(IBAction)addEventActivityPressed:(id)sender{
     
     
-    
-    
-    
     switch (activityInfo.activityRelationType) {
         case 1:
         {
-            //cancelRequestActivityButton.hidden=NO;
-            //addEventButton.hidden=YES;
-            activityInfo.activityRelationType=2;
-            [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
+            if([SoclivityUtilities hasNetworkConnection]){
+                [self startAnimation:kJoinRequest];
+                [devServer postActivityRequestInvocation:1  playerId:[SOC.loggedInUser.idSoc intValue] actId:activityInfo.activityId delegate:self];
+            }
+            else{
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                
+                [alert show];
+                [alert release];
+                return;
+                
+                
+            }
+
 
             
         }
@@ -727,32 +741,30 @@
             
         case 2:
         {
-            activityInfo.activityRelationType=1;
-            [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
+            
+            if([SoclivityUtilities hasNetworkConnection]){
+                [self startAnimation:kCancelPendingRequest];
+                [devServer postActivityRequestInvocation:2  playerId:[SOC.loggedInUser.idSoc intValue] actId:activityInfo.activityId delegate:self];
+            }
+            else{
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                
+                [alert show];
+                [alert release];
+                return;
+                
+                
+            }
+
             
         }
             break;
+            
         case 3:
-        {
-            activityInfo.activityRelationType=1;
-            [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
-            
-        }
-            break;
         case 4:
-        {
-            activityInfo.activityRelationType=1;
-            [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
-            
-        }
-            break;
         case 5:
-        {
-            activityInfo.activityRelationType=1;
-            [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
-            
-        }
-            break;
         case 6:
         {
             activityInfo.activityRelationType=1;
@@ -766,46 +778,85 @@
     
 }
 
--(IBAction)leaveEventActivityPressed:(id)sender{
+-(void)PostActivityRequestInvocationDidFinish:(PostActivityRequestInvocation*)invocation
+                                 withResponse:(NSString*)responses relationTypeTag:(NSInteger)relationTypeTag
+                                    withError:(NSError*)error{
     
-    switch (activityInfo.activityRelationType) {
-            
+    NSLog(@"responses=%@",responses);
+    [HUD hide:YES];
+    
+    switch (relationTypeTag) {
         case 1:
         {
+            activityInfo.activityRelationType=2;
+            [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
 
-            
-            
         }
             break;
-            
         case 2:
-        {
-
-            
-            
-        }
-            break;
-    
         case 3:
-        {
-            
-        }
-            break;
-            
-        case 4:
-        {
-            
-        }
-            break;
         case 5:
         {
             
-        }
+            activityInfo.activityRelationType=1;
+            [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
+            
+        }               
+            break;
+         
+        case 4:
+        {
+            
+            activityInfo.activityRelationType=5;
+            [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
+            
+        }            
+        break;
+            
+        case 7:
+        case 8:
+        {
+            [participantListTableView updateParticipantListView];
+            
+        }               
             break;
 
-            
-        case 6:
+        case 9:
         {
+            [participantListTableView updatePlayerListWithSectionHeaders];
+            
+        }               
+            break;
+        
+
+        default:
+            break;
+    }
+}
+
+-(IBAction)leaveEventActivityPressed:(id)sender{
+    
+    
+    switch (activityInfo.activityRelationType) {
+        case 5:
+        {
+            
+            if([SoclivityUtilities hasNetworkConnection]){
+                [self startAnimation:kLeavingActivityRequest];
+                [devServer postActivityRequestInvocation:5  playerId:[SOC.loggedInUser.idSoc intValue] actId:activityInfo.activityId delegate:self];
+            }
+            else{
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                
+                [alert show];
+                [alert release];
+                return;
+                
+                
+            }
+            
             
         }
             break;
@@ -820,8 +871,62 @@
 
 -(IBAction)goingActivityButtonPressed:(id)sender{
     
+    
+    switch (activityInfo.activityRelationType) {
+        case 4:
+        {
+            
+            if([SoclivityUtilities hasNetworkConnection]){
+                [self startAnimation:kConfirmPresenceRequest];
+                [devServer postActivityRequestInvocation:4  playerId:[SOC.loggedInUser.idSoc intValue] actId:activityInfo.activityId delegate:self];
+            }
+            else{
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                
+                [alert show];
+                [alert release];
+                return;
+                
+                
+            }
+            
+            
+        }
+            break;
+    }
+    
+    
 }
 -(IBAction)notGoingActivityButtonPressed:(id)sender{
+    
+    
+    switch (activityInfo.activityRelationType) {
+        case 4:
+        {
+            
+            if([SoclivityUtilities hasNetworkConnection]){
+                [self startAnimation:kSorryNotGoingRequest];
+                [devServer postActivityRequestInvocation:3  playerId:[SOC.loggedInUser.idSoc intValue] actId:activityInfo.activityId delegate:self];
+            }
+            else{
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                
+                [alert show];
+                [alert release];
+                return;
+                
+                
+            }
+            
+            
+        }
+            break;
+    }
+    
     
 }
 -(IBAction)inviteUsersButton:(id)sender{
@@ -984,13 +1089,29 @@
 }
 -(IBAction)cancelRequestButtonPressed:(id)sender{
     
-switch (activityInfo.activityRelationType) {
+    
+    switch (activityInfo.activityRelationType) {
         case 2:
-        {
-            activityInfo.activityRelationType=1;
-            [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
+    {
+        
+        if([SoclivityUtilities hasNetworkConnection]){
+            [self startAnimation:kCancelPendingRequest];
+            [devServer postActivityRequestInvocation:2  playerId:[SOC.loggedInUser.idSoc intValue] actId:activityInfo.activityId delegate:self];
+        }
+        else{
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            
+            [alert show];
+            [alert release];
+            return;
+            
             
         }
+        
+        
+    }
             break;
     }
     
@@ -1147,7 +1268,7 @@ switch (activityInfo.activityRelationType) {
 -(void)startAnimation:(int)type{
     // Setup animation settings
     HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    HUD.yOffset = -50.0;
+    HUD.yOffset = -40.0;
     HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
     switch (type) {
         case kEditMapElements:
@@ -1156,6 +1277,65 @@ switch (activityInfo.activityRelationType) {
             
         }
             break;
+            
+        case kJoinRequest:
+        {
+            HUD.labelText = @"Requesting To Join";
+            
+        }
+            break;
+            
+        case kCancelPendingRequest:
+        {
+            HUD.labelText = @"Cancel Pending Request";
+            
+        }
+            break;
+            
+        case kSorryNotGoingRequest:
+        {
+            HUD.labelText = @"Sorry Can't make it to the event...! ";
+            
+        }
+            break;
+            
+            
+        case kConfirmPresenceRequest:
+        {
+            HUD.labelText = @"Confirming to the event...! ";
+            
+        }
+            break;
+            
+        case kLeavingActivityRequest:
+        {
+            HUD.labelText = @"Leaving";
+            
+        }
+            break;
+        case kPlayerConfirmedRequest:
+        {
+            HUD.labelText = @"Confirming Player";
+            
+        }
+            break;
+            
+        case kDeclinePlayerRequest:
+        {
+            HUD.labelText = @"Declining Request";
+            
+        }
+            break;
+            
+        case kRemovePlayerRequest:
+        {
+            HUD.labelText = @"Removing Player";
+            
+        }
+            break;
+
+
+  
             
         default:
             break;
@@ -1171,7 +1351,7 @@ switch (activityInfo.activityRelationType) {
                                withResponse:(NSString*)responses requestType:(int)requestType withError:(NSError*)error{
     
     
-        NSLog(@"responses=%@",responses);
+    NSLog(@"responses=%@",responses);
     [HUD hide:YES];
     switch (requestType) {
         case kEditMapElements:
@@ -1245,5 +1425,60 @@ switch (activityInfo.activityRelationType) {
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
+}
+#pragma mark -
+#pragma mark Delegate From Participant List methods
+
+-(void)confirm_RejectPlayerToTheEvent:(BOOL)request playerId:(NSInteger)playerId{
+
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+
+    if(request)
+    {
+            [self startAnimation:kPlayerConfirmedRequest];
+            [devServer postActivityRequestInvocation:7  playerId:playerId actId:activityInfo.activityId delegate:self];
+    }
+    else{
+        [self startAnimation:kDeclinePlayerRequest];
+        [devServer postActivityRequestInvocation:8  playerId:playerId actId:activityInfo.activityId delegate:self];
+        
+    }
+    }
+    else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+
+
+}
+-(void)removeParticipantFromEvent:(NSInteger)playerId{
+    
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        
+            [self startAnimation:kRemovePlayerRequest];
+            [devServer postActivityRequestInvocation:9  playerId:playerId actId:activityInfo.activityId delegate:self];
+    }
+    else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+    
+    
 }
 @end

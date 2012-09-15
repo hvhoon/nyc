@@ -299,7 +299,7 @@
             locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
             locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
             locationInfoLabel1.text=info.where_address;
-            locationInfoLabel2.text=[NSString stringWithFormat:@"%@, %@ %@",info.where_city,info.where_state,info.where_zip];
+            locationInfoLabel2.text=[NSString stringWithFormat:@"%@",info.where_zip];
             
             // Setting the variables for the map screen
             firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
@@ -307,7 +307,7 @@
             secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
             secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
             firstALineddressLabel.text = info.where_address;
-            secondLineAddressLabel.text = [NSString stringWithFormat:@"%@, %@ %@",info.where_city,info.where_state,info.where_zip];
+            secondLineAddressLabel.text = [NSString stringWithFormat:@"%@",info.where_zip];
         }
             break;
     }

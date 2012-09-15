@@ -21,7 +21,7 @@
 @end
 
 @implementation ParticipantListTableView
-@synthesize imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_,noLine,activityLinkIndex,tableActivityInfo;
+@synthesize imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_,noLine,activityLinkIndex,tableActivityInfo,delegate;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -603,14 +603,21 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
     //service update
+    removePlayerIndexPath=indexPath;
     InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
-
+    ParticipantClass *deletePlayer= [play.quotations objectAtIndex:indexPath.row];
+    [delegate removeParticipantFromEvent:deletePlayer.participantId];
     
-    ParticipantClass *delete= [play.quotations objectAtIndex:indexPath.row];
+}
+
+-(void)updatePlayerListWithSectionHeaders{
+    
+    InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:removePlayerIndexPath.section] play];
+    
+    ParticipantClass *delete= [play.quotations objectAtIndex:removePlayerIndexPath.row];
     NSMutableArray *localArray=[NSMutableArray arrayWithArray:play.quotations];
     [localArray removeObjectIdenticalTo:delete];
     play.quotations=localArray;
-#if 1
     switch (play.relationType) {
         case 1:
         {
@@ -620,13 +627,13 @@
                 
             }
             else
-            count=count-1;
+                count=count-1;
             
             if(count==0)
                 self.openSectionIndex = -1;
             tableActivityInfo.DOS1=count;
             [self setTheSectionHeaderCount:play.relationType changeCountTo:count];
-
+            
         }
             break;
         case 2:
@@ -640,10 +647,10 @@
                 count=count-1;
             if(count==0)
                 self.openSectionIndex = -1;
-
+            
             tableActivityInfo.DOS2=count;
             [self setTheSectionHeaderCount:play.relationType changeCountTo:count];
-
+            
         }
             break;
         case 3:
@@ -654,19 +661,18 @@
             }
             else
                 count=count-1;
-
+            
             if(count==0)
                 self.openSectionIndex = -1;
             
             tableActivityInfo.DOS3=count;
             [self setTheSectionHeaderCount:play.relationType changeCountTo:count];
-
+            
         }
             break;
             
     }
-#endif
-
+    
     
     [participantTableView reloadData];	
 }
@@ -761,12 +767,21 @@
 
 -(void)ApproveRejectSelection:(NSIndexPath*)indexPath request:(BOOL)request{
  
-    
+    playerAprRejIndexpath=indexPath;
     //service update
     InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
+    ParticipantClass *deletePlayer= [play.quotations objectAtIndex:indexPath.row];
+    [delegate confirm_RejectPlayerToTheEvent:request playerId:deletePlayer.participantId];
     
     
-    ParticipantClass *delete= [play.quotations objectAtIndex:indexPath.row];
+}
+
+-(void)updateParticipantListView{
+    
+    
+    InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:playerAprRejIndexpath.section] play];
+    
+    ParticipantClass *delete= [play.quotations objectAtIndex:playerAprRejIndexpath.row];
     NSMutableArray *localArray=[NSMutableArray arrayWithArray:play.quotations];
     [localArray removeObjectIdenticalTo:delete];
     play.quotations=localArray;
@@ -779,24 +794,22 @@
         count=count-1;
     
     if(count==0){
-         self.tableActivityInfo.pendingRequestCount=count;
-         self.openSectionIndex = -1;
-         [(UILabel*)[self viewWithTag:235] setText:self.tableActivityInfo.goingCount];
+        self.tableActivityInfo.pendingRequestCount=count;
+        self.openSectionIndex = -1;
+        [(UILabel*)[self viewWithTag:235] setText:self.tableActivityInfo.goingCount];
         [(UILabel*)[self viewWithTag:235] setTextColor:[SoclivityUtilities returnTextFontColor:5]];
         
         [(UILabel*)[self viewWithTag:236] setText:@"GOING"];
         [(UILabel*)[self viewWithTag:236] setTextColor:[SoclivityUtilities returnTextFontColor:5]];
-
-   }else{
-    self.tableActivityInfo.pendingRequestCount=count;
-    NSString*requestCount=[NSString stringWithFormat:@"%d",count];
-    [(UILabel*)[self viewWithTag:235] setText:requestCount];
+        
+    }else{
+        self.tableActivityInfo.pendingRequestCount=count;
+        NSString*requestCount=[NSString stringWithFormat:@"%d",count];
+        [(UILabel*)[self viewWithTag:235] setText:requestCount];
     }
-
-
+    
+    
 }
-
-
 
 #pragma mark -
 #pragma mark Table cell image support
