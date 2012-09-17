@@ -70,7 +70,7 @@ static UIFont *boldText = nil;
         CGSize  size = [nameText sizeWithFont:firstTextFont];
         NSLog(@"width=%f",size.width);
 
-        [dosConnectionImage drawInRect:CGRectMake(100+10+size.width,13.5, 19,11)];
+        [dosConnectionImage drawInRect:CGRectMake(100+10+size.width,17.5, 19,11)];
     }
     if(swiped){
         rejectRect = CGRectMake(12,15, 18, 17);

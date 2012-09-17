@@ -630,6 +630,37 @@
             pC.profilePhotoImage = [SoclivityUtilities compressImage:image size:CGSizeMake(56,56)];
         }
     
+    
+    index=0;
+    for(ParticipantClass *pC in player.pendingRequestArray){
+        index++;
+        NSLog(@"pendingRequestArray=%d",index);
+        NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:pC.photoUrl]];
+        UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];
+        if(image.size.height != image.size.width)
+            pC.profilePhotoImage = [SoclivityUtilities autoCrop:image];
+        
+        // If the image needs to be compressed
+        if(image.size.height > 56 || image.size.width > 56)
+            pC.profilePhotoImage = [SoclivityUtilities compressImage:image size:CGSizeMake(56,56)];
+    }
+    
+    index=0;
+    for(ParticipantClass *pC in player.otherParticipantsArray){
+        index++;
+        NSLog(@"otherParticipantsArray=%d",index);
+        NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:pC.photoUrl]];
+        UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];
+        if(image.size.height != image.size.width)
+            pC.profilePhotoImage = [SoclivityUtilities autoCrop:image];
+        
+        // If the image needs to be compressed
+        if(image.size.height > 56 || image.size.width > 56)
+            pC.profilePhotoImage = [SoclivityUtilities compressImage:image size:CGSizeMake(56,56)];
+    }
+
+
+    
     [self performSelectorOnMainThread:@selector(pushActivityController:) withObject:player waitUntilDone:NO];
 
 

@@ -21,7 +21,7 @@
 @end
 
 @implementation ParticipantListTableView
-@synthesize imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_,noLine,activityLinkIndex,tableActivityInfo,delegate,removePlayerIndexPath,playerAprRejIndexpath;
+@synthesize imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_,noLine,activityLinkIndex,tableActivityInfo,delegate,removePlayerIndexPath,playerAprRejIndexpath,tempParticipantObj;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -80,12 +80,12 @@
         case 1:
         case 2:
         case 3:
+        case 4:
 
         {
             index=2; 
         }
             break;
-        case 4:
         case 5:
         {
             index=3;
@@ -615,6 +615,7 @@
 InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:removePlayerIndexPath.section] play];
     
     ParticipantClass *delete= [play.quotations objectAtIndex:removePlayerIndexPath.row];
+    tempParticipantObj=[delete retain];
     NSMutableArray *localArray=[NSMutableArray arrayWithArray:play.quotations];
     [localArray removeObjectIdenticalTo:delete];
     play.quotations=localArray;
@@ -632,7 +633,8 @@ InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtI
             if(count==0)
                 self.openSectionIndex = -1;
             tableActivityInfo.DOS1=count;
-            [self setTheSectionHeaderCount:play.relationType changeCountTo:count];
+            [self setTheSectionHeaderCount:play.relationType changeCountTo:count increment:false];
+            [self.tableActivityInfo.friendsArray removeObjectIdenticalTo:tempParticipantObj];
             
         }
             break;
@@ -649,7 +651,8 @@ InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtI
                 self.openSectionIndex = -1;
             
             tableActivityInfo.DOS2=count;
-            [self setTheSectionHeaderCount:play.relationType changeCountTo:count];
+            [self setTheSectionHeaderCount:play.relationType changeCountTo:count increment:false];
+            [self.tableActivityInfo.friendsOfFriendsArray removeObjectIdenticalTo:tempParticipantObj];
             
         }
             break;
@@ -666,7 +669,8 @@ InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtI
                 self.openSectionIndex = -1;
             
             tableActivityInfo.DOS3=count;
-            [self setTheSectionHeaderCount:play.relationType changeCountTo:count];
+            [self setTheSectionHeaderCount:play.relationType changeCountTo:count increment:false];
+            [self.tableActivityInfo.otherParticipantsArray removeObjectIdenticalTo:tempParticipantObj];
             
         }
             break;
@@ -704,7 +708,7 @@ InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtI
     
 }
 
--(void)setTheSectionHeaderCount:(NSInteger)type changeCountTo:(NSInteger)changeCountTo{
+-(void)setTheSectionHeaderCount:(NSInteger)type changeCountTo:(NSInteger)changeCountTo increment:(BOOL)increment{
     
     switch (type) {
             
@@ -712,10 +716,15 @@ InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtI
         {
             int count=[self.tableActivityInfo.goingCount intValue];
             
-             if(count==0)
+             
+            
+             if(increment){
+                 count=count+1;
+                }
+            else if(count==0)
                 count=0;
-             else
-            count=count-1;
+              else
+                count=count-1;
             
             self.tableActivityInfo.goingCount=[NSString stringWithFormat:@"%d",count];
             if(self.tableActivityInfo.pendingRequestCount==0)
@@ -729,7 +738,10 @@ InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtI
         {
             int count=[self.tableActivityInfo.goingCount intValue];
             
-            if(count==0)
+            if(increment){
+                count=count+1;
+            }
+            else if(count==0)
                 count=0;
             else
                 count=count-1;
@@ -745,7 +757,10 @@ InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtI
         {
             int count=[self.tableActivityInfo.goingCount intValue];
             
-            if(count==0)
+            if(increment){
+                count=count+1;
+            }
+            else if(count==0)
                 count=0;
             else
                 count=count-1;
@@ -776,16 +791,18 @@ InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtI
     
 }
 
--(void)updateParticipantListView{
+-(void)updateParticipantListView:(BOOL)response{
     
     
     InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:playerAprRejIndexpath.section] play];
     
     ParticipantClass *delete= [play.quotations objectAtIndex:playerAprRejIndexpath.row];
+    tempParticipantObj=[delete retain];
+    [self.tableActivityInfo.pendingRequestArray removeObjectIdenticalTo:tempParticipantObj];
     NSMutableArray *localArray=[NSMutableArray arrayWithArray:play.quotations];
     [localArray removeObjectIdenticalTo:delete];
     play.quotations=localArray;
-    [participantTableView reloadData];
+
     
     int count=self.tableActivityInfo.pendingRequestCount;
     if(count==0)
@@ -808,7 +825,84 @@ InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtI
         [(UILabel*)[self viewWithTag:235] setText:requestCount];
     }
     
+ 
+    // now figure out the participant in the other,FOF,F list
+    if(response){
+        NSMutableArray *testArray=[[NSMutableArray alloc]init];
+
+
+        switch (delete.dosConnection) {
+            case 1:
+            {
+                int count=tableActivityInfo.DOS1;
+                count=count+1;
+                tableActivityInfo.DOS1=count;
+                [self setTheSectionHeaderCount:1 changeCountTo:count increment:TRUE];
+                if(self.tableActivityInfo.friendsArray==nil|| [self.tableActivityInfo.friendsArray count]==0){
+                    [testArray addObject:tempParticipantObj];
+                    self.tableActivityInfo.friendsArray=testArray;
+                }
+                else{
+                    [testArray addObjectsFromArray:self.tableActivityInfo.friendsArray];
+                    [testArray addObject:tempParticipantObj];
+                    self.tableActivityInfo.friendsArray=testArray;
+                    
+                }
+
+            }
+                break;
+                
+            case 2:
+            {
+                int count=tableActivityInfo.DOS2;
+                count=count+1;
+                tableActivityInfo.DOS2=count;
+                [self setTheSectionHeaderCount:2 changeCountTo:count increment:TRUE];
+                if(self.tableActivityInfo.friendsOfFriendsArray==nil|| [self.tableActivityInfo.friendsOfFriendsArray count]==0){
+                    [testArray addObject:tempParticipantObj];
+                    self.tableActivityInfo.friendsOfFriendsArray=testArray;
+                }
+                else{
+                    [testArray addObjectsFromArray:self.tableActivityInfo.friendsOfFriendsArray];
+                    [testArray addObject:tempParticipantObj];
+                    self.tableActivityInfo.friendsOfFriendsArray=testArray;
+                    
+                }
+
+                
+            }
+                break;
+                
+            case 3:
+            {
+                int count=tableActivityInfo.DOS3;
+                count=count+1;
+                tableActivityInfo.DOS3=count;
+                [self setTheSectionHeaderCount:3 changeCountTo:count increment:TRUE];
+
+                if(self.tableActivityInfo.otherParticipantsArray==nil|| [self.tableActivityInfo.otherParticipantsArray count]==0){
+                    [testArray addObject:tempParticipantObj];
+                    self.tableActivityInfo.otherParticipantsArray=testArray;
+                }
+                else{
+                    [testArray addObjectsFromArray:self.tableActivityInfo.otherParticipantsArray];
+                    [testArray addObject:tempParticipantObj];
+                    self.tableActivityInfo.otherParticipantsArray=testArray;
+                    
+                }
+
+                
+            }
+                break;
+
+        }
+        
+        [self setUpArrayWithTableSections];
+            return;
+    }
     
+    
+        [participantTableView reloadData];
 }
 
 #pragma mark -

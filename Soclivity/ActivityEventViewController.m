@@ -359,6 +359,8 @@
             leaveActivityButton.hidden=YES;
             chatButton.hidden=YES;
             
+            [eventView decideToShowMapView:1];
+            
             
         }
             break;
@@ -374,7 +376,7 @@
             leaveActivityButton.hidden=YES;
             chatButton.hidden=YES;
 
-            
+            [eventView decideToShowMapView:2];
             
             
         }
@@ -392,7 +394,7 @@
             inviteUsersToActivityButton.hidden=YES;
             leaveActivityButton.hidden=YES;
 
-            
+            [eventView decideToShowMapView:3];
             
             
             
@@ -410,6 +412,8 @@
             notGoingActivityButton.hidden=NO;
             leaveActivityButton.hidden=YES;
             inviteUsersToActivityButton.hidden=YES;
+            
+            [eventView decideToShowMapView:4];
             
         }
             break;
@@ -433,6 +437,7 @@
             else
                 inviteUsersToActivityButton.hidden=YES;
             
+            [eventView decideToShowMapView:5];
             
             
         }
@@ -452,6 +457,8 @@
             goingActivityButton.hidden=YES;
             inviteUsersToActivityButton.hidden=NO;
             leaveActivityButton.hidden=YES;
+            
+           [eventView decideToShowMapView:6];
 
          }
             break;
@@ -550,33 +557,33 @@
         case 107:
         {
             int section_107;
-            if(activityInfo.activityRelationType==6 || activityInfo.activityRelationType==4){
+            if(activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5){
             if(lastIndex!=2){  
                 
                 if(activityInfo.DOS3!=0)
                 {
                     [self highlightSelection:3];
-                    if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1!=0 && activityInfo.DOS2!=0){
+                    if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1!=0 && activityInfo.DOS2!=0){
                         //we need to check the pending Requests
                         section_107=3;
                         
                     }
-                    else if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1!=0 && activityInfo.DOS2==0){
+                    else if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1!=0 && activityInfo.DOS2==0){
                         section_107=2;
                     }
-                    else if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1==0 && activityInfo.DOS2!=0){
+                    else if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1==0 && activityInfo.DOS2!=0){
                         section_107=2;
                     }
-                    else if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount==0 && activityInfo.DOS1!=0 && activityInfo.DOS2!=0){
+                    else if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount==0 && activityInfo.DOS1!=0 && activityInfo.DOS2!=0){
                         section_107=2;
                     }
-                    else if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount==0 && activityInfo.DOS1!=0 && activityInfo.DOS2==0){
+                    else if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount==0 && activityInfo.DOS1!=0 && activityInfo.DOS2==0){
                         section_107=1;
                     }
-                    else if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount==0 && activityInfo.DOS1==0 && activityInfo.DOS2!=0){
+                    else if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount==0 && activityInfo.DOS1==0 && activityInfo.DOS2!=0){
                         section_107=1;
                     }
-                    else if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1==0 && activityInfo.DOS2==0){
+                    else if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1==0 && activityInfo.DOS2==0){
                         section_107=1;
                     }
                     else {
@@ -814,9 +821,15 @@
         break;
             
         case 7:
+        {
+            [participantListTableView updateParticipantListView:YES];
+            
+        }
+            
+        break;
         case 8:
         {
-            [participantListTableView updateParticipantListView];
+            [participantListTableView updateParticipantListView:NO];
             
         }               
             break;
@@ -1165,6 +1178,8 @@
       editButtonForMapView.hidden=NO;//check for organizer
     
     
+    if(activityInfo.activityRelationType==5)
+        leaveActivityButton.hidden=YES;
     currentLocationInMap.hidden=NO;
     
     scrollView.scrollEnabled=NO;
@@ -1191,8 +1206,15 @@
     
     
     inTransition=FALSE;
-    if(activityInfo.activityRelationType==6)
+    if(activityInfo.activityRelationType==6){
       editButtonForMapView.hidden=YES;//check for organizer
+      organizerEditButton.hidden=NO;
+    }
+    
+    
+    if(activityInfo.activityRelationType==5)
+        leaveActivityButton.hidden=NO;
+
 
         currentLocationInMap.hidden=YES;
     
@@ -1206,7 +1228,7 @@
     backButton.hidden=NO;
     backToActivityFromMapButton.hidden=YES;
     newActivityButton.hidden=NO;
-    organizerEditButton.hidden=NO;
+
     inviteUsersToActivityButton.hidden=NO;
     locationEditLeftCrossButton.hidden=YES;
     locationEditRightCheckButton.hidden=YES;

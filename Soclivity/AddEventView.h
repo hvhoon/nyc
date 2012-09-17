@@ -122,4 +122,5 @@
 -(void)setUpLabelViewElements:(BOOL)show;
 -(IBAction)activityInfoButtonClicked:(id)sender;
 -(IBAction)activityMapPlotButtonClicked:(id)sender;
+-(void)decideToShowMapView:(NSInteger)type;
 @end

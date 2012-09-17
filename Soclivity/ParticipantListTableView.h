@@ -11,7 +11,7 @@
 #import "ParticipantTableViewCell.h"
 
 @class InfoActivityClass;
-
+@class ParticipantClass;
 @protocol ParticipantListDelegate <NSObject>
 
 @optional
@@ -33,6 +33,7 @@
     id <ParticipantListDelegate>delegate;
     NSIndexPath *playerAprRejIndexpath;
     NSIndexPath *removePlayerIndexPath;
+    ParticipantClass *tempParticipantObj;
 
 }
 @property (nonatomic,retain)  id <ParticipantListDelegate>delegate;
@@ -46,6 +47,7 @@
 @property (nonatomic,retain)InfoActivityClass *tableActivityInfo;
 @property (nonatomic,retain)NSIndexPath *removePlayerIndexPath;
 @property (nonatomic,retain)NSIndexPath *playerAprRejIndexpath;
+@property (nonatomic,retain)ParticipantClass *tempParticipantObj;
 -(void)sectionHeaderView:(NSInteger)sectionOpened;
 -(void)closeSectionHeaderView:(NSInteger)sectionClosed;
 -(void)setUpArrayWithTableSections;
@@ -54,7 +56,7 @@
 -(void)collapseSectionsExceptOne:(NSInteger)section;
 -(void)alternateBetweenSectionsWithCollapseOrExpand:(int)currentSectionIndex;
 -(void)openAllSectionsExceptOne;
--(void)updateParticipantListView;
+-(void)updateParticipantListView:(BOOL)response;
 -(void)updatePlayerListWithSectionHeaders;
--(void)setTheSectionHeaderCount:(NSInteger)type changeCountTo:(NSInteger)changeCountTo;
+-(void)setTheSectionHeaderCount:(NSInteger)type changeCountTo:(NSInteger)changeCountTo increment:(BOOL)increment;
 @end

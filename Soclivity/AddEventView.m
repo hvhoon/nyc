@@ -257,60 +257,10 @@
     locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
     locationInfoLabel2.frame = CGRectMake(84, 122, 175, 15);
     
-    activityPlotOnMapButton.hidden=YES;
-    switch (info.activityRelationType) {
-        case 1:
-        {
-            locationInfoLabel1.text=[NSString stringWithFormat:@"%@ miles away",info.distance];
-            locationInfoLabel2.text=[NSString stringWithFormat:@" "];
-        }
-            break;
-            
-        case 2:
-        {
-            
-        }
-            break;
-        case 3:
-        {
-            
-        }
-            break;
-        case 4:
-        {
-            
-        }
-            break;
-        case 5:
-        {
-            
-        }
-            break;
-        case 6:
-        {
-            
-            activityPlotOnMapButton.hidden=NO;
-            locationIcon.hidden=YES;
-            locationInfoLabel1.frame=CGRectMake(50, 102+1, 190, 14);
-            locationInfoLabel2.frame = CGRectMake(50, 122, 190, 15);
-            activityPlotOnMapButton.frame=CGRectMake(260, 101, 37, 37);
-            locationInfoLabel1.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
-            locationInfoLabel1.textColor=[SoclivityUtilities returnTextFontColor:5];
-            locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
-            locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
-            locationInfoLabel1.text=info.where_address;
-            locationInfoLabel2.text=[NSString stringWithFormat:@"%@",info.where_zip];
-            
-            // Setting the variables for the map screen
-            firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
-            firstALineddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-            secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
-            secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-            firstALineddressLabel.text = info.where_address;
-            secondLineAddressLabel.text = [NSString stringWithFormat:@"%@",info.where_zip];
-        }
-            break;
-    }
+
+    
+    
+    [self decideToShowMapView:info.activityRelationType];
  
     self.addressSearchBar = [[[CustomSearchbar alloc] initWithFrame:CGRectMake(320,0, 320, 44)] autorelease];
     self.addressSearchBar.delegate = self;
@@ -341,7 +291,50 @@
 #endif    
 }
 
+-(void)decideToShowMapView:(NSInteger)type{
+    
+  activityPlotOnMapButton.hidden=YES;
+    
+    switch (type) {
+        case 1:
+        case 2:
+        case 3:
+        case 4:
 
+        {
+            locationInfoLabel1.text=[NSString stringWithFormat:@"%@ miles away",activityObject.distance];
+            locationInfoLabel2.text=[NSString stringWithFormat:@" "];
+        }
+            break;
+            
+        case 5:
+        case 6:
+        {
+            
+            activityPlotOnMapButton.hidden=NO;
+            locationIcon.hidden=YES;
+            locationInfoLabel1.frame=CGRectMake(50, 102+1, 190, 14);
+            locationInfoLabel2.frame = CGRectMake(50, 122, 190, 15);
+            activityPlotOnMapButton.frame=CGRectMake(260, 101, 37, 37);
+            locationInfoLabel1.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
+            locationInfoLabel1.textColor=[SoclivityUtilities returnTextFontColor:5];
+            locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+            locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
+            locationInfoLabel1.text=activityObject.where_address;
+            locationInfoLabel2.text=[NSString stringWithFormat:@"%@",activityObject.where_zip];
+            
+            // Setting the variables for the map screen
+            firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
+            firstALineddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+            secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+            secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+            firstALineddressLabel.text = activityObject.where_address;
+            secondLineAddressLabel.text = [NSString stringWithFormat:@"%@",activityObject.where_zip];
+        }
+            break;
+    }
+
+}
 #pragma mark -
 #pragma mark Profile Picture Functions
 // Profile picture loading functions
@@ -380,9 +373,6 @@
     }
         
     if(activityObject.activityRelationType==6){
-        if(CGRectContainsPoint(locationTapRect,startPoint)){
-            //[self ActivityEventOnMap];
-        }
         
         if(CGRectContainsPoint(clearTextRect,startPoint)&& editMode){
             [self customCancelButtonHit];
@@ -393,7 +383,7 @@
 }   
 #endif
 -(IBAction)activityMapPlotButtonClicked:(id)sender{
-    if(activityObject.activityRelationType==6){
+    if((activityObject.activityRelationType==6)||(activityObject.activityRelationType==5)){
             [self ActivityEventOnMap];
         }
     

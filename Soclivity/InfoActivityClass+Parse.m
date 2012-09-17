@@ -171,6 +171,45 @@
         play.friendsOfFriendsArray=DOS2Array; 
     }
     
+    NSArray *pending_membersArray=[ACTDict objectForKey:@"members_pending"];
+    NSMutableArray *pendingMembersArray=[NSMutableArray new];
+    
+    for(id object in pending_membersArray){
+        ParticipantClass *pObject=[[[ParticipantClass alloc]init]autorelease];
+        NSNumber *participantId = [object objectForKey:@"id"];
+        pObject.participantId=[participantId intValue];
+        NSNumber *dos = [object objectForKey:@"dos"];
+        pObject.dosConnection=[dos intValue];
+        pObject.name=[object objectForKey:@"name"];
+        pObject.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[object objectForKey:@"photo"]];
+        [pendingMembersArray addObject:pObject];
+        
+    }
+    if([pendingMembersArray count]>0){
+        play.pendingRequestArray=pendingMembersArray;
+        play.pendingRequestCount=[pendingMembersArray count];
+    }
+    
+    NSArray *other_friendsArray=[ACTDict objectForKey:@"other_friends"];
+    NSMutableArray *DOS3FriendsArray=[NSMutableArray new];
+    
+    for(id object in other_friendsArray){
+        ParticipantClass *pObject=[[[ParticipantClass alloc]init]autorelease];
+        NSNumber *participantId = [object objectForKey:@"id"];
+        pObject.participantId=[participantId intValue];
+        
+        pObject.name=[object objectForKey:@"name"];
+        pObject.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[object objectForKey:@"photo"]];
+        [DOS3FriendsArray addObject:pObject];
+        
+    }
+    if([DOS3FriendsArray count]>0){
+        play.otherParticipantsArray=DOS3FriendsArray;
+    }
+
+
+    
+    
     
 #if 0        
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
@@ -202,21 +241,8 @@
     
     play.goingCount=[NSString stringWithFormat:@"%d",play.DOS1+play.DOS2+play.DOS3];
     
-#if 0
-    if(play.activityRelationType==6){
-        play.pendingRequestArray=DOS2Array;
-        play.pendingRequestCount=[DOS2Array count];
-        
-        NSMutableArray *testArray=[NSMutableArray new];
-        for(int i=0;i<play.DOS3;i++){
-            [testArray addObject:[play.pendingRequestArray objectAtIndex:i]];
-        }
-        play.otherParticipantsArray=testArray;
-    }
-#endif
  
-    
-	return play;
+    return play;
     
 }
 

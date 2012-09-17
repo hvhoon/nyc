@@ -24,26 +24,42 @@
     switch (relationshipId) {
       case 1:
         {
-            a= [NSString stringWithFormat:@"dev.soclivity.com/joinactivity.json?id=%d&pid=%d",activityId,playerId];
+            a= [NSString stringWithFormat:@"dev.soclivity.com/joinactivity.json?id=%d&pid=%d&pstatus=true",activityId,playerId];
                 [self post:a body:nil];
         }
             break;
             
       case 2:
-      case 3:
       case 5:
-      case 8:            
-      case 9:      
+      case 3:
         {
-            a= [NSString stringWithFormat:@"dev.soclivity.com/leaveactivity.json?id=%d&pid=%d",activityId,playerId];
-                [self post:a body:nil];
+            a= [NSString stringWithFormat:@"dev.soclivity.com/leaveactivity.json?id=%d&pid=%d&pstatus=true",activityId,playerId];
+            [self post:a body:nil];
         }
             break;
+
+
+            
+      case 8:
+      case 9:
+        {
+            a= [NSString stringWithFormat:@"dev.soclivity.com/leaveactivity.json?id=%d&pid=%d&astatus=true",activityId,playerId];
+            [self post:a body:nil];
+        }
+            break;
+
+
             
     case 4:
-    case 7:           
         {
-            a= [NSString stringWithFormat:@"dev.soclivity.com/joinactivity.json?id=%d&pid=%d",activityId,playerId];
+            a= [NSString stringWithFormat:@"dev.soclivity.com/joinactivity.json?id=%d&pid=%d&pstatus=true",activityId,playerId];
+            [self put:a body:nil];
+        }
+            break;
+
+    case 7:
+        {
+            a= [NSString stringWithFormat:@"dev.soclivity.com/joinactivity.json?id=%d&pid=%d&astatus=true",activityId,playerId];
                 [self put:a body:nil];
         }
             break;
