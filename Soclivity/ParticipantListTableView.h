@@ -44,6 +44,8 @@
 @property (nonatomic, retain) NSMutableArray* sectionInfoArray;
 @property (nonatomic,assign)int activityLinkIndex;
 @property (nonatomic,retain)InfoActivityClass *tableActivityInfo;
+@property (nonatomic,retain)NSIndexPath *removePlayerIndexPath;
+@property (nonatomic,retain)NSIndexPath *playerAprRejIndexpath;
 -(void)sectionHeaderView:(NSInteger)sectionOpened;
 -(void)closeSectionHeaderView:(NSInteger)sectionClosed;
 -(void)setUpArrayWithTableSections;

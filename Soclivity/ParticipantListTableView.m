@@ -21,7 +21,7 @@
 @end
 
 @implementation ParticipantListTableView
-@synthesize imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_,noLine,activityLinkIndex,tableActivityInfo,delegate;
+@synthesize imageDownloadsInProgress,participantTableView,openSectionIndex=openSectionIndex_,uniformRowHeight=rowHeight_,sectionInfoArray=sectionInfoArray_,noLine,activityLinkIndex,tableActivityInfo,delegate,removePlayerIndexPath,playerAprRejIndexpath;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -603,7 +603,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
     //service update
-    removePlayerIndexPath=indexPath;
+    removePlayerIndexPath=[indexPath retain];
     InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
     ParticipantClass *deletePlayer= [play.quotations objectAtIndex:indexPath.row];
     [delegate removeParticipantFromEvent:deletePlayer.participantId];
@@ -612,7 +612,7 @@
 
 -(void)updatePlayerListWithSectionHeaders{
     
-    InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:removePlayerIndexPath.section] play];
+InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:removePlayerIndexPath.section] play];
     
     ParticipantClass *delete= [play.quotations objectAtIndex:removePlayerIndexPath.row];
     NSMutableArray *localArray=[NSMutableArray arrayWithArray:play.quotations];
@@ -767,7 +767,7 @@
 
 -(void)ApproveRejectSelection:(NSIndexPath*)indexPath request:(BOOL)request{
  
-    playerAprRejIndexpath=indexPath;
+    playerAprRejIndexpath=[indexPath retain];
     //service update
     InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
     ParticipantClass *deletePlayer= [play.quotations objectAtIndex:indexPath.row];
