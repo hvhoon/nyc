@@ -26,6 +26,7 @@
         {
             a= [NSString stringWithFormat:@"dev.soclivity.com/joinactivity.json?id=%d&pid=%d&pstatus=true",activityId,playerId];
                 [self post:a body:nil];
+            [self delete:a];
         }
             break;
             
@@ -63,6 +64,14 @@
                 [self put:a body:nil];
         }
             break;
+            
+        case 10:
+        {
+            a= [NSString stringWithFormat:@"dev.soclivity.com/activities/%d.json",activityId];
+            [self delete:a];
+        }
+            break;
+     
 
      }
 

@@ -29,6 +29,8 @@
 #define kPlayerConfirmedRequest 17
 #define kDeclinePlayerRequest 18
 #define kRemovePlayerRequest 19
+#define kLeaveActivity 20
+#define kDeleteActivityRequest 21
 @interface ActivityEventViewController (private)<EditActivityEventInvocationDelegate,MBProgressHUDDelegate,PostActivityRequestInvocationDelegate>
 @end
 
@@ -804,9 +806,9 @@
         case 3:
         case 5:
         {
-            
-            activityInfo.activityRelationType=1;
-            [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
+            [self.navigationController popViewControllerAnimated:YES];
+//            activityInfo.activityRelationType=1;
+//            [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
             
         }               
             break;
@@ -840,8 +842,18 @@
             
         }               
             break;
-        
+            
+            
+        case 10:
+        {
+            SOC.localCacheUpdate=TRUE;
+            [SoclivitySqliteClass deleteActivityRecords:activityInfo.activityId];
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        }
+            break;
 
+    
         default:
             break;
     }
@@ -854,23 +866,14 @@
         case 5:
         {
             
-            if([SoclivityUtilities hasNetworkConnection]){
-                [self startAnimation:kLeavingActivityRequest];
-                [devServer postActivityRequestInvocation:5  playerId:[SOC.loggedInUser.idSoc intValue] actId:activityInfo.activityId delegate:self];
-            }
-            else{
-                
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
-                                                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                
-                [alert show];
-                [alert release];
-                return;
-                
-                
-            }
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Are you  Sure"
+                                                            message:@"You want to leave the activity"
+                                                           delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancel",nil];
             
-            
+            alert.tag=kLeaveActivity;
+            [alert show];
+            [alert release];
+
         }
             break;
     }
@@ -1356,8 +1359,12 @@
         }
             break;
 
-
-  
+        case kDeleteActivityRequest:
+        {
+            HUD.labelText = @"Deleting Activity";
+            
+        }
+            break;
             
         default:
             break;
@@ -1442,10 +1449,42 @@
     if(alertView.tag==kDeleteActivity){
         if (buttonIndex == 0) {
             //delete the Activity
-            SOC.localCacheUpdate=TRUE;
-            [SoclivitySqliteClass deleteActivityRecords:activityInfo.activityId];
-            [self.navigationController popViewControllerAnimated:YES];
+            if([SoclivityUtilities hasNetworkConnection]){
+                [self startAnimation:kDeleteActivityRequest];
+                [devServer postActivityRequestInvocation:10  playerId:[SOC.loggedInUser.idSoc intValue] actId:activityInfo.activityId delegate:self];
+            }
+            else{
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                
+                [alert show];
+                [alert release];
+                return;
+                
+                
+            }
         }
+    }
+    else if(alertView.tag==kLeaveActivity){
+
+                if (buttonIndex == 0) {
+        if([SoclivityUtilities hasNetworkConnection]){
+            [self startAnimation:kLeavingActivityRequest];
+            [devServer postActivityRequestInvocation:5  playerId:[SOC.loggedInUser.idSoc intValue] actId:activityInfo.activityId delegate:self];
+        }
+        else{
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            
+            [alert show];
+            [alert release];
+            return;
+            
+            
+        }
+                }
     }
 }
 #pragma mark -
