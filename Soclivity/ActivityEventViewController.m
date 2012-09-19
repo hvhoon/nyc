@@ -804,11 +804,16 @@
             break;
         case 2:
         case 3:
+        {
+            activityInfo.activityRelationType=1;
+            [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
+            
+        }
+            break;
+
         case 5:
         {
             [self.navigationController popViewControllerAnimated:YES];
-//            activityInfo.activityRelationType=1;
-//            [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
             
         }               
             break;
@@ -1207,18 +1212,22 @@
 }
 -(IBAction)backToActivityAnimateTransition:(id)sender{
     
-    
+    inviteUsersToActivityButton.hidden=YES;
     inTransition=FALSE;
     if(activityInfo.activityRelationType==6){
       editButtonForMapView.hidden=YES;//check for organizer
       organizerEditButton.hidden=NO;
+      inviteUsersToActivityButton.hidden=NO;   
     }
     
     
-    if(activityInfo.activityRelationType==5)
+    
+    
+    if(activityInfo.activityRelationType==5){
         leaveActivityButton.hidden=NO;
-
-
+        if([activityInfo.access isEqualToString:@"public"])
+            inviteUsersToActivityButton.hidden=NO;
+    }
         currentLocationInMap.hidden=YES;
     
     if(footerActivated){
@@ -1232,7 +1241,7 @@
     backToActivityFromMapButton.hidden=YES;
     newActivityButton.hidden=NO;
 
-    inviteUsersToActivityButton.hidden=NO;
+
     locationEditLeftCrossButton.hidden=YES;
     locationEditRightCheckButton.hidden=YES;
      [participantListTableView setHidden:NO];
