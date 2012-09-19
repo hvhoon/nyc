@@ -464,6 +464,7 @@
     [lpgr release];
 
     [delegate slideInTransitionToLocationView];
+    mapView.frame=CGRectMake(320, 0, 320, 376-51);//bug Fix
 }
 -(void)CurrentMapZoomUpdate{
     CLLocation* avgLoc = [self avgLocation];
