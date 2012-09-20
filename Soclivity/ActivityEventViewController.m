@@ -88,7 +88,7 @@
     scrollView.clipsToBounds = YES;
     
     
-    if([activityInfo.goingCount intValue]==0){
+    if([activityInfo.goingCount intValue]==0 && activityInfo.pendingRequestCount==0){
         scrollView.scrollEnabled=NO;
     }
     else{
