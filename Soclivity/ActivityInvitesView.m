@@ -675,7 +675,6 @@
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
 	
-    searching=TRUE;
     [searchBar setShowsCancelButton:YES animated:YES];
 }
 
