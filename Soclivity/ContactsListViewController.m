@@ -271,7 +271,7 @@
     }
     else
     {
-        cell.profileImage = product.profileImage;
+        cell.profileImage = [product.profileImage retain];
     }
 
     [cell setNeedsDisplay];
@@ -503,7 +503,7 @@
     {
         InviteUserTableViewCell *cell = (InviteUserTableViewCell*)[contactListTableView cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
         // Display the newly loaded image
-        cell.profileImage = iconDownloader.inviteRecord.profileImage;
+        cell.profileImage = [iconDownloader.inviteRecord.profileImage retain];
     }
     
     [contactListTableView reloadData];
