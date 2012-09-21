@@ -11,13 +11,22 @@
 #import "SoclivityUtilities.h"
 #import "InvitesViewController.h"
 #define kAddressBookContacts 123
+
+
+@interface ActivityInvitesView ()
+
+- (void)startIconDownload:(InviteObjectClass*)appRecord forIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
 @implementation ActivityInvitesView
-@synthesize searchBarForInvites,InviteEntriesArray,filteredListContent,delegate;
+@synthesize searchBarForInvites,InviteEntriesArray,filteredListContent,delegate,imageDownloadsInProgress;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
         searching=FALSE;
         filteredListContent=[NSMutableArray new];
         self.searchBarForInvites = [[[CustomSearchbar alloc] initWithFrame:CGRectMake(0,0, 320, 44)] autorelease];
@@ -176,9 +185,13 @@
     UIActivityIndicatorView *tmpimg = (UIActivityIndicatorView *)[self viewWithTag:666];
     [tmpimg setHidden:NO];
     [tmpimg startAnimating];
+
     
     
+    [delegate pushContactsInvitesScreen];
+ 
     
+#if 0
     NSOperationQueue *queue = [NSOperationQueue new];
     NSInvocationOperation *operation = [[NSInvocationOperation alloc]
                                         initWithTarget:self
@@ -186,11 +199,12 @@
                                         object:nil];
     [queue addOperation:operation];
     [operation release];
+#endif
     
 }
 
 -(void)SetUpActivityInvites{
-    [delegate pushContactsInvitesScreen];   
+    [delegate pushContactsInvitesScreen];
 }
 -(void) SetUpDummyInvites{
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"Invites" withExtension:@"plist"];
@@ -214,6 +228,7 @@
         NSNumber * DOS = [playDictionary objectForKey:@"DOS"];
         play.DOS= [DOS intValue];
         play.profilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[playDictionary objectForKey:@"profilePhotoUrl"]];
+#if 0
         NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:play.profilePhotoUrl]];
         UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];
         if(image.size.height != image.size.width)
@@ -222,7 +237,7 @@
         // If the image needs to be compressed
         if(image.size.height > 56 || image.size.width > 56)
             play.profileImage = [SoclivityUtilities compressImage:image size:CGSizeMake(56,56)];
-    
+#endif
         NSNumber * status = [playDictionary objectForKey:@"status"];
         play.status=[status boolValue];
         
@@ -368,8 +383,28 @@
         cell.noSeperatorLine=FALSE;
     }
     cell.delegate=self;
+    cell.inviteStatus=product.status;
+    cell.userName=product.userName;
+    cell.DOS=product.DOS;
     cell.cellIndexPath=indexPath;
-    cell.userInviteProduct=product;
+    cell.typeOfRelation=product.typeOfRelation;
+    
+    // Only load cached images; defer new downloads until scrolling ends
+    if (!product.profileImage)
+    {
+        if (inviteUserTableView.dragging == NO && inviteUserTableView.decelerating == NO)
+        {
+            [self startIconDownload:product forIndexPath:indexPath];
+        }
+        // if a download is deferred or in progress, return a placeholder image
+        cell.profileImage = [UIImage imageNamed:@"picbox.png"];
+        
+    }
+    else
+    {
+        cell.profileImage = product.profileImage;
+    }
+
     [cell setNeedsDisplay];
     return cell;
 }
@@ -538,6 +573,88 @@
     
     
     
+}
+
+#pragma mark -
+#pragma mark Lazy Loading
+
+- (void)startIconDownload:(InviteObjectClass*)appRecord forIndexPath:(NSIndexPath *)indexPath{
+    IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
+    if (iconDownloader == nil)
+    {
+        iconDownloader = [[IconDownloader alloc] init];
+        iconDownloader.inviteRecord = appRecord;
+        iconDownloader.indexPathInTableView = indexPath;
+        iconDownloader.delegate = self;
+        [imageDownloadsInProgress setObject:iconDownloader forKey:indexPath];
+        [iconDownloader startDownload:kInviteUsers];
+        [iconDownloader release];
+    }
+}
+
+- (void)loadImagesForOnscreenRows{
+    
+    if ([self.InviteEntriesArray count] > 0)
+    {
+        NSArray *visiblePaths = [inviteUserTableView indexPathsForVisibleRows];
+        
+        if(searching){
+        for (NSIndexPath *indexPath in visiblePaths)
+        {
+            InviteObjectClass *appRecord = (InviteObjectClass*)[self.filteredListContent objectAtIndex:indexPath.row];
+            
+            if (!appRecord.profileImage) // avoid the app icon download if the app already has an icon
+            {
+                [self startIconDownload:appRecord forIndexPath:indexPath];
+            }
+        }
+    }
+        else{
+            for (NSIndexPath *indexPath in visiblePaths)
+            {
+                InviteObjectClass *appRecord = (InviteObjectClass *)[[[[self.InviteEntriesArray objectAtIndex:indexPath.section] objectForKey:@"Elements"]objectAtIndex:indexPath.row]objectForKey:@"ActivityInvite"];
+                
+                
+                if (!appRecord.profileImage) // avoid the app icon download if the app already has an icon
+                {
+                    [self startIconDownload:appRecord forIndexPath:indexPath];
+                }
+            }
+        }
+ }
+    
+    
+}
+
+- (void)appImageDidLoad:(NSIndexPath *)indexPath
+{
+    IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
+    if (iconDownloader != nil)
+    {
+        InviteUserTableViewCell *cell = (InviteUserTableViewCell*)[inviteUserTableView cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
+        // Display the newly loaded image
+        cell.profileImage = iconDownloader.inviteRecord.profileImage;
+    }
+    
+    [inviteUserTableView reloadData];
+}
+
+
+#pragma mark -
+#pragma mark Deferred image loading (UIScrollViewDelegate)
+
+// Load images for all onscreen rows when scrolling is finished
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+    if (!decelerate)
+    {
+        [self loadImagesForOnscreenRows];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    
+    [self loadImagesForOnscreenRows];
 }
 
 #pragma mark -

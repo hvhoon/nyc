@@ -18,18 +18,19 @@
 
 
 #define kProfileView 1
-#define kActivityFeed 2
-#define kWaitingOnU 3
+#define kWaitingOnU 2
+#define kActivityFeed 3
 #define kUpcoming_Completed 4
 #define kInvite 5
 #define kBlockedList 6
 #define kCalendarSync 7
-#define kLinkFacebook 8
-#define kEmailNotifications 9
-#define kSignOut 10
+#define kEmailNotifications 8
+#define kSignOut 9
+#define kLinkFacebook 10
 
 #define cellHeightMedium 45
 #define cellHeightLarge  65
+#define cellHeightSignOut 40
 
 @interface SlideViewController (private)<HomeScreenDelegate,ProfileScreenViewDelegate,NotificationsScreenViewDelegate,UpcomingCompletedEvnetsViewDelegate,InvitesViewDelegate,BlockedListViewDelegate>
 @end
@@ -426,12 +427,14 @@
         case kWaitingOnU:
         case kUpcoming_Completed:
         case kInvite:
-        case kBlockedList:
         case kCalendarSync:
-        case kLinkFacebook:
         case kEmailNotifications:
+             return cellHeightMedium;
         case kSignOut:
-            return cellHeightMedium;
+            return cellHeightSignOut;
+        case kBlockedList:
+            return 85.0f;
+
         case kProfileView:
             return cellHeightLarge;
         default:
@@ -484,7 +487,7 @@
         case kProfileView:
         {
             yCompLine=63.0f;
-            yTextLabel=30.0f;
+            yTextLabel=27.0f;
             showLineOrSwitch=TRUE;
             UIImageView *profilePicBorder=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_organizerPic.png"]];
             profilePicBorder.frame=CGRectMake(15, 7, 52, 52);
@@ -501,17 +504,6 @@
             yTextLabel=17.0f;
             showLineOrSwitch=TRUE;
             yLeftImage=12.0f;
-            CGRect notificationNoLabelRect=CGRectMake(25,17,15,14);
-            UILabel *notificationNoLabel=[[UILabel alloc] initWithFrame:notificationNoLabelRect];
-            notificationNoLabel.textAlignment=UITextAlignmentCenter;
-            notificationNoLabel.text=@"0";
-            notificationNoLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
-            notificationNoLabel.textColor=[UIColor whiteColor];
-            notificationNoLabel.shadowColor = [UIColor blackColor];
-            notificationNoLabel.shadowOffset = CGSizeMake(0,-1);
-            notificationNoLabel.backgroundColor=[UIColor clearColor];
-            [cell.contentView addSubview:notificationNoLabel];
-            [notificationNoLabel release];
             cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
 
 
@@ -544,11 +536,10 @@
             
         case kBlockedList:
         {
-            yCompLine=43;
+            yCompLine=83;
             yTextLabel=15.0f;
             showLineOrSwitch=TRUE;
             yLeftImage=11.0f;
-            cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
 
             
         }
@@ -585,7 +576,13 @@
             yCompLine=43;
             showLineOrSwitch=FALSE;
             yLeftImage=16.0f;
-            yTextLabel=10.0f;
+            yTextLabel=12.0f;
+            
+            UIImageView *signoutBarImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_signoutBar"]];
+            signoutBarImage.frame=CGRectMake(0,0, 320, 40);
+            [cell.contentView addSubview:signoutBarImage];
+            [signoutBarImage release];
+
             
         }
             break;
@@ -606,7 +603,7 @@
         descriptionLabel.frame=CGRectMake(75,yTextLabel,205,17);
         descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17];
     }
-    else if([tagNumber intValue]==kProfileView || ([tagNumber intValue]==kCalendarSync)||([tagNumber intValue]==kLinkFacebook)||([tagNumber intValue]==kEmailNotifications)||([tagNumber intValue]==kSignOut))
+    else if([tagNumber intValue]==kProfileView || ([tagNumber intValue]==kCalendarSync)||([tagNumber intValue]==kEmailNotifications)||([tagNumber intValue]==kSignOut))
         descriptionLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     
     else
@@ -619,7 +616,12 @@
     if(showLineOrSwitch){
     UIImageView *longLineImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_long-line.png"]];
     
-    if(([tagNumber intValue]==kWaitingOnU) ||([tagNumber intValue]==kUpcoming_Completed)||([tagNumber intValue]==kInvite)){
+    if(([tagNumber intValue]==kWaitingOnU) ||([tagNumber intValue]==kUpcoming_Completed)||([tagNumber intValue]==kInvite)||([tagNumber intValue]==kActivityFeed)){
+        
+        if(([tagNumber intValue]==kInvite)){
+        longLineImageView.image=Nil;
+        }
+         else
         longLineImageView.image=[UIImage imageNamed:@"S7_short-line.png"];
         longLineImageView.frame=CGRectMake(25,yCompLine, longLineImageView.image.size.width, longLineImageView.image.size.height);
 
@@ -642,6 +644,7 @@
     else{
         UIImageView *longLineImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_long-line.png"]];
         longLineImageView.frame=CGRectMake(0,0, longLineImageView.image.size.width, longLineImageView.image.size.height);
+
         [cell.contentView addSubview:longLineImageView];
         [longLineImageView release];
 
@@ -652,7 +655,7 @@
         UIImage *imageProfile=[viewControllerDictionary objectForKey:kSlideViewControllerViewControllerIconKey];
         
         UIImageView *slideImageView=[[UIImageView alloc]initWithImage:imageProfile];
-
+        slideImageView.tag=[tagNumber intValue];
         if([tagNumber intValue]==kProfileView){
         
         if(imageProfile.size.height != imageProfile.size.width)
@@ -667,8 +670,27 @@
         else
          slideImageView.frame=CGRectMake(19, yLeftImage, slideImageView.image.size.width, slideImageView.image.size.height);
         
-        [cell.contentView addSubview:slideImageView];
+        
+        if([tagNumber intValue]==kWaitingOnU){
+            CGRect notificationNoLabelRect=CGRectMake(6,4,15,14);
+            UILabel *notificationNoLabel=[[UILabel alloc] initWithFrame:notificationNoLabelRect];
+            notificationNoLabel.textAlignment=UITextAlignmentCenter;
+            notificationNoLabel.text=@"0";
+            notificationNoLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
+            notificationNoLabel.textColor=[UIColor whiteColor];
+            notificationNoLabel.shadowColor = [UIColor blackColor];
+            notificationNoLabel.shadowOffset = CGSizeMake(0,-1);
+            notificationNoLabel.backgroundColor=[UIColor clearColor];
+            [slideImageView addSubview:notificationNoLabel];
+            [notificationNoLabel release];
+            [cell.contentView addSubview:slideImageView];
+        }
+        else
+           [cell.contentView addSubview:slideImageView];
+        
         [slideImageView release];
+        
+
         
     } else {
         cell.imageView.image = nil;

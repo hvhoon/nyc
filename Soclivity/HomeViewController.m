@@ -585,8 +585,9 @@
     
     
     
-     
-    
+    [self performSelectorOnMainThread:@selector(pushActivityController:) withObject:responses waitUntilDone:NO];
+
+#if 0
     NSOperationQueue *queue = [NSOperationQueue new];
     NSInvocationOperation *operation = [[NSInvocationOperation alloc]
                                         initWithTarget:self
@@ -595,7 +596,7 @@
     [queue addOperation:operation];
     [operation release];
 
-
+#endif
     
 }
 
@@ -666,7 +667,6 @@
 
 }
 -(void)pushActivityController:(InfoActivityClass*)response{
-    //[HUD hide:YES];
     
     
 

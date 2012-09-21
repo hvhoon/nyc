@@ -10,7 +10,7 @@
 #import "SoclivityUtilities.h"
 #import "InviteObjectClass.h"
 @implementation InviteUserTableViewCell
-@synthesize delegate,cellIndexPath,noSeperatorLine,userInviteProduct;
+@synthesize delegate,cellIndexPath,noSeperatorLine,inviteStatus,DOS,userName,typeOfRelation,profileImage;
 static UIFont *firstTextFont = nil;
 static UIFont *secondTextFont = nil;
 static UIFont *boldText = nil;
@@ -57,32 +57,32 @@ static UIFont *boldText = nil;
     [[UIImage imageNamed:@"S05_participantPic.png"] drawInRect:CGRectMake(42,6,37,37)];
     
     CGRect profileImageP = CGRectMake(46,9.5, 28, 28);
-    [userInviteProduct.profileImage drawInRect:profileImageP];
+    [profileImage drawInRect:profileImageP];
     
     CGRect userNameLabelRectP = CGRectMake(100, 15, 180, 15);
-    [userInviteProduct.userName drawInRect:userNameLabelRectP withFont:firstTextFont];
+    [userName drawInRect:userNameLabelRectP withFont:firstTextFont];
     
     
     
     
-    switch (userInviteProduct.typeOfRelation) {
+    switch (typeOfRelation) {
         case 0:
         {
             
-            CGSize  size = [userInviteProduct.userName sizeWithFont:firstTextFont];
+            CGSize  size = [userName sizeWithFont:firstTextFont];
             NSLog(@"width=%f",size.width);
             
             CGRect DOSImageRect = CGRectMake(100+5+size.width, 17.5, 21, 12);
 
 
-            if(userInviteProduct.DOS==1){
+            if(DOS==1){
                 [[UIImage imageNamed:@"dos1.png"] drawInRect:DOSImageRect];
             }
             else{
                 [[UIImage imageNamed:@"dos2.png"] drawInRect:DOSImageRect];
             }
 
-            if(userInviteProduct.status){
+            if(inviteStatus){
                 
                 inviteRect=CGRectMake(280, 17.5, 21, 16);
                 [[UIImage imageNamed:@"S05.4_added.png"] drawInRect:inviteRect];
@@ -97,7 +97,7 @@ static UIFont *boldText = nil;
             break;
         case 1:
         {
-            if(userInviteProduct.status){
+            if(inviteStatus){
                 
                 inviteRect=CGRectMake(280, 17.5, 21, 16);
                 [[UIImage imageNamed:@"S05.4_added.png"] drawInRect:inviteRect];
@@ -113,7 +113,7 @@ static UIFont *boldText = nil;
             
         case 2:
         {
-            if(userInviteProduct.status){
+            if(inviteStatus){
                 
                 inviteRect=CGRectMake(280, 17.5, 21, 16);
                 [[UIImage imageNamed:@"S05.4_added.png"] drawInRect:inviteRect];
@@ -131,20 +131,20 @@ static UIFont *boldText = nil;
         case 3:
         {
             
-            CGSize  size = [userInviteProduct.userName sizeWithFont:firstTextFont];
+            CGSize  size = [userName sizeWithFont:firstTextFont];
             NSLog(@"width=%f",size.width);
             
             CGRect DOSImageRect = CGRectMake(100+5+size.width, 17.5, 21, 12);
             
             
-            if(userInviteProduct.DOS==1){
+            if(DOS==1){
                 [[UIImage imageNamed:@"dos1.png"] drawInRect:DOSImageRect];
             }
             else{
                 [[UIImage imageNamed:@"dos2.png"] drawInRect:DOSImageRect];
             }
             
-            if(userInviteProduct.status){
+            if(inviteStatus){
                 
                 inviteRect=CGRectMake(280, 17.5, 21, 16);
                 [[UIImage imageNamed:@"S05.4_added.png"] drawInRect:inviteRect];
@@ -161,7 +161,7 @@ static UIFont *boldText = nil;
             
         case 4:
         {
-            if(userInviteProduct.status){
+            if(inviteStatus){
                 
                 inviteRect=CGRectMake(280, 17.5, 21, 16);
                 [[UIImage imageNamed:@"S05.4_added.png"] drawInRect:inviteRect];

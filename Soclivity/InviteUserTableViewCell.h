@@ -21,12 +21,20 @@
     NSIndexPath *cellIndexPath;
     id <InviteTableViewCellDelegate>delegate;
     BOOL noSeperatorLine;
-    InviteObjectClass *userInviteProduct;
     CGRect inviteRect;
+    BOOL inviteStatus;
+    NSInteger DOS;
+    NSString *userName;
+    NSInteger typeOfRelation;
+    UIImage *profileImage;
 
 }
 @property (nonatomic,retain)id <InviteTableViewCellDelegate>delegate;
 @property (nonatomic,retain)NSIndexPath *cellIndexPath;
 @property (nonatomic,assign)BOOL noSeperatorLine;
-@property (nonatomic,retain)InviteObjectClass *userInviteProduct;
+@property (nonatomic,assign)BOOL inviteStatus;
+@property (nonatomic,assign)NSInteger DOS;
+@property (nonatomic,retain)NSString*userName;
+@property (nonatomic,assign)NSInteger typeOfRelation;
+@property (nonatomic,retain)UIImage*profileImage;
 @end

@@ -1,14 +1,10 @@
 
 #import "IconDownloader.h"
 #import "ParticipantClass.h"
-
+#import "InviteObjectClass.h"
+#import "SoclivityUtilities.h"
 #define kIconHeight 56
 #define kIconWidth 56
-
-#define kIconThumbHeight 28
-#define kIconThumbWidth 28
-
-
 
 @implementation IconDownloader
 
@@ -17,7 +13,8 @@
 @synthesize delegate;
 @synthesize activeDownload;
 @synthesize imageConnection;
-
+@synthesize tagkey;
+@synthesize inviteRecord;
 #pragma mark
 
 - (void)dealloc
@@ -33,18 +30,42 @@
     [super dealloc];
 }
 
-- (void)startDownload
+- (void)startDownload:(NSInteger)uniqueKey
 {
     self.activeDownload = [NSMutableData data];
+    tagkey=uniqueKey;
+    switch (tagkey){
+        case kParticipantInActivity:
+        {
+            if(appRecord.photoUrl != nil)
+            {
+                
+                NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
+                                         [NSURLRequest requestWithURL:
+                                          [NSURL URLWithString:appRecord.photoUrl]] delegate:self];
+                self.imageConnection = conn;
+                [conn release];
+            }
+            
+        }
+            break;
+            
+        case kInviteUsers:
+        {
+            if(inviteRecord.profilePhotoUrl != nil)
+            {
+                
+                NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
+                                         [NSURLRequest requestWithURL:
+                                          [NSURL URLWithString:inviteRecord.profilePhotoUrl]] delegate:self];
+                self.imageConnection = conn;
+                [conn release];
+            }
+            
+        }
+            break;
+    }
     // alloc+init and start an NSURLConnection; release on completion/failure
-	if(appRecord.photoUrl != nil)
-	{
-		NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
-                             [NSURLRequest requestWithURL:
-                              [NSURL URLWithString:appRecord.photoUrl]] delegate:self];
-		self.imageConnection = conn;
-		[conn release];
-	}
 }
 
 - (void)cancelDownload
@@ -77,30 +98,31 @@
     // Set appIcon and clear temporary data/image
     UIImage *image = [[UIImage alloc] initWithData:self.activeDownload];
     
-    if (image.size.width != kIconWidth && image.size.height != kIconHeight){
-        CGSize itemSize = CGSizeMake(kIconWidth, kIconHeight);
-		UIGraphicsBeginImageContext(itemSize);
-		CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-		[image drawInRect:imageRect];
-		self.appRecord.profilePhotoImage = UIGraphicsGetImageFromCurrentImageContext();
-		UIGraphicsEndImageContext();
-    }
-    else{
-        self.appRecord.profilePhotoImage = image;
-    }
+    
+    if(image.size.height != image.size.width)
+        image = [SoclivityUtilities autoCrop:image];
+    
+    // If the image needs to be compressed
+    if(image.size.height > kIconHeight || image.size.width > kIconHeight)
+        image = [SoclivityUtilities compressImage:image size:CGSizeMake(kIconHeight,kIconHeight)];
+
+       switch (tagkey) {
+            case kParticipantInActivity:
+            {
+                self.appRecord.profilePhotoImage = image;
+                
+            }
+                break;
+                
+            case kInviteUsers:
+            {
+                self.inviteRecord.profileImage =image;
+                
+            }
+                break;
+        }
     
 	
-	if (image.size.width != kIconThumbWidth && image.size.height != kIconThumbHeight){
-        CGSize itemSize = CGSizeMake(kIconThumbWidth, kIconThumbHeight);
-		UIGraphicsBeginImageContext(itemSize);
-		CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-		[image drawInRect:imageRect];
-		self.appRecord.profilePhotoImage = UIGraphicsGetImageFromCurrentImageContext();
-		UIGraphicsEndImageContext();
-    }
-    else{
-        self.appRecord.profilePhotoImage = image;
-    }
 	
     self.activeDownload = nil;
     [image release];

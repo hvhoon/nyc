@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CustomSearchbar.h"
 #import "InviteUserTableViewCell.h"
-
+#import "IconDownloader.h"
 
 @protocol ContactsListViewDelegate <NSObject>
 
@@ -17,7 +17,7 @@
 -(void)OpenSlotsUpdate:(BOOL)increment;
 @end
 
-@interface ContactsListViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,CustomSearchBarDelegate,InviteTableViewCellDelegate>{
+@interface ContactsListViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,CustomSearchBarDelegate,InviteTableViewCellDelegate,IconDownloaderDelegate>{
     
     IBOutlet UIButton*activityBackButton;
     IBOutlet UILabel *inviteTitleLabel;
@@ -31,6 +31,7 @@
     NSArray *contactsListContentArray;
     id<ContactsListViewDelegate>delegate;
     BOOL inviteFriends;
+    NSMutableDictionary *imageDownloadsInProgress;
 
 }
 @property (nonatomic,retain)UIButton*activityBackButton;
@@ -40,10 +41,11 @@
 @property (nonatomic,retain)NSString *activityName;
 @property (nonatomic,retain)id<ContactsListViewDelegate>delegate;
 @property (nonatomic,retain) CustomSearchbar *searchBarForContacts;
+@property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
 @property (nonatomic,assign)BOOL inviteFriends;
--(IBAction)popBackToActivityInviteScreen:(id)sender;
 @property (nonatomic,retain)NSMutableArray *filteredListContent;
 @property (nonatomic,retain)NSArray*contactsListContentArray;
 -(NSArray*)setUpDummyContactList;
--(void)loadTableView;
+-(IBAction)popBackToActivityInviteScreen:(id)sender;
+
 @end

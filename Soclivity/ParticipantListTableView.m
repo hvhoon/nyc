@@ -917,7 +917,7 @@ InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtI
         iconDownloader.indexPathInTableView = indexPath;
         iconDownloader.delegate = self;
         [imageDownloadsInProgress setObject:iconDownloader forKey:indexPath];
-        [iconDownloader startDownload];
+        [iconDownloader startDownload:kParticipantInActivity];
         [iconDownloader release];   
     }
 }
@@ -952,6 +952,8 @@ InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtI
         // Display the newly loaded image
         cell.profileImage = iconDownloader.appRecord.profilePhotoImage;
     }
+    
+    [participantTableView reloadData];
 }
 
 #pragma mark -
