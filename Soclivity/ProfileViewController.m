@@ -7,9 +7,9 @@
 //
 
 #import "ProfileViewController.h"
-
+#import "ActivityTypeSelectView.h"
 @implementation ProfileViewController
-@synthesize delegate;
+@synthesize delegate,activityTypesView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -32,6 +32,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    updateActivityLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
+    updateActivityLabel.textColor=[UIColor whiteColor];
+    updateActivityLabel.backgroundColor=[UIColor clearColor];
+    updateActivityLabel.shadowColor = [UIColor blackColor];
+    updateActivityLabel.shadowOffset = CGSizeMake(0,-1);
+
     // Do any additional setup after loading the view from its nib.
 }
 -(IBAction)profileSliderPressed:(id)sender{

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class ActivityTypeSelectView;
 @protocol ProfileScreenViewDelegate <NSObject>
 
 @optional
@@ -17,7 +17,10 @@
 
 @interface ProfileViewController : UIViewController{
     id <ProfileScreenViewDelegate>delegate;
+    IBOutlet ActivityTypeSelectView *activityTypesView;
+    IBOutlet UILabel *updateActivityLabel;
 }
 @property (nonatomic,retain)id <ProfileScreenViewDelegate>delegate;
+@property (nonatomic,retain)ActivityTypeSelectView *activityTypesView;
 -(IBAction)profileSliderPressed:(id)sender;
 @end
