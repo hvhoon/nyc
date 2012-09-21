@@ -402,7 +402,9 @@
     }
     else
     {
-        cell.profileImage = product.profileImage;
+        NSLog(@"Product=%@",product.userName);
+        NSLog(@"Product_profileImage=%@",product.profileImage);
+        cell.profileImage = [product.profileImage retain];
     }
 
     [cell setNeedsDisplay];
@@ -594,7 +596,15 @@
 
 - (void)loadImagesForOnscreenRows{
     
-    if ([self.InviteEntriesArray count] > 0)
+    
+    int count=0;
+    if(searching){
+        count=[self.filteredListContent count];
+    }
+    else{
+        count=[self.InviteEntriesArray count];
+    }
+    if (count> 0)
     {
         NSArray *visiblePaths = [inviteUserTableView indexPathsForVisibleRows];
         
@@ -633,7 +643,9 @@
     {
         InviteUserTableViewCell *cell = (InviteUserTableViewCell*)[inviteUserTableView cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
         // Display the newly loaded image
-        cell.profileImage = iconDownloader.inviteRecord.profileImage;
+        cell.profileImage = [iconDownloader.inviteRecord.profileImage retain];
+        NSLog(@"cell=%@",cell.profileImage);
+
     }
     
     [inviteUserTableView reloadData];
@@ -663,6 +675,7 @@
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
 	
+    searching=TRUE;
     [searchBar setShowsCancelButton:YES animated:YES];
 }
 

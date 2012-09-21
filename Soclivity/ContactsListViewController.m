@@ -456,7 +456,15 @@
 
 - (void)loadImagesForOnscreenRows{
     
-    if ([self.contactsListContentArray count] > 0)
+    int count=0;
+    if(searching){
+        count=[self.filteredListContent count];
+    }
+    else{
+        count=[self.contactsListContentArray count];
+    }
+    if (count> 0)
+    
     {
         NSArray *visiblePaths = [contactListTableView indexPathsForVisibleRows];
         

@@ -37,6 +37,7 @@
     updateActivityLabel.backgroundColor=[UIColor clearColor];
     updateActivityLabel.shadowColor = [UIColor blackColor];
     updateActivityLabel.shadowOffset = CGSizeMake(0,-1);
+    [activityTypesView updateActivityTypes];
 
     // Do any additional setup after loading the view from its nib.
 }

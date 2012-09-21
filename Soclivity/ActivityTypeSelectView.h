@@ -30,10 +30,12 @@
     BOOL learn;
     GetPlayersClass *playerObj;
     MBProgressHUD *HUD;
+    BOOL isRegisteration;
 }
 @property (nonatomic,retain)id <ActivitySelectDelegate>delegate;
 @property (nonatomic,retain)GetPlayersClass *playerObj;
 @property (retain, nonatomic) IBOutlet UIButton *getStarted;
+@property (nonatomic,assign)BOOL isRegisteration;
 -(IBAction)playActivityClicked:(id)sender;
 -(IBAction)eatActivityClicked:(id)sender;
 -(IBAction)seeActivityClicked:(id)sender;
@@ -42,5 +44,5 @@
 -(void)MakeSureAtLeastOneActivitySelected;
 -(void)startAnimation;
 -(void)stopAnimation;
-
+-(void)updateActivityTypes;
 @end

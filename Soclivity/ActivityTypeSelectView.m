@@ -10,13 +10,14 @@
 #import "GetPlayersClass.h"
 #import "MBProgressHUD.h"
 #import "SoclivityManager.h"
+#import "FilterPreferenceClass.h"
 // Private properties
 @interface ActivityTypeSelectView() <MBProgressHUDDelegate>
 @end
 
 @implementation ActivityTypeSelectView
 
-@synthesize delegate,playerObj,getStarted;
+@synthesize delegate,playerObj,getStarted,isRegisteration;
 
 // Defining the transparency used to display the tick for activity categories selected
 #define HIDDEN 0.2
@@ -35,6 +36,59 @@
         // Initialization code
     }
     return self;
+}
+
+-(void)updateActivityTypes{
+    isRegisteration=TRUE;
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    FilterPreferenceClass*idObj= SOC.filterObject;
+    play=idObj.playAct;
+    if(play){
+        playImageView.alpha=SHOW;
+    }
+    else{
+        playImageView.alpha=HIDDEN;
+    }
+
+    eat=idObj.eatAct;
+    if(eat){
+        eatImageView.alpha=SHOW;
+    }
+    else{
+        eatImageView.alpha=HIDDEN;
+        
+    }
+
+    create=idObj.createAct;
+    
+    if(create){
+        createImageView.alpha=SHOW;
+    }
+    else{
+        createImageView.alpha=HIDDEN;
+        
+    }
+
+    see=idObj.seeAct;
+    if(see){
+        seeImageView.alpha=SHOW;
+    }
+    else{
+        seeImageView.alpha=HIDDEN;
+        
+    }
+
+    learn=idObj.learnAct;
+    
+    if(learn){
+        learnImageView.alpha=SHOW;
+    }
+    else{
+        learnImageView.alpha=HIDDEN;
+        
+    }
+
+    
 }
 
 -(IBAction)getStartedClicked:(id)sender{

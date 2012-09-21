@@ -125,13 +125,14 @@
 	
 	
     self.activeDownload = nil;
-    [image release];
+
     
     // Release the connection now that it's finished
     self.imageConnection = nil;
         
     // call our delegate and tell it that our icon is ready for display
     [delegate appImageDidLoad:self.indexPathInTableView];
+     [image release];
 }
 
 @end

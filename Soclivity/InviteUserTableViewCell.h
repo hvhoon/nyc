@@ -36,5 +36,5 @@
 @property (nonatomic,assign)NSInteger DOS;
 @property (nonatomic,retain)NSString*userName;
 @property (nonatomic,assign)NSInteger typeOfRelation;
-@property (nonatomic,strong)UIImage*profileImage;
+@property (nonatomic,retain)UIImage*profileImage;
 @end
