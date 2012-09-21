@@ -430,7 +430,7 @@
         }
         else
         {
-            cell.profileImage = appRecord.profilePhotoImage;
+            cell.profileImage = [appRecord.profilePhotoImage retain];
         }
             
         [cell setNeedsDisplay];
@@ -950,7 +950,7 @@ InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtI
     {
         ParticipantTableViewCell *cell = (ParticipantTableViewCell*)[participantTableView cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
         // Display the newly loaded image
-        cell.profileImage = iconDownloader.appRecord.profilePhotoImage;
+        cell.profileImage = [iconDownloader.appRecord.profilePhotoImage retain];
     }
     
     [participantTableView reloadData];
