@@ -82,6 +82,8 @@
     [spinnerView stopAnimating];
     [spinnerView setHidden:YES];
 
+    
+    eventView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
 
 
     scrollView.indicatorStyle=UIScrollViewIndicatorStyleBlack;

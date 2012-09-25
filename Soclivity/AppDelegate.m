@@ -64,7 +64,15 @@ void uncaughtExceptionHandler(NSException *exception) {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    WelcomeScreenViewController *welcomeScreenViewController=[[WelcomeScreenViewController alloc]initWithNibName:@"WelcomeScreenViewController" bundle:nil];
+    
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"WelcomeScreenViewControllerIphone5";
+    }
+    else{
+        nibNameBundle=@"WelcomeScreenViewController";
+    }
+    WelcomeScreenViewController *welcomeScreenViewController=[[WelcomeScreenViewController alloc]initWithNibName:nibNameBundle bundle:nil];
     navigationController=[[UINavigationController alloc]initWithRootViewController:welcomeScreenViewController];
     [welcomeScreenViewController release];
     UINavigationBar *NavBar = [navigationController navigationBar];

@@ -422,7 +422,6 @@
 		EA96E840155E269500BE82DF /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA96E83E155E269500BE82DF /* SettingsViewController.m */; };
 		EA96E841155E269500BE82DF /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA96E83F155E269500BE82DF /* SettingsViewController.xib */; };
 		EA96E846155E2AAC00BE82DF /* UpComingCompletedEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA96E844155E2AAC00BE82DF /* UpComingCompletedEventsViewController.m */; };
-		EA96E847155E2AAC00BE82DF /* UpComingCompletedEventsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA96E845155E2AAC00BE82DF /* UpComingCompletedEventsViewController.xib */; };
 		EA96E852155E37A500BE82DF /* DDMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA96E851155E37A500BE82DF /* DDMenuController.m */; };
 		EA96E85A155E670800BE82DF /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA96E858155E670800BE82DF /* HomeViewController.m */; };
 		EA96E85B155E670800BE82DF /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA96E859155E670800BE82DF /* HomeViewController.xib */; };
@@ -566,6 +565,8 @@
 		EAED84D61554016200124D7D /* S01.2_enterpass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAED845D1554016200124D7D /* S01.2_enterpass@2x.png */; };
 		EAED84D71554016200124D7D /* S01.2_passwordreset.png in Resources */ = {isa = PBXBuildFile; fileRef = EAED845E1554016200124D7D /* S01.2_passwordreset.png */; };
 		EAED84D81554016200124D7D /* S01.2_passwordreset@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAED845F1554016200124D7D /* S01.2_passwordreset@2x.png */; };
+		EAF138561610E041000120C3 /* UpComingCompletedEventsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAF138551610E041000120C3 /* UpComingCompletedEventsViewController.xib */; };
+		EAF138581610E1A5000120C3 /* WelcomeScreenViewControllerIphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAF138571610E1A5000120C3 /* WelcomeScreenViewControllerIphone5.xib */; };
 		EAF2AE0715873029008EAE27 /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF2ADC515873028008EAE27 /* blueArrow.png */; };
 		EAF2AE0815873029008EAE27 /* blueArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF2ADC615873028008EAE27 /* blueArrow@2x.png */; };
 		EAF2AE0915873029008EAE27 /* S04_addevent.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF2ADC715873028008EAE27 /* S04_addevent.png */; };
@@ -1182,7 +1183,6 @@
 		EA96E83F155E269500BE82DF /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		EA96E843155E2AAC00BE82DF /* UpComingCompletedEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpComingCompletedEventsViewController.h; sourceTree = "<group>"; };
 		EA96E844155E2AAC00BE82DF /* UpComingCompletedEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpComingCompletedEventsViewController.m; sourceTree = "<group>"; };
-		EA96E845155E2AAC00BE82DF /* UpComingCompletedEventsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpComingCompletedEventsViewController.xib; sourceTree = "<group>"; };
 		EA96E850155E37A500BE82DF /* DDMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMenuController.h; sourceTree = "<group>"; };
 		EA96E851155E37A500BE82DF /* DDMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMenuController.m; sourceTree = "<group>"; };
 		EA96E857155E670800BE82DF /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -1341,6 +1341,8 @@
 		EAED845D1554016200124D7D /* S01.2_enterpass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S01.2_enterpass@2x.png"; sourceTree = "<group>"; };
 		EAED845E1554016200124D7D /* S01.2_passwordreset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S01.2_passwordreset.png; sourceTree = "<group>"; };
 		EAED845F1554016200124D7D /* S01.2_passwordreset@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S01.2_passwordreset@2x.png"; sourceTree = "<group>"; };
+		EAF138551610E041000120C3 /* UpComingCompletedEventsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpComingCompletedEventsViewController.xib; sourceTree = "<group>"; };
+		EAF138571610E1A5000120C3 /* WelcomeScreenViewControllerIphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeScreenViewControllerIphone5.xib; sourceTree = "<group>"; };
 		EAF2ADC515873028008EAE27 /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
 		EAF2ADC615873028008EAE27 /* blueArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blueArrow@2x.png"; sourceTree = "<group>"; };
 		EAF2ADC715873028008EAE27 /* S04_addevent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S04_addevent.png; sourceTree = "<group>"; };
@@ -1708,6 +1710,7 @@
 				680CE4151551284800B8E937 /* WelcomeScreenViewController.h */,
 				680CE4161551284800B8E937 /* WelcomeScreenViewController.m */,
 				680CE4171551284800B8E937 /* WelcomeScreenViewController.xib */,
+				EAF138571610E1A5000120C3 /* WelcomeScreenViewControllerIphone5.xib */,
 			);
 			name = Welcome;
 			sourceTree = "<group>";
@@ -2439,7 +2442,7 @@
 			children = (
 				EA96E843155E2AAC00BE82DF /* UpComingCompletedEventsViewController.h */,
 				EA96E844155E2AAC00BE82DF /* UpComingCompletedEventsViewController.m */,
-				EA96E845155E2AAC00BE82DF /* UpComingCompletedEventsViewController.xib */,
+				EAF138551610E041000120C3 /* UpComingCompletedEventsViewController.xib */,
 			);
 			name = Upcoming/Completed;
 			sourceTree = "<group>";
@@ -2963,7 +2966,6 @@
 				68B91466155EC32F00F2B780 /* S02_tick_emb.png in Resources */,
 				68B91467155EC32F00F2B780 /* S02_tick_emb@2x.png in Resources */,
 				EA96E841155E269500BE82DF /* SettingsViewController.xib in Resources */,
-				EA96E847155E2AAC00BE82DF /* UpComingCompletedEventsViewController.xib in Resources */,
 				EA96E85B155E670800BE82DF /* HomeViewController.xib in Resources */,
 				EAB053D81562214F00771877 /* S02_blackbar@2x.png in Resources */,
 				EAB053DA1562215200771877 /* S02_blackbar.png in Resources */,
@@ -3350,6 +3352,8 @@
 				EAE5E685160C3486007E81D1 /* S05_organizerPic@2x.png in Resources */,
 				EAE5E686160C3486007E81D1 /* S7_signoutBar.png in Resources */,
 				EAE5E687160C3486007E81D1 /* S7_signoutBar@2x.png in Resources */,
+				EAF138561610E041000120C3 /* UpComingCompletedEventsViewController.xib in Resources */,
+				EAF138581610E1A5000120C3 /* WelcomeScreenViewControllerIphone5.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

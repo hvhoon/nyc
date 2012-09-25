@@ -8,9 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum
+{
+    iPhone          = 1 << 1,
+    iPhoneRetnia    = 1 << 2,
+    iPhone5         = 1 << 3,
+    iPad            = 1 << 4,
+    iPadRetnia      = 1 << 5
+    
+} DeviceType;
+
+
 @interface SoclivityUtilities : NSObject{
     
 }
++ (DeviceType)deviceType;
 +(UIColor*)returnTextFontColor:(NSInteger)colorType;
 +(UIColor*)returnBackgroundColor:(NSInteger)colorType;
 +(UIImage*)updateResult:(CGSize)sizeToFitTheImage originalImage:(UIImage*)originalImage switchCaseIndex:(int)switchCaseIndex;

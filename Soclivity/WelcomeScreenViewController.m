@@ -20,7 +20,6 @@
 #import "EventShareActivity.h"
 @interface WelcomeScreenViewController(Private) <MBProgressHUDDelegate>
 @end
-
 @implementation WelcomeScreenViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -54,7 +53,7 @@
 {
     [super viewDidLoad];
     [self.navigationController.navigationBar setHidden:YES];
-    rootView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 460)];
+    rootView=[[UIView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.view addSubview:rootView];
 
     
@@ -62,7 +61,7 @@
     socLogoImageView.frame=CGRectMake(51, 80, 219, 58);
     
     playImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"green_play.png"]];
-    playImageView.frame=CGRectMake(0, 0, 320, 460);
+    playImageView.frame=[[UIScreen mainScreen] bounds];
     UIImageView*playHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"play.png"]];
     playHighlightImage.frame=CGRectMake(33, 150, 254, 14);
     [playImageView addSubview:playHighlightImage];
@@ -71,7 +70,7 @@
     [playHighlightImage release];
     
     eatImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"orange_eat.png"]];
-    eatImageView.frame=CGRectMake(0, 0, 320, 460);
+    eatImageView.frame=[[UIScreen mainScreen] bounds];
     UIImageView*eatHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"eat.png"]];
     eatHighlightImage.frame=CGRectMake(33, 150, 254, 14);
     [eatImageView addSubview:eatHighlightImage];
@@ -80,7 +79,7 @@
     [eatHighlightImage release];
     
     seeImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"purple_see.png"]];
-    seeImageView.frame=CGRectMake(0, 0, 320, 460);
+    seeImageView.frame=[[UIScreen mainScreen] bounds];
     UIImageView*seeHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"see.png"]];
     seeHighlightImage.frame=CGRectMake(33, 150, 254, 14);
     [seeImageView addSubview:seeHighlightImage];
@@ -89,7 +88,7 @@
     [seeHighlightImage release];
     
     createImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"red_create.png"]];
-    createImageView.frame=CGRectMake(0, 0, 320, 460);
+    createImageView.frame=[[UIScreen mainScreen] bounds];
     UIImageView*createHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"create.png"]];
     createHighlightImage.frame=CGRectMake(33, 150, 254, 14);
     [createImageView addSubview:createHighlightImage];
@@ -98,7 +97,7 @@
     [createHighlightImage release];
     
     learnImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"aqua_learn.png"]];
-    learnImageView.frame=CGRectMake(0, 0, 320, 460);
+    learnImageView.frame=[[UIScreen mainScreen] bounds];
     UIImageView*learnHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"learn.png"]];
     learnHighlightImage.frame=CGRectMake(33, 150, 254, 14);
     [learnImageView addSubview:learnHighlightImage];
@@ -113,23 +112,23 @@
     [self.view addSubview:socLogoImageView];
     [socLogoImageView release];
     UIImageView *socSignupImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sign-up.png"]];
-    socSignupImageView.frame=CGRectMake(26, 287, 265, 132);
+    socSignupImageView.frame=CGRectMake(26, [UIScreen mainScreen].bounds.size.height-173, 265, 132);//287
     [self.view addSubview:socSignupImageView];
     [socSignupImageView release];
     
     
     UIButton *signInUsingFacebbokButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    signInUsingFacebbokButton.frame=CGRectMake(26,287,265,44.6);
+    signInUsingFacebbokButton.frame=CGRectMake(26,[UIScreen mainScreen].bounds.size.height-173,265,44.6);
     [signInUsingFacebbokButton addTarget:self action:@selector(SignInUsingFacebookButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signInUsingFacebbokButton];
     
     UIButton *signUpButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    signUpButton.frame=CGRectMake(26,331,265,44.6);
+    signUpButton.frame=CGRectMake(26,[UIScreen mainScreen].bounds.size.height-173+44,265,44.6);//331
     [signUpButton addTarget:self action:@selector(SignUpButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signUpButton];
     
     UIButton *alreadySignedUpButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    alreadySignedUpButton.frame=CGRectMake(26,376.2,265,44.6);
+    alreadySignedUpButton.frame=CGRectMake(26,[UIScreen mainScreen].bounds.size.height-173+44+45.2,265,44.6);
     [alreadySignedUpButton addTarget:self action:@selector(AlreadySignedUpButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:alreadySignedUpButton];
 
