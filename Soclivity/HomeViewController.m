@@ -86,7 +86,15 @@
     pullDownView.handleView.frame = CGRectMake(5, 402, 58, 58);
     pullDownView.delegate = self;
     
-    overLayView=[[UIView alloc]initWithFrame:CGRectMake(0, 360, 320, 100)];
+    CGFloat height=[UIScreen mainScreen].bounds.size.height;
+    NSLog(@"height=%f",height);
+    
+    if([SoclivityUtilities deviceType] & iPhone5)
+        overLayView=[[UIView alloc]initWithFrame:CGRectMake(0, 360, 320, 188)];
+    
+    else
+         overLayView=[[UIView alloc]initWithFrame:CGRectMake(0, 360, 320, 100)];
+        
     overLayView.backgroundColor=[UIColor clearColor];
     [self.view addSubview:overLayView];
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];

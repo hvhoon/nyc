@@ -468,6 +468,7 @@
 		EABCE21E15E7E9F0005B74E8 /* ContactsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EABCE21C15E7E9EF005B74E8 /* ContactsListViewController.m */; };
 		EABCE21F15E7E9F0005B74E8 /* ContactsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABCE21D15E7E9EF005B74E8 /* ContactsListViewController.xib */; };
 		EABCE22415E7F658005B74E8 /* ContactList.plist in Resources */ = {isa = PBXBuildFile; fileRef = EABCE22315E7F658005B74E8 /* ContactList.plist */; };
+		EAC801AE161182C400501765 /* HomeViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC801AD161182C400501765 /* HomeViewController_iphone5.xib */; };
 		EAC94D041566C11800400404 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC94D021566C11800400404 /* SFHFKeychainUtils.m */; };
 		EAD0D6CF15E74A89009865D7 /* ActivityInvitesView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD0D6CE15E74A89009865D7 /* ActivityInvitesView.m */; };
 		EAD0D6D615E762C8009865D7 /* Invites.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAD0D6D515E762C8009865D7 /* Invites.plist */; };
@@ -1238,6 +1239,7 @@
 		EABCE21C15E7E9EF005B74E8 /* ContactsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsListViewController.m; sourceTree = "<group>"; };
 		EABCE21D15E7E9EF005B74E8 /* ContactsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsListViewController.xib; sourceTree = "<group>"; };
 		EABCE22315E7F658005B74E8 /* ContactList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ContactList.plist; sourceTree = "<group>"; };
+		EAC801AD161182C400501765 /* HomeViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController_iphone5.xib; sourceTree = "<group>"; };
 		EAC94D021566C11800400404 /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
 		EAC94D031566C11800400404 /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
 		EAD0D6CD15E74A89009865D7 /* ActivityInvitesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityInvitesView.h; sourceTree = "<group>"; };
@@ -2466,6 +2468,7 @@
 				EA96E857155E670800BE82DF /* HomeViewController.h */,
 				EA96E858155E670800BE82DF /* HomeViewController.m */,
 				EA96E859155E670800BE82DF /* HomeViewController.xib */,
+				EAC801AD161182C400501765 /* HomeViewController_iphone5.xib */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -3354,6 +3357,7 @@
 				EAE5E687160C3486007E81D1 /* S7_signoutBar@2x.png in Resources */,
 				EAF138561610E041000120C3 /* UpComingCompletedEventsViewController.xib in Resources */,
 				EAF138581610E1A5000120C3 /* WelcomeScreenViewControllerIphone5.xib in Resources */,
+				EAC801AE161182C400501765 /* HomeViewController_iphone5.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -312,7 +312,16 @@
 }
 - (UIViewController *)initialViewController {
     
-    HomeViewController *homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+    
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"HomeViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"HomeViewController";
+    }
+
+    HomeViewController *homeViewController = [[HomeViewController alloc] initWithNibName:nibNameBundle bundle:nil];
     return [homeViewController autorelease];
     
 }
