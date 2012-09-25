@@ -471,6 +471,10 @@
 		EAC801AE161182C400501765 /* HomeViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC801AD161182C400501765 /* HomeViewController_iphone5.xib */; };
 		EAC801B016119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC801AF16119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib */; };
 		EAC801B21611B97A00501765 /* SlideViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC801B11611B97A00501765 /* SlideViewController_iphone5.xib */; };
+		EAC801B81611C61C00501765 /* S10_sectionHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = EAC801B41611C61C00501765 /* S10_sectionHighlighted.png */; };
+		EAC801B91611C61C00501765 /* S10_sectionHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAC801B51611C61C00501765 /* S10_sectionHighlighted@2x.png */; };
+		EAC801BA1611C61C00501765 /* S10_segmentedBar.png in Resources */ = {isa = PBXBuildFile; fileRef = EAC801B61611C61C00501765 /* S10_segmentedBar.png */; };
+		EAC801BB1611C61C00501765 /* S10_segmentedBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAC801B71611C61C00501765 /* S10_segmentedBar@2x.png */; };
 		EAC94D041566C11800400404 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC94D021566C11800400404 /* SFHFKeychainUtils.m */; };
 		EAD0D6CF15E74A89009865D7 /* ActivityInvitesView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD0D6CE15E74A89009865D7 /* ActivityInvitesView.m */; };
 		EAD0D6D615E762C8009865D7 /* Invites.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAD0D6D515E762C8009865D7 /* Invites.plist */; };
@@ -1244,6 +1248,10 @@
 		EAC801AD161182C400501765 /* HomeViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController_iphone5.xib; sourceTree = "<group>"; };
 		EAC801AF16119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpComingCompletedEventsViewController_iphone5.xib; sourceTree = "<group>"; };
 		EAC801B11611B97A00501765 /* SlideViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlideViewController_iphone5.xib; sourceTree = "<group>"; };
+		EAC801B41611C61C00501765 /* S10_sectionHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S10_sectionHighlighted.png; sourceTree = "<group>"; };
+		EAC801B51611C61C00501765 /* S10_sectionHighlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S10_sectionHighlighted@2x.png"; sourceTree = "<group>"; };
+		EAC801B61611C61C00501765 /* S10_segmentedBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S10_segmentedBar.png; sourceTree = "<group>"; };
+		EAC801B71611C61C00501765 /* S10_segmentedBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S10_segmentedBar@2x.png"; sourceTree = "<group>"; };
 		EAC94D021566C11800400404 /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
 		EAC94D031566C11800400404 /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
 		EAD0D6CD15E74A89009865D7 /* ActivityInvitesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityInvitesView.h; sourceTree = "<group>"; };
@@ -1609,6 +1617,7 @@
 				EA863A0B15C1585E0072C005 /* S05.1 Map View */,
 				EAAEF8A215DA60710085DBE5 /* S05.4 Activity Invites */,
 				EA85DBDE15AFDD6A00AAD964 /* S07 Settings */,
+				EAC801B31611C61C00501765 /* S10 Upcoming */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2531,6 +2540,18 @@
 			name = "Soclivity Manager";
 			sourceTree = "<group>";
 		};
+		EAC801B31611C61C00501765 /* S10 Upcoming */ = {
+			isa = PBXGroup;
+			children = (
+				EAC801B41611C61C00501765 /* S10_sectionHighlighted.png */,
+				EAC801B51611C61C00501765 /* S10_sectionHighlighted@2x.png */,
+				EAC801B61611C61C00501765 /* S10_segmentedBar.png */,
+				EAC801B71611C61C00501765 /* S10_segmentedBar@2x.png */,
+			);
+			name = "S10 Upcoming";
+			path = "Soclivity/S10 Upcoming";
+			sourceTree = "<group>";
+		};
 		EAC94D001566C0F100400404 /* Encryption */ = {
 			isa = PBXGroup;
 			children = (
@@ -3366,6 +3387,10 @@
 				EAC801AE161182C400501765 /* HomeViewController_iphone5.xib in Resources */,
 				EAC801B016119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib in Resources */,
 				EAC801B21611B97A00501765 /* SlideViewController_iphone5.xib in Resources */,
+				EAC801B81611C61C00501765 /* S10_sectionHighlighted.png in Resources */,
+				EAC801B91611C61C00501765 /* S10_sectionHighlighted@2x.png in Resources */,
+				EAC801BA1611C61C00501765 /* S10_segmentedBar.png in Resources */,
+				EAC801BB1611C61C00501765 /* S10_segmentedBar@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
