@@ -35,6 +35,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    activititesLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
+    activititesLabel.textColor=[UIColor whiteColor];
+    activititesLabel.backgroundColor=[UIColor clearColor];
+    activititesLabel.shadowColor = [UIColor blackColor];
+    activititesLabel.shadowOffset = CGSizeMake(0,-1);
+
         // Do any additional setup after loading the view from its nib.
 }
 

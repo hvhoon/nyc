@@ -433,7 +433,11 @@
         case kSignOut:
             return cellHeightSignOut;
         case kBlockedList:
-            return 85.0f;
+            if([SoclivityUtilities deviceType] & iPhone5)
+                return 173.0f;
+            else
+                return 85.0f;
+           
 
         case kProfileView:
             return cellHeightLarge;
@@ -536,7 +540,11 @@
             
         case kBlockedList:
         {
-            yCompLine=83;
+            
+            if([SoclivityUtilities deviceType] & iPhone5)
+                yCompLine=171;
+            else
+                yCompLine=83;
             yTextLabel=15.0f;
             showLineOrSwitch=TRUE;
             yLeftImage=11.0f;
@@ -627,7 +635,7 @@
 
     }
     else
-    longLineImageView.frame=CGRectMake(0,yCompLine, longLineImageView.image.size.width, longLineImageView.image.size.height);
+    longLineImageView.frame=CGRectMake(0,yCompLine-2, longLineImageView.image.size.width, longLineImageView.image.size.height);
     [cell.contentView addSubview:longLineImageView];
     [longLineImageView release];
     }

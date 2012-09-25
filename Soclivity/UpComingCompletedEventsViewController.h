@@ -17,6 +17,7 @@
 
 @interface UpComingCompletedEventsViewController : UIViewController{
     id <UpcomingCompletedEvnetsViewDelegate>delegate;
+    IBOutlet UILabel *activititesLabel;
 }
 @property (nonatomic,retain)id <UpcomingCompletedEvnetsViewDelegate>delegate;
 -(IBAction)profileSliderPressed:(id)sender;

@@ -18,6 +18,7 @@
 #import "UpComingCompletedEventsViewController.h"
 #import "SlidingDrawerViewController.h"
 #import "EventShareActivity.h"
+#import "SoclivityUtilities.h"
 @interface WelcomeScreenViewController(Private) <MBProgressHUDDelegate>
 @end
 @implementation WelcomeScreenViewController
@@ -282,7 +283,15 @@
 #else
 -(void)pushToHomeViewController{
     [HUD hide:YES];
-    SlidingDrawerViewController *slideViewController = [[SlidingDrawerViewController alloc] initWithNibName:@"SlideViewController" bundle:nil];
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"SlideViewController";
+    }
+    else{
+        nibNameBundle=@"SlideViewController_iphone5";
+    }
+    
+    SlidingDrawerViewController *slideViewController = [[SlidingDrawerViewController alloc] initWithNibName:nibNameBundle bundle:nil];
     slideViewController.delegate = slideViewController;
     slideViewController.isFBlogged=TRUE;
     [self.navigationController pushViewController:slideViewController animated:YES];

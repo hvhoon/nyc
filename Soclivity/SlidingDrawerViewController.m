@@ -126,7 +126,16 @@
         
         NSMutableDictionary *upcomingCompletedEventsViewControllerDictionary = [NSMutableDictionary dictionary];
         [upcomingCompletedEventsViewControllerDictionary setObject:@"Your Activities" forKey:kSlideViewControllerViewControllerTitleKey];
-        [upcomingCompletedEventsViewControllerDictionary setObject:@"UpComingCompletedEventsViewController" forKey:kSlideViewControllerViewControllerNibNameKey];
+        
+        NSString *nibNameBundle=nil;
+        if([SoclivityUtilities deviceType] & iPhone5){
+            nibNameBundle=@"UpComingCompletedEventsViewController_iphone5";
+        }
+        else{
+            nibNameBundle=@"UpComingCompletedEventsViewController";
+        }
+
+        [upcomingCompletedEventsViewControllerDictionary setObject:nibNameBundle forKey:kSlideViewControllerViewControllerNibNameKey];
         
         NSNumber *upcomingCompletedEventsTag=[NSNumber numberWithInt:4];
         [upcomingCompletedEventsViewControllerDictionary setObject:upcomingCompletedEventsTag forKey:kSlideViewControllerViewControllerTagKey];

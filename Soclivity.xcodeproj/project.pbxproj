@@ -469,6 +469,8 @@
 		EABCE21F15E7E9F0005B74E8 /* ContactsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABCE21D15E7E9EF005B74E8 /* ContactsListViewController.xib */; };
 		EABCE22415E7F658005B74E8 /* ContactList.plist in Resources */ = {isa = PBXBuildFile; fileRef = EABCE22315E7F658005B74E8 /* ContactList.plist */; };
 		EAC801AE161182C400501765 /* HomeViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC801AD161182C400501765 /* HomeViewController_iphone5.xib */; };
+		EAC801B016119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC801AF16119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib */; };
+		EAC801B21611B97A00501765 /* SlideViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC801B11611B97A00501765 /* SlideViewController_iphone5.xib */; };
 		EAC94D041566C11800400404 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC94D021566C11800400404 /* SFHFKeychainUtils.m */; };
 		EAD0D6CF15E74A89009865D7 /* ActivityInvitesView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD0D6CE15E74A89009865D7 /* ActivityInvitesView.m */; };
 		EAD0D6D615E762C8009865D7 /* Invites.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAD0D6D515E762C8009865D7 /* Invites.plist */; };
@@ -1240,6 +1242,8 @@
 		EABCE21D15E7E9EF005B74E8 /* ContactsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsListViewController.xib; sourceTree = "<group>"; };
 		EABCE22315E7F658005B74E8 /* ContactList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ContactList.plist; sourceTree = "<group>"; };
 		EAC801AD161182C400501765 /* HomeViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController_iphone5.xib; sourceTree = "<group>"; };
+		EAC801AF16119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpComingCompletedEventsViewController_iphone5.xib; sourceTree = "<group>"; };
+		EAC801B11611B97A00501765 /* SlideViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlideViewController_iphone5.xib; sourceTree = "<group>"; };
 		EAC94D021566C11800400404 /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
 		EAC94D031566C11800400404 /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
 		EAD0D6CD15E74A89009865D7 /* ActivityInvitesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityInvitesView.h; sourceTree = "<group>"; };
@@ -2445,6 +2449,7 @@
 				EA96E843155E2AAC00BE82DF /* UpComingCompletedEventsViewController.h */,
 				EA96E844155E2AAC00BE82DF /* UpComingCompletedEventsViewController.m */,
 				EAF138551610E041000120C3 /* UpComingCompletedEventsViewController.xib */,
+				EAC801AF16119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib */,
 			);
 			name = Upcoming/Completed;
 			sourceTree = "<group>";
@@ -2793,6 +2798,7 @@
 				EAF2AEBF15875EA5008EAE27 /* SlideViewController.xib */,
 				EAF2AEBA15875E36008EAE27 /* SlidingDrawerViewController.h */,
 				EAF2AEBB15875E36008EAE27 /* SlidingDrawerViewController.m */,
+				EAC801B11611B97A00501765 /* SlideViewController_iphone5.xib */,
 			);
 			name = "Sliding Drawer Effect";
 			sourceTree = "<group>";
@@ -3358,6 +3364,8 @@
 				EAF138561610E041000120C3 /* UpComingCompletedEventsViewController.xib in Resources */,
 				EAF138581610E1A5000120C3 /* WelcomeScreenViewControllerIphone5.xib in Resources */,
 				EAC801AE161182C400501765 /* HomeViewController_iphone5.xib in Resources */,
+				EAC801B016119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib in Resources */,
+				EAC801B21611B97A00501765 /* SlideViewController_iphone5.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

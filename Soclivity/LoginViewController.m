@@ -372,7 +372,16 @@
 
 #else
 -(void)SetUpHomeScreen{
-    SlidingDrawerViewController *slideViewController = [[SlidingDrawerViewController alloc] initWithNibName:@"SlideViewController" bundle:nil];
+    
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"SlideViewController";
+    }
+    else{
+        nibNameBundle=@"SlideViewController_iphone5";
+    }
+
+    SlidingDrawerViewController *slideViewController = [[SlidingDrawerViewController alloc] initWithNibName:nibNameBundle bundle:nil];
     slideViewController.delegate = slideViewController;
     slideViewController.isFBlogged=FALSE;
     [self.navigationController pushViewController:slideViewController animated:YES];
