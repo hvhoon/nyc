@@ -37,6 +37,7 @@
     BOOL sectionOpenClose;
     BOOL listRefresh;
     int spinnerIndex;
+    BOOL isOrganizerList;
 }
 
 @property (nonatomic, retain) NSArray *plays;
@@ -49,8 +50,9 @@
 @property (nonatomic, copy) NSString *textRelease;
 @property (nonatomic, copy) NSString *textLoading;
 @property (nonatomic, retain) UIImageView *topDivider;
+@property (nonatomic,assign)NSInteger sortType;
 @property (nonatomic,retain)id <ActivityListViewDelegate>delegate;
-
+@property (nonatomic,assign)BOOL isOrganizerList;
 -(void)LoadTable;
 - (void)setupStrings;
 - (void)addPullToRefreshHeader;

@@ -30,7 +30,7 @@
 @implementation ActivityListView
 @synthesize plays,tableView,delegate;
 @synthesize sectionInfoArray=sectionInfoArray_, uniformRowHeight=rowHeight_,openSectionIndex=openSectionIndex_;
-@synthesize textPull, textRelease, textLoading, refreshHeaderView, refreshLabel, refreshArrow, refreshSpinner, topDivider;
+@synthesize textPull, textRelease, textLoading, refreshHeaderView, refreshLabel, refreshArrow, refreshSpinner, topDivider,sortType,isOrganizerList;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -290,7 +290,15 @@
     lastUpdateLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:14];
     lastUpdateLabel.textColor = [SoclivityUtilities returnTextFontColor:1];
     lastUpdateLabel.textAlignment = UITextAlignmentCenter;
-    NSString *timeStamp=[[NSUserDefaults standardUserDefaults] valueForKey:@"SOCLastTimeUpdate"];
+    
+    
+    NSString *timeStamp=nil;
+    if(isOrganizerList){
+    timeStamp=[[NSUserDefaults standardUserDefaults] valueForKey:@"SOCActivityTimeUpdate"];        
+    }
+    else{
+    timeStamp=[[NSUserDefaults standardUserDefaults] valueForKey:@"SOCLastTimeUpdate"];
+    }
     lastUpdateLabel.text=[SoclivityUtilities lastUpdate:timeStamp];
     
     topDivider=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_sectionDivider.png"]];
@@ -328,7 +336,14 @@
     } else if (isDragging && scrollView.contentOffset.y < 0) {
         // Update the arrow direction and label
         [UIView beginAnimations:nil context:NULL];
-        NSString *timeStamp=[[NSUserDefaults standardUserDefaults] valueForKey:@"SOCLastTimeUpdate"];
+        NSString *timeStamp=nil;
+        if(isOrganizerList){
+            timeStamp=[[NSUserDefaults standardUserDefaults] valueForKey:@"SOCActivityTimeUpdate"];
+        }
+        else{
+            timeStamp=[[NSUserDefaults standardUserDefaults] valueForKey:@"SOCLastTimeUpdate"];
+        }
+
         lastUpdateLabel.text=[SoclivityUtilities lastUpdate:timeStamp];
 
         if (scrollView.contentOffset.y < -REFRESH_HEADER_HEIGHT) {
@@ -470,8 +485,14 @@
 
 }
 -(void)sortingFilterRefresh{
+    NSString *timeStamp=nil;
+    if(isOrganizerList){
+        timeStamp=[[NSUserDefaults standardUserDefaults] valueForKey:@"SOCActivityTimeUpdate"];
+    }
+    else{
+        timeStamp=[[NSUserDefaults standardUserDefaults] valueForKey:@"SOCLastTimeUpdate"];
+    }
     
-    NSString *timeStamp=[[NSUserDefaults standardUserDefaults] valueForKey:@"SOCLastTimeUpdate"];
     lastUpdateLabel.text=[SoclivityUtilities lastUpdate:timeStamp];
     
     if(sectionOpenClose){
@@ -527,9 +548,12 @@
     [infoArray release];
     
     if([self.sectionInfoArray count]==0){
+        
+        if(!isOrganizerList){
         self.tableView.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_NoActivities.png"]];
         self.tableView.scrollEnabled=NO;
         self.tableView.bounces=NO;
+        }
 
     }
     else{

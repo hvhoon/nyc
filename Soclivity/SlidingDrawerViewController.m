@@ -29,7 +29,8 @@
         
         //creating _searchDatasource for later use!
         _searchDatasource = [NSMutableArray new];
-        
+        NSString *nibNameBundle=nil;
+
         NSMutableArray *datasource = [NSMutableArray array];
 
         
@@ -99,7 +100,15 @@
         
         NSMutableDictionary *homeViewControllerDictionary = [NSMutableDictionary dictionary];
         [homeViewControllerDictionary setObject:@"Activities around you" forKey:kSlideViewControllerViewControllerTitleKey];
-        [homeViewControllerDictionary setObject:@"HomeViewController" forKey:kSlideViewControllerViewControllerNibNameKey];
+        
+        if([SoclivityUtilities deviceType] & iPhone5){
+            nibNameBundle=@"HomeViewController_iphone5";
+        }
+        else{
+            nibNameBundle=@"HomeViewController";
+        }
+
+        [homeViewControllerDictionary setObject:nibNameBundle forKey:kSlideViewControllerViewControllerNibNameKey];
         
         NSNumber *activityTag=[NSNumber numberWithInt:3];
         [homeViewControllerDictionary setObject:activityTag forKey:kSlideViewControllerViewControllerTagKey];
@@ -127,7 +136,6 @@
         NSMutableDictionary *upcomingCompletedEventsViewControllerDictionary = [NSMutableDictionary dictionary];
         [upcomingCompletedEventsViewControllerDictionary setObject:@"Your Activities" forKey:kSlideViewControllerViewControllerTitleKey];
         
-        NSString *nibNameBundle=nil;
         if([SoclivityUtilities deviceType] & iPhone5){
             nibNameBundle=@"UpComingCompletedEventsViewController_iphone5";
         }
@@ -284,7 +292,14 @@
         NSMutableDictionary *settingsViewControllerDictionary = [NSMutableDictionary  dictionary];
         [settingsViewControllerDictionary setObject:@"Signout" forKey:kSlideViewControllerViewControllerTitleKey];
         
-        [settingsViewControllerDictionary setObject:@"WelcomeScreenViewController" forKey:kSlideViewControllerViewControllerNibNameKey];
+        if([SoclivityUtilities deviceType] & iPhone5){
+            nibNameBundle=@"WelcomeScreenViewControllerIphone5";
+        }
+        else{
+            nibNameBundle=@"WelcomeScreenViewController";
+        }
+
+        [settingsViewControllerDictionary setObject:nibNameBundle forKey:kSlideViewControllerViewControllerNibNameKey];
 
         [settingsViewControllerDictionary setObject:[WelcomeScreenViewController class] forKey:kSlideViewControllerViewControllerClassKey];
         
