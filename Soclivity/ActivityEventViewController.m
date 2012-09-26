@@ -83,7 +83,7 @@
     [spinnerView setHidden:YES];
 
     
-    eventView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    //eventView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
 
 
     scrollView.indicatorStyle=UIScrollViewIndicatorStyleBlack;
@@ -117,13 +117,21 @@
     for (int i = 0; i < 2; i++) {
 		CGRect frame;
 		frame.origin.x = 0;
+                    if([SoclivityUtilities deviceType] & iPhone5)
 		frame.origin.y = self.scrollView.frame.size.height* i+44.0f;
+          else
+        frame.origin.y = self.scrollView.frame.size.height* i+44.0f;
 		frame.size = self.scrollView.frame.size;
 		
         switch (i) {
             case 0:
             {
+            if([SoclivityUtilities deviceType] & iPhone5){
+                eventView.frame=CGRectMake(0, 0, 640, 417);
+            }
+            else{
                 eventView.frame=CGRectMake(0, 0, 640, 329);
+            }
                 [self.scrollView addSubview:eventView];
                 
              }
@@ -315,7 +323,13 @@
                 [headerView addSubview:othersTextLabel];
                 [othersTextLabel release];
                 participantListTableView.participantTableView.tableHeaderView=headerView;
-                [participantListTableView setFrame:CGRectMake(0, 329, 320, 423)];
+                
+                            if([SoclivityUtilities deviceType] & iPhone5){
+                [participantListTableView setFrame:CGRectMake(0,417, 320, 423)];
+                            }
+                            else{
+                [participantListTableView setFrame:CGRectMake(0, 329, 320, 423)];                                
+                            }
                 [self.scrollView addSubview:participantListTableView];
             }
                 break;
@@ -336,8 +350,10 @@
     [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
 
     
+    if([SoclivityUtilities deviceType] & iPhone5)
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,793);
+        else
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,705);
-
 
     // Do any additional setup after loading the view from its nib.
 }
@@ -708,7 +724,12 @@
     switch (page) {
         case 0:
         {
+                if([SoclivityUtilities deviceType] & iPhone5){
+            frame.origin.y = 376+88;
+                }
+                else{
             frame.origin.y = 376;
+                }
         }
             break;
             

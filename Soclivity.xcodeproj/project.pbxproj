@@ -480,6 +480,7 @@
 		EAD0D6D615E762C8009865D7 /* Invites.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAD0D6D515E762C8009865D7 /* Invites.plist */; };
 		EAD0D6DC15E76660009865D7 /* InviteObjectClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD0D6DB15E7665F009865D7 /* InviteObjectClass.m */; };
 		EAD0D6DF15E76E07009865D7 /* InviteUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD0D6DE15E76E07009865D7 /* InviteUserTableViewCell.m */; };
+		EAD0EDDC1612388200389327 /* ActivityEventViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAD0EDDB1612388200389327 /* ActivityEventViewController_iphone5.xib */; };
 		EAD44FF21564FA190075C8CA /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD44FF01564FA190075C8CA /* Base64.m */; };
 		EAE5E684160C3486007E81D1 /* S05_organizerPic.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE5E680160C3486007E81D1 /* S05_organizerPic.png */; };
 		EAE5E685160C3486007E81D1 /* S05_organizerPic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE5E681160C3486007E81D1 /* S05_organizerPic@2x.png */; };
@@ -1261,6 +1262,7 @@
 		EAD0D6DB15E7665F009865D7 /* InviteObjectClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteObjectClass.m; sourceTree = "<group>"; };
 		EAD0D6DD15E76E07009865D7 /* InviteUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteUserTableViewCell.h; sourceTree = "<group>"; };
 		EAD0D6DE15E76E07009865D7 /* InviteUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteUserTableViewCell.m; sourceTree = "<group>"; };
+		EAD0EDDB1612388200389327 /* ActivityEventViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityEventViewController_iphone5.xib; sourceTree = "<group>"; };
 		EAD44FF01564FA190075C8CA /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
 		EAD44FF11564FA190075C8CA /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
 		EAE5E680160C3486007E81D1 /* S05_organizerPic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_organizerPic.png; sourceTree = "<group>"; };
@@ -2804,6 +2806,7 @@
 				EAF2AE9F15874BCC008EAE27 /* ActivityEventViewController.h */,
 				EAF2AEA015874BCC008EAE27 /* ActivityEventViewController.m */,
 				EAF2AEA115874BCC008EAE27 /* ActivityEventViewController.xib */,
+				EAD0EDDB1612388200389327 /* ActivityEventViewController_iphone5.xib */,
 				EAF2AEA815874D02008EAE27 /* EventDetailView.h */,
 				EAF2AEA915874D02008EAE27 /* EventDetailView.m */,
 				EAF2AEAF15874D76008EAE27 /* EventDetailView.xib */,
@@ -3391,6 +3394,7 @@
 				EAC801B91611C61C00501765 /* S10_sectionHighlighted@2x.png in Resources */,
 				EAC801BA1611C61C00501765 /* S10_segmentedBar.png in Resources */,
 				EAC801BB1611C61C00501765 /* S10_segmentedBar@2x.png in Resources */,
+				EAD0EDDC1612388200389327 /* ActivityEventViewController_iphone5.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

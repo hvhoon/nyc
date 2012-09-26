@@ -676,9 +676,17 @@
 }
 -(void)pushActivityController:(InfoActivityClass*)response{
     
+    NSString*nibNameBundle=nil;
     
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"ActivityEventViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"ActivityEventViewController";
+    }
 
-    ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:@"ActivityEventViewController" bundle:nil];
+
+    ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
     
     activityEventViewController.activityInfo=response;
 	[[self navigationController] pushViewController:activityEventViewController animated:YES];
