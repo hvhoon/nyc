@@ -82,10 +82,6 @@
     [spinnerView stopAnimating];
     [spinnerView setHidden:YES];
 
-    
-    //eventView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-
-
     scrollView.indicatorStyle=UIScrollViewIndicatorStyleBlack;
     scrollView.clipsToBounds = YES;
     
@@ -117,17 +113,14 @@
     for (int i = 0; i < 2; i++) {
 		CGRect frame;
 		frame.origin.x = 0;
-                    if([SoclivityUtilities deviceType] & iPhone5)
-		frame.origin.y = self.scrollView.frame.size.height* i+44.0f;
-          else
-        frame.origin.y = self.scrollView.frame.size.height* i+44.0f;
+        frame.origin.y = self.scrollView.frame.size.height*i+44.0f;
 		frame.size = self.scrollView.frame.size;
 		
         switch (i) {
             case 0:
             {
             if([SoclivityUtilities deviceType] & iPhone5){
-                eventView.frame=CGRectMake(0, 0, 640, 417);
+                eventView.frame=CGRectMake(0, 0, 640, 416);
             }
             else{
                 eventView.frame=CGRectMake(0, 0, 640, 329);
@@ -324,12 +317,11 @@
                 [othersTextLabel release];
                 participantListTableView.participantTableView.tableHeaderView=headerView;
                 
-                            if([SoclivityUtilities deviceType] & iPhone5){
-                [participantListTableView setFrame:CGRectMake(0,417, 320, 423)];
-                            }
-                            else{
+                    if([SoclivityUtilities deviceType] & iPhone5)
+                [participantListTableView setFrame:CGRectMake(0,416, 320, 470)];
+                    else
                 [participantListTableView setFrame:CGRectMake(0, 329, 320, 423)];                                
-                            }
+                            
                 [self.scrollView addSubview:participantListTableView];
             }
                 break;
@@ -351,9 +343,9 @@
 
     
     if([SoclivityUtilities deviceType] & iPhone5)
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,793);
-        else
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,705);
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,940);
+    else
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,705);
 
     // Do any additional setup after loading the view from its nib.
 }
@@ -724,8 +716,9 @@
     switch (page) {
         case 0:
         {
-                if([SoclivityUtilities deviceType] & iPhone5){
-            frame.origin.y = 376+88;
+            if([SoclivityUtilities deviceType] & iPhone5){
+                
+            frame.origin.y = 416;
                 }
                 else{
             frame.origin.y = 376;
@@ -1222,7 +1215,11 @@
     organizerEditButton.hidden=YES;
     inviteUsersToActivityButton.hidden=YES;
     [eventView.addressSearchBar setHidden:YES];
+        if([SoclivityUtilities deviceType] & iPhone5)
+    eventView.frame=CGRectMake(0, 0, 640, 416);
+         else
     eventView.frame=CGRectMake(0, 0, 640, 376);
+    
     [UIView animateWithDuration:0.3 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut  | UIViewAnimationOptionBeginFromCurrentState animations:^{
             
             eventView.transform = CGAffineTransformMakeTranslation(-320.0f, 0.0f);

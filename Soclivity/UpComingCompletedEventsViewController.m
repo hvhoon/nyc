@@ -73,7 +73,7 @@
     [activityListView LoadTable];
     activityListView.isOrganizerList=TRUE;
     
-    [self performSelector:@selector(RefreshFromTheListView) withObject:nil afterDelay:3.0];
+    [self performSelector:@selector(RefreshFromTheListView) withObject:nil afterDelay:1.5];
 
         // Do any additional setup after loading the view from its nib.
 }

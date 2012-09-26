@@ -34,7 +34,8 @@
 }
 
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info{
-            
+    
+
     // Loading picture information
     NSOperationQueue *queue = [NSOperationQueue new];
     NSInvocationOperation *operation = [[NSInvocationOperation alloc]
@@ -289,6 +290,8 @@
     [self addSubview:locationResultsTableView];
     [locationResultsTableView setHidden:YES];
 #endif    
+ 
+
 }
 
 -(void)decideToShowMapView:(NSInteger)type{
@@ -464,7 +467,12 @@
     [lpgr release];
 
     [delegate slideInTransitionToLocationView];
-    mapView.frame=CGRectMake(320, 0, 320, 376-51);//bug Fix
+    
+       if([SoclivityUtilities deviceType] & iPhone5)
+        mapView.frame=CGRectMake(320, 0, 320, 464-51);//bug Fix
+           else
+        mapView.frame=CGRectMake(320, 0, 320, 376-51);//bug Fix
+     
 }
 -(void)CurrentMapZoomUpdate{
     CLLocation* avgLoc = [self avgLocation];
@@ -1300,6 +1308,9 @@
 -(void)showSearchBarAndAnimateWithListViewInMiddle{
 
     
+    if([SoclivityUtilities deviceType] & iPhone5)
+        mapView.frame=CGRectMake(320, 44, 320, 464-95);//bug Fix
+else
     mapView.frame=CGRectMake(320, 44, 320, 376-95);
 #if 0
 #if LISTVIEWREMOVE 
@@ -1332,6 +1343,9 @@
 }
 -(void)hideSearchBarAndAnimateWithListViewInMiddle{
  
+    if([SoclivityUtilities deviceType] & iPhone5)
+        mapView.frame=CGRectMake(320, 0, 320, 464-51);//bug Fix
+    else
     mapView.frame=CGRectMake(320, 0, 320, 376-51);
 #if 0    
     if (footerActivated) {
