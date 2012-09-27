@@ -77,7 +77,15 @@
         
         NSMutableDictionary *notificationsViewControllerDictionary = [NSMutableDictionary dictionary];
         [notificationsViewControllerDictionary setObject:@"Waiting on you" forKey:kSlideViewControllerViewControllerTitleKey];
-        [notificationsViewControllerDictionary setObject:@"NotificationsViewController" forKey:kSlideViewControllerViewControllerNibNameKey];
+        
+        if([SoclivityUtilities deviceType] & iPhone5){
+            nibNameBundle=@"NotificationsViewController_iphone5";
+        }
+        else{
+            nibNameBundle=@"NotificationsViewController";
+        }
+
+        [notificationsViewControllerDictionary setObject:nibNameBundle forKey:kSlideViewControllerViewControllerNibNameKey];
         
         [notificationsViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
         
@@ -165,7 +173,16 @@
         
         NSMutableDictionary *invitesViewControllerDictionary = [NSMutableDictionary dictionary];
         [invitesViewControllerDictionary setObject:@"Invite people" forKey:kSlideViewControllerViewControllerTitleKey];
-        [invitesViewControllerDictionary setObject:@"InvitesViewController" forKey:kSlideViewControllerViewControllerNibNameKey];
+        
+        
+        if([SoclivityUtilities deviceType] & iPhone5){
+            nibNameBundle=@"InvitesViewController_iphone5";
+        }
+        else{
+            nibNameBundle=@"InvitesViewController";
+        }
+
+        [invitesViewControllerDictionary setObject:nibNameBundle forKey:kSlideViewControllerViewControllerNibNameKey];
         
         NSNumber *invitesTag=[NSNumber numberWithInt:5];
         [invitesViewControllerDictionary setObject:invitesTag forKey:kSlideViewControllerViewControllerTagKey];

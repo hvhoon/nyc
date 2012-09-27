@@ -8,6 +8,7 @@
 
 #import "ProfileViewController.h"
 #import "ActivityTypeSelectView.h"
+#import "SoclivityUtilities.h"
 @implementation ProfileViewController
 @synthesize delegate,activityTypesView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -32,6 +33,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if([SoclivityUtilities deviceType] & iPhone5){
+        profileButton.frame=CGRectMake(5, 513, 39, 31);
+        bottomBarImageView.frame=CGRectMake(0, 508, 320, 40);
+    }
+    else{
+        profileButton.frame=CGRectMake(5, 425, 39, 31);
+        bottomBarImageView.frame=CGRectMake(0, 420, 320, 40);
+    }
     updateActivityLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
     updateActivityLabel.textColor=[UIColor whiteColor];
     updateActivityLabel.backgroundColor=[UIColor clearColor];

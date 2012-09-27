@@ -19,6 +19,8 @@
     id <ProfileScreenViewDelegate>delegate;
     IBOutlet ActivityTypeSelectView *activityTypesView;
     IBOutlet UILabel *updateActivityLabel;
+    IBOutlet UIButton *profileButton;
+    IBOutlet UIImageView *bottomBarImageView;
 }
 @property (nonatomic,retain)id <ProfileScreenViewDelegate>delegate;
 @property (nonatomic,retain)ActivityTypeSelectView *activityTypesView;

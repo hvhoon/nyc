@@ -431,6 +431,7 @@
 		EA976C3A1584C63100474EAF /* GetActivitiesInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA976C391584C63100474EAF /* GetActivitiesInvocation.m */; };
 		EA976C411584D0D000474EAF /* InfoActivityClass+Parse.m in Sources */ = {isa = PBXBuildFile; fileRef = EA976C401584D0CF00474EAF /* InfoActivityClass+Parse.m */; };
 		EA99A08615826E370096719F /* FCRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = EA99A04415826E370096719F /* FCRangeSlider.m */; };
+		EAABCE1616143CED00C1028E /* S04_NoActivities5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAABCE1516143CED00C1028E /* S04_NoActivities5@2x.png */; };
 		EAAEF88615DA281B0085DBE5 /* S05_chatButton.png in Resources */ = {isa = PBXBuildFile; fileRef = EAAEF87E15DA281B0085DBE5 /* S05_chatButton.png */; };
 		EAAEF88715DA281B0085DBE5 /* S05_chatButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAAEF87F15DA281B0085DBE5 /* S05_chatButton@2x.png */; };
 		EAAEF88815DA281B0085DBE5 /* S05_miniMap.png in Resources */ = {isa = PBXBuildFile; fileRef = EAAEF88015DA281B0085DBE5 /* S05_miniMap.png */; };
@@ -476,6 +477,9 @@
 		EAC801BA1611C61C00501765 /* S10_segmentedBar.png in Resources */ = {isa = PBXBuildFile; fileRef = EAC801B61611C61C00501765 /* S10_segmentedBar.png */; };
 		EAC801BB1611C61C00501765 /* S10_segmentedBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAC801B71611C61C00501765 /* S10_segmentedBar@2x.png */; };
 		EAC94D041566C11800400404 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC94D021566C11800400404 /* SFHFKeychainUtils.m */; };
+		EAC9E41C16136F770062A9A2 /* NotificationsViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC9E41B16136F770062A9A2 /* NotificationsViewController_iphone5.xib */; };
+		EAC9E41E161377490062A9A2 /* InvitesViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC9E41D161377490062A9A2 /* InvitesViewController_iphone5.xib */; };
+		EAC9E42016137A900062A9A2 /* ContactsListViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC9E41F16137A900062A9A2 /* ContactsListViewController_iphone5.xib */; };
 		EAD0D6CF15E74A89009865D7 /* ActivityInvitesView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD0D6CE15E74A89009865D7 /* ActivityInvitesView.m */; };
 		EAD0D6D615E762C8009865D7 /* Invites.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAD0D6D515E762C8009865D7 /* Invites.plist */; };
 		EAD0D6DC15E76660009865D7 /* InviteObjectClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD0D6DB15E7665F009865D7 /* InviteObjectClass.m */; };
@@ -1208,6 +1212,7 @@
 		EA99A04315826E370096719F /* FCRangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCRangeSlider.h; sourceTree = "<group>"; };
 		EA99A04415826E370096719F /* FCRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCRangeSlider.m; sourceTree = "<group>"; };
 		EA99A0C815826EDB0096719F /* FCGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCGeometry.h; sourceTree = "<group>"; };
+		EAABCE1516143CED00C1028E /* S04_NoActivities5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S04_NoActivities5@2x.png"; sourceTree = "<group>"; };
 		EAAEF87E15DA281B0085DBE5 /* S05_chatButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_chatButton.png; sourceTree = "<group>"; };
 		EAAEF87F15DA281B0085DBE5 /* S05_chatButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_chatButton@2x.png"; sourceTree = "<group>"; };
 		EAAEF88015DA281B0085DBE5 /* S05_miniMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_miniMap.png; sourceTree = "<group>"; };
@@ -1255,6 +1260,9 @@
 		EAC801B71611C61C00501765 /* S10_segmentedBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S10_segmentedBar@2x.png"; sourceTree = "<group>"; };
 		EAC94D021566C11800400404 /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
 		EAC94D031566C11800400404 /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
+		EAC9E41B16136F770062A9A2 /* NotificationsViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationsViewController_iphone5.xib; sourceTree = "<group>"; };
+		EAC9E41D161377490062A9A2 /* InvitesViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InvitesViewController_iphone5.xib; sourceTree = "<group>"; };
+		EAC9E41F16137A900062A9A2 /* ContactsListViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsListViewController_iphone5.xib; sourceTree = "<group>"; };
 		EAD0D6CD15E74A89009865D7 /* ActivityInvitesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityInvitesView.h; sourceTree = "<group>"; };
 		EAD0D6CE15E74A89009865D7 /* ActivityInvitesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityInvitesView.m; sourceTree = "<group>"; };
 		EAD0D6D515E762C8009865D7 /* Invites.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Invites.plist; sourceTree = "<group>"; };
@@ -2045,6 +2053,7 @@
 				EA85DC5815AFFFBF00AAD964 /* NotificationsViewController.h */,
 				EA85DC5915AFFFBF00AAD964 /* NotificationsViewController.m */,
 				EA85DC5A15AFFFBF00AAD964 /* NotificationsViewController.xib */,
+				EAC9E41B16136F770062A9A2 /* NotificationsViewController_iphone5.xib */,
 			);
 			name = Notifications;
 			sourceTree = "<group>";
@@ -2055,6 +2064,7 @@
 				EA85DC6215B00C7400AAD964 /* InvitesViewController.h */,
 				EA85DC6315B00C7400AAD964 /* InvitesViewController.m */,
 				EA85DC6415B00C7400AAD964 /* InvitesViewController.xib */,
+				EAC9E41D161377490062A9A2 /* InvitesViewController_iphone5.xib */,
 				EAD0D6CD15E74A89009865D7 /* ActivityInvitesView.h */,
 				EAD0D6CE15E74A89009865D7 /* ActivityInvitesView.m */,
 				EAD0D6DA15E7665F009865D7 /* InviteObjectClass.h */,
@@ -2062,6 +2072,7 @@
 				EABCE21B15E7E9EF005B74E8 /* ContactsListViewController.h */,
 				EABCE21C15E7E9EF005B74E8 /* ContactsListViewController.m */,
 				EABCE21D15E7E9EF005B74E8 /* ContactsListViewController.xib */,
+				EAC9E41F16137A900062A9A2 /* ContactsListViewController_iphone5.xib */,
 			);
 			name = Invites;
 			sourceTree = "<group>";
@@ -2704,6 +2715,7 @@
 		EAF2ADC415873028008EAE27 /* S04 Home */ = {
 			isa = PBXGroup;
 			children = (
+				EAABCE1516143CED00C1028E /* S04_NoActivities5@2x.png */,
 				EA8D60921599C111000A099C /* S04_NoActivities.png */,
 				EA8D60931599C111000A099C /* S04_NoActivities@2x.png */,
 				EA8D608E1599BC72000A099C /* S04_listbtn.png */,
@@ -3395,6 +3407,10 @@
 				EAC801BA1611C61C00501765 /* S10_segmentedBar.png in Resources */,
 				EAC801BB1611C61C00501765 /* S10_segmentedBar@2x.png in Resources */,
 				EAD0EDDC1612388200389327 /* ActivityEventViewController_iphone5.xib in Resources */,
+				EAC9E41C16136F770062A9A2 /* NotificationsViewController_iphone5.xib in Resources */,
+				EAC9E41E161377490062A9A2 /* InvitesViewController_iphone5.xib in Resources */,
+				EAC9E42016137A900062A9A2 /* ContactsListViewController_iphone5.xib in Resources */,
+				EAABCE1616143CED00C1028E /* S04_NoActivities5@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

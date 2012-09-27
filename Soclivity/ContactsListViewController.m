@@ -53,7 +53,7 @@
     
     searching=FALSE;
     filteredListContent=[NSMutableArray new];
-    self.searchBarForContacts = [[[CustomSearchbar alloc] initWithFrame:CGRectMake(0,43, 320, 44)] autorelease];
+    self.searchBarForContacts = [[[CustomSearchbar alloc] initWithFrame:CGRectMake(0,44, 320, 44)] autorelease];
     self.searchBarForContacts.delegate = self;
     self.searchBarForContacts.CSDelegate=self;
     if(self.searchBarForContacts.text!=nil){
@@ -62,7 +62,7 @@
     
     self.searchBarForContacts.autocorrectionType = UITextAutocorrectionTypeNo;
     self.searchBarForContacts.placeholder=@"Search contacts";
-    self.searchBarForContacts.backgroundImage=[UIImage imageNamed: @"S4.1_search-background.png"];
+    self.searchBarForContacts.backgroundImage=[UIImage imageNamed:@"S4.1_search-background.png"];
     [self.view addSubview:self.searchBarForContacts];
     
     
@@ -73,6 +73,7 @@
     contactListTableView.sectionHeaderHeight = kSectionHeaderHeight;
     contactListTableView.separatorColor=[UIColor clearColor];
     contactListTableView.showsVerticalScrollIndicator=YES;
+    contactListTableView.clipsToBounds=YES;
     
     //UserContactList *addressBook=[[UserContactList alloc]init];
     //self.contactsListContentArray=[addressBook GetAddressBook];

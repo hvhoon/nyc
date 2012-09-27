@@ -362,7 +362,7 @@
                addEventButton.hidden=NO;
             
               else
-                  addEventButton.hidden=YES;
+                addEventButton.hidden=YES;
             
             organizerEditButton.hidden=YES;
             goingActivityButton.hidden=YES;
@@ -442,12 +442,7 @@
             goingActivityButton.hidden=YES;
             notGoingActivityButton.hidden=YES;
             leaveActivityButton.hidden=NO;
-
-            if([activityInfo.access isEqualToString:@"public"])
-                inviteUsersToActivityButton.hidden=NO;
-            
-            else
-                inviteUsersToActivityButton.hidden=YES;
+            inviteUsersToActivityButton.hidden=YES;
             
             [eventView decideToShowMapView:5];
             
@@ -980,18 +975,31 @@
     
     
     
+    [self SetUpActivityInvites];
+
+    /*
      NSOperationQueue *queue = [NSOperationQueue new];
      NSInvocationOperation *operation = [[NSInvocationOperation alloc]
      initWithTarget:self
      selector:@selector(SetUpActivityInvites) 
      object:nil];
      [queue addOperation:operation];
-     [operation release];
+     [operation release];*/
 
 }
 
 -(void)SetUpActivityInvites{
-    InvitesViewController *invitesViewController=[[InvitesViewController alloc] initWithNibName:@"InvitesViewController" bundle:nil];
+    
+    
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"InvitesViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"InvitesViewController";
+    }
+
+    InvitesViewController *invitesViewController=[[InvitesViewController alloc] initWithNibName:nibNameBundle bundle:nil];
     invitesViewController.activityName=[NSString stringWithFormat:@"%@",activityInfo.activityName];
     invitesViewController.num_of_slots=activityInfo.num_of_people;
     invitesViewController.inviteFriends=YES;
@@ -1243,11 +1251,9 @@
     
     
     
-    if(activityInfo.activityRelationType==5){
+    if(activityInfo.activityRelationType==5)
         leaveActivityButton.hidden=NO;
-        if([activityInfo.access isEqualToString:@"public"])
-            inviteUsersToActivityButton.hidden=NO;
-    }
+    
         currentLocationInMap.hidden=YES;
     
     if(footerActivated){

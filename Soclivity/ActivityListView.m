@@ -550,7 +550,15 @@
     if([self.sectionInfoArray count]==0){
         
         if(!isOrganizerList){
-        self.tableView.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_NoActivities.png"]];
+            
+            
+            
+        if([SoclivityUtilities deviceType] & iPhone5)
+            self.tableView.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_NoActivities5.png"]];
+            
+        else
+            self.tableView.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_NoActivities.png"]];
+
         self.tableView.scrollEnabled=NO;
         self.tableView.bounces=NO;
         }

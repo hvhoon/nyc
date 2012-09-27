@@ -60,15 +60,31 @@
     openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
 
 }
-    activityInvites=[[ActivityInvitesView alloc]initWithFrame:CGRectMake(0, 43, 320, 377)];
+    CGRect activityRect;
+            if([SoclivityUtilities deviceType] & iPhone5)
+    activityRect=CGRectMake(0, 44, 320, 377+88);
+            
+    else
+        activityRect=CGRectMake(0, 44, 320, 377);
+    activityInvites=[[ActivityInvitesView alloc]initWithFrame:activityRect];
     activityInvites.delegate=self;
     [self.view addSubview:activityInvites];
     
    // Do any additional setup after loading the view from its nib.
 }
 - (void)pushContactsInvitesScreen{
+    
+    
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"ContactsListViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"ContactsListViewController";
+    }
+
  
-    ContactsListViewController *contactsListViewController=[[ContactsListViewController alloc] initWithNibName:@"ContactsListViewController" bundle:nil];
+    ContactsListViewController *contactsListViewController=[[ContactsListViewController alloc] initWithNibName:nibNameBundle bundle:nil];
     contactsListViewController.activityName=[NSString stringWithFormat:@"%@",activityName];
     contactsListViewController.num_of_slots=num_of_slots;
     contactsListViewController.inviteFriends=inviteFriends;

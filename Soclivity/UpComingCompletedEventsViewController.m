@@ -56,18 +56,27 @@
     organizedButton.titleLabel.textColor=[UIColor blackColor];
     [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_sectionHighlighted.png"] forState:UIControlStateNormal];
     
+    [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_sectionHighlighted.png"] forState:UIControlStateHighlighted];
+    [organizedButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [organizedButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+
+
     
     goingButton.titleLabel.textAlignment=UITextAlignmentCenter;
     goingButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:14];
     goingButton.titleLabel.textColor=[UIColor blackColor];
     [goingButton setBackgroundImage:nil forState:UIControlStateNormal];
-
-    
+    [goingButton setBackgroundImage:nil forState:UIControlStateHighlighted];
+    [goingButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [goingButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     
     completedButton.titleLabel.textAlignment=UITextAlignmentCenter;
     completedButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:14];
     completedButton.titleLabel.textColor=[UIColor blackColor];
     [completedButton setBackgroundImage:nil forState:UIControlStateNormal];
+    [completedButton setBackgroundImage:nil forState:UIControlStateHighlighted];
+    [completedButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [completedButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     
     activityListView.delegate=self;
     [activityListView LoadTable];
@@ -82,21 +91,25 @@
 -(IBAction)organizedButtonPressed:(id)sender{
     [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_sectionHighlighted.png"] forState:UIControlStateNormal];
     
-    [completedButton setBackgroundImage:nil forState:UIControlStateNormal];
-    
-    [goingButton setBackgroundImage:nil forState:UIControlStateNormal];
+    [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_sectionHighlighted.png"] forState:UIControlStateHighlighted];
 
+    
+    [completedButton setBackgroundImage:nil forState:UIControlStateNormal];
+    [completedButton setBackgroundImage:nil forState:UIControlStateHighlighted];
+    [goingButton setBackgroundImage:nil forState:UIControlStateNormal];
+    [goingButton setBackgroundImage:nil forState:UIControlStateHighlighted];
 
 
 }
 
 -(IBAction)goingButtonPressed:(id)sender{
     [organizedButton setBackgroundImage:nil forState:UIControlStateNormal];
-    
+    [organizedButton setBackgroundImage:nil forState:UIControlStateHighlighted];
     [goingButton setBackgroundImage:[UIImage imageNamed:@"S10_sectionHighlighted.png"] forState:UIControlStateNormal];
+    [goingButton setBackgroundImage:[UIImage imageNamed:@"S10_sectionHighlighted.png"] forState:UIControlStateHighlighted];
     
     [completedButton setBackgroundImage:nil forState:UIControlStateNormal];
-    
+    [completedButton setBackgroundImage:nil forState:UIControlStateHighlighted];    
     
     
 }
@@ -104,10 +117,11 @@
 -(IBAction)completedButtonPressed:(id)sender{
     
     [organizedButton setBackgroundImage:nil forState:UIControlStateNormal];
-    
+    [organizedButton setBackgroundImage:nil forState:UIControlStateHighlighted];    
     [goingButton setBackgroundImage:nil forState:UIControlStateNormal];
-    
+    [goingButton setBackgroundImage:nil forState:UIControlStateHighlighted];
     [completedButton setBackgroundImage:[UIImage imageNamed:@"S10_sectionHighlighted.png"] forState:UIControlStateNormal];
+    [completedButton setBackgroundImage:[UIImage imageNamed:@"S10_sectionHighlighted.png"] forState:UIControlStateHighlighted];
     
     
 }
@@ -185,7 +199,18 @@
                                   withResponse:(InfoActivityClass*)responses
                                      withError:(NSError*)error{
 
-        ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:@"ActivityEventViewController" bundle:nil];
+    
+    
+    NSString*nibNameBundle=nil;
+    
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"ActivityEventViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"ActivityEventViewController";
+    }
+
+        ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
 
         activityEventViewController.activityInfo=responses;
         [[self navigationController] pushViewController:activityEventViewController animated:YES];

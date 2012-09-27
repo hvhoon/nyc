@@ -43,7 +43,16 @@
         
         
         
-        inviteUserTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 44, 320,332)];
+        
+        CGRect activityTableRect;
+        if([SoclivityUtilities deviceType] & iPhone5)
+            activityTableRect=CGRectMake(0, 44, 320, 332+88);
+        
+        else
+            activityTableRect=CGRectMake(0, 44, 320, 332);
+
+        
+        inviteUserTableView=[[UITableView alloc]initWithFrame:activityTableRect];
         [inviteUserTableView setDelegate:self];
         [inviteUserTableView setDataSource:self];
         [inviteUserTableView setRowHeight:kCustomRowHeight];
@@ -55,6 +64,8 @@
         inviteUserTableView.showsVerticalScrollIndicator=YES;
         [self addSubview:inviteUserTableView];
         
+        
+        inviteUserTableView.clipsToBounds=YES;
         [self SetUpDummyInvites];
 
 
