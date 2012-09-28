@@ -987,7 +987,7 @@
      [operation release];*/
 
 }
-// setUP Activity Invites
+// setUP Activity Invites 
 -(void)SetUpActivityInvites{
     
     
