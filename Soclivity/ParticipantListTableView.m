@@ -787,8 +787,6 @@ InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtI
     InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
     ParticipantClass *deletePlayer= [play.quotations objectAtIndex:indexPath.row];
     [delegate confirm_RejectPlayerToTheEvent:request playerId:deletePlayer.participantId];
-    
-    
 }
 
 -(void)updateParticipantListView:(BOOL)response{

@@ -370,6 +370,10 @@
     CGRect mapURlRect=CGRectMake(370, 10, 270, 60);
     
     NSLog(@"Start Point_X=%f,Start Point_Y=%f",startPoint.x,startPoint.y);
+    
+    if(CGRectContainsPoint(profileImgView.frame,startPoint)){
+        [delegate pushUserProfileView:profileImgView.image];
+    }
        
     if(CGRectContainsPoint(mapURlRect,startPoint) && !editMode){
         //[self openMapUrlApplication];

@@ -305,13 +305,8 @@
         
 }
         InviteEntriesArray=content;
-        //[inviteUserTableView reloadData];
-    [self performSelectorOnMainThread:@selector(loadTableView) withObject:nil waitUntilDone:NO];
+        [inviteUserTableView reloadData];
 
-}
--(void)loadTableView{
-    [inviteUserTableView reloadData];
-    
 }
 
 #pragma mark -

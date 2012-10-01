@@ -17,7 +17,8 @@
 #import "MBProgressHUD.h"
 #import "PostActivityRequestInvocation.h"
 #import "GetPlayersClass.h"
-
+#import "SocPlayerClass.h"
+#import "SOCProfileViewController.h"
 
 #define kEditMapElements 10
 #define kJoinRequest 11
@@ -1576,5 +1577,19 @@
     }
     
     
+}
+-(void)pushUserProfileView:(UIImage*)userImg{
+    SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
+    myClass.playerName=activityInfo.organizerName;
+    myClass.DOS=activityInfo.DOS;
+    myClass.activityId=activityInfo.activityId;
+    myClass.latestActivityName=activityInfo.activityName;
+    myClass.activityType=activityInfo.type;
+    myClass.profilePhotoUrl=activityInfo.ownerProfilePhotoUrl;
+    
+    SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
+    socProfileViewController.playerObject=myClass;
+    [[self navigationController] pushViewController:socProfileViewController animated:YES];
+    [socProfileViewController release];
 }
 @end

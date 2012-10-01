@@ -487,6 +487,10 @@
 		EAD0EDDC1612388200389327 /* ActivityEventViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAD0EDDB1612388200389327 /* ActivityEventViewController_iphone5.xib */; };
 		EAD44FF21564FA190075C8CA /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD44FF01564FA190075C8CA /* Base64.m */; };
 		EAD8001A16158B6C005D2469 /* UpComingCompletedEventsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAD8001916158B6C005D2469 /* UpComingCompletedEventsViewController.xib */; };
+		EAE094CC1619876C005E69D0 /* SOCProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE094CA1619876C005E69D0 /* SOCProfileViewController.m */; };
+		EAE094CD1619876C005E69D0 /* SOCProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAE094CB1619876C005E69D0 /* SOCProfileViewController.xib */; };
+		EAE094D016198C2E005E69D0 /* SocPlayerClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE094CF16198C2D005E69D0 /* SocPlayerClass.m */; };
+		EAE094D21619A7C8005E69D0 /* Friends.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAE094D11619A7C8005E69D0 /* Friends.plist */; };
 		EAE5E684160C3486007E81D1 /* S05_organizerPic.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE5E680160C3486007E81D1 /* S05_organizerPic.png */; };
 		EAE5E685160C3486007E81D1 /* S05_organizerPic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE5E681160C3486007E81D1 /* S05_organizerPic@2x.png */; };
 		EAE5E686160C3486007E81D1 /* S7_signoutBar.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE5E682160C3486007E81D1 /* S7_signoutBar.png */; };
@@ -1274,6 +1278,12 @@
 		EAD44FF01564FA190075C8CA /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
 		EAD44FF11564FA190075C8CA /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
 		EAD8001916158B6C005D2469 /* UpComingCompletedEventsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpComingCompletedEventsViewController.xib; sourceTree = "<group>"; };
+		EAE094C91619876C005E69D0 /* SOCProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOCProfileViewController.h; sourceTree = "<group>"; };
+		EAE094CA1619876C005E69D0 /* SOCProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOCProfileViewController.m; sourceTree = "<group>"; };
+		EAE094CB1619876C005E69D0 /* SOCProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOCProfileViewController.xib; sourceTree = "<group>"; };
+		EAE094CE16198C2D005E69D0 /* SocPlayerClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocPlayerClass.h; sourceTree = "<group>"; };
+		EAE094CF16198C2D005E69D0 /* SocPlayerClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocPlayerClass.m; sourceTree = "<group>"; };
+		EAE094D11619A7C8005E69D0 /* Friends.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Friends.plist; sourceTree = "<group>"; };
 		EAE5E680160C3486007E81D1 /* S05_organizerPic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_organizerPic.png; sourceTree = "<group>"; };
 		EAE5E681160C3486007E81D1 /* S05_organizerPic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_organizerPic@2x.png"; sourceTree = "<group>"; };
 		EAE5E682160C3486007E81D1 /* S7_signoutBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S7_signoutBar.png; sourceTree = "<group>"; };
@@ -1596,6 +1606,7 @@
 		680CE3E91551258700B8E937 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EAE094D11619A7C8005E69D0 /* Friends.plist */,
 				EABCE22315E7F658005B74E8 /* ContactList.plist */,
 				EAD0D6D515E762C8009865D7 /* Invites.plist */,
 				EA976C351584B50B00474EAF /* SoclivityDB.sqlite */,
@@ -2043,6 +2054,11 @@
 				EA85DC5215AFF10D00AAD964 /* ProfileViewController.h */,
 				EA85DC5315AFF10D00AAD964 /* ProfileViewController.m */,
 				EA85DC5415AFF10D00AAD964 /* ProfileViewController.xib */,
+				EAE094C91619876C005E69D0 /* SOCProfileViewController.h */,
+				EAE094CA1619876C005E69D0 /* SOCProfileViewController.m */,
+				EAE094CB1619876C005E69D0 /* SOCProfileViewController.xib */,
+				EAE094CE16198C2D005E69D0 /* SocPlayerClass.h */,
+				EAE094CF16198C2D005E69D0 /* SocPlayerClass.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -3411,6 +3427,8 @@
 				EAC9E42016137A900062A9A2 /* ContactsListViewController_iphone5.xib in Resources */,
 				EAABCE1616143CED00C1028E /* S04_NoActivities5@2x.png in Resources */,
 				EAD8001A16158B6C005D2469 /* UpComingCompletedEventsViewController.xib in Resources */,
+				EAE094CD1619876C005E69D0 /* SOCProfileViewController.xib in Resources */,
+				EAE094D21619A7C8005E69D0 /* Friends.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3544,6 +3562,8 @@
 				EAD0D6DF15E76E07009865D7 /* InviteUserTableViewCell.m in Sources */,
 				EABCE21E15E7E9F0005B74E8 /* ContactsListViewController.m in Sources */,
 				EA3F798A1603423100D231B1 /* EditActivityEventInvocation.m in Sources */,
+				EAE094CC1619876C005E69D0 /* SOCProfileViewController.m in Sources */,
+				EAE094D016198C2E005E69D0 /* SocPlayerClass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

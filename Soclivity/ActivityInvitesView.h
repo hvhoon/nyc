@@ -35,7 +35,6 @@
 @property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
 -(void)inviteUsersFromAddressBook:(id)sender;
 -(UIView*)SetupHeaderView;
--(void)loadTableView;
 -(void)closeAnimation;
 -(void)appImageDidLoad:(NSIndexPath *)indexPath;
 @end
