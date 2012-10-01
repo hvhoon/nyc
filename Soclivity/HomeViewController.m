@@ -18,6 +18,9 @@
 #import "FilterPreferenceClass.h"
 #import "MBProgressHUD.h"
 #import "ParticipantClass.h"
+#import "SocPlayerClass.h"
+#import "UpComingCompletedEventsViewController.h"
+#import "SOCProfileViewController.h"
 @interface HomeViewController(Private) <MBProgressHUDDelegate>
 @end
 
@@ -712,6 +715,40 @@
     }
 
     
+}
+
+-(void)PushToProfileView:(InfoActivityClass*)detailedInfo{
+    
+    if([SOC.loggedInUser.idSoc intValue]==detailedInfo.organizerId){
+        NSString*nibNameBundle=nil;
+        
+        if([SoclivityUtilities deviceType] & iPhone5){
+            nibNameBundle=@"UpComingCompletedEventsViewController_iphone5";
+        }
+        else{
+            nibNameBundle=@"UpComingCompletedEventsViewController";
+        }
+        
+        UpComingCompletedEventsViewController *upComingCompletedEventsViewController=[[UpComingCompletedEventsViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+        
+        [[self navigationController] pushViewController:upComingCompletedEventsViewController animated:YES];
+        [upComingCompletedEventsViewController release];
+        
+    }
+    else{
+        SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
+        myClass.playerName=detailedInfo.organizerName;
+        myClass.DOS=detailedInfo.DOS;
+        myClass.activityId=detailedInfo.activityId;
+        myClass.latestActivityName=detailedInfo.activityName;
+        myClass.activityType=detailedInfo.type;
+        myClass.profilePhotoUrl=detailedInfo.ownerProfilePhotoUrl;
+        myClass.distance=[detailedInfo.distance floatValue];
+        SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
+        socProfileViewController.playerObject=myClass;
+        [[self navigationController] pushViewController:socProfileViewController animated:YES];
+        [socProfileViewController release];
+    }
 }
 
 -(void)loadingActivityMonitor{

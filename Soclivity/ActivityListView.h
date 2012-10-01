@@ -15,6 +15,8 @@
 @optional
 -(void)PushToDetailActivityView:(InfoActivityClass*)detailedInfo andFlipType:(NSInteger)andFlipType;
 -(void)RefreshFromTheListView;
+-(void)PushToProfileView:(InfoActivityClass*)detailedInfo;
+
 @end
 
 

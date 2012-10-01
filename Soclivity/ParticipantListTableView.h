@@ -17,6 +17,7 @@
 @optional
 -(void)confirm_RejectPlayerToTheEvent:(BOOL)request playerId:(NSInteger)playerId;
 -(void)removeParticipantFromEvent:(NSInteger)playerId;
+-(void)pushToprofileOfThePlayer:(ParticipantClass*)player;
 @end
 
 @interface ParticipantListTableView : UIView<UITableViewDataSource,UITableViewDelegate,IconDownloaderDelegate,ParticipantTableViewCellDelegate,UIGestureRecognizerDelegate>{

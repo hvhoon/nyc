@@ -14,6 +14,7 @@
 @optional
 -(void)ApproveRejectSelection:(NSIndexPath*)indexPath request:(BOOL)request;
 -(void)removeCrossButton:(NSIndexPath*)indexPath;
+-(void)pushToUserProfileView:(NSIndexPath*)indexPath;
 @end
 
 
@@ -31,6 +32,8 @@
     NSIndexPath *cellIndexPath;
     id <ParticipantTableViewCellDelegate>delegate;
     BOOL swiped;
+    CGRect profileImageP;
+    CGRect nameLabelRectP;
 }
 @property (nonatomic,retain) NSString *nameText;
 @property (nonatomic,retain)UIImage *profileImage;

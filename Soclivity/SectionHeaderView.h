@@ -19,6 +19,7 @@
 -(void)detailActivity:(id)sender;
 -(IBAction)toggleOpen:(id)sender;
 -(void)spinnerCloseAndIfoDisclosureButtonUnhide;
+
 @end
 
 
@@ -32,5 +33,6 @@
 -(void)sectionHeaderView:(SectionHeaderView*)sectionHeaderView sectionOpened:(NSInteger)section;
 -(void)sectionHeaderView:(SectionHeaderView*)sectionHeaderView sectionClosed:(NSInteger)section;
 -(void)selectActivityView:(NSInteger)activitySection;
+-(void)PushToListOfActivitiesOrUserProfile:(NSInteger)playerSection;
 @end
 

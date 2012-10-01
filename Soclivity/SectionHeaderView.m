@@ -92,16 +92,19 @@
         CGRect organizerLabelRect=CGRectMake(45,45-1,210,16);
         UILabel *oglabel=[[UILabel alloc] initWithFrame:organizerLabelRect];
         oglabel.textAlignment=UITextAlignmentLeft;
+        oglabel.tag=[[NSString stringWithFormat:@"333%d",section]intValue];
         oglabel.text=detailSectionInfo.organizerName;
         oglabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
         oglabel.textColor=[SoclivityUtilities returnTextFontColor:5];
         oglabel.backgroundColor=[UIColor clearColor];
+        CGSize  size = [detailSectionInfo.organizerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:15]];
+        NSLog(@"width=%f",size.width);
+        oglabel.frame=CGRectMake(45, 45-1, size.width, 16);
+
         [self addSubview:oglabel];
         [oglabel release];
         
         // Checking the size of the organizer name
-        CGSize size = [detailSectionInfo.organizerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:15]];
-		NSLog(@"width=%f",size.width);
         
         // Use the appropriate degree of seperation icon
         if(detailSectionInfo.DOS==1) {
@@ -247,10 +250,20 @@
 
 -(IBAction)toggleOpen:(UITapGestureRecognizer*)sender {
     
-    [self toggleOpenWithUserAction:YES];
     
      CGPoint translate = [sender locationInView:self.superview];
      NSLog(@"Start Point_X=%f,Start Point_Y=%f",translate.x,translate.y);
+    NSString *nameLabelValue=[NSString stringWithFormat:@"333%d",section];
+    CGRect frame=[(UILabel*)[self viewWithTag:[nameLabelValue intValue]]frame];
+    
+    if(CGRectContainsPoint(frame,translate)){
+        [delegate PushToListOfActivitiesOrUserProfile:section];
+    }
+    else{
+        [self toggleOpenWithUserAction:YES];
+        
+    }
+
 }
 
 -(void)detailActivity:(id)sender{

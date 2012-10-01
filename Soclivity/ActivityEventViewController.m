@@ -19,7 +19,8 @@
 #import "GetPlayersClass.h"
 #import "SocPlayerClass.h"
 #import "SOCProfileViewController.h"
-
+#import "UpComingCompletedEventsViewController.h"
+#import "ParticipantClass.h"
 #define kEditMapElements 10
 #define kJoinRequest 11
 #define kDeleteActivity 12
@@ -1579,6 +1580,24 @@
     
 }
 -(void)pushUserProfileView:(UIImage*)userImg{
+    
+    if([SOC.loggedInUser.idSoc intValue]==activityInfo.organizerId){
+        NSString*nibNameBundle=nil;
+        
+        if([SoclivityUtilities deviceType] & iPhone5){
+            nibNameBundle=@"UpComingCompletedEventsViewController_iphone5";
+        }
+        else{
+            nibNameBundle=@"UpComingCompletedEventsViewController";
+        }
+        
+        UpComingCompletedEventsViewController *upComingCompletedEventsViewController=[[UpComingCompletedEventsViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+            upComingCompletedEventsViewController.isNotSettings=TRUE;
+        [[self navigationController] pushViewController:upComingCompletedEventsViewController animated:YES];
+        [upComingCompletedEventsViewController release];
+
+    }
+    else{
     SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
     myClass.playerName=activityInfo.organizerName;
     myClass.DOS=activityInfo.DOS;
@@ -1586,10 +1605,44 @@
     myClass.latestActivityName=activityInfo.activityName;
     myClass.activityType=activityInfo.type;
     myClass.profilePhotoUrl=activityInfo.ownerProfilePhotoUrl;
-    
+    myClass.distance=[activityInfo.distance floatValue];
     SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
     socProfileViewController.playerObject=myClass;
     [[self navigationController] pushViewController:socProfileViewController animated:YES];
     [socProfileViewController release];
+    }
+}
+-(void)pushToprofileOfThePlayer:(ParticipantClass*)player{
+    
+    if([SOC.loggedInUser.idSoc intValue]==player.participantId){
+        NSString*nibNameBundle=nil;
+        
+        if([SoclivityUtilities deviceType] & iPhone5){
+            nibNameBundle=@"UpComingCompletedEventsViewController_iphone5";
+        }
+        else{
+            nibNameBundle=@"UpComingCompletedEventsViewController";
+        }
+        
+        UpComingCompletedEventsViewController *upComingCompletedEventsViewController=[[UpComingCompletedEventsViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+            upComingCompletedEventsViewController.isNotSettings=TRUE;
+        [[self navigationController] pushViewController:upComingCompletedEventsViewController animated:YES];
+        [upComingCompletedEventsViewController release];
+        
+    }
+    else{
+        SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
+        myClass.playerName=player.name;
+        myClass.DOS=activityInfo.DOS;
+        myClass.activityId=activityInfo.activityId;
+        myClass.latestActivityName=activityInfo.activityName;
+        myClass.activityType=activityInfo.type;
+        myClass.profilePhotoUrl=player.photoUrl;
+        myClass.distance=[activityInfo.distance floatValue];
+        SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
+        socProfileViewController.playerObject=myClass;
+        [[self navigationController] pushViewController:socProfileViewController animated:YES];
+        [socProfileViewController release];
+    }
 }
 @end

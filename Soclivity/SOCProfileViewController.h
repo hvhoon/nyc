@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "InviteUserTableViewCell.h"
 #import "IconDownloader.h"
+#import "MainServiceManager.h"
 @class SocPlayerClass;
+@class SoclivityManager;
 @interface SOCProfileViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,InviteTableViewCellDelegate,IconDownloaderDelegate>{
     
     IBOutlet UILabel*profileNameLabel;
@@ -22,18 +24,21 @@
     UITableView *commonFriendsTableView;
     NSArray *commonFriendsArray;
     NSMutableDictionary *imageDownloadsInProgress;
-    BOOL numberOfPhotosWithXling;
+    BOOL numberOfFriendsWithPlayer;
     BOOL goLoading;
-    NSInteger mRemainingRefreshImages;
-    NSInteger mCountRefresh;
+    NSInteger mRemainingFriendsCount;
+    NSInteger mCountFriends;
     NSInteger currentCountIndex;
     NSMutableArray *loadNFriendsAtTimeArray;
-    UIActivityIndicatorView *refreshSpinnerLoadMore;
+    UIActivityIndicatorView *friendSpinnerLoadMore;
     BOOL mSetLoadMoreFooter;
     NSInteger footerHeight;
     UIView *loadMoreFooterView;
-    UILabel *loadMorePhotosLabel;
-    BOOL mSetLoadNoMorePhotosFooter;
+    UILabel *loadMoreFriendsLabel;
+    BOOL mSetLoadNoMoreFriendsFooter;
+    MainServiceManager *devServer;
+    SoclivityManager *SOC;
+
 
 }
 @property (nonatomic,retain)SocPlayerClass *playerObject;

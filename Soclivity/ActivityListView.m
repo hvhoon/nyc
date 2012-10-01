@@ -255,6 +255,12 @@
 }
 
 
+-(void)PushToListOfActivitiesOrUserProfile:(NSInteger)playerSection{
+    
+    SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:playerSection];
+    [delegate PushToProfileView:sectionInfo.play];
+}
+
 -(void)selectActivityView:(NSInteger)activitySection{
     
     NSLog(@"activitySection=%d",activitySection);

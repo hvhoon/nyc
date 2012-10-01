@@ -1513,4 +1513,10 @@ InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtI
 
 
 }
+-(void)pushToUserProfileView:(NSIndexPath*)indexPath{
+    InfoActivityClass *play = (InfoActivityClass *)[[self.sectionInfoArray objectAtIndex:indexPath.section] play];
+    ParticipantClass *Player= [play.quotations objectAtIndex:indexPath.row];
+    [delegate pushToprofileOfThePlayer:Player];
+
+}
 @end

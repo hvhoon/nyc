@@ -26,14 +26,17 @@
     IBOutlet ActivityListView *activityListView;
     MainServiceManager *devServer;
     SoclivityManager *SOC;
-
+    BOOL isNotSettings;
+    IBOutlet UIButton *profileButton;
+    IBOutlet UIButton *backActivityButton;
 }
 @property (nonatomic,retain)id <UpcomingCompletedEvnetsViewDelegate>delegate;
 @property (nonatomic,retain) ActivityListView *activityListView;
-
+@property(nonatomic,assign)BOOL isNotSettings;
 -(IBAction)profileSliderPressed:(id)sender;
 -(IBAction)organizedButtonPressed:(id)sender;
 -(IBAction)goingButtonPressed:(id)sender;
 -(IBAction)completedButtonPressed:(id)sender;
+-(IBAction)backButtonPressed:(id)sender;
 
 @end

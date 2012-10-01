@@ -10,9 +10,14 @@
 #import "SocPlayerClass.h"
 #import "SoclivityUtilities.h"
 #import "InviteObjectClass.h"
+#import "SoclivityManager.h"
+#import "GetPlayersClass.h"
+#import "DetailedActivityInfoInvocation.h"
+#import "ActivityEventViewController.h"
+#import "UpComingCompletedEventsViewController.h"
 #define TAG_COMMENT 1234
 
-@interface SOCProfileViewController ()
+@interface SOCProfileViewController ()<DetailedActivityInfoInvocationDelegate>
 
 @end
 
@@ -41,6 +46,14 @@
     [operation release];
     
     
+    if([SoclivityUtilities deviceType] & iPhone5){
+        bottomBarImageView.frame=CGRectMake(0, 508, 320, 40);
+    }
+    else{
+        bottomBarImageView.frame=CGRectMake(0, 420, 320, 40);
+    }
+
+    
     
     profileNameLabel.text=[NSString stringWithFormat:@"%@'s Profile",playerObject.playerName];
     
@@ -49,6 +62,10 @@
     profileNameLabel.backgroundColor=[UIColor clearColor];
     profileNameLabel.shadowColor = [UIColor blackColor];
     profileNameLabel.shadowOffset = CGSizeMake(0,-1);
+    
+    
+    
+    
 
     
     profileUserNameLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
@@ -57,6 +74,8 @@
     CGSize  size = [playerObject.playerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15]];
     NSLog(@"width=%f",size.width);
     profileUserNameLabel.frame=CGRectMake(70, 73, size.width, 16);
+    
+    if(playerObject.DOS!=3){
     
     dosConnectionImageview.frame=CGRectMake(70+6+size.width, 74, 21, 12);
     switch (playerObject.DOS){
@@ -88,20 +107,21 @@
     }
     
     
-    if([SoclivityUtilities deviceType] & iPhone5){
-        bottomBarImageView.frame=CGRectMake(0, 508, 320, 40);
-    }
-    else{
-        bottomBarImageView.frame=CGRectMake(0, 420, 320, 40);
-    }
-    [self.view addSubview:[self SetupHeaderView]];
     
+    if(playerObject.DOS==1)
+        [self.view addSubview:[self SetupHeaderView]];
+    int delta=0;
+    if(playerObject.DOS!=1){
+        delta=93;
+    }
+
     CGRect activityTableRect;
     if([SoclivityUtilities deviceType] & iPhone5)
-        activityTableRect=CGRectMake(0, 220, 320, 200+88);
+        
+        activityTableRect=CGRectMake(0, 220-delta, 320, 200+88+delta);
     
     else
-        activityTableRect=CGRectMake(0, 220, 320, 200);
+        activityTableRect=CGRectMake(0, 220-delta, 320, 200+delta);
     
     commonFriendsTableView=[[UITableView alloc]initWithFrame:activityTableRect];
     [commonFriendsTableView setDelegate:self];
@@ -121,40 +141,71 @@
     
     
     goLoading=TRUE;
-    numberOfPhotosWithXling=[commonFriendsArray count];
-    [self SetupCountForImagesRefresh:numberOfPhotosWithXling];
+    numberOfFriendsWithPlayer=[commonFriendsArray count];
+    [self SetupCountForImagesRefresh:numberOfFriendsWithPlayer];
     [self ImplementRefreshFunction];
 
 
+    }
+    else{
+        profileUserNameLabel.frame=CGRectMake(70, 92, size.width, 16);
+        
+        CGRect topLabelRect=CGRectMake(60,140,280,15);
+        UILabel *topLabel=[[UILabel alloc] initWithFrame:topLabelRect];
+        topLabel.textAlignment=UITextAlignmentLeft;
+        
+        topLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
+        topLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+        topLabel.backgroundColor=[UIColor clearColor];
+        topLabel.text=@"You can only view the profile of a";
+        [self.view addSubview:topLabel];
+        [topLabel release];
+
+        
+        
+        CGRect bottomLabelRect=CGRectMake(75,160,280,15);
+        UILabel *bottomLabel=[[UILabel alloc] initWithFrame:bottomLabelRect];
+        bottomLabel.textAlignment=UITextAlignmentLeft;
+        
+        bottomLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
+        bottomLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+        bottomLabel.backgroundColor=[UIColor clearColor];
+        bottomLabel.text=@"friend or a friend of a friend";
+        [self.view addSubview:bottomLabel];
+        [bottomLabel release];
+
+    }
+    
+    
 
 
     // Do any additional setup after loading the view from its nib.
 }
 
 -(void)SetupCountForImagesRefresh:(NSInteger)photosCount{
-	mRemainingRefreshImages=photosCount;
-	mCountRefresh=mRemainingRefreshImages;
+	mRemainingFriendsCount=photosCount;
+	mCountFriends=mRemainingFriendsCount;
 }
 
 -(void)CreateManualLogicForRefresh{
-	if(mRemainingRefreshImages==0)
+	if(mRemainingFriendsCount==0)
 	{
-		mCountRefresh=0;
+		mCountFriends=0;
 	}
-	if (mRemainingRefreshImages > 0) {
-		if (mRemainingRefreshImages <= 5) {
-			mCountRefresh =  mRemainingRefreshImages;
-			mRemainingRefreshImages = mCountRefresh - mRemainingRefreshImages;
+	if (mRemainingFriendsCount > 0) {
+		if (mRemainingFriendsCount <= 5) {
+			mCountFriends =  mRemainingFriendsCount;
+			mRemainingFriendsCount = mCountFriends - mRemainingFriendsCount;
 		}
 		else {
-			if (mRemainingRefreshImages >= 5) {
-				mCountRefresh = 5;
+			if (mRemainingFriendsCount >= 5) {
+				mCountFriends = 5;
 			}
 			else {
-				mCountRefresh = mRemainingRefreshImages;
-				mRemainingRefreshImages = 0;
+				mCountFriends = mRemainingFriendsCount;
+				mRemainingFriendsCount = 0;
 			}
-			mRemainingRefreshImages = (mRemainingRefreshImages - mCountRefresh);
+			mRemainingFriendsCount = (mRemainingFriendsCount - mCountFriends);
 		}
         // If the remaining count is <= 3
 		
@@ -170,7 +221,7 @@
     
 	
 	int idx=[self GetStaringIndex];
-	int loopCounter = mCountRefresh + idx;
+	int loopCounter = mCountFriends + idx;
 	
 	for(; idx < loopCounter; idx++){
 		
@@ -200,7 +251,7 @@
 }
 
 -(void)stopLoadingMore{
-	[refreshSpinnerLoadMore stopAnimating];
+	[friendSpinnerLoadMore stopAnimating];
 	for(UIView *subview in [commonFriendsTableView subviews])
 	{
 		if([subview isKindOfClass:[UIView class]] && [subview viewWithTag:TAG_COMMENT]) {
@@ -221,7 +272,7 @@
 
 
 -(UIView*)SetupHeaderView{
-    UIView *contactHeaderView=[[UIView alloc]initWithFrame:CGRectMake(0, 130, 320,93)];
+    UIView *contactHeaderView=[[UIView alloc]initWithFrame:CGRectMake(0, 127, 320,93)];
     
     UIImageView*patternImage=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 27)];
     patternImage.image=[UIImage imageNamed:@"pattern.png"];
@@ -240,22 +291,17 @@
     
     
     
-    CGRect viewAllLabelRect=CGRectMake(258,7.5,50,12);
-    UILabel *viewAllLabel=[[UILabel alloc] initWithFrame:viewAllLabelRect];
-    viewAllLabel.textAlignment=UITextAlignmentRight;
-    viewAllLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
-    viewAllLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-    viewAllLabel.backgroundColor=[UIColor clearColor];
-    viewAllLabel.text=@"VIEW ALL";
-    [contactHeaderView addSubview:viewAllLabel];
+    UIButton *viewAllButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    viewAllButton.frame = CGRectMake(258,7.5,50,12);
+    [viewAllButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateNormal];
+    [viewAllButton setTitle:@"VIEW ALL" forState:UIControlStateNormal];
+    [viewAllButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateHighlighted];
+    viewAllButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
+    viewAllButton.backgroundColor=[UIColor clearColor];
+    [viewAllButton addTarget:self action:@selector(tapViewAll:) forControlEvents:UIControlEventTouchUpInside];
+    [contactHeaderView addSubview:viewAllButton];
 
     
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAll:)];
-    [viewAllLabel addGestureRecognizer:tapGesture];
-    [tapGesture release];
-    [viewAllLabel release];
-
-
     UIImageView *contactGraphicImgView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 27, 25, 66)];
     switch (playerObject.activityType) {
         case 1:
@@ -288,12 +334,6 @@
         }
             break;
             
-        default:
-        {
-            contactGraphicImgView.image=[UIImage imageNamed:@"S04_learn.png"];
-            
-        }
-            break;
     }
 
     [contactHeaderView addSubview:contactGraphicImgView];
@@ -302,7 +342,7 @@
     
     CGRect latestActivityLabelFrame = CGRectMake(35,40,210,22);
     UILabel *latestActivitytitleLabel = [[UILabel alloc] initWithFrame:latestActivityLabelFrame];
-    latestActivitytitleLabel.text = @"Bike Ride With The Boys";
+    latestActivitytitleLabel.text = playerObject.latestActivityName;
     latestActivitytitleLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:20];
     latestActivitytitleLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     latestActivitytitleLabel.backgroundColor = [UIColor clearColor];
@@ -312,7 +352,7 @@
     CGRect distanceLabelRect=CGRectMake(35,65,143,15);
     UILabel *mileslabel=[[UILabel alloc] initWithFrame:distanceLabelRect];
     mileslabel.textAlignment=UITextAlignmentLeft;
-    mileslabel.text=[NSString stringWithFormat:@"1.3 miles away"];
+    mileslabel.text=[NSString stringWithFormat:@"%f miles away",playerObject.distance];
     mileslabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
     mileslabel.textColor=[SoclivityUtilities returnTextFontColor:1];
     mileslabel.backgroundColor=[UIColor clearColor];
@@ -328,7 +368,7 @@
     
     
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
-                                                  initWithFrame:CGRectMake(287.0f, 18.0f, 20.0f, 20.0f)];
+                                                  initWithFrame:CGRectMake(285.0f, 45.0f, 20.0f, 20.0f)];
     [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.tag=[[NSString stringWithFormat:@"666"]intValue];
     [activityIndicator setHidden:YES];
@@ -341,8 +381,80 @@
     
 }
 -(void)viewDetailActivity:(id)sender{
+    devServer=[[MainServiceManager alloc]init];
+    SOC=[SoclivityManager SharedInstance];
+    
+    
+
+    
+    if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        
+        [(UIButton*)[self.view viewWithTag:555] setHidden:YES];
+        UIActivityIndicatorView *tmpimg = (UIActivityIndicatorView *)[self.view viewWithTag:666];
+        [tmpimg startAnimating];
+        [devServer getDetailedActivityInfoInvocation:[SOC.loggedInUser.idSoc intValue]    actId:playerObject.activityId  latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude delegate:self];
+    }
+    else{
+        if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+
+}
+
+#pragma mark -
+#pragma mark DetailedActivityInfoInvocationDelegate Method
+
+-(void)DetailedActivityInfoInvocationDidFinish:(DetailedActivityInfoInvocation*)invocation
+                                  withResponse:(InfoActivityClass*)responses
+                                     withError:(NSError*)error{
+    
+    
+    
+    NSString*nibNameBundle=nil;
+    
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"ActivityEventViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"ActivityEventViewController";
+    }
+    
+    ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+    
+    activityEventViewController.activityInfo=responses;
+    [[self navigationController] pushViewController:activityEventViewController animated:YES];
+    [activityEventViewController release];
+    
+    if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    
+    
+    [(UIButton*)[self.view viewWithTag:555] setHidden:NO];
+    
+    
+    UIActivityIndicatorView *tmpimg = (UIActivityIndicatorView *)[self.view viewWithTag:666];
+    [tmpimg stopAnimating];
+    [tmpimg setHidden:YES];
+
+    
     
 }
+
+
 -(void) SetUpDummyCommonFriends{
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"Friends" withExtension:@"plist"];
     NSArray *playDictionariesArray = [[NSArray alloc ] initWithContentsOfURL:url];
@@ -366,11 +478,23 @@
     
 }
 
--(IBAction)tapViewAll:(UITapGestureRecognizer*)sender{
+-(IBAction)tapViewAll:(id)sender{
     
     
-    CGPoint translate = [sender locationInView:self.view.superview];
-    NSLog(@"Start Point_X=%f,Start Point_Y=%f",translate.x,translate.y);
+    NSString*nibNameBundle=nil;
+    
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"UpComingCompletedEventsViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"UpComingCompletedEventsViewController";
+    }
+    
+    UpComingCompletedEventsViewController *upComingCompletedEventsViewController=[[UpComingCompletedEventsViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+    upComingCompletedEventsViewController.isNotSettings=TRUE;
+    [[self navigationController] pushViewController:upComingCompletedEventsViewController animated:YES];
+    [upComingCompletedEventsViewController release];
+
 }
 
 
@@ -593,7 +717,7 @@
     
         if(mSetLoadMoreFooter){
             if (scrollView.contentOffset.y <= footerHeight) {
-                [refreshSpinnerLoadMore startAnimating];
+                [friendSpinnerLoadMore startAnimating];
                 
                 
                 [self ImplementRefreshFunction];
@@ -605,7 +729,7 @@
             
         }
         
-        else if(mSetLoadNoMorePhotosFooter){
+        else if(mSetLoadNoMoreFriendsFooter){
             commonFriendsTableView.contentInset = UIEdgeInsetsMake(0, 0, 3*REFRESH_HEADER_HEIGHT/2, 0);//see the logic
             
         }
@@ -617,7 +741,7 @@
     
     [self loadImagesForOnscreenRows];
     
-        if (numberOfPhotosWithXling>[loadNFriendsAtTimeArray count]) {
+        if (numberOfFriendsWithPlayer>[loadNFriendsAtTimeArray count]) {
             
             NSArray *visiblePaths = [commonFriendsTableView indexPathsForVisibleRows];
             
@@ -641,7 +765,7 @@
         else {
             [self stopLoadingMore];
             footerHeight=[self tableViewHeight];
-            mSetLoadNoMorePhotosFooter=TRUE;
+            mSetLoadNoMoreFriendsFooter=TRUE;
             [self addLoadingMoreFooter:footerHeight];
         }
 		
@@ -658,31 +782,27 @@
     loadMoreFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, loadMoreFooterHeight, 320, REFRESH_HEADER_HEIGHT)];
     loadMoreFooterView.backgroundColor = [UIColor whiteColor];
 	loadMoreFooterView.tag=TAG_COMMENT;
-    loadMorePhotosLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 320, REFRESH_HEADER_HEIGHT)];
+    loadMoreFriendsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 320, REFRESH_HEADER_HEIGHT)];
     
-    loadMorePhotosLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
-    loadMorePhotosLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-    loadMorePhotosLabel.textAlignment = UITextAlignmentCenter;
+    loadMoreFriendsLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    loadMoreFriendsLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    loadMoreFriendsLabel.textAlignment = UITextAlignmentCenter;
 	[loadMoreFooterView addSubview:v1];
     
 	if(mSetLoadMoreFooter)
-        loadMorePhotosLabel.text=[NSString stringWithFormat:@"Loading more friends..."];
+        loadMoreFriendsLabel.text=[NSString stringWithFormat:@"Loading more friends..."];
     
-	if(mSetLoadNoMorePhotosFooter)
-        loadMorePhotosLabel.text=@"No More Friends";
+	if(mSetLoadNoMoreFriendsFooter)
+        loadMoreFriendsLabel.text=@"No More Friends";
 	
 	if(mSetLoadMoreFooter){
 		
-        
-        
-		
-        
-        refreshSpinnerLoadMore = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        refreshSpinnerLoadMore.frame = CGRectMake(10+(REFRESH_HEADER_HEIGHT - 20) / 2, (REFRESH_HEADER_HEIGHT - 20) / 2, 20, 20);
-        refreshSpinnerLoadMore.hidesWhenStopped = YES;
-        [loadMoreFooterView addSubview:refreshSpinnerLoadMore];
+        friendSpinnerLoadMore = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        friendSpinnerLoadMore.frame = CGRectMake(10+(REFRESH_HEADER_HEIGHT - 20) / 2, (REFRESH_HEADER_HEIGHT - 20) / 2, 20, 20);
+        friendSpinnerLoadMore.hidesWhenStopped = YES;
+        [loadMoreFooterView addSubview:friendSpinnerLoadMore];
     }
-	[loadMoreFooterView addSubview:loadMorePhotosLabel];
+	[loadMoreFooterView addSubview:loadMoreFriendsLabel];
     [commonFriendsTableView addSubview:loadMoreFooterView];
 	
     //if(mSetLoadMoreFooter)

@@ -159,7 +159,7 @@
 								<int key="NSvFlags">274</int>
 								<string key="NSFrameSize">{320, 426}</string>
 								<reference key="NSSuperview" ref="497880312"/>
-								<reference key="NSNextKeyView" ref="377610524"/>
+								<reference key="NSNextKeyView" ref="537787151"/>
 								<reference key="IBUIBackgroundColor" ref="268460822"/>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -217,6 +217,31 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">bottom-bar.png</string>
 						</object>
+					</object>
+					<object class="IBUIButton" id="537787151">
+						<reference key="NSNextResponder" ref="1043789732"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{10, 7}, {37, 29}}</string>
+						<reference key="NSSuperview" ref="1043789732"/>
+						<reference key="NSNextKeyView" ref="377610524"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<int key="IBUIButtonType">1</int>
+						<reference key="IBUIHighlightedTitleColor" ref="268460822"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+						</object>
+						<reference key="IBUINormalTitleShadowColor" ref="178735164"/>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">back-button.png</string>
+						</object>
+						<reference key="IBUIFontDescription" ref="62647068"/>
+						<reference key="IBUIFont" ref="46676375"/>
 					</object>
 					<object class="IBUIButton" id="6036696">
 						<reference key="NSNextResponder" ref="1043789732"/>
@@ -322,6 +347,22 @@
 					<int key="connectionID">37</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">backActivityButton</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="537787151"/>
+					</object>
+					<int key="connectionID">40</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">profileButton</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="6036696"/>
+					</object>
+					<int key="connectionID">41</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">profileSliderPressed:</string>
 						<reference key="source" ref="6036696"/>
@@ -381,6 +422,15 @@
 					</object>
 					<int key="connectionID">36</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">backButtonPressed:</string>
+						<reference key="source" ref="537787151"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">39</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -414,6 +464,7 @@
 							<reference ref="377610524"/>
 							<reference ref="6036696"/>
 							<reference ref="497880312"/>
+							<reference ref="537787151"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -470,6 +521,11 @@
 						<reference key="object" ref="36458149"/>
 						<reference key="parent" ref="497880312"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">38</int>
+						<reference key="object" ref="537787151"/>
+						<reference key="parent" ref="1043789732"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -488,13 +544,14 @@
 				<string key="32.CustomClassName">ActivityListView</string>
 				<string key="32.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="33.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="38.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">37</int>
+			<int key="maxID">41</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
@@ -504,6 +561,7 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="S04_profile.png">{39, 31}</string>
 			<string key="S10_segmentedBar.png">{320, 40}</string>
+			<string key="back-button.png">{37, 29}</string>
 			<string key="bottom-bar.png">{320, 40}</string>
 			<string key="topbar.png">{320, 43}</string>
 		</dictionary>

@@ -2484,9 +2484,9 @@
 		EA96E842155E2A8500BE82DF /* Upcoming/Completed */ = {
 			isa = PBXGroup;
 			children = (
-				EAD8001916158B6C005D2469 /* UpComingCompletedEventsViewController.xib */,
 				EA96E843155E2AAC00BE82DF /* UpComingCompletedEventsViewController.h */,
 				EA96E844155E2AAC00BE82DF /* UpComingCompletedEventsViewController.m */,
+				EAD8001916158B6C005D2469 /* UpComingCompletedEventsViewController.xib */,
 				EAC801AF16119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib */,
 			);
 			name = Upcoming/Completed;
