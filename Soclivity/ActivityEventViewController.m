@@ -1579,7 +1579,7 @@
     
     
 }
--(void)pushUserProfileView:(UIImage*)userImg{
+-(void)pushUserProfileView{
     
     if([SOC.loggedInUser.idSoc intValue]==activityInfo.organizerId){
         NSString*nibNameBundle=nil;

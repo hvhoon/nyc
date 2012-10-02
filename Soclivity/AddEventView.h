@@ -18,7 +18,7 @@
 -(void)pushToHomeViewController;
 -(void)slideInTransitionToLocationView;
 -(void)enableDisableTickOnTheTopRight:(BOOL)show;
--(void)pushUserProfileView:(UIImage*)userImg;
+-(void)pushUserProfileView;
 @end
 
 

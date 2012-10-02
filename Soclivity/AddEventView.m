@@ -372,7 +372,7 @@
     NSLog(@"Start Point_X=%f,Start Point_Y=%f",startPoint.x,startPoint.y);
     
     if((CGRectContainsPoint(profileImgView.frame,startPoint))||(CGRectContainsPoint(activityorganizerTextLabel.frame,startPoint))){
-        [delegate pushUserProfileView:profileImgView.image];
+        [delegate pushUserProfileView];
     }
        
     if(CGRectContainsPoint(mapURlRect,startPoint) && !editMode){
