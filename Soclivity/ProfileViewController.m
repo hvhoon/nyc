@@ -60,11 +60,11 @@
     else{
         getStartedButton.hidden=YES;
         profileButton.hidden=NO;
-    updateActivityLabel.text=@"Update Activity Types";
+        updateActivityLabel.text=@"Update Activity Types";
+        [activityTypesView updateActivityTypes];
+
     }
     
-    if(!isFirstTime)
-    [activityTypesView updateActivityTypes];
 
     // Do any additional setup after loading the view from its nib.
 }

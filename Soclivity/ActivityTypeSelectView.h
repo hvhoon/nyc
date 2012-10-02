@@ -10,6 +10,7 @@
 @class GetPlayersClass;
 @class MBProgressHUD;
 @class SoclivityManager;
+@class FilterPreferenceClass;
 @protocol ActivitySelectDelegate <NSObject>
 
 @optional
@@ -24,15 +25,11 @@
     IBOutlet UIImageView *seeImageView;
     IBOutlet UIImageView *createImageView;
     IBOutlet UIImageView *learnImageView;
-    BOOL play;
-    BOOL eat;
-    BOOL see;
-    BOOL create;
-    BOOL learn;
     GetPlayersClass *playerObj;
     MBProgressHUD *HUD;
     BOOL isRegisteration;
     SoclivityManager *SOC;
+    FilterPreferenceClass*idObj;
 }
 @property (nonatomic,retain)id <ActivitySelectDelegate>delegate;
 @property (nonatomic,retain)GetPlayersClass *playerObj;

@@ -39,19 +39,16 @@
 }
 
 -(void)updateActivityTypes{
-    isRegisteration=TRUE;
-
-    FilterPreferenceClass*idObj= SOC.filterObject;
-    play=idObj.playAct;
-    if(play){
+    SOC=[SoclivityManager SharedInstance];
+    idObj= SOC.filterObject;
+    if(idObj.playAct){
         playImageView.alpha=SHOW;
     }
     else{
         playImageView.alpha=HIDDEN;
     }
 
-    eat=idObj.eatAct;
-    if(eat){
+    if(idObj.eatAct){
         eatImageView.alpha=SHOW;
     }
     else{
@@ -59,9 +56,8 @@
         
     }
 
-    create=idObj.createAct;
     
-    if(create){
+    if(idObj.createAct){
         createImageView.alpha=SHOW;
     }
     else{
@@ -69,8 +65,7 @@
         
     }
 
-    see=idObj.seeAct;
-    if(see){
+    if(idObj.seeAct){
         seeImageView.alpha=SHOW;
     }
     else{
@@ -78,9 +73,8 @@
         
     }
 
-    learn=idObj.learnAct;
     
-    if(learn){
+    if(idObj.learnAct){
         learnImageView.alpha=SHOW;
     }
     else{
@@ -95,15 +89,18 @@
     [self MakeSureAtLeastOneActivitySelected];
 }
 
+
 -(IBAction)ActivitySelectClicked:(UIButton*)sender{
     
-    
+    SOC=[SoclivityManager SharedInstance];
+    idObj= SOC.filterObject;
+
     switch (sender.tag) {
         case 1:
         {
-            play=!play;
+            idObj.playAct=!idObj.playAct;
             
-            if(play){
+            if(idObj.playAct){
                 playImageView.alpha=SHOW;
             }
             else{
@@ -115,9 +112,9 @@
             
         case 2:
         {
-            eat=!eat;
+            idObj.eatAct=!idObj.eatAct;
             
-            if(eat){
+            if(idObj.eatAct){
                 eatImageView.alpha=SHOW;
             }
             else{
@@ -129,9 +126,9 @@
             break;
         case 3:
         {
-            see=!see;
+            idObj.seeAct=!idObj.seeAct;
             
-            if(see){
+            if(idObj.seeAct){
                 seeImageView.alpha=SHOW;
             }
             else{
@@ -144,9 +141,9 @@
             break;
         case 4:
         {
-            create=!create;
+            idObj.createAct=!idObj.createAct;
             
-            if(create){
+            if(idObj.createAct){
                 createImageView.alpha=SHOW;
             }
             else{
@@ -158,9 +155,9 @@
             break;
         case 5:
         {
-            learn=!learn;
+            idObj.learnAct=!idObj.learnAct;
             
-            if(learn){
+            if(idObj.learnAct){
                 learnImageView.alpha=SHOW;
             }
             else{
@@ -173,18 +170,24 @@
     }
     
     if(isRegisteration){
-        if(!play && !eat && !create && !see && !learn){
+        if(!idObj.playAct && !idObj.eatAct && !idObj.createAct && !idObj.seeAct && !idObj.learnAct){
             [delegate showgetStartedBtnOrNot:NO];
         }
         else{
             [delegate showgetStartedBtnOrNot:YES];
         }
     }
+    else{
+        
+    }
 }
 
 -(void)MakeSureAtLeastOneActivitySelected{
     
-    if(!play && !eat && !create && !see && !learn){
+    SOC=[SoclivityManager SharedInstance];
+    playerObj=SOC.registrationObject;
+
+    if(!idObj.playAct && !idObj.eatAct && !idObj.createAct && !idObj.seeAct && !idObj.learnAct){
         NSLog(@"No Activity Selected");
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Nothing here interests you?"
                                                         message:@"C'mon, please select at least 1 activity type!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
@@ -198,7 +201,7 @@
             switch (i) {
                 case kPlay:
                 {
-                    if(play){
+                    if(idObj.playAct){
                         if(activitySelect==nil)
                             activitySelect=[NSString stringWithFormat:@"1"];
                     }
@@ -207,7 +210,7 @@
                     
                 case kEat:
                 {
-                    if(eat){
+                    if(idObj.eatAct){
                         if(activitySelect==nil)
                             activitySelect=[NSString stringWithFormat:@"2"];
                         else{
@@ -219,7 +222,7 @@
                     break;
                 case kSee:
                 {
-                    if(see){
+                    if(idObj.seeAct){
                         if(activitySelect==nil)
                             activitySelect=[NSString stringWithFormat:@"3"];
                         else{
@@ -231,7 +234,7 @@
                     break;
                 case kCreate:
                 {
-                    if(create){
+                    if(idObj.createAct){
                         if(activitySelect==nil)
                             activitySelect=[NSString stringWithFormat:@"4"];
                         else{
@@ -243,7 +246,7 @@
                     break;
                 case kLearn:
                 {
-                    if(learn){
+                    if(idObj.learnAct){
                         if(activitySelect==nil)
                             activitySelect=[NSString stringWithFormat:@"5"];
                         else{
@@ -267,8 +270,6 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-        SOC=[SoclivityManager SharedInstance];
-        playerObj=SOC.registrationObject;
     
 }
 #pragma mark -
