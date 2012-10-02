@@ -730,7 +730,7 @@
         }
         
         UpComingCompletedEventsViewController *upComingCompletedEventsViewController=[[UpComingCompletedEventsViewController alloc] initWithNibName:nibNameBundle bundle:nil];
-        
+        upComingCompletedEventsViewController.isNotSettings=TRUE;
         [[self navigationController] pushViewController:upComingCompletedEventsViewController animated:YES];
         [upComingCompletedEventsViewController release];
         
