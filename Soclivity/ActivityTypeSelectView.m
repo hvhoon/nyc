@@ -17,7 +17,7 @@
 
 @implementation ActivityTypeSelectView
 
-@synthesize delegate,playerObj,getStarted,isRegisteration;
+@synthesize delegate,playerObj,isRegisteration;
 
 // Defining the transparency used to display the tick for activity categories selected
 #define HIDDEN 0.2
@@ -40,7 +40,7 @@
 
 -(void)updateActivityTypes{
     isRegisteration=TRUE;
-    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+
     FilterPreferenceClass*idObj= SOC.filterObject;
     play=idObj.playAct;
     if(play){
@@ -95,59 +95,90 @@
     [self MakeSureAtLeastOneActivitySelected];
 }
 
--(IBAction)playActivityClicked:(id)sender{
-    play=!play;
+-(IBAction)ActivitySelectClicked:(UIButton*)sender{
+    
+    
+    switch (sender.tag) {
+        case 1:
+        {
+            play=!play;
+            
+            if(play){
+                playImageView.alpha=SHOW;
+            }
+            else{
+                playImageView.alpha=HIDDEN;
+            }
 
-    if(play){
-        playImageView.alpha=SHOW;
+        }
+            break;
+            
+        case 2:
+        {
+            eat=!eat;
+            
+            if(eat){
+                eatImageView.alpha=SHOW;
+            }
+            else{
+                eatImageView.alpha=HIDDEN;
+                
+            }
+
+        }
+            break;
+        case 3:
+        {
+            see=!see;
+            
+            if(see){
+                seeImageView.alpha=SHOW;
+            }
+            else{
+                seeImageView.alpha=HIDDEN;
+                
+            }
+
+            
+        }
+            break;
+        case 4:
+        {
+            create=!create;
+            
+            if(create){
+                createImageView.alpha=SHOW;
+            }
+            else{
+                createImageView.alpha=HIDDEN;
+                
+            }
+
+        }
+            break;
+        case 5:
+        {
+            learn=!learn;
+            
+            if(learn){
+                learnImageView.alpha=SHOW;
+            }
+            else{
+                learnImageView.alpha=HIDDEN;
+                
+            }
+            
+        }
+            break;
     }
-    else{
-        playImageView.alpha=HIDDEN;
-    }
-}
-                                          
--(IBAction)eatActivityClicked:(id)sender{
-    eat=!eat;
     
-    if(eat){
-        eatImageView.alpha=SHOW;
-    }
-    else{
-        eatImageView.alpha=HIDDEN;
-        
-    }
-}
--(IBAction)seeActivityClicked:(id)sender{
-    see=!see;
-    
-    if(see){
-        seeImageView.alpha=SHOW;
-    }
-    else{
-        seeImageView.alpha=HIDDEN;
-        
-    }
-}
--(IBAction)createActivityClicked:(id)sender{
-    create=!create;
-    
-    if(create){
-        createImageView.alpha=SHOW;
-    }
-    else{
-        createImageView.alpha=HIDDEN;
-        
-    }
-}
--(IBAction)learnActivityClicked:(id)sender{
-    learn=!learn;
-    
-    if(learn){
-        learnImageView.alpha=SHOW;
-    }
-    else{
-        learnImageView.alpha=HIDDEN;
-        
+    if(isRegisteration){
+        if(!play && !eat && !create && !see && !learn){
+            [delegate showgetStartedBtnOrNot:NO];
+        }
+        else{
+            [delegate showgetStartedBtnOrNot:YES];
+        }
     }
 }
 
@@ -228,7 +259,7 @@
             }
         }
         playerObj.activityTypes=activitySelect;
-        [delegate pushHomeMapViewController];
+        [delegate RegisterUserForTheFirstTime];
     }
 }
 // Only override drawRect: if you perform custom drawing.
@@ -236,6 +267,8 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+        SOC=[SoclivityManager SharedInstance];
+        playerObj=SOC.registrationObject;
     
 }
 #pragma mark -

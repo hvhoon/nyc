@@ -44,7 +44,16 @@
         SOC.loggedInUser.fullName=[SoclivityUtilities getFirstAndLastName:SOC.loggedInUser.first_name lastName:SOC.loggedInUser.last_name];
 
         [profileViewControllerDictionary setObject:SOC.loggedInUser.fullName forKey:kSlideViewControllerViewControllerTitleKey];
-        [profileViewControllerDictionary setObject:@"ProfileViewController" forKey:kSlideViewControllerViewControllerNibNameKey];
+        
+        
+        if([SoclivityUtilities deviceType] & iPhone5){
+            nibNameBundle=@"ProfileViewController_iphone5";
+        }
+        else{
+            nibNameBundle=@"ProfileViewController";
+        }
+
+        [profileViewControllerDictionary setObject:nibNameBundle forKey:kSlideViewControllerViewControllerNibNameKey];
         
         [profileViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
 

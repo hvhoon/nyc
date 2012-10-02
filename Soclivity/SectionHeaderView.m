@@ -92,7 +92,7 @@
         CGRect organizerLabelRect=CGRectMake(45,45-1,210,16);
         UILabel *oglabel=[[UILabel alloc] initWithFrame:organizerLabelRect];
         oglabel.textAlignment=UITextAlignmentLeft;
-        oglabel.tag=[[NSString stringWithFormat:@"333%d",section]intValue];
+        oglabel.tag=[[NSString stringWithFormat:@"222%d",section]intValue];
         oglabel.text=detailSectionInfo.organizerName;
         oglabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
         oglabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -253,7 +253,7 @@
     
      CGPoint translate = [sender locationInView:self.superview];
      NSLog(@"Start Point_X=%f,Start Point_Y=%f",translate.x,translate.y);
-    NSString *nameLabelValue=[NSString stringWithFormat:@"333%d",section];
+    NSString *nameLabelValue=[NSString stringWithFormat:@"222%d",section];
     CGRect frame=[(UILabel*)[self viewWithTag:[nameLabelValue intValue]]frame];
     
     if(CGRectContainsPoint(frame,translate)){

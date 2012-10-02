@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-@class ActivityTypeSelectView;
+#import "ActivityTypeSelectView.h"
+@class MainServiceManager;
+@class MBProgressHUD;
+@class SoclivityManager;
 @protocol ProfileScreenViewDelegate <NSObject>
 
 @optional
@@ -15,14 +18,22 @@
 @end
 
 
-@interface ProfileViewController : UIViewController{
+@interface ProfileViewController : UIViewController<ActivitySelectDelegate>{
     id <ProfileScreenViewDelegate>delegate;
     IBOutlet ActivityTypeSelectView *activityTypesView;
     IBOutlet UILabel *updateActivityLabel;
     IBOutlet UIButton *profileButton;
     IBOutlet UIImageView *bottomBarImageView;
+    IBOutlet UIButton *getStartedButton;
+    BOOL isFirstTime;
+    MainServiceManager *devServer;
+    MBProgressHUD *HUD;
+    SoclivityManager *SOC;
 }
 @property (nonatomic,retain)id <ProfileScreenViewDelegate>delegate;
 @property (nonatomic,retain)ActivityTypeSelectView *activityTypesView;
+@property (nonatomic,assign) BOOL isFirstTime;
 -(IBAction)profileSliderPressed:(id)sender;
+-(IBAction)getStartedAction:(id)sender;
+- (void)startAnimation;
 @end

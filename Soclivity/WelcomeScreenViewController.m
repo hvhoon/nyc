@@ -19,6 +19,7 @@
 #import "SlidingDrawerViewController.h"
 #import "EventShareActivity.h"
 #import "SoclivityUtilities.h"
+#import "ProfileViewController.h"
 @interface WelcomeScreenViewController(Private) <MBProgressHUDDelegate>
 @end
 @implementation WelcomeScreenViewController
@@ -253,12 +254,29 @@
 }
 -(void)pushToRegistration{
     
+    
+#if 1
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"ProfileViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"ProfileViewController";
+    }
+
+    ProfileViewController *registrationViewControler=[[ProfileViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+    registrationViewControler.isFirstTime=TRUE;
+    [HUD hide:YES];
+	[[self navigationController] pushViewController:registrationViewControler animated:YES];
+    [registrationViewControler release];
+#else
     //check for facebook user Already registered or else redirect to registraion page
     RegistrationViewControler *registrationViewControler=[[RegistrationViewControler alloc] initWithNibName:@"RegistrationViewControler" bundle:nil];
     registrationViewControler.facebookTag=TRUE;
     [HUD hide:YES];
 	[[self navigationController] pushViewController:registrationViewControler animated:YES];
     [registrationViewControler release];
+#endif
     
 }
 #if 0

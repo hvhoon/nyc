@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 @class GetPlayersClass;
 @class MBProgressHUD;
-
+@class SoclivityManager;
 @protocol ActivitySelectDelegate <NSObject>
 
 @optional
--(void)pushHomeMapViewController;
+-(void)RegisterUserForTheFirstTime;
+-(void)showgetStartedBtnOrNot:(BOOL)show;
 @end
 
 @interface ActivityTypeSelectView : UIView {
@@ -31,16 +32,12 @@
     GetPlayersClass *playerObj;
     MBProgressHUD *HUD;
     BOOL isRegisteration;
+    SoclivityManager *SOC;
 }
 @property (nonatomic,retain)id <ActivitySelectDelegate>delegate;
 @property (nonatomic,retain)GetPlayersClass *playerObj;
-@property (retain, nonatomic) IBOutlet UIButton *getStarted;
 @property (nonatomic,assign)BOOL isRegisteration;
--(IBAction)playActivityClicked:(id)sender;
--(IBAction)eatActivityClicked:(id)sender;
--(IBAction)seeActivityClicked:(id)sender;
--(IBAction)createActivityClicked:(id)sender;
--(IBAction)learnActivityClicked:(id)sender;
+-(IBAction)ActivitySelectClicked:(UIButton*)sender;
 -(void)MakeSureAtLeastOneActivitySelected;
 -(void)startAnimation;
 -(void)stopAnimation;
