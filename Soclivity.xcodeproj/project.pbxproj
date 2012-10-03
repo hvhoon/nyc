@@ -106,6 +106,10 @@
 		68A6724F158A99C6003F59F5 /* S04_smallDOS2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68A6723B158A99C6003F59F5 /* S04_smallDOS2@2x.png */; };
 		68A67250158A99C6003F59F5 /* S04_smallLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 68A6723C158A99C6003F59F5 /* S04_smallLocation.png */; };
 		68A67251158A99C6003F59F5 /* S04_smallLocation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68A6723D158A99C6003F59F5 /* S04_smallLocation@2x.png */; };
+		68A8F788161BE9E10031D669 /* S05_private5.png in Resources */ = {isa = PBXBuildFile; fileRef = 68A8F784161BE9E10031D669 /* S05_private5.png */; };
+		68A8F789161BE9E10031D669 /* S05_public5.png in Resources */ = {isa = PBXBuildFile; fileRef = 68A8F785161BE9E10031D669 /* S05_public5.png */; };
+		68A8F78A161BE9E10031D669 /* S05_private5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68A8F786161BE9E10031D669 /* S05_private5@2x.png */; };
+		68A8F78B161BE9E10031D669 /* S05_public5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68A8F787161BE9E10031D669 /* S05_public5@2x.png */; };
 		68AC43F0157800FC0074AD75 /* Helvetica-Condensed-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 68AC43EF157800FC0074AD75 /* Helvetica-Condensed-Bold.otf */; };
 		68B91451155EBBAB00F2B780 /* S01.1_question-mark.png in Resources */ = {isa = PBXBuildFile; fileRef = 68B9144D155EBBAB00F2B780 /* S01.1_question-mark.png */; };
 		68B91452155EBBAB00F2B780 /* S01.1_question-mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68B9144E155EBBAB00F2B780 /* S01.1_question-mark@2x.png */; };
@@ -791,6 +795,10 @@
 		68A6723B158A99C6003F59F5 /* S04_smallDOS2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S04_smallDOS2@2x.png"; sourceTree = "<group>"; };
 		68A6723C158A99C6003F59F5 /* S04_smallLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S04_smallLocation.png; sourceTree = "<group>"; };
 		68A6723D158A99C6003F59F5 /* S04_smallLocation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S04_smallLocation@2x.png"; sourceTree = "<group>"; };
+		68A8F784161BE9E10031D669 /* S05_private5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_private5.png; sourceTree = "<group>"; };
+		68A8F785161BE9E10031D669 /* S05_public5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_public5.png; sourceTree = "<group>"; };
+		68A8F786161BE9E10031D669 /* S05_private5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_private5@2x.png"; sourceTree = "<group>"; };
+		68A8F787161BE9E10031D669 /* S05_public5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_public5@2x.png"; sourceTree = "<group>"; };
 		68AC43EF157800FC0074AD75 /* Helvetica-Condensed-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Helvetica-Condensed-Bold.otf"; sourceTree = "<group>"; };
 		68B9144D155EBBAB00F2B780 /* S01.1_question-mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S01.1_question-mark.png"; sourceTree = "<group>"; };
 		68B9144E155EBBAB00F2B780 /* S01.1_question-mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S01.1_question-mark@2x.png"; sourceTree = "<group>"; };
@@ -1677,6 +1685,10 @@
 		686E79F615B5E3A800A05C7C /* S05 Activity Event */ = {
 			isa = PBXGroup;
 			children = (
+				68A8F784161BE9E10031D669 /* S05_private5.png */,
+				68A8F785161BE9E10031D669 /* S05_public5.png */,
+				68A8F786161BE9E10031D669 /* S05_private5@2x.png */,
+				68A8F787161BE9E10031D669 /* S05_public5@2x.png */,
 				685FDBDA15E7E50C001C9549 /* S05_sectionHighlighted.png */,
 				685FDBDB15E7E50C001C9549 /* S05_sectionHighlighted@2x.png */,
 				EAAEF87E15DA281B0085DBE5 /* S05_chatButton.png */,
@@ -3473,6 +3485,10 @@
 				EAD8CC99161AB99100AE657E /* S02.1_see5.png in Resources */,
 				EAD8CC9A161AB99100AE657E /* S02.1_see5@2x.png in Resources */,
 				EAD8CC9C161ABDB000AE657E /* ProfileViewController_iphone5.xib in Resources */,
+				68A8F788161BE9E10031D669 /* S05_private5.png in Resources */,
+				68A8F789161BE9E10031D669 /* S05_public5.png in Resources */,
+				68A8F78A161BE9E10031D669 /* S05_private5@2x.png in Resources */,
+				68A8F78B161BE9E10031D669 /* S05_public5@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
