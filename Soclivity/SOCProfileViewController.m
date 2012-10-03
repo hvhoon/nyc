@@ -822,25 +822,23 @@
     loadMoreFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, loadMoreFooterHeight, 320, REFRESH_HEADER_HEIGHT)];
     loadMoreFooterView.backgroundColor = [UIColor whiteColor];
 	loadMoreFooterView.tag=TAG_COMMENT;
-    loadMoreFriendsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 320, REFRESH_HEADER_HEIGHT)];
+    loadMoreFriendsLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 30, 120, 16)];
     
     loadMoreFriendsLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     loadMoreFriendsLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-    loadMoreFriendsLabel.textAlignment = UITextAlignmentCenter;
+    loadMoreFriendsLabel.textAlignment = UITextAlignmentLeft;
     
-	if(mSetLoadMoreFooter)
+	if(mSetLoadMoreFooter){
         loadMoreFriendsLabel.text=[NSString stringWithFormat:@"Loading..."];
+        friendSpinnerLoadMore = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        friendSpinnerLoadMore.frame = CGRectMake(30,25, 25, 25);
+        [friendSpinnerLoadMore startAnimating];
+        [loadMoreFooterView addSubview:friendSpinnerLoadMore];
+    }
     
 	if(mSetLoadNoMoreFriendsFooter)
         loadMoreFriendsLabel.text=@"No More Friends";
 	
-	if(mSetLoadMoreFooter){
-		
-        friendSpinnerLoadMore = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        friendSpinnerLoadMore.frame = CGRectMake(10+(REFRESH_HEADER_HEIGHT - 20) / 2, (REFRESH_HEADER_HEIGHT - 20) / 2, 25, 25);
-        friendSpinnerLoadMore.hidesWhenStopped = YES;
-        [loadMoreFooterView addSubview:friendSpinnerLoadMore];
-    }
 	[loadMoreFooterView addSubview:loadMoreFriendsLabel];
     [commonFriendsTableView addSubview:loadMoreFooterView];
 	
