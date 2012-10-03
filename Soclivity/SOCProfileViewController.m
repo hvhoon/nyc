@@ -128,8 +128,8 @@
     [commonFriendsTableView setDataSource:self];
     [commonFriendsTableView setRowHeight:kCustomRowHeight];
     commonFriendsTableView.scrollEnabled=YES;
+    commonFriendsTableView.tableHeaderView=[self returnSectionHeader];
     commonFriendsTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
-    commonFriendsTableView.sectionHeaderHeight = kSectionHeaderHeight;
     commonFriendsTableView.separatorColor=[UIColor clearColor];
     commonFriendsTableView.showsVerticalScrollIndicator=YES;
     [self.view addSubview:commonFriendsTableView];
@@ -180,6 +180,47 @@
 
 
     // Do any additional setup after loading the view from its nib.
+}
+
+-(UIView*)returnSectionHeader{
+    
+    
+    UIView *sectionHeaderview=[[[UIView alloc]initWithFrame:CGRectMake(0,0,320,kSectionHeaderHeight)]autorelease];
+    sectionHeaderview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"pattern.png"]];
+    
+    //second section don't draw the first line
+    
+    
+    UIButton *topDividerLineButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    topDividerLineButton.frame = CGRectMake(0, 0, 320, 1);
+    [topDividerLineButton setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]]];
+    topDividerLineButton.tag=7770;
+    [sectionHeaderview addSubview:topDividerLineButton];
+    
+    UIImageView *DOSImageView=[[UIImageView alloc]initWithFrame:CGRectMake(12, 7.5, 19, 11)];
+    
+    CGRect DOSLabelRect=CGRectMake(38,7.5,240,12);
+    UILabel *DOScountLabel=[[UILabel alloc] initWithFrame:DOSLabelRect];
+    DOScountLabel.textAlignment=UITextAlignmentLeft;
+    
+    DOScountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
+    DOScountLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    DOScountLabel.backgroundColor=[UIColor clearColor];
+    DOSImageView.image=[UIImage imageNamed:@"dos1.png"];
+    DOScountLabel.text=[NSString stringWithFormat:@"IN COMMON"];
+    
+    [sectionHeaderview addSubview:DOSImageView];
+    [DOSImageView release];
+    [sectionHeaderview addSubview:DOScountLabel];
+    [DOScountLabel release];
+    
+    
+    UIView *bottomDividerLineview=[[[UIView alloc]initWithFrame:CGRectMake(0,kSectionHeaderHeight-1,320,1)]autorelease];
+    bottomDividerLineview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]];
+    [sectionHeaderview addSubview:bottomDividerLineview];
+    
+    return sectionHeaderview;
+    
 }
 
 -(void)SetupCountForImagesRefresh:(NSInteger)photosCount{
@@ -352,7 +393,7 @@
     CGRect distanceLabelRect=CGRectMake(35,65,143,15);
     UILabel *mileslabel=[[UILabel alloc] initWithFrame:distanceLabelRect];
     mileslabel.textAlignment=UITextAlignmentLeft;
-    mileslabel.text=[NSString stringWithFormat:@"%f miles away",playerObject.distance];
+    mileslabel.text=[NSString stringWithFormat:@"%.02f miles away",playerObject.distance];
     mileslabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
     mileslabel.textColor=[SoclivityUtilities returnTextFontColor:1];
     mileslabel.backgroundColor=[UIColor clearColor];
@@ -368,7 +409,7 @@
     
     
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
-                                                  initWithFrame:CGRectMake(285.0f, 45.0f, 20.0f, 20.0f)];
+                                                  initWithFrame:CGRectMake(290.0f, 47.0f, 20.0f, 20.0f)];
     [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.tag=[[NSString stringWithFormat:@"666"]intValue];
     [activityIndicator setHidden:YES];
@@ -602,6 +643,8 @@
     return kCustomRowHeight;
 }
 
+#if 0
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return kSectionHeaderHeight;
 }
@@ -651,7 +694,7 @@
     return sectionHeaderview;
     
 }
-
+#endif
 #pragma mark -
 #pragma mark Lazy Loading
 
@@ -775,9 +818,6 @@
 
 -(void)addLoadingMoreFooter:(NSInteger)loadMoreFooterHeight{
 	
-	UIView *v1 = [[UIView alloc] initWithFrame:CGRectMake(0,1, 320, 1)];
-	v1.backgroundColor = [UIColor grayColor];
-	v1.tag=TAG_COMMENT;
 	
     loadMoreFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, loadMoreFooterHeight, 320, REFRESH_HEADER_HEIGHT)];
     loadMoreFooterView.backgroundColor = [UIColor whiteColor];
@@ -787,18 +827,17 @@
     loadMoreFriendsLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     loadMoreFriendsLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     loadMoreFriendsLabel.textAlignment = UITextAlignmentCenter;
-	[loadMoreFooterView addSubview:v1];
     
 	if(mSetLoadMoreFooter)
-        loadMoreFriendsLabel.text=[NSString stringWithFormat:@"Loading more friends..."];
+        loadMoreFriendsLabel.text=[NSString stringWithFormat:@"Loading..."];
     
 	if(mSetLoadNoMoreFriendsFooter)
         loadMoreFriendsLabel.text=@"No More Friends";
 	
 	if(mSetLoadMoreFooter){
 		
-        friendSpinnerLoadMore = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        friendSpinnerLoadMore.frame = CGRectMake(10+(REFRESH_HEADER_HEIGHT - 20) / 2, (REFRESH_HEADER_HEIGHT - 20) / 2, 20, 20);
+        friendSpinnerLoadMore = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        friendSpinnerLoadMore.frame = CGRectMake(10+(REFRESH_HEADER_HEIGHT - 20) / 2, (REFRESH_HEADER_HEIGHT - 20) / 2, 25, 25);
         friendSpinnerLoadMore.hidesWhenStopped = YES;
         [loadMoreFooterView addSubview:friendSpinnerLoadMore];
     }
