@@ -54,8 +54,14 @@
     }
 
     
+        NSArray *listItems = [playerObject.playerName componentsSeparatedByString:@" "];
     
-    profileNameLabel.text=[NSString stringWithFormat:@"%@'s Profile",playerObject.playerName];
+    NSString *firstName=nil;
+    if(([listItems count]==2)||([listItems count]==1)){
+        firstName=[listItems objectAtIndex:0];
+    }
+    
+    profileNameLabel.text=[NSString stringWithFormat:@"%@'s Profile",firstName];
     
     profileNameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
     profileNameLabel.textColor=[UIColor whiteColor];
