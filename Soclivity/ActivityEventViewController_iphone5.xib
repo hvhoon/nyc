@@ -297,7 +297,6 @@
 						<string key="NSFrame">{{277, 514}, {38, 30}}</string>
 						<reference key="NSSuperview" ref="793447076"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -762,6 +761,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{42, 75}, {264, 81}}</string>
 						<reference key="NSSuperview" ref="627490306"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1056683189"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -874,6 +874,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{50, 198}, {19, 18}}</string>
 								<reference key="NSSuperview" ref="700772550"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1035648397"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -904,6 +905,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{94, 200}, {190, 14}}</string>
 								<reference key="NSSuperview" ref="700772550"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="161492491"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -991,6 +993,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{249, 133}, {37, 37}}</string>
 								<reference key="NSSuperview" ref="700772550"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="589604429"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -1102,7 +1105,6 @@
 								<string key="NSFrame">{{294, 22}, {14, 14}}</string>
 								<reference key="NSSuperview" ref="418255529"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -1268,10 +1270,9 @@
 					<object class="IBUITableView" id="565658118">
 						<reference key="NSNextResponder" ref="514461427"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrameSize">{320, 470}</string>
+						<string key="NSFrameSize">{320, 420}</string>
 						<reference key="NSSuperview" ref="514461427"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<reference key="IBUIBackgroundColor" ref="803590199"/>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -2795,6 +2796,8 @@
 						<string key="mapView">MKMapView</string>
 						<string key="organizerLinkLabel">UILabel</string>
 						<string key="placeAndAddressLabel">UILabel</string>
+						<string key="privacyImage">UIImageView</string>
+						<string key="privacySetting">UILabel</string>
 						<string key="profileImgView">UIImageView</string>
 						<string key="rightPinImageView">UIImageView</string>
 						<string key="searchTextLabel">UILabel</string>
@@ -2902,6 +2905,14 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="placeAndAddressLabel">
 							<string key="name">placeAndAddressLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="privacyImage">
+							<string key="name">privacyImage</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="privacySetting">
+							<string key="name">privacySetting</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="profileImgView">
