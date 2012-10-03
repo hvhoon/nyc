@@ -635,8 +635,6 @@
     }
     else
     {
-        NSLog(@"Product=%@",product.userName);
-        NSLog(@"Product_profileImage=%@",product.profileImage);
         cell.profileImage = [product.profileImage retain];
     }
     
@@ -705,7 +703,7 @@
 #pragma mark Lazy Loading
 
 - (void)startIconDownload:(InviteObjectClass*)appRecord forIndexPath:(NSIndexPath *)indexPath{
-    IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
+ IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
     if (iconDownloader == nil)
     {
         iconDownloader = [[IconDownloader alloc] init];
