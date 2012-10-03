@@ -242,11 +242,28 @@
     
 }
 -(void)SignInUsingFacebookButtonClicked{
+    
+    
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        
+    
     [self startFacebookSignup];
     NSLog(@"SignInUsingFacebookButtonClicked");
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     FacebookLogin *fbLogin=[appDelegate SetUpFacebook];
     fbLogin.FBdelegate=self;
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+    }
+
 
 }
 -(void)userCancelFBRequest{
