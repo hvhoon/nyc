@@ -41,6 +41,7 @@
     IBOutlet UIImageView *calendarIcon;
     IBOutlet UIImageView *clockIcon;
     IBOutlet UIImageView *locationIcon;
+    IBOutlet UIImageView *privacyImage;
     
     IBOutlet UIButton*calendarDateEditArrow;
     IBOutlet UIButton*timeEditArrow;
@@ -53,6 +54,7 @@
     IBOutlet UILabel *secondLineAddressLabel;
     IBOutlet UILabel *searchTextLabel;
     IBOutlet UILabel *placeAndAddressLabel;
+    IBOutlet UILabel *privacySetting;
     
     IBOutlet UIImageView *verticalMiddleLine;
     IBOutlet UIImageView *rightPinImageView;

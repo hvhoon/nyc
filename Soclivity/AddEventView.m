@@ -158,24 +158,6 @@
     // Adding description text to the view
     [activityTextLabel setFrame:CGRectMake(20, 12, 266, labelSize.height)];
     [description addSubview:activityTextLabel];
-    
-    // Variable to store the size of the privacy image
-    CGSize privacySize;
-    
-    // Privacy icons
-    if ([info.access isEqualToString:@"public"]){
-        activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_public.png"];
-        privacySize = activityAccessStatusImgView.frame.size;
-        activityAccessStatusImgView.frame=CGRectMake(288-privacySize.width, (labelSize.height+descriptionBuffer)-(privacySize.height+6), 47, 15);
-    }
-    else {
-        activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_private.png"];
-        privacySize = activityAccessStatusImgView.frame.size;
-        activityAccessStatusImgView.frame=CGRectMake(288-privacySize.width, (labelSize.height+descriptionBuffer)-(privacySize.height+6), 47, 15);
-    }
-    
-    // Adding privacy settings to the description view
-    [description addSubview:activityAccessStatusImgView];
         
     // Adding line at the bottom of the description box
     UIImageView *bottomLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_descriptionLine.png"]];
@@ -245,23 +227,79 @@
     [detailsLineTime release];
     
     // Location
-    
     locationIcon.image = [UIImage imageNamed:@"S05_locationIcon.png"];
-    locationIcon.frame = CGRectMake(50, 102, 19, 18);
+    locationIcon.frame = CGRectMake(50, 103, 19, 18);
     locationInfoLabel1.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     locationInfoLabel1.textColor=[SoclivityUtilities returnTextFontColor:5];
     
-    locationTapRect=CGRectMake(84,fromTheTop+102+1, 175, 15+19);
-    locationInfoLabel1.frame = CGRectMake(84, 102+1, 175, 15);
+    locationTapRect=CGRectMake(84,fromTheTop+103+1, 175, 15+19);
+    locationInfoLabel1.frame = CGRectMake(84, 103+1, 175, 15);
 
     locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
-    locationInfoLabel2.frame = CGRectMake(84, 122, 175, 15);
+    locationInfoLabel2.frame = CGRectMake(84, 124, 175, 15);
     
-
-    
-    
+    // Deciding whether to show the mini map or not
     [self decideToShowMapView:info.activityRelationType];
+    
+    // Privacy settings
+    // Add an extra privacy row with the privacy settings for the larger iPhone 5 screen
+    if([SoclivityUtilities deviceType] & iPhone5){
+        
+        // Setting the privacy text
+        if ([info.access caseInsensitiveCompare:@"private"] == NSOrderedSame) {
+            privacySetting.text = @"This event is invite only";
+            privacyImage.image = [UIImage imageNamed:@"S05_private5.png"];
+        }
+        else {
+            privacySetting.text = @"Anybody can join this event";
+            privacyImage.image = [UIImage imageNamed:@"S05_public5.png"];
+        }
+        
+        // Setting up the label
+        privacySetting.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+        privacySetting.textColor = [SoclivityUtilities returnTextFontColor:5];
+        
+        // Maps seperator line here initiatilized
+        UIImageView *detailsLineMap = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_detailsLine.png"]];
+        
+        
+        // Framing based on whether the mini Map is showing or not
+        detailsLineMap.frame = CGRectMake(26, 148, 272, 1);
+        privacySetting.frame = CGRectMake(84, 166, 190, 15);
+        privacyImage.frame = CGRectMake(50, 162, privacyImage.image.size.width, privacyImage.image.size.height);
+        
+        // Add to the view
+        [bottomView addSubview:detailsLineMap];
+        [bottomView addSubview:privacySetting];
+        [bottomView addSubview:privacyImage];
+        [detailsLineMap release];
+        [privacySetting release];
+        [privacyImage release];
+        
+
+    }
+    // If they user is still on the smaller screen
+    else {
+        // Variable to store the size of the privacy image
+        CGSize privacySize;
+        
+        // Privacy icons
+        if ([info.access caseInsensitiveCompare:@"public"] == NSOrderedSame){
+            activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_public.png"];
+            privacySize = activityAccessStatusImgView.frame.size;
+            activityAccessStatusImgView.frame=CGRectMake(288-privacySize.width, (labelSize.height+descriptionBuffer)-(privacySize.height+6), 47, 15);
+        }
+        else {
+            activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_private.png"];
+            privacySize = activityAccessStatusImgView.frame.size;
+            activityAccessStatusImgView.frame=CGRectMake(288-privacySize.width, (labelSize.height+descriptionBuffer)-(privacySize.height+6), 47, 15);
+        }
+        
+        // Adding privacy settings to the description view
+        [description addSubview:activityAccessStatusImgView];
+    }
+
  
     self.addressSearchBar = [[[CustomSearchbar alloc] initWithFrame:CGRectMake(320,0, 320, 44)] autorelease];
     self.addressSearchBar.delegate = self;
@@ -306,7 +344,7 @@
 
         {
             locationInfoLabel1.text=[NSString stringWithFormat:@"%@ miles away",activityObject.distance];
-            locationInfoLabel2.text=[NSString stringWithFormat:@" "];
+            locationInfoLabel2.text=[NSString stringWithFormat:@"in %@",activityObject.where_city];
         }
             break;
             
@@ -316,15 +354,15 @@
             
             activityPlotOnMapButton.hidden=NO;
             locationIcon.hidden=YES;
-            locationInfoLabel1.frame=CGRectMake(50, 102+1, 190, 14);
-            locationInfoLabel2.frame = CGRectMake(50, 122, 190, 15);
+            locationInfoLabel1.frame=CGRectMake(50, 103+1, 190, 15);
+            locationInfoLabel2.frame = CGRectMake(50, 124, 190, 15);
             activityPlotOnMapButton.frame=CGRectMake(260, 101, 37, 37);
             locationInfoLabel1.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
             locationInfoLabel1.textColor=[SoclivityUtilities returnTextFontColor:5];
             locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
             locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
             locationInfoLabel1.text=activityObject.where_address;
-            locationInfoLabel2.text=[NSString stringWithFormat:@"%@",activityObject.where_zip];
+            locationInfoLabel2.text=[NSString stringWithFormat:@"in %@",activityObject.where_city];
             
             // Setting the variables for the map screen
             firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
@@ -332,7 +370,7 @@
             secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
             secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
             firstALineddressLabel.text = activityObject.where_address;
-            secondLineAddressLabel.text = [NSString stringWithFormat:@"%@",activityObject.where_zip];
+            secondLineAddressLabel.text = [NSString stringWithFormat:@"in %@",activityObject.where_city];
         }
             break;
     }
