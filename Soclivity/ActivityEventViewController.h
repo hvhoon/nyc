@@ -58,6 +58,8 @@
     BOOL inTransition;
     MainServiceManager *devServer;
     MBProgressHUD *HUD;
+    
+    BOOL editState;
 }
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property (nonatomic,retain)InfoActivityClass *activityInfo;

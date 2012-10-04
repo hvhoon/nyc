@@ -1014,6 +1014,9 @@
 }
 -(IBAction)editButtonClicked:(id)sender{
     
+    
+    editState=TRUE;
+    
     crossEditButton.hidden=NO;
     tickEditButton.hidden=NO;
     backButton.hidden=YES;
@@ -1029,6 +1032,9 @@
 }
 
 -(IBAction)crossClickedByOrganizer:(id)sender{
+    
+    
+        editState=FALSE;
     crossEditButton.hidden=YES;
     tickEditButton.hidden=YES;
     backButton.hidden=NO;
@@ -1046,6 +1052,8 @@
 
 -(IBAction)tickClickedByOrganizer:(id)sender{
 
+    
+    editState=FALSE;
     crossEditButton.hidden=YES;
     tickEditButton.hidden=YES;
     backButton.hidden=NO;
@@ -1206,7 +1214,12 @@
 }
 -(void)slideInTransitionToLocationView{
     
+    if(editState){
+        [self crossClickedByOrganizer:nil];
+    }
     inTransition=TRUE;
+    
+    
     
     if(activityInfo.activityRelationType==6)
       editButtonForMapView.hidden=NO;//check for organizer
