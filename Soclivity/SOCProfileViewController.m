@@ -517,7 +517,6 @@
         play.DOS= [DOS intValue];
         play.profilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[playDictionary objectForKey:@"profilePhotoUrl"]];
         
-        NSLog(@"Value=%d",[n intValue]);
         
         [entries addObject:play];
     }
@@ -742,7 +741,6 @@
         InviteUserTableViewCell *cell = (InviteUserTableViewCell*)[commonFriendsTableView cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
         // Display the newly loaded image
         cell.profileImage = [iconDownloader.inviteRecord.profileImage retain];
-        NSLog(@"cell=%@",cell.profileImage);
         
     }
     
