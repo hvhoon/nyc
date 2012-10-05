@@ -368,8 +368,9 @@
 }	
 
 
--(void)inviteStatusUpdate:(NSIndexPath*)indexPath{
+-(void)inviteStatusUpdate:(NSIndexPath*)indexPath relationType:(NSInteger)relationType{
     
+    return;
     
     InviteObjectClass*product=nil;
     if(searching){
@@ -380,7 +381,21 @@
         product = [[[[self.contactsListContentArray objectAtIndex:indexPath.section] objectForKey:@"Elements"]
                     objectAtIndex:indexPath.row]objectForKey:@"ActivityInvite"];
     }
-    product.status=!product.status;
+    if(product.status){
+        return;
+    }
+    
+    if([delegate CalculateOpenSlots]==0){
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry No Slots Open" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
     
     
     if(inviteFriends){

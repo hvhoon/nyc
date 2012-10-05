@@ -20,12 +20,14 @@
 @end
 
 @implementation ActivityInvitesView
-@synthesize searchBarForInvites,InviteEntriesArray,filteredListContent,delegate,imageDownloadsInProgress;
-- (id)initWithFrame:(CGRect)frame
+@synthesize searchBarForInvites,InviteEntriesArray,filteredListContent,delegate,imageDownloadsInProgress,statusUpdate;
+- (id)initWithFrame:(CGRect)frame andInviteListArray:(NSArray*)andInviteListArray
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        
+        InviteEntriesArray =[andInviteListArray retain];
         self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
         searching=FALSE;
         filteredListContent=[NSMutableArray new];
@@ -66,7 +68,7 @@
         
         
         inviteUserTableView.clipsToBounds=YES;
-        [self SetUpDummyInvites];
+        //[self SetUpDummyInvites];
 
 
         
@@ -408,8 +410,6 @@
     }
     else
     {
-        NSLog(@"Product=%@",product.userName);
-        NSLog(@"Product_profileImage=%@",product.profileImage);
         cell.profileImage = [product.profileImage retain];
     }
 
@@ -522,7 +522,8 @@
 }	
 
 
--(void)inviteStatusUpdate:(NSIndexPath*)indexPath{
+-(void)inviteStatusUpdate:(NSIndexPath*)indexPath relationType:(NSInteger)relationType{
+    
     
     
     InviteObjectClass*product=nil;
@@ -534,17 +535,51 @@
         product = [[[[self.InviteEntriesArray objectAtIndex:indexPath.section] objectForKey:@"Elements"]
                     objectAtIndex:indexPath.row]objectForKey:@"ActivityInvite"];
         }
-      product.status=!product.status;
+
     
     if(product.status){
-        [delegate OpenSlotsUpdate:YES];
-    }
-    else{
-      [delegate OpenSlotsUpdate:NO];
+        return;
     }
     
-                
-   [inviteUserTableView reloadData];
+    if([delegate CalculateOpenSlots]==0){
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry No Slots Open" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+
+
+    statusUpdate=[product retain];
+    switch (relationType) {
+        case 0:
+        case 1:
+        {
+            [delegate inviteSoclivityUser:product.inviteId];
+        }
+            break;
+            
+
+        case 2:
+        {
+            //facebook invite Pending
+            
+        }
+            break;
+
+    }
+    
+}
+
+-(void)activityInviteStatusUpdate{
+    
+    statusUpdate.status=!statusUpdate.status;
+     [inviteUserTableView reloadData];
+
 }
 
 #pragma mark -

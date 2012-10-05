@@ -12,7 +12,7 @@
 @protocol InviteTableViewCellDelegate <NSObject>
 
 @optional
--(void)inviteStatusUpdate:(NSIndexPath*)indexPath;
+-(void)inviteStatusUpdate:(NSIndexPath*)indexPath relationType:(NSInteger)relationType;
 @end
 
 @interface InviteUserTableViewCell : ABTableViewCell{

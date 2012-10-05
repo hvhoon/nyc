@@ -8,8 +8,14 @@
 
 #import "InvitesViewController.h"
 #import "SoclivityUtilities.h"
+#import "MainServiceManager.h"
+#import "MBProgressHUD.h"
+#import "PostActivityRequestInvocation.h"
+@interface InvitesViewController(Private) <MBProgressHUDDelegate,PostActivityRequestInvocationDelegate>
+@end
+
 @implementation InvitesViewController
-@synthesize delegate,settingsButton,activityBackButton,inviteTitleLabel,openSlotsNoLabel,activityName,num_of_slots,inviteFriends;
+@synthesize delegate,settingsButton,activityBackButton,inviteTitleLabel,openSlotsNoLabel,activityName,num_of_slots,inviteFriends,activityInvites,inviteArray,activityId;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -40,6 +46,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    devServer=[[MainServiceManager alloc]init];
     
     if(inviteFriends){
     settingsButton.hidden=YES;
@@ -66,10 +73,9 @@
             
     else
         activityRect=CGRectMake(0, 44, 320, 377);
-    activityInvites=[[ActivityInvitesView alloc]initWithFrame:activityRect];
+    activityInvites=[[ActivityInvitesView alloc]initWithFrame:activityRect andInviteListArray:inviteArray];
     activityInvites.delegate=self;
     [self.view addSubview:activityInvites];
-    
    // Do any additional setup after loading the view from its nib.
 }
 - (void)pushContactsInvitesScreen{
@@ -96,17 +102,81 @@
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
 }
 
--(void)OpenSlotsUpdate:(BOOL)increment{
+-(NSInteger)CalculateOpenSlots{
     
-    if(inviteFriends){
-    if(increment){
-        num_of_slots++;   
+    return num_of_slots;
+}
+
+-(void)inviteSoclivityUser:(int)invitePlayerId{
+    
+
+    
+        if([SoclivityUtilities hasNetworkConnection]){
+                [self startAnimation:0];
+    [devServer postActivityRequestInvocation:7  playerId:invitePlayerId actId:activityId delegate:self];
+        }
+        else{
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            
+            [alert show];
+            [alert release];
+            return;
+            
+            
+        }
+
+}
+
+
+-(void)startAnimation:(int)type{
+    // Setup animation settings
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    HUD.yOffset = -40.0;
+    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
+    HUD.labelText = @"Inviting";
+    [self.view addSubview:HUD];
+    HUD.delegate = self;
+    [HUD show:YES];
+    
+}
+
+-(void)PostActivityRequestInvocationDidFinish:(PostActivityRequestInvocation*)invocation
+                                 withResponse:(NSString*)responses relationTypeTag:(NSInteger)relationTypeTag
+                                    withError:(NSError*)error{
+    
+    NSLog(@"responses=%@",responses);
+    
+
+    
+    switch (relationTypeTag) {
+        case 7:
+        {
+            
+            if(inviteFriends){
+                
+                HUD.labelText = @"Invited";
+                
+                [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
+
+            }
+
+            
+        }
+            break;
+            
+        default:
+            break;
     }
-    else{
-        num_of_slots--;
-    }
-        openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
-    }
+}
+
+-(void)hideMBProgress{
+    [HUD hide:YES];
+    num_of_slots--;
+    openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
+    [activityInvites activityInviteStatusUpdate];
+
 }
 
 - (void)viewDidUnload

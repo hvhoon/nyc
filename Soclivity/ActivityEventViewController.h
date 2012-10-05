@@ -54,7 +54,6 @@
     IBOutlet UIButton *locationEditRightCheckButton;
     IBOutlet UIButton *currentLocationInMap;
     IBOutlet UIButton *editButtonForMapView;
-    BOOL inviteAnimation;
     BOOL inTransition;
     MainServiceManager *devServer;
     MBProgressHUD *HUD;

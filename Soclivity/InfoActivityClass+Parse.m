@@ -7,7 +7,6 @@
 //
 
 #import "InfoActivityClass+Parse.h"
-#import "InfoActivityClass.h"
 #import "JSON.h"
 #import "SoclivityManager.h"
 #import "ParticipantClass.h"

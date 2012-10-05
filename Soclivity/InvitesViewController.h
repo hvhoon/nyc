@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "ActivityInvitesView.h"
 #import "ContactsListViewController.h"
+@class MBProgressHUD;
+@class MainServiceManager;
 @protocol InvitesViewDelegate <NSObject>
 
 @optional
@@ -25,8 +27,13 @@
     NSString *activityName;
     BOOL inviteFriends;
     ActivityInvitesView *activityInvites;
+    NSArray *inviteArray;
+    MBProgressHUD *HUD;
+    MainServiceManager *devServer;
+    NSInteger activityId;
 }
 @property (nonatomic,retain)id <InvitesViewDelegate>delegate;
+@property (nonatomic,retain)ActivityInvitesView *activityInvites;
 @property (nonatomic,retain)UIButton*settingsButton;
 @property (nonatomic,retain)UIButton*activityBackButton;
 @property (nonatomic,retain)UILabel *inviteTitleLabel;
@@ -34,7 +41,10 @@
 @property (nonatomic,assign)NSInteger num_of_slots;
 @property (nonatomic,retain)NSString *activityName;
 @property (nonatomic,assign)BOOL inviteFriends;
+@property (nonatomic,retain)NSArray *inviteArray;
+@property (nonatomic,assign)NSInteger activityId;
 -(IBAction)profileSliderPressed:(id)sender;
 -(IBAction)popBackToActivityScreen:(id)sender;
--(void)OpenSlotsUpdate:(BOOL)increment;
+-(void)startAnimation:(int)type;
+-(void)hideMBProgress;
 @end

@@ -1043,6 +1043,8 @@
     
     NSString *urlString2 = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?keyword=coffee&location=37.16107,-122.806618&rankby=distance&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk"];
     
+    NSString *urlString3=[NSString stringWithFormat@"http://maps.googleapis.com/maps/api/geocode/xml?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true"];
+    
     NSString *locationString = [NSString stringWithContentsOfURL:[NSURL URLWithString:urlString]];
     NSArray *listItems = [locationString componentsSeparatedByString:@","];
 	
@@ -1070,45 +1072,43 @@
 
     
     searching=FALSE;
-    // check if the location is less than 50 miles
-    NSMutableArray *lessThan50Miles=[NSMutableArray new];
     
     if([placemarks count]>0){
         
         
         
         for (CLPlacemark *placemark in placemarks){
-            CLLocationDegrees latitude  = placemark.location.coordinate.latitude;
-            CLLocationDegrees longitude = placemark.location.coordinate.longitude;
-            CLLocation *tempLocObj = [[CLLocation alloc] initWithLatitude:latitude
-                                                                longitude:longitude];
             
-            CLLocation *newCenter = [[CLLocation alloc] initWithLatitude:SOC.currentLocation.coordinate.latitude
-                                                               longitude:SOC.currentLocation.coordinate.longitude];
+            PlacemarkClass *placemark1=[[[PlacemarkClass alloc]init]autorelease];
+            placemark1.formattedAddress =ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
+            placemark1.latitude  = placemark.location.coordinate.latitude;
+            placemark1.longitude = placemark.location.coordinate.longitude;
+
             
-            float distance =[newCenter distanceFromLocation:tempLocObj] / 1000;
-            NSLog(@"distance=%f",distance);
-            //if(distance<=50){
-            [lessThan50Miles addObject:placemark];
-            //}
-            
+            placemark1.formattedAddress =ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
+            placemark1.vicinityAddress =placemark.postalCode;
+            [_geocodingResults addObject:placemark1];
+
         }
         
     }
     
-    if([lessThan50Miles count]>0){
+    if([_geocodingResults count]>0){
         searching=TRUE;
-        [self addPinAnnotationForPlacemark:lessThan50Miles droppedStatus:NO];
-        currentLocationArray =[NSMutableArray arrayWithCapacity:[lessThan50Miles count]];
-        currentLocationArray=[lessThan50Miles retain];
+        [self addPinAnnotationForPlacemark:_geocodingResults droppedStatus:NO];
+        currentLocationArray =[NSMutableArray arrayWithCapacity:[_geocodingResults count]];
+        currentLocationArray=[_geocodingResults retain];
         
         //Zoom in all results.
         
         CLLocation* avgLoc = [self ZoomToAllResultPointsOnMap];
         MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(avgLoc.coordinate.latitude, avgLoc.coordinate.longitude), [self maxDistanceBetweenAllResultPointsOnMap:avgLoc], [self maxDistanceBetweenAllResultPointsOnMap:avgLoc]);
-         adjustedRegion = [mapView regionThatFits:viewRegion];                
+        adjustedRegion = [mapView regionThatFits:viewRegion];
         [mapView setRegion:adjustedRegion animated:YES];
-        [_geocodingResults addObjectsFromArray:placemarks];
+        
+        [self setUpLabelViewElements:NO];
+        firstALineddressLabel.text=@"Pick a Location";
+        secondLineAddressLabel.text=@"Select a pin above to see it's full address";
         
     }
     

@@ -16,7 +16,7 @@
     NSString *profilePhotoUrl;
     UIImage *profileImage;
     BOOL status;
-    
+    NSInteger inviteId;
 }
 @property (nonatomic,retain)NSString *userName;
 @property (nonatomic,retain)NSString *profilePhotoUrl;
@@ -24,4 +24,5 @@
 @property (nonatomic,assign)NSInteger typeOfRelation;
 @property (nonatomic,assign)NSInteger DOS;
 @property (nonatomic,assign)BOOL status;
+@property (nonatomic,assign)NSInteger inviteId;
 @end

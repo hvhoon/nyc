@@ -105,5 +105,14 @@
     [self invoke:invocation withDelegate:delegate];
     
 }
+-(void)getActivityPlayerInvitesInvocation:(NSInteger)pId actId:(NSInteger)actId delegate:(id<GetActivityInvitesInvocationDelegate>)delegate{
+    
+    GetActivityInvitesInvocation *invocation = [[[GetActivityInvitesInvocation alloc] init] autorelease];
+    invocation.playerId = pId;
+    invocation.activityId = actId;
+    [self invoke:invocation withDelegate:delegate];
+
+    
+}
 
 @end

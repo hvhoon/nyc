@@ -196,7 +196,7 @@ static UIFont *boldText = nil;
     
     if(CGRectContainsPoint(inviteRect,startPoint)){
         
-        [delegate inviteStatusUpdate:cellIndexPath];
+        [delegate inviteStatusUpdate:cellIndexPath relationType:typeOfRelation];
     }
 
     

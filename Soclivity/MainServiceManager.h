@@ -18,6 +18,7 @@
 #import "DetailedActivityInfoInvocation.h"
 #import "PostActivityRequestInvocation.h"
 #import "EditActivityEventInvocation.h"
+#import "GetActivityInvitesInvocation.h"
 @interface MainServiceManager : SAService{
     
 }
@@ -34,6 +35,6 @@
 -(void)getDetailedActivityInfoInvocation:(NSInteger)pId actId:(NSInteger)actId latitude:(float)latitude longitude:(float)longitude delegate:(id<DetailedActivityInfoInvocationDelegate>)delegate;
 -(void)postActivityRequestInvocation:(NSInteger) rTag playerId:(NSInteger)playerid actId:(NSInteger)actId delegate:(id<PostActivityRequestInvocationDelegate>)delegate;
 -(void)editActivityEventRequestInvocation:(InfoActivityClass*)acTClass requestType:(int)requestType delegate:(id<EditActivityEventInvocationDelegate>)delegate;
-
+-(void)getActivityPlayerInvitesInvocation:(NSInteger)pId actId:(NSInteger)actId delegate:(id<GetActivityInvitesInvocationDelegate>)delegate;
 
 @end

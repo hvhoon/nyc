@@ -15,6 +15,8 @@
 @optional
 - (void)pushContactsInvitesScreen;
 -(void)OpenSlotsUpdate:(BOOL)increment;
+-(void)inviteSoclivityUser:(int)invitePlayerId;
+-(NSInteger)CalculateOpenSlots;
 @end
 
 
@@ -27,14 +29,18 @@
     NSMutableArray *filteredListContent;
     id<ActivityInvitesViewDelegate>delegate;
     NSMutableDictionary *imageDownloadsInProgress;
+    InviteObjectClass *statusUpdate;
 }
 @property (nonatomic,retain)CustomSearchbar *searchBarForInvites;
 @property (nonatomic,retain)NSArray *InviteEntriesArray;
 @property (nonatomic,retain)NSMutableArray *filteredListContent;
 @property (nonatomic,retain)id<ActivityInvitesViewDelegate>delegate;
 @property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
+@property (nonatomic,retain) InviteObjectClass *statusUpdate;
 -(void)inviteUsersFromAddressBook:(id)sender;
 -(UIView*)SetupHeaderView;
 -(void)closeAnimation;
 -(void)appImageDidLoad:(NSIndexPath *)indexPath;
+- (id)initWithFrame:(CGRect)frame andInviteListArray:(NSArray*)andInviteListArray;
+-(void)activityInviteStatusUpdate;
 @end

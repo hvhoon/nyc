@@ -470,6 +470,8 @@
 		EAB1364C1554681900C1607D /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB1364B1554681900C1607D /* libxml2.2.dylib */; };
 		EAB1364E1554682500C1607D /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB1364D1554682500C1607D /* libsqlite3.0.dylib */; };
 		EAB136501554682F00C1607D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB1364F1554682F00C1607D /* Security.framework */; };
+		EAB6347F161F358F0023E883 /* GetActivityInvitesInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB6347E161F358F0023E883 /* GetActivityInvitesInvocation.m */; };
+		EAB63482161F37A40023E883 /* InviteObjectClass+Parse.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB63481161F37A40023E883 /* InviteObjectClass+Parse.m */; };
 		EABCE21E15E7E9F0005B74E8 /* ContactsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EABCE21C15E7E9EF005B74E8 /* ContactsListViewController.m */; };
 		EABCE21F15E7E9F0005B74E8 /* ContactsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABCE21D15E7E9EF005B74E8 /* ContactsListViewController.xib */; };
 		EABCE22415E7F658005B74E8 /* ContactList.plist in Resources */ = {isa = PBXBuildFile; fileRef = EABCE22315E7F658005B74E8 /* ContactList.plist */; };
@@ -1270,6 +1272,10 @@
 		EAB1364B1554681900C1607D /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		EAB1364D1554682500C1607D /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		EAB1364F1554682F00C1607D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		EAB6347D161F358F0023E883 /* GetActivityInvitesInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetActivityInvitesInvocation.h; sourceTree = "<group>"; };
+		EAB6347E161F358F0023E883 /* GetActivityInvitesInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetActivityInvitesInvocation.m; sourceTree = "<group>"; };
+		EAB63480161F37A30023E883 /* InviteObjectClass+Parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "InviteObjectClass+Parse.h"; sourceTree = "<group>"; };
+		EAB63481161F37A40023E883 /* InviteObjectClass+Parse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "InviteObjectClass+Parse.m"; sourceTree = "<group>"; };
 		EABCE21B15E7E9EF005B74E8 /* ContactsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsListViewController.h; sourceTree = "<group>"; };
 		EABCE21C15E7E9EF005B74E8 /* ContactsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsListViewController.m; sourceTree = "<group>"; };
 		EABCE21D15E7E9EF005B74E8 /* ContactsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsListViewController.xib; sourceTree = "<group>"; };
@@ -2124,6 +2130,8 @@
 				EABCE21C15E7E9EF005B74E8 /* ContactsListViewController.m */,
 				EABCE21D15E7E9EF005B74E8 /* ContactsListViewController.xib */,
 				EAC9E41F16137A900062A9A2 /* ContactsListViewController_iphone5.xib */,
+				EAB63480161F37A30023E883 /* InviteObjectClass+Parse.h */,
+				EAB63481161F37A40023E883 /* InviteObjectClass+Parse.m */,
 			);
 			name = Invites;
 			sourceTree = "<group>";
@@ -2389,6 +2397,7 @@
 		EA91C324155A71A500BE5BB1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				EAB6347C161F353C0023E883 /* Activity Invites */,
 				EA3F79871603418D00D231B1 /* Edit Activity Event */,
 				EA884AAA15C65FBF00367670 /* Join Cancel Delete Activity Request */,
 				EA889EA915B5274100FAABA1 /* Detailed Activity Service */,
@@ -2602,6 +2611,15 @@
 				EAB135BB155460A200C1607D /* SoclivityManager.m */,
 			);
 			name = "Soclivity Manager";
+			sourceTree = "<group>";
+		};
+		EAB6347C161F353C0023E883 /* Activity Invites */ = {
+			isa = PBXGroup;
+			children = (
+				EAB6347D161F358F0023E883 /* GetActivityInvitesInvocation.h */,
+				EAB6347E161F358F0023E883 /* GetActivityInvitesInvocation.m */,
+			);
+			name = "Activity Invites";
 			sourceTree = "<group>";
 		};
 		EAC801B31611C61C00501765 /* S10 Upcoming */ = {
@@ -3624,6 +3642,8 @@
 				EA3F798A1603423100D231B1 /* EditActivityEventInvocation.m in Sources */,
 				EAE094CC1619876C005E69D0 /* SOCProfileViewController.m in Sources */,
 				EAE094D016198C2E005E69D0 /* SocPlayerClass.m in Sources */,
+				EAB6347F161F358F0023E883 /* GetActivityInvitesInvocation.m in Sources */,
+				EAB63482161F37A40023E883 /* InviteObjectClass+Parse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

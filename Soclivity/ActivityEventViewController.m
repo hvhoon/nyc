@@ -21,6 +21,7 @@
 #import "SOCProfileViewController.h"
 #import "UpComingCompletedEventsViewController.h"
 #import "ParticipantClass.h"
+#import "GetActivityInvitesInvocation.h"
 #define kEditMapElements 10
 #define kJoinRequest 11
 #define kDeleteActivity 12
@@ -33,7 +34,7 @@
 #define kRemovePlayerRequest 19
 #define kLeaveActivity 20
 #define kDeleteActivityRequest 21
-@interface ActivityEventViewController (private)<EditActivityEventInvocationDelegate,MBProgressHUDDelegate,PostActivityRequestInvocationDelegate>
+@interface ActivityEventViewController (private)<EditActivityEventInvocationDelegate,MBProgressHUDDelegate,PostActivityRequestInvocationDelegate,GetActivityInvitesInvocationDelegate>
 @end
 
 @implementation ActivityEventViewController
@@ -59,15 +60,6 @@
     [super viewWillAppear:animated];
     NSLog(@"viewWillAppear in slide View Controller Called");
     
-    if(inviteAnimation){
-        inviteAnimation=FALSE;
-    inviteUsersToActivityButton.hidden=NO;
-    blankInviteUsersAnimationButton.hidden=YES;
-    [spinnerView stopAnimating];
-    [spinnerView setHidden:YES];
-    }
-
-    
     [self.navigationController.navigationBar setHidden:YES];
 }
 #pragma mark - View lifecycle
@@ -80,7 +72,6 @@
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
     lastIndex=-1;
-    inviteAnimation=FALSE;
     [spinnerView stopAnimating];
     [spinnerView setHidden:YES];
 
@@ -965,7 +956,6 @@
 }
 -(IBAction)inviteUsersButton:(id)sender{
     
-    inviteAnimation=TRUE;
     
     if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
@@ -975,22 +965,28 @@
     [spinnerView startAnimating];
     [spinnerView setHidden:NO];
     
+    if([SoclivityUtilities hasNetworkConnection]){
+            [devServer getActivityPlayerInvitesInvocation:[SOC.loggedInUser.idSoc intValue] actId:activityInfo.activityId delegate:self];
+     }
     
-    
-    [self SetUpActivityInvites];
+  else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+    }
 
-    /*
-     NSOperationQueue *queue = [NSOperationQueue new];
-     NSInvocationOperation *operation = [[NSInvocationOperation alloc]
-     initWithTarget:self
-     selector:@selector(SetUpActivityInvites) 
-     object:nil];
-     [queue addOperation:operation];
-     [operation release];*/
+    
+
 
 }
-// setUP Activity Invites 
--(void)SetUpActivityInvites{
+-(void)ActivityInvitesInvocationDidFinish:(GetActivityInvitesInvocation*)invocation
+                             withResponse:(NSArray*)responses
+                                withError:(NSError*)error{
+    
     
     
     NSString *nibNameBundle=nil;
@@ -1000,17 +996,26 @@
     else{
         nibNameBundle=@"InvitesViewController";
     }
-
+    
     InvitesViewController *invitesViewController=[[InvitesViewController alloc] initWithNibName:nibNameBundle bundle:nil];
     invitesViewController.activityName=[NSString stringWithFormat:@"%@",activityInfo.activityName];
+    invitesViewController.inviteArray=responses;
     invitesViewController.num_of_slots=activityInfo.num_of_people;
     invitesViewController.inviteFriends=YES;
+    invitesViewController.activityId=activityInfo.activityId;
     [[self navigationController] pushViewController:invitesViewController animated:YES];
     [invitesViewController release];
     
     if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
 
+    
+    inviteUsersToActivityButton.hidden=NO;
+    blankInviteUsersAnimationButton.hidden=YES;
+    [spinnerView stopAnimating];
+    [spinnerView setHidden:YES];
+
+    
 }
 -(IBAction)editButtonClicked:(id)sender{
     
