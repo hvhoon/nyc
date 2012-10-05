@@ -11,6 +11,9 @@
 #import "MainServiceManager.h"
 #import "MBProgressHUD.h"
 #import "PostActivityRequestInvocation.h"
+#import "SOCProfileViewController.h"
+#import "SocPlayerClass.h"
+#import "InviteObjectClass.h"
 @interface InvitesViewController(Private) <MBProgressHUDDelegate,PostActivityRequestInvocationDelegate>
 @end
 
@@ -184,6 +187,22 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+-(void)PushUserToProfileScreen:(InviteObjectClass*)player{
+    SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
+    myClass.playerName=player.userName;
+    myClass.DOS=player.DOS;
+    myClass.activityId=activityId;
+    myClass.latestActivityName=activityName;
+    myClass.activityType=1;
+    myClass.profilePhotoUrl=player.profilePhotoUrl;
+    myClass.distance=0.99;
+    SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
+    socProfileViewController.playerObject=myClass;
+    [[self navigationController] pushViewController:socProfileViewController animated:YES];
+    [socProfileViewController release];
+
 }
 -(IBAction)profileSliderPressed:(id)sender{
     [delegate showLeft:sender];

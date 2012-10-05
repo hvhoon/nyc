@@ -10,6 +10,8 @@
 #import "SoclivityUtilities.h"
 #import "InviteObjectClass.h"
 #import "UserContactList.h"
+#import "SocPlayerClass.h"
+#import "SOCProfileViewController.h"
 @interface ContactsListViewController ()
 
 - (void)startIconDownload:(InviteObjectClass*)appRecord forIndexPath:(NSIndexPath *)indexPath;
@@ -414,6 +416,51 @@
     
     [contactListTableView reloadData];
 }
+
+-(void)pushToUserProfileView:(NSIndexPath*)indexPath rType:(NSInteger)rType{
+    
+    
+    InviteObjectClass*player=nil;
+    if(searching){
+        player =[self.filteredListContent objectAtIndex:indexPath.row];
+        
+    }
+    else {
+        player = [[[[self.contactsListContentArray objectAtIndex:indexPath.section] objectForKey:@"Elements"]
+                    objectAtIndex:indexPath.row]objectForKey:@"ActivityInvite"];
+    }
+    
+    switch (rType) {
+        case 3:
+        {
+            SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
+            myClass.playerName=player.userName;
+            myClass.DOS=player.DOS;
+            myClass.activityId=2;
+            myClass.latestActivityName=@"Oven Fresh";
+            myClass.activityType=1;
+            myClass.profilePhotoUrl=player.profilePhotoUrl;
+            myClass.distance=0.99;
+            SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
+            socProfileViewController.playerObject=myClass;
+            [[self navigationController] pushViewController:socProfileViewController animated:YES];
+            [socProfileViewController release];
+            
+        }
+            break;
+            
+        default:
+        {
+            return;
+        }
+            break;
+    }
+
+    
+    
+    
+}
+
 
 #pragma mark -
 #pragma mark Content Filtering

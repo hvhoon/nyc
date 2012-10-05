@@ -519,7 +519,36 @@
     
     return sectionHeaderview;
     
-}	
+}
+
+-(void)pushToUserProfileView:(NSIndexPath*)indexPath rType:(NSInteger)rType{
+    
+    
+    InviteObjectClass*product=nil;
+    if(searching){
+        product =[self.filteredListContent objectAtIndex:indexPath.row];
+        
+    }
+    else {
+        product = [[[[self.InviteEntriesArray objectAtIndex:indexPath.section] objectForKey:@"Elements"]
+                    objectAtIndex:indexPath.row]objectForKey:@"ActivityInvite"];
+    }
+
+    switch (rType) {
+        case 0:
+        case 1:
+        {
+            [delegate PushUserToProfileScreen:product];
+        }
+            break;
+            
+        default:
+        {
+            return;
+        }
+            break;
+    }
+}
 
 
 -(void)inviteStatusUpdate:(NSIndexPath*)indexPath relationType:(NSInteger)relationType{

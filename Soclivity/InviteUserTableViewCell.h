@@ -13,6 +13,7 @@
 
 @optional
 -(void)inviteStatusUpdate:(NSIndexPath*)indexPath relationType:(NSInteger)relationType;
+-(void)pushToUserProfileView:(NSIndexPath*)indexPath rType:(NSInteger)rType;
 @end
 
 @interface InviteUserTableViewCell : ABTableViewCell{
@@ -27,6 +28,8 @@
     NSString *userName;
     NSInteger typeOfRelation;
     UIImage *profileImage;
+    CGRect profileImageP;
+    CGRect userNameLabelRectP;
 
 }
 @property (nonatomic,retain)id <InviteTableViewCellDelegate>delegate;

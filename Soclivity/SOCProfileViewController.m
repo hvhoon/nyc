@@ -543,6 +543,27 @@
 
 }
 
+-(void)pushToUserProfileView:(NSIndexPath*)indexPath rType:(NSInteger)rType{
+ 
+    
+    InviteObjectClass*player = [self.loadNFriendsAtTimeArray objectAtIndex:indexPath.row];
+    
+    SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
+    myClass.playerName=player.userName;
+    myClass.DOS=player.DOS;
+    myClass.activityId=2;
+    myClass.latestActivityName=@"Oven Fresh";
+    myClass.activityType=1;
+    myClass.profilePhotoUrl=player.profilePhotoUrl;
+    myClass.distance=0.99;
+    SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
+    socProfileViewController.playerObject=myClass;
+    [[self navigationController] pushViewController:socProfileViewController animated:YES];
+    [socProfileViewController release];
+
+
+}
+
 
 #pragma mark -
 #pragma mark Profile Picture Functions

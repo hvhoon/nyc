@@ -56,10 +56,10 @@ static UIFont *boldText = nil;
     
     [[UIImage imageNamed:@"S05_participantPic.png"] drawInRect:CGRectMake(42,6,37,37)];
     
-    CGRect profileImageP = CGRectMake(46,9.5, 28, 28);
+    profileImageP = CGRectMake(46,9.5, 28, 28);
     [profileImage drawInRect:profileImageP];
     
-    CGRect userNameLabelRectP = CGRectMake(100, 15, 180, 15);
+    userNameLabelRectP = CGRectMake(100, 15, 180, 15);
     [userName drawInRect:userNameLabelRectP withFont:firstTextFont];
     
     
@@ -193,6 +193,12 @@ static UIFont *boldText = nil;
     CGPoint startPoint =[touch locationInView:self.contentView];
     NSLog(@"startpointX=%f",startPoint.x);
 	NSLog(@"Tap Detected");
+    
+    if((CGRectContainsPoint(profileImageP,startPoint))||(CGRectContainsPoint(userNameLabelRectP,startPoint))){
+        
+        [delegate pushToUserProfileView:cellIndexPath rType:typeOfRelation];
+    }
+
     
     if(CGRectContainsPoint(inviteRect,startPoint)){
         
