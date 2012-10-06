@@ -213,6 +213,15 @@
         // Get the profile image
         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[result objectForKey:@"pic"]]]];
         SOC.registrationObject.FBProfileImage=image;
+        if(SOC.registrationObject.FBProfileImage.size.height != SOC.registrationObject.FBProfileImage.size.width)
+            SOC.registrationObject.FBProfileImage = [SoclivityUtilities autoCrop:SOC.registrationObject.FBProfileImage];
+        
+        // If the image needs to be compressed
+        if(SOC.registrationObject.FBProfileImage.size.height > 100 || SOC.registrationObject.FBProfileImage.size.width > 100)
+            SOC.registrationObject.FBProfileImage = [SoclivityUtilities compressImage:SOC.registrationObject.FBProfileImage size:CGSizeMake(100,100)];
+        
+        SOC.registrationObject.profileImageData=UIImagePNGRepresentation(SOC.registrationObject.FBProfileImage);
+
         
         // Resize, crop the image to make sure it is square and renders
         // well on Retina display

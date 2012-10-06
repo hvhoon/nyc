@@ -154,7 +154,7 @@
 
     
     switch (relationTypeTag) {
-        case 7:
+        case 11:
         {
             
             if(inviteFriends){

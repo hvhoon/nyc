@@ -12,5 +12,5 @@
     
 }
 -(int)GetAddressBookcount;
--(void)GetAddressBook;
+-(NSString*)GetAddressBook;
 @end

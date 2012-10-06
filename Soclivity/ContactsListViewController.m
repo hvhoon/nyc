@@ -77,8 +77,8 @@
     contactListTableView.showsVerticalScrollIndicator=YES;
     contactListTableView.clipsToBounds=YES;
     
-    //UserContactList *addressBook=[[UserContactList alloc]init];
-    //self.contactsListContentArray=[addressBook GetAddressBook];
+    UserContactList *addressBook=[[UserContactList alloc]init];
+     NSString *contactList=[addressBook GetAddressBook];
     
     self.contactsListContentArray=[self setUpDummyContactList];
     
