@@ -617,6 +617,7 @@
 - (void)filterContentForSearchText:(NSString*)searchText
 {
 	
+        self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
 	   [self.filteredListContent removeAllObjects]; // First clear the filtered array.
     
         NSMutableArray *content = [NSMutableArray new];
