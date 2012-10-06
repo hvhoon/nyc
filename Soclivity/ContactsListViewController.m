@@ -9,7 +9,6 @@
 #import "ContactsListViewController.h"
 #import "SoclivityUtilities.h"
 #import "InviteObjectClass.h"
-#import "UserContactList.h"
 #import "SocPlayerClass.h"
 #import "SOCProfileViewController.h"
 @interface ContactsListViewController ()
@@ -78,8 +77,8 @@
     contactListTableView.clipsToBounds=YES;
     
     UserContactList *addressBook=[[UserContactList alloc]init];
-     NSString *contactList=[addressBook GetAddressBook];
-    
+    addressBook.delegate=self;
+    [addressBook loadContacts];
     self.contactsListContentArray=[self setUpDummyContactList];
     
     [contactListTableView reloadData];
@@ -88,6 +87,34 @@
 
     // Do any additional setup after loading the view from its nib.
 }
+
+-(void)addressBookHelperError{
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:nil
+                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    [alert show];
+    [alert release];
+    return;
+    
+    
+}
+-(void)addressBookHelperDeniedAcess{
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Denied Access" message:nil
+                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    [alert show];
+    [alert release];
+    return;
+    
+    
+}
+-(void)AddressBookSuccessful:(NSString*)response{
+ 
+    NSLog(@"response=%@",response);
+}
+
 
 
 -(NSArray*)setUpDummyContactList{

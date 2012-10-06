@@ -10,7 +10,7 @@
 #import "CustomSearchbar.h"
 #import "InviteUserTableViewCell.h"
 #import "IconDownloader.h"
-
+#import "UserContactList.h"
 @protocol ContactsListViewDelegate <NSObject>
 
 @optional
@@ -18,7 +18,7 @@
 -(NSInteger)CalculateOpenSlots;
 @end
 
-@interface ContactsListViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,CustomSearchBarDelegate,InviteTableViewCellDelegate,IconDownloaderDelegate>{
+@interface ContactsListViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,CustomSearchBarDelegate,InviteTableViewCellDelegate,IconDownloaderDelegate,UserContactListDelegate>{
     
     IBOutlet UIButton*activityBackButton;
     IBOutlet UILabel *inviteTitleLabel;

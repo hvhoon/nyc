@@ -80,7 +80,7 @@ static UIFont *boldText = nil;
             if(DOS==1){
                 [[UIImage imageNamed:@"dos1.png"] drawInRect:DOSImageRect];
             }
-            else{
+            else if(DOS==2){
                 [[UIImage imageNamed:@"dos2.png"] drawInRect:DOSImageRect];
             }
 
@@ -142,7 +142,7 @@ static UIFont *boldText = nil;
             if(DOS==1){
                 [[UIImage imageNamed:@"dos1.png"] drawInRect:DOSImageRect];
             }
-            else{
+            else if(DOS==2){
                 [[UIImage imageNamed:@"dos2.png"] drawInRect:DOSImageRect];
             }
             
