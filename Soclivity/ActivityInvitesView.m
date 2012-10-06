@@ -714,7 +714,6 @@
         InviteUserTableViewCell *cell = (InviteUserTableViewCell*)[inviteUserTableView cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
         // Display the newly loaded image
         cell.profileImage = [iconDownloader.inviteRecord.profileImage retain];
-        NSLog(@"cell=%@",cell.profileImage);
 
     }
     
@@ -810,6 +809,27 @@
     [self.searchBarForInvites resignFirstResponder];
     
 }
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    
+    [super touchesBegan:touches withEvent:event];
+    
+    UITouch *touch =[touches anyObject];
+    CGPoint startPoint =[touch locationInView:self];
+    NSLog(@"Start Point_X=%f,Start Point_Y=%f",startPoint.x,startPoint.y);
+        CGRect tapClearSearchRect =CGRectMake(260, 7, 57, 30);
+        
+        if(CGRectContainsPoint(tapClearSearchRect,startPoint)){
+            
+            if((searchBarForInvites.text==(NSString*)[NSNull null])||([searchBarForInvites.text isEqualToString:@""]||searchBarForInvites.text==nil)||([searchBarForInvites.text isEqualToString:@"(null)"])){
+            }
+            else{
+                [self customCancelButtonHit];
+            }
+        }
+        
+}
+
 
 
 
