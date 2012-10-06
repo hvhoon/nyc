@@ -957,15 +957,17 @@
 -(IBAction)inviteUsersButton:(id)sender{
     
     
-    if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
-        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-
-    inviteUsersToActivityButton.hidden=YES;
-    blankInviteUsersAnimationButton.hidden=NO;
-    [spinnerView startAnimating];
-    [spinnerView setHidden:NO];
     
     if([SoclivityUtilities hasNetworkConnection]){
+        
+        if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
+            [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+        
+        inviteUsersToActivityButton.hidden=YES;
+        blankInviteUsersAnimationButton.hidden=NO;
+        [spinnerView startAnimating];
+        [spinnerView setHidden:NO];
+
             [devServer getActivityPlayerInvitesInvocation:[SOC.loggedInUser.idSoc intValue] actId:activityInfo.activityId delegate:self];
      }
     
@@ -1651,7 +1653,7 @@
     else{
         SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
         myClass.playerName=player.name;
-        myClass.DOS=activityInfo.DOS;
+        myClass.DOS=player.dosConnection;
         myClass.activityId=activityInfo.activityId;
         myClass.latestActivityName=activityInfo.activityName;
         myClass.activityType=activityInfo.type;

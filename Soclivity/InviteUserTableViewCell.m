@@ -62,7 +62,9 @@ static UIFont *boldText = nil;
     userNameLabelRectP = CGRectMake(100, 15, 180, 15);
     [userName drawInRect:userNameLabelRectP withFont:firstTextFont];
     
-    
+    CGSize  size = [userName sizeWithFont:firstTextFont];
+    NSLog(@"width=%f",size.width);
+    userNameLabelRectP=CGRectMake(100, 15, size.width, 15);
     
     
     switch (typeOfRelation) {

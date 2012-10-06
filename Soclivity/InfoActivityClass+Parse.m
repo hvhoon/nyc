@@ -144,6 +144,7 @@
         ParticipantClass *pObject=[[[ParticipantClass alloc]init]autorelease];
         NSNumber *participantId = [obj objectForKey:@"id"];
         pObject.participantId=[participantId intValue];
+        pObject.dosConnection=1;
         pObject.name=[obj objectForKey:@"name"];
         pObject.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[obj objectForKey:@"photo"]];
         [DOS1Array addObject:pObject];
@@ -160,7 +161,7 @@
         ParticipantClass *pObject=[[[ParticipantClass alloc]init]autorelease];
         NSNumber *participantId = [object objectForKey:@"id"];
         pObject.participantId=[participantId intValue];
-
+        pObject.dosConnection=2;
         pObject.name=[object objectForKey:@"name"];
         pObject.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[object objectForKey:@"photo"]];
         [DOS2Array addObject:pObject];
@@ -196,7 +197,7 @@
         ParticipantClass *pObject=[[[ParticipantClass alloc]init]autorelease];
         NSNumber *participantId = [object objectForKey:@"id"];
         pObject.participantId=[participantId intValue];
-        
+        pObject.dosConnection=3;
         pObject.name=[object objectForKey:@"name"];
         pObject.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[object objectForKey:@"photo"]];
         [DOS3FriendsArray addObject:pObject];
