@@ -20,10 +20,7 @@
 
 
 -(void)invoke {
-    //NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/activityinvites.json?id=%d&pid=%d",activityId,playerId];
-    
-    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/activityinvites.json?id=2&pid=71"];
-
+    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/activityinvites.json?id=%d&pid=%d",activityId,playerId];
     [self get:a];
 }
 
