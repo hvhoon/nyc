@@ -116,7 +116,7 @@
     
         if([SoclivityUtilities hasNetworkConnection]){
                 [self startAnimation:0];
-    [devServer postActivityRequestInvocation:7  playerId:invitePlayerId actId:activityId delegate:self];
+    [devServer postActivityRequestInvocation:11  playerId:invitePlayerId actId:activityId delegate:self];
         }
         else{
             

@@ -70,6 +70,14 @@
             [self delete:a];
         }
             break;
+            
+        case 11:
+        {
+            a= [NSString stringWithFormat:@"dev.soclivity.com/joinactivity.json?id=%d&pid=%d&astatus=true",activityId,playerId];
+            [self post:a body:nil];
+        }
+            break;
+
      
 
      }
