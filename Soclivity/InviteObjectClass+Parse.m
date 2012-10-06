@@ -19,6 +19,10 @@
 	}
     
     NSMutableArray *content = [NSMutableArray new];
+    
+    NSNumber *openSlots = [ACTDict objectForKey:@"slots"];
+    [[NSUserDefaults standardUserDefaults] setValue:openSlots forKey:@"ActivityOpenSlots"];
+
 
 	NSArray*rdswArray =[ACTDict objectForKey:@"rdsw"];
     

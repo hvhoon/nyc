@@ -1002,7 +1002,9 @@
     InvitesViewController *invitesViewController=[[InvitesViewController alloc] initWithNibName:nibNameBundle bundle:nil];
     invitesViewController.activityName=[NSString stringWithFormat:@"%@",activityInfo.activityName];
     invitesViewController.inviteArray=responses;
-    invitesViewController.num_of_slots=activityInfo.num_of_people;
+    NSNumber *slots=[[NSUserDefaults standardUserDefaults] valueForKey:@"ActivityOpenSlots"];
+
+    invitesViewController.num_of_slots=[slots intValue];
     invitesViewController.inviteFriends=YES;
     invitesViewController.activityId=activityInfo.activityId;
     [[self navigationController] pushViewController:invitesViewController animated:YES];
