@@ -11,49 +11,6 @@
 #import "SoclivityManager.h"
 #import "FilterPreferenceClass.h"
 
-#define kPlayActivity 12
-#define kEatActivity 13
-#define kSeeActivity 14
-#define kCreateActivity 15
-#define kLearnActivity 16
-#define kTodayFilter 17
-#define kTomorrowFilter 18
-#define kLaterFilter 19
-#define kStartTime 20
-#define kFinshTime 21
-#define kPlayLabelText 22
-#define kPlayTickImage 23
-#define kEatTickImage 24
-#define kEatLabelText 25
-#define kSeeTickImage 26
-#define kSeeLabelText 27
-#define kCreateTickImage 28
-#define kCreateLabelText 29
-#define kLearnTickImage 30
-#define kLearnLabelText 31
-#define kNextTwoDays 32
-#define kNextTwoDaysTickImage 33
-#define kNextTwoDaysText 34
-#define kNextSevenDays 35
-#define kNextSevenDaysTickImage 36
-#define kNextSevenDaysText 37
-#define kPickADayText 38
-#define kPickADayTickImage 39
-#define kPickADay 40
-#define kMorningButton 41
-#define kSunriseImage 42
-#define kMorningText 43
-#define kAm12_Am11 44
-#define kAfternoonButton 45
-#define kSunSelectedImage 46
-#define kAfternoonText 47
-#define kPm12_Pm6 48
-#define kEveningButton 49
-#define kMoonSelectedImage 50
-#define kEveningText 51
-#define kPm7_Pm11 52
-#define kCrossDateSelection 53
-#define kTickDateSelection 54
 @implementation StyledPullableView
 @synthesize homeSearchBar;
 - (id)initWithFrame:(CGRect)frame {

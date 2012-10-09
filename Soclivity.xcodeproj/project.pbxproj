@@ -475,6 +475,31 @@
 		EABCE21E15E7E9F0005B74E8 /* ContactsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EABCE21C15E7E9EF005B74E8 /* ContactsListViewController.m */; };
 		EABCE21F15E7E9F0005B74E8 /* ContactsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABCE21D15E7E9EF005B74E8 /* ContactsListViewController.xib */; };
 		EABCE22415E7F658005B74E8 /* ContactList.plist in Resources */ = {isa = PBXBuildFile; fileRef = EABCE22315E7F658005B74E8 /* ContactList.plist */; };
+		EABEC70E1622D9CA00DB179E /* CreateActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EABEC70C1622D9CA00DB179E /* CreateActivityViewController.m */; };
+		EABEC70F1622D9CA00DB179E /* CreateActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABEC70D1622D9CA00DB179E /* CreateActivityViewController.xib */; };
+		EABEC7111622DB1C00DB179E /* CreateActivityViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7101622DB1C00DB179E /* CreateActivityViewController_iphone5.xib */; };
+		EABEC7291622F4E200DB179E /* S06_backdrop.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7131622F4E200DB179E /* S06_backdrop.png */; };
+		EABEC72A1622F4E200DB179E /* S06_backdrop5.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7141622F4E200DB179E /* S06_backdrop5.png */; };
+		EABEC72B1622F4E200DB179E /* S06_backdrop5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7151622F4E200DB179E /* S06_backdrop5@2x.png */; };
+		EABEC72C1622F4E200DB179E /* S06_backdrop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7161622F4E200DB179E /* S06_backdrop@2x.png */; };
+		EABEC72D1622F4E200DB179E /* S06_capacity.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7171622F4E200DB179E /* S06_capacity.png */; };
+		EABEC72E1622F4E200DB179E /* S06_capacity@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7181622F4E200DB179E /* S06_capacity@2x.png */; };
+		EABEC72F1622F4E200DB179E /* S06_create.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7191622F4E200DB179E /* S06_create.png */; };
+		EABEC7301622F4E200DB179E /* S06_create@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC71A1622F4E200DB179E /* S06_create@2x.png */; };
+		EABEC7311622F4E200DB179E /* S06_createActivityButton.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC71B1622F4E200DB179E /* S06_createActivityButton.png */; };
+		EABEC7321622F4E200DB179E /* S06_createActivityButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC71C1622F4E200DB179E /* S06_createActivityButton@2x.png */; };
+		EABEC7331622F4E200DB179E /* S06_eat.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC71D1622F4E200DB179E /* S06_eat.png */; };
+		EABEC7341622F4E200DB179E /* S06_eat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC71E1622F4E200DB179E /* S06_eat@2x.png */; };
+		EABEC7351622F4E200DB179E /* S06_fieldDivider.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC71F1622F4E200DB179E /* S06_fieldDivider.png */; };
+		EABEC7361622F4E200DB179E /* S06_fieldDivider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7201622F4E200DB179E /* S06_fieldDivider@2x.png */; };
+		EABEC7371622F4E200DB179E /* S06_learn.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7211622F4E200DB179E /* S06_learn.png */; };
+		EABEC7381622F4E200DB179E /* S06_learn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7221622F4E200DB179E /* S06_learn@2x.png */; };
+		EABEC7391622F4E200DB179E /* S06_pickLocationButton.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7231622F4E200DB179E /* S06_pickLocationButton.png */; };
+		EABEC73A1622F4E200DB179E /* S06_pickLocationButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7241622F4E200DB179E /* S06_pickLocationButton@2x.png */; };
+		EABEC73B1622F4E200DB179E /* S06_play.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7251622F4E200DB179E /* S06_play.png */; };
+		EABEC73C1622F4E200DB179E /* S06_play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7261622F4E200DB179E /* S06_play@2x.png */; };
+		EABEC73D1622F4E200DB179E /* S06_see.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7271622F4E200DB179E /* S06_see.png */; };
+		EABEC73E1622F4E200DB179E /* S06_see@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7281622F4E200DB179E /* S06_see@2x.png */; };
 		EAC801AE161182C400501765 /* HomeViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC801AD161182C400501765 /* HomeViewController_iphone5.xib */; };
 		EAC801B016119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC801AF16119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib */; };
 		EAC801B21611B97A00501765 /* SlideViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC801B11611B97A00501765 /* SlideViewController_iphone5.xib */; };
@@ -1280,6 +1305,32 @@
 		EABCE21C15E7E9EF005B74E8 /* ContactsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsListViewController.m; sourceTree = "<group>"; };
 		EABCE21D15E7E9EF005B74E8 /* ContactsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsListViewController.xib; sourceTree = "<group>"; };
 		EABCE22315E7F658005B74E8 /* ContactList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ContactList.plist; sourceTree = "<group>"; };
+		EABEC70B1622D9CA00DB179E /* CreateActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateActivityViewController.h; sourceTree = "<group>"; };
+		EABEC70C1622D9CA00DB179E /* CreateActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateActivityViewController.m; sourceTree = "<group>"; };
+		EABEC70D1622D9CA00DB179E /* CreateActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateActivityViewController.xib; sourceTree = "<group>"; };
+		EABEC7101622DB1C00DB179E /* CreateActivityViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateActivityViewController_iphone5.xib; sourceTree = "<group>"; };
+		EABEC7131622F4E200DB179E /* S06_backdrop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S06_backdrop.png; sourceTree = "<group>"; };
+		EABEC7141622F4E200DB179E /* S06_backdrop5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S06_backdrop5.png; sourceTree = "<group>"; };
+		EABEC7151622F4E200DB179E /* S06_backdrop5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S06_backdrop5@2x.png"; sourceTree = "<group>"; };
+		EABEC7161622F4E200DB179E /* S06_backdrop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S06_backdrop@2x.png"; sourceTree = "<group>"; };
+		EABEC7171622F4E200DB179E /* S06_capacity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S06_capacity.png; sourceTree = "<group>"; };
+		EABEC7181622F4E200DB179E /* S06_capacity@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S06_capacity@2x.png"; sourceTree = "<group>"; };
+		EABEC7191622F4E200DB179E /* S06_create.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S06_create.png; sourceTree = "<group>"; };
+		EABEC71A1622F4E200DB179E /* S06_create@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S06_create@2x.png"; sourceTree = "<group>"; };
+		EABEC71B1622F4E200DB179E /* S06_createActivityButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S06_createActivityButton.png; sourceTree = "<group>"; };
+		EABEC71C1622F4E200DB179E /* S06_createActivityButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S06_createActivityButton@2x.png"; sourceTree = "<group>"; };
+		EABEC71D1622F4E200DB179E /* S06_eat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S06_eat.png; sourceTree = "<group>"; };
+		EABEC71E1622F4E200DB179E /* S06_eat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S06_eat@2x.png"; sourceTree = "<group>"; };
+		EABEC71F1622F4E200DB179E /* S06_fieldDivider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S06_fieldDivider.png; sourceTree = "<group>"; };
+		EABEC7201622F4E200DB179E /* S06_fieldDivider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S06_fieldDivider@2x.png"; sourceTree = "<group>"; };
+		EABEC7211622F4E200DB179E /* S06_learn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S06_learn.png; sourceTree = "<group>"; };
+		EABEC7221622F4E200DB179E /* S06_learn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S06_learn@2x.png"; sourceTree = "<group>"; };
+		EABEC7231622F4E200DB179E /* S06_pickLocationButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S06_pickLocationButton.png; sourceTree = "<group>"; };
+		EABEC7241622F4E200DB179E /* S06_pickLocationButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S06_pickLocationButton@2x.png"; sourceTree = "<group>"; };
+		EABEC7251622F4E200DB179E /* S06_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S06_play.png; sourceTree = "<group>"; };
+		EABEC7261622F4E200DB179E /* S06_play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S06_play@2x.png"; sourceTree = "<group>"; };
+		EABEC7271622F4E200DB179E /* S06_see.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S06_see.png; sourceTree = "<group>"; };
+		EABEC7281622F4E200DB179E /* S06_see@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S06_see@2x.png"; sourceTree = "<group>"; };
 		EAC801AD161182C400501765 /* HomeViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController_iphone5.xib; sourceTree = "<group>"; };
 		EAC801AF16119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpComingCompletedEventsViewController_iphone5.xib; sourceTree = "<group>"; };
 		EAC801B11611B97A00501765 /* SlideViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlideViewController_iphone5.xib; sourceTree = "<group>"; };
@@ -1602,6 +1653,7 @@
 		680CE3E81551258700B8E937 /* Soclivity */ = {
 			isa = PBXGroup;
 			children = (
+				EABEC70A1622D8E800DB179E /* Create Activity */,
 				EA85DC6715B01AC300AAD964 /* Blocked List */,
 				EA85DC6115B00C4F00AAD964 /* Invites */,
 				EA85DC5715AFFF9900AAD964 /* Notifications */,
@@ -1673,6 +1725,7 @@
 				686E79F615B5E3A800A05C7C /* S05 Activity Event */,
 				EA863A0B15C1585E0072C005 /* S05.1 Map View */,
 				EAAEF8A215DA60710085DBE5 /* S05.4 Activity Invites */,
+				EABEC7121622F4E200DB179E /* S06 Create Activity */,
 				EA85DBDE15AFDD6A00AAD964 /* S07 Settings */,
 				EAC801B31611C61C00501765 /* S10 Upcoming */,
 			);
@@ -2622,6 +2675,47 @@
 			name = "Activity Invites";
 			sourceTree = "<group>";
 		};
+		EABEC70A1622D8E800DB179E /* Create Activity */ = {
+			isa = PBXGroup;
+			children = (
+				EABEC70B1622D9CA00DB179E /* CreateActivityViewController.h */,
+				EABEC70C1622D9CA00DB179E /* CreateActivityViewController.m */,
+				EABEC70D1622D9CA00DB179E /* CreateActivityViewController.xib */,
+				EABEC7101622DB1C00DB179E /* CreateActivityViewController_iphone5.xib */,
+			);
+			name = "Create Activity";
+			sourceTree = "<group>";
+		};
+		EABEC7121622F4E200DB179E /* S06 Create Activity */ = {
+			isa = PBXGroup;
+			children = (
+				EABEC7131622F4E200DB179E /* S06_backdrop.png */,
+				EABEC7141622F4E200DB179E /* S06_backdrop5.png */,
+				EABEC7151622F4E200DB179E /* S06_backdrop5@2x.png */,
+				EABEC7161622F4E200DB179E /* S06_backdrop@2x.png */,
+				EABEC7171622F4E200DB179E /* S06_capacity.png */,
+				EABEC7181622F4E200DB179E /* S06_capacity@2x.png */,
+				EABEC7191622F4E200DB179E /* S06_create.png */,
+				EABEC71A1622F4E200DB179E /* S06_create@2x.png */,
+				EABEC71B1622F4E200DB179E /* S06_createActivityButton.png */,
+				EABEC71C1622F4E200DB179E /* S06_createActivityButton@2x.png */,
+				EABEC71D1622F4E200DB179E /* S06_eat.png */,
+				EABEC71E1622F4E200DB179E /* S06_eat@2x.png */,
+				EABEC71F1622F4E200DB179E /* S06_fieldDivider.png */,
+				EABEC7201622F4E200DB179E /* S06_fieldDivider@2x.png */,
+				EABEC7211622F4E200DB179E /* S06_learn.png */,
+				EABEC7221622F4E200DB179E /* S06_learn@2x.png */,
+				EABEC7231622F4E200DB179E /* S06_pickLocationButton.png */,
+				EABEC7241622F4E200DB179E /* S06_pickLocationButton@2x.png */,
+				EABEC7251622F4E200DB179E /* S06_play.png */,
+				EABEC7261622F4E200DB179E /* S06_play@2x.png */,
+				EABEC7271622F4E200DB179E /* S06_see.png */,
+				EABEC7281622F4E200DB179E /* S06_see@2x.png */,
+			);
+			name = "S06 Create Activity";
+			path = "Soclivity/S06 Create Activity";
+			sourceTree = "<group>";
+		};
 		EAC801B31611C61C00501765 /* S10 Upcoming */ = {
 			isa = PBXGroup;
 			children = (
@@ -3507,6 +3601,30 @@
 				68A8F789161BE9E10031D669 /* S05_public5.png in Resources */,
 				68A8F78A161BE9E10031D669 /* S05_private5@2x.png in Resources */,
 				68A8F78B161BE9E10031D669 /* S05_public5@2x.png in Resources */,
+				EABEC70F1622D9CA00DB179E /* CreateActivityViewController.xib in Resources */,
+				EABEC7111622DB1C00DB179E /* CreateActivityViewController_iphone5.xib in Resources */,
+				EABEC7291622F4E200DB179E /* S06_backdrop.png in Resources */,
+				EABEC72A1622F4E200DB179E /* S06_backdrop5.png in Resources */,
+				EABEC72B1622F4E200DB179E /* S06_backdrop5@2x.png in Resources */,
+				EABEC72C1622F4E200DB179E /* S06_backdrop@2x.png in Resources */,
+				EABEC72D1622F4E200DB179E /* S06_capacity.png in Resources */,
+				EABEC72E1622F4E200DB179E /* S06_capacity@2x.png in Resources */,
+				EABEC72F1622F4E200DB179E /* S06_create.png in Resources */,
+				EABEC7301622F4E200DB179E /* S06_create@2x.png in Resources */,
+				EABEC7311622F4E200DB179E /* S06_createActivityButton.png in Resources */,
+				EABEC7321622F4E200DB179E /* S06_createActivityButton@2x.png in Resources */,
+				EABEC7331622F4E200DB179E /* S06_eat.png in Resources */,
+				EABEC7341622F4E200DB179E /* S06_eat@2x.png in Resources */,
+				EABEC7351622F4E200DB179E /* S06_fieldDivider.png in Resources */,
+				EABEC7361622F4E200DB179E /* S06_fieldDivider@2x.png in Resources */,
+				EABEC7371622F4E200DB179E /* S06_learn.png in Resources */,
+				EABEC7381622F4E200DB179E /* S06_learn@2x.png in Resources */,
+				EABEC7391622F4E200DB179E /* S06_pickLocationButton.png in Resources */,
+				EABEC73A1622F4E200DB179E /* S06_pickLocationButton@2x.png in Resources */,
+				EABEC73B1622F4E200DB179E /* S06_play.png in Resources */,
+				EABEC73C1622F4E200DB179E /* S06_play@2x.png in Resources */,
+				EABEC73D1622F4E200DB179E /* S06_see.png in Resources */,
+				EABEC73E1622F4E200DB179E /* S06_see@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3644,6 +3762,7 @@
 				EAE094D016198C2E005E69D0 /* SocPlayerClass.m in Sources */,
 				EAB6347F161F358F0023E883 /* GetActivityInvitesInvocation.m in Sources */,
 				EAB63482161F37A40023E883 /* InviteObjectClass+Parse.m in Sources */,
+				EABEC70E1622D9CA00DB179E /* CreateActivityViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3688,8 +3807,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
-				PROVISIONING_PROFILE = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
+				PROVISIONING_PROFILE = "A549F0B4-A9C2-4512-8F25-A48BB57E3E2A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A549F0B4-A9C2-4512-8F25-A48BB57E3E2A";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -3717,8 +3836,8 @@
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
+				PROVISIONING_PROFILE = "A549F0B4-A9C2-4512-8F25-A48BB57E3E2A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A549F0B4-A9C2-4512-8F25-A48BB57E3E2A";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -3741,8 +3860,8 @@
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
+				PROVISIONING_PROFILE = "A549F0B4-A9C2-4512-8F25-A48BB57E3E2A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A549F0B4-A9C2-4512-8F25-A48BB57E3E2A";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				USER_HEADER_SEARCH_PATHS = "../../src/**";
 				WRAPPER_EXTENSION = app;
@@ -3764,8 +3883,8 @@
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E3A87E10-89DA-4212-83F4-EE379EC259A5";
+				PROVISIONING_PROFILE = "A549F0B4-A9C2-4512-8F25-A48BB57E3E2A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A549F0B4-A9C2-4512-8F25-A48BB57E3E2A";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				USER_HEADER_SEARCH_PATHS = "../../src/**";
 				WRAPPER_EXTENSION = app;

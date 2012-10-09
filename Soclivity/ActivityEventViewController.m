@@ -22,6 +22,7 @@
 #import "UpComingCompletedEventsViewController.h"
 #import "ParticipantClass.h"
 #import "GetActivityInvitesInvocation.h"
+#import "CreateActivityViewController.h"
 #define kEditMapElements 10
 #define kJoinRequest 11
 #define kDeleteActivity 12
@@ -34,7 +35,7 @@
 #define kRemovePlayerRequest 19
 #define kLeaveActivity 20
 #define kDeleteActivityRequest 21
-@interface ActivityEventViewController (private)<EditActivityEventInvocationDelegate,MBProgressHUDDelegate,PostActivityRequestInvocationDelegate,GetActivityInvitesInvocationDelegate>
+@interface ActivityEventViewController (private)<EditActivityEventInvocationDelegate,MBProgressHUDDelegate,PostActivityRequestInvocationDelegate,GetActivityInvitesInvocationDelegate,NewActivityViewDelegate>
 @end
 
 @implementation ActivityEventViewController
@@ -891,7 +892,27 @@
 }
 -(IBAction)createANewActivityButtonPressed:(id)sender{
     
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"CreateActivityViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"CreateActivityViewController";
+    }
+
     
+    CreateActivityViewController *avEditController = [[CreateActivityViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+    avEditController.delegate=self;
+    UINavigationController *addNavigationController = [[UINavigationController alloc] initWithRootViewController:avEditController];
+	
+    
+	[self.navigationController presentModalViewController:addNavigationController animated:YES];
+
+    
+}
+
+-(void)cancelCreateActivityEventScreen{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 -(IBAction)goingActivityButtonPressed:(id)sender{
