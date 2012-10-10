@@ -678,7 +678,7 @@
         {
             
             size = [@"Private" sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
-            publicPrivateButton.frame=CGRectMake(65, 364, size.width, 44);
+            publicPrivateButton.frame=CGRectMake(65, 366, size.width, 44);
             [privacyImageButton setBackgroundImage:[UIImage imageNamed:@"S05_private5.png"] forState:UIControlStateNormal];
             
             [privacyImageButton setBackgroundImage:[UIImage imageNamed:@"S05_private5.png"] forState:UIControlStateHighlighted];
