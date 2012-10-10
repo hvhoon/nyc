@@ -12,7 +12,7 @@
 @protocol PickDateViewDelegate <NSObject>
 
 @optional
-- (void)dismissDatePicker:(id)sender;
+- (void)dismissPicker:(id)sender;
 -(void)activityDateSelected:(NSString*)activityDate;
 @end
 

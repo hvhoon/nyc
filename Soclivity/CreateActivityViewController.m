@@ -60,22 +60,22 @@
     
     
     UIButton *playButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    playButton.frame = CGRectMake(0,44,64,50);
+    playButton.frame = CGRectMake(0,0,64,50);
     playButton.tag=kPlayActivity;
     [playButton setImage:[UIImage imageNamed:@"S06_play.png"] forState:UIControlStateNormal];
     
     
     
     [playButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:playButton];
+    [createActivityView addSubview:playButton];
     
     UIImageView *playTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_activityTypeCheck.png"]];
-    playTickImageView.frame=CGRectMake(20,54, 16, 15);
+    playTickImageView.frame=CGRectMake(20,10, 16, 15);
     playTickImageView.tag=kPlayTickImage;
-    [self.view addSubview:playTickImageView];
+    [createActivityView addSubview:playTickImageView];
     
     
-    CGRect playTypeLabelRect=CGRectMake(0,73,55,16);
+    CGRect playTypeLabelRect=CGRectMake(0,29,55,16);
     UILabel *playTypeLabel=[[UILabel alloc] initWithFrame:playTypeLabelRect];
     playTypeLabel.textAlignment=UITextAlignmentLeft;
     playTypeLabel.text=[NSString stringWithFormat:@"Play"];
@@ -84,26 +84,26 @@
     playTypeLabel.textAlignment = UITextAlignmentCenter;
     playTypeLabel.tag=kPlayLabelText;
     playTypeLabel.backgroundColor=[UIColor clearColor];
-    [self.view addSubview:playTypeLabel];
+    [createActivityView addSubview:playTypeLabel];
     
     
     [playTickImageView release];
     [playTypeLabel release];
     UIButton *eatButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    eatButton.frame = CGRectMake(64,44,64,50);
+    eatButton.frame = CGRectMake(64,0,64,50);
     eatButton.tag=kEatActivity;
     [eatButton setImage:[UIImage imageNamed:@"S06_eat.png"] forState:UIControlStateNormal];
     
     [eatButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:eatButton];
+    [createActivityView addSubview:eatButton];
     
     UIImageView *eatTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_activityTypeCheck.png"]];
-    eatTickImageView.frame=CGRectMake(84, 54, 16, 15);
+    eatTickImageView.frame=CGRectMake(84, 10, 16, 15);
     eatTickImageView.tag=kEatTickImage;
-    [self.view addSubview:eatTickImageView];
+    [createActivityView addSubview:eatTickImageView];
     
     
-    CGRect eatTypeLabelRect=CGRectMake(64,74,55,15);
+    CGRect eatTypeLabelRect=CGRectMake(64,30,55,15);
     UILabel *eatTypeLabel=[[UILabel alloc] initWithFrame:eatTypeLabelRect];
     eatTypeLabel.textAlignment=UITextAlignmentLeft;
     eatTypeLabel.text=[NSString stringWithFormat:@"Eat"];
@@ -112,7 +112,7 @@
     eatTypeLabel.textAlignment = UITextAlignmentCenter;
     eatTypeLabel.tag=kEatLabelText;
     eatTypeLabel.backgroundColor=[UIColor clearColor];
-    [self.view addSubview:eatTypeLabel];
+    [createActivityView addSubview:eatTypeLabel];
     
     [eatTickImageView release];
     [eatTypeLabel release];
@@ -120,20 +120,20 @@
     
     
     UIButton *seeButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    seeButton.frame = CGRectMake(128,44,64,50);
+    seeButton.frame = CGRectMake(128,0,64,50);
     seeButton.tag=kSeeActivity;
     [seeButton setImage:[UIImage imageNamed:@"S06_see.png"] forState:UIControlStateNormal];
     
     [seeButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:seeButton];
+    [createActivityView addSubview:seeButton];
     
     UIImageView *seeTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_activityTypeCheck.png"]];
-    seeTickImageView.frame=CGRectMake(148, 54, 16, 15);
+    seeTickImageView.frame=CGRectMake(148, 10, 16, 15);
     seeTickImageView.tag=kSeeTickImage;
-    [self.view addSubview:seeTickImageView];
+    [createActivityView addSubview:seeTickImageView];
     
     
-    CGRect seeTypeLabelRect=CGRectMake(128,74,55,15);
+    CGRect seeTypeLabelRect=CGRectMake(128,30,55,15);
     UILabel *seeTypeLabel=[[UILabel alloc] initWithFrame:seeTypeLabelRect];
     seeTypeLabel.textAlignment=UITextAlignmentLeft;
     seeTypeLabel.text=[NSString stringWithFormat:@"See"];
@@ -142,26 +142,26 @@
     seeTypeLabel.textAlignment = UITextAlignmentCenter;
     seeTypeLabel.tag=kSeeLabelText;
     seeTypeLabel.backgroundColor=[UIColor clearColor];
-    [self.view addSubview:seeTypeLabel];
+    [createActivityView addSubview:seeTypeLabel];
     
     [seeTickImageView release];
     [seeTypeLabel release];
     
     UIButton *createButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    createButton.frame = CGRectMake(192,44,64,50);
+    createButton.frame = CGRectMake(192,0,64,50);
     createButton.tag=kCreateActivity;
     [createButton setImage:[UIImage imageNamed:@"S06_create.png"] forState:UIControlStateNormal];
     
     [createButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:createButton];
+    [createActivityView addSubview:createButton];
     
     UIImageView *createTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_activityTypeCheck.png"]];
-    createTickImageView.frame=CGRectMake(212, 54, 16, 15);
+    createTickImageView.frame=CGRectMake(212, 10, 16, 15);
     createTickImageView.tag=kCreateTickImage;
-    [self.view addSubview:createTickImageView];
+    [createActivityView addSubview:createTickImageView];
     
     
-    CGRect createTypeLabelRect=CGRectMake(192,74,55,15);
+    CGRect createTypeLabelRect=CGRectMake(192,30,55,15);
     UILabel *createTypeLabel=[[UILabel alloc] initWithFrame:createTypeLabelRect];
     createTypeLabel.textAlignment=UITextAlignmentLeft;
     createTypeLabel.text=[NSString stringWithFormat:@"Create"];
@@ -170,26 +170,26 @@
     createTypeLabel.textAlignment = UITextAlignmentCenter;
     createTypeLabel.tag=kCreateLabelText;
     createTypeLabel.backgroundColor=[UIColor clearColor];
-    [self.view addSubview:createTypeLabel];
+    [createActivityView addSubview:createTypeLabel];
     
     [createTickImageView release];
     [createTypeLabel release];
     
     UIButton *learnButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    learnButton.frame = CGRectMake(256,44,64,50);
+    learnButton.frame = CGRectMake(256,0,64,50);
     learnButton.tag=kLearnActivity;
     [learnButton setImage:[UIImage imageNamed:@"S06_learn.png"] forState:UIControlStateNormal];
     
     [learnButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:learnButton];
+    [createActivityView addSubview:learnButton];
     
     UIImageView *learnTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_activityTypeCheck.png"]];
-    learnTickImageView.frame=CGRectMake(276, 54, 16, 15);
+    learnTickImageView.frame=CGRectMake(276, 10, 16, 15);
     learnTickImageView.tag=kLearnTickImage;
-    [self.view addSubview:learnTickImageView];
+    [createActivityView addSubview:learnTickImageView];
     
     
-    CGRect learnTypeLabelRect=CGRectMake(256,74,55,15);
+    CGRect learnTypeLabelRect=CGRectMake(256,30,55,15);
     UILabel *learnTypeLabel=[[UILabel alloc] initWithFrame:learnTypeLabelRect];
     learnTypeLabel.textAlignment=UITextAlignmentLeft;
     learnTypeLabel.text=[NSString stringWithFormat:@"Learn"];
@@ -198,7 +198,7 @@
     learnTypeLabel.textAlignment = UITextAlignmentCenter;
     learnTypeLabel.tag=kLearnLabelText;
     learnTypeLabel.backgroundColor=[UIColor clearColor];
-    [self.view addSubview:learnTypeLabel];
+    [createActivityView addSubview:learnTypeLabel];
     
     [learnTickImageView release];
     [learnTypeLabel release];
@@ -328,20 +328,20 @@
             
     case kPlayActivity:
     {
-        [(UILabel*)[self.view viewWithTag:kPlayLabelText] setAlpha:1.0f];
-        [(UIImageView*)[self.view viewWithTag:kPlayTickImage]setAlpha:1.0f];
+        [(UILabel*)[createActivityView viewWithTag:kPlayLabelText] setAlpha:1.0f];
+        [(UIImageView*)[createActivityView viewWithTag:kPlayTickImage]setAlpha:1.0f];
         
-        [(UILabel*)[self.view viewWithTag:kEatLabelText] setAlpha:0.3f];
-        [(UIImageView*)[self.view viewWithTag:kEatTickImage]setAlpha:0.3f];
+        [(UILabel*)[createActivityView viewWithTag:kEatLabelText] setAlpha:0.3f];
+        [(UIImageView*)[createActivityView viewWithTag:kEatTickImage]setAlpha:0.3f];
         
-        [(UILabel*)[self.view viewWithTag:kSeeLabelText] setAlpha:0.3f];
-        [(UIImageView*)[self.view viewWithTag:kSeeTickImage]setAlpha:0.3f];
+        [(UILabel*)[createActivityView viewWithTag:kSeeLabelText] setAlpha:0.3f];
+        [(UIImageView*)[createActivityView viewWithTag:kSeeTickImage]setAlpha:0.3f];
         
-        [(UILabel*)[self.view viewWithTag:kCreateLabelText] setAlpha:0.3f];
-        [(UIImageView*)[self.view viewWithTag:kCreateTickImage]setAlpha:0.3f];
+        [(UILabel*)[createActivityView viewWithTag:kCreateLabelText] setAlpha:0.3f];
+        [(UIImageView*)[createActivityView viewWithTag:kCreateTickImage]setAlpha:0.3f];
         
-        [(UILabel*)[self.view viewWithTag:kLearnLabelText] setAlpha:0.3f];
-        [(UIImageView*)[self.view viewWithTag:kLearnTickImage]setAlpha:0.3f];
+        [(UILabel*)[createActivityView viewWithTag:kLearnLabelText] setAlpha:0.3f];
+        [(UIImageView*)[createActivityView viewWithTag:kLearnTickImage]setAlpha:0.3f];
         
         
         
@@ -354,20 +354,20 @@
         
     case kEatActivity:
     {
-        [(UILabel*)[self.view viewWithTag:kPlayLabelText] setAlpha:0.3f];
-        [(UIImageView*)[self.view viewWithTag:kPlayTickImage]setAlpha:0.3f];
+        [(UILabel*)[createActivityView viewWithTag:kPlayLabelText] setAlpha:0.3f];
+        [(UIImageView*)[createActivityView viewWithTag:kPlayTickImage]setAlpha:0.3f];
         
-        [(UILabel*)[self.view viewWithTag:kEatLabelText] setAlpha:1.0f];
-        [(UIImageView*)[self.view viewWithTag:kEatTickImage]setAlpha:1.0f];
+        [(UILabel*)[createActivityView viewWithTag:kEatLabelText] setAlpha:1.0f];
+        [(UIImageView*)[createActivityView viewWithTag:kEatTickImage]setAlpha:1.0f];
         
-        [(UILabel*)[self.view viewWithTag:kSeeLabelText] setAlpha:0.3f];
-        [(UIImageView*)[self.view viewWithTag:kSeeTickImage]setAlpha:0.3f];
+        [(UILabel*)[createActivityView viewWithTag:kSeeLabelText] setAlpha:0.3f];
+        [(UIImageView*)[createActivityView viewWithTag:kSeeTickImage]setAlpha:0.3f];
         
-        [(UILabel*)[self.view viewWithTag:kCreateLabelText] setAlpha:0.3f];
-        [(UIImageView*)[self.view viewWithTag:kCreateTickImage]setAlpha:0.3f];
+        [(UILabel*)[createActivityView viewWithTag:kCreateLabelText] setAlpha:0.3f];
+        [(UIImageView*)[createActivityView viewWithTag:kCreateTickImage]setAlpha:0.3f];
         
-        [(UILabel*)[self.view viewWithTag:kLearnLabelText] setAlpha:0.3f];
-        [(UIImageView*)[self.view viewWithTag:kLearnTickImage]setAlpha:0.3f];
+        [(UILabel*)[createActivityView viewWithTag:kLearnLabelText] setAlpha:0.3f];
+        [(UIImageView*)[createActivityView viewWithTag:kLearnTickImage]setAlpha:0.3f];
         
         
         
@@ -378,20 +378,20 @@
         
     case kSeeActivity:
     {
-        [(UILabel*)[self.view viewWithTag:kPlayLabelText] setAlpha:0.3f];
-        [(UIImageView*)[self.view viewWithTag:kPlayTickImage]setAlpha:0.3f];
+        [(UILabel*)[createActivityView viewWithTag:kPlayLabelText] setAlpha:0.3f];
+        [(UIImageView*)[createActivityView viewWithTag:kPlayTickImage]setAlpha:0.3f];
         
-        [(UILabel*)[self.view viewWithTag:kEatLabelText] setAlpha:0.3f];
-        [(UIImageView*)[self.view viewWithTag:kEatTickImage]setAlpha:0.3f];
+        [(UILabel*)[createActivityView viewWithTag:kEatLabelText] setAlpha:0.3f];
+        [(UIImageView*)[createActivityView viewWithTag:kEatTickImage]setAlpha:0.3f];
         
-        [(UILabel*)[self.view viewWithTag:kSeeLabelText] setAlpha:1.0f];
-        [(UIImageView*)[self.view viewWithTag:kSeeTickImage]setAlpha:1.0f];
+        [(UILabel*)[createActivityView viewWithTag:kSeeLabelText] setAlpha:1.0f];
+        [(UIImageView*)[createActivityView viewWithTag:kSeeTickImage]setAlpha:1.0f];
         
-        [(UILabel*)[self.view viewWithTag:kCreateLabelText] setAlpha:0.3f];
-        [(UIImageView*)[self.view viewWithTag:kCreateTickImage]setAlpha:0.3f];
+        [(UILabel*)[createActivityView viewWithTag:kCreateLabelText] setAlpha:0.3f];
+        [(UIImageView*)[createActivityView viewWithTag:kCreateTickImage]setAlpha:0.3f];
         
-        [(UILabel*)[self.view viewWithTag:kLearnLabelText] setAlpha:0.3f];
-        [(UIImageView*)[self.view viewWithTag:kLearnTickImage]setAlpha:0.3f];
+        [(UILabel*)[createActivityView viewWithTag:kLearnLabelText] setAlpha:0.3f];
+        [(UIImageView*)[createActivityView viewWithTag:kLearnTickImage]setAlpha:0.3f];
         
         backgroundView.backgroundColor=[SoclivityUtilities returnBackgroundColor:12];
         
@@ -403,20 +403,20 @@
         break;
     case kCreateActivity:
     {
-        [(UILabel*)[self.view viewWithTag:kPlayLabelText] setAlpha:0.3f];
-        [(UIImageView*)[self.view viewWithTag:kPlayTickImage]setAlpha:0.3f];
+        [(UILabel*)[createActivityView viewWithTag:kPlayLabelText] setAlpha:0.3f];
+        [(UIImageView*)[createActivityView viewWithTag:kPlayTickImage]setAlpha:0.3f];
         
-        [(UILabel*)[self.view viewWithTag:kEatLabelText] setAlpha:0.3f];
-        [(UIImageView*)[self.view viewWithTag:kEatTickImage]setAlpha:0.3f];
+        [(UILabel*)[createActivityView viewWithTag:kEatLabelText] setAlpha:0.3f];
+        [(UIImageView*)[createActivityView viewWithTag:kEatTickImage]setAlpha:0.3f];
         
-        [(UILabel*)[self.view viewWithTag:kSeeLabelText] setAlpha:0.3f];
-        [(UIImageView*)[self.view viewWithTag:kSeeTickImage]setAlpha:0.3f];
+        [(UILabel*)[createActivityView viewWithTag:kSeeLabelText] setAlpha:0.3f];
+        [(UIImageView*)[createActivityView viewWithTag:kSeeTickImage]setAlpha:0.3f];
         
-        [(UILabel*)[self.view viewWithTag:kCreateLabelText] setAlpha:1.0f];
-        [(UIImageView*)[self.view viewWithTag:kCreateTickImage]setAlpha:1.0f];
+        [(UILabel*)[createActivityView viewWithTag:kCreateLabelText] setAlpha:1.0f];
+        [(UIImageView*)[createActivityView viewWithTag:kCreateTickImage]setAlpha:1.0f];
         
-        [(UILabel*)[self.view viewWithTag:kLearnLabelText] setAlpha:0.3f];
-        [(UIImageView*)[self.view viewWithTag:kLearnTickImage]setAlpha:0.3f];
+        [(UILabel*)[createActivityView viewWithTag:kLearnLabelText] setAlpha:0.3f];
+        [(UIImageView*)[createActivityView viewWithTag:kLearnTickImage]setAlpha:0.3f];
         
         backgroundView.backgroundColor=[SoclivityUtilities returnBackgroundColor:13];
         
@@ -428,20 +428,20 @@
         break;
     case kLearnActivity:
     {
-        [(UILabel*)[self.view viewWithTag:kPlayLabelText] setAlpha:0.3f];
-        [(UIImageView*)[self.view viewWithTag:kPlayTickImage]setAlpha:0.3f];
+        [(UILabel*)[createActivityView viewWithTag:kPlayLabelText] setAlpha:0.3f];
+        [(UIImageView*)[createActivityView viewWithTag:kPlayTickImage]setAlpha:0.3f];
         
-        [(UILabel*)[self.view viewWithTag:kEatLabelText] setAlpha:0.3f];
-        [(UIImageView*)[self.view viewWithTag:kEatTickImage]setAlpha:0.3f];
+        [(UILabel*)[createActivityView viewWithTag:kEatLabelText] setAlpha:0.3f];
+        [(UIImageView*)[createActivityView viewWithTag:kEatTickImage]setAlpha:0.3f];
         
-        [(UILabel*)[self.view viewWithTag:kSeeLabelText] setAlpha:0.3f];
-        [(UIImageView*)[self.view viewWithTag:kSeeTickImage]setAlpha:0.3f];
+        [(UILabel*)[createActivityView viewWithTag:kSeeLabelText] setAlpha:0.3f];
+        [(UIImageView*)[createActivityView viewWithTag:kSeeTickImage]setAlpha:0.3f];
         
-        [(UILabel*)[self.view viewWithTag:kCreateLabelText] setAlpha:0.3f];
-        [(UIImageView*)[self.view viewWithTag:kCreateTickImage]setAlpha:0.3f];
+        [(UILabel*)[createActivityView viewWithTag:kCreateLabelText] setAlpha:0.3f];
+        [(UIImageView*)[createActivityView viewWithTag:kCreateTickImage]setAlpha:0.3f];
         
-        [(UILabel*)[self.view viewWithTag:kLearnLabelText] setAlpha:1.0f];
-        [(UIImageView*)[self.view viewWithTag:kLearnTickImage]setAlpha:1.0f];
+        [(UILabel*)[createActivityView viewWithTag:kLearnLabelText] setAlpha:1.0f];
+        [(UIImageView*)[createActivityView viewWithTag:kLearnTickImage]setAlpha:1.0f];
         
         backgroundView.backgroundColor=[SoclivityUtilities returnBackgroundColor:14];
         
@@ -637,7 +637,7 @@
 -(void)pickADateSelectionDone:(NSString*)activityDate{
     
     CGSize  size = [activityDate sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
-    pickADayButton.frame=CGRectMake(65, 268, size.width, 44);
+    pickADayButton.frame=CGRectMake(65, 224, size.width, 44);
     [pickADayButton setTitle:activityDate forState:UIControlStateNormal];
     [pickADayButton setTitle:activityDate forState:UIControlStateHighlighted];
     
@@ -648,7 +648,7 @@
 -(void)pickATimeSelectionDone:(NSString*)activityTime{
     
     CGSize  size = [activityTime sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
-    pickATimeButton.frame=CGRectMake(65, 315, size.width, 44);
+    pickATimeButton.frame=CGRectMake(65, 271, size.width, 44);
     [pickATimeButton setTitle:activityTime forState:UIControlStateNormal];
     [pickATimeButton setTitle:activityTime forState:UIControlStateHighlighted];
     
@@ -662,7 +662,7 @@
         case 0:
         {
             size = [@"Public" sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
-            publicPrivateButton.frame=CGRectMake(65, 364, size.width, 44);
+            publicPrivateButton.frame=CGRectMake(65, 320, size.width, 44);
             [privacyImageButton setBackgroundImage:[UIImage imageNamed:@"S05_public5.png"] forState:UIControlStateNormal];
             
             [privacyImageButton setBackgroundImage:[UIImage imageNamed:@"S05_public5.png"] forState:UIControlStateHighlighted];
@@ -678,7 +678,7 @@
         {
             
             size = [@"Private" sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
-            publicPrivateButton.frame=CGRectMake(65, 366, size.width, 44);
+            publicPrivateButton.frame=CGRectMake(65, 322, size.width, 44);
             [privacyImageButton setBackgroundImage:[UIImage imageNamed:@"S05_private5.png"] forState:UIControlStateNormal];
             
             [privacyImageButton setBackgroundImage:[UIImage imageNamed:@"S05_private5.png"] forState:UIControlStateHighlighted];
