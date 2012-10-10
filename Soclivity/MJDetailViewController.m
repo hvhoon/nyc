@@ -29,16 +29,17 @@
             
         }
             break;
-        case PublicViewAnimation:
+        case PrivatePublicViewAnimation:
         {
-            self.view=pickADateView;
+            privatePublicView.delegate=self;
+            self.view=privatePublicView;
             
         }
             break;
     }
 }
 
-- (void)dismissDatePicker:(id)sender
+- (void)dismissPicker:(id)sender
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(dismissPickerFromView:)]) {
         [self.delegate dismissPickerFromView:sender];
@@ -57,6 +58,12 @@
 -(void)activityTimeSelected:(NSString*)time{
     if (self.delegate && [self.delegate respondsToSelector:@selector(pickATimeSelectionDone:)]) {
         [self.delegate pickATimeSelectionDone:time];
+    }
+    
+}
+-(void)privacySelection:(NSInteger)index{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(privacySelectionDone:)]) {
+        [self.delegate privacySelectionDone:index];
     }
     
 }

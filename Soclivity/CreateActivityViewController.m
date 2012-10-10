@@ -302,6 +302,10 @@
     
 }
 -(IBAction)publicOrPrivateActivityButtonPressed:(id)sender{
+    MJDetailViewController *detailViewController = [[MJDetailViewController alloc] initWithNibName:@"MJDetailViewController" bundle:nil];
+    detailViewController.delegate=self;
+    detailViewController.type=PrivatePublicViewAnimation;
+    [self presentPopupViewController:detailViewController animationType:MJPopupViewAnimationSlideBottomBottom];
     
 }
 
@@ -644,9 +648,48 @@
 -(void)pickATimeSelectionDone:(NSString*)activityTime{
     
     CGSize  size = [activityTime sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
-    pickATimeButton.frame=CGRectMake(65, 268, size.width, 44);
+    pickATimeButton.frame=CGRectMake(65, 315, size.width, 44);
     [pickATimeButton setTitle:activityTime forState:UIControlStateNormal];
     [pickATimeButton setTitle:activityTime forState:UIControlStateHighlighted];
+    
+    [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationSlideBottomBottom];
+    
+}
+-(void)privacySelectionDone:(int)row{
+    
+    CGSize  size;
+    switch (row) {
+        case 0:
+        {
+            size = [@"Public" sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
+            publicPrivateButton.frame=CGRectMake(65, 364, size.width, 44);
+            [privacyImageButton setBackgroundImage:[UIImage imageNamed:@"S05_public5.png"] forState:UIControlStateNormal];
+            
+            [privacyImageButton setBackgroundImage:[UIImage imageNamed:@"S05_public5.png"] forState:UIControlStateHighlighted];
+            
+            [publicPrivateButton setTitle:@"Public" forState:UIControlStateNormal];
+            [publicPrivateButton setTitle:@"Public" forState:UIControlStateHighlighted];
+
+            
+        }
+            break;
+            
+        case 1:
+        {
+            
+            size = [@"Private" sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
+            publicPrivateButton.frame=CGRectMake(65, 364, size.width, 44);
+            [privacyImageButton setBackgroundImage:[UIImage imageNamed:@"S05_private5.png"] forState:UIControlStateNormal];
+            
+            [privacyImageButton setBackgroundImage:[UIImage imageNamed:@"S05_private5.png"] forState:UIControlStateHighlighted];
+            
+            [publicPrivateButton setTitle:@"Private" forState:UIControlStateNormal];
+            [publicPrivateButton setTitle:@"Private" forState:UIControlStateHighlighted];
+
+            
+        }
+            break;
+    }
     
     [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationSlideBottomBottom];
     

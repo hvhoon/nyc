@@ -34,6 +34,7 @@
     IBOutlet UITextField *capacityTextField;
     IBOutlet UILabel *blankTextLabel;
     IBOutlet UIButton*pickALocationButton;
+    IBOutlet UIButton *privacyImageButton;
 }
 @property (nonatomic,retain)id<NewActivityViewDelegate>delegate;
 -(IBAction)crossClicked:(id)sender;

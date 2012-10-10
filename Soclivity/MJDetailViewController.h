@@ -4,10 +4,11 @@
 #import <UIKit/UIKit.h>
 #import "PickADateView.h"
 #import "PickATimeView.h"
+#import "SelectPublicPrivateView.h"
 typedef enum {
     PickADateViewAnimation = 1,
     PickATimeViewAnimation,
-    PublicViewAnimation
+    PrivatePublicViewAnimation
 } PickerPopupViewAnimation;
 
 
@@ -17,15 +18,17 @@ typedef enum {
 - (void)dismissPickerFromView:(id)sender;
 -(void)pickADateSelectionDone:(NSString*)activityDate;
 -(void)pickATimeSelectionDone:(NSString*)activityTime;
+-(void)privacySelectionDone:(int)row;
 @end
 
 
-@interface MJDetailViewController : UIViewController<PickDateViewDelegate,PickTimeViewDelegate>{
+@interface MJDetailViewController : UIViewController<PickDateViewDelegate,PickTimeViewDelegate,PrivacyViewDelegate>{
     
     IBOutlet PickADateView *pickADateView;
     id<PickerDetailViewDelegate>delegate;
     PickerPopupViewAnimation type;
     IBOutlet PickATimeView *pickATimeView;
+    IBOutlet SelectPublicPrivateView *privatePublicView;
 }
 @property (nonatomic,assign)PickerPopupViewAnimation type;
 @property (nonatomic,retain) PickADateView *pickADateView;

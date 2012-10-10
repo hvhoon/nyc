@@ -21,7 +21,7 @@
 
 
 -(IBAction)crossButtonClicked:(id)sender{
-    [delegate dismissDatePicker:sender];
+    [delegate dismissPicker:sender];
 }
 
 -(IBAction)tickButtonPressed:(id)sender{

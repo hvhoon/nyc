@@ -543,6 +543,7 @@
 		EADC51FA162581ED00772D41 /* S05_smallDOS1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EADC51F2162581ED00772D41 /* S05_smallDOS1@2x.png */; };
 		EADC51FB162581ED00772D41 /* S05_smallDOS2.png in Resources */ = {isa = PBXBuildFile; fileRef = EADC51F3162581ED00772D41 /* S05_smallDOS2.png */; };
 		EADC51FC162581ED00772D41 /* S05_smallDOS2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EADC51F4162581ED00772D41 /* S05_smallDOS2@2x.png */; };
+		EADC51FF1625891600772D41 /* SelectPublicPrivateView.m in Sources */ = {isa = PBXBuildFile; fileRef = EADC51FE1625891500772D41 /* SelectPublicPrivateView.m */; };
 		EAE094CC1619876C005E69D0 /* SOCProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE094CA1619876C005E69D0 /* SOCProfileViewController.m */; };
 		EAE094CD1619876C005E69D0 /* SOCProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAE094CB1619876C005E69D0 /* SOCProfileViewController.xib */; };
 		EAE094D016198C2E005E69D0 /* SocPlayerClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE094CF16198C2D005E69D0 /* SocPlayerClass.m */; };
@@ -1398,6 +1399,8 @@
 		EADC51F2162581ED00772D41 /* S05_smallDOS1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_smallDOS1@2x.png"; sourceTree = "<group>"; };
 		EADC51F3162581ED00772D41 /* S05_smallDOS2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_smallDOS2.png; sourceTree = "<group>"; };
 		EADC51F4162581ED00772D41 /* S05_smallDOS2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_smallDOS2@2x.png"; sourceTree = "<group>"; };
+		EADC51FD1625891500772D41 /* SelectPublicPrivateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPublicPrivateView.h; sourceTree = "<group>"; };
+		EADC51FE1625891500772D41 /* SelectPublicPrivateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectPublicPrivateView.m; sourceTree = "<group>"; };
 		EAE094C91619876C005E69D0 /* SOCProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOCProfileViewController.h; sourceTree = "<group>"; };
 		EAE094CA1619876C005E69D0 /* SOCProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOCProfileViewController.m; sourceTree = "<group>"; };
 		EAE094CB1619876C005E69D0 /* SOCProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOCProfileViewController.xib; sourceTree = "<group>"; };
@@ -2793,6 +2796,8 @@
 				EADC51D716253BC100772D41 /* UIViewController+MJPopupViewController.m */,
 				EADC51EA162579A400772D41 /* PickATimeView.h */,
 				EADC51EB162579A500772D41 /* PickATimeView.m */,
+				EADC51FD1625891500772D41 /* SelectPublicPrivateView.h */,
+				EADC51FE1625891500772D41 /* SelectPublicPrivateView.m */,
 			);
 			name = "Popup Pickers";
 			sourceTree = "<group>";
@@ -3837,6 +3842,7 @@
 				EADC51DD16253C4600772D41 /* MJDetailViewController.m in Sources */,
 				EADC51E116253D2300772D41 /* PickADateView.m in Sources */,
 				EADC51EC162579A800772D41 /* PickATimeView.m in Sources */,
+				EADC51FF1625891600772D41 /* SelectPublicPrivateView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
