@@ -43,7 +43,7 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 
 @implementation CalendarDateView
 @synthesize KALDelegate;
-@synthesize dataSource, delegate, initialDate, selectedDate;
+@synthesize dataSource, delegate, initialDate, selectedDate,pickADateForActivity;
 
 - (id)initWithSelectedDate:(NSDate *)date
 {
@@ -101,6 +101,27 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 
 - (void)didSelectDate:(KalDate *)date
 {
+    
+    
+    self.selectedDate = [date NSDate];
+    NSDate *fromDate = [[date NSDate] cc_dateByMovingToBeginningOfDay];
+    NSDate *toDate = [[date NSDate] cc_dateByMovingToEndOfDay];
+    
+    if(pickADateForActivity){
+     
+        
+        NSDate *dateToSet = [date NSDate];
+        NSDateFormatter *prefixDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+        [prefixDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+        [prefixDateFormatter setDateFormat:@"EEEE, MMMM d, YYYY"];
+        NSString *prefixDateString = [prefixDateFormatter stringFromDate:dateToSet];
+        
+        [[NSUserDefaults standardUserDefaults] setValue:prefixDateString forKey:@"ActivityDate"];
+
+
+    }
+    else{
+
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     NSLog(@"didSelectDate =%@",[date NSDate]);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -109,12 +130,10 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
     NSString *formattedDateString = [dateFormatter stringFromDate:[date NSDate]];
 
     [dateFormatter release];
-    self.selectedDate = [date NSDate];
-    NSDate *fromDate = [[date NSDate] cc_dateByMovingToBeginningOfDay];
-    NSDate *toDate = [[date NSDate] cc_dateByMovingToEndOfDay];
     SOC.filterObject.startPickDateTime=fromDate;
     SOC.filterObject.endPickDateTime=toDate;
     SOC.filterObject.pickADateString=[NSString stringWithFormat:@"%@",formattedDateString];
+    }
 
     [self clearTable];
     [dataSource loadItemsFromDate:fromDate toDate:toDate];

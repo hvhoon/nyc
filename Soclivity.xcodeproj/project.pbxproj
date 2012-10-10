@@ -529,6 +529,20 @@
 		EAD8CC99161AB99100AE657E /* S02.1_see5.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD8CC8F161AB99100AE657E /* S02.1_see5.png */; };
 		EAD8CC9A161AB99100AE657E /* S02.1_see5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD8CC90161AB99100AE657E /* S02.1_see5@2x.png */; };
 		EAD8CC9C161ABDB000AE657E /* ProfileViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAD8CC9B161ABDB000AE657E /* ProfileViewController_iphone5.xib */; };
+		EADC51D816253BC100772D41 /* MJPopupBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = EADC51D516253BC100772D41 /* MJPopupBackgroundView.m */; };
+		EADC51D916253BC100772D41 /* UIViewController+MJPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EADC51D716253BC100772D41 /* UIViewController+MJPopupViewController.m */; };
+		EADC51DD16253C4600772D41 /* MJDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EADC51DB16253C4600772D41 /* MJDetailViewController.m */; };
+		EADC51DE16253C4600772D41 /* MJDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EADC51DC16253C4600772D41 /* MJDetailViewController.xib */; };
+		EADC51E116253D2300772D41 /* PickADateView.m in Sources */ = {isa = PBXBuildFile; fileRef = EADC51E016253D2300772D41 /* PickADateView.m */; };
+		EADC51EC162579A800772D41 /* PickATimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = EADC51EB162579A500772D41 /* PickATimeView.m */; };
+		EADC51F5162581ED00772D41 /* S05_editCal.png in Resources */ = {isa = PBXBuildFile; fileRef = EADC51ED162581ED00772D41 /* S05_editCal.png */; };
+		EADC51F6162581ED00772D41 /* S05_editCal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EADC51EE162581ED00772D41 /* S05_editCal@2x.png */; };
+		EADC51F7162581ED00772D41 /* S05_editClock.png in Resources */ = {isa = PBXBuildFile; fileRef = EADC51EF162581ED00772D41 /* S05_editClock.png */; };
+		EADC51F8162581ED00772D41 /* S05_editClock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EADC51F0162581ED00772D41 /* S05_editClock@2x.png */; };
+		EADC51F9162581ED00772D41 /* S05_smallDOS1.png in Resources */ = {isa = PBXBuildFile; fileRef = EADC51F1162581ED00772D41 /* S05_smallDOS1.png */; };
+		EADC51FA162581ED00772D41 /* S05_smallDOS1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EADC51F2162581ED00772D41 /* S05_smallDOS1@2x.png */; };
+		EADC51FB162581ED00772D41 /* S05_smallDOS2.png in Resources */ = {isa = PBXBuildFile; fileRef = EADC51F3162581ED00772D41 /* S05_smallDOS2.png */; };
+		EADC51FC162581ED00772D41 /* S05_smallDOS2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EADC51F4162581ED00772D41 /* S05_smallDOS2@2x.png */; };
 		EAE094CC1619876C005E69D0 /* SOCProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE094CA1619876C005E69D0 /* SOCProfileViewController.m */; };
 		EAE094CD1619876C005E69D0 /* SOCProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAE094CB1619876C005E69D0 /* SOCProfileViewController.xib */; };
 		EAE094D016198C2E005E69D0 /* SocPlayerClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE094CF16198C2D005E69D0 /* SocPlayerClass.m */; };
@@ -1365,6 +1379,25 @@
 		EAD8CC8F161AB99100AE657E /* S02.1_see5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S02.1_see5.png; sourceTree = "<group>"; };
 		EAD8CC90161AB99100AE657E /* S02.1_see5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S02.1_see5@2x.png"; sourceTree = "<group>"; };
 		EAD8CC9B161ABDB000AE657E /* ProfileViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileViewController_iphone5.xib; sourceTree = "<group>"; };
+		EADC51D416253BC100772D41 /* MJPopupBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPopupBackgroundView.h; sourceTree = "<group>"; };
+		EADC51D516253BC100772D41 /* MJPopupBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPopupBackgroundView.m; sourceTree = "<group>"; };
+		EADC51D616253BC100772D41 /* UIViewController+MJPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MJPopupViewController.h"; sourceTree = "<group>"; };
+		EADC51D716253BC100772D41 /* UIViewController+MJPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MJPopupViewController.m"; sourceTree = "<group>"; };
+		EADC51DA16253C4600772D41 /* MJDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJDetailViewController.h; sourceTree = "<group>"; };
+		EADC51DB16253C4600772D41 /* MJDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJDetailViewController.m; sourceTree = "<group>"; };
+		EADC51DC16253C4600772D41 /* MJDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJDetailViewController.xib; sourceTree = "<group>"; };
+		EADC51DF16253D2300772D41 /* PickADateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickADateView.h; sourceTree = "<group>"; };
+		EADC51E016253D2300772D41 /* PickADateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickADateView.m; sourceTree = "<group>"; };
+		EADC51EA162579A400772D41 /* PickATimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickATimeView.h; sourceTree = "<group>"; };
+		EADC51EB162579A500772D41 /* PickATimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickATimeView.m; sourceTree = "<group>"; };
+		EADC51ED162581ED00772D41 /* S05_editCal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_editCal.png; sourceTree = "<group>"; };
+		EADC51EE162581ED00772D41 /* S05_editCal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_editCal@2x.png"; sourceTree = "<group>"; };
+		EADC51EF162581ED00772D41 /* S05_editClock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_editClock.png; sourceTree = "<group>"; };
+		EADC51F0162581ED00772D41 /* S05_editClock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_editClock@2x.png"; sourceTree = "<group>"; };
+		EADC51F1162581ED00772D41 /* S05_smallDOS1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_smallDOS1.png; sourceTree = "<group>"; };
+		EADC51F2162581ED00772D41 /* S05_smallDOS1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_smallDOS1@2x.png"; sourceTree = "<group>"; };
+		EADC51F3162581ED00772D41 /* S05_smallDOS2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_smallDOS2.png; sourceTree = "<group>"; };
+		EADC51F4162581ED00772D41 /* S05_smallDOS2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_smallDOS2@2x.png"; sourceTree = "<group>"; };
 		EAE094C91619876C005E69D0 /* SOCProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOCProfileViewController.h; sourceTree = "<group>"; };
 		EAE094CA1619876C005E69D0 /* SOCProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOCProfileViewController.m; sourceTree = "<group>"; };
 		EAE094CB1619876C005E69D0 /* SOCProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOCProfileViewController.xib; sourceTree = "<group>"; };
@@ -1653,6 +1686,7 @@
 		680CE3E81551258700B8E937 /* Soclivity */ = {
 			isa = PBXGroup;
 			children = (
+				EADC51D316253B2F00772D41 /* Popup Pickers */,
 				EABEC70A1622D8E800DB179E /* Create Activity */,
 				EA85DC6715B01AC300AAD964 /* Blocked List */,
 				EA85DC6115B00C4F00AAD964 /* Invites */,
@@ -1744,6 +1778,14 @@
 		686E79F615B5E3A800A05C7C /* S05 Activity Event */ = {
 			isa = PBXGroup;
 			children = (
+				EADC51ED162581ED00772D41 /* S05_editCal.png */,
+				EADC51EE162581ED00772D41 /* S05_editCal@2x.png */,
+				EADC51EF162581ED00772D41 /* S05_editClock.png */,
+				EADC51F0162581ED00772D41 /* S05_editClock@2x.png */,
+				EADC51F1162581ED00772D41 /* S05_smallDOS1.png */,
+				EADC51F2162581ED00772D41 /* S05_smallDOS1@2x.png */,
+				EADC51F3162581ED00772D41 /* S05_smallDOS2.png */,
+				EADC51F4162581ED00772D41 /* S05_smallDOS2@2x.png */,
 				68A8F784161BE9E10031D669 /* S05_private5.png */,
 				68A8F785161BE9E10031D669 /* S05_public5.png */,
 				68A8F786161BE9E10031D669 /* S05_private5@2x.png */,
@@ -2737,6 +2779,24 @@
 			name = Encryption;
 			sourceTree = "<group>";
 		};
+		EADC51D316253B2F00772D41 /* Popup Pickers */ = {
+			isa = PBXGroup;
+			children = (
+				EADC51DF16253D2300772D41 /* PickADateView.h */,
+				EADC51E016253D2300772D41 /* PickADateView.m */,
+				EADC51DA16253C4600772D41 /* MJDetailViewController.h */,
+				EADC51DB16253C4600772D41 /* MJDetailViewController.m */,
+				EADC51DC16253C4600772D41 /* MJDetailViewController.xib */,
+				EADC51D416253BC100772D41 /* MJPopupBackgroundView.h */,
+				EADC51D516253BC100772D41 /* MJPopupBackgroundView.m */,
+				EADC51D616253BC100772D41 /* UIViewController+MJPopupViewController.h */,
+				EADC51D716253BC100772D41 /* UIViewController+MJPopupViewController.m */,
+				EADC51EA162579A400772D41 /* PickATimeView.h */,
+				EADC51EB162579A500772D41 /* PickATimeView.m */,
+			);
+			name = "Popup Pickers";
+			sourceTree = "<group>";
+		};
 		EAED83E31554016200124D7D /* S02 Registration */ = {
 			isa = PBXGroup;
 			children = (
@@ -3625,6 +3685,15 @@
 				EABEC73C1622F4E200DB179E /* S06_play@2x.png in Resources */,
 				EABEC73D1622F4E200DB179E /* S06_see.png in Resources */,
 				EABEC73E1622F4E200DB179E /* S06_see@2x.png in Resources */,
+				EADC51DE16253C4600772D41 /* MJDetailViewController.xib in Resources */,
+				EADC51F5162581ED00772D41 /* S05_editCal.png in Resources */,
+				EADC51F6162581ED00772D41 /* S05_editCal@2x.png in Resources */,
+				EADC51F7162581ED00772D41 /* S05_editClock.png in Resources */,
+				EADC51F8162581ED00772D41 /* S05_editClock@2x.png in Resources */,
+				EADC51F9162581ED00772D41 /* S05_smallDOS1.png in Resources */,
+				EADC51FA162581ED00772D41 /* S05_smallDOS1@2x.png in Resources */,
+				EADC51FB162581ED00772D41 /* S05_smallDOS2.png in Resources */,
+				EADC51FC162581ED00772D41 /* S05_smallDOS2@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3763,6 +3832,11 @@
 				EAB6347F161F358F0023E883 /* GetActivityInvitesInvocation.m in Sources */,
 				EAB63482161F37A40023E883 /* InviteObjectClass+Parse.m in Sources */,
 				EABEC70E1622D9CA00DB179E /* CreateActivityViewController.m in Sources */,
+				EADC51D816253BC100772D41 /* MJPopupBackgroundView.m in Sources */,
+				EADC51D916253BC100772D41 /* UIViewController+MJPopupViewController.m in Sources */,
+				EADC51DD16253C4600772D41 /* MJDetailViewController.m in Sources */,
+				EADC51E116253D2300772D41 /* PickADateView.m in Sources */,
+				EADC51EC162579A800772D41 /* PickATimeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

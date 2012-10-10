@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MJDetailViewController.h"
 @protocol  NewActivityViewDelegate <NSObject>
 
 @optional
@@ -15,7 +15,7 @@
 @end
 
 
-@interface CreateActivityViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate>{
+@interface CreateActivityViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate,PickerDetailViewDelegate>{
     id<NewActivityViewDelegate>delegate;
     IBOutlet UILabel *createActivtyStaticLabel;
     IBOutlet UILabel *step1_of2Label;

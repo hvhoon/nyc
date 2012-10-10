@@ -8,6 +8,7 @@
 
 #import "CreateActivityViewController.h"
 #import "SoclivityUtilities.h"
+#import "UIViewController+MJPopupViewController.h"
 @interface CreateActivityViewController ()
 
 @end
@@ -32,7 +33,8 @@
 {
     [super viewDidLoad];
     
-    
+    [[NSUserDefaults standardUserDefaults] setValue:Nil forKey:@"ActivityDate"];
+
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundtap:)];
     [self.view addGestureRecognizer:tapGesture];
@@ -284,9 +286,19 @@
 
 -(IBAction)pickADateButtonPressed:(id)sender{
     
+    
+    MJDetailViewController *detailViewController = [[MJDetailViewController alloc] initWithNibName:@"MJDetailViewController" bundle:nil];
+    detailViewController.delegate=self;
+    detailViewController.type=PickADateViewAnimation;
+    [self presentPopupViewController:detailViewController animationType:MJPopupViewAnimationSlideBottomBottom];
+
 }
 
 -(IBAction)pickATimeButtonPressed:(id)sender{
+    MJDetailViewController *detailViewController = [[MJDetailViewController alloc] initWithNibName:@"MJDetailViewController" bundle:nil];
+    detailViewController.delegate=self;
+    detailViewController.type=PickATimeViewAnimation;
+    [self presentPopupViewController:detailViewController animationType:MJPopupViewAnimationSlideBottomBottom];
     
 }
 -(IBAction)publicOrPrivateActivityButtonPressed:(id)sender{
@@ -607,9 +619,37 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 
     [textField resignFirstResponder];
+    
+     return NO;
+}
+#pragma mark -
+#pragma mark PopUpPickerView Methods
+
+
+- (void)dismissPickerFromView:(id)sender{
+ [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationSlideBottomBottom];
+}
+
+-(void)pickADateSelectionDone:(NSString*)activityDate{
+    
+    CGSize  size = [activityDate sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
+    pickADayButton.frame=CGRectMake(65, 268, size.width, 44);
+    [pickADayButton setTitle:activityDate forState:UIControlStateNormal];
+    [pickADayButton setTitle:activityDate forState:UIControlStateHighlighted];
+    
+    [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationSlideBottomBottom];
 
     
-    return NO;
+}
+-(void)pickATimeSelectionDone:(NSString*)activityTime{
+    
+    CGSize  size = [activityTime sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
+    pickATimeButton.frame=CGRectMake(65, 268, size.width, 44);
+    [pickATimeButton setTitle:activityTime forState:UIControlStateNormal];
+    [pickATimeButton setTitle:activityTime forState:UIControlStateHighlighted];
+    
+    [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationSlideBottomBottom];
+    
 }
 
 
