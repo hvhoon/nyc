@@ -243,28 +243,28 @@
     
     
     placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, descriptionTextView.frame.size.width - 20.0, 34.0)];
-    [placeholderLabel setText:@"Description!"];
+    [placeholderLabel setText:@"Description"];
     // placeholderLabel is instance variable retained by view controller
     [placeholderLabel setBackgroundColor:[UIColor clearColor]];
-    placeholderLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:13];
-    placeholderLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+    placeholderLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    placeholderLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     
     // textView is UITextView object you want add placeholder text to
     [descriptionTextView addSubview:placeholderLabel];
     
 
-    onlyInviteesIphone5Label.font = [UIFont fontWithName:@"Helvetica-Condensed" size:13];
-    onlyInviteesIphone5Label.textColor=[SoclivityUtilities returnTextFontColor:1];
+    onlyInviteesIphone5Label.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
+    onlyInviteesIphone5Label.textColor=[SoclivityUtilities returnTextFontColor:4];
 
     onlyInviteesIphone5Label.text=@"Anyone can see this event";
     
     
-    totalCountTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
-    totalCountTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    totalCountTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
+    totalCountTextLabel.textColor=[SoclivityUtilities returnTextFontColor:4];
     totalCountTextLabel.backgroundColor=[UIColor clearColor];
 
-    countTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
-    countTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    countTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
+    countTextLabel.textColor=[SoclivityUtilities returnTextFontColor:4];
     countTextLabel.backgroundColor=[UIColor clearColor];
     
     
@@ -291,13 +291,11 @@
     [publicPrivateButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateHighlighted];
 
     capacityTextField.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
-    capacityTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
+    capacityTextField.textColor=[SoclivityUtilities returnTextFontColor:5];
     capacityTextField.placeholder=@"Capacity";
-
-
     
-    blankTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:10];
-    blankTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    blankTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
+    blankTextLabel.textColor=[SoclivityUtilities returnTextFontColor:4];
     blankTextLabel.backgroundColor=[UIColor clearColor];
     
     
