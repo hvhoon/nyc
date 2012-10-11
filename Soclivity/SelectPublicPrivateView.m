@@ -71,13 +71,13 @@
     UIView *myColorView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 40)]; //Set desired frame
     myColorView.backgroundColor = [UIColor clearColor]; //Set desired color or add a UIImageView if you want...
     
-    UIImageView *myImageView = [[UIImageView alloc] initWithFrame:CGRectMake(50, 7.5, 21, 20)];
+    UIImageView *myImageView = [[UIImageView alloc] initWithFrame:CGRectMake(30, 7.5, 21, 20)];
 
-    CGRect privacyLabelRect=CGRectMake(90,7.5,240,22);
+    CGRect privacyLabelRect=CGRectMake(60,7.5,260,22);
     UILabel *privacyLabel=[[UILabel alloc] initWithFrame:privacyLabelRect];
     privacyLabel.textAlignment=UITextAlignmentLeft;
     
-    privacyLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
+    privacyLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
     privacyLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     privacyLabel.backgroundColor=[UIColor clearColor];
     

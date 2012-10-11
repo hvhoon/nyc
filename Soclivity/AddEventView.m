@@ -16,7 +16,6 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import "SoclivitySqliteClass.h"
 #import "PlacemarkClass.h"
-#define METERS_PER_MILE 1609.344
 #define LISTVIEWREMOVE 0
 @implementation AddEventView
 @synthesize activityObject,delegate,calendarDateEditArrow,timeEditArrow,editMarkerButton,mapView,mapAnnotations,addressSearchBar,_geocodingResults,labelView,searching,editMode,firstALineddressLabel,secondLineAddressLabel,pinDrop,firstTime,activityInfoButton;

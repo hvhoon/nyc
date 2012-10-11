@@ -82,3 +82,5 @@
 #define kPm7_Pm11 52
 #define kCrossDateSelection 53
 #define kTickDateSelection 54
+#define METERS_PER_MILE 1609.344
+
