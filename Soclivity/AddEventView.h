@@ -43,9 +43,6 @@
     IBOutlet UIImageView *locationIcon;
     IBOutlet UIImageView *privacyImage;
     
-    IBOutlet UIButton*calendarDateEditArrow;
-    IBOutlet UIButton*timeEditArrow;
-    IBOutlet UIButton*editMarkerButton;
     MKCoordinateRegion adjustedRegion; 
     
     IBOutlet UIImageView *leftPinImageView;
@@ -83,9 +80,6 @@
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;
 @property (nonatomic,retain)id <AddEventViewDelegate>delegate;
-@property (nonatomic,retain) UIButton*calendarDateEditArrow;
-@property (nonatomic,retain) UIButton*timeEditArrow;
-@property (nonatomic,retain) UIButton*editMarkerButton;
 @property (nonatomic,retain)IBOutlet MKMapView *mapView;
 @property (nonatomic, retain) NSMutableArray *mapAnnotations;
 @property (nonatomic, retain) CustomSearchbar *addressSearchBar;

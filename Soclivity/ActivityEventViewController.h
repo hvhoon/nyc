@@ -29,11 +29,8 @@
     IBOutlet UIButton *inviteUsersToActivityButton;
     IBOutlet UIButton *blankInviteUsersAnimationButton;
     IBOutlet UIActivityIndicatorView *spinnerView;
-    IBOutlet UIButton *crossEditButton;
-    IBOutlet UIButton *tickEditButton;
     IBOutlet UIButton *backButton;
     IBOutlet UIButton *newActivityButton;
-    IBOutlet UIButton *deleteActivityButton;
     UIButton *goingButton;
     UIButton *DOS1Button;
     UIButton *DOS3Button;
@@ -75,9 +72,6 @@
 -(void)scrollViewToTheTopOrBottom;
 -(void)highlightSelection:(int)selection;
 -(void)BottonBarButtonHideAndShow:(NSInteger)type;
--(IBAction)crossClickedByOrganizer:(id)sender;
--(IBAction)tickClickedByOrganizer:(id)sender;
--(IBAction)deleteActivtyPressed:(id)sender;
 -(IBAction)backToActivityAnimateTransition:(id)sender;
 -(IBAction)crossClickedInLocationEdit:(id)sender;
 -(IBAction)tickClickedInLocationEdit:(id)sender;

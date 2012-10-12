@@ -18,8 +18,14 @@
 #import "MBProgressHUD.h"
 #import "GetPlayersClass.h"
 #import "DetailedActivityInfoInvocation.h"
-#define kActivityNameNot 12
-@interface CreateActivityViewController ()<NewActivityRequestInvocationDelegate,MBProgressHUDDelegate,DetailedActivityInfoInvocationDelegate>
+#import "EditActivityEventInvocation.h"
+#import "SoclivitySqliteClass.h"
+#import "PostActivityRequestInvocation.h"
+#define kActivityNameNot 10
+#define kDeleteActivityRequest 21
+#define kDeleteActivity 12
+
+@interface CreateActivityViewController ()<NewActivityRequestInvocationDelegate,MBProgressHUDDelegate,DetailedActivityInfoInvocationDelegate,EditActivityEventInvocationDelegate,PostActivityRequestInvocationDelegate>
 
 @end
 
@@ -50,6 +56,22 @@
         activityObject.type=1;
         activityObject.access=@"Public";
         activityObject.num_of_people=-1;
+        crossEditButton.hidden=YES;
+        tickEditButton.hidden=YES;
+        deleteActivityButton.hidden=YES;
+
+    }
+    else{
+        pickALocationButton.hidden=YES;
+        crossButton.hidden=YES;
+        step1_of2Label.hidden=YES;
+        crossEditButton.hidden=NO;
+        tickEditButton.hidden=NO;
+        deleteActivityButton.hidden=NO;
+        activityNameTextField.text=activityObject.activityName;
+        dateSelected=TRUE;
+        timeSelected=TRUE;
+        validAcivityName=TRUE;
     }
     _geocodingResults=[NSMutableArray new];
     _geocoder = [[CLGeocoder alloc] init];
@@ -61,8 +83,11 @@
     [createActivityView addGestureRecognizer:tapGesture];
     [tapGesture release];
 
+   if(newActivity)
     createActivtyStaticLabel.text=@"Create Activity";
-    
+   else{
+    createActivtyStaticLabel.text=@"Edit Activity";       
+   }
     createActivtyStaticLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
     createActivtyStaticLabel.textColor=[UIColor whiteColor];
     createActivtyStaticLabel.backgroundColor=[UIColor clearColor];
@@ -235,8 +260,42 @@
     [learnTickImageView release];
     [learnTypeLabel release];
     
-    
+    if(newActivity)
     [self updateActivityType:kPlayActivity];
+    else{
+        
+        switch (activityObject.type) {
+            case 1:
+            {
+                    [self updateActivityType:kPlayActivity];
+            }
+                break;
+                
+            case 2:
+            {
+                    [self updateActivityType:kEatActivity];
+            }
+                break;
+
+            case 3:
+            {
+                 [self updateActivityType:kSeeActivity];
+            }
+                break;
+
+            case 4:
+            {
+                    [self updateActivityType:kCreateActivity];
+            }
+                break;
+
+            case 5:
+            {
+                    [self updateActivityType:kLearnActivity];
+            }
+                break;
+}
+    }
 
     activityNameTextField.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     activityNameTextField.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -251,6 +310,30 @@
     descriptionTextView.delegate = self;
     descriptionTextView.contentSize = descriptionTextView.frame.size;
     
+    if(!newActivity){
+        if((activityObject.what==(NSString*)[NSNull null])||([activityObject.what isEqualToString:@""]||activityObject.what==nil)||([activityObject.what isEqualToString:@"(null)"])){
+            
+            placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0.0, descriptionTextView.frame.size.width - 20.0, 34.0)];
+            [placeholderLabel setText:@"Tell us more..."];
+            // placeholderLabel is instance variable retained by view controller
+            [placeholderLabel setBackgroundColor:[UIColor clearColor]];
+            placeholderLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+            placeholderLabel.textColor=[UIColor lightGrayColor];
+            
+            // textView is UITextView object you want add placeholder text to
+            [descriptionTextView addSubview:placeholderLabel];
+
+        }
+        else
+            descriptionTextView.text=activityObject.what;
+        
+        
+        countTextLabel.text= [[NSString alloc] initWithFormat:@"%i/",[descriptionTextView.text length]+1];
+
+
+    }
+    else{
+    
     placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0.0, descriptionTextView.frame.size.width - 20.0, 34.0)];
     [placeholderLabel setText:@"Tell us more..."];
     // placeholderLabel is instance variable retained by view controller
@@ -261,13 +344,10 @@
     // textView is UITextView object you want add placeholder text to
     [descriptionTextView addSubview:placeholderLabel];
     
-
+    }
     onlyInviteesIphone5Label.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
     onlyInviteesIphone5Label.textColor=[SoclivityUtilities returnTextFontColor:4];
 
-    onlyInviteesIphone5Label.text=@"Anyone can see this event";
-    
-    
     totalCountTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
     totalCountTextLabel.textColor=[UIColor lightGrayColor];
     totalCountTextLabel.backgroundColor=[UIColor clearColor];
@@ -282,6 +362,8 @@
     pickADayButton.titleLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     [pickADayButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateNormal];
     [pickADayButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateHighlighted];
+    
+    
 
     
     pickATimeButton.titleLabel.textAlignment=UITextAlignmentLeft;
@@ -289,6 +371,57 @@
     pickATimeButton.titleLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     [pickATimeButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateNormal];
     [pickATimeButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateHighlighted];
+    
+    
+    
+    if(!newActivity){
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+        NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+        [dateFormatter setTimeZone:gmt];
+        NSDate *activityDate = [dateFormatter dateFromString:activityObject.when];
+        
+        NSDate *date = activityDate;
+        NSDateFormatter *prefixDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+        [prefixDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+        [prefixDateFormatter setDateFormat:@"EEEE, MMMM d, YYYY"];
+        NSString *prefixDateString = [prefixDateFormatter stringFromDate:date];
+        
+        
+        
+        [prefixDateFormatter setDateFormat:@"h:mm a"];
+        
+        NSString *prefixTimeString = [prefixDateFormatter stringFromDate:date];
+        
+        
+        CGSize  size = [prefixTimeString sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
+        
+        int yOrigin;
+        if([SoclivityUtilities deviceType] & iPhone5){
+            yOrigin=271;
+        }
+        else
+            yOrigin=263;
+        
+        pickATimeButton.frame=CGRectMake(65, yOrigin, size.width, 44);
+
+        
+        [pickATimeButton setTitle:prefixTimeString forState:UIControlStateNormal];
+        [pickATimeButton setTitle:prefixTimeString forState:UIControlStateHighlighted];
+        
+        size = [prefixDateString sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
+        if([SoclivityUtilities deviceType] & iPhone5){
+            yOrigin=224;
+        }
+        else
+            yOrigin=213;
+        pickADayButton.frame=CGRectMake(65, yOrigin, size.width, 44);
+
+        [pickADayButton setTitle:prefixDateString forState:UIControlStateNormal];
+        [pickADayButton setTitle:prefixDateString forState:UIControlStateHighlighted];
+        
+    }
+
 
     
     publicPrivateButton.titleLabel.textAlignment=UITextAlignmentLeft;
@@ -296,6 +429,26 @@
     publicPrivateButton.titleLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     [publicPrivateButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateNormal];
     [publicPrivateButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateHighlighted];
+    
+    if(newActivity){
+        onlyInviteesIphone5Label.text=@"Anyone can see this event";
+    }
+    else{
+        if([activityObject.access caseInsensitiveCompare:@"private"] == NSOrderedSame){
+            [publicPrivateButton setTitle:@"Private" forState:UIControlStateNormal];
+            [publicPrivateButton setTitle:@"Private" forState:UIControlStateHighlighted];
+   
+            onlyInviteesIphone5Label.text=@"Only invitees can see this event";
+        }
+        else{
+            onlyInviteesIphone5Label.text=@"Anyone can see this event";
+            [publicPrivateButton setTitle:@"Public" forState:UIControlStateNormal];
+            [publicPrivateButton setTitle:@"Public" forState:UIControlStateHighlighted];
+
+        }
+        
+    }
+
 
     capacityTextField.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     capacityTextField.textColor=[SoclivityUtilities returnTextFontColor:4];
@@ -308,7 +461,11 @@
     blankTextLabel.textColor=[SoclivityUtilities returnTextFontColor:4];
     blankTextLabel.backgroundColor=[UIColor clearColor];
     
-    
+    if(!newActivity){
+        if(activityObject.num_of_people!=-1){
+            capacityTextField.text=[NSString stringWithFormat:@"%d",activityObject.num_of_people];
+        }
+    }
     //map Section
     
     self.addressSearchBar = [[[CustomSearchbar alloc] initWithFrame:CGRectMake(320,0, 320, 44)] autorelease];
@@ -557,7 +714,10 @@
     
     MJDetailViewController *detailViewController = [[MJDetailViewController alloc] initWithNibName:@"MJDetailViewController" bundle:nil];
     detailViewController.delegate=self;
-    detailViewController.type=PickADateViewAnimation;
+    if(newActivity)
+        detailViewController.type=PickADateViewAnimationNew;
+    else
+        detailViewController.type=PickADateViewAnimationEdit;
     [self presentPopupViewController:detailViewController animationType:MJPopupViewAnimationSlideBottomBottom];
 
 }
@@ -565,25 +725,31 @@
 -(IBAction)pickATimeButtonPressed:(id)sender{
     MJDetailViewController *detailViewController = [[MJDetailViewController alloc] initWithNibName:@"MJDetailViewController" bundle:nil];
     detailViewController.delegate=self;
-    detailViewController.type=PickATimeViewAnimation;
+    if(newActivity)
+        detailViewController.type=PickATimeViewAnimationNew;
+    else
+        detailViewController.type=PickATimeViewAnimationEdit;
+
     [self presentPopupViewController:detailViewController animationType:MJPopupViewAnimationSlideBottomBottom];
     
 }
 -(IBAction)publicOrPrivateActivityButtonPressed:(id)sender{
     MJDetailViewController *detailViewController = [[MJDetailViewController alloc] initWithNibName:@"MJDetailViewController" bundle:nil];
     detailViewController.delegate=self;
-    detailViewController.type=PrivatePublicViewAnimation;
+    if(newActivity)
+        detailViewController.type=PrivatePublicViewAnimationNew;
+    else
+        detailViewController.type=PrivatePublicViewAnimationEdit;
+
     [self presentPopupViewController:detailViewController animationType:MJPopupViewAnimationSlideBottomBottom];
     
 }
 
--(IBAction)pickALocationButtonPressed:(id)sender{
+-(void)checkValidations{
     
-    
-    
-    if(!activityNameTextField.text.length ){
+    if(!activityNameTextField.text.length){
         
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Required Fields"
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Required Fields"
                                                         message:@"Need a name to create an activity."
                                                        delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
         alert.tag=kActivityNameNot;
@@ -596,7 +762,7 @@
     // Alert if the name is not valid
     if(!validAcivityName){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Really?"
-                                                        message:@"Your name must have at least 2 characters."
+                                                        message:@"Activityname should not be left blank."
                                                        delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
         alert.tag=kActivityNameNot;
         [alert show];
@@ -613,7 +779,7 @@
         return;
         
     }
-
+    
     
     if(!timeSelected){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Time...!!!"
@@ -624,6 +790,12 @@
         return;
         
     }
+
+}
+
+-(IBAction)pickALocationButtonPressed:(id)sender{
+    
+    [self checkValidations];
     
     
     
@@ -679,6 +851,9 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
     [alertView resignFirstResponder];
+    
+    
+    
     if (buttonIndex == 0) {
         
         switch (alertView.tag) {
@@ -687,12 +862,60 @@
                 [activityNameTextField becomeFirstResponder];
             }
                 break;
+                
+            case kDeleteActivity:
+            {
+                if([SoclivityUtilities hasNetworkConnection]){
+                    [self startAnimation:kDeleteActivityRequest];
+                    [devServer postActivityRequestInvocation:10  playerId:[SOC.loggedInUser.idSoc intValue] actId:activityObject.activityId delegate:self];
+                }
+                else{
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                    
+                    [alert show];
+                    [alert release];
+                    return;
+                    
+                    
+                }
+            }
+                break;
+
             default:
                 break;
         }
     }
     else{
         NSLog(@"Clicked Cancel Button");
+    }
+}
+
+
+-(void)PostActivityRequestInvocationDidFinish:(PostActivityRequestInvocation*)invocation
+                                 withResponse:(NSString*)responses relationTypeTag:(NSInteger)relationTypeTag
+                                    withError:(NSError*)error{
+    
+    NSLog(@"responses=%@",responses);
+    [HUD hide:YES];
+    
+    switch (relationTypeTag) {
+            
+            
+        case 10:
+        {
+            SOC.localCacheUpdate=TRUE;
+            [SoclivitySqliteClass deleteActivityRecords:activityObject.activityId];
+            
+            [delegate deleteActivityEventByOrganizer];
+            
+        }
+            break;
+            
+            
+        default:
+            break;
     }
 }
 
@@ -733,7 +956,7 @@
     // time to start the activity monitor
     
     if([SoclivityUtilities hasNetworkConnection]){
-        [self startAnimation];
+        [self startAnimation:0];
         [devServer postCreateANewActivityInvocation:activityObject delegate:self];
     }
     else{
@@ -751,12 +974,34 @@
     
 }
 
--(void)startAnimation{
+-(void)startAnimation:(NSInteger)type{
     // Setup animation settings
     HUD = [[MBProgressHUD alloc] initWithView:self.view];
     HUD.yOffset = -40.0;
     HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
-    HUD.labelText = @"Creating Activity";
+    switch (type) {
+        case 0:
+        {
+            HUD.labelText = @"Creating Activity";
+            
+        }
+            break;
+            
+        case 1:
+        {
+            HUD.labelText = @"Editing";
+            
+        }
+            break;
+            
+        case kDeleteActivityRequest:
+        {
+            HUD.labelText = @"Deleting Activity";
+            
+        }
+            break;
+
+    }
 
     [self.view addSubview:HUD];
     HUD.delegate = self;
@@ -1904,6 +2149,71 @@
         
         
     }
+    
+    
+}
+
+-(IBAction)crossClickedByOrganizer:(id)sender{
+    
+    
+  [delegate cancelCreateActivityEventScreen];
+    
+}
+
+#define kEditStep1Elements 11
+
+-(IBAction)tickClickedByOrganizer:(id)sender{
+    
+    //update the activity
+    
+    [self checkValidations];
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        [self startAnimation:1];
+        [devServer editActivityEventRequestInvocation:activityObject requestType:kEditStep1Elements delegate:self];
+    }
+    else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+
+    
+}
+-(void)EditActivityEventInvocationDidFinish:(EditActivityEventInvocation*)invocation
+                               withResponse:(NSString*)responses requestType:(int)requestType withError:(NSError*)error{
+    
+    
+    NSLog(@"responses=%@",responses);
+    [HUD hide:YES];
+    switch (requestType) {
+        case kEditStep1Elements:
+        {
+            [delegate updateDetailedActivityScreen:activityObject];
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+-(IBAction)deleteActivtyPressed:(id)sender{
+    
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Are you sure you want to delete the Activity"
+                                                        message:nil
+                                                       delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancel",nil];
+        alert.tag=kDeleteActivity;
+        [alert show];
+        [alert release];
+        return;
     
     
 }

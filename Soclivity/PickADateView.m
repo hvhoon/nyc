@@ -9,7 +9,7 @@
 #import "PickADateView.h"
 #import "SoclivityUtilities.h"
 @implementation PickADateView
-@synthesize delegate;
+@synthesize delegate,editActivity;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -52,6 +52,11 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+    if(editActivity){
+        pickADateLabel.text=@"Change date";
+    }
+    else
+
     pickADateLabel.text=@"Pick a date";
     
     pickADateLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];

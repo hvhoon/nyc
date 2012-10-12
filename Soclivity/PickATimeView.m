@@ -9,7 +9,7 @@
 #import "PickATimeView.h"
 
 @implementation PickATimeView
-@synthesize delegate;
+@synthesize delegate,editActivity;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -25,7 +25,10 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-    
+    if(editActivity){
+    pickATimeLabel.text=@"Change time";
+    }
+     else
     pickATimeLabel.text=@"Pick a time";
     
     pickATimeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];

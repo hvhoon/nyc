@@ -31,11 +31,32 @@
 #if 1
 	NSMutableDictionary* bodyD = [[[NSMutableDictionary alloc] init] autorelease];
     
+    switch (changePutUrlMethod) {
+        case 10:
+        {
+            [bodyD setObject:activityObj.where_lat forKey:@"where_lat"];
+            [bodyD setObject:activityObj.where_lng forKey:@"where_lng"];
+            [bodyD setObject:activityObj.where_address forKey:@"where_address"];
+            [bodyD setObject:activityObj.where_zip forKey:@"where_zip"];
+            
+        }
+            break;
+            
+        case 11:
+        {
+            [bodyD setObject:activityObj.access forKey:@"access"];
+            
+            
+            [bodyD setObject:[NSNumber numberWithInt:activityObj.type] forKey:@"atype"];
+            [bodyD setObject:activityObj.activityName forKey:@"name"];
+            [bodyD setObject:[NSNumber numberWithInt:activityObj.num_of_people] forKey:@"num_of_people"];
+            [bodyD setObject:activityObj.what forKey:@"what"];
+            [bodyD setObject:activityObj.when forKey:@"when"];
+            
+        }
+            break;
+    }
     
-    [bodyD setObject:activityObj.where_lat forKey:@"where_lat"];
-    [bodyD setObject:activityObj.where_lng forKey:@"where_lng"];
-    [bodyD setObject:activityObj.where_address forKey:@"where_address"];
-    [bodyD setObject:activityObj.where_zip forKey:@"where_zip"];
     NSString *bodyData = [NSString stringWithFormat:@"%@",[bodyD JSONRepresentation]];
     
     NSLog(@"bodyData=%@",bodyData);

@@ -18,7 +18,7 @@
 #import "PlacemarkClass.h"
 #define LISTVIEWREMOVE 0
 @implementation AddEventView
-@synthesize activityObject,delegate,calendarDateEditArrow,timeEditArrow,editMarkerButton,mapView,mapAnnotations,addressSearchBar,_geocodingResults,labelView,searching,editMode,firstALineddressLabel,secondLineAddressLabel,pinDrop,firstTime,activityInfoButton;
+@synthesize activityObject,delegate,mapView,mapAnnotations,addressSearchBar,_geocodingResults,labelView,searching,editMode,firstALineddressLabel,secondLineAddressLabel,pinDrop,firstTime,activityInfoButton;
 
 
 #pragma mark -
@@ -195,7 +195,7 @@
     calendarDateLabel.frame = CGRectMake(84, 12+4, 200, 15);
     
     
-    calendarDateEditArrow.frame=CGRectMake(291, 12+4, 9, 14);
+    //calendarDateEditArrow.frame=CGRectMake(291, 12+4, 9, 14);
     
     // Seperator line here
     UIImageView *detailsLineCalendar = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_detailsLine.png"]];
@@ -217,7 +217,7 @@
     activityTimeLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     activityTimeLabel.frame = CGRectMake(84, 57+4, 200, 15);
     
-    timeEditArrow.frame=CGRectMake(291, 57+4, 9, 14);
+    //timeEditArrow.frame=CGRectMake(291, 57+4, 9, 14);
     
     // Seperator line here
     UIImageView *detailsLineTime = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_detailsLine.png"]];

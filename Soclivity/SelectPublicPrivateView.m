@@ -9,7 +9,7 @@
 #import "SelectPublicPrivateView.h"
 #import "SoclivityUtilities.h"
 @implementation SelectPublicPrivateView
-@synthesize delegate;
+@synthesize delegate,editActivity;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -35,7 +35,10 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-    
+    if(editActivity){
+        privacyTextLabel.text=@"Change visibility";
+    }
+    else
     privacyTextLabel.text=@"Pick visibility";
     
     privacyTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];

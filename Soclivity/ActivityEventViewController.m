@@ -25,7 +25,6 @@
 #import "CreateActivityViewController.h"
 #define kEditMapElements 10
 #define kJoinRequest 11
-#define kDeleteActivity 12
 #define kCancelPendingRequest 13
 #define kConfirmPresenceRequest 14
 #define kSorryNotGoingRequest 15
@@ -34,7 +33,6 @@
 #define kDeclinePlayerRequest 18
 #define kRemovePlayerRequest 19
 #define kLeaveActivity 20
-#define kDeleteActivityRequest 21
 @interface ActivityEventViewController (private)<EditActivityEventInvocationDelegate,MBProgressHUDDelegate,PostActivityRequestInvocationDelegate,GetActivityInvitesInvocationDelegate,NewActivityViewDelegate>
 @end
 
@@ -869,6 +867,12 @@
     }
 }
 
+-(void)deleteActivityEventByOrganizer{
+    
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 -(IBAction)leaveEventActivityPressed:(id)sender{
     
     
@@ -1070,59 +1074,26 @@
 -(IBAction)editButtonClicked:(id)sender{
     
     
-    editState=TRUE;
-    
-    crossEditButton.hidden=NO;
-    tickEditButton.hidden=NO;
-    backButton.hidden=YES;
-    newActivityButton.hidden=YES;
-    deleteActivityButton.hidden=NO;
-    inviteUsersToActivityButton.hidden=YES;
-    chatButton.hidden=YES;
-    eventView.calendarDateEditArrow.hidden=NO;
-    eventView.timeEditArrow.hidden=NO;
-    eventView.editMarkerButton.hidden=NO;
-    
-    [participantListTableView.participantTableView reloadData];
-}
-
--(IBAction)crossClickedByOrganizer:(id)sender{
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"CreateActivityViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"CreateActivityViewController";
+    }
     
     
-        editState=FALSE;
-    crossEditButton.hidden=YES;
-    tickEditButton.hidden=YES;
-    backButton.hidden=NO;
-    newActivityButton.hidden=NO;
-    deleteActivityButton.hidden=YES;
-    inviteUsersToActivityButton.hidden=NO;
-    chatButton.hidden=NO;
-    eventView.calendarDateEditArrow.hidden=YES;
-    eventView.timeEditArrow.hidden=YES;
-    eventView.editMarkerButton.hidden=YES;
-    [eventView.addressSearchBar resignFirstResponder];
-    [participantListTableView.participantTableView reloadData];
+    CreateActivityViewController *avEditController = [[CreateActivityViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+    avEditController.delegate=self;
+    avEditController.newActivity=NO;
+    avEditController.activityObject=activityInfo;
+    UINavigationController *addNavigationController = [[UINavigationController alloc] initWithRootViewController:avEditController];
+	
+    
+	[self.navigationController presentModalViewController:addNavigationController animated:YES];
 
 }
 
--(IBAction)tickClickedByOrganizer:(id)sender{
-
-    
-    editState=FALSE;
-    crossEditButton.hidden=YES;
-    tickEditButton.hidden=YES;
-    backButton.hidden=NO;
-    newActivityButton.hidden=NO;
-    deleteActivityButton.hidden=YES;
-    inviteUsersToActivityButton.hidden=NO;
-    chatButton.hidden=NO;
-    eventView.calendarDateEditArrow.hidden=YES;
-    eventView.timeEditArrow.hidden=YES;
-    eventView.editMarkerButton.hidden=YES;
-     [eventView.addressSearchBar resignFirstResponder];
-    [participantListTableView.participantTableView reloadData];
-
-}
 
 -(IBAction)chatButtonPressed:(id)sender{
     
@@ -1184,19 +1155,7 @@
     }
     
 }
--(IBAction)deleteActivtyPressed:(id)sender{
-    
-    if(activityInfo.activityRelationType==6){
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Are you sure you want to delete the Activity"
-                                                    message:nil
-                                                   delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancel",nil];
-    alert.tag=kDeleteActivity;
-    [alert show];
-    [alert release];
-    return;
-    }
 
-}
 -(IBAction)cancelRequestButtonPressed:(id)sender{
     
     
@@ -1464,12 +1423,6 @@
         }
             break;
 
-        case kDeleteActivityRequest:
-        {
-            HUD.labelText = @"Deleting Activity";
-            
-        }
-            break;
             
         default:
             break;
@@ -1512,6 +1465,12 @@
     }
 
 }
+-(void)updateDetailedActivityScreen:(InfoActivityClass*)activityObj{
+    
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    //refresh the screen
+}
 
 -(void)enableDisableTickOnTheTopRight:(BOOL)show{
     
@@ -1551,27 +1510,7 @@
     
     //[alertView resignFirstResponder];
     
-    if(alertView.tag==kDeleteActivity){
-        if (buttonIndex == 0) {
-            //delete the Activity
-            if([SoclivityUtilities hasNetworkConnection]){
-                [self startAnimation:kDeleteActivityRequest];
-                [devServer postActivityRequestInvocation:10  playerId:[SOC.loggedInUser.idSoc intValue] actId:activityInfo.activityId delegate:self];
-            }
-            else{
-                
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
-                                                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                
-                [alert show];
-                [alert release];
-                return;
-                
-                
-            }
-        }
-    }
-    else if(alertView.tag==kLeaveActivity){
+    if(alertView.tag==kLeaveActivity){
 
                 if (buttonIndex == 0) {
         if([SoclivityUtilities hasNetworkConnection]){

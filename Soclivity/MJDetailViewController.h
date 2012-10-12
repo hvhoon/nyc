@@ -6,9 +6,13 @@
 #import "PickATimeView.h"
 #import "SelectPublicPrivateView.h"
 typedef enum {
-    PickADateViewAnimation = 1,
-    PickATimeViewAnimation,
-    PrivatePublicViewAnimation
+    PickADateViewAnimationNew = 1,
+    PickATimeViewAnimationNew,
+    PrivatePublicViewAnimationNew,
+    PickADateViewAnimationEdit,
+    PickATimeViewAnimationEdit,
+    PrivatePublicViewAnimationEdit
+
 } PickerPopupViewAnimation;
 
 

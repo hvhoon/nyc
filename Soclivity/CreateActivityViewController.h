@@ -18,6 +18,8 @@
 @optional
 -(void)cancelCreateActivityEventScreen;
 -(void)pushToNewActivity:(InfoActivityClass*)activity;
+-(void)updateDetailedActivityScreen:(InfoActivityClass*)activityObj;
+-(void)deleteActivityEventByOrganizer;
 @end
 
 
@@ -78,6 +80,12 @@
     BOOL timeSelected;
     MainServiceManager *devServer;
     MBProgressHUD *HUD;
+    
+    IBOutlet UIButton *crossEditButton;
+    IBOutlet UIButton *tickEditButton;
+    IBOutlet UIButton *deleteActivityButton;
+
+
 
 }
 @property (nonatomic, retain)  MKMapView* mapView;
@@ -103,5 +111,10 @@
 - (void) addPinAnnotationForPlacemark:(NSArray*)placemarks droppedStatus:(BOOL)droppedStatus;
 -(CGFloat) maxDistanceBetweenAllResultPointsOnMap:(CLLocation*)avgLocation;
 -(CLLocation*)ZoomToAllResultPointsOnMap;
--(void)startAnimation;
+-(void)startAnimation:(NSInteger)type;
+-(IBAction)deleteActivtyPressed:(id)sender;
+-(IBAction)crossClickedByOrganizer:(id)sender;
+-(IBAction)tickClickedByOrganizer:(id)sender;
+-(void)checkValidations;
+
 @end

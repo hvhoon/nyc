@@ -20,7 +20,9 @@
     IBOutlet UIDatePicker *timePicker;
     IBOutlet UILabel *pickATimeLabel;
     id<PickTimeViewDelegate>delegate;
+    BOOL editActivity;
 }
+@property (nonatomic,assign)BOOL editActivity;
 @property (nonatomic,retain)id<PickTimeViewDelegate>delegate;
 -(IBAction)crossButtonClicked:(id)sender;
 -(IBAction)tickButtonPressed:(id)sender;

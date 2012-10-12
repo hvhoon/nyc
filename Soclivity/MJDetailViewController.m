@@ -13,7 +13,7 @@
 -(void)viewDidLoad{
     
     switch (type) {
-        case PickADateViewAnimation:
+        case PickADateViewAnimationNew:
         {
             pickADateView.delegate=self;
             self.view=pickADateView;
@@ -21,7 +21,7 @@
         }
             break;
             
-        case PickATimeViewAnimation:
+        case PickATimeViewAnimationNew:
         {
             pickATimeView.delegate=self;
 
@@ -29,13 +29,41 @@
             
         }
             break;
-        case PrivatePublicViewAnimation:
+        case PrivatePublicViewAnimationNew:
         {
             privatePublicView.delegate=self;
             self.view=privatePublicView;
             
         }
             break;
+            
+            
+        case PickADateViewAnimationEdit:
+        {
+            pickADateView.delegate=self;
+            pickADateView.editActivity=YES;
+            self.view=pickADateView;
+            
+        }
+            break;
+            
+        case PickATimeViewAnimationEdit:
+        {
+            pickATimeView.delegate=self;
+            pickATimeView.editActivity=YES;
+            self.view=pickATimeView;
+            
+        }
+            break;
+        case PrivatePublicViewAnimationEdit:
+        {
+            privatePublicView.editActivity=YES;
+            privatePublicView.delegate=self;
+            self.view=privatePublicView;
+            
+        }
+            break;
+
     }
 }
 
