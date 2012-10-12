@@ -21,7 +21,8 @@
 #import "SocPlayerClass.h"
 #import "UpComingCompletedEventsViewController.h"
 #import "SOCProfileViewController.h"
-@interface HomeViewController(Private) <MBProgressHUDDelegate>
+#import "CreateActivityViewController.h"
+@interface HomeViewController(Private) <MBProgressHUDDelegate,NewActivityViewDelegate>
 @end
 
 @implementation HomeViewController
@@ -200,10 +201,62 @@
     self.homeSearchBar.frame=CGRectMake(0, 44, 320, 44.0f);
     [UIView commitAnimations];
 }
-#endif    
+#endif 
+
+
+#pragma mark -
+#pragma mark Create New Activity methods
+
 -(void)newActivityButtonPressed{
     NSLog(@"newActivityButtonPressed");
+    
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"CreateActivityViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"CreateActivityViewController";
+    }
+    
+    
+    CreateActivityViewController *avEditController = [[CreateActivityViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+    avEditController.delegate=self;
+    avEditController.newActivity=YES;
+    UINavigationController *addNavigationController = [[UINavigationController alloc] initWithRootViewController:avEditController];
+	
+    
+	[self.navigationController presentModalViewController:addNavigationController animated:YES];
+
 }
+
+
+
+
+-(void)cancelCreateActivityEventScreen{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+}
+-(void)pushToNewActivity:(InfoActivityClass *)activity{
+    
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    NSString*nibNameBundle=nil;
+    
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"ActivityEventViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"ActivityEventViewController";
+    }
+    
+    
+    ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+    
+    activityEventViewController.activityInfo=activity;
+	[[self navigationController] pushViewController:activityEventViewController animated:YES];
+    [activityEventViewController release];
+    
+}
+
 #pragma mark -
 #pragma mark Sliding Drawer Action
 
