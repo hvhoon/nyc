@@ -33,6 +33,7 @@
     BOOL validName;
     SoclivityManager *SOC;
     UILabel *placeholderLabel;
+    IBOutlet UILabel *capacityLabel;
     IBOutlet UIButton*pickADayButton;
     IBOutlet UIButton*pickATimeButton;
     IBOutlet UIButton*publicPrivateButton;

@@ -292,8 +292,11 @@
     [publicPrivateButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateHighlighted];
 
     capacityTextField.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
-    capacityTextField.textColor=[SoclivityUtilities returnTextFontColor:5];
-    capacityTextField.placeholder=@"Capacity";
+    capacityTextField.textColor=[SoclivityUtilities returnTextFontColor:4];
+    
+    capacityLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    capacityLabel.textColor = [SoclivityUtilities returnTextFontColor:5];
+    capacityLabel.backgroundColor=[UIColor clearColor];
     
     blankTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
     blankTextLabel.textColor=[SoclivityUtilities returnTextFontColor:4];
