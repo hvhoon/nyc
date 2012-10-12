@@ -72,6 +72,12 @@
         dateSelected=TRUE;
         timeSelected=TRUE;
         validAcivityName=TRUE;
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+        NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+        [dateFormatter setTimeZone:gmt];
+        activityObject.activityTime=activityObject.activityDate = [dateFormatter dateFromString:activityObject.when];
+
     }
     _geocodingResults=[NSMutableArray new];
     _geocoder = [[CLGeocoder alloc] init];
@@ -790,6 +796,30 @@
         return;
         
     }
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:activityObject.activityTime];
+    NSInteger hour = [components hour];
+    NSInteger minute = [components minute];
+    
+    
+    
+    NSCalendar* myCalendar = [NSCalendar currentCalendar];
+    components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
+                               fromDate:activityObject.activityDate];
+    [components setHour: hour];
+    [components setMinute:minute];
+    [components setSecond:00];
+    NSDate *setFinishDate=[myCalendar dateFromComponents:components];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [dateFormatter setTimeZone:gmt];
+    
+    activityObject.when=[dateFormatter stringFromDate:setFinishDate];
+    NSLog(@"Date is =%@ and date s",activityObject.when);
+
 
 }
 
@@ -801,28 +831,6 @@
     
 // logic for getting the date
     
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:activityObject.activityTime];
-    NSInteger hour = [components hour];
-    NSInteger minute = [components minute];
-     
-
-    
-    NSCalendar* myCalendar = [NSCalendar currentCalendar];
-    components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
-                                                 fromDate:activityObject.activityDate];
-    [components setHour: hour];
-    [components setMinute:minute];
-    [components setSecond:00];
-    NSDate *setFinishDate=[myCalendar dateFromComponents:components];
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
-    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-    [dateFormatter setTimeZone:gmt];
-
-    activityObject.when=[dateFormatter stringFromDate:setFinishDate];
-    NSLog(@"Date is =%@ and date s",activityObject.when);
 
 
     
@@ -952,7 +960,8 @@
     [self updateSelectLocation];
     activityObject.activityName=activityNameTextField.text;
     activityObject.what=descriptionTextView.text;
-    activityObject.num_of_people=[capacityTextField.text intValue];
+    if([capacityTextField.text length]!=0)
+      activityObject.num_of_people=[capacityTextField.text intValue];
     // time to start the activity monitor
     
     if([SoclivityUtilities hasNetworkConnection]){
@@ -2167,6 +2176,11 @@
     //update the activity
     
     [self checkValidations];
+    activityObject.activityName=activityNameTextField.text;
+    activityObject.what=descriptionTextView.text;
+    if([capacityTextField.text length]!=0)
+    activityObject.num_of_people=[capacityTextField.text intValue];
+
     
     if([SoclivityUtilities hasNetworkConnection]){
         [self startAnimation:1];

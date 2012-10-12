@@ -120,4 +120,5 @@
 -(IBAction)activityInfoButtonClicked:(id)sender;
 -(IBAction)activityMapPlotButtonClicked:(id)sender;
 -(void)decideToShowMapView:(NSInteger)type;
+-(void)updateEditedActivityFields:(InfoActivityClass*)act;
 @end

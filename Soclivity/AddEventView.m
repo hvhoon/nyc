@@ -331,6 +331,10 @@
 
 }
 
+-(void)updateEditedActivityFields:(InfoActivityClass*)act{
+    
+}
+
 -(void)decideToShowMapView:(NSInteger)type{
     
   activityPlotOnMapButton.hidden=YES;

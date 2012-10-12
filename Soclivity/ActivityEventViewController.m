@@ -1469,6 +1469,10 @@
     
     [self.navigationController dismissModalViewControllerAnimated:YES];
     
+    //[eventView loadViewWithActivityDetails:activityObj];
+    
+    //[eventView updateEditedActivityFields:activityObj];
+    
     //refresh the screen
 }
 
