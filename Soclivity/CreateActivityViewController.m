@@ -243,8 +243,7 @@
     descriptionTextView.delegate = self;
     descriptionTextView.contentSize = descriptionTextView.frame.size;
     
-    
-    placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, descriptionTextView.frame.size.width - 20.0, 34.0)];
+    placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0.0, descriptionTextView.frame.size.width - 20.0, 34.0)];
     [placeholderLabel setText:@"Description"];
     // placeholderLabel is instance variable retained by view controller
     [placeholderLabel setBackgroundColor:[UIColor clearColor]];
