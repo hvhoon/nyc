@@ -20,16 +20,9 @@
     
     NSMutableArray *content = [NSMutableArray new];
     
-    NSString *openSlots = [ACTDict objectForKey:@"slots"];
-    if([openSlots isEqualToString:@"infinite"]){
-        openSlots=[NSString stringWithFormat:@"-1"];
-        [[NSUserDefaults standardUserDefaults] setValue:openSlots forKey:@"ActivityOpenSlots"];
-
-    }
-    else{
+    NSNumber *openSlots = [ACTDict objectForKey:@"slots"];
         [[NSUserDefaults standardUserDefaults] setValue:openSlots forKey:@"ActivityOpenSlots"];
         
-    }
 
 
 	NSArray*rdswArray =[ACTDict objectForKey:@"rdsw"];
