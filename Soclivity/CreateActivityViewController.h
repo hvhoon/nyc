@@ -24,7 +24,6 @@
     IBOutlet UILabel *step1_of2Label;
     NSInteger activityType;
     IBOutlet UIView *createActivityView;
-    IBOutlet UILabel *activityNameLabel;
     IBOutlet UITextField *activityNameTextField;
     IBOutlet UIView*backgroundView;
     IBOutlet UITextView*descriptionTextView;
