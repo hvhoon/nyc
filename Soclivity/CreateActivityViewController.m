@@ -772,8 +772,22 @@
     
     NSLog(@"Responses=%@",response);
     if(response!=nil){
-        
+        if([SoclivityUtilities hasNetworkConnection]){
         [devServer getDetailedActivityInfoInvocation:[SOC.loggedInUser.idSoc intValue]    actId:response.activityId  latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude delegate:self];
+        }
+        
+        else{
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            
+            [alert show];
+            [alert release];
+            return;
+            
+            
+        }
+
 
     }
     else{
@@ -815,11 +829,12 @@
 -(void)updateActivityType:(NSInteger)type{
     
     activityType=type;
-    activityObject.type=type;
     switch (activityType) {
             
     case kPlayActivity:
     {
+        activityObject.type=1;
+
         [(UILabel*)[createActivityView viewWithTag:kPlayLabelText] setAlpha:1.0f];
         [(UIImageView*)[createActivityView viewWithTag:kPlayTickImage]setAlpha:1.0f];
         
@@ -846,6 +861,8 @@
         
     case kEatActivity:
     {
+        activityObject.type=2;
+
         [(UILabel*)[createActivityView viewWithTag:kPlayLabelText] setAlpha:0.3f];
         [(UIImageView*)[createActivityView viewWithTag:kPlayTickImage]setAlpha:0.3f];
         
@@ -870,6 +887,8 @@
         
     case kSeeActivity:
     {
+        activityObject.type=3;
+
         [(UILabel*)[createActivityView viewWithTag:kPlayLabelText] setAlpha:0.3f];
         [(UIImageView*)[createActivityView viewWithTag:kPlayTickImage]setAlpha:0.3f];
         
@@ -895,6 +914,8 @@
         break;
     case kCreateActivity:
     {
+        activityObject.type=4;
+
         [(UILabel*)[createActivityView viewWithTag:kPlayLabelText] setAlpha:0.3f];
         [(UIImageView*)[createActivityView viewWithTag:kPlayTickImage]setAlpha:0.3f];
         
@@ -920,6 +941,8 @@
         break;
     case kLearnActivity:
     {
+        activityObject.type=5;
+
         [(UILabel*)[createActivityView viewWithTag:kPlayLabelText] setAlpha:0.3f];
         [(UIImageView*)[createActivityView viewWithTag:kPlayTickImage]setAlpha:0.3f];
         

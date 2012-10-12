@@ -343,7 +343,7 @@
 
         {
             locationInfoLabel1.text=[NSString stringWithFormat:@"%@ miles away",activityObject.distance];
-            locationInfoLabel2.text=[NSString stringWithFormat:@"in %@",activityObject.where_city];
+            locationInfoLabel2.text=[NSString stringWithFormat:@"in %@",activityObject.where_zip];
         }
             break;
             
@@ -361,7 +361,7 @@
             locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
             locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
             locationInfoLabel1.text=activityObject.where_address;
-            locationInfoLabel2.text=[NSString stringWithFormat:@"in %@",activityObject.where_city];
+            locationInfoLabel2.text=[NSString stringWithFormat:@"in %@",activityObject.where_zip];
             
             // Setting the variables for the map screen
             firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
@@ -369,7 +369,7 @@
             secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
             secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
             firstALineddressLabel.text = activityObject.where_address;
-            secondLineAddressLabel.text = [NSString stringWithFormat:@"in %@",activityObject.where_city];
+            secondLineAddressLabel.text = [NSString stringWithFormat:@"in %@",activityObject.where_zip];
         }
             break;
     }
