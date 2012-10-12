@@ -381,7 +381,7 @@
         return;
     }
     
-    if([delegate CalculateOpenSlots]){
+    if(![delegate CalculateOpenSlots]){
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry No Slots Open" message:nil
                                                        delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
