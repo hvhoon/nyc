@@ -332,7 +332,34 @@
 }
 
 -(void)updateEditedActivityFields:(InfoActivityClass*)act{
-    
+ 
+#if 0
+    switch (act.type) {
+        case 1:
+            activityBarImgView.image=[UIImage imageNamed:@"S05_green-bar.png"];
+            description.backgroundColor=[SoclivityUtilities returnBackgroundColor:10];
+            break;
+        case 2:
+            activityBarImgView.image=[UIImage imageNamed:@"S05_yellow-bar.png"];
+            description.backgroundColor=[SoclivityUtilities returnBackgroundColor:11];
+            break;
+        case 3:
+            activityBarImgView.image=[UIImage imageNamed:@"S05_purple-bar.png"];
+            description.backgroundColor=[SoclivityUtilities returnBackgroundColor:12];
+            break;
+        case 4:
+            activityBarImgView.image=[UIImage imageNamed:@"S05_red-bar.png"];
+            description.backgroundColor=[SoclivityUtilities returnBackgroundColor:13];
+            break;
+        case 5:
+            activityBarImgView.image=[UIImage imageNamed:@"S05_aqua-marine-bar.png"];
+            description.backgroundColor=[SoclivityUtilities returnBackgroundColor:14];
+            break;
+        default:
+            description.backgroundColor=[SoclivityUtilities returnBackgroundColor:1];
+            break;
+    }
+#endif
 }
 
 -(void)decideToShowMapView:(NSInteger)type{

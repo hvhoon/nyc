@@ -33,6 +33,8 @@
 #define kDeclinePlayerRequest 18
 #define kRemovePlayerRequest 19
 #define kLeaveActivity 20
+
+#define kActivityLabel 21
 @interface ActivityEventViewController (private)<EditActivityEventInvocationDelegate,MBProgressHUDDelegate,PostActivityRequestInvocationDelegate,GetActivityInvitesInvocationDelegate,NewActivityViewDelegate>
 @end
 
@@ -328,6 +330,7 @@
     activityNameLabel.backgroundColor=[UIColor clearColor];
     activityNameLabel.shadowColor = [UIColor blackColor];
     activityNameLabel.shadowOffset = CGSizeMake(0,-1);
+    activityNameLabel.tag=kActivityLabel;
 
     [eventView loadViewWithActivityDetails:activityInfo];
     
@@ -1228,9 +1231,6 @@
 }
 -(void)slideInTransitionToLocationView{
     
-    if(editState){
-        [self crossClickedByOrganizer:nil];
-    }
     inTransition=TRUE;
     
     
@@ -1469,11 +1469,8 @@
     
     [self.navigationController dismissModalViewControllerAnimated:YES];
     
-    //[eventView loadViewWithActivityDetails:activityObj];
+    [self.navigationController popViewControllerAnimated:YES];
     
-    //[eventView updateEditedActivityFields:activityObj];
-    
-    //refresh the screen
 }
 
 -(void)enableDisableTickOnTheTopRight:(BOOL)show{
