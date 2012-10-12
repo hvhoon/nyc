@@ -115,6 +115,6 @@
 -(IBAction)deleteActivtyPressed:(id)sender;
 -(IBAction)crossClickedByOrganizer:(id)sender;
 -(IBAction)tickClickedByOrganizer:(id)sender;
--(void)checkValidations;
+-(BOOL)checkValidations;
 
 @end

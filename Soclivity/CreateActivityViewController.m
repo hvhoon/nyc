@@ -751,8 +751,9 @@
     
 }
 
--(void)checkValidations{
+-(BOOL)checkValidations{
     
+    BOOL validate=FALSE;
     if(!activityNameTextField.text.length){
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Required Fields"
@@ -761,7 +762,7 @@
         alert.tag=kActivityNameNot;
         [alert show];
         [alert release];
-        return;
+        return validate;
         
     }
     
@@ -773,7 +774,7 @@
         alert.tag=kActivityNameNot;
         [alert show];
         [alert release];
-        return;
+        return validate;
     }
     
     if(!dateSelected){
@@ -782,7 +783,7 @@
                                                        delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
         [alert show];
         [alert release];
-        return;
+        return validate;
         
     }
     
@@ -793,7 +794,7 @@
                                                        delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
         [alert show];
         [alert release];
-        return;
+        return validate;
         
     }
     
@@ -820,12 +821,16 @@
     activityObject.when=[dateFormatter stringFromDate:setFinishDate];
     NSLog(@"Date is =%@ and date s",activityObject.when);
 
+    
+    validate=TRUE;
+    
+    return validate;
 
 }
 
 -(IBAction)pickALocationButtonPressed:(id)sender{
     
-    [self checkValidations];
+    if([self checkValidations]){
     
     
     
@@ -851,7 +856,8 @@
         activityInfoButton.hidden=YES;
         
     }];
-
+        
+    }
 }
 
 #pragma mark -
@@ -2175,7 +2181,7 @@
     
     //update the activity
     
-    [self checkValidations];
+    if([self checkValidations]){
     activityObject.activityName=activityNameTextField.text;
     activityObject.what=descriptionTextView.text;
     if([capacityTextField.text length]!=0)
@@ -2197,7 +2203,8 @@
         
         
     }
-
+        
+ }
     
 }
 -(void)EditActivityEventInvocationDidFinish:(EditActivityEventInvocation*)invocation
