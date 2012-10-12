@@ -10,7 +10,8 @@
 #import "CustomSearchbar.h"
 #import "InviteUserTableViewCell.h"
 #import "IconDownloader.h"
-#import "UserContactList.h"
+@class MainServiceManager;
+@class MBProgressHUD;
 @protocol ContactsListViewDelegate <NSObject>
 
 @optional
@@ -18,7 +19,7 @@
 -(NSInteger)CalculateOpenSlots;
 @end
 
-@interface ContactsListViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,CustomSearchBarDelegate,InviteTableViewCellDelegate,IconDownloaderDelegate,UserContactListDelegate>{
+@interface ContactsListViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,CustomSearchBarDelegate,InviteTableViewCellDelegate,IconDownloaderDelegate>{
     
     IBOutlet UIButton*activityBackButton;
     IBOutlet UILabel *inviteTitleLabel;
@@ -33,8 +34,13 @@
     id<ContactsListViewDelegate>delegate;
     BOOL inviteFriends;
     NSMutableDictionary *imageDownloadsInProgress;
+    MainServiceManager *devServer;
+    MBProgressHUD *HUD;
+    InviteObjectClass *statusUpdate;
+    NSInteger activityId;
 
 }
+@property (nonatomic,assign)    NSInteger activityId;
 @property (nonatomic,retain)UIButton*activityBackButton;
 @property (nonatomic,retain)UILabel *inviteTitleLabel;
 @property (nonatomic,retain)UILabel *openSlotsNoLabel;
@@ -48,5 +54,7 @@
 @property (nonatomic,retain)NSArray*contactsListContentArray;
 -(NSArray*)setUpDummyContactList;
 -(IBAction)popBackToActivityInviteScreen:(id)sender;
+-(void)startAnimation:(int)type;
+-(void)hideMBProgress;
 
 @end

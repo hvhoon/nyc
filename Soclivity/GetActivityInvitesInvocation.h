@@ -27,4 +27,6 @@
 
 @property (nonatomic,assign) NSInteger playerId;
 @property (nonatomic,assign) NSInteger activityId;
+@property (nonatomic,assign) NSInteger inviteeType;
+@property (nonatomic,retain) NSString *responseABString;
 @end

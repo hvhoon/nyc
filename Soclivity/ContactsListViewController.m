@@ -11,14 +11,17 @@
 #import "InviteObjectClass.h"
 #import "SocPlayerClass.h"
 #import "SOCProfileViewController.h"
-@interface ContactsListViewController ()
+#import "MainServiceManager.h"
+#import "MBProgressHUD.h"
+#import "PostActivityRequestInvocation.h"
+@interface ContactsListViewController ()<MBProgressHUDDelegate,PostActivityRequestInvocationDelegate>
 
 - (void)startIconDownload:(InviteObjectClass*)appRecord forIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
 @implementation ContactsListViewController
-@synthesize activityBackButton,inviteTitleLabel,openSlotsNoLabel,activityName,num_of_slots,searchBarForContacts,filteredListContent,contactsListContentArray,delegate,inviteFriends,imageDownloadsInProgress;
+@synthesize activityBackButton,inviteTitleLabel,openSlotsNoLabel,activityName,num_of_slots,searchBarForContacts,filteredListContent,contactsListContentArray,delegate,inviteFriends,imageDownloadsInProgress,activityId;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,24 +35,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    devServer=[[MainServiceManager alloc]init];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
+    
     if(inviteFriends){
-    inviteTitleLabel.text=[NSString stringWithFormat:@"%@",activityName];
-    
-    inviteTitleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
-    inviteTitleLabel.textColor=[UIColor whiteColor];
-    inviteTitleLabel.backgroundColor=[UIColor clearColor];
-    inviteTitleLabel.shadowColor = [UIColor blackColor];
-    inviteTitleLabel.shadowOffset = CGSizeMake(0,-1);
-    
-    
-    
-    openSlotsNoLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
-    openSlotsNoLabel.textColor=[UIColor whiteColor];
-    openSlotsNoLabel.backgroundColor=[UIColor clearColor];
-    openSlotsNoLabel.shadowColor = [UIColor blackColor];
-    openSlotsNoLabel.shadowOffset = CGSizeMake(0,-1);
-    openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
+        inviteTitleLabel.text=[NSString stringWithFormat:@"%@",activityName];
+        
+        inviteTitleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
+        inviteTitleLabel.textColor=[UIColor whiteColor];
+        inviteTitleLabel.backgroundColor=[UIColor clearColor];
+        inviteTitleLabel.shadowColor = [UIColor blackColor];
+        inviteTitleLabel.shadowOffset = CGSizeMake(0,-1);
+        
+        openSlotsNoLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+        openSlotsNoLabel.textColor=[UIColor whiteColor];
+        openSlotsNoLabel.backgroundColor=[UIColor clearColor];
+        openSlotsNoLabel.shadowColor=[UIColor blackColor];
+        openSlotsNoLabel.shadowOffset=CGSizeMake(0,-1);
+        openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
     }
     
     searching=FALSE;
@@ -76,10 +79,7 @@
     contactListTableView.showsVerticalScrollIndicator=YES;
     contactListTableView.clipsToBounds=YES;
     
-    UserContactList *addressBook=[[UserContactList alloc]init];
-    addressBook.delegate=self;
-    [addressBook loadContacts];
-    self.contactsListContentArray=[self setUpDummyContactList];
+    //self.contactsListContentArray=[self setUpDummyContactList];
     
     [contactListTableView reloadData];
     
@@ -88,32 +88,7 @@
     // Do any additional setup after loading the view from its nib.
 }
 
--(void)addressBookHelperError{
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:nil
-                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    
-    [alert show];
-    [alert release];
-    return;
-    
-    
-}
--(void)addressBookHelperDeniedAcess{
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Denied Access" message:nil
-                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    
-    [alert show];
-    [alert release];
-    return;
-    
-    
-}
--(void)AddressBookSuccessful:(NSString*)response{
- 
-    NSLog(@"response=%@",response);
-}
+
 
 
 
@@ -139,16 +114,7 @@
         NSNumber * DOS = [playDictionary objectForKey:@"DOS"];
         play.DOS= [DOS intValue];
         play.profilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[playDictionary objectForKey:@"profilePhotoUrl"]];
-#if 0
-        NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:play.profilePhotoUrl]];
-        UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];
-        if(image.size.height != image.size.width)
-            play.profileImage = [SoclivityUtilities autoCrop:image];
         
-        // If the image needs to be compressed
-        if(image.size.height > 56 || image.size.width > 56)
-            play.profileImage = [SoclivityUtilities compressImage:image size:CGSizeMake(56,56)];
-#endif
         NSNumber * status = [playDictionary objectForKey:@"status"];
         play.status=[status boolValue];
         
@@ -399,7 +365,6 @@
 
 -(void)inviteStatusUpdate:(NSIndexPath*)indexPath relationType:(NSInteger)relationType{
     
-    return;
     
     InviteObjectClass*product=nil;
     if(searching){
@@ -427,22 +392,101 @@
     }
     
     
-    if(inviteFriends){
-
-    if(product.status){
-        num_of_slots++;
-        [delegate OpenSlotsUpdate:YES];
-    }
-    else{
-         num_of_slots--;
-        [delegate OpenSlotsUpdate:NO];
-    }
-
-     openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
-    }
+    statusUpdate=[product retain];
     
-    [contactListTableView reloadData];
+    switch (relationType) {
+        case 3:
+        {
+            
+           if([SoclivityUtilities hasNetworkConnection]){
+                [self startAnimation:0];
+                [devServer postActivityRequestInvocation:11  playerId:product.inviteId actId:activityId delegate:self];
+            }
+            else{
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                
+                [alert show];
+                [alert release];
+                return;
+                
+                
+            }
+            
+        }
+            break;
+            
+            
+        case 4:
+        {
+            //normal email invite Pending
+            
+        }
+            break;
+            
+    }
+
+    
+    
 }
+
+-(void)startAnimation:(int)type{
+    // Setup animation settings
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    HUD.yOffset = -40.0;
+    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
+    HUD.labelText = @"Inviting";
+    [self.view addSubview:HUD];
+    HUD.delegate = self;
+    [HUD show:YES];
+    
+}
+
+-(void)PostActivityRequestInvocationDidFinish:(PostActivityRequestInvocation*)invocation
+                                 withResponse:(NSString*)responses relationTypeTag:(NSInteger)relationTypeTag
+                                    withError:(NSError*)error{
+    
+    NSLog(@"responses=%@",responses);
+    
+    
+    
+    switch (relationTypeTag) {
+        case 11:
+        {
+            
+            if(inviteFriends){
+                
+                HUD.labelText = @"Invited";
+                
+                [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
+                
+            }
+            
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+
+-(void)hideMBProgress{
+    [HUD hide:YES];
+    num_of_slots--;
+    openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
+    statusUpdate.status=!statusUpdate.status;
+    [contactListTableView reloadData];
+
+    
+}
+
+
+
+
+
 
 -(void)pushToUserProfileView:(NSIndexPath*)indexPath rType:(NSInteger)rType{
     
@@ -494,7 +538,7 @@
 
 - (void)filterContentForSearchText:(NSString*)searchText
 {
-	
+    self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     [self.filteredListContent removeAllObjects]; // First clear the filtered array.
     
     NSMutableArray *content = [NSMutableArray new];

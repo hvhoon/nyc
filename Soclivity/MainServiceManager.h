@@ -36,7 +36,7 @@
 -(void)getDetailedActivityInfoInvocation:(NSInteger)pId actId:(NSInteger)actId latitude:(float)latitude longitude:(float)longitude delegate:(id<DetailedActivityInfoInvocationDelegate>)delegate;
 -(void)postActivityRequestInvocation:(NSInteger) rTag playerId:(NSInteger)playerid actId:(NSInteger)actId delegate:(id<PostActivityRequestInvocationDelegate>)delegate;
 -(void)editActivityEventRequestInvocation:(InfoActivityClass*)acTClass requestType:(int)requestType delegate:(id<EditActivityEventInvocationDelegate>)delegate;
--(void)getActivityPlayerInvitesInvocation:(NSInteger)pId actId:(NSInteger)actId delegate:(id<GetActivityInvitesInvocationDelegate>)delegate;
+-(void)getActivityPlayerInvitesInvocation:(NSInteger)pId actId:(NSInteger)actId inviteeListType:(NSInteger)inviteeListType abContacts:(NSString*)abContacts delegate:(id<GetActivityInvitesInvocationDelegate>)delegate;
 -(void)postCreateANewActivityInvocation:(InfoActivityClass*)activityObject delegate:(id<NewActivityRequestInvocationDelegate>)delegate;
 
 @end

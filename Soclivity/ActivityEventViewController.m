@@ -1021,7 +1021,7 @@
         [spinnerView startAnimating];
         [spinnerView setHidden:NO];
 
-            [devServer getActivityPlayerInvitesInvocation:[SOC.loggedInUser.idSoc intValue] actId:activityInfo.activityId delegate:self];
+        [devServer getActivityPlayerInvitesInvocation:[SOC.loggedInUser.idSoc intValue] actId:activityInfo.activityId inviteeListType:1 abContacts:@"" delegate:self];
      }
     
   else{

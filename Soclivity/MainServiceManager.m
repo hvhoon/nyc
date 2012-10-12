@@ -105,11 +105,13 @@
     [self invoke:invocation withDelegate:delegate];
     
 }
--(void)getActivityPlayerInvitesInvocation:(NSInteger)pId actId:(NSInteger)actId delegate:(id<GetActivityInvitesInvocationDelegate>)delegate{
+-(void)getActivityPlayerInvitesInvocation:(NSInteger)pId actId:(NSInteger)actId inviteeListType:(NSInteger)inviteeListType abContacts:(NSString*)abContacts delegate:(id<GetActivityInvitesInvocationDelegate>)delegate{
     
     GetActivityInvitesInvocation *invocation = [[[GetActivityInvitesInvocation alloc] init] autorelease];
     invocation.playerId = pId;
     invocation.activityId = actId;
+    invocation.inviteeType=inviteeListType;
+    invocation.responseABString=abContacts;
     [self invoke:invocation withDelegate:delegate];
 
     

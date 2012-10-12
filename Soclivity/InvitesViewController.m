@@ -14,7 +14,10 @@
 #import "SOCProfileViewController.h"
 #import "SocPlayerClass.h"
 #import "InviteObjectClass.h"
-@interface InvitesViewController(Private) <MBProgressHUDDelegate,PostActivityRequestInvocationDelegate>
+#import "SoclivityManager.h"
+#import "GetPlayersClass.h"
+#import "GetActivityInvitesInvocation.h"
+@interface InvitesViewController(Private) <MBProgressHUDDelegate,PostActivityRequestInvocationDelegate,GetActivityInvitesInvocationDelegate>
 @end
 
 @implementation InvitesViewController
@@ -50,6 +53,7 @@
 {
     [super viewDidLoad];
     devServer=[[MainServiceManager alloc]init];
+    SOC=[SoclivityManager SharedInstance];
     
     if(inviteFriends){
     settingsButton.hidden=YES;
@@ -81,9 +85,68 @@
     [self.view addSubview:activityInvites];
    // Do any additional setup after loading the view from its nib.
 }
-- (void)pushContactsInvitesScreen{
+
+
+-(void)addressBookHelperError{
     
     
+    if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:nil
+                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    [alert show];
+    [alert release];
+    return;
+    
+    
+}
+-(void)addressBookHelperDeniedAcess{
+    
+    if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Denied Access" message:nil
+                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    [alert show];
+    [alert release];
+    return;
+    
+    
+}
+-(void)AddressBookSuccessful:(NSString*)response{
+    
+    NSLog(@"response=%@",response);
+    
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        
+        
+        [devServer getActivityPlayerInvitesInvocation:[SOC.loggedInUser.idSoc intValue] actId:activityId inviteeListType:2 abContacts:response delegate:self];
+    }
+    
+    else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+    }
+
+    
+
+
+}
+
+-(void)ActivityInvitesInvocationDidFinish:(GetActivityInvitesInvocation*)invocation
+                             withResponse:(NSArray*)responses
+                                withError:(NSError*)error{
+
     NSString *nibNameBundle=nil;
     if([SoclivityUtilities deviceType] & iPhone5){
         nibNameBundle=@"ContactsListViewController_iphone5";
@@ -91,18 +154,29 @@
     else{
         nibNameBundle=@"ContactsListViewController";
     }
-
- 
+    
+    
     ContactsListViewController *contactsListViewController=[[ContactsListViewController alloc] initWithNibName:nibNameBundle bundle:nil];
     contactsListViewController.activityName=[NSString stringWithFormat:@"%@",activityName];
+    contactsListViewController.contactsListContentArray=responses;
     contactsListViewController.num_of_slots=num_of_slots;
     contactsListViewController.inviteFriends=inviteFriends;
     contactsListViewController.delegate=self;
+    contactsListViewController.activityId=activityId;
 	[[self navigationController] pushViewController:contactsListViewController animated:YES];
     [contactsListViewController release];
     
+    
     if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+
+}
+- (void)pushContactsInvitesScreen{
+    
+    
+    UserContactList *addressBook=[[UserContactList alloc]init];
+    addressBook.delegate=self;
+    [addressBook loadContacts];
 }
 
 -(NSInteger)CalculateOpenSlots{

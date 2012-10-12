@@ -194,4 +194,118 @@
 
     
 }
++(NSArray*)PlayersAdressBookParse:(NSDictionary*)ACTDict{
+    
+    NSMutableArray *content = [NSMutableArray new];
+    
+    
+    NSDictionary*abDict =[ACTDict objectForKey:@"ab"];
+    NSArray *fosArray=[abDict objectForKey:@"fos"];
+    
+    
+    for(id obj in fosArray){
+        NSMutableDictionary *row = [[[NSMutableDictionary alloc] init] autorelease];
+        NSMutableDictionary *elements=[[[NSMutableDictionary alloc] init] autorelease];
+        NSMutableArray *entries=[[[NSMutableArray alloc]init] autorelease];
+        
+        bool insertNewElement = TRUE;
+        InviteObjectClass *play=[[[InviteObjectClass alloc]init]autorelease];
+        
+        NSNumber*invId=[obj objectForKey:@"id"];
+        play.inviteId=[invId intValue];
+        play.userName = [obj objectForKey:@"name"];
+        play.typeOfRelation= 3;
+        NSNumber * DOS = [obj objectForKey:@"dos"];
+        play.DOS= [DOS intValue];
+        play.profilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[obj objectForKey:@"photo"]];
+        NSString * status = [obj objectForKey:@"going"];
+        if([status isEqualToString:@"yes"]){
+            play.status=TRUE;
+        }
+        else{
+            play.status=FALSE;
+        }
+        
+        
+        [row setValue:[NSNumber numberWithInt:3] forKey:@"relation"];
+        
+        for(NSDictionary *dict in content) {
+            NSNumber *headerKey = [dict objectForKey:@"relation"];
+            if ([headerKey intValue]==play.typeOfRelation) {
+                NSMutableArray *oldEntries = [dict objectForKey:@"Elements"];
+                [elements setValue:play forKey:@"ActivityInvite"];
+                [oldEntries addObject:elements];
+                insertNewElement = FALSE;
+                break;
+            }
+            else {
+                insertNewElement = TRUE;
+            }
+        }
+        
+        
+        if (insertNewElement) {
+            [elements setValue:play forKey:@"ActivityInvite"];
+            [entries addObject:elements];
+            [row setValue:entries forKey:@"Elements"];
+            [content addObject:row];
+        }
+    }
+    
+    NSArray*friendsNotOnSoclivityArray =[abDict objectForKey:@"fnos"];
+    
+    for(id obj in friendsNotOnSoclivityArray){
+        NSMutableDictionary *row = [[[NSMutableDictionary alloc] init] autorelease];
+        NSMutableDictionary *elements=[[[NSMutableDictionary alloc] init] autorelease];
+        NSMutableArray *entries=[[[NSMutableArray alloc]init] autorelease];
+        
+        bool insertNewElement = TRUE;
+        InviteObjectClass *play=[[[InviteObjectClass alloc]init]autorelease];
+        
+        NSNumber*invId=[obj objectForKey:@"id"];
+        play.inviteId=[invId intValue];
+        
+        play.userName = [obj objectForKey:@"name"];
+        play.typeOfRelation= 4;
+        play.profilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com/assets/picbox.png"];
+        NSString * status = [obj objectForKey:@"going"];
+        if([status isEqualToString:@"yes"]){
+            play.status=TRUE;
+        }
+        else{
+            play.status=FALSE;
+        }
+        
+        
+        [row setValue:[NSNumber numberWithInt:4] forKey:@"relation"];
+        
+        for(NSDictionary *dict in content) {
+            NSNumber *headerKey = [dict objectForKey:@"relation"];
+            if ([headerKey intValue]==play.typeOfRelation) {
+                NSMutableArray *oldEntries = [dict objectForKey:@"Elements"];
+                [elements setValue:play forKey:@"ActivityInvite"];
+                [oldEntries addObject:elements];
+                insertNewElement = FALSE;
+                break;
+            }
+            else {
+                insertNewElement = TRUE;
+            }
+        }
+        
+        
+        if (insertNewElement) {
+            [elements setValue:play forKey:@"ActivityInvite"];
+            [entries addObject:elements];
+            [row setValue:entries forKey:@"Elements"];
+            [content addObject:row];
+        }
+        
+        
+        
+        
+        
+    }
+    return  content;
+}
 @end

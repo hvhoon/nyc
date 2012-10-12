@@ -204,21 +204,9 @@
     [delegate pushContactsInvitesScreen];
  
     
-#if 0
-    NSOperationQueue *queue = [NSOperationQueue new];
-    NSInvocationOperation *operation = [[NSInvocationOperation alloc]
-                                        initWithTarget:self
-                                        selector:@selector(SetUpActivityInvites) 
-                                        object:nil];
-    [queue addOperation:operation];
-    [operation release];
-#endif
     
 }
 
--(void)SetUpActivityInvites{
-    [delegate pushContactsInvitesScreen];
-}
 -(void) SetUpDummyInvites{
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"Invites" withExtension:@"plist"];
     NSArray *playDictionariesArray = [[NSArray alloc ] initWithContentsOfURL:url];
@@ -241,16 +229,6 @@
         NSNumber * DOS = [playDictionary objectForKey:@"DOS"];
         play.DOS= [DOS intValue];
         play.profilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[playDictionary objectForKey:@"profilePhotoUrl"]];
-#if 0
-        NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:play.profilePhotoUrl]];
-        UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];
-        if(image.size.height != image.size.width)
-            play.profileImage = [SoclivityUtilities autoCrop:image];
-        
-        // If the image needs to be compressed
-        if(image.size.height > 56 || image.size.width > 56)
-            play.profileImage = [SoclivityUtilities compressImage:image size:CGSizeMake(56,56)];
-#endif
         NSNumber * status = [playDictionary objectForKey:@"status"];
         play.status=[status boolValue];
         

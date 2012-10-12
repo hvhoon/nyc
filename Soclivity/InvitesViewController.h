@@ -9,15 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "ActivityInvitesView.h"
 #import "ContactsListViewController.h"
+#import "UserContactList.h"
 @class MBProgressHUD;
 @class MainServiceManager;
+@class SoclivityManager;
 @protocol InvitesViewDelegate <NSObject>
 
 @optional
 - (void)showLeft:(id)sender;
 @end
 
-@interface InvitesViewController : UIViewController<ActivityInvitesViewDelegate,ContactsListViewDelegate>{
+@interface InvitesViewController : UIViewController<ActivityInvitesViewDelegate,ContactsListViewDelegate,UserContactListDelegate>{
     id <InvitesViewDelegate>delegate;
     IBOutlet UIButton*settingsButton;
     IBOutlet UIButton*activityBackButton;
@@ -31,6 +33,7 @@
     MBProgressHUD *HUD;
     MainServiceManager *devServer;
     NSInteger activityId;
+    SoclivityManager *SOC;
 }
 @property (nonatomic,retain)id <InvitesViewDelegate>delegate;
 @property (nonatomic,retain)ActivityInvitesView *activityInvites;
