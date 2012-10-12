@@ -16,7 +16,7 @@
 - (void)pushContactsInvitesScreen;
 -(void)OpenSlotsUpdate:(BOOL)increment;
 -(void)inviteSoclivityUser:(int)invitePlayerId;
--(NSInteger)CalculateOpenSlots;
+-(BOOL)CalculateOpenSlots;
 -(void)PushUserToProfileScreen:(InviteObjectClass*)player;
 @end
 

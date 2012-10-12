@@ -16,7 +16,7 @@
 
 @optional
 -(void)OpenSlotsUpdate:(BOOL)increment;
--(NSInteger)CalculateOpenSlots;
+-(BOOL)CalculateOpenSlots;
 @end
 
 @interface ContactsListViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,CustomSearchBarDelegate,InviteTableViewCellDelegate,IconDownloaderDelegate>{

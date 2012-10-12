@@ -71,6 +71,7 @@
     openSlotsNoLabel.backgroundColor=[UIColor clearColor];
     openSlotsNoLabel.shadowColor=[UIColor blackColor];
     openSlotsNoLabel.shadowOffset=CGSizeMake(0,-1);
+    if(num_of_slots!=-1)
     openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
 
 }
@@ -179,9 +180,13 @@
     [addressBook loadContacts];
 }
 
--(NSInteger)CalculateOpenSlots{
+-(BOOL)CalculateOpenSlots{
     
-    return num_of_slots;
+    if(num_of_slots!=-1 && num_of_slots>0){
+        return YES;
+    }
+    else
+      return NO;
 }
 
 -(void)inviteSoclivityUser:(int)invitePlayerId{
