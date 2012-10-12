@@ -477,8 +477,12 @@
 
 -(void)hideMBProgress{
     [HUD hide:YES];
+    
+    if(num_of_slots!=-1){
+        
     num_of_slots--;
     openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
+    }
     statusUpdate.status=!statusUpdate.status;
     [contactListTableView reloadData];
 
