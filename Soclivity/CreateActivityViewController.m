@@ -57,7 +57,7 @@
     
     
     
-    step1_of2Label.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    step1_of2Label.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
     step1_of2Label.textColor=[UIColor whiteColor];
     step1_of2Label.backgroundColor=[UIColor clearColor];
     step1_of2Label.shadowColor = [UIColor blackColor];
@@ -74,26 +74,23 @@
 
     
     
-    
+    // Play button
     UIButton *playButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     playButton.frame = CGRectMake(0,0,64,50);
     playButton.tag=kPlayActivity;
     [playButton setImage:[UIImage imageNamed:@"S06_play.png"] forState:UIControlStateNormal];
     
-    
-    
     [playButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [createActivityView addSubview:playButton];
     
     UIImageView *playTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_activityTypeCheck.png"]];
-    playTickImageView.frame=CGRectMake(20,10, 16, 15);
+    playTickImageView.frame=CGRectMake(24,7, 16, 15);
     playTickImageView.tag=kPlayTickImage;
     [createActivityView addSubview:playTickImageView];
     
-    
-    CGRect playTypeLabelRect=CGRectMake(0,29,55,16);
+    CGRect playTypeLabelRect=CGRectMake(0,28,64,16);
     UILabel *playTypeLabel=[[UILabel alloc] initWithFrame:playTypeLabelRect];
-    playTypeLabel.textAlignment=UITextAlignmentLeft;
+    playTypeLabel.textAlignment=UITextAlignmentCenter;
     playTypeLabel.text=[NSString stringWithFormat:@"Play"];
     playTypeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     playTypeLabel.textColor=[UIColor whiteColor];
@@ -102,9 +99,10 @@
     playTypeLabel.backgroundColor=[UIColor clearColor];
     [createActivityView addSubview:playTypeLabel];
     
-    
     [playTickImageView release];
     [playTypeLabel release];
+    
+    // Eat Button
     UIButton *eatButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     eatButton.frame = CGRectMake(64,0,64,50);
     eatButton.tag=kEatActivity;
@@ -114,14 +112,14 @@
     [createActivityView addSubview:eatButton];
     
     UIImageView *eatTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_activityTypeCheck.png"]];
-    eatTickImageView.frame=CGRectMake(84, 10, 16, 15);
+    eatTickImageView.frame=CGRectMake(88, 7, 16, 15);
     eatTickImageView.tag=kEatTickImage;
     [createActivityView addSubview:eatTickImageView];
     
     
-    CGRect eatTypeLabelRect=CGRectMake(64,30,55,15);
+    CGRect eatTypeLabelRect=CGRectMake(64,28,64,15);
     UILabel *eatTypeLabel=[[UILabel alloc] initWithFrame:eatTypeLabelRect];
-    eatTypeLabel.textAlignment=UITextAlignmentLeft;
+    eatTypeLabel.textAlignment=UITextAlignmentCenter;
     eatTypeLabel.text=[NSString stringWithFormat:@"Eat"];
     eatTypeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     eatTypeLabel.textColor=[UIColor whiteColor];
@@ -134,7 +132,7 @@
     [eatTypeLabel release];
     
     
-    
+    // See Button
     UIButton *seeButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     seeButton.frame = CGRectMake(128,0,64,50);
     seeButton.tag=kSeeActivity;
@@ -144,14 +142,14 @@
     [createActivityView addSubview:seeButton];
     
     UIImageView *seeTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_activityTypeCheck.png"]];
-    seeTickImageView.frame=CGRectMake(148, 10, 16, 15);
+    seeTickImageView.frame=CGRectMake(152, 7, 16, 15);
     seeTickImageView.tag=kSeeTickImage;
     [createActivityView addSubview:seeTickImageView];
     
     
-    CGRect seeTypeLabelRect=CGRectMake(128,30,55,15);
+    CGRect seeTypeLabelRect=CGRectMake(128,28,64,15);
     UILabel *seeTypeLabel=[[UILabel alloc] initWithFrame:seeTypeLabelRect];
-    seeTypeLabel.textAlignment=UITextAlignmentLeft;
+    seeTypeLabel.textAlignment=UITextAlignmentCenter;
     seeTypeLabel.text=[NSString stringWithFormat:@"See"];
     seeTypeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     seeTypeLabel.textColor=[UIColor whiteColor];
@@ -163,6 +161,8 @@
     [seeTickImageView release];
     [seeTypeLabel release];
     
+    
+    // Create Button
     UIButton *createButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     createButton.frame = CGRectMake(192,0,64,50);
     createButton.tag=kCreateActivity;
@@ -172,14 +172,14 @@
     [createActivityView addSubview:createButton];
     
     UIImageView *createTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_activityTypeCheck.png"]];
-    createTickImageView.frame=CGRectMake(212, 10, 16, 15);
+    createTickImageView.frame=CGRectMake(216, 7, 16, 15);
     createTickImageView.tag=kCreateTickImage;
     [createActivityView addSubview:createTickImageView];
     
     
-    CGRect createTypeLabelRect=CGRectMake(192,30,55,15);
+    CGRect createTypeLabelRect=CGRectMake(192,28,64,15);
     UILabel *createTypeLabel=[[UILabel alloc] initWithFrame:createTypeLabelRect];
-    createTypeLabel.textAlignment=UITextAlignmentLeft;
+    createTypeLabel.textAlignment=UITextAlignmentCenter;
     createTypeLabel.text=[NSString stringWithFormat:@"Create"];
     createTypeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     createTypeLabel.textColor=[UIColor whiteColor];
@@ -191,6 +191,8 @@
     [createTickImageView release];
     [createTypeLabel release];
     
+    
+    // Learn button
     UIButton *learnButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     learnButton.frame = CGRectMake(256,0,64,50);
     learnButton.tag=kLearnActivity;
@@ -200,14 +202,14 @@
     [createActivityView addSubview:learnButton];
     
     UIImageView *learnTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_activityTypeCheck.png"]];
-    learnTickImageView.frame=CGRectMake(276, 10, 16, 15);
+    learnTickImageView.frame=CGRectMake(280, 7, 16, 15);
     learnTickImageView.tag=kLearnTickImage;
     [createActivityView addSubview:learnTickImageView];
     
     
-    CGRect learnTypeLabelRect=CGRectMake(256,30,55,15);
+    CGRect learnTypeLabelRect=CGRectMake(256,28,64,15);
     UILabel *learnTypeLabel=[[UILabel alloc] initWithFrame:learnTypeLabelRect];
-    learnTypeLabel.textAlignment=UITextAlignmentLeft;
+    learnTypeLabel.textAlignment=UITextAlignmentCenter;
     learnTypeLabel.text=[NSString stringWithFormat:@"Learn"];
     learnTypeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     learnTypeLabel.textColor=[UIColor whiteColor];
@@ -221,15 +223,9 @@
     
     
     [self updateActivityType:kPlayActivity];
-    
-    
-    activityNameLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
-    activityNameLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-    activityNameLabel.text=@"Activity Name";
 
-    activityNameTextField.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
-    activityNameTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
-    
+    activityNameTextField.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
+    activityNameTextField.textColor=[SoclivityUtilities returnTextFontColor:5];
     
     descriptionTextView.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     descriptionTextView.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -241,33 +237,30 @@
     descriptionTextView.delegate = self;
     descriptionTextView.contentSize = descriptionTextView.frame.size;
     
-    
-    placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, descriptionTextView.frame.size.width - 20.0, 34.0)];
-    [placeholderLabel setText:@"Description!"];
+    placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0.0, descriptionTextView.frame.size.width - 20.0, 34.0)];
+    [placeholderLabel setText:@"Tell us more..."];
     // placeholderLabel is instance variable retained by view controller
     [placeholderLabel setBackgroundColor:[UIColor clearColor]];
-    placeholderLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:13];
-    placeholderLabel.textColor=[SoclivityUtilities returnTextFontColor:1];
+    placeholderLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    placeholderLabel.textColor=[UIColor lightGrayColor];
     
     // textView is UITextView object you want add placeholder text to
     [descriptionTextView addSubview:placeholderLabel];
     
 
-    onlyInviteesIphone5Label.font = [UIFont fontWithName:@"Helvetica-Condensed" size:13];
-    onlyInviteesIphone5Label.textColor=[SoclivityUtilities returnTextFontColor:1];
+    onlyInviteesIphone5Label.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
+    onlyInviteesIphone5Label.textColor=[SoclivityUtilities returnTextFontColor:4];
 
     onlyInviteesIphone5Label.text=@"Anyone can see this event";
     
     
-    totalCountTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
-    totalCountTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    totalCountTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
+    totalCountTextLabel.textColor=[UIColor lightGrayColor];
     totalCountTextLabel.backgroundColor=[UIColor clearColor];
 
-    countTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
-    countTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    countTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
+    countTextLabel.textColor=[UIColor lightGrayColor];
     countTextLabel.backgroundColor=[UIColor clearColor];
-    
-    
     
     
     pickADayButton.titleLabel.textAlignment=UITextAlignmentLeft;
@@ -291,16 +284,15 @@
     [publicPrivateButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateHighlighted];
 
     capacityTextField.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
-    capacityTextField.textColor=[SoclivityUtilities returnTextFontColor:1];
-    capacityTextField.placeholder=@"Capacity";
-
-
+    capacityTextField.textColor=[SoclivityUtilities returnTextFontColor:4];
     
-    blankTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:10];
-    blankTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    capacityLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    capacityLabel.textColor = [SoclivityUtilities returnTextFontColor:5];
+    capacityLabel.backgroundColor=[UIColor clearColor];
+    
+    blankTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
+    blankTextLabel.textColor=[SoclivityUtilities returnTextFontColor:4];
     blankTextLabel.backgroundColor=[UIColor clearColor];
-    
-    
     
     
     //map Section
