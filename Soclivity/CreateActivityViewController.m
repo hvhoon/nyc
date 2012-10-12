@@ -13,13 +13,19 @@
 #import "PlacemarkClass.h"
 #import "ActivityAnnotation.h"
 #import <AddressBookUI/AddressBookUI.h>
-@interface CreateActivityViewController ()
+#import "MainServiceManager.h"
+#import "NewActivityInvocation.h"
+#import "MBProgressHUD.h"
+#import "GetPlayersClass.h"
+#import "DetailedActivityInfoInvocation.h"
+#define kActivityNameNot 12
+@interface CreateActivityViewController ()<NewActivityRequestInvocationDelegate,MBProgressHUDDelegate,DetailedActivityInfoInvocationDelegate>
 
 @end
 
 @implementation CreateActivityViewController
 @synthesize delegate,addressSearchBar;
-@synthesize mapView = _mapView,_geocodingResults,activityObject;
+@synthesize mapView = _mapView,_geocodingResults,activityObject,newActivity;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -37,6 +43,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    devServer=[[MainServiceManager alloc]init];
+    
+    if(newActivity){
+        activityObject=[[InfoActivityClass alloc]init];
+        activityObject.type=1;
+        activityObject.access=@"Public";
+        activityObject.num_of_people=-1;
+    }
     _geocodingResults=[NSMutableArray new];
     _geocoder = [[CLGeocoder alloc] init];
     SOC=[SoclivityManager SharedInstance];
@@ -502,8 +516,7 @@
     
 }
 
--(void)activityInfoButtonClicked:(id)sender{
-    
+-(void)updateSelectLocation{
     PlacemarkClass * selectedPlacemark = [currentLocationArray objectAtIndex:pointTag];
     activityObject.where_lat=[NSString stringWithFormat:@"%f",selectedPlacemark.latitude];
     activityObject.where_lng=[NSString stringWithFormat:@"%f",selectedPlacemark.longitude];
@@ -511,7 +524,12 @@
     NSString * zipAddress=[NSString stringWithFormat:@"%@",selectedPlacemark.vicinityAddress];
     activityObject.where_address=formattedAddress;
     activityObject.where_zip=zipAddress;
-    [self openMapUrlApplication];   
+
+}
+
+-(void)activityInfoButtonClicked:(id)sender{
+    [self updateSelectLocation];
+    [self openMapUrlApplication];
 }
 
 -(void)openMapUrlApplication{
@@ -562,6 +580,80 @@
 -(IBAction)pickALocationButtonPressed:(id)sender{
     
     
+    
+    if(!activityNameTextField.text.length ){
+        
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Required Fields"
+                                                        message:@"Need a name to create an activity."
+                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kActivityNameNot;
+        [alert show];
+        [alert release];
+        return;
+        
+    }
+    
+    // Alert if the name is not valid
+    if(!validAcivityName){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Really?"
+                                                        message:@"Your name must have at least 2 characters."
+                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        alert.tag=kActivityNameNot;
+        [alert show];
+        [alert release];
+        return;
+    }
+    
+    if(!dateSelected){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Date...!!!"
+                                                        message:@"Please select a suitable date for your activity"
+                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        [alert show];
+        [alert release];
+        return;
+        
+    }
+
+    
+    if(!timeSelected){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Time...!!!"
+                                                        message:@"Please select a suitable time for your activity"
+                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        [alert show];
+        [alert release];
+        return;
+        
+    }
+    
+    
+    
+// logic for getting the date
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:activityObject.activityTime];
+    NSInteger hour = [components hour];
+    NSInteger minute = [components minute];
+     
+
+    
+    NSCalendar* myCalendar = [NSCalendar currentCalendar];
+    components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
+                                                 fromDate:activityObject.activityDate];
+    [components setHour: hour];
+    [components setMinute:minute];
+    [components setSecond:00];
+    NSDate *setFinishDate=[myCalendar dateFromComponents:components];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [dateFormatter setTimeZone:gmt];
+
+    activityObject.when=[dateFormatter stringFromDate:setFinishDate];
+    NSLog(@"Date is =%@ and date s",activityObject.when);
+
+
+    
     [UIView animateWithDuration:0.3 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut  | UIViewAnimationOptionBeginFromCurrentState animations:^{
         
         createActivityView.transform = CGAffineTransformMakeTranslation(-320.0f, 0.0f);
@@ -581,6 +673,29 @@
     }];
 
 }
+
+#pragma mark -
+#pragma mark UIAlertView methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    [alertView resignFirstResponder];
+    if (buttonIndex == 0) {
+        
+        switch (alertView.tag) {
+            case kActivityNameNot:
+            {
+                [activityNameTextField becomeFirstResponder];
+            }
+                break;
+            default:
+                break;
+        }
+    }
+    else{
+        NSLog(@"Clicked Cancel Button");
+    }
+}
+
 
 -(IBAction)backButtonPressed:(id)sender{
     
@@ -611,8 +726,78 @@
 
 -(IBAction)createActivityButtonClicked:(id)sender{
     
+    [self updateSelectLocation];
+    activityObject.activityName=activityNameTextField.text;
+    activityObject.what=descriptionTextView.text;
+    activityObject.num_of_people=[capacityTextField.text intValue];
+    // time to start the activity monitor
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        [self startAnimation];
+        [devServer postCreateANewActivityInvocation:activityObject delegate:self];
+    }
+    else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+
+    
 }
 
+-(void)startAnimation{
+    // Setup animation settings
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    HUD.yOffset = -40.0;
+    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
+    HUD.labelText = @"Creating Activity";
+
+    [self.view addSubview:HUD];
+    HUD.delegate = self;
+    [HUD show:YES];
+    
+}
+
+-(void)PostNewActivityRequestInvocationDidFinish:(NewActivityInvocation*)invocation
+                                    withResponse:(InfoActivityClass*)response
+                                       withError:(NSError*)error{
+    
+    [HUD hide:YES];
+    
+    NSLog(@"Responses=%@",response);
+    if(response!=nil){
+        
+        [devServer getDetailedActivityInfoInvocation:[SOC.loggedInUser.idSoc intValue]    actId:response.activityId  latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude delegate:self];
+
+    }
+    else{
+        NSLog(@"Some Error");
+    }
+}
+
+#pragma mark -
+#pragma mark DetailedActivityInfoInvocationDelegate Method
+
+-(void)DetailedActivityInfoInvocationDidFinish:(DetailedActivityInfoInvocation*)invocation
+                                  withResponse:(InfoActivityClass*)responses
+                                     withError:(NSError*)error{
+    
+
+        if(responses!=nil){
+            [delegate pushToNewActivity:responses];
+            
+        }
+        else{
+            NSLog(@"Some Error");
+
+        }
+}
 -(void)backgroundtap:(UITapGestureRecognizer*)sender{
     
     [activityNameTextField resignFirstResponder];
@@ -630,6 +815,7 @@
 -(void)updateActivityType:(NSInteger)type{
     
     activityType=type;
+    activityObject.type=type;
     switch (activityType) {
             
     case kPlayActivity:
@@ -1053,7 +1239,7 @@
         CGRect rect;
         if([SoclivityUtilities deviceType] & iPhone5){
 
-            rect = CGRectMake(0, -135, 320, 568);
+            rect = CGRectMake(0, -140, 320, 568);
         }
         else{
             rect = CGRectMake(0, -175, 320, 480);
@@ -1074,9 +1260,9 @@
         NSInteger length;
         length = [textField.text length];
         if (length==0)
-            validName = NO;
+            validAcivityName = NO;
         else
-            validName = YES;
+            validAcivityName = YES;
     }
     
     NSLog(@"textFieldShouldReturn");
@@ -1104,23 +1290,56 @@
  [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationSlideBottomBottom];
 }
 
--(void)pickADateSelectionDone:(NSString*)activityDate{
+-(void)pickADateSelectionDone:(NSDate*)activityDate{
     
-    CGSize  size = [activityDate sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
-    pickADayButton.frame=CGRectMake(65, 224, size.width, 44);
-    [pickADayButton setTitle:activityDate forState:UIControlStateNormal];
-    [pickADayButton setTitle:activityDate forState:UIControlStateHighlighted];
+    
+    activityObject.activityDate=activityDate;
+    
+    NSDateFormatter *prefixDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [prefixDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+    [prefixDateFormatter setDateFormat:@"EEEE, MMMM d, YYYY"];
+    NSString *prefixDateString = [prefixDateFormatter stringFromDate:activityDate];
+
+
+    
+    dateSelected=TRUE;
+    CGSize  size = [prefixDateString sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
+    int yOrigin;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        yOrigin=224;
+    }
+    else
+        yOrigin=213;
+    pickADayButton.frame=CGRectMake(65, yOrigin, size.width, 44);
+    [pickADayButton setTitle:prefixDateString forState:UIControlStateNormal];
+    [pickADayButton setTitle:prefixDateString forState:UIControlStateHighlighted];
     
     [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationSlideBottomBottom];
 
     
 }
--(void)pickATimeSelectionDone:(NSString*)activityTime{
+-(void)pickATimeSelectionDone:(NSDate*)activityTime{
     
-    CGSize  size = [activityTime sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
-    pickATimeButton.frame=CGRectMake(65, 271, size.width, 44);
-    [pickATimeButton setTitle:activityTime forState:UIControlStateNormal];
-    [pickATimeButton setTitle:activityTime forState:UIControlStateHighlighted];
+    timeSelected=TRUE;
+    activityObject.activityTime=activityTime;
+    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+    [outputFormatter setDateFormat:@"h:mm a"]; //24hr time format
+    NSString *timeString = [outputFormatter stringFromDate:activityTime];
+    [outputFormatter release];
+
+    
+    CGSize  size = [timeString sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
+    
+    int yOrigin;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        yOrigin=271;
+    }
+    else
+        yOrigin=263;
+
+    pickATimeButton.frame=CGRectMake(65, yOrigin, size.width, 44);
+    [pickATimeButton setTitle:timeString forState:UIControlStateNormal];
+    [pickATimeButton setTitle:timeString forState:UIControlStateHighlighted];
     
     [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationSlideBottomBottom];
     
@@ -1128,11 +1347,22 @@
 -(void)privacySelectionDone:(int)row{
     
     CGSize  size;
+    int yOrigin;
+
+
     switch (row) {
         case 0:
         {
             size = [@"Public" sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
-            publicPrivateButton.frame=CGRectMake(65, 320, size.width, 44);
+            if([SoclivityUtilities deviceType] & iPhone5){
+                yOrigin=320;
+            }
+            else
+                yOrigin=313;
+            activityObject.access=@"public";
+            
+            publicPrivateButton.frame=CGRectMake(65, yOrigin, size.width, 44);
+
             [privacyImageButton setBackgroundImage:[UIImage imageNamed:@"S05_public5.png"] forState:UIControlStateNormal];
             
             [privacyImageButton setBackgroundImage:[UIImage imageNamed:@"S05_public5.png"] forState:UIControlStateHighlighted];
@@ -1148,9 +1378,16 @@
             
         case 1:
         {
-            
+            activityObject.access=@"private";
             size = [@"Private" sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
-            publicPrivateButton.frame=CGRectMake(65, 320, size.width, 44);
+            
+            if([SoclivityUtilities deviceType] & iPhone5){
+                yOrigin=320;
+            }
+            else
+                yOrigin=313;
+            
+            publicPrivateButton.frame=CGRectMake(65, yOrigin, size.width, 44);
             [privacyImageButton setBackgroundImage:[UIImage imageNamed:@"S05_private5.png"] forState:UIControlStateNormal];
             
             [privacyImageButton setBackgroundImage:[UIImage imageNamed:@"S05_private5.png"] forState:UIControlStateHighlighted];

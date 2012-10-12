@@ -11,10 +11,13 @@
 #import "CustomSearchBar.h"
 #import <MapKit/MapKit.h>
 @class SoclivityManager;
+@class MainServiceManager;
+@class MBProgressHUD;
 @protocol  NewActivityViewDelegate <NSObject>
 
 @optional
 -(void)cancelCreateActivityEventScreen;
+-(void)pushToNewActivity:(InfoActivityClass*)activity;
 @end
 
 
@@ -29,7 +32,7 @@
     IBOutlet UITextView*descriptionTextView;
     IBOutlet UILabel *countTextLabel;
     IBOutlet UILabel *totalCountTextLabel;
-    BOOL validName;
+    BOOL validAcivityName;
     SoclivityManager *SOC;
     UILabel *placeholderLabel;
     IBOutlet UILabel *capacityLabel;
@@ -70,12 +73,19 @@
     BOOL isTransition;
     InfoActivityClass *activityObject;
     IBOutlet UILabel*onlyInviteesIphone5Label;
+    BOOL newActivity;
+    BOOL dateSelected;
+    BOOL timeSelected;
+    MainServiceManager *devServer;
+    MBProgressHUD *HUD;
+
 }
 @property (nonatomic, retain)  MKMapView* mapView;
 @property (nonatomic,retain)NSMutableArray *_geocodingResults;
 @property (nonatomic,retain)id<NewActivityViewDelegate>delegate;
 @property (nonatomic,retain)CustomSearchbar *addressSearchBar;
 @property (nonatomic,retain)InfoActivityClass *activityObject;
+@property (nonatomic,assign) BOOL newActivity;
 -(IBAction)crossClicked:(id)sender;
 -(IBAction)pickADateButtonPressed:(id)sender;
 -(IBAction)pickATimeButtonPressed:(id)sender;
@@ -93,4 +103,5 @@
 - (void) addPinAnnotationForPlacemark:(NSArray*)placemarks droppedStatus:(BOOL)droppedStatus;
 -(CGFloat) maxDistanceBetweenAllResultPointsOnMap:(CLLocation*)avgLocation;
 -(CLLocation*)ZoomToAllResultPointsOnMap;
+-(void)startAnimation;
 @end

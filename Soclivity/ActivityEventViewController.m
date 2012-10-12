@@ -903,6 +903,7 @@
     
     CreateActivityViewController *avEditController = [[CreateActivityViewController alloc] initWithNibName:nibNameBundle bundle:nil];
     avEditController.delegate=self;
+    avEditController.newActivity=YES;
     UINavigationController *addNavigationController = [[UINavigationController alloc] initWithRootViewController:avEditController];
 	
     
@@ -911,10 +912,34 @@
     
 }
 
+#pragma mark -
+#pragma mark Create New Activity methods
+
+
 -(void)cancelCreateActivityEventScreen{
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
+-(void)pushToNewActivity:(InfoActivityClass *)activity{
+    
+[self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    NSString*nibNameBundle=nil;
+    
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"ActivityEventViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"ActivityEventViewController";
+    }
 
+    
+    ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+    
+    activityEventViewController.activityInfo=activity;
+	[[self navigationController] pushViewController:activityEventViewController animated:YES];
+    [activityEventViewController release];
+
+}
 -(IBAction)goingActivityButtonPressed:(id)sender{
     
     

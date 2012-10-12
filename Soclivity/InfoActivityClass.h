@@ -49,6 +49,8 @@
     NSInteger relationType;
     NSInteger activityRelationType;
     NSInteger pendingRequestCount;
+    NSDate *activityDate;
+    NSDate *activityTime;
     
     
 }
@@ -94,4 +96,6 @@
 @property (nonatomic,assign) NSInteger pendingRequestCount;
 @property(nonatomic,retain) NSMutableArray *otherParticipantsArray;
 @property (nonatomic, retain) NSMutableArray* pendingRequestArray;
+@property (nonatomic,retain) NSDate *activityDate;
+@property (nonatomic,retain) NSDate *activityTime;
 @end

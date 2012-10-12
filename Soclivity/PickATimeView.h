@@ -13,7 +13,7 @@
 
 @optional
 - (void)dismissPicker:(id)sender;
--(void)activityTimeSelected:(NSString*)activityTime;
+-(void)activityTimeSelected:(NSDate*)activityTime;
 @end
 
 @interface PickATimeView : UIView{

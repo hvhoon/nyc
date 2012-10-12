@@ -111,12 +111,43 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
      
         
         NSDate *dateToSet = [date NSDate];
-        NSDateFormatter *prefixDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-        [prefixDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-        [prefixDateFormatter setDateFormat:@"EEEE, MMMM d, YYYY"];
-        NSString *prefixDateString = [prefixDateFormatter stringFromDate:dateToSet];
         
-        [[NSUserDefaults standardUserDefaults] setValue:prefixDateString forKey:@"ActivityDate"];
+        
+        
+        NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
+        
+        NSInteger destinationGMTOffset1 = [destinationTimeZone secondsFromGMTForDate:dateToSet];
+        NSInteger destinationGMTOffset2 = [destinationTimeZone secondsFromGMTForDate:[NSDate date]];
+        
+        NSTimeInterval interval2 = destinationGMTOffset1;
+        NSTimeInterval interval3 = destinationGMTOffset2;
+        
+        NSDate* destinationDate = [[[NSDate alloc] initWithTimeInterval:interval2 sinceDate:dateToSet] autorelease];
+        
+        NSDate* currentDateTime = [[[NSDate alloc] initWithTimeInterval:interval3 sinceDate:[NSDate date]] autorelease];
+        BOOL checkTime=TRUE;
+        
+        if ([destinationDate compare:currentDateTime] == NSOrderedAscending){
+            checkTime=FALSE;
+            
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Activity in the past?"
+															message:@"Sorry we can't go in the past yet!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+			[alert show];
+			[alert release];
+			return;
+
+        }
+        else{
+            checkTime=TRUE;
+            
+            [[NSUserDefaults standardUserDefaults] setValue:dateToSet forKey:@"ActivityDate"];
+
+        }
+
+        
+        
+        
+        
 
 
     }

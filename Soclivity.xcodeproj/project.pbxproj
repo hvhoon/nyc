@@ -500,6 +500,7 @@
 		EABEC73C1622F4E200DB179E /* S06_play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7261622F4E200DB179E /* S06_play@2x.png */; };
 		EABEC73D1622F4E200DB179E /* S06_see.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7271622F4E200DB179E /* S06_see.png */; };
 		EABEC73E1622F4E200DB179E /* S06_see@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7281622F4E200DB179E /* S06_see@2x.png */; };
+		EAC2224816280FD70018EB6A /* NewActivityInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC2224716280FD70018EB6A /* NewActivityInvocation.m */; };
 		EAC801AE161182C400501765 /* HomeViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC801AD161182C400501765 /* HomeViewController_iphone5.xib */; };
 		EAC801B016119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC801AF16119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib */; };
 		EAC801B21611B97A00501765 /* SlideViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC801B11611B97A00501765 /* SlideViewController_iphone5.xib */; };
@@ -1346,6 +1347,8 @@
 		EABEC7261622F4E200DB179E /* S06_play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S06_play@2x.png"; sourceTree = "<group>"; };
 		EABEC7271622F4E200DB179E /* S06_see.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S06_see.png; sourceTree = "<group>"; };
 		EABEC7281622F4E200DB179E /* S06_see@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S06_see@2x.png"; sourceTree = "<group>"; };
+		EAC2224616280FD70018EB6A /* NewActivityInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewActivityInvocation.h; sourceTree = "<group>"; };
+		EAC2224716280FD70018EB6A /* NewActivityInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewActivityInvocation.m; sourceTree = "<group>"; };
 		EAC801AD161182C400501765 /* HomeViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController_iphone5.xib; sourceTree = "<group>"; };
 		EAC801AF16119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpComingCompletedEventsViewController_iphone5.xib; sourceTree = "<group>"; };
 		EAC801B11611B97A00501765 /* SlideViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlideViewController_iphone5.xib; sourceTree = "<group>"; };
@@ -2495,6 +2498,7 @@
 		EA91C324155A71A500BE5BB1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				EAC2224516280F890018EB6A /* New Activity */,
 				EAB6347C161F353C0023E883 /* Activity Invites */,
 				EA3F79871603418D00D231B1 /* Edit Activity Event */,
 				EA884AAA15C65FBF00367670 /* Join Cancel Delete Activity Request */,
@@ -2759,6 +2763,15 @@
 			);
 			name = "S06 Create Activity";
 			path = "Soclivity/S06 Create Activity";
+			sourceTree = "<group>";
+		};
+		EAC2224516280F890018EB6A /* New Activity */ = {
+			isa = PBXGroup;
+			children = (
+				EAC2224616280FD70018EB6A /* NewActivityInvocation.h */,
+				EAC2224716280FD70018EB6A /* NewActivityInvocation.m */,
+			);
+			name = "New Activity";
 			sourceTree = "<group>";
 		};
 		EAC801B31611C61C00501765 /* S10 Upcoming */ = {
@@ -3843,6 +3856,7 @@
 				EADC51E116253D2300772D41 /* PickADateView.m in Sources */,
 				EADC51EC162579A800772D41 /* PickATimeView.m in Sources */,
 				EADC51FF1625891600772D41 /* SelectPublicPrivateView.m in Sources */,
+				EAC2224816280FD70018EB6A /* NewActivityInvocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

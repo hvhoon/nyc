@@ -114,5 +114,13 @@
 
     
 }
+-(void)postCreateANewActivityInvocation:(InfoActivityClass*)activityObject delegate:(id<NewActivityRequestInvocationDelegate>)delegate{
+    
+    NewActivityInvocation *invocation = [[[NewActivityInvocation alloc] init] autorelease];
+    invocation.activityObj = activityObject;
+    [self invoke:invocation withDelegate:delegate];
+
+    
+}
 
 @end

@@ -87,6 +87,12 @@
     play.activityId =[activityId intValue];
     NSNumber *ownerId = [ACTDict objectForKey:@"ownnerid"];
     play.organizerId =[ownerId intValue];
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    GetPlayersClass *player=SOC.loggedInUser;
+    if([player.idSoc intValue]==[ownerId intValue]){
+        play.activityRelationType=6;
+    }
+
     play.updated_at=[ACTDict objectForKey:@"updated_at"];
     play.created_at=[ACTDict objectForKey:@"created_at"];
     play.what=[ACTDict objectForKey:@"what"];
@@ -208,7 +214,6 @@
     }
 
 
-    
     
     
 #if 0        

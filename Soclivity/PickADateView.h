@@ -13,7 +13,7 @@
 
 @optional
 - (void)dismissPicker:(id)sender;
--(void)activityDateSelected:(NSString*)activityDate;
+-(void)activityDateSelected:(NSDate*)activityDate;
 @end
 
 

@@ -26,9 +26,9 @@
 
 -(IBAction)tickButtonPressed:(id)sender{
     
-    NSString *activityDate=[[NSUserDefaults standardUserDefaults] valueForKey:@"ActivityDate"];
+    NSDate *activityDate=[[NSUserDefaults standardUserDefaults] valueForKey:@"ActivityDate"];
     
-    if((activityDate==(NSString*)[NSNull null])||([activityDate isEqualToString:@""]||activityDate==nil)||([activityDate isEqualToString:@"(null)"])){
+    if(activityDate==nil){
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Select A Date To Continue" message:nil
                                                        delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];

@@ -49,7 +49,7 @@
     
     NSLog(@"Time Selected=%@",timeString);
     
-    [delegate activityTimeSelected:timeString];
+    [delegate activityTimeSelected:timePicker.date];
 
 }
 
