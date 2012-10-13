@@ -336,7 +336,7 @@
             descriptionTextView.text=activityObject.what;
         
         
-        countTextLabel.text= [[NSString alloc] initWithFormat:@"%i/",[descriptionTextView.text length]+1];
+        countTextLabel.text= [[NSString alloc] initWithFormat:@"%i/",[descriptionTextView.text length]];
 
 
     }

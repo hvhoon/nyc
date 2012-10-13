@@ -473,10 +473,19 @@
         [Pm7_Pm11_Label release];
         
         UIButton *searchHandleButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        searchHandleButton.frame = CGRectMake(5, 397, 58.0, 57.0);
+        searchHandleButton.frame = CGRectMake(5, 397, 58.0, 57.0);//5
         [searchHandleButton setImage:[UIImage imageNamed:@"S04_bookmark.png"] forState:UIControlStateNormal];
         [searchHandleButton addTarget:self action:@selector(pushTodetailActivity:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:searchHandleButton];
+        
+        
+        
+        UIButton *addButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        addButton.frame = CGRectMake(275, 409, 39.0, 31.0);//5
+        [addButton setImage:[UIImage imageNamed:@"S04_addevent.png"] forState:UIControlStateNormal];
+        [addButton addTarget:self action:@selector(addActivity:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:addButton];
+
         
         
         
@@ -823,6 +832,10 @@
     }
     
     [self bringInFilterPane];
+}
+
+-(void)addActivity:(id)sender{
+    [delegate newActivityButtonPressed];
 }
 -(void)pushTodetailActivity:(UIButton*)sender{
     NSLog(@"pushTodetailActivity=%f,%f,%f,%f",sender.frame.size.height,sender.frame.size.width,sender.frame.origin.x,sender.frame.origin.y);

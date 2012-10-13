@@ -60,7 +60,7 @@
     
     IBOutlet UIButton *activityInfoButton;
 
-    IBOutlet MKMapView *mapView;
+    MKMapView *mapView;
     CGRect locationTapRect;
     NSMutableArray *mapAnnotations;
     CustomSearchbar*addressSearchBar;

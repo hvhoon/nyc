@@ -27,7 +27,6 @@
 @interface HomeViewController : UIViewController<PullableViewDelegate,GetActivitiesInvocationDelegate,ActivityListViewDelegate,EventsMapViewDelegate,CoreLocationDelegate,DetailedActivityInfoInvocationDelegate>{
    
     IBOutlet UIButton *profileBtn;
-    IBOutlet UIButton *addBtn;
     IBOutlet UIView *topNavBarView;
     id <HomeScreenDelegate>delegate;
     IBOutlet EventsMapView *socEventMapView;
@@ -57,7 +56,6 @@
 @property (nonatomic,retain)EventsMapView *socEventMapView;
 @property (nonatomic,retain)ActivityListView *activityTableView;
 -(IBAction)profileSlidingDrawerTapped:(id)sender;
--(IBAction)AddANewActivity:(id)sender;
 -(IBAction)FlipToListOrBackToMap:(id)sender;
 -(IBAction)RefreshButtonTapped:(id)sender;
 -(IBAction)CurrentLocation:(id)sender;

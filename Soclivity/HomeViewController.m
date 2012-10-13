@@ -209,7 +209,6 @@
 
 -(void)newActivityButtonPressed{
     NSLog(@"newActivityButtonPressed");
-    [addBtn setSelected:YES];
     
     
     NSString *nibNameBundle=nil;
@@ -265,12 +264,6 @@
 
 -(IBAction)profileSlidingDrawerTapped:(id)sender{
     [delegate showLeft:sender];
-}
-#pragma mark -
-#pragma mark AddANewActivity Action
-
--(IBAction)AddANewActivity:(id)sender{
-    
 }
 
 

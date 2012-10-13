@@ -28,6 +28,15 @@
 #define kCalendarDateLabelTag 17
 #define kDetailLineImageView 18
 #define kActivityTimeLabel 19
+#define kClockIconImageView 20
+#define kDetailLineTimeImageView 21
+#define kLocationIcomImageview 22
+#define kLocationInfolabel1 23
+#define kLocationInfolabel2 24
+#define kPrivacySetting5 25
+#define kPrivacyImageView5 26
+#define kDetailLineMap 27
+#define kActivityAccessImageView 28
 @implementation AddEventView
 @synthesize activityObject,delegate,mapView,mapAnnotations,addressSearchBar,_geocodingResults,labelView,searching,editMode,firstALineddressLabel,secondLineAddressLabel,pinDrop,firstTime,activityInfoButton;
 
@@ -239,41 +248,57 @@
     activityTimeLabel.tag=kActivityTimeLabel;
     
 
-    //done till here
 
     clockIcon.image = [UIImage imageNamed:@"S05_clockIcon.png"];
     clockIcon.frame = CGRectMake(50, 57, 20, 20);
+    clockIcon.tag=kClockIconImageView;
     activityTimeLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     activityTimeLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     activityTimeLabel.frame = CGRectMake(84, 57+4, 200, 15);
-    
     //timeEditArrow.frame=CGRectMake(291, 57+4, 9, 14);
-    
+
+
     // Seperator line here
     UIImageView *detailsLineTime = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_detailsLine.png"]];
     detailsLineTime.frame = CGRectMake(26, 89, 272, 1);
+    detailsLineTime.tag=kDetailLineTimeImageView;
     [bottomView addSubview:detailsLineTime];
     [detailsLineTime release];
+    
+    
+
     
     // Location
     locationIcon.image = [UIImage imageNamed:@"S05_locationIcon.png"];
     locationIcon.frame = CGRectMake(50, 103, 19, 18);
+    locationIcon.tag=kLocationIcomImageview;
+    
+    
     locationInfoLabel1.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     locationInfoLabel1.textColor=[SoclivityUtilities returnTextFontColor:5];
+    locationInfoLabel1.tag=kLocationInfolabel1;
     
     locationTapRect=CGRectMake(84,fromTheTop+103+1, 175, 15+19);
     locationInfoLabel1.frame = CGRectMake(84, 103+1, 175, 15);
+    
+
 
     locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
     locationInfoLabel2.frame = CGRectMake(84, 124, 175, 15);
     
+    locationInfoLabel2.tag=kLocationInfolabel2;
+    
     // Deciding whether to show the mini map or not
     [self decideToShowMapView:info.activityRelationType];
     
+    
+
     // Privacy settings
     // Add an extra privacy row with the privacy settings for the larger iPhone 5 screen
     if([SoclivityUtilities deviceType] & iPhone5){
+        privacySetting.tag=kPrivacySetting5;
+        privacyImage.tag=kPrivacyImageView5;
         
         // Setting the privacy text
         if ([info.access caseInsensitiveCompare:@"private"] == NSOrderedSame) {
@@ -292,7 +317,7 @@
         // Maps seperator line here initiatilized
         UIImageView *detailsLineMap = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_detailsLine.png"]];
         
-        
+        detailsLineMap.tag=kDetailLineMap;
         // Framing based on whether the mini Map is showing or not
         detailsLineMap.frame = CGRectMake(26, 148, 272, 1);
         privacySetting.frame = CGRectMake(84, 166, 190, 15);
@@ -312,7 +337,7 @@
     else {
         // Variable to store the size of the privacy image
         CGSize privacySize;
-        
+        activityAccessStatusImgView.tag=kActivityAccessImageView;
         // Privacy icons
         if ([info.access caseInsensitiveCompare:@"public"] == NSOrderedSame){
             activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_public.png"];
@@ -342,6 +367,24 @@
     self.addressSearchBar.backgroundImage=[UIImage imageNamed: @"S4.1_search-background.png"];
     [self addSubview:self.addressSearchBar];
     [self.addressSearchBar setHidden:YES];
+    
+    
+    CGRect rect;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        rect = CGRectMake(320, 0, 320, 404);
+        
+        
+    }
+    else
+    {
+        rect = CGRectMake(320, 0, 320, 316);
+        
+    }
+    
+    mapView = [[MKMapView alloc] initWithFrame:rect];
+    mapView.delegate = self;
+    [self addSubview:mapView];
+
     
     
 #if LISTVIEWREMOVE    
@@ -409,9 +452,43 @@
 		}
 
 
+        if([subview isKindOfClass:[UIImageView class]] && [subview viewWithTag:kClockIconImageView]) {
+			[subview removeFromSuperview];
+		}
 
+        if([subview isKindOfClass:[UIImageView class]] && [subview viewWithTag:kDetailLineTimeImageView]) {
+			[subview removeFromSuperview];
+		}
 
+        if([subview isKindOfClass:[UIImageView class]] && [subview viewWithTag:kLocationIcomImageview]) {
+			[subview removeFromSuperview];
+		}
+
+        if([subview isKindOfClass:[UILabel class]] && [subview viewWithTag:kLocationInfolabel1]) {
+			[subview removeFromSuperview];
+		}
         
+        if([subview isKindOfClass:[UILabel class]] && [subview viewWithTag:kLocationInfolabel2]) {
+			[subview removeFromSuperview];
+		}
+        
+        if([subview isKindOfClass:[UILabel class]] && [subview viewWithTag:kPrivacySetting5]) {
+			[subview removeFromSuperview];
+		}
+        
+        if([subview isKindOfClass:[UIImageView class]] && [subview viewWithTag:kPrivacyImageView5]) {
+			[subview removeFromSuperview];
+		}
+        if([subview isKindOfClass:[UIImageView class]] && [subview viewWithTag:kDetailLineMap]) {
+			[subview removeFromSuperview];
+		}
+        if([subview isKindOfClass:[UIImageView class]] && [subview viewWithTag:kActivityAccessImageView]) {
+			[subview removeFromSuperview];
+		}
+
+
+
+
         
 		
 	}
@@ -571,13 +648,115 @@
     activityTimeLabel.tag=kActivityTimeLabel;
     
     [bottomView addSubview:activityTimeLabel];
-
-
+    
+    
+    clockIcon=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_clockIcon.png"]];
+    clockIcon.frame = CGRectMake(50, 57, 20, 20);
+    clockIcon.tag=kClockIconImageView;
+    [bottomView addSubview:clockIcon];
+    
+    activityTimeLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    activityTimeLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    activityTimeLabel.frame = CGRectMake(84, 57+4, 200, 15);
 
 
 
 
     
+    UIImageView *detailsLineTime = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_detailsLine.png"]];
+    detailsLineTime.frame = CGRectMake(26, 89, 272, 1);
+    detailsLineTime.tag=kDetailLineTimeImageView;
+    [bottomView addSubview:detailsLineTime];
+    [detailsLineTime release];
+
+    locationIcon=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_locationIcon.png"]];
+    locationIcon.frame = CGRectMake(50, 103, 19, 18);
+    locationIcon.tag=kLocationIcomImageview;
+    [bottomView addSubview:locationIcon];
+    
+    
+    locationInfoLabel1=[[UILabel alloc]initWithFrame:CGRectMake(94, 135, 175, 14)];
+    locationInfoLabel1.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    locationInfoLabel1.textColor=[SoclivityUtilities returnTextFontColor:5];
+    locationInfoLabel1.tag=kLocationInfolabel1;
+    [bottomView addSubview:locationInfoLabel1];
+    
+    locationTapRect=CGRectMake(84,fromTheTop+103+1, 175, 15+19);
+    locationInfoLabel1.frame = CGRectMake(84, 103+1, 175, 15);
+
+
+    locationInfoLabel2=[[UILabel alloc]initWithFrame:CGRectMake(84, 124, 175, 15)];
+    locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
+    
+    locationInfoLabel2.tag=kLocationInfolabel2;
+    [bottomView addSubview:locationInfoLabel2];
+
+
+    [self decideToShowMapView:6];
+
+
+if([SoclivityUtilities deviceType] & iPhone5){
+    
+    privacySetting=[[UILabel alloc]initWithFrame:CGRectMake(94, 200, 190, 14)];
+    privacySetting.tag=kPrivacySetting5;
+    privacyImage=[[UIImageView alloc]initWithFrame:CGRectMake(50, 198, 19, 18)];
+    privacyImage.tag=kPrivacyImageView5;
+    
+    // Setting the privacy text
+    if ([act.access caseInsensitiveCompare:@"private"] == NSOrderedSame) {
+        privacySetting.text = @"This event is invite only";
+        privacyImage.image = [UIImage imageNamed:@"S05_private5.png"];
+    }
+    else {
+        privacySetting.text = @"Anybody can join this event";
+        privacyImage.image = [UIImage imageNamed:@"S05_public5.png"];
+    }
+    
+    // Setting up the label
+    privacySetting.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    privacySetting.textColor = [SoclivityUtilities returnTextFontColor:5];
+    
+    // Maps seperator line here initiatilized
+    UIImageView *detailsLineMap = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_detailsLine.png"]];
+    
+    detailsLineMap.tag=kDetailLineMap;
+    // Framing based on whether the mini Map is showing or not
+    detailsLineMap.frame = CGRectMake(26, 148, 272, 1);
+    privacySetting.frame = CGRectMake(84, 166, 190, 15);
+    privacyImage.frame = CGRectMake(50, 162, privacyImage.image.size.width, privacyImage.image.size.height);
+    
+    // Add to the view
+    [bottomView addSubview:detailsLineMap];
+    [bottomView addSubview:privacySetting];
+    [bottomView addSubview:privacyImage];
+    [detailsLineMap release];
+    [privacySetting release];
+    [privacyImage release];
+    
+    
+}
+else {
+    // Variable to store the size of the privacy image
+    CGSize privacySize;
+    activityAccessStatusImgView=[[UIImageView alloc]initWithFrame:CGRectMake(256, 131, 50, 15)];
+    activityAccessStatusImgView.tag=kActivityAccessImageView;
+    // Privacy icons
+    if ([act.access caseInsensitiveCompare:@"public"] == NSOrderedSame){
+        activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_public.png"];
+        privacySize = activityAccessStatusImgView.frame.size;
+        activityAccessStatusImgView.frame=CGRectMake(288-privacySize.width, (labelSize.height+descriptionBuffer)-(privacySize.height+6), 47, 15);
+    }
+    else {
+        activityAccessStatusImgView.image=[UIImage imageNamed:@"S05_private.png"];
+        privacySize = activityAccessStatusImgView.frame.size;
+        activityAccessStatusImgView.frame=CGRectMake(288-privacySize.width, (labelSize.height+descriptionBuffer)-(privacySize.height+6), 47, 15);
+    }
+    
+    // Adding privacy settings to the description view
+    [description addSubview:activityAccessStatusImgView];
+}
+
 
 }
 
@@ -620,6 +799,8 @@
             secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
             firstALineddressLabel.text = activityObject.where_address;
             secondLineAddressLabel.text = [NSString stringWithFormat:@"in %@",activityObject.where_zip];
+            
+            
         }
             break;
     }
@@ -758,11 +939,13 @@
     [lpgr release];
 
     [delegate slideInTransitionToLocationView];
+#if 0
     
        if([SoclivityUtilities deviceType] & iPhone5)
-        mapView.frame=CGRectMake(320, 0, 320, 464-51);//bug Fix
+        mapView.frame=CGRectMake(320, 0, 320, 404);//bug Fix
            else
-        mapView.frame=CGRectMake(320, 0, 320, 376-51);//bug Fix
+        mapView.frame=CGRectMake(320, 0, 320, 316);//bug Fix
+#endif
      
 }
 -(void)CurrentMapZoomUpdate{
@@ -1600,9 +1783,9 @@
 
     
     if([SoclivityUtilities deviceType] & iPhone5)
-        mapView.frame=CGRectMake(320, 44, 320, 464-95);//bug Fix
+        mapView.frame=CGRectMake(320, 44, 320,360);//bug Fix
 else
-    mapView.frame=CGRectMake(320, 44, 320, 376-95);
+    mapView.frame=CGRectMake(320, 44, 320,272);
 #if 0
 #if LISTVIEWREMOVE 
     [locationResultsTableView setHidden:NO];
@@ -1635,9 +1818,9 @@ else
 -(void)hideSearchBarAndAnimateWithListViewInMiddle{
  
     if([SoclivityUtilities deviceType] & iPhone5)
-        mapView.frame=CGRectMake(320, 0, 320, 464-51);//bug Fix
+        mapView.frame=CGRectMake(320, 0, 320, 404);//bug Fix
     else
-    mapView.frame=CGRectMake(320, 0, 320, 376-51);
+    mapView.frame=CGRectMake(320, 0, 320, 316);
 #if 0    
     if (footerActivated) {
 		[UIView beginAnimations:@"collapseFooter" context:nil];

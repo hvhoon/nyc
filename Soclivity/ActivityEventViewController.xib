@@ -11,7 +11,6 @@
 			<string key="NS.object.0">1926</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
-			<string>IBMKMapView</string>
 			<string>IBProxyObject</string>
 			<string>IBUIActivityIndicatorView</string>
 			<string>IBUIButton</string>
@@ -654,7 +653,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{256, 131}, {50, 15}}</string>
 						<reference key="NSSuperview" ref="647438086"/>
-						<reference key="NSNextKeyView" ref="484127870"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
@@ -839,17 +838,6 @@
 							<reference key="NSCustomColorSpace" ref="652275432"/>
 						</object>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-					</object>
-					<object class="IBMKMapView" id="484127870">
-						<reference key="NSNextResponder" ref="647438086"/>
-						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{320, -45}, {320, 376}}</string>
-						<reference key="NSSuperview" ref="647438086"/>
-						<reference key="NSNextKeyView" ref="266895454"/>
-						<bool key="IBUIClipsSubviews">YES</bool>
-						<bool key="IBUIMultipleTouchEnabled">YES</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<bool key="IBMKShowsUserLocation">YES</bool>
 					</object>
 					<object class="IBUIView" id="266895454">
 						<reference key="NSNextResponder" ref="647438086"/>
@@ -1435,14 +1423,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">mapView</string>
-						<reference key="source" ref="647438086"/>
-						<reference key="destination" ref="484127870"/>
-					</object>
-					<int key="connectionID">179</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">labelView</string>
 						<reference key="source" ref="647438086"/>
 						<reference key="destination" ref="266895454"/>
@@ -1614,14 +1594,6 @@
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">138</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="484127870"/>
-						<reference key="destination" ref="647438086"/>
-					</object>
-					<int key="connectionID">180</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -1796,7 +1768,6 @@
 							<reference ref="552833456"/>
 							<reference ref="188852943"/>
 							<reference ref="338245859"/>
-							<reference ref="484127870"/>
 							<reference ref="266895454"/>
 						</array>
 						<reference key="parent" ref="0"/>
@@ -1949,11 +1920,6 @@
 						<reference key="parent" ref="876981496"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">167</int>
-						<reference key="object" ref="484127870"/>
-						<reference key="parent" ref="647438086"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">168</int>
 						<reference key="object" ref="266895454"/>
 						<array class="NSMutableArray" key="children">
@@ -2097,7 +2063,6 @@
 				<string key="15.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="162.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="164.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="167.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="168.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="170.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="171.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
