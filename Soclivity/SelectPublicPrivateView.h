@@ -17,7 +17,6 @@
 
 
 @interface SelectPublicPrivateView : UIView<UIPickerViewDelegate,UIPickerViewDataSource>{
-    
     id <PrivacyViewDelegate>delegate;
     IBOutlet UIPickerView *privacyPicker;
     IBOutlet UILabel *privacyTextLabel;
