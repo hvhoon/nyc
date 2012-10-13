@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		6802EC3815B6611E00FF0048 /* picbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 6802EC3615B6611E00FF0048 /* picbox.png */; };
 		6802EC3915B6611E00FF0048 /* picbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6802EC3715B6611E00FF0048 /* picbox@2x.png */; };
+		680B19AE1628E71B00EF3423 /* privateBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 680B19AA1628E71B00EF3423 /* privateBlack.png */; };
+		680B19AF1628E71B00EF3423 /* privateBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 680B19AB1628E71B00EF3423 /* privateBlack@2x.png */; };
+		680B19B01628E71B00EF3423 /* publicBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 680B19AC1628E71B00EF3423 /* publicBlack.png */; };
+		680B19B11628E71B00EF3423 /* publicBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 680B19AD1628E71B00EF3423 /* publicBlack@2x.png */; };
 		680CE3E31551258700B8E937 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 680CE3E21551258700B8E937 /* UIKit.framework */; };
 		680CE3E51551258700B8E937 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 680CE3E41551258700B8E937 /* Foundation.framework */; };
 		680CE3E71551258700B8E937 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 680CE3E61551258700B8E937 /* CoreGraphics.framework */; };
@@ -727,6 +731,10 @@
 /* Begin PBXFileReference section */
 		6802EC3615B6611E00FF0048 /* picbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = picbox.png; sourceTree = "<group>"; };
 		6802EC3715B6611E00FF0048 /* picbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "picbox@2x.png"; sourceTree = "<group>"; };
+		680B19AA1628E71B00EF3423 /* privateBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = privateBlack.png; sourceTree = "<group>"; };
+		680B19AB1628E71B00EF3423 /* privateBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "privateBlack@2x.png"; sourceTree = "<group>"; };
+		680B19AC1628E71B00EF3423 /* publicBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = publicBlack.png; sourceTree = "<group>"; };
+		680B19AD1628E71B00EF3423 /* publicBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "publicBlack@2x.png"; sourceTree = "<group>"; };
 		680CE3DE1551258700B8E937 /* Soclivity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soclivity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		680CE3E21551258700B8E937 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		680CE3E41551258700B8E937 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1608,6 +1616,10 @@
 		6802EC3515B6611E00FF0048 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				680B19AA1628E71B00EF3423 /* privateBlack.png */,
+				680B19AB1628E71B00EF3423 /* privateBlack@2x.png */,
+				680B19AC1628E71B00EF3423 /* publicBlack.png */,
+				680B19AD1628E71B00EF3423 /* publicBlack@2x.png */,
 				EA59834515ECCC1700422197 /* button.png */,
 				EA59834615ECCC1700422197 /* button@2x.png */,
 				EAAEF89215DA3C070085DBE5 /* pattern.png */,
@@ -3712,6 +3724,10 @@
 				EADC51FA162581ED00772D41 /* S05_smallDOS1@2x.png in Resources */,
 				EADC51FB162581ED00772D41 /* S05_smallDOS2.png in Resources */,
 				EADC51FC162581ED00772D41 /* S05_smallDOS2@2x.png in Resources */,
+				680B19AE1628E71B00EF3423 /* privateBlack.png in Resources */,
+				680B19AF1628E71B00EF3423 /* privateBlack@2x.png in Resources */,
+				680B19B01628E71B00EF3423 /* publicBlack.png in Resources */,
+				680B19B11628E71B00EF3423 /* publicBlack@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
