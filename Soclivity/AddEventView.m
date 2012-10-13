@@ -17,6 +17,17 @@
 #import "SoclivitySqliteClass.h"
 #import "PlacemarkClass.h"
 #define LISTVIEWREMOVE 0
+
+#define kLeftBarImageView 10
+#define kTopLineDescriptionView 11
+#define kActivityDescTextLabel 12
+#define kDescriptionView 13
+#define kBottomLineImageView 14
+#define kBottomView 15
+#define kCalendarIconImageView 16
+#define kCalendarDateLabelTag 17
+#define kDetailLineImageView 18
+#define kActivityTimeLabel 19
 @implementation AddEventView
 @synthesize activityObject,delegate,mapView,mapAnnotations,addressSearchBar,_geocodingResults,labelView,searching,editMode,firstALineddressLabel,secondLineAddressLabel,pinDrop,firstTime,activityInfoButton;
 
@@ -99,7 +110,9 @@
     // Adding line at the top of the description box
     UIImageView *topLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_descriptionLine.png"]];
     topLine.frame = CGRectMake(26, 64, 294, 1);
+    topLine.tag=kTopLineDescriptionView;
     [self addSubview:topLine];
+    
     
     // Checking to see if the description is empty first.
     if((info.what==(NSString*)[NSNull null])||([info.what isEqualToString:@""]||info.what==nil)||([info.what isEqualToString:@"(null)"]))
@@ -151,16 +164,24 @@
             description.backgroundColor=[SoclivityUtilities returnBackgroundColor:1];
             break;
     }
-
+    activityBarImgView.tag=kLeftBarImageView;
+    description.tag=kDescriptionView;
     [self addSubview:description];
     
     // Adding description text to the view
     [activityTextLabel setFrame:CGRectMake(20, 12, 266, labelSize.height)];
+    [activityTextLabel setTag:kActivityDescTextLabel];
     [description addSubview:activityTextLabel];
+    
+    
+    
+    
+    
         
     // Adding line at the bottom of the description box
     UIImageView *bottomLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_descriptionLine.png"]];
     bottomLine.frame = CGRectMake(26, 65+labelSize.height+descriptionBuffer, 294, 1);
+    bottomLine.tag=kBottomLineImageView;
     [self addSubview:bottomLine];
 
     
@@ -168,6 +189,7 @@
     
     // Fist lets add up what our Y starting point is
     int fromTheTop = 65+labelSize.height+descriptionBuffer+1;
+    [bottomView setTag:kBottomView];
     bottomView.frame = CGRectMake(0, fromTheTop, 320, 333-fromTheTop);
 
     // Calendar
@@ -189,17 +211,19 @@
     // Now adding the date to the view
     calendarIcon.image = [UIImage imageNamed:@"S05_calendarIcon.png"];
     calendarIcon.frame = CGRectMake(50, 12, 19, 20);
-     
+    calendarIcon.tag=kCalendarIconImageView;
+    
     calendarDateLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     calendarDateLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     calendarDateLabel.frame = CGRectMake(84, 12+4, 200, 15);
-    
+    calendarDateLabel.tag=kCalendarDateLabelTag;
     
     //calendarDateEditArrow.frame=CGRectMake(291, 12+4, 9, 14);
     
     // Seperator line here
     UIImageView *detailsLineCalendar = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_detailsLine.png"]];
     detailsLineCalendar.frame = CGRectMake(26, 44, 272, 1);
+    detailsLineCalendar.tag=kDetailLineImageView;
     [bottomView addSubview:detailsLineCalendar];
     [detailsLineCalendar release];
     
@@ -207,10 +231,16 @@
     // Formatting the time string
     calendarDateLabel.text=prefixDateString;
     [prefixDateFormatter setDateFormat:@"h:mm a"];
+    
+    
 
     NSString *prefixTimeString = [prefixDateFormatter stringFromDate:date];
     activityTimeLabel.text=prefixTimeString;
+    activityTimeLabel.tag=kActivityTimeLabel;
     
+
+    //done till here
+
     clockIcon.image = [UIImage imageNamed:@"S05_clockIcon.png"];
     clockIcon.frame = CGRectMake(50, 57, 20, 20);
     activityTimeLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
@@ -333,33 +363,222 @@
 
 -(void)updateEditedActivityFields:(InfoActivityClass*)act{
  
-#if 0
+    
+    
+    for(UIView *subview in [self subviews]) {
+		if([subview isKindOfClass:[UIImageView class]] && [subview viewWithTag:kLeftBarImageView]) {
+			[subview removeFromSuperview];
+		}
+        
+        if([subview isKindOfClass:[UIView class]] && [subview viewWithTag:kTopLineDescriptionView]) {
+			[subview removeFromSuperview];
+		}
+        
+        if([subview isKindOfClass:[UILabel class]] && [subview viewWithTag:kActivityDescTextLabel]) {
+			[subview removeFromSuperview];
+		}
+
+        if([subview isKindOfClass:[UIView class]] && [subview viewWithTag:kDescriptionView]) {
+			[subview removeFromSuperview];
+		}
+
+        if([subview isKindOfClass:[UIImageView class]] && [subview viewWithTag:kBottomLineImageView]) {
+			[subview removeFromSuperview];
+		}
+
+        
+        if([subview isKindOfClass:[UIView class]] && [subview viewWithTag:kBottomView]) {
+			[subview removeFromSuperview];
+		}
+        
+        if([subview isKindOfClass:[UIImageView class]] && [subview viewWithTag:kCalendarIconImageView]) {
+			[subview removeFromSuperview];
+		}
+        
+        if([subview isKindOfClass:[UILabel class]] && [subview viewWithTag:kCalendarDateLabelTag]) {
+			[subview removeFromSuperview];
+		}
+        
+        
+        if([subview isKindOfClass:[UIImageView class]] && [subview viewWithTag:kDetailLineImageView]) {
+			[subview removeFromSuperview];
+		}
+        
+        if([subview isKindOfClass:[UILabel class]] && [subview viewWithTag:kActivityTimeLabel]) {
+			[subview removeFromSuperview];
+		}
+
+
+
+
+        
+        
+		
+	}
+    
+    
+    
+    const int descriptionBuffer = 42; // buffer in the description box
+    
+    // Adding line at the top of the description box
+    UIImageView *topLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_descriptionLine.png"]];
+    topLine.frame = CGRectMake(26, 64, 294, 1);
+    [topLine setTag:kTopLineDescriptionView];
+    [self addSubview:topLine];
+    
+    
+    activityTextLabel=[[UILabel alloc]initWithFrame:CGRectMake(42, 75, 264, 81)];
+
+    // Checking to see if the description is empty first.
+    if((act.what==(NSString*)[NSNull null])||([act.what isEqualToString:@""]||act.what==nil)||([act.what isEqualToString:@"(null)"]))
+        activityTextLabel.text=@"No description given.";
+    else
+        activityTextLabel.text = act.what;
+    
+    activityTextLabel.numberOfLines = 0;
+    activityTextLabel.lineBreakMode = UILineBreakModeWordWrap;
+    
+	activityTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    activityTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    activityTextLabel.backgroundColor=[UIColor clearColor];
+    
+    CGSize labelSize = [activityTextLabel.text sizeWithFont:activityTextLabel.font constrainedToSize:activityTextLabel.frame.size
+                                              lineBreakMode:UILineBreakModeWordWrap];
+    
+    // Cap the description at 160 characters or 4 lines
+    if(labelSize.height>72){
+        labelSize.height=72;
+    }
+    
+    CGRect descriptionBox=CGRectMake(26, 65, 294, labelSize.height+descriptionBuffer);
+    UIView *description = [[UIView alloc] initWithFrame:descriptionBox];
+
+    
+    activityBarImgView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 26, 150)];
     switch (act.type) {
         case 1:
+        {
             activityBarImgView.image=[UIImage imageNamed:@"S05_green-bar.png"];
-            description.backgroundColor=[SoclivityUtilities returnBackgroundColor:10];
+                        description.backgroundColor=[SoclivityUtilities returnBackgroundColor:10];
+        }
             break;
         case 2:
+        {
             activityBarImgView.image=[UIImage imageNamed:@"S05_yellow-bar.png"];
             description.backgroundColor=[SoclivityUtilities returnBackgroundColor:11];
+
+        }
             break;
         case 3:
+        {
             activityBarImgView.image=[UIImage imageNamed:@"S05_purple-bar.png"];
             description.backgroundColor=[SoclivityUtilities returnBackgroundColor:12];
+
+        }
             break;
         case 4:
+        {
             activityBarImgView.image=[UIImage imageNamed:@"S05_red-bar.png"];
             description.backgroundColor=[SoclivityUtilities returnBackgroundColor:13];
+
+        }
             break;
         case 5:
+        {
             activityBarImgView.image=[UIImage imageNamed:@"S05_aqua-marine-bar.png"];
             description.backgroundColor=[SoclivityUtilities returnBackgroundColor:14];
+
+        }
             break;
         default:
-            description.backgroundColor=[SoclivityUtilities returnBackgroundColor:1];
             break;
     }
-#endif
+    
+    
+    activityBarImgView.tag=kLeftBarImageView;
+    [self addSubview:activityBarImgView];
+
+    description.tag=kDescriptionView;
+    [self addSubview:description];
+    
+    // Adding description text to the view
+    [activityTextLabel setFrame:CGRectMake(20, 12, 266, labelSize.height)];
+    [activityTextLabel setTag:kActivityDescTextLabel];
+    [description addSubview:activityTextLabel];
+    
+    
+    
+    UIImageView *bottomLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_descriptionLine.png"]];
+    bottomLine.frame = CGRectMake(26, 65+labelSize.height+descriptionBuffer, 294, 1);
+    bottomLine.tag=kBottomLineImageView;
+    [self addSubview:bottomLine];
+    
+    
+    bottomView=[[UIView alloc]initWithFrame:CGRectMake(0, 150, 320, 180)];
+    [self addSubview:bottomView];
+    int fromTheTop = 65+labelSize.height+descriptionBuffer+1;
+    
+    [bottomView setTag:kBottomView];
+    bottomView.frame = CGRectMake(0, fromTheTop, 320, 333-fromTheTop);
+    
+    
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [dateFormatter setTimeZone:gmt];
+    NSDate *activityDate = [dateFormatter dateFromString:act.when];
+    
+    NSDate *date = activityDate;
+    NSDateFormatter *prefixDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [prefixDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+    [prefixDateFormatter setDateFormat:@"EEEE, MMMM d, YYYY"];
+    NSString *prefixDateString = [prefixDateFormatter stringFromDate:date];
+    
+    
+    calendarIcon=[[UIImageView alloc]initWithFrame:CGRectMake(50, 43, 19, 20)];
+    calendarIcon.image = [UIImage imageNamed:@"S05_calendarIcon.png"];
+    calendarIcon.frame = CGRectMake(50, 12, 19, 20);
+    calendarIcon.tag=kCalendarIconImageView;
+    [bottomView addSubview:calendarIcon];
+    
+    
+    calendarDateLabel=[[UILabel alloc]init];
+    calendarDateLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    calendarDateLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    calendarDateLabel.frame = CGRectMake(84, 12+4, 200, 15);
+    calendarDateLabel.tag=kCalendarDateLabelTag;
+    [bottomView addSubview:calendarDateLabel];
+    
+    
+    
+    UIImageView *detailsLineCalendar = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_detailsLine.png"]];
+    detailsLineCalendar.frame = CGRectMake(26, 44, 272, 1);
+    detailsLineCalendar.tag=kDetailLineImageView;
+    [bottomView addSubview:detailsLineCalendar];
+    [detailsLineCalendar release];
+    
+    
+    calendarDateLabel.text=prefixDateString;
+    [prefixDateFormatter setDateFormat:@"h:mm a"];
+
+    
+    
+    NSString *prefixTimeString = [prefixDateFormatter stringFromDate:date];
+    
+    activityTimeLabel=[[UILabel alloc]initWithFrame:CGRectMake(94, 45, 192, 18)];
+    activityTimeLabel.text=prefixTimeString;
+    activityTimeLabel.tag=kActivityTimeLabel;
+    
+    [bottomView addSubview:activityTimeLabel];
+
+
+
+
+
+
+    
+
 }
 
 -(void)decideToShowMapView:(NSInteger)type{

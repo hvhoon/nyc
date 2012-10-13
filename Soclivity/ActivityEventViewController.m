@@ -1469,7 +1469,9 @@
     
     [self.navigationController dismissModalViewControllerAnimated:YES];
     
-    [self.navigationController popViewControllerAnimated:YES];
+    activityNameLabel.text=activityObj.activityName;
+    [eventView updateEditedActivityFields:activityObj];
+    
     
 }
 
