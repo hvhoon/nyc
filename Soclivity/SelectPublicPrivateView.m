@@ -41,7 +41,7 @@
     else
     privacyTextLabel.text=@"Pick visibility";
     
-    privacyTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
+    privacyTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     privacyTextLabel.textColor=[UIColor whiteColor];
     privacyTextLabel.backgroundColor=[UIColor clearColor];
     privacyTextLabel.shadowColor = [UIColor blackColor];

@@ -31,7 +31,7 @@
      else
     pickATimeLabel.text=@"Pick a time";
     
-    pickATimeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
+    pickATimeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     pickATimeLabel.textColor=[UIColor whiteColor];
     pickATimeLabel.backgroundColor=[UIColor clearColor];
     pickATimeLabel.shadowColor = [UIColor blackColor];
