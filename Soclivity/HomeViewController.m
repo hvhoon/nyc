@@ -209,6 +209,8 @@
 
 -(void)newActivityButtonPressed{
     NSLog(@"newActivityButtonPressed");
+    [addBtn setSelected:YES];
+    
     
     NSString *nibNameBundle=nil;
     if([SoclivityUtilities deviceType] & iPhone5){

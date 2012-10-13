@@ -7,15 +7,17 @@
 @synthesize pickADateView;
 @synthesize delegate;
 @synthesize type;
-
-
-
+@synthesize privacy;
+@synthesize timeOfTheActivity;
+@synthesize dateOfTheActivity;
 -(void)viewDidLoad{
     
     switch (type) {
         case PickADateViewAnimationNew:
         {
             pickADateView.delegate=self;
+            pickADateView.activityTime=timeOfTheActivity;
+            pickADateView.activityDate=dateOfTheActivity;
             self.view=pickADateView;
             
         }
@@ -24,15 +26,23 @@
         case PickATimeViewAnimationNew:
         {
             pickATimeView.delegate=self;
-
+            pickATimeView.activityDate=dateOfTheActivity;
+            pickATimeView.activityTime=timeOfTheActivity;
             self.view=pickATimeView;
             
         }
             break;
         case PrivatePublicViewAnimationNew:
         {
+            if(privacy==0){
+                privatePublicView.rowSelected=0;
+            }
+            else{
+                privatePublicView.rowSelected=1;
+            }
             privatePublicView.delegate=self;
             self.view=privatePublicView;
+
             
         }
             break;
@@ -42,6 +52,8 @@
         {
             pickADateView.delegate=self;
             pickADateView.editActivity=YES;
+            pickADateView.activityTime=timeOfTheActivity;
+            pickADateView.activityDate=dateOfTheActivity;
             self.view=pickADateView;
             
         }
@@ -51,12 +63,23 @@
         {
             pickATimeView.delegate=self;
             pickATimeView.editActivity=YES;
+            pickATimeView.activityDate=dateOfTheActivity;
+            pickATimeView.activityTime=timeOfTheActivity;
             self.view=pickATimeView;
+            
             
         }
             break;
         case PrivatePublicViewAnimationEdit:
         {
+            
+            if(privacy==0){
+                privatePublicView.rowSelected=0;
+            }
+            else{
+                privatePublicView.rowSelected=1;
+            }
+
             privatePublicView.editActivity=YES;
             privatePublicView.delegate=self;
             self.view=privatePublicView;

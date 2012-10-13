@@ -59,6 +59,8 @@
         crossEditButton.hidden=YES;
         tickEditButton.hidden=YES;
         deleteActivityButton.hidden=YES;
+        activityObject.activityTime=[NSDate date];
+        activityObject.activityDate=[NSDate date];
 
     }
     else{
@@ -400,7 +402,6 @@
         NSString *prefixTimeString = [prefixDateFormatter stringFromDate:date];
         
         
-        CGSize  size = [prefixTimeString sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
         
         int yOrigin;
         if([SoclivityUtilities deviceType] & iPhone5){
@@ -409,19 +410,18 @@
         else
             yOrigin=263;
         
-        pickATimeButton.frame=CGRectMake(65, yOrigin, size.width, 44);
+        pickATimeButton.frame=CGRectMake(65, yOrigin, 208, 44);
 
         
         [pickATimeButton setTitle:prefixTimeString forState:UIControlStateNormal];
         [pickATimeButton setTitle:prefixTimeString forState:UIControlStateHighlighted];
         
-        size = [prefixDateString sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
         if([SoclivityUtilities deviceType] & iPhone5){
             yOrigin=224;
         }
         else
             yOrigin=213;
-        pickADayButton.frame=CGRectMake(65, yOrigin, size.width, 44);
+        pickADayButton.frame=CGRectMake(65, yOrigin, 208, 44);
 
         [pickADayButton setTitle:prefixDateString forState:UIControlStateNormal];
         [pickADayButton setTitle:prefixDateString forState:UIControlStateHighlighted];
@@ -720,10 +720,15 @@
     
     MJDetailViewController *detailViewController = [[MJDetailViewController alloc] initWithNibName:@"MJDetailViewController" bundle:nil];
     detailViewController.delegate=self;
-    if(newActivity)
+    if(newActivity){
         detailViewController.type=PickADateViewAnimationNew;
-    else
+    }
+    else{
         detailViewController.type=PickADateViewAnimationEdit;
+    }
+    detailViewController.dateOfTheActivity=activityObject.activityDate;
+    detailViewController.timeOfTheActivity=activityObject.activityTime;
+
     [self presentPopupViewController:detailViewController animationType:MJPopupViewAnimationSlideBottomBottom];
 
 }
@@ -731,10 +736,14 @@
 -(IBAction)pickATimeButtonPressed:(id)sender{
     MJDetailViewController *detailViewController = [[MJDetailViewController alloc] initWithNibName:@"MJDetailViewController" bundle:nil];
     detailViewController.delegate=self;
-    if(newActivity)
+    if(newActivity){
         detailViewController.type=PickATimeViewAnimationNew;
-    else
+    }
+    else{
         detailViewController.type=PickATimeViewAnimationEdit;
+    }
+    detailViewController.dateOfTheActivity=activityObject.activityDate;
+    detailViewController.timeOfTheActivity=activityObject.activityTime;
 
     [self presentPopupViewController:detailViewController animationType:MJPopupViewAnimationSlideBottomBottom];
     
@@ -742,10 +751,24 @@
 -(IBAction)publicOrPrivateActivityButtonPressed:(id)sender{
     MJDetailViewController *detailViewController = [[MJDetailViewController alloc] initWithNibName:@"MJDetailViewController" bundle:nil];
     detailViewController.delegate=self;
-    if(newActivity)
+    if(newActivity){
         detailViewController.type=PrivatePublicViewAnimationNew;
-    else
+        if([activityObject.access caseInsensitiveCompare:@"private"] == NSOrderedSame)
+            detailViewController.privacy=1;
+        
+        else
+            detailViewController.privacy=0;
+    }
+    else{
+        
+        if([activityObject.access caseInsensitiveCompare:@"private"] == NSOrderedSame)
+            detailViewController.privacy=1;
+        
+        else
+            detailViewController.privacy=0;
+        
         detailViewController.type=PrivatePublicViewAnimationEdit;
+    }
 
     [self presentPopupViewController:detailViewController animationType:MJPopupViewAnimationSlideBottomBottom];
     
@@ -1586,14 +1609,13 @@
 
     
     dateSelected=TRUE;
-    CGSize  size = [prefixDateString sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
     int yOrigin;
     if([SoclivityUtilities deviceType] & iPhone5){
         yOrigin=224;
     }
     else
         yOrigin=213;
-    pickADayButton.frame=CGRectMake(65, yOrigin, size.width, 44);
+    pickADayButton.frame=CGRectMake(65, yOrigin, 208, 44);
     [pickADayButton setTitle:prefixDateString forState:UIControlStateNormal];
     [pickADayButton setTitle:prefixDateString forState:UIControlStateHighlighted];
     
@@ -1611,8 +1633,6 @@
     [outputFormatter release];
 
     
-    CGSize  size = [timeString sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
-    
     int yOrigin;
     if([SoclivityUtilities deviceType] & iPhone5){
         yOrigin=271;
@@ -1620,7 +1640,7 @@
     else
         yOrigin=263;
 
-    pickATimeButton.frame=CGRectMake(65, yOrigin, size.width, 44);
+    pickATimeButton.frame=CGRectMake(65, yOrigin, 208, 44);
     [pickATimeButton setTitle:timeString forState:UIControlStateNormal];
     [pickATimeButton setTitle:timeString forState:UIControlStateHighlighted];
     

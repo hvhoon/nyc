@@ -33,8 +33,14 @@ typedef enum {
     PickerPopupViewAnimation type;
     IBOutlet PickATimeView *pickATimeView;
     IBOutlet SelectPublicPrivateView *privatePublicView;
+    int privacy;
+    NSDate *timeOfTheActivity;
+    NSDate*dateOfTheActivity;
 }
+@property (nonatomic,assign)int privacy;
 @property (nonatomic,assign)PickerPopupViewAnimation type;
 @property (nonatomic,retain) PickADateView *pickADateView;
 @property (nonatomic,retain)id<PickerDetailViewDelegate>delegate;
+@property (nonatomic,retain)NSDate *timeOfTheActivity;
+@property (nonatomic,retain)NSDate *dateOfTheActivity;
 @end

@@ -44,7 +44,7 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 @implementation CalendarDateView
 @synthesize KALDelegate;
 @synthesize dataSource, delegate, initialDate, selectedDate,pickADateForActivity;
-
+@synthesize activityTime;
 - (id)initWithSelectedDate:(NSDate *)date
 {
     if ((self = [super init])) {
@@ -112,7 +112,19 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
         
         NSDate *dateToSet = [date NSDate];
         
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:activityTime];
+        NSInteger hour = [components hour];
+        NSInteger minute = [components minute];
+
         
+        NSCalendar* myCalendar = [NSCalendar currentCalendar];
+        components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
+                                   fromDate:dateToSet];
+        [components setHour: hour];
+        [components setMinute:minute];
+        [components setSecond:00];
+        NSDate *setFinishDate=[myCalendar dateFromComponents:components];
         
         NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
         
@@ -122,10 +134,12 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
         NSTimeInterval interval2 = destinationGMTOffset1;
         NSTimeInterval interval3 = destinationGMTOffset2;
         
-        NSDate* destinationDate = [[[NSDate alloc] initWithTimeInterval:interval2 sinceDate:dateToSet] autorelease];
+        NSDate* destinationDate = [[[NSDate alloc] initWithTimeInterval:interval2 sinceDate:setFinishDate] autorelease];
         
         NSDate* currentDateTime = [[[NSDate alloc] initWithTimeInterval:interval3 sinceDate:[NSDate date]] autorelease];
         BOOL checkTime=TRUE;
+
+
         
         if ([destinationDate compare:currentDateTime] == NSOrderedAscending){
             checkTime=FALSE;
@@ -236,16 +250,16 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
     return [self.calendarView.selectedDate NSDate];
 }
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame editActivityDate:(NSDate*)editActivityDate
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
         {
-            
-            logic = [[KalLogic alloc] initForDate:[NSDate date]];
-            self.initialDate = [NSDate date];
-            self.selectedDate = [NSDate date];
+            logic = [[KalLogic alloc] initForDate:editActivityDate];
+            self.initialDate = editActivityDate;
+            self.selectedDate = editActivityDate;
+
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(significantTimeChangeOccurred) name:UIApplicationSignificantTimeChangeNotification object:nil];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:KalDataSourceChangedNotification object:nil];
 

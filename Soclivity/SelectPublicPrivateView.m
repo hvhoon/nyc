@@ -9,7 +9,7 @@
 #import "SelectPublicPrivateView.h"
 #import "SoclivityUtilities.h"
 @implementation SelectPublicPrivateView
-@synthesize delegate,editActivity;
+@synthesize delegate,editActivity,rowSelected;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -46,6 +46,23 @@
     privacyTextLabel.backgroundColor=[UIColor clearColor];
     privacyTextLabel.shadowColor = [UIColor blackColor];
     privacyTextLabel.shadowOffset = CGSizeMake(0,-1);
+    
+    switch (rowSelected) {
+        case 0:
+        {
+            [privacyPicker reloadAllComponents];
+            [privacyPicker selectRow:0 inComponent:0 animated:YES];
+            
+        }
+            break;
+            
+        case 1:
+        {
+            [privacyPicker reloadAllComponents];
+            [privacyPicker selectRow:1 inComponent:0 animated:YES];
+        }
+            break;
+    }
 
 }
 

@@ -22,10 +22,12 @@
     IBOutlet UIPickerView *privacyPicker;
     IBOutlet UILabel *privacyTextLabel;
     BOOL editActivity;
+    int rowSelected;
 
 }
 @property (nonatomic,retain)id <PrivacyViewDelegate>delegate;
 @property (nonatomic,assign)BOOL editActivity;
+@property (nonatomic,assign)int rowSelected;
 -(IBAction)crossButtonClicked:(id)sender;
 -(IBAction)tickButtonPressed:(id)sender;
 

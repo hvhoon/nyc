@@ -9,7 +9,7 @@
 #import "PickADateView.h"
 #import "SoclivityUtilities.h"
 @implementation PickADateView
-@synthesize delegate,editActivity;
+@synthesize delegate,editActivity,activityDate,activityTime;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -26,9 +26,9 @@
 
 -(IBAction)tickButtonPressed:(id)sender{
     
-    NSDate *activityDate=[[NSUserDefaults standardUserDefaults] valueForKey:@"ActivityDate"];
+    NSDate *activityDateResult=[[NSUserDefaults standardUserDefaults] valueForKey:@"ActivityDate"];
     
-    if(activityDate==nil){
+    if(activityDateResult==nil){
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Select A Date To Continue" message:nil
                                                        delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -66,9 +66,10 @@
     pickADateLabel.shadowOffset = CGSizeMake(0,-1);
 
     
-    calendarDate=[[CalendarDateView alloc]initWithFrame:CGRectMake(0, 44, 320,254)];
+    calendarDate=[[CalendarDateView alloc]initWithFrame:CGRectMake(0, 44, 320,254)editActivityDate:activityDate];
     calendarDate.KALDelegate=self;
     calendarDate.pickADateForActivity=TRUE;
+    calendarDate.activityTime=activityTime;
     [self addSubview:calendarDate];
 
 

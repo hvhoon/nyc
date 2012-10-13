@@ -505,7 +505,7 @@
         [dateCalendarView addSubview:tickButton];
 
         
-        calendarDate=[[CalendarDateView alloc]initWithFrame:CGRectMake(0, 84, 320,354)];
+        calendarDate=[[CalendarDateView alloc]initWithFrame:CGRectMake(0, 84, 320,354)editActivityDate:[NSDate date]];
         calendarDate.KALDelegate=self;
         [dateCalendarView addSubview:calendarDate];
 
