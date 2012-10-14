@@ -37,6 +37,7 @@
 #define kPrivacyImageView5 26
 #define kDetailLineMap 27
 #define kActivityAccessImageView 28
+#define kActivityPlotMapButton 29
 @implementation AddEventView
 @synthesize activityObject,delegate,mapView,mapAnnotations,addressSearchBar,_geocodingResults,labelView,searching,editMode,firstALineddressLabel,secondLineAddressLabel,pinDrop,firstTime,activityInfoButton;
 
@@ -487,6 +488,9 @@
 		}
 
 
+		if([subview isKindOfClass:[UIButton class]] && [subview viewWithTag:kActivityPlotMapButton]) {
+			[subview removeFromSuperview];
+		}
 
 
         
@@ -531,7 +535,7 @@
     UIView *description = [[UIView alloc] initWithFrame:descriptionBox];
 
     
-    activityBarImgView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 26, 150)];
+    activityBarImgView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 26, labelSize.height+descriptionBuffer+65)];
     switch (act.type) {
         case 1:
         {
@@ -693,7 +697,43 @@
     [bottomView addSubview:locationInfoLabel2];
 
 
-    [self decideToShowMapView:6];
+    locationIcon.hidden=YES;
+    
+    locationInfoLabel1.frame=CGRectMake(50, 103+1, 190, 15);
+    locationInfoLabel2.frame = CGRectMake(50, 124, 190, 15);
+
+    locationInfoLabel1.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
+    locationInfoLabel1.textColor=[SoclivityUtilities returnTextFontColor:5];
+    locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
+    locationInfoLabel1.text=activityObject.where_address;
+    locationInfoLabel2.text=[NSString stringWithFormat:@"in %@",activityObject.where_zip];
+
+    
+    
+    
+    
+    activityPlotOnMapButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    activityPlotOnMapButton.frame = CGRectMake(249, 133, 37.0, 37.0);
+    [activityPlotOnMapButton setImage:[UIImage imageNamed:@"S05_miniMap.png"] forState:UIControlStateNormal];
+    [activityPlotOnMapButton addTarget:self action:@selector(activityMapPlotButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    activityPlotOnMapButton.tag=kActivityPlotMapButton;
+    [bottomView addSubview:activityPlotOnMapButton];
+
+    
+    activityPlotOnMapButton.hidden=NO;
+    activityPlotOnMapButton.frame=CGRectMake(260, 101, 37, 37);
+    
+    // Setting the variables for the map screen
+    firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
+    firstALineddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    firstALineddressLabel.text = activityObject.where_address;
+    secondLineAddressLabel.text = [NSString stringWithFormat:@"in %@",activityObject.where_zip];
+
+    
 
 
 if([SoclivityUtilities deviceType] & iPhone5){
@@ -785,6 +825,7 @@ else {
             locationInfoLabel1.frame=CGRectMake(50, 103+1, 190, 15);
             locationInfoLabel2.frame = CGRectMake(50, 124, 190, 15);
             activityPlotOnMapButton.frame=CGRectMake(260, 101, 37, 37);
+            activityPlotOnMapButton.tag=kActivityPlotMapButton;
             locationInfoLabel1.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
             locationInfoLabel1.textColor=[SoclivityUtilities returnTextFontColor:5];
             locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];

@@ -480,7 +480,7 @@
         
         
         
-        UIButton *addButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        addButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         addButton.frame = CGRectMake(275, 409, 39.0, 31.0);//5
         [addButton setImage:[UIImage imageNamed:@"S04_addevent.png"] forState:UIControlStateNormal];
         [addButton addTarget:self action:@selector(addActivity:) forControlEvents:UIControlEventTouchUpInside];

@@ -137,12 +137,10 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
         NSDate* destinationDate = [[[NSDate alloc] initWithTimeInterval:interval2 sinceDate:setFinishDate] autorelease];
         
         NSDate* currentDateTime = [[[NSDate alloc] initWithTimeInterval:interval3 sinceDate:[NSDate date]] autorelease];
-        BOOL checkTime=TRUE;
 
 
         
         if ([destinationDate compare:currentDateTime] == NSOrderedAscending){
-            checkTime=FALSE;
             
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Activity in the past?"
 															message:@"Sorry we can't go in the past yet!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
@@ -152,7 +150,6 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 
         }
         else{
-            checkTime=TRUE;
             
             [[NSUserDefaults standardUserDefaults] setValue:dateToSet forKey:@"ActivityDate"];
 

@@ -58,7 +58,7 @@
 - (void)handleDrag:(UIPanGestureRecognizer *)sender {
     
     
-    
+    addButton.hidden=YES;
     SoclivityManager *SOC=[SoclivityManager SharedInstance];   
     if(SOC.AllowTapAndDrag){
         filterPaneView.transform = CGAffineTransformIdentity;
@@ -241,6 +241,7 @@
     if(op){
         crossImageView.hidden=NO;
         searchLensImageView.hidden=YES;
+        addButton.hidden=YES;
     }
     else{
         crossImageView.hidden=YES;
@@ -276,6 +277,8 @@
         filterPaneView.layer.shadowOffset = CGSizeZero;
         filterPaneView.layer.shadowRadius = 14.0f;
         filterPaneView.layer.shadowPath = [UIBezierPath bezierPathWithRect:filterPaneView.bounds].CGPath;
+        addButton.hidden=NO;
+
         
     }
 }

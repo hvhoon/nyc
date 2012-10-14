@@ -18,6 +18,7 @@
     SoclivityManager *SOC;
     CalendarDateView *calendarDate;
     int tracker;
+
     
 }
 @property (nonatomic, retain) CustomSearchbar *homeSearchBar;

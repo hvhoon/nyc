@@ -43,6 +43,7 @@
     CGPoint translateNew;
     UIImageView *crossImageView;
     UIImageView *searchLensImageView;
+    UIButton *addButton;
 }
 
 /**
