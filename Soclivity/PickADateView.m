@@ -59,7 +59,7 @@
 
     pickADateLabel.text=@"Pick a date";
     
-    pickADateLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
+    pickADateLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     pickADateLabel.textColor=[UIColor whiteColor];
     pickADateLabel.backgroundColor=[UIColor clearColor];
     pickADateLabel.shadowColor = [UIColor blackColor];
