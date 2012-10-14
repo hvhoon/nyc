@@ -457,11 +457,22 @@
         case 11:
         {
             
-            if(inviteFriends){
+            if(inviteFriends && [responses isEqualToString:@"1"]){
                 
                 HUD.labelText = @"Invited";
                 
                 [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
+                
+            }
+            else{
+                
+                [HUD hide:YES];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error inviting user" message:nil
+                                                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                
+                [alert show];
+                [alert release];
+                return;
                 
             }
             

@@ -111,7 +111,7 @@
 
 -(BOOL)handleHttpError:(NSInteger)code {
 	[self.delegate PostActivityRequestInvocationDidFinish:self 
-                                             withResponse:@"" relationTypeTag:-1
+                                             withResponse:@"0" relationTypeTag:-1
                                                  withError:[NSError errorWithDomain:@"UserId" 
                         code:[[self response] statusCode]
                         userInfo:[NSDictionary dictionaryWithObject:@"Failed to Post Request. Please try again later" forKey:@"message"]]];
