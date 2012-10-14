@@ -225,10 +225,9 @@
 }
 
 -(void)PostActivityRequestInvocationDidFinish:(PostActivityRequestInvocation*)invocation
-                                 withResponse:(NSString*)responses relationTypeTag:(NSInteger)relationTypeTag
+                                 withResponse:(BOOL)response relationTypeTag:(NSInteger)relationTypeTag
                                     withError:(NSError*)error{
     
-    NSLog(@"responses=%@",responses);
     
 
     
@@ -236,7 +235,7 @@
         case 11:
         {
             
-            if(inviteFriends && [responses isEqualToString:@"1"]){
+            if(inviteFriends && response){
                 
                 HUD.labelText = @"Invited";
                 

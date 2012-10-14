@@ -931,10 +931,9 @@
 
 
 -(void)PostActivityRequestInvocationDidFinish:(PostActivityRequestInvocation*)invocation
-                                 withResponse:(NSString*)responses relationTypeTag:(NSInteger)relationTypeTag
+                                 withResponse:(BOOL)response relationTypeTag:(NSInteger)relationTypeTag
                                     withError:(NSError*)error{
     
-    NSLog(@"responses=%@",responses);
     [HUD hide:YES];
     
     switch (relationTypeTag) {

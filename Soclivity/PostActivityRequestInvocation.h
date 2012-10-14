@@ -16,7 +16,7 @@
 @protocol PostActivityRequestInvocationDelegate 
 
 -(void)PostActivityRequestInvocationDidFinish:(PostActivityRequestInvocation*)invocation
-                                 withResponse:(NSString*)responses relationTypeTag:(NSInteger)relationTypeTag
+                                 withResponse:(BOOL)response relationTypeTag:(NSInteger)relationTypeTag
                                      withError:(NSError*)error;
 
 @end

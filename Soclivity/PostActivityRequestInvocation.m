@@ -103,15 +103,15 @@
     NSLog(@"handleHttpOK");
 	NSDictionary* resultsd = [[[NSString alloc] initWithData:data 
                                                     encoding:NSUTF8StringEncoding] JSONValue];
-    NSString*resetStatus= [resultsd objectForKey:@"status"];
+    NSNumber*resetStatus= [resultsd objectForKey:@"status"];
     NSLog(@"resetStatus=%@",resetStatus);
-	[self.delegate PostActivityRequestInvocationDidFinish:self withResponse:resetStatus relationTypeTag:relationshipId withError:Nil];
+	[self.delegate PostActivityRequestInvocationDidFinish:self withResponse:[resetStatus boolValue] relationTypeTag:relationshipId withError:Nil];
 	return YES;
 }
 
 -(BOOL)handleHttpError:(NSInteger)code {
 	[self.delegate PostActivityRequestInvocationDidFinish:self 
-                                             withResponse:@"0" relationTypeTag:-1
+                                             withResponse:NO relationTypeTag:-1
                                                  withError:[NSError errorWithDomain:@"UserId" 
                         code:[[self response] statusCode]
                         userInfo:[NSDictionary dictionaryWithObject:@"Failed to Post Request. Please try again later" forKey:@"message"]]];
