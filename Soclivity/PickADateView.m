@@ -66,7 +66,7 @@
     pickADateLabel.shadowOffset = CGSizeMake(0,-1);
 
     
-    calendarDate=[[CalendarDateView alloc]initWithFrame:CGRectMake(0, 44, 320,254)editActivityDate:activityDate];
+    calendarDate=[[CalendarDateView alloc]initWithFrame:CGRectMake(0, 44, 320,265)editActivityDate:activityDate];
     calendarDate.KALDelegate=self;
     calendarDate.pickADateForActivity=TRUE;
     calendarDate.activityTime=activityTime;
