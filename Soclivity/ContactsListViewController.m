@@ -55,8 +55,6 @@
         
         if(num_of_slots!=-1)
             openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
-        else
-            openSlotsNoLabel.text=@"No Open Slots";
         
 
     }

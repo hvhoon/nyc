@@ -75,6 +75,18 @@
     lastIndex=-1;
     [spinnerView stopAnimating];
     [spinnerView setHidden:YES];
+    
+#if 0
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,464)];
+    
+    scrollView.clipsToBounds = YES;
+    scrollView.scrollEnabled = YES;
+    scrollView.pagingEnabled = NO;
+    scrollView.showsVerticalScrollIndicator =NO;
+    scrollView.alwaysBounceVertical= YES;
+    scrollView.delegate = self;
+    [self.view addSubview:scrollView];
+#endif
 
     scrollView.indicatorStyle=UIScrollViewIndicatorStyleBlack;
     scrollView.clipsToBounds = YES;
