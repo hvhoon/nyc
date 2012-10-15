@@ -85,8 +85,6 @@
     IBOutlet UIButton *tickEditButton;
     IBOutlet UIButton *deleteActivityButton;
 
-
-
 }
 @property (nonatomic, retain)  MKMapView* mapView;
 @property (nonatomic,retain)NSMutableArray *_geocodingResults;
