@@ -118,6 +118,13 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
         NSInteger minute = [components minute];
 
         
+        
+        NSDate *activityDateResult=[[NSUserDefaults standardUserDefaults] valueForKey:@"ActivityTime"];
+        
+        if(activityDateResult==nil){
+
+            minute=minute+10;
+        }
         NSCalendar* myCalendar = [NSCalendar currentCalendar];
         components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
                                    fromDate:dateToSet];

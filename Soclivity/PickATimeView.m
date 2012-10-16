@@ -106,6 +106,11 @@
     
     NSLog(@"Time Selected=%@",timeString);
     
+    if(!editActivity){
+        [[NSUserDefaults standardUserDefaults] setValue:timePicker.date forKey:@"ActivityDate"];
+
+    }
+    
     [delegate activityTimeSelected:timePicker.date];
 
 }

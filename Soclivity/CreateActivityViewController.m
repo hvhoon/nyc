@@ -61,6 +61,9 @@
         deleteActivityButton.hidden=YES;
         activityObject.activityTime=[NSDate date];
         activityObject.activityDate=[NSDate date];
+        [[NSUserDefaults standardUserDefaults] setValue:Nil forKey:@"ActivityDate"];
+        [[NSUserDefaults standardUserDefaults] setValue:Nil forKey:@"ActivityTime"];
+
 
     }
     else{
@@ -84,8 +87,6 @@
     _geocodingResults=[NSMutableArray new];
     _geocoder = [[CLGeocoder alloc] init];
     SOC=[SoclivityManager SharedInstance];
-    [[NSUserDefaults standardUserDefaults] setValue:Nil forKey:@"ActivityDate"];
-
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundtap:)];
     [createActivityView addGestureRecognizer:tapGesture];
@@ -2234,6 +2235,9 @@
     activityObject.what=descriptionTextView.text;
     if([capacityTextField.text length]!=0)
     activityObject.num_of_people=[capacityTextField.text intValue];
+    else{
+    activityObject.num_of_people=-1;
+    }
 
     
     if([SoclivityUtilities hasNetworkConnection]){
