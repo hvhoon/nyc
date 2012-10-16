@@ -1502,8 +1502,6 @@ else {
         {
             urlString = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/geocode/json?address=%@&bounds=%f,%f|%f,%f&sensor=false",addressSearchBar.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
             
-/*
-            urlString=@"http://maps.googleapis.com/maps/api/geocode/json?address=555%20California&bounds=37.785834,-122.406417|37.785834,-122.406417&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk";*/
             urlString= [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             
         }

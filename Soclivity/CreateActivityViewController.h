@@ -84,6 +84,9 @@
     IBOutlet UIButton *crossEditButton;
     IBOutlet UIButton *tickEditButton;
     IBOutlet UIButton *deleteActivityButton;
+    BOOL selectionType;
+    int indexRE;
+
 
 }
 @property (nonatomic, retain)  MKMapView* mapView;

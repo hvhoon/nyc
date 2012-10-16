@@ -1267,11 +1267,32 @@
 }
 
 
--(void) geocodeFromSearchBar{
+-(void) geocodeFromSearchBar:(int)type{
     // in case of error use api key like
     
     responseData = [[NSMutableData data] retain];
-    NSString*urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?keyword=%@&location=%f,%f&rankby=distance&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk",[addressSearchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+    selectionType=type;
+    NSString*urlString=nil;
+    switch (selectionType) {
+            
+            
+        case 1:
+        {
+            urlString = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/geocode/json?address=%@&bounds=%f,%f|%f,%f&sensor=false",addressSearchBar.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+            
+            urlString= [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            
+        }
+            break;
+            
+        case 2:
+        {
+            urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?keyword=%@&location=%f,%f&rankby=distance&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk",[addressSearchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+            
+        }
+            break;
+            
+    }
 	
 	
     // Create NSURL string from formatted string
@@ -1313,19 +1334,40 @@
     NSDictionary* resultsd = [[[NSString alloc] initWithData:responseData
                                                     encoding:NSUTF8StringEncoding] JSONValue];
     
+    [responseData release];
+    
+    
     NSDictionary *dict = [resultsd objectForKey:@"results"];
-    
-    for(id object in dict){
-        PlacemarkClass *placemark=[[[PlacemarkClass alloc]init]autorelease];
-        NSDictionary *geometryDict = [object objectForKey:@"geometry"];
-        placemark.latitude = [[[geometryDict objectForKey:@"location"] objectForKey:@"lat"] floatValue];
-        placemark.longitude = [[[geometryDict objectForKey:@"location"] objectForKey:@"lng"] floatValue];
+    if(selectionType==2){
         
-        placemark.formattedAddress =[object objectForKey:@"name"];
-        placemark.vicinityAddress =[object objectForKey:@"vicinity"];
-        [_geocodingResults addObject:placemark];
+        indexRE=2;
+        
+        for(id object in dict){
+            PlacemarkClass *placemark=[[[PlacemarkClass alloc]init]autorelease];
+            NSDictionary *geometryDict = [object objectForKey:@"geometry"];
+            placemark.latitude = [[[geometryDict objectForKey:@"location"] objectForKey:@"lat"] floatValue];
+            placemark.longitude = [[[geometryDict objectForKey:@"location"] objectForKey:@"lng"] floatValue];
+            
+            placemark.formattedAddress =[object objectForKey:@"name"];
+            placemark.vicinityAddress =[object objectForKey:@"vicinity"];
+            [_geocodingResults addObject:placemark];
+        }
+        
     }
-    
+    else{
+        indexRE=1;
+        
+        for(id object in dict){
+            PlacemarkClass *placemark=[[[PlacemarkClass alloc]init]autorelease];
+            NSDictionary *geometryDict = [object objectForKey:@"geometry"];
+            placemark.latitude = [[[geometryDict objectForKey:@"location"] objectForKey:@"lat"] floatValue];
+            placemark.longitude = [[[geometryDict objectForKey:@"location"] objectForKey:@"lng"] floatValue];
+            
+            placemark.formattedAddress =[object objectForKey:@"formatted_address"];
+            [_geocodingResults addObject:placemark];
+        }
+        
+    }
     if([_geocodingResults count]>0){
         searching=TRUE;
         [self addPinAnnotationForPlacemark:_geocodingResults droppedStatus:NO];
@@ -1345,9 +1387,15 @@
         
     }
     
+    else{
+        //firstTime
+        if(indexRE==1)
+            [self geocodeFromSearchBar:2];
+    }
+
+    
     
 	
-	[responseData release];
 	
 }
 
@@ -1788,7 +1836,7 @@
     
     [self.addressSearchBar resignFirstResponder];
     [searchBar setShowsCancelButton:YES animated:YES];
-    [self geocodeFromSearchBar];
+    [self geocodeFromSearchBar:1];
     
 }
 -(void)customCancelButtonHit{
