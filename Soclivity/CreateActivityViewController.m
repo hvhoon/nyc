@@ -54,7 +54,7 @@
     if(newActivity){
         activityObject=[[InfoActivityClass alloc]init];
         activityObject.type=1;
-        activityObject.access=@"Public";
+        activityObject.access=@"public";
         activityObject.num_of_people=-1;
         crossEditButton.hidden=YES;
         tickEditButton.hidden=YES;
