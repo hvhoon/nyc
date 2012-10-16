@@ -57,6 +57,10 @@
          [socEventMapView setUpMapAnnotations];
 
     }
+    else if(SOC.editOrNewActivity){
+        SOC.editOrNewActivity=FALSE;
+        [self StartGettingActivities];
+    }
 }
 - (void)viewDidLoad
 {
@@ -239,6 +243,8 @@
 -(void)pushToNewActivity:(InfoActivityClass *)activity{
     
     [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    SOC.editOrNewActivity=TRUE;
     
     NSString*nibNameBundle=nil;
     

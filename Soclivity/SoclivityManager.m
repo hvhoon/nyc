@@ -11,7 +11,7 @@
 #import "FilterPreferenceClass.h"
 @implementation SoclivityManager
 @synthesize delegate,registrationObject,basicInfoDone,currentLocation,loggedInUser,filterObject,AllowTapAndDrag,localCacheUpdate;
-
+@synthesize editOrNewActivity;
 
 + (id) SharedInstance {
 	static id sharedManager = nil;

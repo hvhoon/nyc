@@ -25,6 +25,7 @@
     FilterPreferenceClass *filterObject;
     BOOL AllowTapAndDrag;
     BOOL localCacheUpdate;
+    BOOL editOrNewActivity;
    
    
 }
@@ -36,5 +37,6 @@
 @property (nonatomic,retain)FilterPreferenceClass *filterObject;
 @property (nonatomic,assign)BOOL AllowTapAndDrag;
 @property (nonatomic,assign)BOOL localCacheUpdate;
+@property (nonatomic,assign)BOOL editOrNewActivity;
 + (id)SharedInstance;
 @end

@@ -182,7 +182,7 @@
 
 -(BOOL)CalculateOpenSlots{
     
-    if(num_of_slots!=-1 && num_of_slots>0){
+    if(num_of_slots==-1 || num_of_slots>0){
         return YES;
     }
     else

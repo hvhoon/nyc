@@ -940,6 +940,7 @@
 -(void)pushToNewActivity:(InfoActivityClass *)activity{
     
 [self.navigationController dismissModalViewControllerAnimated:YES];
+    SOC.editOrNewActivity=TRUE;
     
     NSString*nibNameBundle=nil;
     
@@ -1479,7 +1480,7 @@
 -(void)updateDetailedActivityScreen:(InfoActivityClass*)activityObj{
     
     [self.navigationController dismissModalViewControllerAnimated:YES];
-    
+    SOC.editOrNewActivity=TRUE;
     activityNameLabel.text=activityObj.activityName;
     [eventView updateEditedActivityFields:activityObj];
     
