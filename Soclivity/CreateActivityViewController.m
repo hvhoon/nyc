@@ -1480,6 +1480,7 @@
 	
 	
 }
+#if 1
 -(void)setViewMovedUp:(BOOL)movedUp
 {
     [UIView beginAnimations:nil context:NULL];
@@ -1503,6 +1504,34 @@
 	
     [UIView commitAnimations];
 }
+
+#else
+-(void)setViewMovedUp:(BOOL)movedUp
+{
+
+    if(movedUp){
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationDuration:0.25];
+
+        CGRect rect = CGRectMake(0, -20, 320, 480);
+            
+        self.view.frame = rect;
+        [UIView commitAnimations];
+    }else{
+        
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationDuration:0.25];
+        
+        CGRect rect = CGRectMake(0, 0, 320, 480);
+        self.view.frame = rect;
+        [UIView commitAnimations];
+
+    }
+
+}
+#endif
 
 -(void)textViewDidEndEditing:(UITextView *)textView{
 	NSLog(@"The string is %@",textView.text);
