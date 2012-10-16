@@ -1429,6 +1429,11 @@
 }
 -(void)textViewDidBeginEditing:(UITextView *)textView{
     
+    
+    pickADayButton.enabled=NO;
+    pickATimeButton.enabled=NO;
+    publicPrivateButton.enabled=NO;
+ 
    if(!([SoclivityUtilities deviceType] & iPhone5)){
         [self setViewMovedUp:YES];
         
@@ -1537,7 +1542,10 @@
 -(void)textViewDidEndEditing:(UITextView *)textView{
 	NSLog(@"The string is %@",textView.text);
 	
-    
+    pickADayButton.enabled=YES;
+    pickATimeButton.enabled=YES;
+    publicPrivateButton.enabled=YES;
+
     if (![textView hasText]) {
         placeholderLabel.hidden = NO;
     }
@@ -1553,7 +1561,6 @@
     
 }
 
-
 #pragma mark -
 #pragma mark UITextFieldDelegate Methods
 
@@ -1565,6 +1572,11 @@
 }
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
 	
+    
+    pickADayButton.enabled=NO;
+    pickATimeButton.enabled=NO;
+    publicPrivateButton.enabled=NO;
+    
     if(textField==capacityTextField){
 
         [UIView beginAnimations:nil context:NULL];
@@ -1613,7 +1625,12 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 
+    pickADayButton.enabled=YES;
+    pickATimeButton.enabled=YES;
+    publicPrivateButton.enabled=YES;
+
     [textField resignFirstResponder];
+
     
      return NO;
 }
@@ -1685,7 +1702,6 @@
     switch (row) {
         case 0:
         {
-            size = [@"Public" sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
             if([SoclivityUtilities deviceType] & iPhone5){
                 yOrigin=320;
             }
@@ -1693,7 +1709,7 @@
                 yOrigin=313;
             activityObject.access=@"public";
             
-            publicPrivateButton.frame=CGRectMake(65, yOrigin, size.width, 44);
+            publicPrivateButton.frame=CGRectMake(65, yOrigin,208, 44);
 
             [privacyImageButton setBackgroundImage:[UIImage imageNamed:@"S05_public5.png"] forState:UIControlStateNormal];
             
@@ -1711,7 +1727,6 @@
         case 1:
         {
             activityObject.access=@"private";
-            size = [@"Private" sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
             
             if([SoclivityUtilities deviceType] & iPhone5){
                 yOrigin=320;
@@ -1719,7 +1734,7 @@
             else
                 yOrigin=313;
             
-            publicPrivateButton.frame=CGRectMake(65, yOrigin, size.width, 44);
+            publicPrivateButton.frame=CGRectMake(65, yOrigin, 208, 44);
             [privacyImageButton setBackgroundImage:[UIImage imageNamed:@"S05_private5.png"] forState:UIControlStateNormal];
             
             [privacyImageButton setBackgroundImage:[UIImage imageNamed:@"S05_private5.png"] forState:UIControlStateHighlighted];
