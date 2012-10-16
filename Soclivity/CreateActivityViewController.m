@@ -406,7 +406,7 @@
         
         int yOrigin;
         if([SoclivityUtilities deviceType] & iPhone5){
-            yOrigin=271;
+            yOrigin=274;
         }
         else
             yOrigin=263;
@@ -1727,7 +1727,7 @@
     
     int yOrigin;
     if([SoclivityUtilities deviceType] & iPhone5){
-        yOrigin=271;
+        yOrigin=274;
     }
     else
         yOrigin=263;
