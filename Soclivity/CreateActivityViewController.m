@@ -54,7 +54,7 @@
     if(newActivity){
         activityObject=[[InfoActivityClass alloc]init];
         activityObject.type=1;
-        activityObject.access=@"Public";
+        activityObject.access=@"public";
         activityObject.num_of_people=-1;
         crossEditButton.hidden=YES;
         tickEditButton.hidden=YES;
@@ -406,7 +406,7 @@
         
         int yOrigin;
         if([SoclivityUtilities deviceType] & iPhone5){
-            yOrigin=271;
+            yOrigin=274;
         }
         else
             yOrigin=263;
@@ -1727,7 +1727,7 @@
     
     int yOrigin;
     if([SoclivityUtilities deviceType] & iPhone5){
-        yOrigin=271;
+        yOrigin=274;
     }
     else
         yOrigin=263;
