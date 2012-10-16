@@ -487,17 +487,11 @@
     self.addressSearchBar.backgroundImage=[UIImage imageNamed: @"S4.1_search-background.png"];
     [createActivityView addSubview:self.addressSearchBar];
 
-    CGRect rect;
-    if([SoclivityUtilities deviceType] & iPhone5){
-        rect = CGRectMake(320, 44, 320, 272+88);
-
+    CGRect rect=CGRectMake(320, 44, 320, 272);
+    if([SoclivityUtilities deviceType] & iPhone5)
         
-    }
-    else
-    {
-        rect = CGRectMake(320, 44, 320, 272);
-
-    }
+        rect = CGRectMake(320, 44, 320, 272+88);
+ 
     
     _mapView = [[MKMapView alloc] initWithFrame:rect];
     _mapView.delegate = self;
@@ -1099,6 +1093,10 @@
     
     [activityNameTextField resignFirstResponder];
     [capacityTextField resignFirstResponder];
+    pickADayButton.enabled=YES;
+    pickATimeButton.enabled=YES;
+    publicPrivateButton.enabled=YES;
+
     CGRect clearTextRect=CGRectMake(250, 60, 57, 30);
     CGPoint translate = [sender locationInView:self.view.superview];
     if(CGRectContainsPoint(clearTextRect,translate)&& isTransition){
@@ -1695,8 +1693,7 @@
 }
 -(void)privacySelectionDone:(int)row{
     
-    CGSize  size;
-    int yOrigin;
+    int yOrigin=313;
 
 
     switch (row) {
@@ -1705,8 +1702,6 @@
             if([SoclivityUtilities deviceType] & iPhone5){
                 yOrigin=320;
             }
-            else
-                yOrigin=313;
             activityObject.access=@"public";
             
             publicPrivateButton.frame=CGRectMake(65, yOrigin,208, 44);
@@ -1731,8 +1726,6 @@
             if([SoclivityUtilities deviceType] & iPhone5){
                 yOrigin=320;
             }
-            else
-                yOrigin=313;
             
             publicPrivateButton.frame=CGRectMake(65, yOrigin, 208, 44);
             [privacyImageButton setBackgroundImage:[UIImage imageNamed:@"S05_private5.png"] forState:UIControlStateNormal];

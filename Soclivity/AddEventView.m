@@ -1473,7 +1473,7 @@ else {
 }
 
 #if TESTING
-- (void) geocodeFromSearchBar{
+- (void) geocodeFromSearchBar:(NSInteger)type{
     
     
     // Cancel any active geocoding. Note: Cancelling calls the completion handler on the geocoder
@@ -1489,11 +1489,35 @@ else {
 }
 #else
 
--(void) geocodeFromSearchBar{
+-(void) geocodeFromSearchBar:(NSInteger)type{
     // in case of error use api key like 
     
     responseData = [[NSMutableData data] retain];
-	 NSString*urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?keyword=%@&location=%f,%f&rankby=distance&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk",[addressSearchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+    selectionType=type;
+    NSString*urlString=nil;
+    switch (selectionType) {
+            
+            
+        case 1:
+        {
+            urlString = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/geocode/json?address=%@&bounds=%f,%f|%f,%f&sensor=false",addressSearchBar.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+            
+/*
+            urlString=@"http://maps.googleapis.com/maps/api/geocode/json?address=555%20California&bounds=37.785834,-122.406417|37.785834,-122.406417&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk";*/
+            urlString= [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            
+        }
+            break;
+
+        case 2:
+        {
+            urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?keyword=%@&location=%f,%f&rankby=distance&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk",[addressSearchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+            
+        }
+            break;
+            
+    }
+    
 	
 	
     // Create NSURL string from formatted string
@@ -1620,7 +1644,13 @@ else {
     NSDictionary* resultsd = [[[NSString alloc] initWithData:responseData 
                                                encoding:NSUTF8StringEncoding] JSONValue];
     
+    [responseData release];
+
+    
      NSDictionary *dict = [resultsd objectForKey:@"results"];
+    if(selectionType==2){
+        
+        indexRE=2;
     
     for(id object in dict){
         PlacemarkClass *placemark=[[[PlacemarkClass alloc]init]autorelease];
@@ -1631,6 +1661,22 @@ else {
         placemark.formattedAddress =[object objectForKey:@"name"];
         placemark.vicinityAddress =[object objectForKey:@"vicinity"];
         [_geocodingResults addObject:placemark];
+    }
+        
+    }
+    else{
+        indexRE=1;
+        
+        for(id object in dict){
+            PlacemarkClass *placemark=[[[PlacemarkClass alloc]init]autorelease];
+            NSDictionary *geometryDict = [object objectForKey:@"geometry"];
+            placemark.latitude = [[[geometryDict objectForKey:@"location"] objectForKey:@"lat"] floatValue];
+            placemark.longitude = [[[geometryDict objectForKey:@"location"] objectForKey:@"lng"] floatValue];
+            
+            placemark.formattedAddress =[object objectForKey:@"formatted_address"];
+            [_geocodingResults addObject:placemark];
+        }
+
     }
     
     if([_geocodingResults count]>0){
@@ -1650,6 +1696,13 @@ else {
         firstALineddressLabel.text=@"Pick a Location";
         secondLineAddressLabel.text=@"Select a pin above to see it's full address";
         
+
+        
+    }
+    else{
+        //firstTime
+        if(indexRE==1)
+           [self geocodeFromSearchBar:2];
     }
 
 #if LISTVIEWREMOVE
@@ -1658,7 +1711,6 @@ else {
 #endif
 
 	
-	[responseData release];
 	
 }
 
@@ -1933,7 +1985,7 @@ else
     
     [self.addressSearchBar resignFirstResponder];
     [searchBar setShowsCancelButton:YES animated:YES];
-    [self geocodeFromSearchBar];
+    [self geocodeFromSearchBar:1];
 
 }
 -(void)customCancelButtonHit{
