@@ -13,6 +13,7 @@
 @synthesize latitude;
 @synthesize longitude;
 @synthesize businessAdress;
+
 @synthesize infoActivity,annotTag,firstLineAddress,secondLineAddress,pinDrop;
 - (CLLocationCoordinate2D)coordinate;
 {

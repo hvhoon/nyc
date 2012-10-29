@@ -37,7 +37,11 @@
             [bodyD setObject:activityObj.where_lat forKey:@"where_lat"];
             [bodyD setObject:activityObj.where_lng forKey:@"where_lng"];
             [bodyD setObject:activityObj.where_address forKey:@"where_address"];
-            [bodyD setObject:activityObj.where_zip forKey:@"where_zip"];
+            [bodyD setObject:activityObj.where_city forKey:@"where_city"];
+            [bodyD setObject:activityObj.where_state forKey:@"where_state"];
+            
+            if(activityObj.where_zip!=nil)
+              [bodyD setObject:activityObj.where_zip forKey:@"where_zip"];
             
         }
             break;
