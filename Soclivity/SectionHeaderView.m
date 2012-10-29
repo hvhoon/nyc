@@ -30,6 +30,7 @@
         UIView *touchAllowedView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 94)];
         [self addSubview:touchAllowedView];
         [touchAllowedView release];
+        
 
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleOpen:)];
         [touchAllowedView addGestureRecognizer:tapGesture];
@@ -245,7 +246,7 @@
         // release it
         [activityIndicator release];
         
-        
+
         static NSMutableArray *colors = nil;
         if (colors == nil) {
             colors = [[NSMutableArray alloc] initWithCapacity:3];

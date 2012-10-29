@@ -106,7 +106,7 @@
 #else
 - (void) zoomMapToPlacemark:(PlacemarkClass *)selectedPlacemark;
 #endif
-- (void) geocodeFromSearchBar;
+- (void) geocodeFromSearchBar:(NSInteger)type;
 -(CGFloat) maxDistanceBetweenPoints:(CLLocation*)avgLocation;
 -(CLLocation*)avgLocation;
 -(CLLocation*)ZoomToAllResultPointsOnMap;

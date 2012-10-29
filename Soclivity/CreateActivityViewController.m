@@ -1093,9 +1093,9 @@
     
     [activityNameTextField resignFirstResponder];
     [capacityTextField resignFirstResponder];
-    pickADayButton.enabled=YES;
-    pickATimeButton.enabled=YES;
-    publicPrivateButton.enabled=YES;
+    
+    
+    [self enableOrDisablePickerElements:YES];
 
     CGRect clearTextRect=CGRectMake(250, 60, 57, 30);
     CGPoint translate = [sender locationInView:self.view.superview];
@@ -1267,7 +1267,7 @@
 }
 
 
--(void) geocodeFromSearchBar:(int)type{
+-(void) geocodeFromSearchBar:(NSInteger)type{
     // in case of error use api key like
     
     responseData = [[NSMutableData data] retain];
@@ -1473,12 +1473,33 @@
     }
     
 }
+
+-(void)enableOrDisablePickerElements:(BOOL)show{
+    
+    if(show){
+        
+        pickADayButton.enabled=YES;
+        pickATimeButton.enabled=YES;
+        publicPrivateButton.enabled=YES;
+        pickADayImageButton.enabled=YES;
+        pickATimeImageButton.enabled=YES;
+        privacyImageButton.enabled=YES;
+
+    }
+    else{
+        pickADayButton.enabled=NO;
+        pickATimeButton.enabled=NO;
+        publicPrivateButton.enabled=NO;
+        pickADayImageButton.enabled=NO;
+        pickATimeImageButton.enabled=NO;
+        privacyImageButton.enabled=NO;
+
+    }
+}
 -(void)textViewDidBeginEditing:(UITextView *)textView{
     
     
-    pickADayButton.enabled=NO;
-    pickATimeButton.enabled=NO;
-    publicPrivateButton.enabled=NO;
+    [self enableOrDisablePickerElements:NO];
  
    if(!([SoclivityUtilities deviceType] & iPhone5)){
         [self setViewMovedUp:YES];
@@ -1588,9 +1609,9 @@
 -(void)textViewDidEndEditing:(UITextView *)textView{
 	NSLog(@"The string is %@",textView.text);
 	
-    pickADayButton.enabled=YES;
-    pickATimeButton.enabled=YES;
-    publicPrivateButton.enabled=YES;
+    
+    [self enableOrDisablePickerElements:YES];
+
 
     if (![textView hasText]) {
         placeholderLabel.hidden = NO;
@@ -1618,10 +1639,8 @@
 }
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
 	
-    
-    pickADayButton.enabled=NO;
-    pickATimeButton.enabled=NO;
-    publicPrivateButton.enabled=NO;
+    [self enableOrDisablePickerElements:NO];
+
     
     if(textField==capacityTextField){
 
@@ -1671,9 +1690,9 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 
-    pickADayButton.enabled=YES;
-    pickATimeButton.enabled=YES;
-    publicPrivateButton.enabled=YES;
+    
+    [self enableOrDisablePickerElements:YES];
+
 
     [textField resignFirstResponder];
 

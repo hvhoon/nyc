@@ -553,8 +553,6 @@
 		EAE094CD1619876C005E69D0 /* SOCProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAE094CB1619876C005E69D0 /* SOCProfileViewController.xib */; };
 		EAE094D016198C2E005E69D0 /* SocPlayerClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE094CF16198C2D005E69D0 /* SocPlayerClass.m */; };
 		EAE094D21619A7C8005E69D0 /* Friends.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAE094D11619A7C8005E69D0 /* Friends.plist */; };
-		EAE5E684160C3486007E81D1 /* S05_organizerPic.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE5E680160C3486007E81D1 /* S05_organizerPic.png */; };
-		EAE5E685160C3486007E81D1 /* S05_organizerPic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE5E681160C3486007E81D1 /* S05_organizerPic@2x.png */; };
 		EAE5E686160C3486007E81D1 /* S7_signoutBar.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE5E682160C3486007E81D1 /* S7_signoutBar.png */; };
 		EAE5E687160C3486007E81D1 /* S7_signoutBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAE5E683160C3486007E81D1 /* S7_signoutBar@2x.png */; };
 		EAED83C21553FBC700124D7D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAED83C01553FBC700124D7D /* LoginViewController.m */; };
@@ -1418,8 +1416,6 @@
 		EAE094CE16198C2D005E69D0 /* SocPlayerClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocPlayerClass.h; sourceTree = "<group>"; };
 		EAE094CF16198C2D005E69D0 /* SocPlayerClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocPlayerClass.m; sourceTree = "<group>"; };
 		EAE094D11619A7C8005E69D0 /* Friends.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Friends.plist; sourceTree = "<group>"; };
-		EAE5E680160C3486007E81D1 /* S05_organizerPic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_organizerPic.png; sourceTree = "<group>"; };
-		EAE5E681160C3486007E81D1 /* S05_organizerPic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_organizerPic@2x.png"; sourceTree = "<group>"; };
 		EAE5E682160C3486007E81D1 /* S7_signoutBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S7_signoutBar.png; sourceTree = "<group>"; };
 		EAE5E683160C3486007E81D1 /* S7_signoutBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S7_signoutBar@2x.png"; sourceTree = "<group>"; };
 		EAED83BF1553FBC700124D7D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -2134,8 +2130,6 @@
 		EA85DBDE15AFDD6A00AAD964 /* S07 Settings */ = {
 			isa = PBXGroup;
 			children = (
-				EAE5E680160C3486007E81D1 /* S05_organizerPic.png */,
-				EAE5E681160C3486007E81D1 /* S05_organizerPic@2x.png */,
 				EAE5E682160C3486007E81D1 /* S7_signoutBar.png */,
 				EAE5E683160C3486007E81D1 /* S7_signoutBar@2x.png */,
 				EA86027315BD14C7004C39F7 /* S7_activity_icon.png */,
@@ -3656,8 +3650,6 @@
 				EA59834715ECCC1700422197 /* button.png in Resources */,
 				EA59834815ECCC1700422197 /* button@2x.png in Resources */,
 				EA3F79861603359600D231B1 /* Default-568h@2x.png in Resources */,
-				EAE5E684160C3486007E81D1 /* S05_organizerPic.png in Resources */,
-				EAE5E685160C3486007E81D1 /* S05_organizerPic@2x.png in Resources */,
 				EAE5E686160C3486007E81D1 /* S7_signoutBar.png in Resources */,
 				EAE5E687160C3486007E81D1 /* S7_signoutBar@2x.png in Resources */,
 				EAF138581610E1A5000120C3 /* WelcomeScreenViewControllerIphone5.xib in Resources */,
@@ -3899,8 +3891,8 @@
 					armv6,
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gurmeet  Singh (G6W64V7U3H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gurmeet  Singh (G6W64V7U3H)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3917,6 +3909,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PROVISIONING_PROFILE = "E545660D-FD93-40BB-AC1A-907E8FA4A491";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E545660D-FD93-40BB-AC1A-907E8FA4A491";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -3932,8 +3926,8 @@
 					armv6,
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gurmeet  Singh (G6W64V7U3H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gurmeet  Singh (G6W64V7U3H)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_THUMB_SUPPORT = NO;
@@ -3944,6 +3938,8 @@
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "E545660D-FD93-40BB-AC1A-907E8FA4A491";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E545660D-FD93-40BB-AC1A-907E8FA4A491";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -3956,8 +3952,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gurmeet  Singh (G6W64V7U3H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gurmeet  Singh (G6W64V7U3H)";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
@@ -3967,8 +3963,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "B4C68C20-51B4-405B-BC91-DA40EC73E0D6";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B4C68C20-51B4-405B-BC91-DA40EC73E0D6";
+				PROVISIONING_PROFILE = "E545660D-FD93-40BB-AC1A-907E8FA4A491";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E545660D-FD93-40BB-AC1A-907E8FA4A491";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				USER_HEADER_SEARCH_PATHS = "../../src/**";
 				VALIDATE_PRODUCT = NO;
@@ -3981,8 +3977,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Harish Hoon";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Harish Hoon";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gurmeet  Singh (G6W64V7U3H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gurmeet  Singh (G6W64V7U3H)";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
@@ -3992,8 +3988,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5D3CF523-11F2-46B7-AC74-338D49307578";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5D3CF523-11F2-46B7-AC74-338D49307578";
+				PROVISIONING_PROFILE = "E545660D-FD93-40BB-AC1A-907E8FA4A491";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E545660D-FD93-40BB-AC1A-907E8FA4A491";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				USER_HEADER_SEARCH_PATHS = "../../src/**";
 				WRAPPER_EXTENSION = app;

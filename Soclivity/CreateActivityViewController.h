@@ -37,12 +37,16 @@
     BOOL validAcivityName;
     SoclivityManager *SOC;
     UILabel *placeholderLabel;
+    IBOutlet UIButton*pickADayImageButton;
+    IBOutlet UIButton*pickATimeImageButton;
+
     IBOutlet UILabel *capacityLabel;
     IBOutlet UIButton*pickADayButton;
     IBOutlet UIButton*pickATimeButton;
     IBOutlet UIButton*publicPrivateButton;
     IBOutlet UITextField *capacityTextField;
     IBOutlet UILabel *blankTextLabel;
+    
     IBOutlet UIButton*pickALocationButton;
     IBOutlet UIButton *privacyImageButton;
     IBOutlet UIButton *backButton;
@@ -104,7 +108,7 @@
 -(IBAction)currentLocationButtonClicked:(id)sender;
 -(IBAction)createActivityButtonClicked:(id)sender;
 -(IBAction)crossLocationButtonClicked:(id)sender;
--(void)geocodeFromSearchBar;
+-(void)geocodeFromSearchBar:(NSInteger)type;
 - (void)gotoLocation;
 -(void)activityInfoButtonClicked:(id)sender;
 -(void)openMapUrlApplication;
@@ -117,5 +121,5 @@
 -(IBAction)crossClickedByOrganizer:(id)sender;
 -(IBAction)tickClickedByOrganizer:(id)sender;
 -(BOOL)checkValidations;
-
+-(void)enableOrDisablePickerElements:(BOOL)show;
 @end

@@ -60,7 +60,7 @@
     [bodyD setObject:[NSString stringWithFormat:@"%f",playerLoc.coordinate.longitude]  forKey:@"location_lng"];
     }
     
-     [bodyD setObject:player.activityTypes forKey:@"activity_type_ids"];
+    [bodyD setObject:player.activityTypes forKey:@"activity_type_ids"];
      
     if(isFacebookUser){
         [bodyD setObject:player.facebookAccessToken  forKey:@"access_token"];

@@ -1222,9 +1222,27 @@ else {
         pointTag=pointTag%777;
         
         NSLog(@"pointTag=%d",pointTag);
-        firstALineddressLabel.text=loc.businessAdress;
-        secondLineAddressLabel.text=loc.infoActivity;
-        [delegate enableDisableTickOnTheTopRight:YES];
+        switch (selectionType) {
+            case 1:
+            {
+                firstALineddressLabel.text=loc.businessAdress;
+                secondLineAddressLabel.text=loc.infoActivity;
+                [delegate enableDisableTickOnTheTopRight:YES];
+                
+            }
+                break;
+                
+            case 2:
+            case 3:
+            {
+                //reverse geo code
+                firstALineddressLabel.text=loc.businessAdress;
+                [self getAddressDetailsFromLatLong:[loc.latitude floatValue] lng:[loc.longitude floatValue]];
+            }
+                break;
+                
+
+        }
         
         
 #if LISTVIEWREMOVE        
@@ -1256,6 +1274,71 @@ else {
     }
 
     
+}
+
+-(void)getAddressDetailsFromLatLong:(float)latitude lng:(float)longitude{
+ 
+    
+#if 1
+        // in case of error use api key like
+    selectionType=4;
+      responseData = [[NSMutableData data] retain];
+      NSString*urlString = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/geocode/json?latlng=%f,%f&sensor=true",latitude,longitude];
+    
+    urlString= [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+            
+        
+        
+        // Create NSURL string from formatted string
+        NSURL *url = [NSURL URLWithString:urlString];
+        
+        NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
+        
+        [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        
+#else
+    if ([_geocoder isGeocoding])
+        [_geocoder cancelGeocode];
+    
+    CLLocation * location = [[CLLocation alloc] initWithLatitude:latitude
+                                                       longitude:longitude];
+    
+    
+    
+    
+    [_geocoder reverseGeocodeLocation:location
+                    completionHandler:^(NSArray *placemarks, NSError *error) {
+                        if (!error)
+                            [self processReverseGeocoding:placemarks];
+                    }];
+#endif
+
+}
+
+
+- (void) processReverseGeocoding:(NSArray *)placemarks {
+    
+    
+    if([placemarks count]>0){
+        CLPlacemark * placemark1 = [placemarks objectAtIndex:0];
+        
+        secondLineAddressLabel.text=[NSString stringWithFormat:@"%@,%@,%@",placemark1.thoroughfare,placemark1.locality,placemark1.administrativeArea];
+        
+        NSLog(@"placemark.city=%@",[placemark1.addressDictionary objectForKey:@"City"]);
+        NSLog(@"placemark.country=%@",placemark1.country);
+        NSLog(@"thoroughfare=%@",placemark1.thoroughfare);
+        NSLog(@"placemark.subThoroughfare=%@",placemark1.subThoroughfare);
+        NSLog(@"placemark.locality=%@",placemark1.locality);
+        NSLog(@"placemark.subLocality=%@",placemark1.subLocality);
+        NSLog(@"placemark.administrativeArea=%@",placemark1.administrativeArea);
+        NSLog(@"placemark.subAdministrativeArea=%@",placemark1.subAdministrativeArea);
+        NSLog(@"placemark.inlandWater=%@",placemark1.inlandWater);
+        NSLog(@"placemark.ocean=%@",placemark1.ocean);
+        NSLog(@"placemark.postalCode=%@",placemark1.postalCode);
+        
+        [delegate enableDisableTickOnTheTopRight:YES];
+    }
 }
 
 -(void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view{
@@ -1498,6 +1581,7 @@ else {
     switch (selectionType) {
             
             
+            
         case 1:
         {
             urlString = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/geocode/json?address=%@&bounds=%f,%f|%f,%f&sensor=false",addressSearchBar.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
@@ -1506,8 +1590,17 @@ else {
             
         }
             break;
-
+            
+            
         case 2:
+        {
+            urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?location=%f,%f&radius=50&name=%@&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk",SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude,[addressSearchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            
+        }
+            break;
+
+
+        case 3:
         {
             urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?keyword=%@&location=%f,%f&rankby=distance&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk",[addressSearchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
             
@@ -1635,35 +1728,129 @@ else {
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {		
 	[connection release];
     
+    NSDictionary* resultsd = [[[NSString alloc] initWithData:responseData
+                                                    encoding:NSUTF8StringEncoding] JSONValue];
+
+     NSDictionary *dict = [resultsd objectForKey:@"results"];
+    
+    if(selectionType==4){
+        
+        for(id object in dict){
+                PlacemarkClass *placemark=[[[PlacemarkClass alloc]init]autorelease];
+                
+                NSArray *addressComponents=[object objectForKey:@"address_components"];
+                for(id comp in addressComponents){
+                
+                NSArray *geometryDict = [comp objectForKey:@"types"];
+                for(NSString *type in geometryDict){
+                    if([type isEqualToString:@"street_number"]){
+                        placemark.streetNumber=[comp valueForKey:@"long_name"];
+                        NSLog(@"street_number=%@",[comp valueForKey:@"long_name"]);
+                    }
+                    
+                    if([type isEqualToString:@"route"]){
+                        placemark.route=[comp valueForKey:@"long_name"];
+                        NSLog(@"route=%@",[comp valueForKey:@"long_name"]);
+                    }
+                    
+                    if([type isEqualToString:@"administrative_area_level_2"]){
+                        NSLog(@"administrative_area_level_2=%@",[comp valueForKey:@"long_name"]);
+                        placemark.adminLevel2=[comp valueForKey:@"long_name"];
+                    }
+                    
+                    if([type isEqualToString:@"administrative_area_level_1"]){
+                        
+                        placemark.adminLevel1=[comp valueForKey:@"short_name"];                        NSLog(@"administrative_area_level_1=%@",[comp valueForKey:@"short_name"]);
+                    }
+                    
+                    
+                }
+                
+                }
+                NSDictionary *geometryLocDict = [object objectForKey:@"geometry"];
+                placemark.latitude = [[[geometryLocDict objectForKey:@"location"] objectForKey:@"lat"] floatValue];
+                placemark.longitude = [[[geometryLocDict objectForKey:@"location"] objectForKey:@"lng"] floatValue];
+                
+                
+                if(((placemark.streetNumber==nil) || ([placemark.streetNumber isEqualToString:@""]))&&((placemark.route==nil) || ([placemark.route isEqualToString:@""]))){
+                    
+                    secondLineAddressLabel.text =[object objectForKey:@"formatted_address"];
+                }
+                else{
+                    placemark.formattedAddress =[NSString stringWithFormat:@"%@,%@",placemark.streetNumber,placemark.route];
+                }
+                secondLineAddressLabel.text=[NSString stringWithFormat:@"%@,%@",placemark.adminLevel1,placemark.adminLevel2];
+                
+            }
+            
+                [delegate enableDisableTickOnTheTopRight:YES];
+        
+        return;
+    }
+    
     [_geocodingResults removeAllObjects];
     [self.mapView removeAnnotations:self.mapView.annotations];
-
+    
     searching=FALSE;
-    NSDictionary* resultsd = [[[NSString alloc] initWithData:responseData 
-                                               encoding:NSUTF8StringEncoding] JSONValue];
     
     [responseData release];
-
     
-     NSDictionary *dict = [resultsd objectForKey:@"results"];
-    if(selectionType==2){
+
+if(selectionType==1){
+        indexRE=1;
+        for(id object in dict){
+            PlacemarkClass *placemark=[[[PlacemarkClass alloc]init]autorelease];
+
+        NSArray *addressComponents=[object objectForKey:@"address_components"];
+            for(id comp in addressComponents){
+
+                NSArray *geometryDict = [comp objectForKey:@"types"];
+                for(NSString *type in geometryDict){
+                    if([type isEqualToString:@"street_number"]){
+                        placemark.streetNumber=[comp valueForKey:@"long_name"];
+                        NSLog(@"street_number=%@",[comp valueForKey:@"long_name"]);
+                    }
+                    
+                    if([type isEqualToString:@"route"]){
+                        placemark.route=[comp valueForKey:@"long_name"];
+                        NSLog(@"route=%@",[comp valueForKey:@"long_name"]);
+                    }
+                    
+                    if([type isEqualToString:@"administrative_area_level_2"]){
+                        NSLog(@"administrative_area_level_2=%@",[comp valueForKey:@"long_name"]);
+                        placemark.adminLevel2=[comp valueForKey:@"long_name"];
+                    }
+
+                    if([type isEqualToString:@"administrative_area_level_1"]){
+                        
+                        placemark.adminLevel1=[comp valueForKey:@"short_name"];                        NSLog(@"administrative_area_level_1=%@",[comp valueForKey:@"short_name"]);
+                    }
+
+
+                }
+                
+            }
+            NSDictionary *geometryLocDict = [object objectForKey:@"geometry"];
+            placemark.latitude = [[[geometryLocDict objectForKey:@"location"] objectForKey:@"lat"] floatValue];
+            placemark.longitude = [[[geometryLocDict objectForKey:@"location"] objectForKey:@"lng"] floatValue];
+            
+            
+            if(((placemark.streetNumber==nil) || ([placemark.streetNumber isEqualToString:@""]))&&((placemark.route==nil) || ([placemark.route isEqualToString:@""]))){
+              
+             placemark.formattedAddress =[object objectForKey:@"formatted_address"];
+        }
+            else{
+             placemark.formattedAddress =[NSString stringWithFormat:@"%@,%@",placemark.streetNumber,placemark.route];
+            }
+            placemark.vicinityAddress=[NSString stringWithFormat:@"%@,%@",placemark.adminLevel1,placemark.adminLevel2];
+            [_geocodingResults addObject:placemark];
+
+        }
+
+    }
+    else if(selectionType==2){
         
         indexRE=2;
-    
-    for(id object in dict){
-        PlacemarkClass *placemark=[[[PlacemarkClass alloc]init]autorelease];
-        NSDictionary *geometryDict = [object objectForKey:@"geometry"];
-        placemark.latitude = [[[geometryDict objectForKey:@"location"] objectForKey:@"lat"] floatValue];
-        placemark.longitude = [[[geometryDict objectForKey:@"location"] objectForKey:@"lng"] floatValue];
-        
-        placemark.formattedAddress =[object objectForKey:@"name"];
-        placemark.vicinityAddress =[object objectForKey:@"vicinity"];
-        [_geocodingResults addObject:placemark];
-    }
-        
-    }
-    else{
-        indexRE=1;
         
         for(id object in dict){
             PlacemarkClass *placemark=[[[PlacemarkClass alloc]init]autorelease];
@@ -1671,12 +1858,29 @@ else {
             placemark.latitude = [[[geometryDict objectForKey:@"location"] objectForKey:@"lat"] floatValue];
             placemark.longitude = [[[geometryDict objectForKey:@"location"] objectForKey:@"lng"] floatValue];
             
-            placemark.formattedAddress =[object objectForKey:@"formatted_address"];
+            placemark.formattedAddress =[object objectForKey:@"name"];
+            //placemark.vicinityAddress =[object objectForKey:@"vicinity"];
             [_geocodingResults addObject:placemark];
         }
-
+        
     }
     
+    else if(selectionType==3){
+        
+        indexRE=3;
+        
+        for(id object in dict){
+            PlacemarkClass *placemark=[[[PlacemarkClass alloc]init]autorelease];
+            NSDictionary *geometryDict = [object objectForKey:@"geometry"];
+            placemark.latitude = [[[geometryDict objectForKey:@"location"] objectForKey:@"lat"] floatValue];
+            placemark.longitude = [[[geometryDict objectForKey:@"location"] objectForKey:@"lng"] floatValue];
+            
+            placemark.formattedAddress =[object objectForKey:@"name"];
+           // placemark.vicinityAddress =[object objectForKey:@"vicinity"];
+            [_geocodingResults addObject:placemark];
+        }
+        
+    }
     if([_geocodingResults count]>0){
         searching=TRUE;
         [self addPinAnnotationForPlacemark:_geocodingResults droppedStatus:NO];
@@ -1701,6 +1905,8 @@ else {
         //firstTime
         if(indexRE==1)
            [self geocodeFromSearchBar:2];
+        else if(indexRE==2)
+            [self geocodeFromSearchBar:3];
     }
 
 #if LISTVIEWREMOVE

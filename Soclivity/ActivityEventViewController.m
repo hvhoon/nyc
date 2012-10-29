@@ -1455,6 +1455,8 @@
     switch (requestType) {
         case kEditMapElements:
         {
+            
+            SOC.editOrNewActivity=TRUE;
             if(activityInfo.activityRelationType==6)
                 editButtonForMapView.hidden=NO;//check for organizer
             

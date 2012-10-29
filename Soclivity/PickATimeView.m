@@ -30,6 +30,7 @@
         [timePicker setDate:activityTime animated:YES];
     }
     else
+        
     pickATimeLabel.text=@"Pick a time";
     
     NSDate *setFinishDate=nil;
