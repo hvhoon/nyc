@@ -1792,7 +1792,7 @@ else {
                 else{
                     secondLineAddressLabel.text =[NSString stringWithFormat:@"%@ %@",placemark.streetNumber,placemark.route];
                 }
-                secondLineAddressLabel.text=[NSString stringWithFormat:@"%@,%@",placemark.adminLevel1,placemark.adminLevel2];
+                secondLineAddressLabel.text=[NSString stringWithFormat:@"%@,%@",placemark.adminLevel2,placemark.adminLevel1];
                 
             }
         

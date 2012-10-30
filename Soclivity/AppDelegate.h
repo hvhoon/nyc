@@ -16,6 +16,7 @@
     Facebook *facebook;
     NSMutableDictionary *userPermissions;
     BOOL resetSuccess;
+    BOOL _appIsInbackground;
 }
 
 @property (strong, nonatomic) UIWindow *window;

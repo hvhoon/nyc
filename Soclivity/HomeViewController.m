@@ -151,8 +151,25 @@
     refreshBtn.hidden=YES;
     currentLocationBtn.hidden=YES;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileBackground" object:Nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
+
+    
     // Do any additional setup after loading the view from its nib.
 }
+
+- (void)didReceiveBackgroundNotification:(NSNotification*) note{
+
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notification Received" message:nil
+                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    [alert show];
+    [alert release];
+    return;
+
+}
+
 -(void)getUpdatedLocationWithActivities{
     LocationCustomManager *SocLocation=[[LocationCustomManager alloc]init];
     SocLocation.delegate=self;

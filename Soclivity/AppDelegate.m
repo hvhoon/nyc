@@ -14,6 +14,10 @@
 #import "SoclivityUtilities.h"
 #import "SoclivitySqliteClass.h"
 static NSString* kAppId = @"160726900680967";//kanav
+#define kShowAlertKey @"ShowAlert"
+#define kRemoteNotificationReceivedNotification @"RemoteNotificationReceivedWhileRunning"
+#define kRemoteNotificationBackgroundNotification @"RemoteNotificationReceivedWhileBackground"
+
 @implementation UINavigationBar (CustomImage)
 
 - (void)drawRect:(CGRect)rect {
@@ -92,8 +96,47 @@ void uncaughtExceptionHandler(NSException *exception) {
     [self.window addSubview:navigationController.view];
 
     [self.window makeKeyAndVisible];
+    [self registerForNotifications];
     return YES;
 }
+
+-(void)registerForNotifications {
+	UIRemoteNotificationType type = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:type];
+}
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+	NSLog(@"My token is: %@", deviceToken);
+    NSString *token = [[NSString stringWithFormat:@"%@",deviceToken] stringByReplacingOccurrencesOfString:@" " withString:@""];
+    token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
+    token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
+    
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+	NSLog(@"Failed to get token, error: %@", error);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+	NSDictionary* notifUserInfo = Nil;
+	if (!_appIsInbackground) {
+		
+		NSArray *notifArray = [NSArray arrayWithObject:kShowAlertKey];
+		notifUserInfo = [[NSDictionary alloc] initWithObjects:notifArray forKeys:notifArray];
+	}
+    else{
+        NSNotification* notification = [NSNotification notificationWithName:kRemoteNotificationBackgroundNotification object:userInfo userInfo:notifUserInfo];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        [notifUserInfo release];
+    }
+	NSNotification* notification = [NSNotification notificationWithName:kRemoteNotificationReceivedNotification object:userInfo userInfo:notifUserInfo];
+	[[NSNotificationCenter defaultCenter] postNotification:notification];
+	[notifUserInfo release];
+}
+
+
 
 -(void)setUpActivityDataList{
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"Activities" withExtension:@"plist"];
