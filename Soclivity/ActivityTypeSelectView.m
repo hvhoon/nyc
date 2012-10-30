@@ -23,11 +23,6 @@
 #define HIDDEN 0.2
 #define SHOW 1.0
 
-#define kPlay 0
-#define kEat 1
-#define kSee 2
-#define kCreate 3
-#define kLearn 4
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -43,42 +38,52 @@
     idObj= SOC.filterObject;
     if(idObj.playAct){
         playImageView.alpha=SHOW;
+        playUpdate=TRUE;
     }
     else{
         playImageView.alpha=HIDDEN;
+        playUpdate=FALSE;
     }
 
     if(idObj.eatAct){
         eatImageView.alpha=SHOW;
+        eatUpdate=TRUE;
     }
     else{
         eatImageView.alpha=HIDDEN;
+        eatUpdate=FALSE;
         
     }
 
     
     if(idObj.createAct){
         createImageView.alpha=SHOW;
+        createUpdate=TRUE;
     }
     else{
         createImageView.alpha=HIDDEN;
+        createUpdate=FALSE;
         
     }
 
     if(idObj.seeAct){
         seeImageView.alpha=SHOW;
+        seeUpdate=TRUE;
     }
     else{
         seeImageView.alpha=HIDDEN;
+        seeUpdate=FALSE;
         
     }
 
     
     if(idObj.learnAct){
         learnImageView.alpha=SHOW;
+        learnUpdate=TRUE;
     }
     else{
         learnImageView.alpha=HIDDEN;
+        learnUpdate=FALSE;
         
     }
 
@@ -178,7 +183,13 @@
         }
     }
     else{
-        
+        if((playUpdate!=idObj.playAct) ||(eatUpdate!=idObj.eatAct)||(createUpdate!=idObj.createAct)||(seeUpdate!=idObj.seeAct)||(learnUpdate!=idObj.learnAct) ){
+         
+            [delegate showDoneBtnOrNot:NO];
+        }
+        else{
+            [delegate showDoneBtnOrNot:YES];
+        }
     }
 }
 
@@ -196,72 +207,6 @@
         return;
     }
     else{
-        NSString *activitySelect=nil;
-        for(int i=0;i<5;i++){
-            switch (i) {
-                case kPlay:
-                {
-                    if(idObj.playAct){
-                        if(activitySelect==nil)
-                            activitySelect=[NSString stringWithFormat:@"1"];
-                    }
-                }
-                    break;
-                    
-                case kEat:
-                {
-                    if(idObj.eatAct){
-                        if(activitySelect==nil)
-                            activitySelect=[NSString stringWithFormat:@"2"];
-                        else{
-                            activitySelect=[NSString stringWithFormat:@"%@,2",activitySelect];
-                            
-                        }
-                    }
-                }
-                    break;
-                case kSee:
-                {
-                    if(idObj.seeAct){
-                        if(activitySelect==nil)
-                            activitySelect=[NSString stringWithFormat:@"3"];
-                        else{
-                            activitySelect=[NSString stringWithFormat:@"%@,3",activitySelect];
-                            
-                        }
-                    }
-                }
-                    break;
-                case kCreate:
-                {
-                    if(idObj.createAct){
-                        if(activitySelect==nil)
-                            activitySelect=[NSString stringWithFormat:@"4"];
-                        else{
-                            activitySelect=[NSString stringWithFormat:@"%@,4",activitySelect];
-                            
-                        }
-                    }
-                }
-                    break;
-                case kLearn:
-                {
-                    if(idObj.learnAct){
-                        if(activitySelect==nil)
-                            activitySelect=[NSString stringWithFormat:@"5"];
-                        else{
-                            activitySelect=[NSString stringWithFormat:@"%@,5",activitySelect];
-                            
-                        }
-                    }
-                }
-                    break;
-
-   
-                    
-            }
-        }
-        playerObj.activityTypes=activitySelect;
         [delegate RegisterUserForTheFirstTime];
     }
 }

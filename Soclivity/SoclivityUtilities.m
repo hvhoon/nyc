@@ -592,27 +592,27 @@ if(timer%2==0){
     switch (Type) {
         case 1:
         {
-            return SOC.filterObject.playAct;
+            return SOC.filterObject.playDD;
         }
             break;
         case 2:
         {
-            return SOC.filterObject.eatAct;
+            return SOC.filterObject.eatDD;
         }
             break;
         case 3:
         {
-            return SOC.filterObject.seeAct;
+            return SOC.filterObject.seeDD;
         }
             break;
         case 4:
         {
-            return SOC.filterObject.createAct;
+            return SOC.filterObject.createDD;
         }
             break;
         case 5:
         {
-            return SOC.filterObject.learnAct;
+            return SOC.filterObject.learnDD;
         }
             break;
          default:

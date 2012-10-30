@@ -29,11 +29,13 @@
     MainServiceManager *devServer;
     MBProgressHUD *HUD;
     SoclivityManager *SOC;
+    IBOutlet UIButton *tickButton;
 }
 @property (nonatomic,retain)id <ProfileScreenViewDelegate>delegate;
 @property (nonatomic,retain)ActivityTypeSelectView *activityTypesView;
 @property (nonatomic,assign) BOOL isFirstTime;
 -(IBAction)profileSliderPressed:(id)sender;
 -(IBAction)getStartedAction:(id)sender;
-- (void)startAnimation;
+- (void)startAnimation:(NSInteger)type;
+-(IBAction)doneButtonClicked:(id)sender;
 @end

@@ -28,6 +28,12 @@
     NSString *lastDateString;
     NSDate *lastStartPickDateTime;
     NSDate *lastEndPickDateTime;
+    BOOL playDD;
+    BOOL eatDD;
+    BOOL seeDD;
+    BOOL createDD;
+    BOOL learnDD;
+    
     
 }
 @property (nonatomic,assign)BOOL playAct;
@@ -38,6 +44,13 @@
 @property (nonatomic,assign)BOOL morning;
 @property (nonatomic,assign)BOOL afternoon;
 @property (nonatomic,assign)BOOL evening;
+
+@property (nonatomic,assign)BOOL playDD;
+@property (nonatomic,assign)BOOL eatDD;
+@property (nonatomic,assign)BOOL seeDD;
+@property (nonatomic,assign)BOOL createDD;
+@property (nonatomic,assign)BOOL learnDD;
+
 @property (nonatomic,assign) NSInteger whenSearchType;
 @property (nonatomic,assign)NSInteger startTime_48;
 @property (nonatomic,assign)NSInteger finishTime_48;

@@ -54,10 +54,13 @@
     if(isFirstTime){
         getStartedButton.hidden=YES;
         profileButton.hidden=YES;
-    updateActivityLabel.text=@"Pick stuff you like to do...";
+        updateActivityLabel.text=@"Pick stuff you like to do...";
         activityTypesView.isRegisteration=TRUE;
     }
     else{
+        
+        
+        activityTypesView.isRegisteration=FALSE;
         getStartedButton.hidden=YES;
         profileButton.hidden=NO;
         updateActivityLabel.text=@"Update Activity Types";
@@ -84,16 +87,19 @@
     }
 }
 
+-(void)showDoneBtnOrNot:(BOOL)show{
+    
+    tickButton.hidden=show;
+}
 
--(void)RegisterUserForTheFirstTime{
+-(void)doneButtonClicked:(id)sender{
     
     if([SoclivityUtilities hasNetworkConnection]){
         
         
-            //implememt different registration procedure for facebook.
-            [self startAnimation];
-            [devServer registrationDetailInvocation:self isFBuser:YES];
-            
+        [self startAnimation:2];
+        [devServer registrationDetailInvocation:self isFBuser:NO isActivityUpdate:YES];
+        
         
     }
     else {
@@ -109,11 +115,49 @@
     
 }
 
-- (void)startAnimation{
+-(void)RegisterUserForTheFirstTime{
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        
+        
+            //implememt different registration procedure for facebook.
+        [self startAnimation:1];
+        [devServer registrationDetailInvocation:self isFBuser:YES isActivityUpdate:NO];
+        
+        
+    }
+    else {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+													   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+		
+		[alert show];
+		[alert release];
+		return;
+		
+	}
+    
+    
+}
+
+- (void)startAnimation:(NSInteger)type{
     // Setup animation settings
     HUD = [[MBProgressHUD alloc] initWithView:self.view];
     HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
-    HUD.labelText = @"Registering You";
+    switch (type) {
+        case 1:
+        {
+            HUD.labelText = @"Registering You";
+            
+        }
+            break;
+            
+        case 2:
+        {
+            HUD.labelText = @"Updating";
+            
+        }
+            break;
+    }
     
     [self.view addSubview:HUD];
     HUD.delegate = self;
@@ -123,10 +167,17 @@
 #define kRegisterSucces 2
 
 -(void)RegistrationDetailInvocationDidFinish:(RegistrationDetailInvocation*)invocation
-                                  withResult:(NSArray*)result
+                                  withResult:(NSArray*)result andUpdateType:(BOOL)andUpdateType
                                    withError:(NSError*)error{
     // Stop the animation
     [HUD hide:YES];
+    
+    
+    if(andUpdateType){
+    NSLog(@"Activity Types Updated");        
+    }
+    else{
+        
     
     NSLog(@"RegistrationDetailInvocationDidFinish called");
     GetPlayersClass *obj=[result objectAtIndex:0];
@@ -149,6 +200,8 @@
         alert.tag=kRegisterSucces;
         [alert show];
         [alert release];
+        
+    }
         
     }
     return;

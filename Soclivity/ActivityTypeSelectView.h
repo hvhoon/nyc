@@ -16,6 +16,7 @@
 @optional
 -(void)RegisterUserForTheFirstTime;
 -(void)showgetStartedBtnOrNot:(BOOL)show;
+-(void)showDoneBtnOrNot:(BOOL)show;
 @end
 
 @interface ActivityTypeSelectView : UIView {
@@ -30,6 +31,12 @@
     BOOL isRegisteration;
     SoclivityManager *SOC;
     FilterPreferenceClass*idObj;
+    BOOL playUpdate;
+    BOOL eatUpdate;
+    BOOL createUpdate;
+    BOOL seeUpdate;
+    BOOL learnUpdate;
+
 }
 @property (nonatomic,retain)id <ActivitySelectDelegate>delegate;
 @property (nonatomic,retain)GetPlayersClass *playerObj;

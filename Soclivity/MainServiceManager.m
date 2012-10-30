@@ -20,10 +20,11 @@
 	[super dealloc];
 }
 
--(void)registrationDetailInvocation:(id<RegistrationDetailDelegate>)delegate isFBuser:(BOOL)isFBuser{
+-(void)registrationDetailInvocation:(id<RegistrationDetailDelegate>)delegate isFBuser:(BOOL)isFBuser isActivityUpdate:(BOOL)isActivityUpdate{
     
     RegistrationDetailInvocation *invocation = [[[RegistrationDetailInvocation alloc] init] autorelease];
     invocation.isFacebookUser=isFBuser;
+    invocation.activityTypeUpdate=isActivityUpdate;
     [self invoke:invocation withDelegate:delegate];
 }
 

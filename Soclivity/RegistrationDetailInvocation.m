@@ -10,14 +10,22 @@
 #import "SoclivityManager.h"
 #import "GetPlayersClass.h"
 #import "Base64.h"
+#import "FilterPreferenceClass.h"
+#define kPlay 0
+#define kEat 1
+#define kSee 2
+#define kCreate 3
+#define kLearn 4
+
 @interface RegistrationDetailInvocation (private)
 -(NSString*)body;
+-(NSString*)updateActivityBody;
 @end
 
 @implementation RegistrationDetailInvocation
 
 
-@synthesize  queue,isFacebookUser;
+@synthesize  queue,isFacebookUser,activityTypeUpdate;
 
 
 -(void)dealloc {	
@@ -26,15 +34,34 @@
 
 
 -(void)invoke {
-    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/players.json"];
-	[self post:a body:[self body]];//dev.soclivity.com/players/17.json
+
+    NSString *a=nil;
+    if(activityTypeUpdate){
+        SoclivityManager *SOC=[SoclivityManager SharedInstance];
+        GetPlayersClass *player=SOC.loggedInUser;
+       a= [NSString stringWithFormat:@"dev.soclivity.com/players/%d.json",[player.idSoc intValue]];
+          [self put:a body:[self updateActivityBody]];
+    }
+    else{
+        a= [NSString stringWithFormat:@"dev.soclivity.com/players.json"];
+        [self post:a body:[self body]];//dev.soclivity.com/players/17.json
+
+    }
     
-    //[self put:a body:[self body]];
+
     //[self delete:a];
 }
 
+-(NSString*)updateActivityBody{
+    
+    NSString *bodyData = [NSString stringWithFormat:@"{\"player\":{\"activity_type_ids\":[%@]}}",[self returnActivityType]];
+    NSLog(@"bodyData=%@",bodyData);
+    return bodyData;
+
+}
+
 -(NSString*)body {
-#if 1    
+#if 1
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     GetPlayersClass *player=SOC.registrationObject;
     CLLocation *playerLoc=SOC.currentLocation;
@@ -60,6 +87,9 @@
     [bodyD setObject:[NSString stringWithFormat:@"%f",playerLoc.coordinate.longitude]  forKey:@"location_lng"];
     }
     
+    
+    player.activityTypes=[self returnActivityType];
+    
     [bodyD setObject:player.activityTypes forKey:@"activity_type_ids"];
      
     if(isFacebookUser){
@@ -79,7 +109,79 @@
 #endif    
 }
 
+-(NSString*)returnActivityType{
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
 
+    FilterPreferenceClass*idObj=SOC.filterObject;
+
+    NSString *activitySelect=nil;
+    for(int i=0;i<5;i++){
+        switch (i) {
+            case kPlay:
+            {
+                if(idObj.playAct){
+                    if(activitySelect==nil)
+                        activitySelect=[NSString stringWithFormat:@"1"];
+                }
+            }
+                break;
+                
+            case kEat:
+            {
+                if(idObj.eatAct){
+                    if(activitySelect==nil)
+                        activitySelect=[NSString stringWithFormat:@"2"];
+                    else{
+                        activitySelect=[NSString stringWithFormat:@"%@,2",activitySelect];
+                        
+                    }
+                }
+            }
+                break;
+            case kSee:
+            {
+                if(idObj.seeAct){
+                    if(activitySelect==nil)
+                        activitySelect=[NSString stringWithFormat:@"3"];
+                    else{
+                        activitySelect=[NSString stringWithFormat:@"%@,3",activitySelect];
+                        
+                    }
+                }
+            }
+                break;
+            case kCreate:
+            {
+                if(idObj.createAct){
+                    if(activitySelect==nil)
+                        activitySelect=[NSString stringWithFormat:@"4"];
+                    else{
+                        activitySelect=[NSString stringWithFormat:@"%@,4",activitySelect];
+                        
+                    }
+                }
+            }
+                break;
+            case kLearn:
+            {
+                if(idObj.learnAct){
+                    if(activitySelect==nil)
+                        activitySelect=[NSString stringWithFormat:@"5"];
+                    else{
+                        activitySelect=[NSString stringWithFormat:@"%@,5",activitySelect];
+                        
+                    }
+                }
+            }
+                break;
+                
+                
+                
+        }
+        
+    }
+    return activitySelect;
+}
 
 
 -(BOOL)handleHttpOK:(NSMutableData *)data {
@@ -87,19 +189,33 @@
     NSString *response=[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
     NSLog(@"response=%@",response);
 
-    self.queue = [[NSOperationQueue alloc] init];
+
+    
+    if(activityTypeUpdate){
+        NSDictionary* resultsd = [[[NSString alloc] initWithData:data
+                                                        encoding:NSUTF8StringEncoding] JSONValue];
+        NSNumber*resetStatus= [resultsd objectForKey:@"id"];
+        NSLog(@"resetStatus=%@",resetStatus);
+        [self.delegate RegistrationDetailInvocationDidFinish:self withResult:nil  andUpdateType:activityTypeUpdate withError:nil];
+        
+    }
+    else{
+    
+     self.queue = [[NSOperationQueue alloc] init];
+
     ParseOperation *parser = [[ParseOperation alloc] initWithData:data delegate:self tagJsonService:kRegisterPlayer];
     
     [queue addOperation:parser]; // this will start the "ParseOperation"
     
     [parser release];
     [queue release];
+    }
 	return YES;
 }
 
 -(BOOL)handleHttpError:(NSInteger)code {
 	[self.delegate RegistrationDetailInvocationDidFinish:self 
-                                             withResult:nil
+                                              withResult:nil andUpdateType:activityTypeUpdate
         withError:[NSError errorWithDomain:@"UserId" 
         code:[[self response] statusCode]
     userInfo:[NSDictionary dictionaryWithObject:@"Failed to register user. Please try again later" forKey:@"message"]]];
@@ -111,20 +227,20 @@
     
     
     // tell our table view to reload its data, now that parsing has completed
-    [self.delegate RegistrationDetailInvocationDidFinish:self withResult:loadedMedia withError:error];
+    [self.delegate RegistrationDetailInvocationDidFinish:self withResult:loadedMedia  andUpdateType:activityTypeUpdate withError:error];
 }
 
 - (void)handleError:(NSString *)error
 {
     
     [self.delegate RegistrationDetailInvocationDidFinish:self 
-            withResult:nil
+            withResult:nil andUpdateType:activityTypeUpdate
                     withError:[NSError errorWithDomain:@"UserId" 
         code:[[self response] statusCode]
     userInfo:[NSDictionary dictionaryWithObject:@"Failed to Register user. Please try again later" forKey:@"message"]]];
     
     //NSString *errorMessage = [error localizedDescription];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Cannot jSon Parse"
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Cannot Parse json"
 														message:error
 													   delegate:nil
 											  cancelButtonTitle:@"OK"

@@ -104,7 +104,7 @@
         [filterPaneView addSubview:playTypeLabel];
         
         
-        if(!SOC.filterObject.playAct){
+        if(!SOC.filterObject.playDD){
             playTickImageView.alpha=0.3f;
             playTypeLabel.alpha=0.3f;
 
@@ -138,7 +138,7 @@
         
         
         
-        if(!SOC.filterObject.eatAct){
+        if(!SOC.filterObject.eatDD){
             eatTickImageView.alpha=0.3f;
             eatTypeLabel.alpha=0.3f;
             
@@ -172,7 +172,7 @@
         
         
         
-        if(!SOC.filterObject.seeAct){
+        if(!SOC.filterObject.seeDD){
             seeTickImageView.alpha=0.3f;
             seeTypeLabel.alpha=0.3f;
             
@@ -207,7 +207,7 @@
         
         
         
-        if(!SOC.filterObject.createAct){
+        if(!SOC.filterObject.createDD){
             createTickImageView.alpha=0.3f;
             createTypeLabel.alpha=0.3f;
             
@@ -242,7 +242,7 @@
         
         
         
-        if(!SOC.filterObject.learnAct){
+        if(!SOC.filterObject.learnDD){
             learnTickImageView.alpha=0.3f;
             learnTypeLabel.alpha=0.3f;
             
@@ -562,8 +562,8 @@
     switch (sender.tag) {
         case kPlayActivity:
         {
-            SOC.filterObject.playAct=!SOC.filterObject.playAct;
-            if(SOC.filterObject.playAct){
+            SOC.filterObject.playDD=!SOC.filterObject.playDD;
+            if(SOC.filterObject.playDD){
                 [(UILabel*)[self viewWithTag:kPlayLabelText] setAlpha:1.0f];
                 [(UIImageView*)[self viewWithTag:kPlayTickImage]setAlpha:1.0f];
 
@@ -579,8 +579,8 @@
             
         case kEatActivity:
         {
-            SOC.filterObject.eatAct=!SOC.filterObject.eatAct;
-            if(SOC.filterObject.eatAct){
+            SOC.filterObject.eatDD=!SOC.filterObject.eatDD;
+            if(SOC.filterObject.eatDD){
                 [(UILabel*)[self viewWithTag:kEatLabelText] setAlpha:1.0f];
                 [(UIImageView*)[self viewWithTag:kEatTickImage]setAlpha:1.0f];
             }
@@ -594,8 +594,8 @@
             
         case kSeeActivity:
         {
-            SOC.filterObject.seeAct=!SOC.filterObject.seeAct;
-            if(SOC.filterObject.seeAct){
+            SOC.filterObject.seeDD=!SOC.filterObject.seeDD;
+            if(SOC.filterObject.seeDD){
                 [(UILabel*)[self viewWithTag:kSeeLabelText] setAlpha:1.0f];
                 [(UIImageView*)[self viewWithTag:kSeeTickImage]setAlpha:1.0f];
             }
@@ -609,8 +609,8 @@
             
         case kCreateActivity:
         {
-            SOC.filterObject.createAct=!SOC.filterObject.createAct;
-            if(SOC.filterObject.createAct){
+            SOC.filterObject.createDD=!SOC.filterObject.createDD;
+            if(SOC.filterObject.createDD){
                 [(UILabel*)[self viewWithTag:kCreateLabelText] setAlpha:1.0f];
                 [(UIImageView*)[self viewWithTag:kCreateTickImage]setAlpha:1.0f];
             }
@@ -625,8 +625,8 @@
             
         case kLearnActivity:
         {
-            SOC.filterObject.learnAct=!SOC.filterObject.learnAct;
-            if(SOC.filterObject.learnAct){
+            SOC.filterObject.learnDD=!SOC.filterObject.learnDD;
+            if(SOC.filterObject.learnDD){
                 [(UILabel*)[self viewWithTag:kLearnLabelText] setAlpha:1.0f];
                 [(UIImageView*)[self viewWithTag:kLearnTickImage]setAlpha:1.0f];
             }

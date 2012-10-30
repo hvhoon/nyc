@@ -271,11 +271,18 @@
         else if ([mappedKey isEqualToString:@"atypes"]) {
             self.playerObject.activityTypes = string;
             SoclivityManager *SOC=[SoclivityManager SharedInstance];
+            SOC.filterObject.playDD=FALSE;
+            SOC.filterObject.eatDD=FALSE;
+            SOC.filterObject.seeDD=FALSE;
+            SOC.filterObject.createDD=FALSE;
+            SOC.filterObject.learnDD=FALSE;
+            
             SOC.filterObject.playAct=FALSE;
             SOC.filterObject.eatAct=FALSE;
             SOC.filterObject.seeAct=FALSE;
             SOC.filterObject.createAct=FALSE;
             SOC.filterObject.learnAct=FALSE;
+
             SOC.filterObject.whenSearchType=1;
             
             NSArray *timeArray = [string componentsSeparatedByString:@","];
@@ -286,29 +293,34 @@
                 switch (activity) {
                     case 1:
                     {
+                        SOC.filterObject.playDD=TRUE;
                         SOC.filterObject.playAct=TRUE;
                     }
                         break;
                     case 2:
                     {
+                        SOC.filterObject.eatDD=TRUE;
                         SOC.filterObject.eatAct=TRUE;
                         
                     }
                         break;
                     case 3:
                     {
+                        SOC.filterObject.seeDD=TRUE;
                         SOC.filterObject.seeAct=TRUE;
                         
                     }
                         break;
                     case 4:
                     {
+                        SOC.filterObject.createDD=TRUE;
                         SOC.filterObject.createAct=TRUE;
                         
                     }
                         break;
                     case 5:
                     {
+                        SOC.filterObject.learnDD=TRUE;
                         SOC.filterObject.learnAct=TRUE;
                         
                     }

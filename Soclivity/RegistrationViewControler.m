@@ -356,12 +356,12 @@
     if(facebookTag){
      //implememt different registration procedure for facebook.
         [activitySectionSecond startAnimation];
-        [devServer registrationDetailInvocation:self isFBuser:YES];
+        [devServer registrationDetailInvocation:self isFBuser:YES isActivityUpdate:NO];
         
     }
     else{
         [activitySectionSecond startAnimation];
-       [devServer registrationDetailInvocation:self isFBuser:NO];
+        [devServer registrationDetailInvocation:self isFBuser:NO isActivityUpdate:NO];
     }
         
     }
@@ -386,10 +386,9 @@
     
 }
 
--(void)RegistrationDetailInvocationDidFinish:(RegistrationDetailInvocation*)invocation 
-                                  withResult:(NSArray*)result
-                                   withError:(NSError*)error{
-    // Stop the animation
+-(void)RegistrationDetailInvocationDidFinish:(RegistrationDetailInvocation*)invocation
+                                  withResult:(NSArray*)result andUpdateType:(BOOL)andUpdateType
+                                   withError:(NSError*)error{    // Stop the animation
     [activitySectionSecond stopAnimation];
     
     NSLog(@"RegistrationDetailInvocationDidFinish called");
