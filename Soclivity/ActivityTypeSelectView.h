@@ -42,7 +42,7 @@
 @property (nonatomic,retain)GetPlayersClass *playerObj;
 @property (nonatomic,assign)BOOL isRegisteration;
 -(IBAction)ActivitySelectClicked:(UIButton*)sender;
--(void)MakeSureAtLeastOneActivitySelected;
+-(BOOL)MakeSureAtLeastOneActivitySelected;
 -(void)startAnimation;
 -(void)stopAnimation;
 -(void)updateActivityTypes;

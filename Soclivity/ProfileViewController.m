@@ -94,6 +94,9 @@
 
 -(void)doneButtonClicked:(id)sender{
     
+    if([activityTypesView MakeSureAtLeastOneActivitySelected]){
+        
+    
     if([SoclivityUtilities hasNetworkConnection]){
         
         
@@ -111,6 +114,18 @@
 		return;
 		
 	}
+        
+    }
+    else{
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please select at least 1 activity" message:nil
+													   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+		
+		[alert show];
+		[alert release];
+		return;
+        
+    }
+
     
     
 }

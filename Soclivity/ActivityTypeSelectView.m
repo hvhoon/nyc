@@ -91,7 +91,22 @@
 }
 
 -(IBAction)getStartedClicked:(id)sender{
-    [self MakeSureAtLeastOneActivitySelected];
+    
+    if([self MakeSureAtLeastOneActivitySelected]){
+        
+        [delegate RegisterUserForTheFirstTime];
+   
+    }
+    else{
+        
+        NSLog(@"No Activity Selected");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Nothing here interests you?"
+                                                        message:@"C'mon, please select at least 1 activity type!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        [alert show];
+        [alert release];
+        return;
+
+    }
 }
 
 
@@ -193,21 +208,17 @@
     }
 }
 
--(void)MakeSureAtLeastOneActivitySelected{
+-(BOOL)MakeSureAtLeastOneActivitySelected{
     
-    SOC=[SoclivityManager SharedInstance];
-    playerObj=SOC.registrationObject;
 
-    if(!idObj.playAct && !idObj.eatAct && !idObj.createAct && !idObj.seeAct && !idObj.learnAct){
-        NSLog(@"No Activity Selected");
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Nothing here interests you?"
-                                                        message:@"C'mon, please select at least 1 activity type!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-        [alert show];
-        [alert release];
-        return;
+    if(!idObj.playAct && !idObj.eatAct && !idObj.createAct && !idObj.seeAct && !idObj.
+       learnAct){
+        
+        return NO;
     }
+    
     else{
-        [delegate RegisterUserForTheFirstTime];
+        return YES;
     }
 }
 // Only override drawRect: if you perform custom drawing.
