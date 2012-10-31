@@ -90,6 +90,7 @@
     IBOutlet UIButton *deleteActivityButton;
     BOOL selectionType;
     int indexRE;
+    NSInteger preSelectionIndex;
 
 
 }
@@ -122,4 +123,5 @@
 -(IBAction)tickClickedByOrganizer:(id)sender;
 -(BOOL)checkValidations;
 -(void)enableOrDisablePickerElements:(BOOL)show;
+-(void)getAddressDetailsFromLatLong:(float)latitude lng:(float)longitude;
 @end

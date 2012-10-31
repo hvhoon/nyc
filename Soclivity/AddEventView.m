@@ -1224,7 +1224,7 @@ else {
         size.width=300;
     }
 	
-    CGRect nameLabelRect=CGRectMake(5,7,size.width,16);
+    CGRect nameLabelRect=CGRectMake(5,5,size.width,16);
     UIView *mapLeftView=[[UIView alloc] initWithFrame:CGRectMake(0,0, size.width, 30)];
 	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
 	nameLabel.textAlignment=UITextAlignmentCenter;
@@ -2423,7 +2423,7 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
     activityObject.where_lat=[NSString stringWithFormat:@"%f",selectedPlacemark.latitude];
     activityObject.where_lng=[NSString stringWithFormat:@"%f",selectedPlacemark.longitude];
     NSString * formattedAddress = [NSString stringWithFormat:@"%@",selectedPlacemark.formattedAddress];
-    NSString * zipAddress=[NSString stringWithFormat:@"%@",selectedPlacemark.vicinityAddress];
+//    NSString * zipAddress=[NSString stringWithFormat:@"%@",selectedPlacemark.vicinityAddress];
     CLLocation *tempLocObj = [[CLLocation alloc] initWithLatitude:selectedPlacemark.latitude
                                                         longitude:selectedPlacemark.longitude];
 
