@@ -56,7 +56,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{50, 12}, {220, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSNextKeyView" ref="543600390"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -131,30 +131,6 @@
 							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
 						</object>
-					</object>
-					<object class="IBUIButton" id="543600390">
-						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">-2147483356</int>
-						<string key="NSFrame">{{286, 14}, {20, 14}}</string>
-						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSNextKeyView" ref="456134397"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBUIContentHorizontalAlignment">0</int>
-						<int key="IBUIContentVerticalAlignment">0</int>
-						<reference key="IBUIHighlightedTitleColor" ref="92847152"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
-						<reference key="IBUINormalTitleShadowColor" ref="175118346"/>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">check.png</string>
-						</object>
-						<reference key="IBUIFontDescription" ref="466140206"/>
-						<reference key="IBUIFont" ref="926341651"/>
 					</object>
 					<object class="IBUIButton" id="357493862">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -699,14 +675,6 @@
 					<int key="connectionID">50</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">tickButton</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="543600390"/>
-					</object>
-					<int key="connectionID">73</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">profileSliderPressed:</string>
 						<reference key="source" ref="357493862"/>
@@ -854,15 +822,6 @@
 					</object>
 					<int key="connectionID">71</int>
 				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">doneButtonClicked:</string>
-						<reference key="source" ref="543600390"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">74</int>
-				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -882,7 +841,6 @@
 							<reference ref="849177904"/>
 							<reference ref="111773412"/>
 							<reference ref="623181115"/>
-							<reference ref="543600390"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1085,11 +1043,6 @@
 						<reference key="object" ref="1045587674"/>
 						<reference key="parent" ref="456134397"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">72</int>
-						<reference key="object" ref="543600390"/>
-						<reference key="parent" ref="191373211"/>
-					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1129,7 +1082,6 @@
 				<string key="68.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="7.CustomClassName">ActivityTypeSelectView</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
@@ -1156,7 +1108,6 @@
 			<string key="S02.1_tick.png">{37, 32}</string>
 			<string key="S04_profile.png">{39, 31}</string>
 			<string key="bottom-bar.png">{320, 40}</string>
-			<string key="check.png">{20, 16}</string>
 			<string key="topbar.png">{320, 44}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1926</string>

@@ -114,7 +114,7 @@
     
     SOC=[SoclivityManager SharedInstance];
     idObj= SOC.filterObject;
-
+    int addRemove=0;
     switch (sender.tag) {
         case 1:
         {
@@ -122,9 +122,11 @@
             
             if(idObj.playAct){
                 playImageView.alpha=SHOW;
+                addRemove=2;
             }
             else{
                 playImageView.alpha=HIDDEN;
+                addRemove=3;
             }
 
         }
@@ -136,9 +138,11 @@
             
             if(idObj.eatAct){
                 eatImageView.alpha=SHOW;
+                addRemove=2;
             }
             else{
                 eatImageView.alpha=HIDDEN;
+                addRemove=3;
                 
             }
 
@@ -150,9 +154,11 @@
             
             if(idObj.seeAct){
                 seeImageView.alpha=SHOW;
+                addRemove=2;
             }
             else{
                 seeImageView.alpha=HIDDEN;
+                addRemove=3;
                 
             }
 
@@ -165,9 +171,11 @@
             
             if(idObj.createAct){
                 createImageView.alpha=SHOW;
+                addRemove=2;
             }
             else{
                 createImageView.alpha=HIDDEN;
+                addRemove=3;
                 
             }
 
@@ -179,9 +187,11 @@
             
             if(idObj.learnAct){
                 learnImageView.alpha=SHOW;
+                addRemove=2;
             }
             else{
                 learnImageView.alpha=HIDDEN;
+                addRemove=3;
                 
             }
             
@@ -198,13 +208,7 @@
         }
     }
     else{
-        if((playUpdate!=idObj.playAct) ||(eatUpdate!=idObj.eatAct)||(createUpdate!=idObj.createAct)||(seeUpdate!=idObj.seeAct)||(learnUpdate!=idObj.learnAct) ){
-         
-            [delegate showDoneBtnOrNot:NO];
-        }
-        else{
-            [delegate showDoneBtnOrNot:YES];
-        }
+        [delegate updateActivityTypes:addRemove];
     }
 }
 

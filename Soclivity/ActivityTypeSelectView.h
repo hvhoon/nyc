@@ -16,7 +16,7 @@
 @optional
 -(void)RegisterUserForTheFirstTime;
 -(void)showgetStartedBtnOrNot:(BOOL)show;
--(void)showDoneBtnOrNot:(BOOL)show;
+-(void)updateActivityTypes:(int)show;
 @end
 
 @interface ActivityTypeSelectView : UIView {

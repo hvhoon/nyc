@@ -707,7 +707,7 @@
     locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
     locationInfoLabel1.text=activityObject.where_address;
-    locationInfoLabel2.text=[NSString stringWithFormat:@"in %@,%@",activityObject.where_city,activityObject.where_state];
+    locationInfoLabel2.text=[NSString stringWithFormat:@"%@ ,%@",activityObject.where_city,activityObject.where_state];
 
     
     
@@ -731,7 +731,7 @@
     secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     firstALineddressLabel.text = activityObject.where_address;
-    secondLineAddressLabel.text = [NSString stringWithFormat:@"in %@,%@",activityObject.where_city,activityObject.where_state];
+    secondLineAddressLabel.text = [NSString stringWithFormat:@"%@ ,%@",activityObject.where_city,activityObject.where_state];
 
     
 
@@ -812,7 +812,7 @@ else {
 
         {
             locationInfoLabel1.text=[NSString stringWithFormat:@"%@ miles away",activityObject.distance];
-            locationInfoLabel2.text=[NSString stringWithFormat:@"in %@,%@",activityObject.where_city,activityObject.where_state];
+            locationInfoLabel2.text=[NSString stringWithFormat:@"%@ ,%@",activityObject.where_city,activityObject.where_state];
         }
             break;
             
@@ -831,7 +831,7 @@ else {
             locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
             locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
             locationInfoLabel1.text=activityObject.where_address;
-            locationInfoLabel2.text=[NSString stringWithFormat:@"in %@,%@",activityObject.where_city,activityObject.where_state];
+            locationInfoLabel2.text=[NSString stringWithFormat:@"%@ ,%@",activityObject.where_city,activityObject.where_state];
             
             // Setting the variables for the map screen
             firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
@@ -839,7 +839,7 @@ else {
             secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
             secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
             firstALineddressLabel.text = activityObject.where_address;
-            secondLineAddressLabel.text = [NSString stringWithFormat:@"in %@,%@",activityObject.where_city,activityObject.where_state];
+            secondLineAddressLabel.text = [NSString stringWithFormat:@"%@ ,%@",activityObject.where_city,activityObject.where_state];
             
             
         }
@@ -1187,7 +1187,7 @@ else {
         size.width=300;
     }
 	
-    CGRect nameLabelRect=CGRectMake(5,0,size.width,16);
+    CGRect nameLabelRect=CGRectMake(5,7,size.width,16);
     UIView *mapLeftView=[[UIView alloc] initWithFrame:CGRectMake(0,0, size.width, 30)];
 	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
 	nameLabel.textAlignment=UITextAlignmentCenter;
@@ -1598,7 +1598,7 @@ else {
             
         case 2:
         {
-            urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?location=%f,%f&radius=50&name=%@&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk",SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude,[addressSearchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?location=%f,%f&radius=80000&name=%@&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk",SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude,[addressSearchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             
         }
             break;
@@ -1773,6 +1773,12 @@ else {
                         placemark.adminLevel1=[comp valueForKey:@"short_name"];                        NSLog(@"administrative_area_level_1=%@",[comp valueForKey:@"short_name"]);
                     }
                     
+                    if([type isEqualToString:@"postal_code"]){
+                        
+                        placemark.whereZip=[comp valueForKey:@"long_name"];                        NSLog(@"postal_code=%@",[comp valueForKey:@"long_name"]);
+                    }
+
+                    
                     
                 }
                 
@@ -1781,18 +1787,18 @@ else {
 //                placemark.latitude = [[[geometryLocDict objectForKey:@"location"] objectForKey:@"lat"] floatValue];
 //                placemark.longitude = [[[geometryLocDict objectForKey:@"location"] objectForKey:@"lng"] floatValue];
             
-                
+            NSString *localString=nil;
             if(((placemark.streetNumber==nil) || ([placemark.streetNumber isEqualToString:@""]))&&((placemark.route==nil) || ([placemark.route isEqualToString:@""]))){
                 NSString *commaSeperated=[object objectForKey:@"formatted_address"];
                 NSArray *results=[commaSeperated componentsSeparatedByString:@","];
                 if([results count]>0){
-                    secondLineAddressLabel.text=[results objectAtIndex:0];
+                    localString=[results objectAtIndex:0];
                 }
             }
                 else{
-                    secondLineAddressLabel.text =[NSString stringWithFormat:@"%@ %@",placemark.streetNumber,placemark.route];
+                    localString =[NSString stringWithFormat:@"%@ %@",placemark.streetNumber,placemark.route];
                 }
-                secondLineAddressLabel.text=[NSString stringWithFormat:@"%@,%@",placemark.adminLevel2,placemark.adminLevel1];
+                placemark.vicinityAddress=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@ %@ ,%@",localString,placemark.adminLevel2,placemark.adminLevel1];
                 
             }
         
@@ -1839,6 +1845,12 @@ if(selectionType==1){
                         
                         placemark.adminLevel1=[comp valueForKey:@"short_name"];                        NSLog(@"administrative_area_level_1=%@",[comp valueForKey:@"short_name"]);
                     }
+                    
+                    if([type isEqualToString:@"postal_code"]){
+                        
+                        placemark.whereZip=[comp valueForKey:@"long_name"];                        NSLog(@"postal_code=%@",[comp valueForKey:@"long_name"]);
+                    }
+
 
 
                 }
@@ -1859,7 +1871,7 @@ if(selectionType==1){
             else{
              placemark.formattedAddress =[NSString stringWithFormat:@"%@ %@",placemark.streetNumber,placemark.route];
             }
-            placemark.vicinityAddress=[NSString stringWithFormat:@"%@,%@",placemark.adminLevel1,placemark.adminLevel2];
+            placemark.vicinityAddress=[NSString stringWithFormat:@"%@ ,%@",placemark.adminLevel2,placemark.adminLevel1];
             [_geocodingResults addObject:placemark];
 
         }
@@ -2362,9 +2374,8 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
     activityObject.where_state=selectedPlacemark.adminLevel1;
     activityObject.where_city=selectedPlacemark.adminLevel2;
     locationInfoLabel1.text=firstALineddressLabel.text=formattedAddress;
-    secondLineAddressLabel.text=[NSString stringWithFormat:@"%@,%@",activityObject.where_city,activityObject.where_state];
+    locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@ ,%@",activityObject.where_city,activityObject.where_state];
     
-    locationInfoLabel2.text=[NSString stringWithFormat:@"in %@,%@",activityObject.where_city,activityObject.where_state];
     
     
     CLLocation *newCenter = [[CLLocation alloc] initWithLatitude:SOC.currentLocation.coordinate.latitude
