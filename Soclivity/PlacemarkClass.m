@@ -10,7 +10,7 @@
 
 @implementation PlacemarkClass
 @synthesize longitude,latitude,vicinityAddress,formattedAddress;
-@synthesize streetNumber,adminLevel1,adminLevel2,whereZip,route;
+@synthesize streetNumber,adminLevel1,adminLevel2,whereZip,route,addType;
 -(void)dealloc{
     [super dealloc];
     [formattedAddress release];

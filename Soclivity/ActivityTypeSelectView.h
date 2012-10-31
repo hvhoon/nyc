@@ -19,7 +19,7 @@
 -(void)updateActivityTypes:(int)show;
 @end
 
-@interface ActivityTypeSelectView : UIView {
+@interface ActivityTypeSelectView : UIView<UIAlertViewDelegate> {
     id <ActivitySelectDelegate>delegate;
     IBOutlet UIImageView *playImageView;
     IBOutlet UIImageView *eatImageView;
@@ -36,6 +36,7 @@
     BOOL createUpdate;
     BOOL seeUpdate;
     BOOL learnUpdate;
+    int checkType;
 
 }
 @property (nonatomic,retain)id <ActivitySelectDelegate>delegate;
@@ -46,4 +47,5 @@
 -(void)startAnimation;
 -(void)stopAnimation;
 -(void)updateActivityTypes;
+-(void)updateUncheckActivity;
 @end
