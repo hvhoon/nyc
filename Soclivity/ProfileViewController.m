@@ -87,20 +87,15 @@
     }
 }
 
--(void)showDoneBtnOrNot:(BOOL)show{
-    
-    tickButton.hidden=show;
-}
+-(void)updateActivityTypes:(int)show{
 
--(void)doneButtonClicked:(id)sender{
     
-    if([activityTypesView MakeSureAtLeastOneActivitySelected]){
         
     
     if([SoclivityUtilities hasNetworkConnection]){
         
         
-        [self startAnimation:2];
+        [self startAnimation:show];
         [devServer registrationDetailInvocation:self isFBuser:NO isActivityUpdate:YES];
         
         
@@ -115,16 +110,7 @@
 		
 	}
         
-    }
-    else{
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please select at least 1 activity" message:nil
-													   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-		
-		[alert show];
-		[alert release];
-		return;
-        
-    }
+    
 
     
     
@@ -168,10 +154,18 @@
             
         case 2:
         {
-            HUD.labelText = @"Updating";
+            HUD.labelText = @"Adding";
             
         }
             break;
+            
+        case 3:
+        {
+            HUD.labelText = @"Removing";
+            
+        }
+            break;
+
     }
     
     [self.view addSubview:HUD];

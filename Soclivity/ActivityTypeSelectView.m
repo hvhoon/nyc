@@ -11,6 +11,7 @@
 #import "MBProgressHUD.h"
 #import "SoclivityManager.h"
 #import "FilterPreferenceClass.h"
+#define kOneActivityAlert 13
 // Private properties
 @interface ActivityTypeSelectView() <MBProgressHUDDelegate>
 @end
@@ -114,17 +115,20 @@
     
     SOC=[SoclivityManager SharedInstance];
     idObj= SOC.filterObject;
-
+    int addRemove=0;
     switch (sender.tag) {
         case 1:
         {
             idObj.playAct=!idObj.playAct;
+            checkType=1;
             
             if(idObj.playAct){
                 playImageView.alpha=SHOW;
+                addRemove=2;
             }
             else{
                 playImageView.alpha=HIDDEN;
+                addRemove=3;
             }
 
         }
@@ -133,12 +137,15 @@
         case 2:
         {
             idObj.eatAct=!idObj.eatAct;
+            checkType=2;
             
             if(idObj.eatAct){
                 eatImageView.alpha=SHOW;
+                addRemove=2;
             }
             else{
                 eatImageView.alpha=HIDDEN;
+                addRemove=3;
                 
             }
 
@@ -147,12 +154,15 @@
         case 3:
         {
             idObj.seeAct=!idObj.seeAct;
+            checkType=3;
             
             if(idObj.seeAct){
                 seeImageView.alpha=SHOW;
+                addRemove=2;
             }
             else{
                 seeImageView.alpha=HIDDEN;
+                addRemove=3;
                 
             }
 
@@ -162,12 +172,15 @@
         case 4:
         {
             idObj.createAct=!idObj.createAct;
+            checkType=4;
             
             if(idObj.createAct){
                 createImageView.alpha=SHOW;
+                addRemove=2;
             }
             else{
                 createImageView.alpha=HIDDEN;
+                addRemove=3;
                 
             }
 
@@ -176,12 +189,15 @@
         case 5:
         {
             idObj.learnAct=!idObj.learnAct;
+            checkType=5;
             
             if(idObj.learnAct){
                 learnImageView.alpha=SHOW;
+                addRemove=2;
             }
             else{
                 learnImageView.alpha=HIDDEN;
+                addRemove=3;
                 
             }
             
@@ -198,13 +214,19 @@
         }
     }
     else{
-        if((playUpdate!=idObj.playAct) ||(eatUpdate!=idObj.eatAct)||(createUpdate!=idObj.createAct)||(seeUpdate!=idObj.seeAct)||(learnUpdate!=idObj.learnAct) ){
-         
-            [delegate showDoneBtnOrNot:NO];
+        if([self MakeSureAtLeastOneActivitySelected]){
+           [delegate updateActivityTypes:addRemove];
         }
         else{
-            [delegate showDoneBtnOrNot:YES];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please select at least 1 activity" message:nil
+                                                           delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            alert.tag=kOneActivityAlert;
+            [alert show];
+            [alert release];
+            return;
+            
         }
+
     }
 }
 
@@ -221,6 +243,70 @@
         return YES;
     }
 }
+#pragma mark -
+#pragma mark UIAlertView methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    //[alertView resignFirstResponder];
+    
+    if (buttonIndex == 0) {
+        
+        switch (alertView.tag) {
+            case kOneActivityAlert:
+            {
+                [self updateUncheckActivity];
+            }
+                break;
+            default:
+                break;
+        }
+    }
+    else
+        NSLog(@"Clicked Cancel Button");
+    
+}
+
+-(void)updateUncheckActivity{
+    switch(checkType){
+        case 1:
+        {
+            idObj.playAct=TRUE;
+            playImageView.alpha=SHOW;
+        }
+            break;
+            
+        case 2:
+        {
+            idObj.eatAct=TRUE;
+            eatImageView.alpha=SHOW;
+            
+        }
+            break;
+        case 3:
+        {
+            idObj.seeAct=TRUE;
+            seeImageView.alpha=SHOW;
+            
+            
+        }
+            break;
+        case 4:
+        {
+            createImageView.alpha=SHOW;
+            idObj.createAct=TRUE;
+            
+        }
+            break;
+        case 5:
+        {
+            idObj.learnAct=TRUE;
+            learnImageView.alpha=SHOW;
+            
+        }
+            break;
+    }
+}
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect

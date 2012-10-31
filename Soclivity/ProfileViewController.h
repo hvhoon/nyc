@@ -29,7 +29,6 @@
     MainServiceManager *devServer;
     MBProgressHUD *HUD;
     SoclivityManager *SOC;
-    IBOutlet UIButton *tickButton;
 }
 @property (nonatomic,retain)id <ProfileScreenViewDelegate>delegate;
 @property (nonatomic,retain)ActivityTypeSelectView *activityTypesView;
@@ -37,5 +36,4 @@
 -(IBAction)profileSliderPressed:(id)sender;
 -(IBAction)getStartedAction:(id)sender;
 - (void)startAnimation:(NSInteger)type;
--(IBAction)doneButtonClicked:(id)sender;
 @end

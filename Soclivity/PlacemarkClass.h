@@ -20,6 +20,7 @@
     NSString *adminLevel1;
     NSString *adminLevel2;
     NSString *whereZip;
+    int addType;
 }
 @property (nonatomic,retain) NSString *streetNumber;
 @property (nonatomic,retain)NSString *adminLevel1;
@@ -30,4 +31,5 @@
 @property (nonatomic,retain) NSString*vicinityAddress;
 @property (nonatomic,assign) float latitude;
 @property (nonatomic,assign) float longitude;
+@property(nonatomic,assign) int addType;
 @end
