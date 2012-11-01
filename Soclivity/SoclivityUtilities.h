@@ -42,4 +42,5 @@ typedef enum
 +(UIImage*) compressImage:(UIImage *)image size:(CGSize)size;
 +(UIImage*) autoCrop:(UIImage*)image;
 +(NSString*)getFirstAndLastName:(NSString*)firstName lastName:(NSString*)lastName;
++(NSString*)getStateAbbreviation:(NSString*)stateFullName;
 @end
