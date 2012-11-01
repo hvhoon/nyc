@@ -711,11 +711,11 @@
     NSLog(@"hashCount=%d",[hashCount count]);
     if([hashCount count]==1){
         locationInfoLabel1.text=firstALineddressLabel.text=activityObject.where_address;
-        locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@ ,%@",activityObject.where_city,activityObject.where_state];
+        locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@",activityObject.where_city,activityObject.where_state];
     }
     else{
         locationInfoLabel1.text=firstALineddressLabel.text=[hashCount objectAtIndex:0];
-        locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@,%@ ,%@",[hashCount objectAtIndex:1],activityObject.where_city,activityObject.where_state];
+        locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@, %@",[hashCount objectAtIndex:1],activityObject.where_city,activityObject.where_state];
         
     }
 
@@ -743,7 +743,7 @@
     secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     firstALineddressLabel.text = activityObject.where_address;
-    secondLineAddressLabel.text = [NSString stringWithFormat:@"%@ ,%@",activityObject.where_city,activityObject.where_state];
+    secondLineAddressLabel.text = [NSString stringWithFormat:@"%@, %@",activityObject.where_city,activityObject.where_state];
 
     
 
@@ -824,7 +824,7 @@ else {
 
         {
             locationInfoLabel1.text=[NSString stringWithFormat:@"%@ miles away",activityObject.distance];
-            locationInfoLabel2.text=[NSString stringWithFormat:@"%@ ,%@",activityObject.where_city,activityObject.where_state];
+            locationInfoLabel2.text=[NSString stringWithFormat:@"%@, %@",activityObject.where_city,activityObject.where_state];
         }
             break;
             
@@ -847,11 +847,11 @@ else {
             NSLog(@"hashCount=%d",[hashCount count]);
             if([hashCount count]==1){
                 locationInfoLabel1.text=firstALineddressLabel.text=activityObject.where_address;
-                locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@ ,%@",activityObject.where_city,activityObject.where_state];
+                locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@",activityObject.where_city,activityObject.where_state];
             }
             else{
                 locationInfoLabel1.text=firstALineddressLabel.text=[hashCount objectAtIndex:0];
-                locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@,%@ ,%@",[hashCount objectAtIndex:1],activityObject.where_city,activityObject.where_state];
+                locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@, %@",[hashCount objectAtIndex:1],activityObject.where_city,activityObject.where_state];
                 
             }
 
@@ -1033,11 +1033,11 @@ else {
     NSLog(@"hashCount=%d",[hashCount count]);
     if([hashCount count]==1){
         firstLine=activityObject.where_address;
-        secondLine=[NSString stringWithFormat:@"%@ ,%@",activityObject.where_city,activityObject.where_state];
+        secondLine=[NSString stringWithFormat:@"%@, %@",activityObject.where_city,activityObject.where_state];
     }
     else{
         firstLine=[hashCount objectAtIndex:0];
-        secondLine=[NSString stringWithFormat:@"%@,%@ ,%@",[hashCount objectAtIndex:1],activityObject.where_city,activityObject.where_state];
+        secondLine=[NSString stringWithFormat:@"%@, %@, %@",[hashCount objectAtIndex:1],activityObject.where_city,activityObject.where_state];
         
     }
 
@@ -1403,7 +1403,7 @@ else {
     if([placemarks count]>0){
         CLPlacemark * placemark1 = [placemarks objectAtIndex:0];
         
-        secondLineAddressLabel.text=[NSString stringWithFormat:@"%@,%@,%@",placemark1.thoroughfare,placemark1.locality,placemark1.administrativeArea];
+        secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@, %@",placemark1.thoroughfare,placemark1.locality,placemark1.administrativeArea];
         
         NSLog(@"placemark.city=%@",[placemark1.addressDictionary objectForKey:@"City"]);
         NSLog(@"placemark.country=%@",placemark1.country);
@@ -1493,11 +1493,11 @@ else {
         placemark.streetNumber=placemark1.subThoroughfare;
         placemark.route=placemark1.thoroughfare;
         placemark.whereZip=placemark1.postalCode;
-        placemark.adminLevel1=placemark1.locality;
-        placemark.adminLevel2=placemark1.administrativeArea;
+        placemark.adminLevel2=placemark1.locality;
+        placemark.adminLevel1=[SoclivityUtilities getStateAbbreviation:placemark1.administrativeArea];
         
-        placemark.formattedAddress=[NSString stringWithFormat:@"%@,%@",placemark.streetNumber,placemark.route];
-        placemark.vicinityAddress=[NSString stringWithFormat:@"%@ ,%@",placemark.adminLevel2,placemark.adminLevel1];
+        placemark.formattedAddress=[NSString stringWithFormat:@"%@ %@",placemark.streetNumber,placemark.route];
+        placemark.vicinityAddress=[NSString stringWithFormat:@"%@, %@",placemark.adminLevel2,placemark.adminLevel1];
         
 #if 0
         placemark.formattedAddress =ABCreateStringWithAddressDictionary(placemark1.addressDictionary, NO);
@@ -1854,11 +1854,11 @@ else {
                     placemark.addType=3;
                 }
                 else{
-                    localString =[NSString stringWithFormat:@"%@,%@",placemark.streetNumber,placemark.route];
+                    localString =[NSString stringWithFormat:@"%@ %@",placemark.streetNumber,placemark.route];
                     placemark.addType=4;
                     
                 }
-                placemark.vicinityAddress=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@ %@ ,%@",localString,placemark.adminLevel2,placemark.adminLevel1];
+                placemark.vicinityAddress=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@, %@",localString,placemark.adminLevel2,placemark.adminLevel1];
                 
             }
         
@@ -1931,7 +1931,7 @@ if(selectionType==1){
             else{
              placemark.formattedAddress =[NSString stringWithFormat:@"%@ %@",placemark.streetNumber,placemark.route];
             }
-            placemark.vicinityAddress=[NSString stringWithFormat:@"%@ ,%@",placemark.adminLevel2,placemark.adminLevel1];
+            placemark.vicinityAddress=[NSString stringWithFormat:@"%@, %@",placemark.adminLevel2,placemark.adminLevel1];
             [_geocodingResults addObject:placemark];
 
         }
@@ -2477,11 +2477,11 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
     NSLog(@"hashCount=%d",[hashCount count]);
     if([hashCount count]==1){
     locationInfoLabel1.text=firstALineddressLabel.text=activityObject.where_address;
-    locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@ ,%@",activityObject.where_city,activityObject.where_state];
+    locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@",activityObject.where_city,activityObject.where_state];
     }
     else{
         locationInfoLabel1.text=firstALineddressLabel.text=[hashCount objectAtIndex:0];
-        locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@,%@ ,%@",[hashCount objectAtIndex:1],activityObject.where_city,activityObject.where_state];
+        locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@, %@",[hashCount objectAtIndex:1],activityObject.where_city,activityObject.where_state];
         
     }
     
