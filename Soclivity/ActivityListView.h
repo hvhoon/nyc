@@ -56,6 +56,7 @@
 @property (nonatomic,retain)id <ActivityListViewDelegate>delegate;
 @property (nonatomic,assign)BOOL isOrganizerList;
 -(void)LoadTable;
+-(void)mannualToogleBetweenActivities;
 - (void)setupStrings;
 - (void)addPullToRefreshHeader;
 - (void)startLoading;
@@ -68,6 +69,7 @@
 -(void)SortByTime;
 -(void)doFilteringByActivities;
 -(void)BytesDownloadedTimeToHideTheSpinner;
+-(void)populateEvents:(NSArray*)listArray;
 @end
 NS_INLINE NSComparisonResult FilterSorting(NSString *s1, NSString *s2) {
     return [s1 compare:s2];

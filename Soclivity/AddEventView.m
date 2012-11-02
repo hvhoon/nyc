@@ -1569,14 +1569,12 @@ else {
                                 ActivityAnnotation *location = (ActivityAnnotation *) currentAnnotation;
                          PlacemarkClass * placemark = [_geocodingResults objectAtIndex:0];
                         
-                        NSString * formattedAddress = [NSString stringWithFormat:@"%@",placemark.formattedAddress];
-                        NSString * zipAddress=[NSString stringWithFormat:@"%@",placemark.vicinityAddress];
                         CLLocationCoordinate2D theCoordinate;
                         theCoordinate.latitude = placemark.latitude;
                         theCoordinate.longitude =placemark.longitude;
                         
-                        location.businessAdress=formattedAddress;
-                        location.infoActivity=zipAddress;
+                        location.businessAdress=placemark.formattedAddress;
+                        location.infoActivity=placemark.vicinityAddress;
                         
                         [self setUpLabelViewElements:NO];
                         
@@ -1651,6 +1649,9 @@ else {
         case 2:
         {
             urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?location=%f,%f&radius=80000&name=%@&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk",SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude,[addressSearchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+#if 0
+            urlString=@"https://maps.googleapis.com/maps/api/place/search/json?location=40.75,-74&radius=80000&name=christopher%20street&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk";
+#endif
             
         }
             break;
@@ -2289,9 +2290,18 @@ else
     
     [self.addressSearchBar resignFirstResponder];
     [searchBar setShowsCancelButton:YES animated:YES];
-    [self geocodeFromSearchBar:1];
+    
+    if([SoclivityUtilities hasLeadingNumberInString:self.addressSearchBar.text]){
+        [self geocodeFromSearchBar:1];
+        
+    }
+    else{
+        [self geocodeFromSearchBar:2];
+        
+    }
 
 }
+
 -(void)customCancelButtonHit{
     
     

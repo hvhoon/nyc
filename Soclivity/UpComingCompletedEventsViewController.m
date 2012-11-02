@@ -15,12 +15,13 @@
 #import "DetailedActivityInfoInvocation.h"
 #import "SocPlayerClass.h"
 #import "SOCProfileViewController.h"
-@interface UpComingCompletedEventsViewController(Private) <DetailedActivityInfoInvocationDelegate>
+#import "GetUpcomingActivitiesInvocation.h"
+@interface UpComingCompletedEventsViewController(Private) <DetailedActivityInfoInvocationDelegate,GetUpcomingActivitiesInvocationDelegate>
 @end
 
 
 @implementation UpComingCompletedEventsViewController
-@synthesize delegate,activityListView,isNotSettings;
+@synthesize delegate,activityListView,isNotSettings,myActivitiesArray,invitedToArray,compeletedArray,goingToArray;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,39 +47,59 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    devServer=[[MainServiceManager alloc]init];
+    SOC=[SoclivityManager SharedInstance];
+
+
     activititesLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
     activititesLabel.textColor=[UIColor whiteColor];
     activititesLabel.backgroundColor=[UIColor clearColor];
     activititesLabel.shadowColor = [UIColor blackColor];
     activititesLabel.shadowOffset = CGSizeMake(0,-1);
     
-    organizedButton.titleLabel.textAlignment=UITextAlignmentCenter;
-    organizedButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:14];
-    organizedButton.titleLabel.textColor=[UIColor blackColor];
-    [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_sectionHighlighted.png"] forState:UIControlStateNormal];
     
-    [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_sectionHighlighted.png"] forState:UIControlStateHighlighted];
-    [organizedButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [organizedButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    
+    
+    organizedButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    organizedButton.frame = CGRectMake(29.6, 50, 71, 27);
+    [organizedButton setImage:[UIImage imageNamed:
+                                @"S10_organizedHighlighted.png"] forState:UIControlStateNormal];
+    [organizedButton setImage:[UIImage imageNamed:@"S10_organizedHighlighted.png"] forState:UIControlStateSelected];
+    [organizedButton addTarget:self action:@selector(organizedButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:organizedButton];
+
+    
+    invitedButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    invitedButton.frame = CGRectMake(59.2+71, 58, 37, 12);
+    [invitedButton setImage:[UIImage imageNamed:
+                               @"S10_invited.png"] forState:UIControlStateNormal];
+    [invitedButton setImage:[UIImage imageNamed:@"S10_invited.png"] forState:UIControlStateSelected];
+    [invitedButton addTarget:self action:@selector(invitedButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:invitedButton];
 
 
+
     
-    goingButton.titleLabel.textAlignment=UITextAlignmentCenter;
-    goingButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:14];
-    goingButton.titleLabel.textColor=[UIColor blackColor];
-    [goingButton setBackgroundImage:nil forState:UIControlStateNormal];
-    [goingButton setBackgroundImage:nil forState:UIControlStateHighlighted];
-    [goingButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [goingButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    goingButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    goingButton.frame = CGRectMake(196.8, 56.5, 32, 15);
+    [goingButton setImage:[UIImage imageNamed:
+                             @"S10_going.png"] forState:UIControlStateNormal];
+    [goingButton setImage:[UIImage imageNamed:@"S10_going.png"] forState:UIControlStateSelected];
+    [goingButton addTarget:self action:@selector(goingButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:goingButton];
     
-    completedButton.titleLabel.textAlignment=UITextAlignmentCenter;
-    completedButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:14];
-    completedButton.titleLabel.textColor=[UIColor blackColor];
-    [completedButton setBackgroundImage:nil forState:UIControlStateNormal];
-    [completedButton setBackgroundImage:nil forState:UIControlStateHighlighted];
-    [completedButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [completedButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     
+    completedButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    completedButton.frame = CGRectMake(257.4, 56, 32, 15);
+    [completedButton setImage:[UIImage imageNamed:
+                           @"S10_completed.png"] forState:UIControlStateNormal];
+    [completedButton setImage:[UIImage imageNamed:@"S10_completed.png"] forState:UIControlStateSelected];
+    [completedButton addTarget:self action:@selector(completedButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:completedButton];
+
+
+
     activityListView.delegate=self;
     [activityListView LoadTable];
     activityListView.isOrganizerList=TRUE;
@@ -94,42 +115,105 @@
         // Do any additional setup after loading the view from its nib.
 }
 
-
--(IBAction)organizedButtonPressed:(id)sender{
-    [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_sectionHighlighted.png"] forState:UIControlStateNormal];
+-(void)organizedButtonPressed:(id)sender{
     
-    [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_sectionHighlighted.png"] forState:UIControlStateHighlighted];
-
+    [activityListView populateEvents:myActivitiesArray];
     
-    [completedButton setBackgroundImage:nil forState:UIControlStateNormal];
-    [completedButton setBackgroundImage:nil forState:UIControlStateHighlighted];
-    [goingButton setBackgroundImage:nil forState:UIControlStateNormal];
-    [goingButton setBackgroundImage:nil forState:UIControlStateHighlighted];
-
-
-}
-
--(IBAction)goingButtonPressed:(id)sender{
-    [organizedButton setBackgroundImage:nil forState:UIControlStateNormal];
-    [organizedButton setBackgroundImage:nil forState:UIControlStateHighlighted];
-    [goingButton setBackgroundImage:[UIImage imageNamed:@"S10_sectionHighlighted.png"] forState:UIControlStateNormal];
-    [goingButton setBackgroundImage:[UIImage imageNamed:@"S10_sectionHighlighted.png"] forState:UIControlStateHighlighted];
+    organizedButton.frame=CGRectMake(29.6, 50, 71, 27);
+    [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_organizedHighlighted.png"] forState:UIControlStateNormal];
+    [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_organizedHighlighted.png"] forState:UIControlStateHighlighted];
     
-    [completedButton setBackgroundImage:nil forState:UIControlStateNormal];
-    [completedButton setBackgroundImage:nil forState:UIControlStateHighlighted];    
+    invitedButton.frame=CGRectMake(130.2, 58, 37, 12);
     
+    [invitedButton setBackgroundImage:[UIImage imageNamed:@"S10_invited.png"] forState:UIControlStateNormal];
+    [invitedButton setBackgroundImage:[UIImage imageNamed:@"S10_invited.png"] forState:UIControlStateHighlighted];
+    
+    goingButton.frame=CGRectMake(196.8, 56, 32, 15);
+    
+    [goingButton setBackgroundImage:[UIImage imageNamed:@"S10_going.png"] forState:UIControlStateNormal];
+    [goingButton setBackgroundImage:[UIImage imageNamed:@"S10_going.png"] forState:UIControlStateHighlighted];
+    
+    completedButton.frame=CGRectMake(258.4, 56, 32, 15);
+    
+    [completedButton setBackgroundImage:[UIImage imageNamed:@"S10_completed.png"] forState:UIControlStateNormal];
+    [completedButton setBackgroundImage:[UIImage imageNamed:@"S10_completed.png"] forState:UIControlStateHighlighted];
     
 }
 
--(IBAction)completedButtonPressed:(id)sender{
+-(void)invitedButtonPressed:(id)sender{
     
-    [organizedButton setBackgroundImage:nil forState:UIControlStateNormal];
-    [organizedButton setBackgroundImage:nil forState:UIControlStateHighlighted];    
-    [goingButton setBackgroundImage:nil forState:UIControlStateNormal];
-    [goingButton setBackgroundImage:nil forState:UIControlStateHighlighted];
-    [completedButton setBackgroundImage:[UIImage imageNamed:@"S10_sectionHighlighted.png"] forState:UIControlStateNormal];
-    [completedButton setBackgroundImage:[UIImage imageNamed:@"S10_sectionHighlighted.png"] forState:UIControlStateHighlighted];
+    [activityListView populateEvents:invitedToArray];
     
+    organizedButton.frame=CGRectMake(26.2, 56, 57, 15);
+    [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_organized.png"] forState:UIControlStateNormal];
+    [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_organized.png"] forState:UIControlStateHighlighted];
+    
+    invitedButton.frame=CGRectMake(109.4, 50, 68, 27);
+    
+    [invitedButton setBackgroundImage:[UIImage imageNamed:@"S10_invitedHighlighted.png"] forState:UIControlStateNormal];
+    [invitedButton setBackgroundImage:[UIImage imageNamed:@"S10_invitedHighlighted.png"] forState:UIControlStateHighlighted];
+    
+    goingButton.frame=CGRectMake(203.6, 56, 32, 15);
+    
+    [goingButton setBackgroundImage:[UIImage imageNamed:@"S10_going.png"] forState:UIControlStateNormal];
+    [goingButton setBackgroundImage:[UIImage imageNamed:@"S10_going.png"] forState:UIControlStateHighlighted];
+    
+    completedButton.frame=CGRectMake(261.8, 56, 32, 15);
+    
+    [completedButton setBackgroundImage:[UIImage imageNamed:@"S10_completed.png"] forState:UIControlStateNormal];
+    [completedButton setBackgroundImage:[UIImage imageNamed:@"S10_completed.png"] forState:UIControlStateHighlighted];
+    
+}
+
+
+-(void)goingButtonPressed:(id)sender{
+    
+    
+    [activityListView populateEvents:goingToArray];
+    
+    organizedButton.frame=CGRectMake(27.2, 56, 57, 15);
+    [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_organized.png"] forState:UIControlStateNormal];
+    [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_organized.png"] forState:UIControlStateHighlighted];
+    
+    invitedButton.frame=CGRectMake(111.4, 58, 37, 12);
+    
+    [invitedButton setBackgroundImage:[UIImage imageNamed:@"S10_invited.png"] forState:UIControlStateNormal];
+    [invitedButton setBackgroundImage:[UIImage imageNamed:@"S10_invited.png"] forState:UIControlStateHighlighted];
+    
+    goingButton.frame=CGRectMake(175.6, 50, 58, 27);
+    
+    [goingButton setBackgroundImage:[UIImage imageNamed:@"S10_goingHighlighted.png"] forState:UIControlStateNormal];
+    [goingButton setBackgroundImage:[UIImage imageNamed:@"S10_goingHighlighted.png"] forState:UIControlStateHighlighted];
+    
+    completedButton.frame=CGRectMake(260.8, 56, 32, 15);
+    
+    [completedButton setBackgroundImage:[UIImage imageNamed:@"S10_completed.png"] forState:UIControlStateNormal];
+    [completedButton setBackgroundImage:[UIImage imageNamed:@"S10_completed.png"] forState:UIControlStateHighlighted];
+
+}
+
+-(void)completedButtonPressed:(id)sender{
+    
+    [activityListView populateEvents:compeletedArray];
+    
+    organizedButton.frame=CGRectMake(23.8, 56, 57, 15);
+    [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_organized.png"] forState:UIControlStateNormal];
+    [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_organized.png"] forState:UIControlStateHighlighted];
+    
+    invitedButton.frame=CGRectMake(104.6, 58, 37, 12);
+    
+    [invitedButton setBackgroundImage:[UIImage imageNamed:@"S10_invited.png"] forState:UIControlStateNormal];
+    [invitedButton setBackgroundImage:[UIImage imageNamed:@"S10_invited.png"] forState:UIControlStateHighlighted];
+    
+    goingButton.frame=CGRectMake(165.4, 56, 32, 15);
+    
+    [goingButton setBackgroundImage:[UIImage imageNamed:@"S10_going.png"] forState:UIControlStateNormal];
+    [goingButton setBackgroundImage:[UIImage imageNamed:@"S10_going.png"] forState:UIControlStateHighlighted];
+    
+    completedButton.frame=CGRectMake(221.2, 56, 75, 27);
+    
+    [completedButton setBackgroundImage:[UIImage imageNamed:@"S10_completedHighlighted.png"] forState:UIControlStateNormal];
+    [completedButton setBackgroundImage:[UIImage imageNamed:@"S10_completedHighlighted.png"] forState:UIControlStateHighlighted];
     
 }
 
@@ -203,15 +287,71 @@
     [[NSUserDefaults standardUserDefaults] setValue:currentTime forKey:@"SOCActivityTimeUpdate"];
     
     activityListView.sortType=3;
-    [activityListView startPopulatingListView];
+    
+    [devServer getUpcomingActivitiesForUserInvocation:[SOC.loggedInUser.idSoc intValue] player2:[SOC.loggedInUser.idSoc intValue] delegate:self];
+    
+    
     
 
 }
+
+-(void)UpcomingActivitiesInvocationDidFinish:(GetUpcomingActivitiesInvocation*)invocation
+                                withResponse:(NSArray*)responses
+                                   withError:(NSError*)error{
+    
+    if([responses count]>0){
+        
+        for(int i=0;i<[responses count];i++){
+        NSNumber *activityType=[[responses objectAtIndex:i] objectForKey:@"activityType"];
+        switch ([activityType intValue]) {
+            case 1:
+            {
+                NSLog(@"The user has got Organizing Activities");
+                myActivitiesArray=[[responses objectAtIndex:i] objectForKey:@"Elements"];
+                [activityListView populateEvents:myActivitiesArray];
+
+            }
+                break;
+                
+            case 2:
+            {
+                NSLog(@"The user has got invitedToArray Activities");
+                invitedToArray=[[responses objectAtIndex:i] objectForKey:@"Elements"];
+                
+            }
+                break;
+            case 3:
+            {
+                NSLog(@"The user has got compeletedArray Activities");
+                compeletedArray=[[responses objectAtIndex:i] objectForKey:@"Elements"];
+                
+            }
+                break;
+            case 4:
+            {
+                NSLog(@"The user has got goingToArray Activities");
+                goingToArray=[[responses objectAtIndex:i] objectForKey:@"Elements"];
+                
+            }
+                break;
+        }
+        }
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Results Found" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+
+    }
+}
+
+
 -(void)PushToDetailActivityView:(InfoActivityClass*)detailedInfo andFlipType:(NSInteger)andFlipType{
     NSLog(@"PushToDetailActivityView");
     
-    devServer=[[MainServiceManager alloc]init];
-    SOC=[SoclivityManager SharedInstance];
 
     
     if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])

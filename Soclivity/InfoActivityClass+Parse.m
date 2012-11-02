@@ -11,16 +11,16 @@
 #import "SoclivityManager.h"
 #import "ParticipantClass.h"
 #import "GetPlayersClass.h"
+#import "DetailInfoActivityClass.h"
 @implementation InfoActivityClass (Parse)
 
 
-+(InfoActivityClass*) ActivitiesFromDictionary:(NSDictionary*)ACTDict{
++(InfoActivityClass*) ActivitiesFromDictionary:(NSDictionary*)ACTDict isQuotation:(BOOL)isQuotation{
 	if (!ACTDict) {
 		return Nil;
 	}
 	
 	InfoActivityClass *play = [[[InfoActivityClass alloc] init] autorelease];
-#if 1    
     play.activityName = [ACTDict objectForKey:@"name"];
     NSNumber *type = [ACTDict objectForKey:@"atype"];
     play.type =[type intValue];
@@ -47,11 +47,20 @@
     play.DOS2 =[dos2 intValue];
     NSNumber *dos3 = [ACTDict objectForKey:@"dos3"];
     play.DOS3 =[dos3 intValue];
+    
+    if(isQuotation){
+    DetailInfoActivityClass *quotation = [[[DetailInfoActivityClass alloc] init]autorelease];
+    quotation.location = [NSString stringWithFormat:@"%@",play.where_address];
+    play.goingCount=[NSString stringWithFormat:@"%d",play.DOS1+play.DOS2+play.DOS3];
+    
+    NSMutableArray *quotations = [NSMutableArray arrayWithCapacity:1];
+    quotation.DOS_1=play.DOS1;
+    quotation.DOS_2=play.DOS2;
+    [quotations addObject:quotation];
+    play.quotations = quotations;
+    }
 
-
-
-#endif    
-	return play;
+   return play;
     
 }
 +(NSArray*) ActivitiesFromArray:(NSArray*) ActivitiesSchedulesAt{
@@ -61,7 +70,7 @@
 	
 	NSMutableArray *schedules = [[[NSMutableArray alloc] init] autorelease];
 	for (int i = 0; i < ActivitiesSchedulesAt.count; i++) {
-        InfoActivityClass *sch = [InfoActivityClass ActivitiesFromDictionary:[ActivitiesSchedulesAt objectAtIndex:i]];
+        InfoActivityClass *sch = [InfoActivityClass ActivitiesFromDictionary:[ActivitiesSchedulesAt objectAtIndex:i] isQuotation:NO];
         if (sch) {
             [schedules addObject:sch];
         }
@@ -248,6 +257,93 @@
     
  
     return play;
+    
+}
+
++(NSArray*)GetAllActivitiesForTheUser:(NSDictionary*)ACTDict{
+	if (!ACTDict) {
+		return Nil;
+	}
+    
+    
+    NSMutableArray *content = [NSMutableArray new];
+    
+    
+    NSDictionary*abDict =[ACTDict objectForKey:@"list"];
+    
+    
+    NSMutableDictionary *row = [[[NSMutableDictionary alloc] init] autorelease];
+    NSMutableArray *schedules = [[[NSMutableArray alloc] init] autorelease];
+    NSArray *myActivitiesArray=[abDict objectForKey:@"my_activities"];
+
+    if([myActivitiesArray count]>0){
+    
+    for(id obj in myActivitiesArray){
+        InfoActivityClass *sch = [InfoActivityClass ActivitiesFromDictionary:obj isQuotation:YES];
+            if (sch)
+              [schedules addObject:sch];
+        
+    }
+    [row setValue:[NSNumber numberWithInt:1] forKey:@"activityType"];
+    
+    [row setValue:schedules forKey:@"Elements"];
+    [content addObject:row];
+    }
+    
+    row = [[[NSMutableDictionary alloc] init] autorelease];
+    schedules = [[[NSMutableArray alloc] init] autorelease];
+
+    NSArray *invitedToArray=[abDict objectForKey:@"invited_to"];
+    if([invitedToArray count]>0){
+    
+    for(id obj in invitedToArray){
+        InfoActivityClass *sch = [InfoActivityClass ActivitiesFromDictionary:obj isQuotation:YES];
+        if (sch)
+            [schedules addObject:sch];
+    }
+    [row setValue:[NSNumber numberWithInt:2] forKey:@"activityType"];
+    
+    [row setValue:schedules forKey:@"Elements"];
+    [content addObject:row];
+    
+    }
+    row = [[[NSMutableDictionary alloc] init] autorelease];
+    schedules = [[[NSMutableArray alloc] init] autorelease];
+
+    NSArray *completedArray=[abDict objectForKey:@"completed"];
+    if([completedArray count]>0){
+    
+    for(id obj in completedArray){
+        InfoActivityClass *sch = [InfoActivityClass ActivitiesFromDictionary:obj isQuotation:YES];
+            if (sch)
+                [schedules addObject:sch];
+        }
+    [row setValue:[NSNumber numberWithInt:3] forKey:@"activityType"];
+    
+    [row setValue:schedules forKey:@"Elements"];
+    [content addObject:row];
+        
+    }
+    
+    row = [[[NSMutableDictionary alloc] init] autorelease];
+    schedules = [[[NSMutableArray alloc] init] autorelease];
+
+    NSArray *goingToArray=[abDict objectForKey:@"going_to"];
+    if([goingToArray count]>0){
+    for(id obj in goingToArray){
+        InfoActivityClass *sch = [InfoActivityClass ActivitiesFromDictionary:obj isQuotation:YES];
+        if (sch) 
+            [schedules addObject:sch];
+        }
+        
+    
+    [row setValue:[NSNumber numberWithInt:4] forKey:@"activityType"];
+  
+    [row setValue:schedules forKey:@"Elements"];
+    [content addObject:row];
+    }
+
+    return content;
     
 }
 

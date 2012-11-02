@@ -20,6 +20,7 @@
 #import "EditActivityEventInvocation.h"
 #import "GetActivityInvitesInvocation.h"
 #import "NewActivityInvocation.h"
+#import "GetUpcomingActivitiesInvocation.h"
 @interface MainServiceManager : SAService{
     
 }
@@ -38,5 +39,6 @@
 -(void)editActivityEventRequestInvocation:(InfoActivityClass*)acTClass requestType:(int)requestType delegate:(id<EditActivityEventInvocationDelegate>)delegate;
 -(void)getActivityPlayerInvitesInvocation:(NSInteger)pId actId:(NSInteger)actId inviteeListType:(NSInteger)inviteeListType abContacts:(NSString*)abContacts delegate:(id<GetActivityInvitesInvocationDelegate>)delegate;
 -(void)postCreateANewActivityInvocation:(InfoActivityClass*)activityObject delegate:(id<NewActivityRequestInvocationDelegate>)delegate;
+-(void)getUpcomingActivitiesForUserInvocation:(NSInteger)playerSOCId player2:(NSInteger)player2 delegate:(id<GetUpcomingActivitiesInvocationDelegate>)delegate;
 
 @end

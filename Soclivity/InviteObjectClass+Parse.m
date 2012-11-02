@@ -195,7 +195,7 @@
 
     
 }
-+(NSArray*)PlayersAdressBookParse:(NSDictionary*)ACTDict{
++(NSArray*)PlayersAddressBookParse:(NSDictionary*)ACTDict{
     
     NSMutableArray *content = [NSMutableArray new];
     

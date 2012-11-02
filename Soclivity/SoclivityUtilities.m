@@ -1278,5 +1278,13 @@ if(timer%2==0){
     NSString *stateAbbreviation = [states objectForKey:stateFullName];
     return stateAbbreviation;
 }
++(BOOL)hasLeadingNumberInString:(NSString*) str
+{
+    if (str)
+        return [str length] && isnumber([str characterAtIndex:0]);
+    else
+        return NO;
+}
+
 
 @end

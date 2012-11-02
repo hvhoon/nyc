@@ -71,10 +71,9 @@
             break;
             
         case 2:
-            response =[InviteObjectClass PlayersAdressBookParse:resultsd];
+            response =[InviteObjectClass PlayersAddressBookParse:resultsd];
             break;
     }
-    
     
 	[self.delegate ActivityInvitesInvocationDidFinish:self withResponse:response withError:Nil];
 	return YES;

@@ -1338,8 +1338,19 @@
     [eventView cancelClicked];
     eventView.editMode=FALSE;
     [eventView setUpLabelViewElements:NO];
-    eventView.firstALineddressLabel.text=activityInfo.where_address;
-    eventView.secondLineAddressLabel.text=activityInfo.where_zip;    
+    
+    NSArray *hashCount=[activityInfo.where_address componentsSeparatedByString:@"#"];
+    NSLog(@"hashCount=%d",[hashCount count]);
+    if([hashCount count]==1){
+        eventView.firstALineddressLabel.text=activityInfo.where_address;
+        eventView.secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@",activityInfo.where_city,activityInfo.where_state];
+    }
+    else{
+        eventView.firstALineddressLabel.text=[hashCount objectAtIndex:0];
+        eventView.secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@, %@",[hashCount objectAtIndex:1],activityInfo.where_city,activityInfo.where_state];
+        
+    }
+
     eventView.activityInfoButton.hidden=NO;
 
     

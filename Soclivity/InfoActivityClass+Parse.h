@@ -11,7 +11,8 @@
 
 @interface InfoActivityClass (Parse)
 
-+(InfoActivityClass*) ActivitiesFromDictionary:(NSDictionary*)ACTDict;
++(InfoActivityClass*) ActivitiesFromDictionary:(NSDictionary*)ACTDict isQuotation:(BOOL)isQuotation;
 +(NSArray*) ActivitiesFromArray:(NSArray*) ActivitiesSchedulesAt;
 +(InfoActivityClass*) DetailInfoParse:(NSDictionary*)ACTDict;
++(NSArray*)GetAllActivitiesForTheUser:(NSDictionary*)ACTDict;
 @end

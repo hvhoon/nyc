@@ -2065,9 +2065,19 @@
     
     [self.addressSearchBar resignFirstResponder];
     [searchBar setShowsCancelButton:YES animated:YES];
-    [self geocodeFromSearchBar:1];
+    
+    if([SoclivityUtilities hasLeadingNumberInString:self.addressSearchBar.text]){
+        [self geocodeFromSearchBar:1];
+        
+    }
+    else{
+        [self geocodeFromSearchBar:2];
+        
+    }
     
 }
+
+
 -(void)customCancelButtonHit{
     
     

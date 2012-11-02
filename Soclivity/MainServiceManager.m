@@ -125,5 +125,13 @@
 
     
 }
+-(void)getUpcomingActivitiesForUserInvocation:(NSInteger)playerSOCId player2:(NSInteger)player2 delegate:(id<GetUpcomingActivitiesInvocationDelegate>)delegate{
+    
+    GetUpcomingActivitiesInvocation *invocation = [[[GetUpcomingActivitiesInvocation alloc] init] autorelease];
+    invocation.player1Id = playerSOCId;
+    invocation.player2Id=player2;
+    [self invoke:invocation withDelegate:delegate];
+    
+}
 
 @end

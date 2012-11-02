@@ -67,6 +67,16 @@
     textRelease = [[NSString alloc] initWithString:@"Release to update..."];
     textLoading = [[NSString alloc] initWithString:@"Loading..."];
 }
+
+-(void)populateEvents:(NSArray*)listArray{
+    self.plays=listArray;
+    [self mannualToogleBetweenActivities];
+    if(listRefresh){
+        [self stopLoading];
+    }
+
+    
+}
 - (void)startPopulatingListView{
     
     //self.plays =[SoclivityUtilities getPlayerActivities];
@@ -577,6 +587,96 @@
 
     }
 
+    [self.tableView reloadData];
+    [self.tableView beginUpdates];
+    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+    [self.tableView endUpdates];
+}
+
+-(void)mannualToogleBetweenActivities{
+    NSString *timeStamp=nil;
+    if(isOrganizerList){
+        timeStamp=[[NSUserDefaults standardUserDefaults] valueForKey:@"SOCActivityTimeUpdate"];
+    }
+    else{
+        timeStamp=[[NSUserDefaults standardUserDefaults] valueForKey:@"SOCLastTimeUpdate"];
+    }
+    
+    lastUpdateLabel.text=[SoclivityUtilities lastUpdate:timeStamp];
+    
+    if(sectionOpenClose){
+        sectionOpenClose=FALSE;
+        SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:self.openSectionIndex];
+        
+        sectionInfo.open = NO;
+        NSInteger countOfRowsToDelete = [self.tableView numberOfRowsInSection:self.openSectionIndex];
+        
+        [self.tableView beginUpdates];
+        if (countOfRowsToDelete > 0) {
+            NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
+            for (NSInteger i = 0; i < countOfRowsToDelete; i++) {
+                [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:i inSection:self.openSectionIndex]];
+            }
+            [self.tableView deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:UITableViewRowAnimationTop];
+            [indexPathsToDelete release];
+        }
+        self.openSectionIndex = NSNotFound;
+        [self.tableView endUpdates];
+        
+    }
+    
+    NSMutableArray *infoArray = [[NSMutableArray alloc] init];
+    for (InfoActivityClass *play in self.plays) {
+        
+        //if([SoclivityUtilities ValidActivityDate:play.when]){
+            
+            
+                    
+        SectionInfo *sectionInfo = [[SectionInfo alloc] init];
+        
+        sectionInfo.play = play;
+        sectionInfo.open = NO;
+        NSNumber *defaultRowHeight = [NSNumber numberWithInteger:DEFAULT_ROW_HEIGHT];
+        NSInteger countOfQuotations = [[sectionInfo.play quotations] count];
+        for (NSInteger i = 0; i < countOfQuotations; i++) {
+            [sectionInfo insertObject:defaultRowHeight inRowHeightsAtIndex:i];
+        }
+        
+        [infoArray addObject:sectionInfo];
+        [sectionInfo release];
+            
+                
+            
+        //}
+        
+    }
+    self.sectionInfoArray = infoArray;
+    [infoArray release];
+    
+    if([self.sectionInfoArray count]==0){
+        
+        if(!isOrganizerList){
+            
+            
+            
+            if([SoclivityUtilities deviceType] & iPhone5)
+                self.tableView.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_NoActivities5.png"]];
+            
+            else
+                self.tableView.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_NoActivities.png"]];
+            
+            self.tableView.scrollEnabled=NO;
+            self.tableView.bounces=NO;
+        }
+        
+    }
+    else{
+        self.tableView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
+        self.tableView.scrollEnabled=YES;
+        self.tableView.bounces=YES;
+        
+    }
+    
     [self.tableView reloadData];
     [self.tableView beginUpdates];
     [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
