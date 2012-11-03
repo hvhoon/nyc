@@ -7,7 +7,8 @@
 //
 
 #import "GetUserProfileInfoInvocation.h"
-
+#import "SocPlayerClass.h"
+#import "SocPlayerClass+Parse.h"
 @implementation GetUserProfileInfoInvocation
 @synthesize playerId,friendId;
 
@@ -31,7 +32,7 @@
 	NSDictionary* resultsd = [[[NSString alloc] initWithData:data
                                                     encoding:NSUTF8StringEncoding] JSONValue];
     
-    SocPlayerClass* response=[SocPlayerClass GetUserProfileObject:resultsd];
+    SocPlayerClass* response=[SocPlayerClass GetUserProfileInfoAndCommonFriends:resultsd];
     
 	[self.delegate UserProfileInfoInvocationDidFinish:self withResponse:response withError:Nil];
 	return YES;

@@ -12,7 +12,7 @@
 @implementation SocPlayerClass (Parse)
 
 
-+(SocPlayerClass*)GetUserProfileObject:(NSDictionary*)ACTDict{
++(SocPlayerClass*)GetUserProfileInfoAndCommonFriends:(NSDictionary*)ACTDict{
 	if (!ACTDict) {
 		return Nil;
 	}
