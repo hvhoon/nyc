@@ -18,6 +18,10 @@
     NSString *latestActivityName;
     NSInteger activityId;
     float distance;
+    NSInteger friendId;
+    BOOL isCurrentActivity;
+    BOOL isCommon;
+    NSMutableArray *commonFriends;
 }
 @property (nonatomic,retain)UIImage *profileImage;
 @property (nonatomic,retain)NSString *profilePhotoUrl;
@@ -27,4 +31,8 @@
 @property (nonatomic,assign)NSInteger activityId;
 @property (nonatomic,assign)float distance;
 @property (nonatomic,retain)NSString *latestActivityName;
+@property (nonatomic,assign)NSInteger friendId;
+@property (nonatomic,assign)BOOL isCurrentActivity;
+@property (nonatomic,assign)BOOL isCommon;
+@property (nonatomic,retain)NSMutableArray *commonFriends;
 @end

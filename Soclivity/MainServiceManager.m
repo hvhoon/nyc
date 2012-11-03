@@ -133,5 +133,13 @@
     [self invoke:invocation withDelegate:delegate];
     
 }
+-(void)getUserProfileInfoInvocation:(NSInteger)playerSOCId friendPlayer:(NSInteger)friendPlayer delegate:(id<GetUserProfileInfoInvocationDelegate>)delegate{
+
+    GetUserProfileInfoInvocation *invocation = [[[GetUserProfileInfoInvocation alloc] init] autorelease];
+    invocation.playerId = playerSOCId;
+    invocation.friendId=friendPlayer;
+    [self invoke:invocation withDelegate:delegate];
+
+}
 
 @end

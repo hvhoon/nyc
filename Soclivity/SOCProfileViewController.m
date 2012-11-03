@@ -15,9 +15,10 @@
 #import "DetailedActivityInfoInvocation.h"
 #import "ActivityEventViewController.h"
 #import "UpComingCompletedEventsViewController.h"
+#import "GetUserProfileInfoInvocation.h"
 #define TAG_COMMENT 1234
 
-@interface SOCProfileViewController ()<DetailedActivityInfoInvocationDelegate>
+@interface SOCProfileViewController ()<DetailedActivityInfoInvocationDelegate,GetUserProfileInfoInvocationDelegate>
 
 @end
 
@@ -35,6 +36,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    devServer=[[MainServiceManager alloc]init];
+    SOC=[SoclivityManager SharedInstance];
+
     loadNFriendsAtTimeArray=[[NSMutableArray alloc]init];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     NSOperationQueue *queue = [NSOperationQueue new];
@@ -182,10 +186,16 @@
 
     }
     
-    
+    [devServer getUserProfileInfoInvocation:[SOC.loggedInUser.idSoc intValue] friendPlayer:playerObject.friendId delegate:self];
 
 
     // Do any additional setup after loading the view from its nib.
+}
+-(void)UserProfileInfoInvocationDidFinish:(GetUserProfileInfoInvocation*)invocation
+                             withResponse:(SocPlayerClass*)response
+                                withError:(NSError*)error{
+    
+    
 }
 
 -(UIView*)returnSectionHeader{
@@ -428,8 +438,6 @@
     
 }
 -(void)viewDetailActivity:(id)sender{
-    devServer=[[MainServiceManager alloc]init];
-    SOC=[SoclivityManager SharedInstance];
     
     
 

@@ -479,6 +479,8 @@
 		EABCE21E15E7E9F0005B74E8 /* ContactsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EABCE21C15E7E9EF005B74E8 /* ContactsListViewController.m */; };
 		EABCE21F15E7E9F0005B74E8 /* ContactsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABCE21D15E7E9EF005B74E8 /* ContactsListViewController.xib */; };
 		EABCE22415E7F658005B74E8 /* ContactList.plist in Resources */ = {isa = PBXBuildFile; fileRef = EABCE22315E7F658005B74E8 /* ContactList.plist */; };
+		EABEAA1F1644DDBD004C686C /* GetUserProfileInfoInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EABEAA1E1644DDBD004C686C /* GetUserProfileInfoInvocation.m */; };
+		EABEAA221644E9B4004C686C /* SocPlayerClass+Parse.m in Sources */ = {isa = PBXBuildFile; fileRef = EABEAA211644E9B4004C686C /* SocPlayerClass+Parse.m */; };
 		EABEC70E1622D9CA00DB179E /* CreateActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EABEC70C1622D9CA00DB179E /* CreateActivityViewController.m */; };
 		EABEC70F1622D9CA00DB179E /* CreateActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABEC70D1622D9CA00DB179E /* CreateActivityViewController.xib */; };
 		EABEC7111622DB1C00DB179E /* CreateActivityViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7101622DB1C00DB179E /* CreateActivityViewController_iphone5.xib */; };
@@ -1344,6 +1346,10 @@
 		EABCE21C15E7E9EF005B74E8 /* ContactsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsListViewController.m; sourceTree = "<group>"; };
 		EABCE21D15E7E9EF005B74E8 /* ContactsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsListViewController.xib; sourceTree = "<group>"; };
 		EABCE22315E7F658005B74E8 /* ContactList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ContactList.plist; sourceTree = "<group>"; };
+		EABEAA1D1644DDBD004C686C /* GetUserProfileInfoInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetUserProfileInfoInvocation.h; sourceTree = "<group>"; };
+		EABEAA1E1644DDBD004C686C /* GetUserProfileInfoInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetUserProfileInfoInvocation.m; sourceTree = "<group>"; };
+		EABEAA201644E9B4004C686C /* SocPlayerClass+Parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SocPlayerClass+Parse.h"; sourceTree = "<group>"; };
+		EABEAA211644E9B4004C686C /* SocPlayerClass+Parse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SocPlayerClass+Parse.m"; sourceTree = "<group>"; };
 		EABEC70B1622D9CA00DB179E /* CreateActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateActivityViewController.h; sourceTree = "<group>"; };
 		EABEC70C1622D9CA00DB179E /* CreateActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateActivityViewController.m; sourceTree = "<group>"; };
 		EABEC70D1622D9CA00DB179E /* CreateActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateActivityViewController.xib; sourceTree = "<group>"; };
@@ -2242,6 +2248,8 @@
 				EAE094CB1619876C005E69D0 /* SOCProfileViewController.xib */,
 				EAE094CE16198C2D005E69D0 /* SocPlayerClass.h */,
 				EAE094CF16198C2D005E69D0 /* SocPlayerClass.m */,
+				EABEAA201644E9B4004C686C /* SocPlayerClass+Parse.h */,
+				EABEAA211644E9B4004C686C /* SocPlayerClass+Parse.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -2539,6 +2547,7 @@
 		EA91C324155A71A500BE5BB1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				EABEAA1C1644DD8E004C686C /* User Profile */,
 				EAE55A56164237BE0038B1F6 /* Upcoming Activities */,
 				EAC2224516280F890018EB6A /* New Activity */,
 				EAB6347C161F353C0023E883 /* Activity Invites */,
@@ -2764,6 +2773,15 @@
 				EAB6347E161F358F0023E883 /* GetActivityInvitesInvocation.m */,
 			);
 			name = "Activity Invites";
+			sourceTree = "<group>";
+		};
+		EABEAA1C1644DD8E004C686C /* User Profile */ = {
+			isa = PBXGroup;
+			children = (
+				EABEAA1D1644DDBD004C686C /* GetUserProfileInfoInvocation.h */,
+				EABEAA1E1644DDBD004C686C /* GetUserProfileInfoInvocation.m */,
+			);
+			name = "User Profile";
 			sourceTree = "<group>";
 		};
 		EABEC70A1622D8E800DB179E /* Create Activity */ = {
@@ -3943,6 +3961,8 @@
 				EADC51FF1625891600772D41 /* SelectPublicPrivateView.m in Sources */,
 				EAC2224816280FD70018EB6A /* NewActivityInvocation.m in Sources */,
 				EAE55A59164237F50038B1F6 /* GetUpcomingActivitiesInvocation.m in Sources */,
+				EABEAA1F1644DDBD004C686C /* GetUserProfileInfoInvocation.m in Sources */,
+				EABEAA221644E9B4004C686C /* SocPlayerClass+Parse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

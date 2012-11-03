@@ -815,6 +815,7 @@
         myClass.activityType=detailedInfo.type;
         myClass.profilePhotoUrl=detailedInfo.ownerProfilePhotoUrl;
         myClass.distance=[detailedInfo.distance floatValue];
+        myClass.friendId=detailedInfo.organizerId;
         SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
         socProfileViewController.playerObject=myClass;
         [[self navigationController] pushViewController:socProfileViewController animated:YES];

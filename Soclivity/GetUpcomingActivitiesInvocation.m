@@ -12,8 +12,6 @@
 #import "InfoActivityClass+Parse.h"
 
 
-@interface GetUpcomingActivitiesInvocation (private)
-@end
 
 
 @implementation GetUpcomingActivitiesInvocation
@@ -29,8 +27,7 @@
     
     NSString*a= [NSString stringWithFormat:@"dev.soclivity.com/activitylist.json?pid=%d&p2id=%d",player1Id,player2Id];
     
-
-    [self get:a];
+     [self get:a];
 }
 
 -(BOOL)handleHttpOK:(NSMutableData *)data {
