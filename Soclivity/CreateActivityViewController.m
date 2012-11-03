@@ -2492,8 +2492,31 @@
         placemark.adminLevel1=placemark1.locality;
         placemark.adminLevel2=placemark1.administrativeArea;
         
-        placemark.formattedAddress=[NSString stringWithFormat:@"%@,%@",placemark.streetNumber,placemark.route];
-        placemark.vicinityAddress=[NSString stringWithFormat:@"%@ ,%@",placemark.adminLevel2,placemark.adminLevel1];
+        NSString *localString=nil;
+        if(((placemark.streetNumber==nil) || ([placemark.streetNumber isEqualToString:@""]))&&((placemark.route==nil) || ([placemark.route isEqualToString:@""]))){
+            localString=placemark.formattedAddress =ABCreateStringWithAddressDictionary(placemark1.addressDictionary, NO);
+            placemark.addType=0;
+        }
+        else if((placemark.streetNumber==nil) || ([placemark.streetNumber isEqualToString:@""])){
+            localString =[NSString stringWithFormat:@"%@",placemark.route];
+            placemark.addType=0;
+        }
+        else if((placemark.route==nil) || ([placemark.route isEqualToString:@""])){
+            localString =[NSString stringWithFormat:@"%@",placemark.streetNumber];
+            placemark.addType=0;
+        }
+        else{
+            localString =[NSString stringWithFormat:@"%@ %@",placemark.streetNumber,placemark.route];
+            placemark.addType=0;
+            
+        }
+        
+        placemark.formattedAddress=[NSString stringWithFormat:@"%@",localString];
+        placemark.vicinityAddress=[NSString stringWithFormat:@"%@, %@",placemark.adminLevel2,placemark.adminLevel1];
+        
+        placemark.formattedAddress = [placemark.formattedAddress stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+
+        
 
 #if 0
         

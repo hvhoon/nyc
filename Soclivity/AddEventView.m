@@ -707,6 +707,13 @@
     locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
     
+    
+    firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
+    firstALineddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+
+    
     NSArray *hashCount=[activityObject.where_address componentsSeparatedByString:@"#"];
     NSLog(@"hashCount=%d",[hashCount count]);
     if([hashCount count]==1){
@@ -738,12 +745,6 @@
     activityPlotOnMapButton.frame=CGRectMake(260, 101, 37, 37);
     
     // Setting the variables for the map screen
-    firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
-    firstALineddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-    secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
-    secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-    firstALineddressLabel.text = activityObject.where_address;
-    secondLineAddressLabel.text = [NSString stringWithFormat:@"%@, %@",activityObject.where_city,activityObject.where_state];
 
     
 
@@ -1496,9 +1497,40 @@ else {
         placemark.adminLevel2=placemark1.locality;
         placemark.adminLevel1=[SoclivityUtilities getStateAbbreviation:placemark1.administrativeArea];
         
-        placemark.formattedAddress=[NSString stringWithFormat:@"%@ %@",placemark.streetNumber,placemark.route];
+        //remeember to copy this in createActivity also
+        //**********************************
+
+        
+        NSString *localString=nil;
+        if(((placemark.streetNumber==nil) || ([placemark.streetNumber isEqualToString:@""]))&&((placemark.route==nil) || ([placemark.route isEqualToString:@""]))){
+            localString=placemark.formattedAddress =ABCreateStringWithAddressDictionary(placemark1.addressDictionary, NO);
+            placemark.addType=0;
+        }
+        else if((placemark.streetNumber==nil) || ([placemark.streetNumber isEqualToString:@""])){
+            localString =[NSString stringWithFormat:@"%@",placemark.route];
+            placemark.addType=0;
+        }
+        else if((placemark.route==nil) || ([placemark.route isEqualToString:@""])){
+            localString =[NSString stringWithFormat:@"%@",placemark.streetNumber];
+            placemark.addType=0;
+        }
+        else{
+            localString =[NSString stringWithFormat:@"%@ %@",placemark.streetNumber,placemark.route];
+            placemark.addType=0;
+            
+        }
+        
+        placemark.formattedAddress=[NSString stringWithFormat:@"%@",localString];
         placemark.vicinityAddress=[NSString stringWithFormat:@"%@, %@",placemark.adminLevel2,placemark.adminLevel1];
         
+        placemark.formattedAddress = [placemark.formattedAddress stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+
+        
+        //**********************************
+ 
+
+
+    
 #if 0
         placemark.formattedAddress =ABCreateStringWithAddressDictionary(placemark1.addressDictionary, NO);
 

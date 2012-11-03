@@ -186,7 +186,9 @@
 
     }
     
-    [devServer getUserProfileInfoInvocation:[SOC.loggedInUser.idSoc intValue] friendPlayer:playerObject.friendId delegate:self];
+    
+    //commented for now will upadate once parameteres are parsed
+    //[devServer getUserProfileInfoInvocation:[SOC.loggedInUser.idSoc intValue] friendPlayer:playerObject.friendId delegate:self];
 
 
     // Do any additional setup after loading the view from its nib.
