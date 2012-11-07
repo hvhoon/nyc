@@ -108,6 +108,9 @@
         [ogButton setTitle:OrganizerName forState:UIControlStateNormal];
         ogButton.titleLabel.textAlignment=UITextAlignmentLeft;
         [ogButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateHighlighted];
+        ogButton.tag=((section & 0xFFFF) << 16) |
+        (sortingPattern & 0xFFFF);
+
         ogButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
         ogButton.backgroundColor=[UIColor clearColor];
         [ogButton addTarget:self action:@selector(tapViewAll:) forControlEvents:UIControlEventTouchUpInside];
@@ -304,8 +307,14 @@
 #endif
 }
 
--(void)tapViewAll:(id)sender{
-    [delegate PushToListOfActivitiesOrUserProfile:section];
+-(void)tapViewAll:(UIButton*)sender{
+    
+    NSUInteger arrowSection = ((sender.tag >> 16) & 0xFFFF);
+    NSUInteger row     = (sender.tag & 0xFFFF);
+    NSLog(@"row=%d,arrowSection=%d",row,arrowSection);
+    
+    if(row!=kSortOrganizesByYou)
+        [delegate PushToListOfActivitiesOrUserProfile:section];
 }
 
 -(void)detailActivity:(id)sender{

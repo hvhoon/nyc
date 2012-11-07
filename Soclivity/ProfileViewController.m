@@ -75,7 +75,8 @@
      [delegate showLeft:sender];
 }
 -(IBAction)getStartedAction:(id)sender{
-    [activityTypesView MakeSureAtLeastOneActivitySelected];
+    if([activityTypesView MakeSureAtLeastOneActivitySelected])
+         [self RegisterUserForTheFirstTime];
 }
 -(void)showgetStartedBtnOrNot:(BOOL)show{
     if(show){
