@@ -7,7 +7,8 @@
 #define kSortByDistance 1
 #define kSortByDegree 2
 #define kSortByTime 3
-#define kSortCompletedByTime 4
+#define kSortOrganizesByYou 4
+#define kSortCompletedByTime 5
 @implementation SectionHeaderView
 
 
@@ -96,13 +97,23 @@
         ogButton.frame = CGRectMake(45,45-1,210,16);
         [ogButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateNormal];
         ogButton.tag=[[NSString stringWithFormat:@"222%d",section]intValue];
-        [ogButton setTitle:detailSectionInfo.organizerName forState:UIControlStateNormal];
+        
+        NSString *OrganizerName=nil;
+        if(sortingPattern==kSortOrganizesByYou)
+            OrganizerName=@"Organized by You";
+        
+        else
+            OrganizerName=detailSectionInfo.organizerName;
+        
+        [ogButton setTitle:OrganizerName forState:UIControlStateNormal];
         ogButton.titleLabel.textAlignment=UITextAlignmentLeft;
         [ogButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateHighlighted];
         ogButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
         ogButton.backgroundColor=[UIColor clearColor];
         [ogButton addTarget:self action:@selector(tapViewAll:) forControlEvents:UIControlEventTouchUpInside];
-        CGSize  size = [detailSectionInfo.organizerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:15]];
+        
+        
+        CGSize  size = [OrganizerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:15]];
         NSLog(@"width=%f",size.width);
         ogButton.frame=CGRectMake(45, 45-1, size.width, 16);
 
@@ -206,6 +217,7 @@
                 
             case kSortByTime:
             case kSortCompletedByTime:
+            case kSortOrganizesByYou:
             {
                 CGRect timeLabelRect=CGRectMake(160,72,143,15);
                 UILabel *timelabel=[[UILabel alloc] initWithFrame:timeLabelRect];

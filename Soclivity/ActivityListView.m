@@ -608,10 +608,29 @@
         return [s1 compare:s2];
     }];
     
-    if(type!=4)
-        sortType=3;
-    else{
-        sortType=4;
+    
+    switch (type) {
+        case 1:
+        {
+            sortType=4;
+        }
+            break;
+            
+        case 2:
+        {
+            sortType=3;
+        }
+            break;
+        case 3:
+        {
+            sortType=3;
+        }
+            break;
+        case 4:
+        {
+            sortType=5;
+        }
+            break;
     }
 
     NSString *timeStamp=nil;
