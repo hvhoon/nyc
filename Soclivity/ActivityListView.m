@@ -68,9 +68,9 @@
     textLoading = [[NSString alloc] initWithString:@"Loading..."];
 }
 
--(void)populateEvents:(NSArray*)listArray{
+-(void)populateEvents:(NSArray*)listArray typeOfEvent:(NSInteger)typeOfEvent{
     self.plays=listArray;
-    [self mannualToogleBetweenActivities];
+    [self mannualToogleBetweenActivities:typeOfEvent];
     if(listRefresh){
         [self stopLoading];
     }
@@ -593,7 +593,7 @@
     [self.tableView endUpdates];
 }
 
--(void)mannualToogleBetweenActivities{
+-(void)mannualToogleBetweenActivities:(NSInteger)type{
     
     
     self.plays = [self.plays sortedArrayUsingComparator: ^(InfoActivityClass *a, InfoActivityClass *b) {
@@ -607,6 +607,12 @@
         
         return [s1 compare:s2];
     }];
+    
+    if(type!=4)
+        sortType=3;
+    else{
+        sortType=4;
+    }
 
     NSString *timeStamp=nil;
     if(isOrganizerList){
@@ -638,11 +644,15 @@
         [self.tableView endUpdates];
         
     }
-    
+    BOOL activityFromCurrentTime=TRUE;
     NSMutableArray *infoArray = [[NSMutableArray alloc] init];
     for (InfoActivityClass *play in self.plays) {
         
-        //if([SoclivityUtilities ValidActivityDate:play.when]){
+        
+        if(type!=4){
+            activityFromCurrentTime=[SoclivityUtilities ValidActivityDate:play.when];
+        }
+        if(activityFromCurrentTime){
             
             
                     
@@ -654,15 +664,13 @@
         NSInteger countOfQuotations = [[sectionInfo.play quotations] count];
         for (NSInteger i = 0; i < countOfQuotations; i++) {
             [sectionInfo insertObject:defaultRowHeight inRowHeightsAtIndex:i];
-        }
+            }
         
         [infoArray addObject:sectionInfo];
         [sectionInfo release];
             
                 
-            
-        //}
-        
+        }
     }
     self.sectionInfoArray = infoArray;
     [infoArray release];

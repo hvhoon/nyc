@@ -7,6 +7,7 @@
 #define kSortByDistance 1
 #define kSortByDegree 2
 #define kSortByTime 3
+#define kSortCompletedByTime 4
 @implementation SectionHeaderView
 
 
@@ -204,6 +205,7 @@
                 break;
                 
             case kSortByTime:
+            case kSortCompletedByTime:
             {
                 CGRect timeLabelRect=CGRectMake(160,72,143,15);
                 UILabel *timelabel=[[UILabel alloc] initWithFrame:timeLabelRect];
@@ -228,6 +230,8 @@
         [middleSectionBottomDivider release];
         
         // Create and configure the disclosure button.
+        
+        if(sortingPattern!=kSortCompletedByTime){
         UIButton *disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         disclosureButton.frame = CGRectMake(276, 18, 38, 38);
         disclosureButton.tag=[[NSString stringWithFormat:@"555%d",section]intValue];
@@ -245,6 +249,7 @@
         [self addSubview:activityIndicator];
         // release it
         [activityIndicator release];
+        }
         
 
         static NSMutableArray *colors = nil;

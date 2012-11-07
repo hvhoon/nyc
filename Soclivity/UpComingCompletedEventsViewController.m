@@ -132,7 +132,7 @@
 
 -(void)organizedButtonPressed:(id)sender{
     
-    [activityListView populateEvents:myActivitiesArray];
+    [activityListView populateEvents:myActivitiesArray typeOfEvent:1];
     
     [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_organizedHighlighted.png"] forState:UIControlStateNormal];
     [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_organizedHighlighted.png"] forState:UIControlStateHighlighted];
@@ -153,7 +153,7 @@
 
 -(void)invitedButtonPressed:(id)sender{
     
-    [activityListView populateEvents:invitedToArray];
+    [activityListView populateEvents:invitedToArray typeOfEvent:2];
     
     [organizedButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [organizedButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
@@ -176,7 +176,7 @@
 -(void)goingButtonPressed:(id)sender{
     
     
-    [activityListView populateEvents:goingToArray];
+    [activityListView populateEvents:goingToArray typeOfEvent:3];
     
     [organizedButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [organizedButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
@@ -197,7 +197,7 @@
 
 -(void)completedButtonPressed:(id)sender{
     
-    [activityListView populateEvents:compeletedArray];
+    [activityListView populateEvents:compeletedArray typeOfEvent:4];
     
     [organizedButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [organizedButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
@@ -285,7 +285,6 @@
     
     [[NSUserDefaults standardUserDefaults] setValue:currentTime forKey:@"SOCActivityTimeUpdate"];
     
-    activityListView.sortType=3;
     
     [devServer getUpcomingActivitiesForUserInvocation:[SOC.loggedInUser.idSoc intValue] player2:[SOC.loggedInUser.idSoc intValue] delegate:self];
     
@@ -307,7 +306,7 @@
             {
                 NSLog(@"The user has got Organizing Activities");
                 myActivitiesArray=[[responses objectAtIndex:i] objectForKey:@"Elements"];
-                [activityListView populateEvents:myActivitiesArray];
+                [activityListView populateEvents:myActivitiesArray typeOfEvent:1];
 
             }
                 break;
