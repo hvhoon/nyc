@@ -594,6 +594,20 @@
 }
 
 -(void)mannualToogleBetweenActivities{
+    
+    
+    self.plays = [self.plays sortedArrayUsingComparator: ^(InfoActivityClass *a, InfoActivityClass *b) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+		//dateFormatter.dateFormat = @"yyyy-MM-dd_HH:mm:ss";
+        dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+		NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+		[dateFormatter setTimeZone:gmt];
+        NSDate *s1 = [dateFormatter dateFromString:a.when];//add the string
+        NSDate *s2 = [dateFormatter dateFromString:b.when];
+        
+        return [s1 compare:s2];
+    }];
+
     NSString *timeStamp=nil;
     if(isOrganizerList){
         timeStamp=[[NSUserDefaults standardUserDefaults] valueForKey:@"SOCActivityTimeUpdate"];
