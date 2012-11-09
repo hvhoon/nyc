@@ -69,8 +69,8 @@
                                          @"S10_organizedHighlighted.png"] forState:UIControlStateHighlighted    ];
     [organizedButton setTitle:@"Organized" forState:UIControlStateNormal];
     [organizedButton setTitle:@"Organized" forState:UIControlStateHighlighted];
-    [organizedButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [organizedButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    [organizedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [organizedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     organizedButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
 
     [organizedButton addTarget:self action:@selector(organizedButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -81,8 +81,8 @@
     invitedButton.frame = CGRectMake(90.2, 50, 68, 27);
     [invitedButton setTitle:@"Invited" forState:UIControlStateNormal];
     [invitedButton setTitle:@"Invited" forState:UIControlStateHighlighted];
-    [invitedButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [invitedButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    [invitedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [invitedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
     invitedButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     [invitedButton addTarget:self action:@selector(invitedButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:invitedButton];
@@ -94,8 +94,8 @@
     goingButton.frame = CGRectMake(167.8, 50, 58, 27);
     [goingButton setTitle:@"Going" forState:UIControlStateNormal];
     [goingButton setTitle:@"Going" forState:UIControlStateHighlighted];
-    [goingButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [goingButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    [goingButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [goingButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
     goingButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
 
     [goingButton addTarget:self action:@selector(goingButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -106,8 +106,8 @@
     completedButton.frame = CGRectMake(235.4, 50, 75, 27);
     [completedButton setTitle:@"Completed" forState:UIControlStateNormal];
     [completedButton setTitle:@"Completed" forState:UIControlStateHighlighted];
-    [completedButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [completedButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    [completedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [completedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
     completedButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
 
     [completedButton addTarget:self action:@selector(completedButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -137,17 +137,29 @@
     [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_organizedHighlighted.png"] forState:UIControlStateNormal];
     [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_organizedHighlighted.png"] forState:UIControlStateHighlighted];
     
+    [organizedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [organizedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+
     
     [invitedButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [invitedButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
+    [invitedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [invitedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+
     
     
     [goingButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [goingButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
+    [goingButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [goingButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+
     
     
     [completedButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [completedButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
+    [completedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [completedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+
     
 }
 
@@ -157,18 +169,30 @@
     
     [organizedButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [organizedButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
+    [organizedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [organizedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+
     
     
     [invitedButton setBackgroundImage:[UIImage imageNamed:@"S10_invitedHighlighted.png"] forState:UIControlStateNormal];
     [invitedButton setBackgroundImage:[UIImage imageNamed:@"S10_invitedHighlighted.png"] forState:UIControlStateHighlighted];
+    [invitedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [invitedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+
     
     
     [goingButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [goingButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
+    [goingButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [goingButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+
     
     
     [completedButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [completedButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
+    [completedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [completedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+
     
 }
 
@@ -180,18 +204,30 @@
     
     [organizedButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [organizedButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
+    [organizedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [organizedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+
     
     
     [invitedButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [invitedButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
+    [invitedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [invitedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+
     
     
     [goingButton setBackgroundImage:[UIImage imageNamed:@"S10_goingHighlighted.png"] forState:UIControlStateNormal];
     [goingButton setBackgroundImage:[UIImage imageNamed:@"S10_goingHighlighted.png"] forState:UIControlStateHighlighted];
+    [goingButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [goingButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+
     
     
     [completedButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [completedButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
+    [completedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [completedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+
 
 }
 
@@ -201,18 +237,30 @@
     
     [organizedButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [organizedButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
+    [organizedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [organizedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+
     
     
     [invitedButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [invitedButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
+    [invitedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [invitedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+
     
     
     [goingButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [goingButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
+    [goingButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [goingButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+
     
     
     [completedButton setBackgroundImage:[UIImage imageNamed:@"S10_completedHighlighted.png"] forState:UIControlStateNormal];
     [completedButton setBackgroundImage:[UIImage imageNamed:@"S10_completedHighlighted.png"] forState:UIControlStateHighlighted];
+    [completedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [completedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+
     
 }
 
