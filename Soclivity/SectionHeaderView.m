@@ -122,6 +122,19 @@
         ogButton.frame=CGRectMake(45, 45-1, size.width, 16);
 
         [self addSubview:ogButton];
+        
+        ogButton.enabled=NO;
+        
+        
+        SoclivityManager *SOC=[SoclivityManager SharedInstance];
+        NSLog(@"playerId=%d",playerId);
+        if(sortingPattern==kSortCompletedByTime){
+            if([SOC.loggedInUser.idSoc intValue]!=playerId){
+            ogButton.enabled=YES;
+            }
+        }
+        else if(sortingPattern!=kSortOrganizesByYou)
+            ogButton.enabled=YES;
 
 #else
         CGRect organizerLabelRect=CGRectMake(45,45-1,210,16);
@@ -309,7 +322,7 @@
 }
 
 -(void)tapViewAll:(UIButton*)sender{
-    
+#if 0
     NSUInteger arrowSection = ((sender.tag >> 16) & 0xFFFF);
     NSUInteger row     = (sender.tag & 0xFFFF);
     NSLog(@"row=%d,arrowSection=%d",row,arrowSection);
@@ -322,6 +335,9 @@
     }
     else if(row!=kSortOrganizesByYou)
         [delegate PushToListOfActivitiesOrUserProfile:section];
+    
+#endif
+    [delegate PushToListOfActivitiesOrUserProfile:section];
 }
 
 -(void)detailActivity:(id)sender{
