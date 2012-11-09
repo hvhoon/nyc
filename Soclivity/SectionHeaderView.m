@@ -3,7 +3,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "InfoActivityClass.h"
 #import "SoclivityUtilities.h"
-
+#import "SoclivityManager.h"
+#import "GetPlayersClass.h"
 #define kSortByDistance 1
 #define kSortByDegree 2
 #define kSortByTime 3
@@ -12,7 +13,7 @@
 @implementation SectionHeaderView
 
 
-@synthesize activitytitleLabel, delegate, section;
+@synthesize activitytitleLabel, delegate, section,playerId;
 
 
 + (Class)layerClass {
@@ -44,7 +45,7 @@
         
         // Create and configure the title label.
         section = sectionNumber;
-        
+        playerId=detailSectionInfo.organizerId;
         UIImageView *activityTypeImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 25, 66)];
         switch (detailSectionInfo.type) {
             case 1:
@@ -312,8 +313,14 @@
     NSUInteger arrowSection = ((sender.tag >> 16) & 0xFFFF);
     NSUInteger row     = (sender.tag & 0xFFFF);
     NSLog(@"row=%d,arrowSection=%d",row,arrowSection);
-    
-    if(row!=kSortOrganizesByYou)
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    NSLog(@"playerId=%d",playerId);
+    if(row==kSortCompletedByTime){
+        if([SOC.loggedInUser.idSoc intValue]!=playerId){
+            [delegate PushToListOfActivitiesOrUserProfile:section];
+        }
+    }
+    else if(row!=kSortOrganizesByYou)
         [delegate PushToListOfActivitiesOrUserProfile:section];
 }
 
