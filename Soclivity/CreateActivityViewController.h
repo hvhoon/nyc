@@ -23,7 +23,7 @@
 @end
 
 
-@interface CreateActivityViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate,PickerDetailViewDelegate,CustomSearchBarDelegate,UISearchBarDelegate,MKMapViewDelegate>{
+@interface CreateActivityViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate,PickerDetailViewDelegate,SoclivitySearchBarDelegate,UISearchBarDelegate,MKMapViewDelegate>{
     id<NewActivityViewDelegate>delegate;
     IBOutlet UILabel *createActivtyStaticLabel;
     IBOutlet UILabel *step1_of2Label;

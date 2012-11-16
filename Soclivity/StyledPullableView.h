@@ -11,7 +11,7 @@
 #import "CustomSearchBar.h"
 @class SoclivityManager;
 
-@interface StyledPullableView : PullableView<UISearchBarDelegate,CalendarDateViewDelegate,CustomSearchBarDelegate>{
+@interface StyledPullableView : PullableView<UISearchBarDelegate,CalendarDateViewDelegate,SoclivitySearchBarDelegate>{
     CustomSearchbar*homeSearchBar;
     BOOL learn;
     FCRangeSlider *rangeSlider;

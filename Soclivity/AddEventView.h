@@ -22,7 +22,7 @@
 @end
 
 
-@interface AddEventView : UIView<MKMapViewDelegate,UISearchBarDelegate,CustomSearchBarDelegate>{
+@interface AddEventView : UIView<MKMapViewDelegate,UISearchBarDelegate,SoclivitySearchBarDelegate>{
     InfoActivityClass *activityObject;
     IBOutlet UIImageView *activityBarImgView;
     IBOutlet UIImageView *activityAccessStatusImgView;

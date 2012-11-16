@@ -501,11 +501,6 @@
     
 }
 
-
-
-
-
-
 -(void)pushToUserProfileView:(NSIndexPath*)indexPath rType:(NSInteger)rType{
     
     

@@ -19,7 +19,7 @@
 -(BOOL)CalculateOpenSlots;
 @end
 
-@interface ContactsListViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,CustomSearchBarDelegate,InviteTableViewCellDelegate,IconDownloaderDelegate>{
+@interface ContactsListViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,SoclivitySearchBarDelegate,InviteTableViewCellDelegate,IconDownloaderDelegate>{
     
     IBOutlet UIButton*activityBackButton;
     IBOutlet UILabel *inviteTitleLabel;

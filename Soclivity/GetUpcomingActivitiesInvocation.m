@@ -10,7 +10,7 @@
 #import "JSON.h"
 #import "InfoActivityClass.h"
 #import "InfoActivityClass+Parse.h"
-
+#import "SoclivityManager.h"
 
 
 
@@ -25,7 +25,9 @@
 
 -(void)invoke {
     
-    NSString*a= [NSString stringWithFormat:@"dev.soclivity.com/activitylist.json?pid=%d&p2id=%d",player1Id,player2Id];
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+
+    NSString*a= [NSString stringWithFormat:@"dev.soclivity.com/activitylist.json?pid=%d&p2id=%d&lat=%f,lng=%f",player1Id,player2Id,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
     
      [self get:a];
 }

@@ -673,9 +673,6 @@
             activityFromCurrentTime=[SoclivityUtilities ValidActivityDate:play.when];
         }
         if(activityFromCurrentTime){
-            
-            
-                    
         SectionInfo *sectionInfo = [[SectionInfo alloc] init];
         
         sectionInfo.play = play;

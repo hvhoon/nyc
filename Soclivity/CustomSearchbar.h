@@ -8,20 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol CustomSearchBarDelegate
+@protocol SoclivitySearchBarDelegate
 
-
+@optional
 -(void)customCancelButtonHit;
 
 @end
 
 
 @interface CustomSearchbar : UISearchBar{
-    id<CustomSearchBarDelegate> CSDelegate;
+    id<SoclivitySearchBarDelegate> CSDelegate;
     UIButton *customBackButtom;
     BOOL showClearButton;
 }
-@property (nonatomic, retain) id<CustomSearchBarDelegate> CSDelegate;
+@property (nonatomic, retain) id<SoclivitySearchBarDelegate> CSDelegate;
 @property (nonatomic,assign)BOOL showClearButton;
 -(void)cancelAction;
 @end

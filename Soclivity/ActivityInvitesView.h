@@ -21,7 +21,7 @@
 @end
 
 
-@interface ActivityInvitesView : UIView<CustomSearchBarDelegate,UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,InviteTableViewCellDelegate,UIAlertViewDelegate,IconDownloaderDelegate>{
+@interface ActivityInvitesView : UIView<SoclivitySearchBarDelegate,UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,InviteTableViewCellDelegate,UIAlertViewDelegate,IconDownloaderDelegate>{
     
     CustomSearchbar *searchBarForInvites;
     BOOL searching;
