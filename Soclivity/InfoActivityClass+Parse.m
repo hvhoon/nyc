@@ -49,6 +49,19 @@
     play.DOS3 =[dos3 intValue];
     
     if(isQuotation){
+        
+    NSNumber *distance = [ACTDict objectForKey:@"distance"];
+    play.distance=[NSString stringWithFormat:@"%.02f",[distance doubleValue]];
+    NSNumber *dos1 = [ACTDict objectForKey:@"dos1count"];
+    play.DOS1 =[dos1 intValue];
+    NSNumber *dos2 = [ACTDict objectForKey:@"dos2count"];
+    play.DOS2 =[dos2 intValue];
+    NSNumber *dos3 = [ACTDict objectForKey:@"dos3count"];
+    play.DOS3 =[dos3 intValue];
+        
+    play.organizerName=[ACTDict objectForKey:@"organizer"];
+
+    
     DetailInfoActivityClass *quotation = [[[DetailInfoActivityClass alloc] init]autorelease];
     quotation.location = [NSString stringWithFormat:@"%@",play.where_address];
     play.goingCount=[NSString stringWithFormat:@"%d",play.DOS1+play.DOS2+play.DOS3];
