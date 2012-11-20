@@ -17,6 +17,7 @@
 
 @interface NotificationsViewController : UIViewController{
     id <NotificationsScreenViewDelegate>delegate;
+    IBOutlet UILabel *waitingOnYouLabel;
 }
 @property (nonatomic,retain)id <NotificationsScreenViewDelegate>delegate;
 -(IBAction)profileSliderPressed:(id)sender;

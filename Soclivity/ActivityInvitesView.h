@@ -10,6 +10,7 @@
 #import "CustomSearchbar.h"
 #import "InviteUserTableViewCell.h"
 #import "IconDownloader.h"
+@class MainServiceManager;
 @protocol ActivityInvitesViewDelegate <NSObject>
 
 @optional
@@ -31,6 +32,8 @@
     id<ActivityInvitesViewDelegate>delegate;
     NSMutableDictionary *imageDownloadsInProgress;
     InviteObjectClass *statusUpdate;
+    NSTimer * _searchTimer;
+    MainServiceManager *devServer;
 }
 @property (nonatomic,retain)CustomSearchbar *searchBarForInvites;
 @property (nonatomic,retain)NSArray *InviteEntriesArray;
@@ -44,4 +47,5 @@
 -(void)appImageDidLoad:(NSIndexPath *)indexPath;
 - (id)initWithFrame:(CGRect)frame andInviteListArray:(NSArray*)andInviteListArray;
 -(void)activityInviteStatusUpdate;
+- (void)searchFromSoclivityDatabase:(NSTimer *)timer ;
 @end

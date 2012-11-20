@@ -10,10 +10,13 @@
 #import "InviteObjectClass.h"
 #import "SoclivityUtilities.h"
 #import "InvitesViewController.h"
+#import "MainServiceManager.h"
+#import "GetUsersByFirstLastNameInvocation.h"
 #define kAddressBookContacts 123
 
+NSString * const kSearchTextKey = @"Search Text";
 
-@interface ActivityInvitesView ()
+@interface ActivityInvitesView ()<GetUsersByFirstLastNameInvocationDelegate>
 
 - (void)startIconDownload:(InviteObjectClass*)appRecord forIndexPath:(NSIndexPath *)indexPath;
 
@@ -27,6 +30,7 @@
     if (self) {
         // Initialization code
         
+        devServer=[[MainServiceManager alloc]init];
         InviteEntriesArray =[andInviteListArray retain];
         self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
         searching=FALSE;
@@ -771,11 +775,67 @@
     
     searching=YES;
     inviteUserTableView.tableHeaderView=nil;
+    
+
     [self filterContentForSearchText:searchBar.text];
+/*
+    if ([_searchTimer isValid])
+        [_searchTimer invalidate];
+    
+    const NSTimeInterval kSearchDelay = .25;
+    NSDictionary * userInfo = [NSDictionary dictionaryWithObject:searchBar.text
+                                                          forKey:kSearchTextKey];
+    _searchTimer = [NSTimer scheduledTimerWithTimeInterval:kSearchDelay
+                                                    target:self
+                                                  selector:@selector(searchFromSoclivityDatabase:)
+                                                  userInfo:userInfo
+                                                   repeats:NO];
+
+    */
     [self.searchBarForInvites resignFirstResponder];
     [searchBar setShowsCancelButton:YES animated:YES];
     
 }
+
+- (void) searchFromSoclivityDatabase:(NSTimer *)timer {
+    
+    NSString * searchString = [timer.userInfo objectForKey:kSearchTextKey];
+    
+    [devServer searchUsersByNameInvocation:23 searchText:searchString delegate:self];
+    // Cancel any active geocoding. Note: Cancelling calls the completion handler on the geocoder
+}
+
+-(void)SearchUsersInvocationDidFinish:(GetUsersByFirstLastNameInvocation*)invocation
+                         withResponse:(NSArray*)responses
+                            withError:(NSError*)error{
+	
+    self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
+    [self.filteredListContent removeAllObjects]; // First clear the filtered array.
+    
+    NSMutableArray *content = [NSMutableArray new];
+    for (NSDictionary *dict in responses)
+    {
+        NSMutableArray *oldEntries = [dict objectForKey:@"Elements"];
+        NSLog(@"oldEntries count=%d",[oldEntries count]);
+        
+        for(NSDictionary *dict2 in oldEntries){
+            
+            InviteObjectClass*product = [dict2 objectForKey:@"ActivityInvite"];
+            NSLog(@"product Name=%@",product.userName);
+            
+            
+                [content addObject:product];
+                
+            }
+    }
+    [self.filteredListContent addObjectsFromArray:content];
+    [inviteUserTableView reloadData];
+    
+    
+    
+    
+}
+
 -(void)customCancelButtonHit{
     
     

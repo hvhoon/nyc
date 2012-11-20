@@ -518,6 +518,34 @@
 		EAC9E41C16136F770062A9A2 /* NotificationsViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC9E41B16136F770062A9A2 /* NotificationsViewController_iphone5.xib */; };
 		EAC9E41E161377490062A9A2 /* InvitesViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC9E41D161377490062A9A2 /* InvitesViewController_iphone5.xib */; };
 		EAC9E42016137A900062A9A2 /* ContactsListViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC9E41F16137A900062A9A2 /* ContactsListViewController_iphone5.xib */; };
+		EACE5F1E165B823F00D1B3D0 /* GetUsersByFirstLastNameInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EACE5F1D165B823F00D1B3D0 /* GetUsersByFirstLastNameInvocation.m */; };
+		EACE5F21165B89F100D1B3D0 /* WaitingOnYouView.m in Sources */ = {isa = PBXBuildFile; fileRef = EACE5F20165B89F000D1B3D0 /* WaitingOnYouView.m */; };
+		EACE5F43165B93DA00D1B3D0 /* homeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F24165B93DA00D1B3D0 /* homeButton.png */; };
+		EACE5F44165B93DA00D1B3D0 /* homeButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F25165B93DA00D1B3D0 /* homeButton@2x.png */; };
+		EACE5F4A165B93DA00D1B3D0 /* S11_calendarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F2B165B93DA00D1B3D0 /* S11_calendarIcon.png */; };
+		EACE5F4B165B93DA00D1B3D0 /* S11_calendarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F2C165B93DA00D1B3D0 /* S11_calendarIcon@2x.png */; };
+		EACE5F4C165B93DA00D1B3D0 /* S11_cancelLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F2D165B93DA00D1B3D0 /* S11_cancelLogo.png */; };
+		EACE5F4D165B93DA00D1B3D0 /* S11_cancelLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F2E165B93DA00D1B3D0 /* S11_cancelLogo@2x.png */; };
+		EACE5F4E165B93DA00D1B3D0 /* S11_clockLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F2F165B93DA00D1B3D0 /* S11_clockLogo.png */; };
+		EACE5F4F165B93DA00D1B3D0 /* S11_clockLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F30165B93DA00D1B3D0 /* S11_clockLogo@2x.png */; };
+		EACE5F50165B93DA00D1B3D0 /* S11_divider.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F31165B93DA00D1B3D0 /* S11_divider.png */; };
+		EACE5F51165B93DA00D1B3D0 /* S11_divider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F32165B93DA00D1B3D0 /* S11_divider@2x.png */; };
+		EACE5F52165B93DA00D1B3D0 /* S11_goingButton.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F33165B93DA00D1B3D0 /* S11_goingButton.png */; };
+		EACE5F53165B93DA00D1B3D0 /* S11_goingButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F34165B93DA00D1B3D0 /* S11_goingButton@2x.png */; };
+		EACE5F54165B93DA00D1B3D0 /* S11_infoChangeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F35165B93DA00D1B3D0 /* S11_infoChangeIcon.png */; };
+		EACE5F55165B93DA00D1B3D0 /* S11_infoChangeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F36165B93DA00D1B3D0 /* S11_infoChangeIcon@2x.png */; };
+		EACE5F56165B93DA00D1B3D0 /* S11_joinAcceptButton.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F37165B93DA00D1B3D0 /* S11_joinAcceptButton.png */; };
+		EACE5F57165B93DA00D1B3D0 /* S11_joinAcceptButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F38165B93DA00D1B3D0 /* S11_joinAcceptButton@2x.png */; };
+		EACE5F58165B93DA00D1B3D0 /* S11_joinDeclineButton.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F39165B93DA00D1B3D0 /* S11_joinDeclineButton.png */; };
+		EACE5F59165B93DA00D1B3D0 /* S11_joinDeclineButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F3A165B93DA00D1B3D0 /* S11_joinDeclineButton@2x.png */; };
+		EACE5F5A165B93DA00D1B3D0 /* S11_locationIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F3B165B93DA00D1B3D0 /* S11_locationIcon.png */; };
+		EACE5F5B165B93DA00D1B3D0 /* S11_locationIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F3C165B93DA00D1B3D0 /* S11_locationIcon@2x.png */; };
+		EACE5F5C165B93DA00D1B3D0 /* S11_logoFaded.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F3D165B93DA00D1B3D0 /* S11_logoFaded.png */; };
+		EACE5F5D165B93DA00D1B3D0 /* S11_logoFaded@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F3E165B93DA00D1B3D0 /* S11_logoFaded@2x.png */; };
+		EACE5F5E165B93DA00D1B3D0 /* S11_noNotfications.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F3F165B93DA00D1B3D0 /* S11_noNotfications.png */; };
+		EACE5F5F165B93DA00D1B3D0 /* S11_noNotfications@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F40165B93DA00D1B3D0 /* S11_noNotfications@2x.png */; };
+		EACE5F60165B93DA00D1B3D0 /* S11_notGoingButton.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F41165B93DA00D1B3D0 /* S11_notGoingButton.png */; };
+		EACE5F61165B93DA00D1B3D0 /* S11_notGoingButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F42165B93DA00D1B3D0 /* S11_notGoingButton@2x.png */; };
 		EAD0D6CF15E74A89009865D7 /* ActivityInvitesView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD0D6CE15E74A89009865D7 /* ActivityInvitesView.m */; };
 		EAD0D6D615E762C8009865D7 /* Invites.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAD0D6D515E762C8009865D7 /* Invites.plist */; };
 		EAD0D6DC15E76660009865D7 /* InviteObjectClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD0D6DB15E7665F009865D7 /* InviteObjectClass.m */; };
@@ -1390,6 +1418,36 @@
 		EAC9E41B16136F770062A9A2 /* NotificationsViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationsViewController_iphone5.xib; sourceTree = "<group>"; };
 		EAC9E41D161377490062A9A2 /* InvitesViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InvitesViewController_iphone5.xib; sourceTree = "<group>"; };
 		EAC9E41F16137A900062A9A2 /* ContactsListViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsListViewController_iphone5.xib; sourceTree = "<group>"; };
+		EACE5F1C165B823F00D1B3D0 /* GetUsersByFirstLastNameInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetUsersByFirstLastNameInvocation.h; sourceTree = "<group>"; };
+		EACE5F1D165B823F00D1B3D0 /* GetUsersByFirstLastNameInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetUsersByFirstLastNameInvocation.m; sourceTree = "<group>"; };
+		EACE5F1F165B89F000D1B3D0 /* WaitingOnYouView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitingOnYouView.h; sourceTree = "<group>"; };
+		EACE5F20165B89F000D1B3D0 /* WaitingOnYouView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitingOnYouView.m; sourceTree = "<group>"; };
+		EACE5F24165B93DA00D1B3D0 /* homeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homeButton.png; sourceTree = "<group>"; };
+		EACE5F25165B93DA00D1B3D0 /* homeButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "homeButton@2x.png"; sourceTree = "<group>"; };
+		EACE5F2B165B93DA00D1B3D0 /* S11_calendarIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S11_calendarIcon.png; sourceTree = "<group>"; };
+		EACE5F2C165B93DA00D1B3D0 /* S11_calendarIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S11_calendarIcon@2x.png"; sourceTree = "<group>"; };
+		EACE5F2D165B93DA00D1B3D0 /* S11_cancelLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S11_cancelLogo.png; sourceTree = "<group>"; };
+		EACE5F2E165B93DA00D1B3D0 /* S11_cancelLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S11_cancelLogo@2x.png"; sourceTree = "<group>"; };
+		EACE5F2F165B93DA00D1B3D0 /* S11_clockLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S11_clockLogo.png; sourceTree = "<group>"; };
+		EACE5F30165B93DA00D1B3D0 /* S11_clockLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S11_clockLogo@2x.png"; sourceTree = "<group>"; };
+		EACE5F31165B93DA00D1B3D0 /* S11_divider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S11_divider.png; sourceTree = "<group>"; };
+		EACE5F32165B93DA00D1B3D0 /* S11_divider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S11_divider@2x.png"; sourceTree = "<group>"; };
+		EACE5F33165B93DA00D1B3D0 /* S11_goingButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S11_goingButton.png; sourceTree = "<group>"; };
+		EACE5F34165B93DA00D1B3D0 /* S11_goingButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S11_goingButton@2x.png"; sourceTree = "<group>"; };
+		EACE5F35165B93DA00D1B3D0 /* S11_infoChangeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S11_infoChangeIcon.png; sourceTree = "<group>"; };
+		EACE5F36165B93DA00D1B3D0 /* S11_infoChangeIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S11_infoChangeIcon@2x.png"; sourceTree = "<group>"; };
+		EACE5F37165B93DA00D1B3D0 /* S11_joinAcceptButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S11_joinAcceptButton.png; sourceTree = "<group>"; };
+		EACE5F38165B93DA00D1B3D0 /* S11_joinAcceptButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S11_joinAcceptButton@2x.png"; sourceTree = "<group>"; };
+		EACE5F39165B93DA00D1B3D0 /* S11_joinDeclineButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S11_joinDeclineButton.png; sourceTree = "<group>"; };
+		EACE5F3A165B93DA00D1B3D0 /* S11_joinDeclineButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S11_joinDeclineButton@2x.png"; sourceTree = "<group>"; };
+		EACE5F3B165B93DA00D1B3D0 /* S11_locationIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S11_locationIcon.png; sourceTree = "<group>"; };
+		EACE5F3C165B93DA00D1B3D0 /* S11_locationIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S11_locationIcon@2x.png"; sourceTree = "<group>"; };
+		EACE5F3D165B93DA00D1B3D0 /* S11_logoFaded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S11_logoFaded.png; sourceTree = "<group>"; };
+		EACE5F3E165B93DA00D1B3D0 /* S11_logoFaded@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S11_logoFaded@2x.png"; sourceTree = "<group>"; };
+		EACE5F3F165B93DA00D1B3D0 /* S11_noNotfications.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S11_noNotfications.png; sourceTree = "<group>"; };
+		EACE5F40165B93DA00D1B3D0 /* S11_noNotfications@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S11_noNotfications@2x.png"; sourceTree = "<group>"; };
+		EACE5F41165B93DA00D1B3D0 /* S11_notGoingButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S11_notGoingButton.png; sourceTree = "<group>"; };
+		EACE5F42165B93DA00D1B3D0 /* S11_notGoingButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S11_notGoingButton@2x.png"; sourceTree = "<group>"; };
 		EAD0D6CD15E74A89009865D7 /* ActivityInvitesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityInvitesView.h; sourceTree = "<group>"; };
 		EAD0D6CE15E74A89009865D7 /* ActivityInvitesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityInvitesView.m; sourceTree = "<group>"; };
 		EAD0D6D515E762C8009865D7 /* Invites.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Invites.plist; sourceTree = "<group>"; };
@@ -1815,6 +1873,7 @@
 				EA863A0B15C1585E0072C005 /* S05.1 Map View */,
 				EAAEF8A215DA60710085DBE5 /* S05.4 Activity Invites */,
 				EABEC7121622F4E200DB179E /* S06 Create Activity */,
+				EACE5F23165B93DA00D1B3D0 /* S11 Notifications */,
 				EA85DBDE15AFDD6A00AAD964 /* S07 Settings */,
 				EAC801B31611C61C00501765 /* S10 Upcoming */,
 			);
@@ -2261,6 +2320,8 @@
 				EA85DC5915AFFFBF00AAD964 /* NotificationsViewController.m */,
 				EA85DC5A15AFFFBF00AAD964 /* NotificationsViewController.xib */,
 				EAC9E41B16136F770062A9A2 /* NotificationsViewController_iphone5.xib */,
+				EACE5F1F165B89F000D1B3D0 /* WaitingOnYouView.h */,
+				EACE5F20165B89F000D1B3D0 /* WaitingOnYouView.m */,
 			);
 			name = Notifications;
 			sourceTree = "<group>";
@@ -2547,6 +2608,7 @@
 		EA91C324155A71A500BE5BB1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				EACE5F1B165B81B200D1B3D0 /* Search People On Soclivity */,
 				EABEAA1C1644DD8E004C686C /* User Profile */,
 				EAE55A56164237BE0038B1F6 /* Upcoming Activities */,
 				EAC2224516280F890018EB6A /* New Activity */,
@@ -2869,6 +2931,49 @@
 				EAC94D021566C11800400404 /* SFHFKeychainUtils.m */,
 			);
 			name = Encryption;
+			sourceTree = "<group>";
+		};
+		EACE5F1B165B81B200D1B3D0 /* Search People On Soclivity */ = {
+			isa = PBXGroup;
+			children = (
+				EACE5F1C165B823F00D1B3D0 /* GetUsersByFirstLastNameInvocation.h */,
+				EACE5F1D165B823F00D1B3D0 /* GetUsersByFirstLastNameInvocation.m */,
+			);
+			name = "Search People On Soclivity";
+			sourceTree = "<group>";
+		};
+		EACE5F23165B93DA00D1B3D0 /* S11 Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				EACE5F24165B93DA00D1B3D0 /* homeButton.png */,
+				EACE5F25165B93DA00D1B3D0 /* homeButton@2x.png */,
+				EACE5F2B165B93DA00D1B3D0 /* S11_calendarIcon.png */,
+				EACE5F2C165B93DA00D1B3D0 /* S11_calendarIcon@2x.png */,
+				EACE5F2D165B93DA00D1B3D0 /* S11_cancelLogo.png */,
+				EACE5F2E165B93DA00D1B3D0 /* S11_cancelLogo@2x.png */,
+				EACE5F2F165B93DA00D1B3D0 /* S11_clockLogo.png */,
+				EACE5F30165B93DA00D1B3D0 /* S11_clockLogo@2x.png */,
+				EACE5F31165B93DA00D1B3D0 /* S11_divider.png */,
+				EACE5F32165B93DA00D1B3D0 /* S11_divider@2x.png */,
+				EACE5F33165B93DA00D1B3D0 /* S11_goingButton.png */,
+				EACE5F34165B93DA00D1B3D0 /* S11_goingButton@2x.png */,
+				EACE5F35165B93DA00D1B3D0 /* S11_infoChangeIcon.png */,
+				EACE5F36165B93DA00D1B3D0 /* S11_infoChangeIcon@2x.png */,
+				EACE5F37165B93DA00D1B3D0 /* S11_joinAcceptButton.png */,
+				EACE5F38165B93DA00D1B3D0 /* S11_joinAcceptButton@2x.png */,
+				EACE5F39165B93DA00D1B3D0 /* S11_joinDeclineButton.png */,
+				EACE5F3A165B93DA00D1B3D0 /* S11_joinDeclineButton@2x.png */,
+				EACE5F3B165B93DA00D1B3D0 /* S11_locationIcon.png */,
+				EACE5F3C165B93DA00D1B3D0 /* S11_locationIcon@2x.png */,
+				EACE5F3D165B93DA00D1B3D0 /* S11_logoFaded.png */,
+				EACE5F3E165B93DA00D1B3D0 /* S11_logoFaded@2x.png */,
+				EACE5F3F165B93DA00D1B3D0 /* S11_noNotfications.png */,
+				EACE5F40165B93DA00D1B3D0 /* S11_noNotfications@2x.png */,
+				EACE5F41165B93DA00D1B3D0 /* S11_notGoingButton.png */,
+				EACE5F42165B93DA00D1B3D0 /* S11_notGoingButton@2x.png */,
+			);
+			name = "S11 Notifications";
+			path = "Soclivity/S11 Notifications";
 			sourceTree = "<group>";
 		};
 		EADC51D316253B2F00772D41 /* Popup Pickers */ = {
@@ -3815,6 +3920,32 @@
 				EAE55A77164285440038B1F6 /* S10_organized@2x.png in Resources */,
 				EAE55A78164285440038B1F6 /* S10_organizedHighlighted.png in Resources */,
 				EAE55A79164285440038B1F6 /* S10_organizedHighlighted@2x.png in Resources */,
+				EACE5F43165B93DA00D1B3D0 /* homeButton.png in Resources */,
+				EACE5F44165B93DA00D1B3D0 /* homeButton@2x.png in Resources */,
+				EACE5F4A165B93DA00D1B3D0 /* S11_calendarIcon.png in Resources */,
+				EACE5F4B165B93DA00D1B3D0 /* S11_calendarIcon@2x.png in Resources */,
+				EACE5F4C165B93DA00D1B3D0 /* S11_cancelLogo.png in Resources */,
+				EACE5F4D165B93DA00D1B3D0 /* S11_cancelLogo@2x.png in Resources */,
+				EACE5F4E165B93DA00D1B3D0 /* S11_clockLogo.png in Resources */,
+				EACE5F4F165B93DA00D1B3D0 /* S11_clockLogo@2x.png in Resources */,
+				EACE5F50165B93DA00D1B3D0 /* S11_divider.png in Resources */,
+				EACE5F51165B93DA00D1B3D0 /* S11_divider@2x.png in Resources */,
+				EACE5F52165B93DA00D1B3D0 /* S11_goingButton.png in Resources */,
+				EACE5F53165B93DA00D1B3D0 /* S11_goingButton@2x.png in Resources */,
+				EACE5F54165B93DA00D1B3D0 /* S11_infoChangeIcon.png in Resources */,
+				EACE5F55165B93DA00D1B3D0 /* S11_infoChangeIcon@2x.png in Resources */,
+				EACE5F56165B93DA00D1B3D0 /* S11_joinAcceptButton.png in Resources */,
+				EACE5F57165B93DA00D1B3D0 /* S11_joinAcceptButton@2x.png in Resources */,
+				EACE5F58165B93DA00D1B3D0 /* S11_joinDeclineButton.png in Resources */,
+				EACE5F59165B93DA00D1B3D0 /* S11_joinDeclineButton@2x.png in Resources */,
+				EACE5F5A165B93DA00D1B3D0 /* S11_locationIcon.png in Resources */,
+				EACE5F5B165B93DA00D1B3D0 /* S11_locationIcon@2x.png in Resources */,
+				EACE5F5C165B93DA00D1B3D0 /* S11_logoFaded.png in Resources */,
+				EACE5F5D165B93DA00D1B3D0 /* S11_logoFaded@2x.png in Resources */,
+				EACE5F5E165B93DA00D1B3D0 /* S11_noNotfications.png in Resources */,
+				EACE5F5F165B93DA00D1B3D0 /* S11_noNotfications@2x.png in Resources */,
+				EACE5F60165B93DA00D1B3D0 /* S11_notGoingButton.png in Resources */,
+				EACE5F61165B93DA00D1B3D0 /* S11_notGoingButton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3963,6 +4094,8 @@
 				EAE55A59164237F50038B1F6 /* GetUpcomingActivitiesInvocation.m in Sources */,
 				EABEAA1F1644DDBD004C686C /* GetUserProfileInfoInvocation.m in Sources */,
 				EABEAA221644E9B4004C686C /* SocPlayerClass+Parse.m in Sources */,
+				EACE5F1E165B823F00D1B3D0 /* GetUsersByFirstLastNameInvocation.m in Sources */,
+				EACE5F21165B89F100D1B3D0 /* WaitingOnYouView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

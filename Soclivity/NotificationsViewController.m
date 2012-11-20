@@ -7,7 +7,7 @@
 //
 
 #import "NotificationsViewController.h"
-
+#import "SoclivityUtilities.h"
 @implementation NotificationsViewController
 @synthesize delegate;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -32,6 +32,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
+    
+    waitingOnYouLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
+    waitingOnYouLabel.textColor=[UIColor whiteColor];
+    waitingOnYouLabel.backgroundColor=[UIColor clearColor];
+    waitingOnYouLabel.shadowColor = [UIColor blackColor];
+    waitingOnYouLabel.shadowOffset = CGSizeMake(0,-1);
+
+    // for No Notifications
     // Do any additional setup after loading the view from its nib.
 }
 -(IBAction)profileSliderPressed:(id)sender{
