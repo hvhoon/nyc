@@ -116,7 +116,6 @@
             break;
     }
     
-    playerObject.DOS=1; //for testing
     
     if(playerObject.DOS==1)
         [self.view addSubview:[self SetupHeaderView]];

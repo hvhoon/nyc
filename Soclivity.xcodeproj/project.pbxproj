@@ -546,6 +546,11 @@
 		EACE5F5F165B93DA00D1B3D0 /* S11_noNotfications@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F40165B93DA00D1B3D0 /* S11_noNotfications@2x.png */; };
 		EACE5F60165B93DA00D1B3D0 /* S11_notGoingButton.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F41165B93DA00D1B3D0 /* S11_notGoingButton.png */; };
 		EACE5F61165B93DA00D1B3D0 /* S11_notGoingButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F42165B93DA00D1B3D0 /* S11_notGoingButton@2x.png */; };
+		EACE5F63165B9A7C00D1B3D0 /* Notifications.plist in Resources */ = {isa = PBXBuildFile; fileRef = EACE5F62165B9A7C00D1B3D0 /* Notifications.plist */; };
+		EACE5F6C165B9E4600D1B3D0 /* AttributedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EACE5F69165B9E4200D1B3D0 /* AttributedTableViewCell.m */; };
+		EACE5F6D165B9E4600D1B3D0 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = EACE5F6B165B9E4400D1B3D0 /* TTTAttributedLabel.m */; };
+		EACE5F70165BA0C100D1B3D0 /* NotificationClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EACE5F6F165BA0C100D1B3D0 /* NotificationClass.m */; };
+		EACE5F72165BA43400D1B3D0 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EACE5F71165BA43400D1B3D0 /* CoreText.framework */; };
 		EAD0D6CF15E74A89009865D7 /* ActivityInvitesView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD0D6CE15E74A89009865D7 /* ActivityInvitesView.m */; };
 		EAD0D6D615E762C8009865D7 /* Invites.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAD0D6D515E762C8009865D7 /* Invites.plist */; };
 		EAD0D6DC15E76660009865D7 /* InviteObjectClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD0D6DB15E7665F009865D7 /* InviteObjectClass.m */; };
@@ -1448,6 +1453,14 @@
 		EACE5F40165B93DA00D1B3D0 /* S11_noNotfications@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S11_noNotfications@2x.png"; sourceTree = "<group>"; };
 		EACE5F41165B93DA00D1B3D0 /* S11_notGoingButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S11_notGoingButton.png; sourceTree = "<group>"; };
 		EACE5F42165B93DA00D1B3D0 /* S11_notGoingButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S11_notGoingButton@2x.png"; sourceTree = "<group>"; };
+		EACE5F62165B9A7C00D1B3D0 /* Notifications.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Notifications.plist; sourceTree = "<group>"; };
+		EACE5F68165B9E4200D1B3D0 /* AttributedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttributedTableViewCell.h; sourceTree = "<group>"; };
+		EACE5F69165B9E4200D1B3D0 /* AttributedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttributedTableViewCell.m; sourceTree = "<group>"; };
+		EACE5F6A165B9E4300D1B3D0 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
+		EACE5F6B165B9E4400D1B3D0 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
+		EACE5F6E165BA0C000D1B3D0 /* NotificationClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationClass.h; sourceTree = "<group>"; };
+		EACE5F6F165BA0C100D1B3D0 /* NotificationClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationClass.m; sourceTree = "<group>"; };
+		EACE5F71165BA43400D1B3D0 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		EAD0D6CD15E74A89009865D7 /* ActivityInvitesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityInvitesView.h; sourceTree = "<group>"; };
 		EAD0D6CE15E74A89009865D7 /* ActivityInvitesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityInvitesView.m; sourceTree = "<group>"; };
 		EAD0D6D515E762C8009865D7 /* Invites.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Invites.plist; sourceTree = "<group>"; };
@@ -1688,6 +1701,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EACE5F72165BA43400D1B3D0 /* CoreText.framework in Frameworks */,
 				EA83D8AC15C2924000C81D4D /* AddressBookUI.framework in Frameworks */,
 				EA13F5D1158C74D7004B8192 /* EventKit.framework in Frameworks */,
 				EA8F65AD1574D4CB00EFAE8A /* MapKit.framework in Frameworks */,
@@ -1759,6 +1773,7 @@
 		680CE3D31551258700B8E937 = {
 			isa = PBXGroup;
 			children = (
+				EACE5F71165BA43400D1B3D0 /* CoreText.framework */,
 				EA3F79851603359600D231B1 /* Default-568h@2x.png */,
 				680CE3E81551258700B8E937 /* Soclivity */,
 				680CE4271551286D00B8E937 /* Resources */,
@@ -1841,6 +1856,7 @@
 		680CE3E91551258700B8E937 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EACE5F62165B9A7C00D1B3D0 /* Notifications.plist */,
 				EAE094D11619A7C8005E69D0 /* Friends.plist */,
 				EABCE22315E7F658005B74E8 /* ContactList.plist */,
 				EAD0D6D515E762C8009865D7 /* Invites.plist */,
@@ -2316,12 +2332,18 @@
 		EA85DC5715AFFF9900AAD964 /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
+				EACE5F68165B9E4200D1B3D0 /* AttributedTableViewCell.h */,
+				EACE5F69165B9E4200D1B3D0 /* AttributedTableViewCell.m */,
+				EACE5F6A165B9E4300D1B3D0 /* TTTAttributedLabel.h */,
+				EACE5F6B165B9E4400D1B3D0 /* TTTAttributedLabel.m */,
 				EA85DC5815AFFFBF00AAD964 /* NotificationsViewController.h */,
 				EA85DC5915AFFFBF00AAD964 /* NotificationsViewController.m */,
 				EA85DC5A15AFFFBF00AAD964 /* NotificationsViewController.xib */,
 				EAC9E41B16136F770062A9A2 /* NotificationsViewController_iphone5.xib */,
 				EACE5F1F165B89F000D1B3D0 /* WaitingOnYouView.h */,
 				EACE5F20165B89F000D1B3D0 /* WaitingOnYouView.m */,
+				EACE5F6E165BA0C000D1B3D0 /* NotificationClass.h */,
+				EACE5F6F165BA0C100D1B3D0 /* NotificationClass.m */,
 			);
 			name = Notifications;
 			sourceTree = "<group>";
@@ -3946,6 +3968,7 @@
 				EACE5F5F165B93DA00D1B3D0 /* S11_noNotfications@2x.png in Resources */,
 				EACE5F60165B93DA00D1B3D0 /* S11_notGoingButton.png in Resources */,
 				EACE5F61165B93DA00D1B3D0 /* S11_notGoingButton@2x.png in Resources */,
+				EACE5F63165B9A7C00D1B3D0 /* Notifications.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4096,6 +4119,9 @@
 				EABEAA221644E9B4004C686C /* SocPlayerClass+Parse.m in Sources */,
 				EACE5F1E165B823F00D1B3D0 /* GetUsersByFirstLastNameInvocation.m in Sources */,
 				EACE5F21165B89F100D1B3D0 /* WaitingOnYouView.m in Sources */,
+				EACE5F6C165B9E4600D1B3D0 /* AttributedTableViewCell.m in Sources */,
+				EACE5F6D165B9E4600D1B3D0 /* TTTAttributedLabel.m in Sources */,
+				EACE5F70165BA0C100D1B3D0 /* NotificationClass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

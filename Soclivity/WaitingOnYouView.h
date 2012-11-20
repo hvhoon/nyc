@@ -7,10 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTTAttributedLabel.h"
 
-@interface WaitingOnYouView : UIView<UITableViewDataSource,UITableViewDelegate>{
+@protocol WaitingOnYouDelegate <NSObject>
+
+@optional
+- (void)pushContactsInvitesScreen;
+@end
+
+@interface WaitingOnYouView : UIView<UITableViewDataSource,UITableViewDelegate,TTTAttributedLabelDelegate>{
     
     UITableView*waitingTableView;
+    NSArray *_espressos;
+    id<WaitingOnYouDelegate>delegate;
 }
-
+@property (nonatomic,retain) NSArray *espressos;
+@property (nonatomic,assign)id<WaitingOnYouDelegate>delegate;
+- (id)initWithFrame:(CGRect)frame andNotificationsListArray:(NSArray*)andNotificationsListArray;
 @end
