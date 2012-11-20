@@ -116,7 +116,7 @@
             break;
     }
     
-    
+    playerObject.DOS=1; //for testing
     
     if(playerObject.DOS==1)
         [self.view addSubview:[self SetupHeaderView]];
@@ -138,7 +138,7 @@
     [commonFriendsTableView setDataSource:self];
     [commonFriendsTableView setRowHeight:kCustomRowHeight];
     commonFriendsTableView.scrollEnabled=YES;
-    commonFriendsTableView.tableHeaderView=[self returnSectionHeader];
+    //commonFriendsTableView.tableHeaderView=[self returnSectionHeader];
     commonFriendsTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
     commonFriendsTableView.separatorColor=[UIColor clearColor];
     commonFriendsTableView.showsVerticalScrollIndicator=YES;
@@ -548,6 +548,8 @@
     
     UpComingCompletedEventsViewController *upComingCompletedEventsViewController=[[UpComingCompletedEventsViewController alloc] initWithNibName:nibNameBundle bundle:nil];
     upComingCompletedEventsViewController.isNotSettings=TRUE;
+    upComingCompletedEventsViewController.isNotLoggedInUser=TRUE;
+    upComingCompletedEventsViewController.player2Id=playerObject.friendId;
     [[self navigationController] pushViewController:upComingCompletedEventsViewController animated:YES];
     [upComingCompletedEventsViewController release];
 
@@ -677,7 +679,7 @@
     return kCustomRowHeight;
 }
 
-#if 0
+#if 1
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return kSectionHeaderHeight;

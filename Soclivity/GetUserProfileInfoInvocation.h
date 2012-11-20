@@ -26,5 +26,4 @@
 @property (nonatomic,assign) NSInteger playerId;
 @property (nonatomic,assign) NSInteger friendId;
 
-
 @end

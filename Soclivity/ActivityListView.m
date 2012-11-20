@@ -629,7 +629,7 @@
         case 4:
         {
             sortType=5;
-             self.plays = [[self.plays reverseObjectEnumerator] allObjects];
+            self.plays = [[self.plays reverseObjectEnumerator] allObjects];
         }
             break;
     }

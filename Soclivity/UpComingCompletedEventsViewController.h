@@ -34,9 +34,13 @@
     NSArray *invitedToArray;
     NSArray *compeletedArray;
     NSArray *goingToArray;
+    BOOL isNotLoggedInUser;
+    NSInteger player2Id;
 }
 @property (nonatomic,retain)id <UpcomingCompletedEvnetsViewDelegate>delegate;
 @property (nonatomic,retain) ActivityListView *activityListView;
+@property (nonatomic,assign)NSInteger player2Id;
+@property (nonatomic,assign) BOOL isNotLoggedInUser;
 @property(nonatomic,assign)BOOL isNotSettings;
 @property (nonatomic,retain)NSArray *myActivitiesArray;
 @property (nonatomic,retain)NSArray *invitedToArray;

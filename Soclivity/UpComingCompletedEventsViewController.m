@@ -22,7 +22,7 @@
 
 @implementation UpComingCompletedEventsViewController
 @synthesize delegate,activityListView,isNotSettings,myActivitiesArray,invitedToArray,compeletedArray,goingToArray;
-
+@synthesize isNotLoggedInUser,player2Id;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -77,6 +77,9 @@
     [self.view addSubview:organizedButton];
 
     
+    
+    if(!isNotLoggedInUser){
+        
     invitedButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     invitedButton.frame = CGRectMake(90.2, 50, 68, 27);
     [invitedButton setTitle:@"Invited" forState:UIControlStateNormal];
@@ -87,7 +90,7 @@
     [invitedButton addTarget:self action:@selector(invitedButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:invitedButton];
 
-
+    }
 
     
     goingButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -113,7 +116,11 @@
     [completedButton addTarget:self action:@selector(completedButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:completedButton];
 
-
+    if(isNotLoggedInUser){
+            organizedButton.frame = CGRectMake(29, 50, 71, 27);
+            goingButton.frame = CGRectMake(129, 50, 58, 27);
+            completedButton.frame = CGRectMake(216, 50, 75, 27);
+    }
 
     activityListView.delegate=self;
     [activityListView LoadTable];
@@ -294,6 +301,7 @@
         SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
         myClass.playerName=detailedInfo.organizerName;
         myClass.DOS=detailedInfo.DOS;
+        myClass.friendId=detailedInfo.organizerId;
         myClass.activityId=detailedInfo.activityId;
         myClass.latestActivityName=detailedInfo.activityName;
         myClass.activityType=detailedInfo.type;
@@ -333,10 +341,17 @@
     
     [[NSUserDefaults standardUserDefaults] setValue:currentTime forKey:@"SOCActivityTimeUpdate"];
     
+    if(isNotLoggedInUser){
+        [devServer getUpcomingActivitiesForUserInvocation:[SOC.loggedInUser.idSoc intValue] player2:player2Id delegate:self];
+
+        
+    }
+    else{
+    
     
     [devServer getUpcomingActivitiesForUserInvocation:[SOC.loggedInUser.idSoc intValue] player2:[SOC.loggedInUser.idSoc intValue] delegate:self];
     
-    
+    }
     
 
 }

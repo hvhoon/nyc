@@ -29,7 +29,8 @@
     if (self != nil) {
         
         // Set up the tap gesture recognizer.
-        
+        SoclivityManager *SOC=[SoclivityManager SharedInstance];
+
         UIView *touchAllowedView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 94)];
         [self addSubview:touchAllowedView];
         [touchAllowedView release];
@@ -100,8 +101,15 @@
         ogButton.tag=[[NSString stringWithFormat:@"222%d",section]intValue];
         
         NSString *OrganizerName=nil;
-        if(sortingPattern==kSortOrganizesByYou)
-            OrganizerName=@"Organized by You";
+        if(sortingPattern==kSortOrganizesByYou){
+            if([SOC.loggedInUser.idSoc intValue]==detailSectionInfo.organizerId){
+                OrganizerName=@"Organized by You";
+                
+            }
+            else{
+                OrganizerName=detailSectionInfo.organizerName;
+            }
+        }
         
         else
             OrganizerName=detailSectionInfo.organizerName;
@@ -126,7 +134,6 @@
         ogButton.enabled=NO;
         
         
-        SoclivityManager *SOC=[SoclivityManager SharedInstance];
         NSLog(@"playerId=%d",playerId);
         if(sortingPattern==kSortCompletedByTime){
             if([SOC.loggedInUser.idSoc intValue]!=playerId){
