@@ -154,7 +154,7 @@
     
     
     NSString *photoUrl=[ACTDict objectForKey:@"owner_photo"];
-    play.ownerProfilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",photoUrl];
+    play.ownerProfilePhotoUrl=[NSString stringWithFormat:@"http://%@%@",ProductionServer,photoUrl];
     NSString*relation=[ACTDict objectForKey:@"ura_member"];
     
     if([relation isEqualToString:@"yes"]){
@@ -174,7 +174,7 @@
         pObject.participantId=[participantId intValue];
         pObject.dosConnection=1;
         pObject.name=[obj objectForKey:@"name"];
-        pObject.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[obj objectForKey:@"photo"]];
+        pObject.photoUrl=[NSString stringWithFormat:@"http://%@%@",ProductionServer,[obj objectForKey:@"photo"]];
         [DOS1Array addObject:pObject];
         
     }
@@ -191,7 +191,7 @@
         pObject.participantId=[participantId intValue];
         pObject.dosConnection=2;
         pObject.name=[object objectForKey:@"name"];
-        pObject.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[object objectForKey:@"photo"]];
+        pObject.photoUrl=[NSString stringWithFormat:@"http://%@%@",ProductionServer,[object objectForKey:@"photo"]];
         [DOS2Array addObject:pObject];
         
     }
@@ -209,7 +209,7 @@
         NSNumber *dos = [object objectForKey:@"dos"];
         pObject.dosConnection=[dos intValue];
         pObject.name=[object objectForKey:@"name"];
-        pObject.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[object objectForKey:@"photo"]];
+        pObject.photoUrl=[NSString stringWithFormat:@"http://%@%@",ProductionServer,[object objectForKey:@"photo"]];
         [pendingMembersArray addObject:pObject];
         
     }
@@ -227,7 +227,7 @@
         pObject.participantId=[participantId intValue];
         pObject.dosConnection=3;
         pObject.name=[object objectForKey:@"name"];
-        pObject.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[object objectForKey:@"photo"]];
+        pObject.photoUrl=[NSString stringWithFormat:@"http://%@%@",ProductionServer,[object objectForKey:@"photo"]];
         [DOS3FriendsArray addObject:pObject];
         
     }

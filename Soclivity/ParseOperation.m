@@ -262,7 +262,7 @@
             mappedKey=nil;
         }
         else if([mappedKey isEqualToString:@"photo_url"]){
-            self.playerObject.profileImageUrl = [NSString stringWithFormat:@"http://dev.soclivity.com%@",string];
+            self.playerObject.profileImageUrl = [NSString stringWithFormat:@"http://%@%@",ProductionServer,string];
             
             mappedKey=nil;
 

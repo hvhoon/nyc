@@ -24,7 +24,7 @@
     switch (relationshipId) {
       case 1:
         {
-            a= [NSString stringWithFormat:@"dev.soclivity.com/joinactivity.json?id=%d&pid=%d&pstatus=true",activityId,playerId];
+            a= [NSString stringWithFormat:@"%@/joinactivity.json?id=%d&pid=%d&pstatus=true",ProductionServer,activityId,playerId];
                 [self post:a body:nil];
         }
             break;
@@ -33,7 +33,7 @@
       case 5:
       case 3:
         {
-            a= [NSString stringWithFormat:@"dev.soclivity.com/leaveactivity.json?id=%d&pid=%d&pstatus=true",activityId,playerId];
+            a= [NSString stringWithFormat:@"%@/leaveactivity.json?id=%d&pid=%d&pstatus=true",ProductionServer,activityId,playerId];
             [self post:a body:nil];
         }
             break;
@@ -43,7 +43,7 @@
       case 8:
       case 9:
         {
-            a= [NSString stringWithFormat:@"dev.soclivity.com/leaveactivity.json?id=%d&pid=%d&astatus=true",activityId,playerId];
+            a= [NSString stringWithFormat:@"%@/leaveactivity.json?id=%d&pid=%d&astatus=true",ProductionServer,activityId,playerId];
             [self post:a body:nil];
         }
             break;
@@ -52,28 +52,28 @@
             
     case 4:
         {
-            a= [NSString stringWithFormat:@"dev.soclivity.com/joinactivity.json?id=%d&pid=%d&pstatus=true",activityId,playerId];
+            a= [NSString stringWithFormat:@"%@/joinactivity.json?id=%d&pid=%d&pstatus=true",ProductionServer,activityId,playerId];
             [self put:a body:nil];
         }
             break;
 
     case 7:
         {
-            a= [NSString stringWithFormat:@"dev.soclivity.com/joinactivity.json?id=%d&pid=%d&astatus=true",activityId,playerId];
+            a= [NSString stringWithFormat:@"%@/joinactivity.json?id=%d&pid=%d&astatus=true",ProductionServer,activityId,playerId];
                 [self put:a body:nil];
         }
             break;
             
     case 10:
         {
-            a= [NSString stringWithFormat:@"dev.soclivity.com/activities/%d.json",activityId];
+            a= [NSString stringWithFormat:@"%@/activities/%d.json",ProductionServer,activityId];
             [self delete:a];
         }
             break;
             
         case 11:
         {
-            a= [NSString stringWithFormat:@"dev.soclivity.com/joinactivity.json?id=%d&pid=%d&astatus=true",activityId,playerId];
+            a= [NSString stringWithFormat:@"%@/joinactivity.json?id=%d&pid=%d&astatus=true",ProductionServer,activityId,playerId];
             [self post:a body:nil];
         }
             break;

@@ -32,7 +32,7 @@
             play.typeOfRelation= [n intValue];
             NSNumber * DOS = [friend objectForKey:@"DOS"];
             play.DOS= [DOS intValue];
-            play.profilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[friend objectForKey:@"profilePhotoUrl"]];
+            play.profilePhotoUrl=[NSString stringWithFormat:@"http://%@%@",ProductionServer,[friend objectForKey:@"profilePhotoUrl"]];
             
             
             [entries addObject:play];

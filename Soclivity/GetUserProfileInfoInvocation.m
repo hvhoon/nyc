@@ -20,7 +20,7 @@
 
 -(void)invoke {
     
-    NSString*a= [NSString stringWithFormat:@"dev.soclivity.com/mutualfriends.json?pid=%d&fid=%d",playerId,friendId];
+    NSString*a= [NSString stringWithFormat:@"%@/mutualfriends.json?pid=%d&fid=%d",ProductionServer,playerId,friendId];
     
     [self get:a];
 }
