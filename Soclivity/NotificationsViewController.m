@@ -40,7 +40,7 @@
     waitingOnYouLabel.shadowColor = [UIColor blackColor];
     waitingOnYouLabel.shadowOffset = CGSizeMake(0,-1);
 
-#if 1
+#if 0
     self.view.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
     notificationImageView.hidden=NO;
     socFadedImageView.hidden=NO;
