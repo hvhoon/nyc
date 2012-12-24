@@ -112,6 +112,8 @@ void uncaughtExceptionHandler(NSException *exception) {
     token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
     token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
     
+    [[NSUserDefaults standardUserDefaults] setValue:token forKey:@"device_token"];
+    
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
