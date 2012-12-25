@@ -9,7 +9,7 @@
 #import "NotificationClass.h"
 
 @implementation NotificationClass
-@synthesize notificationString,type,profileImage,date;
+@synthesize notificationString,type,profileImage,date,count;
 
 
 
@@ -18,6 +18,7 @@
     [notificationString release];
     [date release];
     [profileImage release];
+    [count release];
 }
 
 @end

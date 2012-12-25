@@ -12,11 +12,15 @@
     NSString *notificationString;
     NSInteger type;
     NSString *date;
-    UIImage *profileImage;
+    //UIImage *profileImage;
+    NSString *profileImage;
+    NSString *count;
 }
 @property (nonatomic,retain)NSString *notificationString;
 @property (nonatomic,retain)NSString *date;
-@property (nonatomic,retain)UIImage *profileImage;
+//@property (nonatomic,retain)UIImage *profileImage;
+@property (nonatomic,retain)NSString *profileImage;
 @property (nonatomic,assign)NSInteger type;
+@property (nonatomic,assign)NSString *count;
 
 @end
