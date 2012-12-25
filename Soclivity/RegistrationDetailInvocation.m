@@ -102,6 +102,11 @@
     NSLog(@"bodyDataJSONRepresentation=%@",[bodyD JSONRepresentation]);
     if(player.profileImageData!=nil)
     [bodyD setObject:[Base64 encode:player.profileImageData] forKey:@"photo_data"];
+    
+    if([[NSUserDefaults standardUserDefaults] valueForKey:@"device_token"]!=NULL)
+    {
+        [bodyD setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"device_token"]  forKey:@"device_token"];
+    }//END if([[NSUserDefaults standardUserDefaults] valueForKey:@"device_token"]!=NULL)
 
     NSString *bodyData = [NSString stringWithFormat:@"{\"player\":%@}",[bodyD JSONRepresentation]];
      NSLog(@"bodyData=%@",bodyData);

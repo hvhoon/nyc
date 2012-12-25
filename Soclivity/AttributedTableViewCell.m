@@ -3,17 +3,21 @@
 #import <QuartzCore/QuartzCore.h>
 #import "AttributedTableViewCell.h"
 #import "TTTAttributedLabel.h"
+#import "SoclivityUtilities.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
-static CGFloat const kEspressoDescriptionTextFontSize = 17;
+//static CGFloat const kEspressoDescriptionTextFontSize = 17;
+static CGFloat const kEspressoDescriptionTextFontSize = 15;
 static CGFloat const kAttributedTableViewCellVerticalMargin = 20.0f;
 
 static NSRegularExpression *__nameRegularExpression;
 static inline NSRegularExpression * NameRegularExpression() {
     if (!__nameRegularExpression) {
-        __nameRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"^\\w+" options:NSRegularExpressionCaseInsensitive error:nil];
+       // __nameRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"^\\w+" options:NSRegularExpressionCaseInsensitive error:nil];
+        
+        __nameRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"#([^#(#)]+#)" options:NSRegularExpressionCaseInsensitive error:nil];
     }
     
     return __nameRegularExpression;
@@ -31,6 +35,7 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
 @implementation AttributedTableViewCell
 @synthesize summaryText = _summaryText;
 @synthesize summaryLabel = _summaryLabel;
+@synthesize lbltime,timeText,hashCount,notifytype;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -43,10 +48,12 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
     
     self.summaryLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
     self.summaryLabel.font = [UIFont systemFontOfSize:kEspressoDescriptionTextFontSize];
-    self.summaryLabel.textColor = [UIColor darkGrayColor];
+     self.summaryLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     self.summaryLabel.lineBreakMode = UILineBreakModeWordWrap;
     self.summaryLabel.numberOfLines = 0;
-    self.summaryLabel.linkAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:(NSString *)kCTUnderlineStyleAttributeName];
+    
+    //no need
+    /*self.summaryLabel.linkAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:(NSString *)kCTUnderlineStyleAttributeName];
     
     NSMutableDictionary *mutableActiveLinkAttributes = [NSMutableDictionary dictionary];
     [mutableActiveLinkAttributes setValue:(id)[[UIColor redColor] CGColor] forKey:(NSString *)kCTForegroundColorAttributeName];
@@ -56,13 +63,23 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
     [mutableActiveLinkAttributes setValue:(id)[NSNumber numberWithFloat:1.0f] forKey:(NSString *)kTTTBackgroundLineWidthAttributeName];
     [mutableActiveLinkAttributes setValue:(id)[NSNumber numberWithFloat:5.0f] forKey:(NSString *)kTTTBackgroundCornerRadiusAttributeName];
     self.summaryLabel.activeLinkAttributes = mutableActiveLinkAttributes;
-
+*/
     
     self.summaryLabel.highlightedTextColor = [UIColor whiteColor];
     self.summaryLabel.shadowColor = [UIColor colorWithWhite:0.87 alpha:1.0];
     self.summaryLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
     self.summaryLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
-
+    
+    self.lbltime=[[UILabel alloc] init];
+    self.lbltime.textColor=[SoclivityUtilities returnTextFontColor:5];
+    self.lbltime.font = [UIFont systemFontOfSize:kEspressoDescriptionTextFontSize];
+    self.lbltime.lineBreakMode = UILineBreakModeWordWrap;
+    self.lbltime.numberOfLines = 0;
+    self.lbltime.highlightedTextColor = [UIColor whiteColor];
+    self.lbltime.shadowColor = [UIColor colorWithWhite:0.87 alpha:1.0];
+    self.lbltime.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    
+    [self.contentView addSubview:self.lbltime];
     [self.contentView addSubview:self.summaryLabel];
     
     return self;
@@ -74,7 +91,7 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
     _summaryText = [text copy];
     [self didChangeValueForKey:@"summaryText"];
     
-    [self.summaryLabel setText:self.summaryText afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
+    /*[self.summaryLabel setText:self.summaryText afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
         NSRange stringRange = NSMakeRange(0, [mutableAttributedString length]);
         
         NSRegularExpression *regexp = NameRegularExpression();
@@ -110,6 +127,48 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
     NSRange linkRange = [regexp rangeOfFirstMatchInString:self.summaryText options:0 range:NSMakeRange(0, [self.summaryText length])];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://en.wikipedia.org/wiki/%@", [self.summaryText substringWithRange:linkRange]]];
     [self.summaryLabel addLinkToURL:url withRange:linkRange];
+     
+     */
+    
+    [self.summaryLabel setText:self.summaryText afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
+        NSRange stringRange = NSMakeRange(0, [mutableAttributedString length]);
+        
+        NSRegularExpression *regexp = NameRegularExpression();
+        
+        [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+            
+            UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:kEspressoDescriptionTextFontSize];
+            CTFontRef boldFont = CTFontCreateWithName(( CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
+            
+            if (boldFont) {
+                [mutableAttributedString removeAttribute:(NSString *)kCTFontAttributeName range:result.range];
+                [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:( id)boldFont range:result.range];
+                CFRelease(boldFont);
+                
+                [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:result.range];
+                [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor darkGrayColor] CGColor] range:result.range];
+            }
+            
+            
+        }];
+        
+        for (int i=0; i<self.hashCount; i++)
+        {
+            NSRange range = [[mutableAttributedString string] rangeOfString:@"#"];
+            
+            [mutableAttributedString replaceCharactersInRange:NSMakeRange(range.location, 1) withString:@""];
+            
+        }//END for (int i=0; i<[Splitarray count]; i++)
+        
+        return mutableAttributedString;
+    }];
+
+}
+
+- (void)setTimeText:(NSString *)text {
+
+    self.lbltime.text=text;
+    self.lbltime.font=[UIFont fontWithName:@"Helvetica-Condesed" size:12.0];
 }
 
 + (CGFloat)heightForCellWithText:(NSString *)text {
@@ -125,8 +184,24 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
     [super layoutSubviews];
     self.textLabel.hidden = YES;
     self.detailTextLabel.hidden = YES;
-        
-    self.summaryLabel.frame = CGRectOffset(CGRectInset(self.bounds, 20.0f, 5.0f), -10.0f, 0.0f);
+    
+    CGSize img_Size;
+    
+    for (UIImageView *img_vw in self.subviews)
+    {
+        if ([img_vw isKindOfClass:[UIImageView class]])
+        {
+            img_Size = [img_vw.image size];
+        }//END if ([img_vw isKindOfClass:[UIImageView class]])
+    }//END for (UIImageView *img_vw in self.subviews)
+    
+    CGRect rect1=CGRectMake(0, 10, 345, [AttributedTableViewCell heightForCellWithText:self.summaryText]-10);
+    CGRect rect2=CGRectMake(0, self.summaryLabel.frame.size.height+5, 345, 35);
+    
+    self.summaryLabel.frame =  CGRectOffset(CGRectInset(rect1, 60, 5.0f), 0.0f, 0.0f);
+    self.lbltime.frame=CGRectOffset(CGRectInset(rect2, 60, 5.0f), 0.0f, 0.0f);
+    
+   // self.summaryLabel.frame = CGRectOffset(CGRectInset(self.bounds, 20.0f, 5.0f), -10.0f, 0.0f);
 }
 
 @end

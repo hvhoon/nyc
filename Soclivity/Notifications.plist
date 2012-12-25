@@ -4,11 +4,135 @@
 <array>
 	<dict>
 		<key>Notification</key>
-		<string>Your friend Raghav Misra joined Soclivity</string>
+		<string>Your friend #Raghav Misra# joined #Soclivity#</string>
 		<key>type</key>
 		<integer>1</integer>
 		<key>Date</key>
-		<string>2012-06-18T12:25:36Z</string>
+		<string>Today, 10:15AM</string>
+		<key>ImageName</key>
+		<string>Raghav.png</string>
+		<key>Count</key>
+		<string>4</string>
+	</dict>
+	<dict>
+		<key>Notification</key>
+		<string>The location for #Tennis in Midtown# has changed</string>
+		<key>type</key>
+		<integer>2</integer>
+		<key>Date</key>
+		<string>Yesterday, 12:30PM</string>
+		<key>ImageName</key>
+		<string>S11_locationIcon.png</string>
+		<key>Count</key>
+		<string>2</string>
+	</dict>
+	<dict>
+		<key>Notification</key>
+		<string>The date for #Tennis in Midtown# has changed</string>
+		<key>type</key>
+		<integer>3</integer>
+		<key>Date</key>
+		<string>Sat, Oct 6, 10:15AM</string>
+		<key>ImageName</key>
+		<string>S11_calendarIcon.png</string>
+		<key>Count</key>
+		<string>2</string>
+	</dict>
+	<dict>
+		<key>Notification</key>
+		<string>#Running in Central Park# has been canceled</string>
+		<key>type</key>
+		<integer>4</integer>
+		<key>Date</key>
+		<string>Sat, Oct 6, 9:00AM</string>
+		<key>ImageName</key>
+		<string>S11_cancelLogo.png</string>
+		<key>Count</key>
+		<string>2</string>
+	</dict>
+	<dict>
+		<key>Notification</key>
+		<string>#Raghav Misra# posted a message in #Ronnie&apos;s Birthday#</string>
+		<key>type</key>
+		<integer>5</integer>
+		<key>Date</key>
+		<string>Today, 10:15AM</string>
+		<key>ImageName</key>
+		<string>Raghav.png</string>
+		<key>Count</key>
+		<string>4</string>
+	</dict>
+	<dict>
+		<key>Notification</key>
+		<string>#Raunak Shah# posted an image in #Pie Eating Contest#</string>
+		<key>type</key>
+		<integer>6</integer>
+		<key>Date</key>
+		<string>Yesterday, 12:30PM</string>
+		<key>ImageName</key>
+		<string>Raunak.png</string>
+		<key>Count</key>
+		<string>4</string>
+	</dict>
+	<dict>
+		<key>Notification</key>
+		<string>#Avinash Thadani# has invited you to #Bourne Movie Marathon#</string>
+		<key>type</key>
+		<integer>7</integer>
+		<key>Date</key>
+		<string>Sat, Oct 6, 10:15AM</string>
+		<key>ImageName</key>
+		<string>Avinash.png</string>
+		<key>Count</key>
+		<string>4</string>
+	</dict>
+	<dict>
+		<key>Notification</key>
+		<string>Running in #Central Park# is now called #Running in Bryant Park#</string>
+		<key>type</key>
+		<integer>8</integer>
+		<key>Date</key>
+		<string>Sat, Oct 6, 9:00AM</string>
+		<key>ImageName</key>
+		<string>S11_infoChangeIcon.png</string>
+		<key>Count</key>
+		<string>4</string>
+	</dict>
+	<dict>
+		<key>Notification</key>
+		<string>#Raunak Shah# left #Running in Central Park#</string>
+		<key>type</key>
+		<integer>9</integer>
+		<key>Date</key>
+		<string>Today, 10:15AM</string>
+		<key>ImageName</key>
+		<string>Raunak.png</string>
+		<key>Count</key>
+		<string>4</string>
+	</dict>
+	<dict>
+		<key>Notification</key>
+		<string>#Raunak Shah# posted an image in #Pie Eating Contest#</string>
+		<key>type</key>
+		<integer>10</integer>
+		<key>Date</key>
+		<string>Yesterday, 12:30PM</string>
+		<key>ImageName</key>
+		<string>Raunak.png</string>
+		<key>Count</key>
+		<string>4</string>
+	</dict>
+	<dict>
+		<key>Notification</key>
+		<string>#Raghav Misra# would like to join #Tennis in Midtown#</string>
+		<key>type</key>
+		<integer>11</integer>
+		<key>Date</key>
+		<string>Sat, Oct 6, 10:15AM</string>
+		<key>ImageName</key>
+		<string>Raghav.png</string>
+		<key>Count</key>
+		<string>4</string>
 	</dict>
 </array>
 </plist>

@@ -23,5 +23,7 @@
 }
 @property (nonatomic,retain) NSArray *espressos;
 @property (nonatomic,assign)id<WaitingOnYouDelegate>delegate;
+@property (nonatomic, retain)UIImageView *img_vw;
+
 - (id)initWithFrame:(CGRect)frame andNotificationsListArray:(NSArray*)andNotificationsListArray;
 @end

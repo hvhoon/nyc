@@ -79,11 +79,13 @@
         play.notificationString = [playDictionary objectForKey:@"Notification"];
         NSNumber * n = [playDictionary objectForKey:@"type"];
         play.type= [n intValue];
-        play.date = [playDictionary objectForKey:@"date"];
+        play.date = [playDictionary objectForKey:@"Date"];
+        play.profileImage = [playDictionary objectForKey:@"ImageName"];
+        play.count = [playDictionary objectForKey:@"Count"];
         
         NSLog(@"Value=%d",[n intValue]);
         
-        switch (play.type) {
+        /*switch (play.type) {
             case 0:
             {
             }
@@ -100,7 +102,7 @@
             }
                 break;
                 
-        }
+        }*/
         [content addObject:play];
         
     }

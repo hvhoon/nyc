@@ -11,7 +11,7 @@
 #import "AttributedTableViewCell.h"
 #import "NotificationClass.h"
 @implementation WaitingOnYouView
-@synthesize espressos = _espressos,delegate;
+@synthesize espressos = _espressos,delegate,img_vw;
 - (id)initWithFrame:(CGRect)frame andNotificationsListArray:(NSArray*)andNotificationsListArray
 
 {
@@ -25,21 +25,19 @@
             activityTableRect=CGRectMake(0, 0, 320, 332+88+44);
         
         else
-            activityTableRect=CGRectMake(0, 0, 320, 332+44);
+            activityTableRect=CGRectMake(0, 0, 320, 332+49);
         
         
         waitingTableView=[[UITableView alloc]initWithFrame:activityTableRect];
         [waitingTableView setDelegate:self];
         [waitingTableView setDataSource:self];
         waitingTableView.scrollEnabled=YES;
-        waitingTableView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
-        waitingTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
-        waitingTableView.separatorColor=[UIColor clearColor];
+        waitingTableView.backgroundColor=[SoclivityUtilities returnTextFontColor:10];
+        waitingTableView.separatorStyle=UITableViewCellSeparatorStyleSingleLine; //UITableViewCellSeparatorStyleNone;
+        waitingTableView.separatorColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"S11_divider.png"]]; //[UIColor clearColor];
         waitingTableView.showsVerticalScrollIndicator=YES;
         [self addSubview:waitingTableView];
         waitingTableView.clipsToBounds=YES;
-        
-        
         
     }
     return self;
@@ -52,23 +50,74 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NotificationClass *notif=[self.espressos objectAtIndex:indexPath.row];
-    return [AttributedTableViewCell heightForCellWithText:notif.notificationString];
+   // NotificationClass *notif=[self.espressos objectAtIndex:indexPath.row];
+    //return [AttributedTableViewCell heightForCellWithText:notif.notificationString];
+    
+    return 85;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
     
     AttributedTableViewCell *cell = (AttributedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
+    //if (cell == nil) {
         cell = [[AttributedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
+       // cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+   // }
     cell.backgroundColor=[UIColor whiteColor];
     NotificationClass *notif=[self.espressos objectAtIndex:indexPath.row];
-    cell.summaryText = notif.notificationString;
+    cell.hashCount=[notif.count intValue];
+    cell.summaryText =notif.notificationString;
     cell.summaryLabel.delegate = self;
     cell.summaryLabel.userInteractionEnabled = YES;
+    cell.summaryLabel.backgroundColor=[UIColor clearColor];
+    [cell.summaryLabel setFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
+    
+    cell.TimeText = notif.date;
+    cell.lbltime.userInteractionEnabled = YES;
+    cell.lbltime.backgroundColor=[UIColor clearColor];
+    [cell.lbltime setFont:[UIFont fontWithName:@"Helvetica-Condensed" size:12]];
+    
+    cell.notifytype=notif.type;
+    
+    CGSize imgSize;
+    
+    UIImageView *Borderimg_vw=[[UIImageView alloc] init];
+    Borderimg_vw.frame=CGRectMake(15, 15, 37,37);
+    Borderimg_vw.backgroundColor=[UIColor clearColor];
+    Borderimg_vw.image=[UIImage imageNamed:@"S11_frame.png"];
+    [Borderimg_vw setContentMode:UIViewContentModeScaleAspectFit];
+    
+    
+    self.img_vw=[[UIImageView alloc] init];
+    self.img_vw.backgroundColor=[UIColor clearColor];
+    [self.img_vw setContentMode:UIViewContentModeScaleAspectFit];
+    
+    if (notif.type==1 || notif.type==5 || notif.type==6 || notif.type==7 || notif.type==9 || notif.type==10 || notif.type==11)
+    {
+        [cell addSubview:Borderimg_vw];
+        
+        self.img_vw.image=[UIImage imageNamed:@"S11_picBox.png"];
+    }//END  if (notif.type==1)
+    
+    else
+    {
+        self.img_vw.image=[UIImage imageNamed:notif.profileImage];
+    }//END Else Statement
+    
+    
+    imgSize=[self.img_vw.image size];
+    self.img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
+    
+    UIButton *btnindicator=[UIButton buttonWithType:UIButtonTypeCustom];
+    btnindicator.frame=CGRectMake(285, 20, 38, 38);
+    [btnindicator setBackgroundImage:[UIImage imageNamed:@"rightArrow.png"] forState:UIControlStateNormal];
+    [btnindicator setBackgroundColor:[UIColor clearColor]];
+    
+    [cell addSubview:btnindicator];
+    [cell addSubview:self.img_vw];
+    
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     return cell;
 }
