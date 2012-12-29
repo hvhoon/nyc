@@ -20,6 +20,8 @@
 #import "EventShareActivity.h"
 #import "SoclivityUtilities.h"
 #import "ProfileViewController.h"
+#import "RRAViewController.h"
+
 @interface WelcomeScreenViewController(Private) <MBProgressHUDDelegate>
 @end
 @implementation WelcomeScreenViewController
@@ -137,7 +139,8 @@
     
     [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(performTransition) userInfo:nil repeats:YES]; 
     
-    
+    RRAViewController *objrra=[[RRAViewController alloc] initWithNibName:nil bundle:nil];
+    [objrra fetchPrivatePubConfiguration];
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
