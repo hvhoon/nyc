@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C505476168ECDAF001C1C5E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C505475168ECDAF001C1C5E /* libicucore.dylib */; };
 		3C648483168AD0B000EAF56E /* S11_frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C64847F168AD0AF00EAF56E /* S11_frame.png */; };
 		3C648484168AD0B000EAF56E /* S11_frame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C648480168AD0AF00EAF56E /* S11_frame@2x.png */; };
 		3C648485168AD0B000EAF56E /* S11_picBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C648481168AD0AF00EAF56E /* S11_picBox.png */; };
@@ -785,6 +786,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C505475168ECDAF001C1C5E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		3C64847F168AD0AF00EAF56E /* S11_frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S11_frame.png; sourceTree = "<group>"; };
 		3C648480168AD0AF00EAF56E /* S11_frame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S11_frame@2x.png"; sourceTree = "<group>"; };
 		3C648481168AD0AF00EAF56E /* S11_picBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S11_picBox.png; sourceTree = "<group>"; };
@@ -1713,6 +1715,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C505476168ECDAF001C1C5E /* libicucore.dylib in Frameworks */,
 				EACE5F72165BA43400D1B3D0 /* CoreText.framework in Frameworks */,
 				EA83D8AC15C2924000C81D4D /* AddressBookUI.framework in Frameworks */,
 				EA13F5D1158C74D7004B8192 /* EventKit.framework in Frameworks */,
@@ -1787,6 +1790,7 @@
 		680CE3D31551258700B8E937 = {
 			isa = PBXGroup;
 			children = (
+				3C505475168ECDAF001C1C5E /* libicucore.dylib */,
 				EACE5F71165BA43400D1B3D0 /* CoreText.framework */,
 				EA3F79851603359600D231B1 /* Default-568h@2x.png */,
 				680CE3E81551258700B8E937 /* Soclivity */,
