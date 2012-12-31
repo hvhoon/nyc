@@ -101,7 +101,7 @@
     self.img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
     
     UIButton *btnindicator=[UIButton buttonWithType:UIButtonTypeCustom];
-    btnindicator.frame=CGRectMake(285, 20, 38, 38);
+    btnindicator.frame=CGRectMake(280, 20, 38, 38);
     [btnindicator setBackgroundImage:[UIImage imageNamed:@"rightArrow.png"] forState:UIControlStateNormal];
     [btnindicator setBackgroundColor:[UIColor clearColor]];
     
