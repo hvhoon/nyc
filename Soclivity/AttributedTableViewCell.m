@@ -70,7 +70,7 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
     self.summaryLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
     
     self.lbltime=[[UILabel alloc] init];
-    self.lbltime.textColor=[SoclivityUtilities returnTextFontColor:5];
+    self.lbltime.textColor=[SoclivityUtilities returnTextFontColor:4];
     self.lbltime.font =[UIFont fontWithName:@"Helvetica-Condensed" size:12];
     self.lbltime.lineBreakMode = UILineBreakModeWordWrap;
     self.lbltime.numberOfLines = 0;
@@ -136,7 +136,7 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
         
         [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
             
-            UIFont *boldSystemFont =[UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:14.0]; //[UIFont boldSystemFontOfSize:kEspressoDescriptionTextFontSize];
+            UIFont *boldSystemFont =[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14.0]; //[UIFont boldSystemFontOfSize:kEspressoDescriptionTextFontSize];
             CTFontRef boldFont = CTFontCreateWithName(( CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
             
             if (boldFont) {
