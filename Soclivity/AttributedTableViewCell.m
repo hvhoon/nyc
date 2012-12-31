@@ -65,8 +65,8 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
 */
     
     self.summaryLabel.highlightedTextColor = [UIColor whiteColor];
-    self.summaryLabel.shadowColor = [UIColor colorWithWhite:0.87 alpha:1.0];
-    self.summaryLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    //self.summaryLabel.shadowColor = [UIColor colorWithWhite:0.87 alpha:1.0];
+    //self.summaryLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
     self.summaryLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
     
     self.lbltime=[[UILabel alloc] init];
@@ -75,8 +75,8 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
     self.lbltime.lineBreakMode = UILineBreakModeWordWrap;
     self.lbltime.numberOfLines = 0;
     self.lbltime.highlightedTextColor = [UIColor whiteColor];
-    self.lbltime.shadowColor = [UIColor colorWithWhite:0.87 alpha:1.0];
-    self.lbltime.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    //self.lbltime.shadowColor = [UIColor colorWithWhite:0.87 alpha:1.0];
+    //self.lbltime.shadowOffset = CGSizeMake(0.0f, 1.0f);
 
     [self.contentView addSubview:self.lbltime];
     [self.contentView addSubview:self.summaryLabel];
