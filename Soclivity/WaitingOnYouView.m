@@ -13,7 +13,6 @@
 @implementation WaitingOnYouView
 @synthesize espressos = _espressos,delegate,img_vw;
 - (id)initWithFrame:(CGRect)frame andNotificationsListArray:(NSArray*)andNotificationsListArray
-
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -49,10 +48,21 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-   // NotificationClass *notif=[self.espressos objectAtIndex:indexPath.row];
+    NotificationClass *notif=[self.espressos objectAtIndex:indexPath.row];
     //return [AttributedTableViewCell heightForCellWithText:notif.notificationString];
     
-    return 85;
+    int rowheight=0;
+    
+    if (notif.type==7 || notif.type==11)
+    {
+        rowheight=120;
+    }//END  if (notif.type==7)
+    
+    else{
+        rowheight=85;
+    }//END Else Statement
+    
+    return rowheight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -90,10 +100,48 @@
     self.img_vw.backgroundColor=[UIColor clearColor];
     [self.img_vw setContentMode:UIViewContentModeScaleAspectFit];
     
-    if (notif.type==1 || notif.type==5 || notif.type==6 || notif.type==7 || notif.type==9 || notif.type==10 || notif.type==11)
+    if (notif.type==1 || notif.type==5 || notif.type==6 || notif.type==9 || notif.type==10 || notif.type==11)
     {
         [cell addSubview:Borderimg_vw];
     }//END  if (notif.type==1)
+    
+    if (notif.type==7)
+    {
+        [cell addSubview:Borderimg_vw];
+        
+        UIButton *btngoing=[UIButton buttonWithType:UIButtonTypeCustom];
+        btngoing.frame=CGRectMake(150, 85, 71, 25);
+        [btngoing setBackgroundImage:[UIImage imageNamed:@"S11_goingButton.png"] forState:UIControlStateNormal];
+        btngoing.tag=indexPath.row;
+        
+        UIButton *btnnotgoing=[UIButton buttonWithType:UIButtonTypeCustom];
+        btnnotgoing.frame=CGRectMake(230, 85, 71, 25);
+        [btnnotgoing setBackgroundImage:[UIImage imageNamed:@"S11_notGoingButton.png"] forState:UIControlStateNormal];
+        btnnotgoing.tag=indexPath.row;
+        
+        [cell addSubview:btnnotgoing];
+        [cell addSubview:btngoing];
+        
+    }//END  if (notif.type==7)
+    
+    if (notif.type==11)
+    {
+        [cell addSubview:Borderimg_vw];
+        
+        UIButton *btnaccept=[UIButton buttonWithType:UIButtonTypeCustom];
+        btnaccept.frame=CGRectMake(150, 85, 71, 25);
+        [btnaccept setBackgroundImage:[UIImage imageNamed:@"S11_joinAcceptButton.png"] forState:UIControlStateNormal];
+        btnaccept.tag=indexPath.row;
+        
+        UIButton *btndecline=[UIButton buttonWithType:UIButtonTypeCustom];
+        btndecline.frame=CGRectMake(230, 85, 71, 25);
+        [btndecline setBackgroundImage:[UIImage imageNamed:@"S11_joinDeclineButton.png"] forState:UIControlStateNormal];
+        btndecline.tag=indexPath.row;
+        
+        [cell addSubview:btndecline];
+        [cell addSubview:btnaccept];
+        
+    }//END  if (notif.type==7)
 
     
     self.img_vw.image=[UIImage imageNamed:notif.profileImage];
