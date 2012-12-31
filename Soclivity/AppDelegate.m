@@ -48,9 +48,7 @@ static NSString* kAppId = @"160726900680967";//kanav
     [SoclivitySqliteClass copyDatabaseIfNeeded];
 	BOOL openSuccessful=[SoclivitySqliteClass openDatabase:[SoclivitySqliteClass getDBPath]];
 	if(openSuccessful)
-		NSLog(@"He he database");
-
-    
+		
      [application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.

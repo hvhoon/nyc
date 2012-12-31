@@ -364,7 +364,7 @@
 			<string key="S04_profile.png">{39, 31}</string>
 			<string key="S05_bottom-bar.png">{320, 40}</string>
 			<string key="back-button.png">{37, 29}</string>
-			<string key="topbar.png">{320, 43}</string>
+			<string key="topbar.png">{320, 44}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1926</string>
 	</data>

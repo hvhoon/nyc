@@ -18,14 +18,13 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        
         self.espressos =[andNotificationsListArray retain];
         CGRect activityTableRect;
         if([SoclivityUtilities deviceType] & iPhone5)
             activityTableRect=CGRectMake(0, 0, 320, 332+88+44);
         
         else
-            activityTableRect=CGRectMake(0, 0, 320, 332+49);
+            activityTableRect=CGRectMake(0, 0, 320, 332+44);
         
         
         waitingTableView=[[UITableView alloc]initWithFrame:activityTableRect];
@@ -71,12 +70,10 @@
     cell.summaryLabel.delegate = self;
     cell.summaryLabel.userInteractionEnabled = YES;
     cell.summaryLabel.backgroundColor=[UIColor clearColor];
-    [cell.summaryLabel setFont:[UIFont fontWithName:@"Helvetica-Condensed" size:14]];
     
     cell.TimeText = notif.date;
     cell.lbltime.userInteractionEnabled = YES;
     cell.lbltime.backgroundColor=[UIColor clearColor];
-    [cell.lbltime setFont:[UIFont fontWithName:@"Helvetica-Condensed" size:12]];
     
     cell.notifytype=notif.type;
     
@@ -96,16 +93,10 @@
     if (notif.type==1 || notif.type==5 || notif.type==6 || notif.type==7 || notif.type==9 || notif.type==10 || notif.type==11)
     {
         [cell addSubview:Borderimg_vw];
-        
-        self.img_vw.image=[UIImage imageNamed:@"S11_picBox.png"];
     }//END  if (notif.type==1)
+
     
-    else
-    {
-        self.img_vw.image=[UIImage imageNamed:notif.profileImage];
-    }//END Else Statement
-    
-    
+    self.img_vw.image=[UIImage imageNamed:notif.profileImage];
     imgSize=[self.img_vw.image size];
     self.img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
     
