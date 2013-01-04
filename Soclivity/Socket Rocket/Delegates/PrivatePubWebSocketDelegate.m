@@ -7,6 +7,10 @@
 //
 
 #import "PrivatePubWebSocketDelegate.h"
+#import "NotificationsViewController.h"
+#import "SoclivityUtilities.h"
+#import "SlideViewController.h"
+#import "AppDelegate.h"
 
 @interface PrivatePubWebSocketDelegate()
   @property (nonatomic) int messageId;
@@ -62,8 +66,6 @@
 
 - (void) webSocket:(SRWebSocket *)webSocket didReceiveMessage:(NSString *)message {
   NSLog(@"base class, nothing happens!");
-    
-    NSLog(@"message::%@",message);
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error {
@@ -98,8 +100,6 @@
 @implementation AwaitingHandshakeState
 
   - (void) webSocket:(SRWebSocket *)webSocket didReceiveMessage:(NSString *)message {
-      
-      NSLog(@"message::%@",message);
       
     id JSON = [[message JSONValue] objectAtIndex:0];
 
@@ -143,7 +143,7 @@
   }
 
   - (void) webSocket:(SRWebSocket *)webSocket didReceiveMessage:(NSString *)message {
-    id JSON = [[message JSONValue] objectAtIndex:0];
+      id JSON = [[message JSONValue] objectAtIndex:0];
     //NSLog(@"recv subscription %@", JSON);
 
     Boolean subscriptionWasSuccessful = [[JSON valueForKeyPath:@"successful"] boolValue];
@@ -163,18 +163,18 @@
 ///
 
 @interface KeepAliveState()
-    @property (nonatomic) int timeout;
+@property (nonatomic) int timeout;
 
-    - (void) sendKeepAlive;
+- (void) sendKeepAlive;
 @end
 
 @implementation KeepAliveState
 
-  @synthesize timeout = _timeout;
+@synthesize timeout = _timeout;
 
   #pragma mark - Private Methods
 
-  - (void) sendKeepAlive {
+- (void) sendKeepAlive {
     sleep(self.timeout);
 
     NSLog(@"executing keep alive");
@@ -188,11 +188,11 @@
     [self.webSocket send: [keepAlive JSONRepresentation]];
 
     [NSThread detachNewThreadSelector:@selector(sendKeepAlive) toTarget:self withObject:nil];
-  }
+}
 
-  #pragma mark - Public Methods
+#pragma mark - Public Methods
 
-  - (void) setupKeepAlive {
+- (void) setupKeepAlive {
     self.timeout = 10;
 
     // self.timeout = [[JSON valueForKeyPath:@"advice.timeout"] intValue];
@@ -208,24 +208,45 @@
     }
   }
 
-  #pragma mark - SRWebSocketDelegate Protocol Methods
+#pragma mark - SRWebSocketDelegate Protocol Methods
 
-  - (void) webSocket:(SRWebSocket *)webSocket didReceiveMessage:(NSString *)message {
+- (void) webSocket:(SRWebSocket *)webSocket didReceiveMessage:(NSString *)message {
+    
+    NSString *channel = [[[message JSONValue] objectAtIndex:0] valueForKeyPath:@"data"];
       
-      id JSON = [[message JSONValue] objectAtIndex:0];
-      
-      NSString *channel = [JSON valueForKeyPath:@"data"];
-      
-      if ([[[channel valueForKeyPath:@"data"] valueForKeyPath:@"message"] valueForKey:@"content"]!=NULL)
-      {
-          UIAlertView *alertview=[[UIAlertView alloc] initWithTitle:@"Message"
-                                                            message:[[[channel valueForKeyPath:@"data"] valueForKeyPath:@"message"] valueForKey:@"content"]
+    if ([[channel valueForKeyPath:@"data"] valueForKey:@"message"]!=NULL)
+    {
+        int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
+        count=count+1;
+          
+        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%i",count] forKey:@"Waiting_On_You_Count"];
+          
+          if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]==NULL)
+          {
+              [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@",[[channel valueForKeyPath:@"data"] valueForKey:@"notification_id"]]  forKey:@"Notification_id"];
+          }//END if ([[NSUserDefaults standardUserDefaults] valueforKey:@"Notification_Count"]==NULL)
+          
+          else
+          {
+              NSString *lstrvalue=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
+              
+              [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
+
+              [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrvalue,[[channel valueForKeyPath:@"data"] valueForKey:@"notification_id"]] forKey:@"Notification_id"];
+          }//END Else Statement
+          
+        SlideViewController* objslide = [(AppDelegate*)[[UIApplication sharedApplication] delegate] globalSlideController];
+        [objslide UpdateNotification];
+          
+         /* UIAlertView *alertview=[[UIAlertView alloc] initWithTitle:@"Message"
+                                                            message:[[channel valueForKeyPath:@"data"] valueForKey:@"message"]
                                                            delegate:self
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];
           
           [alertview show];
+          */
       }//END if ([[[channel value
-  }
+}
 
 @end

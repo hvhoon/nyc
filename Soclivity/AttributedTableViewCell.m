@@ -35,7 +35,7 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
 @implementation AttributedTableViewCell
 @synthesize summaryText = _summaryText;
 @synthesize summaryLabel = _summaryLabel;
-@synthesize lbltime,timeText,hashCount,notifytype;
+@synthesize lbltime,timeText;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -146,8 +146,10 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
             
             
         }];
+    
+       int times = [[self.summaryText componentsSeparatedByString:@"#"] count]-1;
         
-        for (int i=0; i<self.hashCount; i++)
+        for (int i=0; i<times; i++)
         {
             NSRange range = [[mutableAttributedString string] rangeOfString:@"#"];
             

@@ -18,10 +18,14 @@
 @interface WaitingOnYouView : UIView<UITableViewDataSource,UITableViewDelegate,TTTAttributedLabelDelegate>{
     
     UITableView*waitingTableView;
-    NSArray *_espressos;
+    NSMutableArray *_notifications;
     id<WaitingOnYouDelegate>delegate;
+    
+    NSMutableData *responsedata;
+    
+    UIActionSheet * loadingActionSheet;
 }
-@property (nonatomic,retain) NSArray *espressos;
+@property (nonatomic,retain) NSMutableArray *_notifications;
 @property (nonatomic,assign)id<WaitingOnYouDelegate>delegate;
 @property (nonatomic, retain)UIImageView *img_vw;
 

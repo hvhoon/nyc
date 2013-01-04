@@ -36,6 +36,8 @@ static NSString* kAppId = @"160726900680967";//kanav
 @synthesize facebook;
 @synthesize userPermissions;
 @synthesize resetSuccess;
+@synthesize globalSlideController;
+
 - (void)dealloc
 {
     [_window release];
@@ -44,6 +46,14 @@ static NSString* kAppId = @"160726900680967";//kanav
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"logged_in_user_id"];
+    
+    if ( [[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]==NULL)
+    {
+        [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"Waiting_On_You_Count"];
+    }//END if ( [[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]==NULL)
+    
     //[self setUpActivityDataList];
     [SoclivitySqliteClass copyDatabaseIfNeeded];
 	BOOL openSuccessful=[SoclivitySqliteClass openDatabase:[SoclivitySqliteClass getDBPath]];

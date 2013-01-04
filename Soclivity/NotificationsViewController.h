@@ -21,8 +21,18 @@
     IBOutlet UILabel *waitingOnYouLabel;
     IBOutlet UIImageView*notificationImageView;
     IBOutlet UIImageView*socFadedImageView;
+    
+    NSMutableData *responsedata;
+    
+    NSMutableArray *arrnotification;
+    
+    UIActionSheet * loadingActionSheet;
 }
 @property (nonatomic,retain)id <NotificationsScreenViewDelegate>delegate;
+@property(nonatomic, retain) NSMutableData *responsedata;
+@property(nonatomic, retain) NSMutableArray *arrnotification;
+
 -(IBAction)profileSliderPressed:(id)sender;
--(NSMutableArray*) SetUpDummyNotifications;
+//-(NSMutableArray*) SetUpNotifications;
+
 @end

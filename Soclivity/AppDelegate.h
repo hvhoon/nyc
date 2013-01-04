@@ -10,6 +10,7 @@
 #import "DDMenuController.h"
 #import "FBConnect.h"
 @class FacebookLogin;
+@class SlideViewController;
 @interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate>{
     UINavigationController *navigationController;
     DDMenuController *menuController;
@@ -20,11 +21,12 @@
 }
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic,retain) UINavigationController *navigationController;
+@property (nonatomic, retain) UINavigationController *navigationController;
 @property (retain, nonatomic) DDMenuController *menuController;
 @property (nonatomic, retain) Facebook *facebook;
 @property (nonatomic, retain) NSMutableDictionary *userPermissions;
-@property (nonatomic,assign)BOOL resetSuccess;
+@property (nonatomic, assign) BOOL resetSuccess;
+@property (nonatomic, retain) SlideViewController* globalSlideController;
 
 -(FacebookLogin*)SetUpFacebook;
 - (void)setUpActivityDataList;

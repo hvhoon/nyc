@@ -20,6 +20,7 @@
 #import "BlockedListViewController.h"
 @implementation SlidingDrawerViewController
 @synthesize datasource = _datasource,isFBlogged;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     

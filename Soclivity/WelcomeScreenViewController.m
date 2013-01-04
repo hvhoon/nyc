@@ -20,7 +20,6 @@
 #import "EventShareActivity.h"
 #import "SoclivityUtilities.h"
 #import "ProfileViewController.h"
-#import "RRAViewController.h"
 
 @interface WelcomeScreenViewController(Private) <MBProgressHUDDelegate>
 @end
@@ -39,7 +38,6 @@
 {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
     // Release any cached data, images, etc that aren't in use.
 }
 
@@ -138,10 +136,6 @@
 
     
     [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(performTransition) userInfo:nil repeats:YES]; 
-    
-    RRAViewController *objrra=[[RRAViewController alloc] initWithNibName:nil bundle:nil];
-    [objrra fetchPrivatePubConfiguration];
-    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }

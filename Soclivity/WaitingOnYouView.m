@@ -10,14 +10,17 @@
 #import "SoclivityUtilities.h"
 #import "AttributedTableViewCell.h"
 #import "NotificationClass.h"
+#import "SlideViewController.h"
+#import "AppDelegate.h"
+
 @implementation WaitingOnYouView
-@synthesize espressos = _espressos,delegate,img_vw;
-- (id)initWithFrame:(CGRect)frame andNotificationsListArray:(NSArray*)andNotificationsListArray
+@synthesize _notifications,delegate,img_vw;
+- (id)initWithFrame:(CGRect)frame andNotificationsListArray:(NSMutableArray*)andNotificationsListArray
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.espressos =[andNotificationsListArray retain];
+        self._notifications =[andNotificationsListArray retain];
         CGRect activityTableRect;
         if([SoclivityUtilities deviceType] & iPhone5)
             activityTableRect=CGRectMake(0, 0, 320, 332+88+44);
@@ -44,25 +47,26 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.espressos count];
+    return [self._notifications count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NotificationClass *notif=[self.espressos objectAtIndex:indexPath.row];
-    //return [AttributedTableViewCell heightForCellWithText:notif.notificationString];
     
-    int rowheight=0;
+    int height=0;
     
-    if (notif.type==7 || notif.type==11)
+    NSLog(@"null::%@",[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]);
+    
+    if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]==[NSNull null])
     {
-        rowheight=120;
-    }//END  if (notif.type==7)
+        height=60;
+    }//END if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]==NULL)
     
-    else{
-        rowheight=85;
+    else
+    {
+         height=[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+20;
     }//END Else Statement
-    
-    return rowheight;
+        
+    return height;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -74,18 +78,39 @@
        // cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
    // }
     cell.backgroundColor=[UIColor whiteColor];
-    NotificationClass *notif=[self.espressos objectAtIndex:indexPath.row];
-    cell.hashCount=[notif.count intValue];
-    cell.summaryText =notif.notificationString;
-    cell.summaryLabel.delegate = self;
+    
+    NSLog(@"self._notifications::%@",self._notifications);
+    
+    if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]!=[NSNull null])
+    {
+        cell.summaryText =[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"];
+        cell.summaryLabel.delegate = self;
+    }//END if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"noti
+    
     cell.summaryLabel.userInteractionEnabled = YES;
     cell.summaryLabel.backgroundColor=[UIColor clearColor];
     
-    cell.TimeText = notif.date;
+    
+    if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"updated_at"]!=[NSNull null])
+    {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+        NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+        [dateFormatter setTimeZone:gmt];
+        NSDate *activityDate = [dateFormatter dateFromString:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"updated_at"]];
+        
+        NSDate *date = activityDate;
+        NSDateFormatter *prefixDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+        [prefixDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+        [prefixDateFormatter setDateFormat:@"EEEE, MMMM d, hh:mma"];
+        NSString *prefixDateString = [prefixDateFormatter stringFromDate:date];
+        
+        cell.TimeText =prefixDateString;
+
+    }//END if ([[self._notifications objectAtIndex:indexPath.row] valueForK
+    
     cell.lbltime.userInteractionEnabled = YES;
     cell.lbltime.backgroundColor=[UIColor clearColor];
-    
-    cell.notifytype=notif.type;
     
     CGSize imgSize;
     
@@ -100,7 +125,31 @@
     self.img_vw.backgroundColor=[UIColor clearColor];
     [self.img_vw setContentMode:UIViewContentModeScaleAspectFit];
     
-    if (notif.type==1 || notif.type==5 || notif.type==6 || notif.type==9 || notif.type==10 || notif.type==11)
+    if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"]!=[NSNull null])
+    {
+        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==1)
+        {
+            self.img_vw.image=[UIImage imageNamed:@"S11_infoChangeIcon.png"];
+        }//END if ([[[self._notifications objectAtIndex:indexPath
+        
+        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==2)
+        {
+            self.img_vw.image=[UIImage imageNamed:@"S11_calendarIcon.png"];
+        }//END if ([[[self._notifications objectAt
+        
+        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==3)
+        {
+            self.img_vw.image=[UIImage imageNamed:@"S11_clockLogo.png"];
+        }//END if ([[[self._notifications objectAt
+        
+        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==4)
+        {
+            self.img_vw.image=[UIImage imageNamed:@"S11_locationIcon.png"];
+        }//END if ([[[self._notifications objectAt
+    
+    }//END if ([[[self._notifications objectAtIndex:indexPat
+    
+   /*if (notif.type==1 || notif.type==5 || notif.type==6 || notif.type==9 || notif.type==10 || notif.type==11)
     {
         [cell addSubview:Borderimg_vw];
     }//END  if (notif.type==1)
@@ -142,9 +191,8 @@
         [cell addSubview:btnaccept];
         
     }//END  if (notif.type==7)
-
+*/
     
-    self.img_vw.image=[UIImage imageNamed:notif.profileImage];
     imgSize=[self.img_vw.image size];
     self.img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
     
@@ -163,9 +211,95 @@
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *description = [self.espressos objectAtIndex:indexPath.row];
+/*- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *description = [self._notifications objectAtIndex:indexPath.row];
     NSLog(@"description=%@",description);
+}*/
+
+-(void)RemoveNotification:(NSString *)lstrid
+{
+    NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/deletenotification.json?logged_in_user_id=%@&notification_id=%@",ProductionServer,[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"],lstrid] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
+	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
+    [[NSURLConnection alloc] initWithRequest:request delegate:self];
+
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+	[responsedata setLength:0];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+	[responsedata appendData:data];
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+	
+	NSLog(@"Connection failed: %@", [error description]);
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Internet Connection"
+													message:@"Try Again Later" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+	[alert show];
+	[alert release];
+	return;
+	
+	
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection{
+	[connection release];
+    
+    [waitingTableView reloadData];
+    
+    [loadingActionSheet dismissWithClickedButtonIndex:0 animated:YES];
+}
+
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    loadingActionSheet = [[UIActionSheet alloc] initWithTitle:@"Please Wait..."
+                                                     delegate:nil
+                                            cancelButtonTitle:nil
+                                       destructiveButtonTitle:nil
+                                            otherButtonTitles:nil];
+    loadingActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    [loadingActionSheet showInView:waitingTableView];
+    
+    [self RemoveNotification:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]];
+    
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]!=NULL)
+    {
+        NSString *lstrnotify=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
+        
+        NSArray *SpliArray=[lstrnotify componentsSeparatedByString:@","];
+        
+        NSLog(@"SpliArray::%@",SpliArray);
+        
+         NSLog(@"id::%@",[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]);
+        
+        for (int i=0; i<[SpliArray count]; i++)
+        {
+            if ([[SpliArray objectAtIndex:i] intValue]==[[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"] intValue])
+            {
+                 NSLog(@"SpliArray::%@",SpliArray);
+                
+                int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
+                count=count-1;
+                
+                NSLog(@"count::%i",count);
+                
+                [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%i",count] forKey:@"Waiting_On_You_Count"];
+            }
+        }//END for (int i=0; i<[SpliArray count]; i++)
+    }
+    
+      NSLog(@"count::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]);
+    
+    [self._notifications removeObjectAtIndex:indexPath.row];
+    
+     NSLog(@"self._notifications::%@",self._notifications);
+    
+    SlideViewController* objslide = [(AppDelegate*)[[UIApplication sharedApplication] delegate] globalSlideController];
+    [objslide UpdateNotification];
 }
 
 
