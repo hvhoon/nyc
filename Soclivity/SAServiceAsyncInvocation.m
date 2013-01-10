@@ -252,28 +252,25 @@ NSDateFormatter* gJSONDateFormatter = nil;
 	
     BOOL finalize = YES;
     NSString *response=[[NSString alloc] initWithData:_receivedData encoding:NSASCIIStringEncoding];
-    //NSLog(@"response=%@",response);
     
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"]==NULL)
     {
         [[NSUserDefaults standardUserDefaults] setValue:[[response JSONValue] valueForKey:@"logged_in_user_id"] forKey:@"logged_in_user_id"];
+        
+         [[NSUserDefaults standardUserDefaults] setValue:[[response JSONValue] valueForKey:@"notification_count"] forKey:@"Waiting_On_You_Count"];
     }//END  if ([[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"]==NULL)
-    
-    NSLog(@"[response JSONValue]::%@",[response JSONValue]);
 
 	if ([[self response] isOK]) {
 		finalize = [self handleHttpOK:_receivedData];
         
+        NSLog(@"[response JSONValue]::%@",[response JSONValue]);
+        
         if ([[response JSONValue] valueForKey:@"channel"]!=NULL && [[response JSONValue] count]!=0)
         {
-            NSLog(@"channel::%@",[[response JSONValue] valueForKeyPath:@"channel"]);
-            
             if ([[[response JSONValue] valueForKeyPath:@"channel"] isKindOfClass:[NSArray class]])
             {
                 for (int k=0; k<[[[response JSONValue] valueForKeyPath:@"channel"] count]; k++)
                 {
-                    NSLog(@"channel11111::%@",[[[response JSONValue] valueForKeyPath:@"channel"] objectAtIndex:k]);
-                    
                     if ([[[response JSONValue] valueForKeyPath:@"channel"] objectAtIndex:k]==@"<null>")
                     {
                         //do nothing

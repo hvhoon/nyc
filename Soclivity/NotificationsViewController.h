@@ -8,15 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "WaitingOnYouView.h"
+#import "MBProgressHUD.h"
 
-
+@class MBProgressHUD;
 @protocol NotificationsScreenViewDelegate <NSObject>
 
 @optional
 - (void)showLeft:(id)sender;
 @end
 
-@interface NotificationsViewController : UIViewController<WaitingOnYouDelegate>{
+@interface NotificationsViewController : UIViewController<WaitingOnYouDelegate,MBProgressHUDDelegate>{
     id <NotificationsScreenViewDelegate>delegate;
     IBOutlet UILabel *waitingOnYouLabel;
     IBOutlet UIImageView*notificationImageView;
@@ -27,6 +28,8 @@
     NSMutableArray *arrnotification;
     
     UIActionSheet * loadingActionSheet;
+    
+    MBProgressHUD *HUD;
 }
 @property (nonatomic,retain)id <NotificationsScreenViewDelegate>delegate;
 @property(nonatomic, retain) NSMutableData *responsedata;
@@ -34,5 +37,8 @@
 
 -(IBAction)profileSliderPressed:(id)sender;
 //-(NSMutableArray*) SetUpNotifications;
+
+-(void)startAnimation;
+-(void)hideMBProgress;
 
 @end

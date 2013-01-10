@@ -26,7 +26,7 @@
 @end
 
 @implementation HomeViewController
-@synthesize delegate,socEventMapView,activityTableView;
+@synthesize delegate,socEventMapView,activityTableView,btnnotify;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -46,7 +46,6 @@
 
 #pragma mark - View lifecycle
 
-
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:YES];
@@ -62,12 +61,32 @@
         [self StartGettingActivities];
     }
 }
+
+-(void)UpdateBadgeNotification
+{
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]==0)
+    {
+        self.btnnotify.alpha=0;
+    }//END if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"Wait
+    
+    else
+    {
+        self.btnnotify.alpha=1;
+        [self.btnnotify setTitle:[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] forState:UIControlStateNormal];
+        [self.btnnotify setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }//END Else Statement
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
     
+    [self UpdateBadgeNotification];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"Badge_Count" object:nil];
     
     if(SOC.currentLocation.coordinate.latitude!=0.0f && SOC.currentLocation.coordinate.longitude!=0.0f){
         

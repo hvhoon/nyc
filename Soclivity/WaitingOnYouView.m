@@ -13,14 +13,25 @@
 #import "SlideViewController.h"
 #import "AppDelegate.h"
 
+@interface WaitingOnYouView ()
+
+- (void)startIconDownload:(InviteObjectClass*)appRecord forIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
+
 @implementation WaitingOnYouView
-@synthesize _notifications,delegate,img_vw;
+@synthesize _notifications,delegate,imageDownloadsInProgress;
+
+
 - (id)initWithFrame:(CGRect)frame andNotificationsListArray:(NSMutableArray*)andNotificationsListArray
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
         self._notifications =[andNotificationsListArray retain];
+        self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
+        
         CGRect activityTableRect;
         if([SoclivityUtilities deviceType] & iPhone5)
             activityTableRect=CGRectMake(0, 0, 320, 332+88+44);
@@ -54,8 +65,6 @@
     
     int height=0;
     
-    NSLog(@"null::%@",[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]);
-    
     if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]==[NSNull null])
     {
         height=60;
@@ -75,11 +84,15 @@
     AttributedTableViewCell *cell = (AttributedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     //if (cell == nil) {
         cell = [[AttributedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-       // cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
    // }
+    for (UIView *view in cell.contentView.subviews)
+    {
+        if (![view isKindOfClass:[UILabel class]])
+        {
+             [view removeFromSuperview];
+        }
+    }
     cell.backgroundColor=[UIColor whiteColor];
-    
-    NSLog(@"self._notifications::%@",self._notifications);
     
     if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]!=[NSNull null])
     {
@@ -120,31 +133,52 @@
     Borderimg_vw.image=[UIImage imageNamed:@"S11_frame.png"];
     [Borderimg_vw setContentMode:UIViewContentModeScaleAspectFit];
     
-    
-    self.img_vw=[[UIImageView alloc] init];
-    self.img_vw.backgroundColor=[UIColor clearColor];
-    [self.img_vw setContentMode:UIViewContentModeScaleAspectFit];
+    UIImageView *img_vw=[[UIImageView alloc] init];
+    img_vw.backgroundColor=[UIColor clearColor];
+    [img_vw setContentMode:UIViewContentModeScaleAspectFit];
+    img_vw.tag=indexPath.row;
     
     if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"]!=[NSNull null])
     {
         if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==1)
         {
-            self.img_vw.image=[UIImage imageNamed:@"S11_infoChangeIcon.png"];
+            img_vw.image=[UIImage imageNamed:@"S11_infoChangeIcon.png"];
         }//END if ([[[self._notifications objectAtIndex:indexPath
         
         if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==2)
         {
-            self.img_vw.image=[UIImage imageNamed:@"S11_calendarIcon.png"];
+            img_vw.image=[UIImage imageNamed:@"S11_calendarIcon.png"];
         }//END if ([[[self._notifications objectAt
         
         if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==3)
         {
-            self.img_vw.image=[UIImage imageNamed:@"S11_clockLogo.png"];
+            img_vw.image=[UIImage imageNamed:@"S11_clockLogo.png"];
         }//END if ([[[self._notifications objectAt
         
         if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==4)
         {
-            self.img_vw.image=[UIImage imageNamed:@"S11_locationIcon.png"];
+            img_vw.image=[UIImage imageNamed:@"S11_locationIcon.png"];
+        }//END if ([[[self._notifications objectAt
+        
+        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11)
+        {
+            IconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
+            if (!iconDownloader.img_waitingonyou)
+            {
+                if (waitingTableView.dragging == NO && waitingTableView.decelerating == NO)
+                {
+                    [self startIconDownloadForIndexPath:indexPath];
+                }//END if (waitingTableView.dragging == NO && waitingTableView.decelerating == NO)
+                
+                // if a download is deferred or in progress, return a placeholder image
+                img_vw.image = [UIImage imageNamed:@"S11_picBox.png"];
+            }
+            else
+            {
+                img_vw.image = [iconDownloader.img_waitingonyou retain];
+            }//END Else Statement
+            
+           // self.img_vw.image=[UIImage imageNamed:@"S11_picBox.png"];
         }//END if ([[[self._notifications objectAt
     
     }//END if ([[[self._notifications objectAtIndex:indexPat
@@ -193,20 +227,67 @@
     }//END  if (notif.type==7)
 */
     
-    imgSize=[self.img_vw.image size];
-    self.img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
+    imgSize=[img_vw.image size];
+    img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
     
     UIButton *btnindicator=[UIButton buttonWithType:UIButtonTypeCustom];
     btnindicator.frame=CGRectMake(276, 20, 38, 38);
     [btnindicator setBackgroundImage:[UIImage imageNamed:@"rightArrow.png"] forState:UIControlStateNormal];
     [btnindicator setBackgroundColor:[UIColor clearColor]];
     
-    [cell addSubview:btnindicator];
-    [cell addSubview:self.img_vw];
+    [cell.contentView addSubview:btnindicator];
+    [cell.contentView addSubview:img_vw];
     
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     return cell;
+}
+
+#pragma mark -
+#pragma mark Lazy Loading
+
+- (void)startIconDownloadForIndexPath:(NSIndexPath *)indexPath{
+    IconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
+    if (iconDownloader == nil)
+    {
+        iconDownloader = [[IconDownloader alloc] init];
+        iconDownloader.lstrwaitingonyouurl=[NSString stringWithFormat:@"http://%@%@",ProductionServer,[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"photo_url"]];
+        iconDownloader.indexPathInTableView = indexPath;
+        iconDownloader.delegate = self;
+        [imageDownloadsInProgress setObject:iconDownloader forKey:indexPath];
+        [iconDownloader startDownload:kWaitingOnYou];
+    }//END if (iconDownloader == nil)
+}
+
+- (void)loadImagesForOnscreenRows{
+    
+    
+    int count=0;
+        count=[_notifications count];
+    if (count> 0)
+    {
+        NSArray *visiblePaths = [waitingTableView indexPathsForVisibleRows];
+        
+        for (NSIndexPath *indexPath in visiblePaths)
+        {
+            IconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
+            if (!iconDownloader.img_waitingonyou) // avoid the app icon download if the app already has an icon
+            {
+                [self startIconDownloadForIndexPath:indexPath];
+            }
+        }
+        }
+}
+
+- (void)appImageDidLoad:(NSIndexPath *)indexPath
+{
+    IconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
+    if (iconDownloader != nil)
+    {
+        // Display the newly loaded image
+    }//END if (iconDownloader != nil)
+    
+    [waitingTableView reloadData];
 }
 
 #pragma mark - UITableViewDelegate
@@ -218,11 +299,22 @@
 
 -(void)RemoveNotification:(NSString *)lstrid
 {
+    [self startAnimation];
+    
     NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/deletenotification.json?logged_in_user_id=%@&notification_id=%@",ProductionServer,[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"],lstrid] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
     [[NSURLConnection alloc] initWithRequest:request delegate:self];
 
+}
+
+-(void)SetNotificationStatus:(NSString *)lstrid
+{
+    NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/notification_read.json?id=%i&read_notification=1",ProductionServer,[lstrid intValue]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
+	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
+    [[NSURLConnection alloc] initWithRequest:request delegate:self];
+ 
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
@@ -234,8 +326,6 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	
-	NSLog(@"Connection failed: %@", [error description]);
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Internet Connection"
 													message:@"Try Again Later" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
 	[alert show];
@@ -249,57 +339,56 @@
 	[connection release];
     
     [waitingTableView reloadData];
-    
     [loadingActionSheet dismissWithClickedButtonIndex:0 animated:YES];
 }
 
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    loadingActionSheet = [[UIActionSheet alloc] initWithTitle:@"Please Wait..."
-                                                     delegate:nil
-                                            cancelButtonTitle:nil
-                                       destructiveButtonTitle:nil
-                                            otherButtonTitles:nil];
-    loadingActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-    [loadingActionSheet showInView:waitingTableView];
-    
     [self RemoveNotification:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]];
+    
+    [self SetNotificationStatus:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]];
     
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]!=NULL)
     {
         NSString *lstrnotify=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
-        
         NSArray *SpliArray=[lstrnotify componentsSeparatedByString:@","];
-        
-        NSLog(@"SpliArray::%@",SpliArray);
-        
-         NSLog(@"id::%@",[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]);
         
         for (int i=0; i<[SpliArray count]; i++)
         {
             if ([[SpliArray objectAtIndex:i] intValue]==[[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"] intValue])
             {
-                 NSLog(@"SpliArray::%@",SpliArray);
-                
                 int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
                 count=count-1;
-                
-                NSLog(@"count::%i",count);
                 
                 [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%i",count] forKey:@"Waiting_On_You_Count"];
             }
         }//END for (int i=0; i<[SpliArray count]; i++)
     }
     
-      NSLog(@"count::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]);
-    
     [self._notifications removeObjectAtIndex:indexPath.row];
     
-     NSLog(@"self._notifications::%@",self._notifications);
+    NSDictionary *dictcount=[[NSDictionary alloc] initWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"],@"Waiting_On_You_Count", nil];
     
-    SlideViewController* objslide = [(AppDelegate*)[[UIApplication sharedApplication] delegate] globalSlideController];
-    [objslide UpdateNotification];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
+     [[NSNotificationCenter defaultCenter] postNotificationName:@"Badge_Count" object:self userInfo:dictcount];
+    
+     [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
+}
+
+-(void)startAnimation{
+    // Setup animation settings
+    HUD = [[MBProgressHUD alloc] initWithView:waitingTableView];
+    HUD.yOffset = -40.0;
+    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
+    HUD.labelText = @"Loading...";
+    [waitingTableView addSubview:HUD];
+    HUD.delegate = self;
+    [HUD show:YES];
+}
+
+-(void)hideMBProgress{
+    [HUD hide:YES];
 }
 
 

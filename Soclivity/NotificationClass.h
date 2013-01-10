@@ -15,6 +15,8 @@
     //UIImage *profileImage;
     NSString *profileImage;
     NSString *count;
+    
+     MBProgressHUD *HUD;
 }
 @property (nonatomic,retain)NSString *notificationString;
 @property (nonatomic,retain)NSString *date;

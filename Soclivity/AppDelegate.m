@@ -36,7 +36,7 @@ static NSString* kAppId = @"160726900680967";//kanav
 @synthesize facebook;
 @synthesize userPermissions;
 @synthesize resetSuccess;
-@synthesize globalSlideController;
+@synthesize responsedata,vw_notification;
 
 - (void)dealloc
 {
@@ -44,15 +44,21 @@ static NSString* kAppId = @"160726900680967";//kanav
     [super dealloc];
 }
 
+-(void)ShowNotification
+{
+    vw_notification=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 58)];
+    vw_notification.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"InAppAlertBar.png"]];
+    
+    //[self.window addSubview:vw_notification];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"logged_in_user_id"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Waiting_On_You_Count"];
     
-    if ( [[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]==NULL)
-    {
-        [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"Waiting_On_You_Count"];
-    }//END if ( [[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]==NULL)
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (ShowNotification) name:@"WaitingonyouNotification" object:nil];
     
     //[self setUpActivityDataList];
     [SoclivitySqliteClass copyDatabaseIfNeeded];
@@ -92,6 +98,9 @@ static NSString* kAppId = @"160726900680967";//kanav
 
     [self.window makeKeyAndVisible];
     [self registerForNotifications];
+    
+    // [self ShowNotification];
+    
     return YES;
 }
 
@@ -257,8 +266,75 @@ static NSString* kAppId = @"160726900680967";//kanav
      */
 }
 
+-(void)PostBackgroundStatus:(int)status
+{
+    NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/player_app_status.json?id=%@&background_status=%i",ProductionServer,[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"],status] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSLog(@"url::%@",url);
+    
+	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
+    [[NSURLConnection alloc] initWithRequest:request delegate:self];
+
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+	[self.responsedata setLength:0];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+	[self.responsedata appendData:data];
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Internet Connection"
+													message:@"Try Again Later" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+	[alert show];
+	[alert release];
+	return;
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection{
+	[connection release];
+}
+
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    // bgTask is instance variable
+    NSAssert(self->bgTask == UIBackgroundTaskInvalid, nil);
+    
+    bgTask = [application beginBackgroundTaskWithExpirationHandler: ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [application endBackgroundTask:self->bgTask];
+            self->bgTask = UIBackgroundTaskInvalid;
+        });
+    }];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+       // while ([application backgroundTimeRemaining] > 0.5) {
+            
+        [self PostBackgroundStatus:1];
+           /* NSString *friend = [self checkForIncomingChat];
+            if (friend) {
+                UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+                if (localNotif) {
+                    localNotif.alertBody = [NSString stringWithFormat:
+                                            NSLocalizedString(@"%@ has a message for you.", nil), friend];
+                    localNotif.alertAction = NSLocalizedString(@"Read Message", nil);
+                    localNotif.soundName = @"alarmsound.caf";
+                    localNotif.applicationIconBadgeNumber = 1;
+                    [application presentLocalNotificationNow:localNotif];
+                    [localNotif release];
+                    friend = nil;
+                    break;
+                }
+            }
+            */ 
+        //}
+        
+        [application endBackgroundTask:self->bgTask];
+        self->bgTask = UIBackgroundTaskInvalid;
+    });
+    
     /*
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
@@ -267,6 +343,8 @@ static NSString* kAppId = @"160726900680967";//kanav
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    [self PostBackgroundStatus:0];
+    
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */

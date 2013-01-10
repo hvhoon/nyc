@@ -58,15 +58,12 @@
         activityTypesView.isRegisteration=TRUE;
     }
     else{
-        
-        
         activityTypesView.isRegisteration=FALSE;
         getStartedButton.hidden=YES;
         profileButton.hidden=NO;
         updateActivityLabel.text=@"Update Activity Types";
         [activityTypesView updateActivityTypes];
-
-    }
+    }//END Else Statement
     
 
     // Do any additional setup after loading the view from its nib.

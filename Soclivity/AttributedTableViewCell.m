@@ -192,8 +192,8 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
     CGRect rect1=CGRectMake(0, 10, 345, [AttributedTableViewCell heightForCellWithText:self.summaryText]-10);
     CGRect rect2=CGRectMake(0, self.summaryLabel.frame.size.height+5, 345, 35);
     
-    self.summaryLabel.frame =  CGRectOffset(CGRectInset(rect1, 60, 5.0f), 0.0f, 0.0f);
-    self.lbltime.frame=CGRectOffset(CGRectInset(rect2, 60, 5.0f), 0.0f, 0.0f);
+    self.summaryLabel.frame =  CGRectOffset(CGRectInset(rect1, 80, 5.0f), 0.0f, 0.0f);
+    self.lbltime.frame=CGRectOffset(CGRectInset(rect2, 80, 5.0f), 0.0f, 0.0f);
     
    // self.summaryLabel.frame = CGRectOffset(CGRectInset(self.bounds, 20.0f, 5.0f), -10.0f, 0.0f);
 }

@@ -155,7 +155,6 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    NSLog(@"viewWillAppear in slide View Controller Called");
 }
 - (void)viewDidLoad {
     
@@ -166,7 +165,6 @@
     if (![self.delegate respondsToSelector:@selector(configureSearchDatasourceWithString:)] || ![self.delegate respondsToSelector:@selector(searchDatasource)]) {
         _tableView.frame = CGRectMake(0.0f, 0.0f, 269.0f, 460.0f);
     }
-    [(AppDelegate*)[[UIApplication sharedApplication] delegate] setGlobalSlideController:self];
     _slideNavigationController.view.layer.shadowColor = [[UIColor blackColor] CGColor];
     _slideNavigationController.view.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
     _slideNavigationController.view.layer.shadowRadius = 4.0f;
@@ -195,6 +193,8 @@
     
     if ([self.delegate respondsToSelector:@selector(initialSelectedIndexPath)])
         [_tableView selectRowAtIndexPath:[self.delegate initialSelectedIndexPath] animated:NO scrollPosition:UITableViewScrollPositionTop];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (WaitingOnYou_Count) name:@"WaitingOnYou_Count" object:nil];
     
 }
 
@@ -405,8 +405,10 @@
     }
 }
 
--(void)UpdateNotification
+-(void)WaitingOnYou_Count
 {
+    NSLog(@"waiting on you count::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]);
+    
     [_tableView reloadData];
 }
 
@@ -696,7 +698,7 @@
             CGRect notificationNoLabelRect=CGRectMake(6,4,15,14);
             UILabel *notificationNoLabel=[[UILabel alloc] initWithFrame:notificationNoLabelRect];
             notificationNoLabel.textAlignment=UITextAlignmentCenter;
-            notificationNoLabel.text=[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"];
+            notificationNoLabel.text=[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]];
             notificationNoLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
             notificationNoLabel.textColor=[UIColor whiteColor];
             notificationNoLabel.shadowColor = [UIColor blackColor];

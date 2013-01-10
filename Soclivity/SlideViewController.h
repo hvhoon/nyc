@@ -76,6 +76,6 @@ typedef enum {
 - (void)slideInSlideNavigationControllerView;
 - (void)slideSlideNavigationControllerViewOffScreen;
 
--(void)UpdateNotification;
+-(void)WaitingOnYou_Count;
 
 @end

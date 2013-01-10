@@ -18,6 +18,10 @@
     NSMutableDictionary *userPermissions;
     BOOL resetSuccess;
     BOOL _appIsInbackground;
+    
+    NSMutableData *responsedata;
+    
+    UIBackgroundTaskIdentifier bgTask;
 }
 
 @property (strong, nonatomic) UIWindow *window;
@@ -26,7 +30,10 @@
 @property (nonatomic, retain) Facebook *facebook;
 @property (nonatomic, retain) NSMutableDictionary *userPermissions;
 @property (nonatomic, assign) BOOL resetSuccess;
-@property (nonatomic, retain) SlideViewController* globalSlideController;
+
+@property(nonatomic, retain) NSMutableData *responsedata;
+
+@property(nonatomic, retain)UIView *vw_notification;
 
 -(FacebookLogin*)SetUpFacebook;
 - (void)setUpActivityDataList;

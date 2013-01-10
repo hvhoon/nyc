@@ -47,15 +47,11 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	
-	NSLog(@"Connection failed: %@", [error description]);
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Internet Connection"
 													message:@"Try Again Later" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
 	[alert show];
 	[alert release];
 	return;
-	
-	
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection{
@@ -66,35 +62,48 @@
                                                     encoding:NSUTF8StringEncoding] JSONValue];
     
     [self.responsedata release];
+
+    if ([self.arrnotification count]==0) {
+            
+        self.view.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
+        notificationImageView.hidden=NO;
+        socFadedImageView.hidden=NO;
+    }//END if ([[[self.arrnotification objectAtIndex:i] valueForKey:@
+        
+    else{
+        notificationImageView.hidden=YES;
+        socFadedImageView.hidden=YES;
+            
+        //NSMutableArray *notificationArray=[self SetUpDummyNotifications];
+        CGRect waitingOnYouRect;
+        if([SoclivityUtilities deviceType] & iPhone5)
+            waitingOnYouRect=CGRectMake(0, 44, 320, 377+88);
+            
+        else
+            waitingOnYouRect=CGRectMake(0, 44, 320, 377);
+            
+        WaitingOnYouView *notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect andNotificationsListArray:self.arrnotification];
+        notificationView.delegate=self;
+        [self.view addSubview:notificationView];
+            
+    }//END Else Statement
     
-#if 0
-    self.view.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
-    notificationImageView.hidden=NO;
-    socFadedImageView.hidden=NO;
-    
-    
-#else
-    notificationImageView.hidden=YES;
-    socFadedImageView.hidden=YES;
-    
-    //NSMutableArray *notificationArray=[self SetUpDummyNotifications];
-    CGRect waitingOnYouRect;
-    if([SoclivityUtilities deviceType] & iPhone5)
-        waitingOnYouRect=CGRectMake(0, 44, 320, 377+88);
-    
-    else
-        waitingOnYouRect=CGRectMake(0, 44, 320, 377);
-    
-    WaitingOnYouView *notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect andNotificationsListArray:self.arrnotification];
-    notificationView.delegate=self;
-    [self.view addSubview:notificationView];
-#endif
-    
-    // for No Notifications
-    // Do any additional setup after loading the view from its nib.
-    
-    [loadingActionSheet dismissWithClickedButtonIndex:0 animated:YES];
- 
+    [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
+ }
+
+-(void)startAnimation{
+    // Setup animation settings
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    HUD.yOffset = -40.0;
+    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
+    HUD.labelText = @"Loading...";
+    [self.view addSubview:HUD];
+    HUD.delegate = self;
+    [HUD show:YES];
+}
+
+-(void)hideMBProgress{
+    [HUD hide:YES];
 }
 
 #pragma mark - View lifecycle
@@ -109,24 +118,26 @@
     notificationImageView.hidden=YES;
     socFadedImageView.hidden=YES;
     
-    loadingActionSheet = [[UIActionSheet alloc] initWithTitle:@"Please Wait..."
-                                                delegate:nil
-                                                cancelButtonTitle:nil
-                                                destructiveButtonTitle:nil
-                                               otherButtonTitles:nil];
-    loadingActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-    [loadingActionSheet showInView:self.view];
-    
-    [self GetNotifications];
-    
-
+    if([SoclivityUtilities hasNetworkConnection]){
+        
+        [self startAnimation];
+         [self GetNotifications];
+    }//END if([SoclivityUtilities hasNetworkConnection])
+    else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+    }//END Else Statement
     
     waitingOnYouLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
     waitingOnYouLabel.textColor=[UIColor whiteColor];
     waitingOnYouLabel.backgroundColor=[UIColor clearColor];
     waitingOnYouLabel.shadowColor = [UIColor blackColor];
     waitingOnYouLabel.shadowOffset = CGSizeMake(0,-1);
-    
 }
 
 

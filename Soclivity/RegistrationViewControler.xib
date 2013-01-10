@@ -49,7 +49,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="222031491">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIImageView" id="250481321">
@@ -452,7 +452,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 414}</string>
-				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="250481321"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -462,7 +461,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="797170633">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIImageView" id="64966439">
@@ -839,7 +838,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 414}</string>
-				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="64966439"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -1512,15 +1510,15 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="S01.1_back-arrow_circle.png">{25, 26}</string>
-			<string key="S02.1_create.png">{160, 121}</string>
-			<string key="S02.1_eat.png">{160, 121}</string>
-			<string key="S02.1_getstarted.png">{320, 42}</string>
-			<string key="S02.1_info.png">{17, 17}</string>
-			<string key="S02.1_learn.png">{157, 121}</string>
-			<string key="S02.1_play.png">{157, 119}</string>
+			<string key="S02.1_create.png">{160, 126}</string>
+			<string key="S02.1_eat.png">{160, 125}</string>
+			<string key="S02.1_getstarted.png">{115, 30}</string>
+			<string key="S02.1_info.png">{18, 18}</string>
+			<string key="S02.1_learn.png">{160, 126}</string>
+			<string key="S02.1_play.png">{160, 126}</string>
 			<string key="S02.1_rightarrow.png">{29, 30}</string>
-			<string key="S02.1_see.png">{157, 121}</string>
-			<string key="S02.1_thingsilike.png">{132, 78}</string>
+			<string key="S02.1_see.png">{160, 125}</string>
+			<string key="S02.1_thingsilike.png">{119, 73}</string>
 			<string key="S02.1_tick.png">{37, 32}</string>
 			<string key="S02_F_notselected.png">{30, 25}</string>
 			<string key="S02_M_notselected.png">{30, 25}</string>

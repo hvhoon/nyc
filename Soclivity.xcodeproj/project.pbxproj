@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C02DB78169E9F2A00213EDE /* InAppAlertBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C02DB74169E9F2A00213EDE /* InAppAlertBar.png */; };
+		3C02DB79169E9F2A00213EDE /* InAppAlertBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C02DB75169E9F2A00213EDE /* InAppAlertBar@2x.png */; };
+		3C02DB7A169E9F2A00213EDE /* InAppRemove.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C02DB76169E9F2A00213EDE /* InAppRemove.png */; };
+		3C02DB7B169E9F2A00213EDE /* InAppRemove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C02DB77169E9F2A00213EDE /* InAppRemove@2x.png */; };
 		3C505476168ECDAF001C1C5E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C505475168ECDAF001C1C5E /* libicucore.dylib */; };
 		3C505488168ECF09001C1C5E /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C50547A168ECF09001C1C5E /* AFHTTPClient.m */; };
 		3C505489168ECF09001C1C5E /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C50547C168ECF09001C1C5E /* AFHTTPRequestOperation.m */; };
@@ -796,6 +800,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C02DB74169E9F2A00213EDE /* InAppAlertBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InAppAlertBar.png; sourceTree = "<group>"; };
+		3C02DB75169E9F2A00213EDE /* InAppAlertBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "InAppAlertBar@2x.png"; sourceTree = "<group>"; };
+		3C02DB76169E9F2A00213EDE /* InAppRemove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InAppRemove.png; sourceTree = "<group>"; };
+		3C02DB77169E9F2A00213EDE /* InAppRemove@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "InAppRemove@2x.png"; sourceTree = "<group>"; };
 		3C505475168ECDAF001C1C5E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		3C505479168ECF09001C1C5E /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		3C50547A168ECF09001C1C5E /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
@@ -3061,6 +3069,10 @@
 		EACE5F23165B93DA00D1B3D0 /* S11 Notifications */ = {
 			isa = PBXGroup;
 			children = (
+				3C02DB74169E9F2A00213EDE /* InAppAlertBar.png */,
+				3C02DB75169E9F2A00213EDE /* InAppAlertBar@2x.png */,
+				3C02DB76169E9F2A00213EDE /* InAppRemove.png */,
+				3C02DB77169E9F2A00213EDE /* InAppRemove@2x.png */,
 				3C64847F168AD0AF00EAF56E /* S11_frame.png */,
 				3C648480168AD0AF00EAF56E /* S11_frame@2x.png */,
 				3C648481168AD0AF00EAF56E /* S11_picBox.png */,
@@ -4073,6 +4085,10 @@
 				3C648484168AD0B000EAF56E /* S11_frame@2x.png in Resources */,
 				3C648485168AD0B000EAF56E /* S11_picBox.png in Resources */,
 				3C648486168AD0B000EAF56E /* S11_picBox@2x.png in Resources */,
+				3C02DB78169E9F2A00213EDE /* InAppAlertBar.png in Resources */,
+				3C02DB79169E9F2A00213EDE /* InAppAlertBar@2x.png in Resources */,
+				3C02DB7A169E9F2A00213EDE /* InAppRemove.png in Resources */,
+				3C02DB7B169E9F2A00213EDE /* InAppRemove@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

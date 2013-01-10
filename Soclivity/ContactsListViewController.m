@@ -457,7 +457,6 @@
     switch (relationTypeTag) {
         case 11:
         {
-            
             if(inviteFriends && response){
                 
                 HUD.labelText = @"Invited";

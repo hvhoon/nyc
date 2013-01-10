@@ -212,13 +212,15 @@
 
 - (void) webSocket:(SRWebSocket *)webSocket didReceiveMessage:(NSString *)message {
     
+    NSDictionary *dictcount=[[NSDictionary alloc] initWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"],@"Waiting_On_You_Count", nil];
+    
     NSString *channel = [[[message JSONValue] objectAtIndex:0] valueForKeyPath:@"data"];
       
     if ([[channel valueForKeyPath:@"data"] valueForKey:@"message"]!=NULL)
     {
         int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
         count=count+1;
-          
+        
         [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%i",count] forKey:@"Waiting_On_You_Count"];
           
           if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]==NULL)
@@ -234,19 +236,14 @@
 
               [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrvalue,[[channel valueForKeyPath:@"data"] valueForKey:@"notification_id"]] forKey:@"Notification_id"];
           }//END Else Statement
-          
-        SlideViewController* objslide = [(AppDelegate*)[[UIApplication sharedApplication] delegate] globalSlideController];
-        [objslide UpdateNotification];
-          
-         /* UIAlertView *alertview=[[UIAlertView alloc] initWithTitle:@"Message"
-                                                            message:[[channel valueForKeyPath:@"data"] valueForKey:@"message"]
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-          
-          [alertview show];
-          */
-      }//END if ([[[channel value
+        
+        NSLog(@"waiting on you count::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]);
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Badge_Count" object:self userInfo:dictcount];
+        
+        //[[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingonyouNotification" object:self userInfo:[channel valueForKeyPath:@"data"]];
+        }//END if ([[[channel value
 }
 
 @end

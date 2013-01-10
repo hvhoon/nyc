@@ -35,7 +35,6 @@
     NSString *bodyData = [NSString stringWithFormat:@"%@",[bodyD JSONRepresentation]];
     
     //    NSString *bodyData = [NSString stringWithFormat:@"{\"signin\":%@}",[bodyD JSONRepresentation]];
-    NSLog(@"bodyData=%@",bodyData);
 	return bodyData;
 #endif    
 }
