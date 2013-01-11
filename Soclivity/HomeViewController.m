@@ -77,7 +77,9 @@
     {
         if ([[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] length]<=2)
         {
-            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notificationBadge3digit.png"] forState:UIControlStateNormal];
+            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notficationBadge1digit.png"] forState:UIControlStateNormal];
+            self.btnnotify.frame = CGRectMake(100,100,17,17);
+            
         }//END if ([[NSString stringWithFormat:@"%i",[[[
         
         else{
