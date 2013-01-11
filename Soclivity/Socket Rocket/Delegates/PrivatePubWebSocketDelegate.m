@@ -215,7 +215,7 @@
     NSDictionary *dictcount=[[NSDictionary alloc] initWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"],@"Waiting_On_You_Count", nil];
     
     NSString *channel = [[[message JSONValue] objectAtIndex:0] valueForKeyPath:@"data"];
-      
+    
     if ([[channel valueForKeyPath:@"data"] valueForKey:@"message"]!=NULL)
     {
         int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
@@ -237,12 +237,11 @@
               [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrvalue,[[channel valueForKeyPath:@"data"] valueForKey:@"notification_id"]] forKey:@"Notification_id"];
           }//END Else Statement
         
-        NSLog(@"waiting on you count::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]);
-        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"Badge_Count" object:self userInfo:dictcount];
+
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
         
-        //[[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingonyouNotification" object:self userInfo:[channel valueForKeyPath:@"data"]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingonyouNotification" object:self userInfo:[channel valueForKeyPath:@"data"]];
         }//END if ([[[channel value
 }
 

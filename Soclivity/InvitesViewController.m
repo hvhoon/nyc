@@ -21,7 +21,8 @@
 @end
 
 @implementation InvitesViewController
-@synthesize delegate,settingsButton,activityBackButton,inviteTitleLabel,openSlotsNoLabel,activityName,num_of_slots,inviteFriends,activityInvites,inviteArray,activityId;
+@synthesize delegate,settingsButton,activityBackButton,inviteTitleLabel,openSlotsNoLabel,activityName,num_of_slots,inviteFriends,activityInvites,inviteArray,activityId,btnnotify;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -44,9 +45,36 @@
     [super viewWillAppear:animated];
     
     [activityInvites closeAnimation];
-    
-
 }
+
+-(void)UpdateBadgeNotification
+{
+    self.btnnotify.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:10];
+    
+    int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
+    
+    if (count==0)
+    {
+        self.btnnotify.alpha=0;
+    }//END if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"Wait
+    
+    else
+    {
+        if ([[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] length]<=2)
+        {
+            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notificationBadge3digit.png"] forState:UIControlStateNormal];
+        }//END if ([[NSString stringWithFormat:@"%i",[[[
+        
+        else{
+             [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notficationBadge1digit.png"] forState:UIControlStateNormal];
+        }//END Else Statement
+        
+        self.btnnotify.alpha=1;
+        [self.btnnotify setTitle:[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] forState:UIControlStateNormal];
+        [self.btnnotify setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }//END Else Statement
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -54,6 +82,10 @@
     [super viewDidLoad];
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
+    
+    [self UpdateBadgeNotification];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
     
     if(inviteFriends){
     settingsButton.hidden=YES;

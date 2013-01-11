@@ -239,9 +239,6 @@
     
 }
 -(void)SignInUsingFacebookButtonClicked{
-    
-    
-    
     if([SoclivityUtilities hasNetworkConnection]){
         
     

@@ -11,6 +11,8 @@
 #import "FBConnect.h"
 @class FacebookLogin;
 @class SlideViewController;
+@class TTTAttributedLabel;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate>{
     UINavigationController *navigationController;
     DDMenuController *menuController;
@@ -30,6 +32,7 @@
 @property (nonatomic, retain) Facebook *facebook;
 @property (nonatomic, retain) NSMutableDictionary *userPermissions;
 @property (nonatomic, assign) BOOL resetSuccess;
+@property (nonatomic, retain) TTTAttributedLabel *summaryLabel;
 
 @property(nonatomic, retain) NSMutableData *responsedata;
 
@@ -37,4 +40,5 @@
 
 -(FacebookLogin*)SetUpFacebook;
 - (void)setUpActivityDataList;
+-(void)IncreaseBadgeIcon;
 @end

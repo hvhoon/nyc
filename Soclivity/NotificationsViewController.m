@@ -12,7 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @implementation NotificationsViewController
-@synthesize delegate,responsedata,arrnotification;
+@synthesize delegate,responsedata,arrnotification,btnnotify;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,6 +28,34 @@
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
+}
+
+-(void)BadgeNotification
+{
+    self.btnnotify.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:10];
+    
+    int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
+    
+    if (count==0)
+    {
+        self.btnnotify.alpha=0;
+    }//END if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"Wait
+    
+    else
+    {
+        if ([[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] length]<=2)
+        {
+            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notificationBadge3digit.png"] forState:UIControlStateNormal];
+        }//END if ([[NSString stringWithFormat:@"%i",[[[
+        
+        else{
+            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notficationBadge1digit.png"] forState:UIControlStateNormal];
+        }//END Else Statement
+        
+        self.btnnotify.alpha=1;
+        [self.btnnotify setTitle:[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] forState:UIControlStateNormal];
+        [self.btnnotify setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }//END Else Statement
 }
 
 -(void)GetNotifications
@@ -77,10 +105,10 @@
         //NSMutableArray *notificationArray=[self SetUpDummyNotifications];
         CGRect waitingOnYouRect;
         if([SoclivityUtilities deviceType] & iPhone5)
-            waitingOnYouRect=CGRectMake(0, 44, 320, 377+88);
+            waitingOnYouRect=CGRectMake(0, 44, 320, 377+85);
             
         else
-            waitingOnYouRect=CGRectMake(0, 44, 320, 377);
+            waitingOnYouRect=CGRectMake(0, 44, 320, 375);
             
         WaitingOnYouView *notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect andNotificationsListArray:self.arrnotification];
         notificationView.delegate=self;
@@ -113,6 +141,10 @@
     [super viewDidLoad];
     
     self.responsedata=[[NSMutableData alloc] init];
+    
+    [self BadgeNotification];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (BadgeNotification) name:@"WaitingOnYou_Count" object:nil];
     
     self.view.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
     notificationImageView.hidden=YES;

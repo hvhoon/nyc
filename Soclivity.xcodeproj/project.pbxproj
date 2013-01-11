@@ -26,6 +26,10 @@
 		3C648484168AD0B000EAF56E /* S11_frame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C648480168AD0AF00EAF56E /* S11_frame@2x.png */; };
 		3C648485168AD0B000EAF56E /* S11_picBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C648481168AD0AF00EAF56E /* S11_picBox.png */; };
 		3C648486168AD0B000EAF56E /* S11_picBox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C648482168AD0B000EAF56E /* S11_picBox@2x.png */; };
+		3C65702016A0448F0045FCEF /* notficationBadge1digit.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C65701C16A0448F0045FCEF /* notficationBadge1digit.png */; };
+		3C65702116A0448F0045FCEF /* notficationBadge1digit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C65701D16A0448F0045FCEF /* notficationBadge1digit@2x.png */; };
+		3C65702216A0448F0045FCEF /* notificationBadge3digit.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C65701E16A0448F0045FCEF /* notificationBadge3digit.png */; };
+		3C65702316A0448F0045FCEF /* notificationBadge3digit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C65701F16A0448F0045FCEF /* notificationBadge3digit@2x.png */; };
 		3CC4EF5E1688673500A83BBB /* rightArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CC4EF5C1688673500A83BBB /* rightArrow.png */; };
 		3CC4EF5F1688673500A83BBB /* rightArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CC4EF5D1688673500A83BBB /* rightArrow@2x.png */; };
 		6802EC3815B6611E00FF0048 /* picbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 6802EC3615B6611E00FF0048 /* picbox.png */; };
@@ -830,6 +834,10 @@
 		3C648480168AD0AF00EAF56E /* S11_frame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S11_frame@2x.png"; sourceTree = "<group>"; };
 		3C648481168AD0AF00EAF56E /* S11_picBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S11_picBox.png; sourceTree = "<group>"; };
 		3C648482168AD0B000EAF56E /* S11_picBox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S11_picBox@2x.png"; sourceTree = "<group>"; };
+		3C65701C16A0448F0045FCEF /* notficationBadge1digit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notficationBadge1digit.png; sourceTree = "<group>"; };
+		3C65701D16A0448F0045FCEF /* notficationBadge1digit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notficationBadge1digit@2x.png"; sourceTree = "<group>"; };
+		3C65701E16A0448F0045FCEF /* notificationBadge3digit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notificationBadge3digit.png; sourceTree = "<group>"; };
+		3C65701F16A0448F0045FCEF /* notificationBadge3digit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notificationBadge3digit@2x.png"; sourceTree = "<group>"; };
 		3CC4EF5C1688673500A83BBB /* rightArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightArrow.png; sourceTree = "<group>"; };
 		3CC4EF5D1688673500A83BBB /* rightArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rightArrow@2x.png"; sourceTree = "<group>"; };
 		6802EC3615B6611E00FF0048 /* picbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = picbox.png; sourceTree = "<group>"; };
@@ -3069,6 +3077,10 @@
 		EACE5F23165B93DA00D1B3D0 /* S11 Notifications */ = {
 			isa = PBXGroup;
 			children = (
+				3C65701C16A0448F0045FCEF /* notficationBadge1digit.png */,
+				3C65701D16A0448F0045FCEF /* notficationBadge1digit@2x.png */,
+				3C65701E16A0448F0045FCEF /* notificationBadge3digit.png */,
+				3C65701F16A0448F0045FCEF /* notificationBadge3digit@2x.png */,
 				3C02DB74169E9F2A00213EDE /* InAppAlertBar.png */,
 				3C02DB75169E9F2A00213EDE /* InAppAlertBar@2x.png */,
 				3C02DB76169E9F2A00213EDE /* InAppRemove.png */,
@@ -4089,6 +4101,10 @@
 				3C02DB79169E9F2A00213EDE /* InAppAlertBar@2x.png in Resources */,
 				3C02DB7A169E9F2A00213EDE /* InAppRemove.png in Resources */,
 				3C02DB7B169E9F2A00213EDE /* InAppRemove@2x.png in Resources */,
+				3C65702016A0448F0045FCEF /* notficationBadge1digit.png in Resources */,
+				3C65702116A0448F0045FCEF /* notficationBadge1digit@2x.png in Resources */,
+				3C65702216A0448F0045FCEF /* notificationBadge3digit.png in Resources */,
+				3C65702316A0448F0045FCEF /* notificationBadge3digit@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4278,8 +4294,8 @@
 					armv6,
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -4296,6 +4312,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PROVISIONING_PROFILE = "6C96B5FE-0418-43E3-BA61-9B8E8B54CEED";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6C96B5FE-0418-43E3-BA61-9B8E8B54CEED";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -4311,8 +4329,8 @@
 					armv6,
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_THUMB_SUPPORT = NO;
@@ -4323,6 +4341,8 @@
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "6C96B5FE-0418-43E3-BA61-9B8E8B54CEED";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6C96B5FE-0418-43E3-BA61-9B8E8B54CEED";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -4346,8 +4366,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "6C96B5FE-0418-43E3-BA61-9B8E8B54CEED";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6C96B5FE-0418-43E3-BA61-9B8E8B54CEED";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				USER_HEADER_SEARCH_PATHS = "../../src/**";
 				VALIDATE_PRODUCT = NO;
@@ -4371,8 +4391,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "6C96B5FE-0418-43E3-BA61-9B8E8B54CEED";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6C96B5FE-0418-43E3-BA61-9B8E8B54CEED";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				USER_HEADER_SEARCH_PATHS = "../../src/**";
 				WRAPPER_EXTENSION = app;

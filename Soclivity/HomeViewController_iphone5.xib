@@ -161,6 +161,7 @@
 								<string key="NSFrame">{{105, 7}, {111, 29}}</string>
 								<reference key="NSSuperview" ref="615334802"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="888797119"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
@@ -186,7 +187,7 @@
 						<string key="NSFrame">{{5, 512}, {39, 31}}</string>
 						<reference key="NSSuperview" ref="1059045188"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="847315156"/>
+						<reference key="NSNextKeyView" ref="391599176"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -248,6 +249,7 @@
 								<string key="NSFrameSize">{39, 31}</string>
 								<reference key="NSSuperview" ref="229073774"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -399,9 +401,10 @@
 					<object class="IBUIButton" id="391599176">
 						<reference key="NSNextResponder" ref="1059045188"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{36, 498}, {20, 20}}</string>
+						<string key="NSFrame">{{36, 508}, {20, 20}}</string>
 						<reference key="NSSuperview" ref="1059045188"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="847315156"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -415,7 +418,7 @@
 						<reference key="IBUINormalTitleShadowColor" ref="594709326"/>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">S04_dot@2x.png</string>
+							<string key="NSResourceName">notficationBadge1digit.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<int key="type">2</int>
@@ -1047,7 +1050,6 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="S04_bottombar.png">{320, 40}</string>
 			<string key="S04_currentlocation.png">{25, 26}</string>
-			<string key="S04_dot@2x.png">{11, 11}</string>
 			<string key="S04_listbtn.png">{39, 31}</string>
 			<string key="S04_logo.png">{111, 30}</string>
 			<string key="S04_mapbtn.png">{39, 31}</string>
@@ -1057,6 +1059,7 @@
 			<string key="S04_sortdos.png">{32, 22}</string>
 			<string key="S04_sorttime.png">{24, 25}</string>
 			<string key="S04_titlebar.png">{320, 44}</string>
+			<string key="notficationBadge1digit.png">{17, 17}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1926</string>
 	</data>

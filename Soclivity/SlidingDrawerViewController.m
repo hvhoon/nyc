@@ -386,9 +386,13 @@
 - (void)configureViewController:(UIViewController *)viewController userInfo:(id)userInfo {
     
     if ([viewController isKindOfClass:[WelcomeScreenViewController class]]) {
-        
-        NSLog(@"WelcomeScreenViewController class");
         if(isFBlogged){
+            
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"logged_in_user_id"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Waiting_On_You_Count"];
+            
+            [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+            
             [self FBlogout];
         }
 

@@ -34,6 +34,7 @@
 @property (nonatomic,retain)id <NotificationsScreenViewDelegate>delegate;
 @property(nonatomic, retain) NSMutableData *responsedata;
 @property(nonatomic, retain) NSMutableArray *arrnotification;
+@property (nonatomic, retain)IBOutlet UIButton *btnnotify;
 
 -(IBAction)profileSliderPressed:(id)sender;
 //-(NSMutableArray*) SetUpNotifications;

@@ -64,13 +64,26 @@
 
 -(void)UpdateBadgeNotification
 {
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]==0)
+    self.btnnotify.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:10];
+    
+    int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
+    
+    if (count==0)
     {
         self.btnnotify.alpha=0;
     }//END if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"Wait
     
     else
     {
+        if ([[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] length]<=2)
+        {
+            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notificationBadge3digit.png"] forState:UIControlStateNormal];
+        }//END if ([[NSString stringWithFormat:@"%i",[[[
+        
+        else{
+            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notficationBadge1digit.png"] forState:UIControlStateNormal];
+        }//END Else Statement
+        
         self.btnnotify.alpha=1;
         [self.btnnotify setTitle:[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] forState:UIControlStateNormal];
         [self.btnnotify setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -86,7 +99,7 @@
     
     [self UpdateBadgeNotification];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"Badge_Count" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
     
     if(SOC.currentLocation.coordinate.latitude!=0.0f && SOC.currentLocation.coordinate.longitude!=0.0f){
         

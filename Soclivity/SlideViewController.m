@@ -407,8 +407,6 @@
 
 -(void)WaitingOnYou_Count
 {
-    NSLog(@"waiting on you count::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]);
-    
     [_tableView reloadData];
 }
 

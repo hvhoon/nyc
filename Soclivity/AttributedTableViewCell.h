@@ -11,6 +11,7 @@
 @property (nonatomic, retain) TTTAttributedLabel *summaryLabel;
 @property (nonatomic, copy) NSString *timeText;
 @property (nonatomic, retain) UILabel *lbltime;
+@property (copy, readwrite) NSString *lstrnotificationtype;
 
 + (CGFloat)heightForCellWithText:(NSString *)text;
 

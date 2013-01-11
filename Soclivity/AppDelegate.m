@@ -13,10 +13,23 @@
 #import "DetailInfoActivityClass.h"
 #import "SoclivityUtilities.h"
 #import "SoclivitySqliteClass.h"
+#import "TTTAttributedLabel.h"
+
 static NSString* kAppId = @"160726900680967";//kanav
 #define kShowAlertKey @"ShowAlert"
 #define kRemoteNotificationReceivedNotification @"RemoteNotificationReceivedWhileRunning"
 #define kRemoteNotificationBackgroundNotification @"RemoteNotificationReceivedWhileBackground"
+
+static NSRegularExpression *__nameRegularExpression;
+static inline NSRegularExpression * NameRegularExpression() {
+    if (!__nameRegularExpression) {
+        // __nameRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"^\\w+" options:NSRegularExpressionCaseInsensitive error:nil];
+        
+        __nameRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"#([^#(#)]+#)" options:NSRegularExpressionCaseInsensitive error:nil];
+    }
+    
+    return __nameRegularExpression;
+}
 
 @implementation UINavigationBar (CustomImage)
 
@@ -38,27 +51,174 @@ static NSString* kAppId = @"160726900680967";//kanav
 @synthesize resetSuccess;
 @synthesize responsedata,vw_notification;
 
+@synthesize summaryLabel = _summaryLabel;
+UIImageView *imgvw1;
+
+int counter=0;
+NSTimer *timer;
+NSString *lstrphoto;
+
 - (void)dealloc
 {
     [_window release];
     [super dealloc];
 }
 
--(void)ShowNotification
+-(void)HideNotification
 {
-    vw_notification=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 58)];
+    [vw_notification removeFromSuperview];
+}
+
+- (void)countdownTracker:(NSTimer *)theTimer {
+    counter++;
+    if (counter ==5)
+    {
+        [timer invalidate];
+        timer = nil;
+        counter = 0;
+        
+        [self HideNotification];
+    }//END if (counter ==5)
+}
+
+-(void)DownloadImage:(NSString *)lstrphotourl
+{
+    self.responsedata=[[NSMutableData alloc] init];
+    
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
+                             [NSURLRequest requestWithURL:
+                              [NSURL URLWithString:[NSString stringWithFormat:@"http://%@%@",ProductionServer,lstrphotourl]]] delegate:self];
+    
+    lstrphoto=@"photo";
+    NSLog(@"conn::%@",conn);
+}
+
+-(void)ShowNotification:(NSNotification*)dict
+{
+    
+   // NSLog(@"");
+    
+    timer =[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countdownTracker:) userInfo:nil repeats:YES];
+    
+    vw_notification=[[UIView alloc] initWithFrame:CGRectMake(0, 20, 320, 58)];
     vw_notification.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"InAppAlertBar.png"]];
     
-    //[self.window addSubview:vw_notification];
+    UIImageView *imgvw=[[UIImageView alloc] init];
+    imgvw.frame=CGRectMake(5, 5, 43, 43);
+    imgvw.image=[UIImage imageNamed:@"S11_frame.png"];
+    
+    imgvw1=[[UIImageView alloc] init];
+    imgvw1.frame=CGRectMake(10, 10, 32, 32);
+    imgvw1.backgroundColor=[UIColor clearColor];
+    
+    self.summaryLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
+    self.summaryLabel.frame=CGRectMake(50, 0, 200, 50);
+    self.summaryLabel.textColor=[SoclivityUtilities returnTextFontColor:4];
+    self.summaryLabel.font =[UIFont fontWithName:@"Helvetica-Condensed" size:12];
+    self.summaryLabel.lineBreakMode = UILineBreakModeWordWrap;
+    self.summaryLabel.numberOfLines = 0;
+    self.summaryLabel.highlightedTextColor = [UIColor whiteColor];
+    self.summaryLabel.backgroundColor=[UIColor clearColor];
+    
+    [self setSummaryText:[[dict valueForKey:@"userInfo"] valueForKey:@"message"]];
+    
+    UIButton *btnclose=[UIButton buttonWithType:UIButtonTypeCustom];
+    btnclose.frame=CGRectMake(295, 16, 19, 19);
+    [btnclose setBackgroundImage:[UIImage imageNamed:@"InAppRemove.png"] forState:UIControlStateNormal];
+    [btnclose addTarget:self action:@selector(HideNotification) forControlEvents:UIControlEventTouchUpInside];
+    
+     CGSize imgSize;
+    
+    if ([[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==1)
+    {
+        imgvw1.image=[UIImage imageNamed:@"S11_infoChangeIcon.png"];
+        imgSize=[imgvw1.image size];
+        imgvw1.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
+    }//END if ([[[self._notifications objectAtIndex:indexPath
+    
+    else if([[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==2)
+    {
+        imgvw1.image=[UIImage imageNamed:@"S11_calendarIcon.png"];
+        imgSize=[imgvw1.image size];
+        imgvw1.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
+    }//END if ([[[self._notifications objectAt
+    
+    else if([[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==3)
+    {
+        imgvw1.image=[UIImage imageNamed:@"S11_clockLogo.png"];
+        imgSize=[imgvw1.image size];
+        imgvw1.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
+    }//END if ([[[self._notifications objectAt
+    
+    else if([[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==4)
+    {
+        imgvw1.image=[UIImage imageNamed:@"S11_locationIcon.png"];
+        imgSize=[imgvw1.image size];
+        imgvw1.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
+    }//END if ([[[self._notifications objectAt
+    
+    [vw_notification addSubview:btnclose];
+    [vw_notification addSubview:self.summaryLabel];
+    [vw_notification addSubview:imgvw1];
+    
+    if ([[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==11)
+    {
+        [vw_notification addSubview:imgvw1];
+        [self DownloadImage:(NSString *)[[dict valueForKey:@"userInfo"] valueForKey:@"photo_url"]];
+    }//END if ([[dict valueForKey:@"activity_type"] intValue]==11)
+    
+    else
+    {
+        [self.window addSubview:vw_notification];
+    }//END Else Statement
+}
+
+- (void)setSummaryText:(NSString *)text {
+    
+    [self.summaryLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
+        NSRange stringRange = NSMakeRange(0, [mutableAttributedString length]);
+        
+        NSRegularExpression *regexp = NameRegularExpression();
+        
+        [regexp enumerateMatchesInString:[mutableAttributedString string] options:0 range:stringRange usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+            
+            UIFont *boldSystemFont =[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14.0]; //[UIFont boldSystemFontOfSize:kEspressoDescriptionTextFontSize];
+            CTFontRef boldFont = CTFontCreateWithName(( CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
+            
+            if (boldFont) {
+                [mutableAttributedString removeAttribute:(NSString *)kCTFontAttributeName range:result.range];
+                [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:( id)boldFont range:result.range];
+                CFRelease(boldFont);
+                
+                [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:result.range];
+                [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor darkGrayColor] CGColor] range:result.range];
+            }
+            
+            
+        }];
+        
+        int times = [[text componentsSeparatedByString:@"#"] count]-1;
+        
+        for (int i=0; i<times; i++)
+        {
+            NSRange range = [[mutableAttributedString string] rangeOfString:@"#"];
+            
+            [mutableAttributedString replaceCharactersInRange:NSMakeRange(range.location, 1) withString:@""];
+            
+        }//END for (int i=0; i<[Splitarray count]; i++)
+        
+        return mutableAttributedString;
+    }];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self IncreaseBadgeIcon];
     
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"logged_in_user_id"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Waiting_On_You_Count"];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (ShowNotification) name:@"WaitingonyouNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (ShowNotification:) name:@"WaitingonyouNotification" object:nil];
     
     //[self setUpActivityDataList];
     [SoclivitySqliteClass copyDatabaseIfNeeded];
@@ -86,20 +246,15 @@ static NSString* kAppId = @"160726900680967";//kanav
     {
         // set globablly for all UINavBars
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed: @"S01.2_blackbar.png"] forBarMetrics:UIBarMetricsDefault];
-        
         // could optionally set for just this navBar
         //[navBar setBackgroundImage:...
     }
-
-
     
     [navigationController setNavigationBarHidden:YES];
     [self.window addSubview:navigationController.view];
 
     [self.window makeKeyAndVisible];
     [self registerForNotifications];
-    
-    // [self ShowNotification];
     
     return YES;
 }
@@ -109,15 +264,21 @@ static NSString* kAppId = @"160726900680967";//kanav
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:type];
 }
 
+-(void)IncreaseBadgeIcon
+{
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]!=0)
+    {
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber: [[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]];
+    }//END if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]!=0)
+}
+
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
-	NSLog(@"My token is: %@", deviceToken);
     NSString *token = [[NSString stringWithFormat:@"%@",deviceToken] stringByReplacingOccurrencesOfString:@" " withString:@""];
     token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
     token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
     
     [[NSUserDefaults standardUserDefaults] setValue:token forKey:@"device_token"];
-    
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
@@ -282,7 +443,7 @@ static NSString* kAppId = @"160726900680967";//kanav
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-	[self.responsedata appendData:data];
+    [self.responsedata appendData:data];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
@@ -294,7 +455,16 @@ static NSString* kAppId = @"160726900680967";//kanav
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection{
-	[connection release];
+
+    if ([lstrphoto isEqualToString:@"photo"])
+    {
+        UIImage *image = [[UIImage alloc] initWithData:self.responsedata];
+        
+        imgvw1.image=image;
+        [self.window addSubview:vw_notification];
+    }//END if ([lstrphoto isEqualToString:@"photo"])
+    
+    [connection release];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application

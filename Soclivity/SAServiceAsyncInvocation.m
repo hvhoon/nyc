@@ -258,12 +258,14 @@ NSDateFormatter* gJSONDateFormatter = nil;
         [[NSUserDefaults standardUserDefaults] setValue:[[response JSONValue] valueForKey:@"logged_in_user_id"] forKey:@"logged_in_user_id"];
         
          [[NSUserDefaults standardUserDefaults] setValue:[[response JSONValue] valueForKey:@"notification_count"] forKey:@"Waiting_On_You_Count"];
+        
+        [[NSUserDefaults standardUserDefaults] setValue:[[response JSONValue] valueForKey:@"unread_notification"] forKey:@"Notification_id"];
     }//END  if ([[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"]==NULL)
+    
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
 
 	if ([[self response] isOK]) {
 		finalize = [self handleHttpOK:_receivedData];
-        
-        NSLog(@"[response JSONValue]::%@",[response JSONValue]);
         
         if ([[response JSONValue] valueForKey:@"channel"]!=NULL && [[response JSONValue] count]!=0)
         {

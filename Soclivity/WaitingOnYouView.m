@@ -85,6 +85,9 @@
     //if (cell == nil) {
         cell = [[AttributedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
    // }
+    
+    cell.lstrnotificationtype=[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"];
+    
     for (UIView *view in cell.contentView.subviews)
     {
         if (![view isKindOfClass:[UILabel class]])
@@ -143,26 +146,35 @@
         if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==1)
         {
             img_vw.image=[UIImage imageNamed:@"S11_infoChangeIcon.png"];
+            imgSize=[img_vw.image size];
+            img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
         }//END if ([[[self._notifications objectAtIndex:indexPath
         
         if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==2)
         {
             img_vw.image=[UIImage imageNamed:@"S11_calendarIcon.png"];
+            imgSize=[img_vw.image size];
+            img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
         }//END if ([[[self._notifications objectAt
         
         if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==3)
         {
             img_vw.image=[UIImage imageNamed:@"S11_clockLogo.png"];
+            imgSize=[img_vw.image size];
+            img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
         }//END if ([[[self._notifications objectAt
         
         if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==4)
         {
             img_vw.image=[UIImage imageNamed:@"S11_locationIcon.png"];
+             imgSize=[img_vw.image size];
+            img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
         }//END if ([[[self._notifications objectAt
         
-        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11)
+        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6)
         {
             IconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
+            
             if (!iconDownloader.img_waitingonyou)
             {
                 if (waitingTableView.dragging == NO && waitingTableView.decelerating == NO)
@@ -177,6 +189,9 @@
             {
                 img_vw.image = [iconDownloader.img_waitingonyou retain];
             }//END Else Statement
+            
+            imgSize=[img_vw.image size];
+            img_vw.frame=CGRectMake(10, 10, imgSize.width,imgSize.height);
             
            // self.img_vw.image=[UIImage imageNamed:@"S11_picBox.png"];
         }//END if ([[[self._notifications objectAt
@@ -226,9 +241,6 @@
         
     }//END  if (notif.type==7)
 */
-    
-    imgSize=[img_vw.image size];
-    img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
     
     UIButton *btnindicator=[UIButton buttonWithType:UIButtonTypeCustom];
     btnindicator.frame=CGRectMake(276, 20, 38, 38);
@@ -371,7 +383,8 @@
     NSDictionary *dictcount=[[NSDictionary alloc] initWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"],@"Waiting_On_You_Count", nil];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
-     [[NSNotificationCenter defaultCenter] postNotificationName:@"Badge_Count" object:self userInfo:dictcount];
+    
+      [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
     
      [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
 }
