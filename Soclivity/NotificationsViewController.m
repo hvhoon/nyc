@@ -32,7 +32,7 @@
 
 -(void)BadgeNotification
 {
-    self.btnnotify.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:10];
+    self.btnnotify.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
     
     int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
     
@@ -43,13 +43,16 @@
     
     else
     {
-        if ([[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] length]<=2)
+        if ([[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] length]<2)
         {
-            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notificationBadge3digit.png"] forState:UIControlStateNormal];
-        }//END if ([[NSString stringWithFormat:@"%i",[[[
+            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notifyDigit1.png"] forState:UIControlStateNormal];
+            self.btnnotify.frame = CGRectMake(self.btnnotify.frame.origin.x,self.btnnotify.frame.origin.y,27,27);
+            
+        }
         
         else{
-            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notficationBadge1digit.png"] forState:UIControlStateNormal];
+            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notifyDigit2.png"] forState:UIControlStateNormal];
+            self.btnnotify.frame = CGRectMake(self.btnnotify.frame.origin.x,self.btnnotify.frame.origin.y,33,28);
         }//END Else Statement
         
         self.btnnotify.alpha=1;
@@ -105,10 +108,10 @@
         //NSMutableArray *notificationArray=[self SetUpDummyNotifications];
         CGRect waitingOnYouRect;
         if([SoclivityUtilities deviceType] & iPhone5)
-            waitingOnYouRect=CGRectMake(0, 44, 320, 377+85);
+            waitingOnYouRect=CGRectMake(0, 44, 320, 375+85);
             
         else
-            waitingOnYouRect=CGRectMake(0, 44, 320, 375);
+            waitingOnYouRect=CGRectMake(0, 44, 320, 377);
             
         WaitingOnYouView *notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect andNotificationsListArray:self.arrnotification];
         notificationView.delegate=self;
