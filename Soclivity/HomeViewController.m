@@ -64,7 +64,7 @@
 
 -(void)UpdateBadgeNotification
 {
-    self.btnnotify.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:10];
+    self.btnnotify.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
     
     int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
     
@@ -77,8 +77,8 @@
     {
         if ([[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] length]<=2)
         {
-            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notficationBadge1digit.png"] forState:UIControlStateNormal];
-            self.btnnotify.frame = CGRectMake(100,100,17,17);
+            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notifyDigit1"] forState:UIControlStateNormal];
+            self.btnnotify.frame = CGRectMake(self.btnnotify.frame.size.width,411,27,27);
             
         }//END if ([[NSString stringWithFormat:@"%i",[[[
         
