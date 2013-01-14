@@ -425,6 +425,10 @@ if(timer%2==0){
         // Off-white background (usage: Filter pane background)
         case 1:
             return [UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0];
+            
+        // Dark Gray for the settings page
+        case 2:
+            return [UIColor colorWithRed:88.0/255.0 green:89.0/255.0 blue:91.0/255.0 alpha:1.0];
         
         // Light green (play)
         case 10:

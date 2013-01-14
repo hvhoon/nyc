@@ -158,10 +158,10 @@
 }
 - (void)viewDidLoad {
     
-    self.view.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S7_background.png"]];
+    self.view.backgroundColor= [SoclivityUtilities returnBackgroundColor:2];
+    //self.view.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S7_background.png"]];
     _tableView.scrollEnabled=NO;
     _tableView.bounces=NO;
-    _tableView.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S7_background.png"]];
     if (![self.delegate respondsToSelector:@selector(configureSearchDatasourceWithString:)] || ![self.delegate respondsToSelector:@selector(searchDatasource)]) {
         _tableView.frame = CGRectMake(0.0f, 0.0f, 269.0f, 460.0f);
     }
