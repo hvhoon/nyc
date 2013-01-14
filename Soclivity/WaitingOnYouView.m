@@ -37,7 +37,7 @@
             activityTableRect=CGRectMake(0, 0, 320, 332+88+44);
         
         else
-            activityTableRect=CGRectMake(0, 0, 320, 332+44);
+            activityTableRect=CGRectMake(0, 0, 320, 332+41);
         
         
         waitingTableView=[[UITableView alloc]initWithFrame:activityTableRect];
@@ -70,6 +70,12 @@
         height=60;
     }//END if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]==NULL)
     
+    else if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6)
+    {
+        height=[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+50;
+    }//END if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]==NULL)
+
+    
     else
     {
          height=[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+20;
@@ -94,7 +100,8 @@
         {
              [view removeFromSuperview];
         }
-    }
+    }//END for (UIView *view in cell.contentView.subviews)
+    
     cell.backgroundColor=[UIColor whiteColor];
     
     if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]!=[NSNull null])
@@ -148,6 +155,8 @@
             img_vw.image=[UIImage imageNamed:@"S11_infoChangeIcon.png"];
             imgSize=[img_vw.image size];
             img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
+            
+            [cell.contentView addSubview:img_vw];
         }//END if ([[[self._notifications objectAtIndex:indexPath
         
         if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==2)
@@ -155,6 +164,8 @@
             img_vw.image=[UIImage imageNamed:@"S11_calendarIcon.png"];
             imgSize=[img_vw.image size];
             img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
+            
+            [cell.contentView addSubview:img_vw];
         }//END if ([[[self._notifications objectAt
         
         if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==3)
@@ -162,6 +173,8 @@
             img_vw.image=[UIImage imageNamed:@"S11_clockLogo.png"];
             imgSize=[img_vw.image size];
             img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
+            
+            [cell.contentView addSubview:img_vw];
         }//END if ([[[self._notifications objectAt
         
         if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==4)
@@ -169,9 +182,11 @@
             img_vw.image=[UIImage imageNamed:@"S11_locationIcon.png"];
              imgSize=[img_vw.image size];
             img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
+            
+            [cell.contentView addSubview:img_vw];
         }//END if ([[[self._notifications objectAt
         
-        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6)
+        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==8 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11)
         {
             IconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
             
@@ -191,10 +206,30 @@
             }//END Else Statement
             
             imgSize=[img_vw.image size];
-            img_vw.frame=CGRectMake(10, 10, imgSize.width,imgSize.height);
+            img_vw.frame=CGRectMake(3,3,30,29);
+            
+            [Borderimg_vw addSubview:img_vw];
+            [cell.contentView addSubview:Borderimg_vw];
+            
+            if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6)
+            {
+                UIButton *btngoing=[UIButton buttonWithType:UIButtonTypeCustom];
+                btngoing.frame=CGRectMake(150,[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+20, 71, 25);
+                [btngoing setBackgroundImage:[UIImage imageNamed:@"S11_goingButton.png"] forState:UIControlStateNormal];
+                btngoing.tag=indexPath.row;
+                
+                UIButton *btnnotgoing=[UIButton buttonWithType:UIButtonTypeCustom];
+                btnnotgoing.frame=CGRectMake(230,[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+20, 71, 25);
+                [btnnotgoing setBackgroundImage:[UIImage imageNamed:@"S11_notGoingButton.png"] forState:UIControlStateNormal];
+                btnnotgoing.tag=indexPath.row;
+                
+                [cell.contentView addSubview:btnnotgoing];
+                [cell.contentView addSubview:btngoing];
+                
+            }//END  if (notif.type==6)
             
            // self.img_vw.image=[UIImage imageNamed:@"S11_picBox.png"];
-        }//END if ([[[self._notifications objectAt
+        }//END if ([[[self._notifications objectAtIndex:indexPath.row]
     
     }//END if ([[[self._notifications objectAtIndex:indexPat
     
@@ -203,25 +238,7 @@
         [cell addSubview:Borderimg_vw];
     }//END  if (notif.type==1)
     
-    if (notif.type==7)
-    {
-        [cell addSubview:Borderimg_vw];
         
-        UIButton *btngoing=[UIButton buttonWithType:UIButtonTypeCustom];
-        btngoing.frame=CGRectMake(150, 85, 71, 25);
-        [btngoing setBackgroundImage:[UIImage imageNamed:@"S11_goingButton.png"] forState:UIControlStateNormal];
-        btngoing.tag=indexPath.row;
-        
-        UIButton *btnnotgoing=[UIButton buttonWithType:UIButtonTypeCustom];
-        btnnotgoing.frame=CGRectMake(230, 85, 71, 25);
-        [btnnotgoing setBackgroundImage:[UIImage imageNamed:@"S11_notGoingButton.png"] forState:UIControlStateNormal];
-        btnnotgoing.tag=indexPath.row;
-        
-        [cell addSubview:btnnotgoing];
-        [cell addSubview:btngoing];
-        
-    }//END  if (notif.type==7)
-    
     if (notif.type==11)
     {
         [cell addSubview:Borderimg_vw];
@@ -248,7 +265,6 @@
     [btnindicator setBackgroundColor:[UIColor clearColor]];
     
     [cell.contentView addSubview:btnindicator];
-    [cell.contentView addSubview:img_vw];
     
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
@@ -387,6 +403,23 @@
       [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
     
      [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
+}
+
+#pragma mark -
+#pragma mark Deferred image loading (UIScrollViewDelegate)
+
+// Load images for all onscreen rows when scrolling is finished
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+    if (!decelerate)
+    {
+        [self loadImagesForOnscreenRows];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    
+    [self loadImagesForOnscreenRows];
 }
 
 -(void)startAnimation{

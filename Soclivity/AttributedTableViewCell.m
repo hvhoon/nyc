@@ -189,27 +189,11 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
         }//END if ([img_vw isKindOfClass:[UIImageView class]])
     }//END for (UIImageView *img_vw in self.subviews)
     
-    CGRect rect1;
-    CGRect rect2;
+    CGRect rect1=CGRectMake(0, 10, 345, [AttributedTableViewCell heightForCellWithText:self.summaryText]-10);
+    CGRect rect2=CGRectMake(0, self.summaryLabel.frame.size.height+5, 345, 35);
     
-    if([self.lstrnotificationtype intValue]==11 || [self.lstrnotificationtype intValue]==6)
-    {
-        rect1=CGRectMake(0, 5, 358, [AttributedTableViewCell heightForCellWithText:self.summaryText]-10);
-        rect2=CGRectMake(0, self.summaryLabel.frame.size.height+5, 345, 35);
-        
-        self.summaryLabel.frame =  CGRectOffset(CGRectInset(rect1, 75, 5.0f), 0.0f, 0.0f);
-        self.lbltime.frame=CGRectOffset(CGRectInset(rect2, 75, 5.0f), 0.0f, 0.0f);
-    }//END if([self.lstrnotificationtype intValue]==11)
-    
-    else{
-        
-        rect1=CGRectMake(0, 10, 345, [AttributedTableViewCell heightForCellWithText:self.summaryText]-10);
-        rect2=CGRectMake(0, self.summaryLabel.frame.size.height+5, 345, 35);
-        
-        self.summaryLabel.frame =  CGRectOffset(CGRectInset(rect1, 60, 5.0f), 0.0f, 0.0f);
-        self.lbltime.frame=CGRectOffset(CGRectInset(rect2, 60, 5.0f), 0.0f, 0.0f);
-        
-    }//END Else Statement
+    self.summaryLabel.frame =  CGRectOffset(CGRectInset(rect1, 60, 5.0f), 0.0f, 0.0f);
+    self.lbltime.frame=CGRectOffset(CGRectInset(rect2, 60, 5.0f), 0.0f, 0.0f);
         
    // self.summaryLabel.frame = CGRectOffset(CGRectInset(self.bounds, 20.0f, 5.0f), -10.0f, 0.0f);
 }

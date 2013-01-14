@@ -44,6 +44,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
+     self.btnnotify.alpha=1;
+    
     [activityInvites closeAnimation];
 }
 
@@ -115,7 +117,7 @@
     activityRect=CGRectMake(0, 44, 320, 377+88);
             
     else
-        activityRect=CGRectMake(0, 44, 320, 377);
+        activityRect=CGRectMake(0, 44, 320, 357);  //377
     activityInvites=[[ActivityInvitesView alloc]initWithFrame:activityRect andInviteListArray:inviteArray];
     activityInvites.delegate=self;
     [self.view addSubview:activityInvites];

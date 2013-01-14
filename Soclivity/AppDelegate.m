@@ -90,14 +90,12 @@ NSString *lstrphoto;
                               [NSURL URLWithString:[NSString stringWithFormat:@"http://%@%@",ProductionServer,lstrphotourl]]] delegate:self];
     
     lstrphoto=@"photo";
+    
     NSLog(@"conn::%@",conn);
 }
 
 -(void)ShowNotification:(NSNotification*)dict
 {
-    
-   // NSLog(@"");
-    
     timer =[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countdownTracker:) userInfo:nil repeats:YES];
     
     vw_notification=[[UIView alloc] initWithFrame:CGRectMake(0, 20, 320, 58)];
@@ -161,6 +159,11 @@ NSString *lstrphoto;
     [vw_notification addSubview:self.summaryLabel];
     [vw_notification addSubview:imgvw1];
     
+    /*[UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationTransition:UIViewAnimationOptionTransitionCurlDown forView:vw_notification cache:YES];
+    [UIView setAnimationDelegate:self];*/
+    
     if ([[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==11)
     {
         [vw_notification addSubview:imgvw1];
@@ -171,6 +174,8 @@ NSString *lstrphoto;
     {
         [self.window addSubview:vw_notification];
     }//END Else Statement
+    
+     //[UIView commitAnimations];
 }
 
 - (void)setSummaryText:(NSString *)text {
@@ -255,6 +260,8 @@ NSString *lstrphoto;
 
     [self.window makeKeyAndVisible];
     [self registerForNotifications];
+    
+    //[self ShowNotification:NULL];
     
     return YES;
 }
@@ -429,12 +436,23 @@ NSString *lstrphoto;
 
 -(void)PostBackgroundStatus:(int)status
 {
+    self.responsedata=[[NSMutableData alloc] init];
+    
     NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/player_app_status.json?id=%@&background_status=%i",ProductionServer,[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"],status] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
     NSLog(@"url::%@",url);
     
+    NSURLResponse *response = nil;
+    NSError *error = nil;
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
     [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+     NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    NSString *lstrresponse=[NSString stringWithUTF8String:[returnData bytes]];
+    
+    NSLog(@"returnData::%@",returnData);
+    
+    NSLog(@"response::%@",response);
 
 }
 
@@ -447,6 +465,7 @@ NSString *lstrphoto;
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Internet Connection"
 													message:@"Try Again Later" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
 	[alert show];

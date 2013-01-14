@@ -47,8 +47,7 @@
         {
             [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notifyDigit1.png"] forState:UIControlStateNormal];
             self.btnnotify.frame = CGRectMake(self.btnnotify.frame.origin.x,self.btnnotify.frame.origin.y,27,27);
-            
-        }
+        }//END if ([[NSString stringWithFormat:@"%i",[[[N
         
         else{
             [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notifyDigit2.png"] forState:UIControlStateNormal];
@@ -108,7 +107,7 @@
         //NSMutableArray *notificationArray=[self SetUpDummyNotifications];
         CGRect waitingOnYouRect;
         if([SoclivityUtilities deviceType] & iPhone5)
-            waitingOnYouRect=CGRectMake(0, 44, 320, 375+85);
+            waitingOnYouRect=CGRectMake(0, 44, 320,375+85);
             
         else
             waitingOnYouRect=CGRectMake(0, 44, 320, 377);
@@ -192,7 +191,7 @@
         
         NSLog(@"Value=%d",[n intValue]);
         
-        /*switch (play.type) {
+        switch (play.type) {
             case 0:
             {
             }
@@ -209,8 +208,8 @@
             }
                 break;
                 
-        }*/
-/*[content addObject:play];
+        }
+[content addObject:play];
     }//END for (NSDictionary *playDictionary in playDictionariesArray)
     
     return content;

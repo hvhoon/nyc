@@ -14,6 +14,7 @@
 #import "MainServiceManager.h"
 #import "MBProgressHUD.h"
 #import "PostActivityRequestInvocation.h"
+#import "InvitesViewController.h"
 @interface ContactsListViewController ()<MBProgressHUDDelegate,PostActivityRequestInvocationDelegate>
 
 - (void)startIconDownload:(InviteObjectClass*)appRecord forIndexPath:(NSIndexPath *)indexPath;
@@ -35,6 +36,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIViewController* prevController = [self.navigationController.viewControllers objectAtIndex:0];
+    
+    if ([prevController isKindOfClass:[InvitesViewController class]])
+    {
+        for (UIView *view in prevController.view.subviews)
+        {
+            if ([view isKindOfClass:[UIButton class]])
+            {
+                if (view.tag==1111)
+                {
+                    view.alpha=0;
+                }//END if (view.tag==1111)
+            }
+        }//END for (UIView *view in prevController.view.subviews)
+    }
+    
     devServer=[[MainServiceManager alloc]init];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     
