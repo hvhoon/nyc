@@ -12,6 +12,9 @@
 #import "NotificationClass.h"
 #import "SlideViewController.h"
 #import "AppDelegate.h"
+#import "MainServiceManager.h"
+#import "SoclivityManager.h"
+#import "GetPlayersClass.h"
 
 @interface WaitingOnYouView ()
 
@@ -23,6 +26,7 @@
 @implementation WaitingOnYouView
 @synthesize _notifications,delegate,imageDownloadsInProgress;
 
+NSString *lstrnotifyid;
 
 - (id)initWithFrame:(CGRect)frame andNotificationsListArray:(NSMutableArray*)andNotificationsListArray
 {
@@ -31,13 +35,15 @@
         // Initialization code
         self._notifications =[andNotificationsListArray retain];
         self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
+        devServer=[[MainServiceManager alloc]init];
+        SOC=[SoclivityManager SharedInstance];
         
         CGRect activityTableRect;
         if([SoclivityUtilities deviceType] & iPhone5)
             activityTableRect=CGRectMake(0, 0, 320, 332+88+44);
         
         else
-            activityTableRect=CGRectMake(0, 0, 320, 332+41);
+            activityTableRect=CGRectMake(0, 0, 320, 332+44);
         
         
         waitingTableView=[[UITableView alloc]initWithFrame:activityTableRect];
@@ -53,6 +59,79 @@
         
     }
     return self;
+}
+
+-(void)GoingNotification:(id)sender
+{
+    lstrnotifyid=[sender currentTitle];
+    
+    [waitingTableView.superview setUserInteractionEnabled:FALSE];
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        [self startAnimation];
+        [devServer postActivityRequestInvocation:4  playerId:[SOC.loggedInUser.idSoc intValue] actId:[sender tag] delegate:self];
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        [alert release];
+        return;
+    }//END Else Statement
+}
+
+-(void)NotGoingNotification:(id)sender
+{
+    lstrnotifyid=[sender currentTitle];
+    [waitingTableView.superview setUserInteractionEnabled:FALSE];
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        [self startAnimation];
+        [devServer postActivityRequestInvocation:3  playerId:[SOC.loggedInUser.idSoc intValue] actId:[sender tag] delegate:self];
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        [alert release];
+        return;
+    }//END Else Statement
+}
+
+-(void)PostActivityRequestInvocationDidFinish:(PostActivityRequestInvocation*)invocation
+                                 withResponse:(BOOL)response relationTypeTag:(NSInteger)relationTypeTag
+                                    withError:(NSError*)error{
+
+    [self SetNotificationStatus:[[self._notifications objectAtIndex:[lstrnotifyid intValue]] valueForKey:@"id"]];
+    
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]!=NULL)
+    {
+        NSString *lstrnotify=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
+        NSArray *SpliArray=[lstrnotify componentsSeparatedByString:@","];
+        
+        for (int i=0; i<[SpliArray count]; i++)
+        {
+            if ([[SpliArray objectAtIndex:i] intValue]==[[[self._notifications objectAtIndex:[lstrnotifyid intValue]] valueForKey:@"id"] intValue])
+            {
+                int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
+                count=count-1;
+                
+                [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%i",count] forKey:@"Waiting_On_You_Count"];
+            }
+        }//END for (int i=0; i<[SpliArray count]; i++)
+    }
+    
+    [self._notifications removeObjectAtIndex:[lstrnotifyid intValue]];
+    
+    NSDictionary *dictcount=[[NSDictionary alloc] initWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"],@"Waiting_On_You_Count", nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
+    
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
+    
+    [waitingTableView.superview setUserInteractionEnabled:TRUE];
+    
+    [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
 }
 
 #pragma mark - UITableViewDataSource
@@ -186,7 +265,7 @@
             [cell.contentView addSubview:img_vw];
         }//END if ([[[self._notifications objectAt
         
-        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==8 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11)
+        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==8 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==13)
         {
             IconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
             
@@ -216,12 +295,20 @@
                 UIButton *btngoing=[UIButton buttonWithType:UIButtonTypeCustom];
                 btngoing.frame=CGRectMake(150,[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+20, 71, 25);
                 [btngoing setBackgroundImage:[UIImage imageNamed:@"S11_goingButton.png"] forState:UIControlStateNormal];
-                btngoing.tag=indexPath.row;
+                btngoing.tag=[[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] intValue];
+                [btngoing setTitle:[NSString stringWithFormat:@"%i",indexPath.row] forState:UIControlStateNormal];
+                [btngoing setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+                [btngoing setEnabled:TRUE];
+                [btngoing addTarget:self action:@selector(GoingNotification:) forControlEvents:UIControlEventTouchUpInside];
                 
                 UIButton *btnnotgoing=[UIButton buttonWithType:UIButtonTypeCustom];
                 btnnotgoing.frame=CGRectMake(230,[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+20, 71, 25);
                 [btnnotgoing setBackgroundImage:[UIImage imageNamed:@"S11_notGoingButton.png"] forState:UIControlStateNormal];
-                btnnotgoing.tag=indexPath.row;
+                btnnotgoing.tag=[[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] intValue];
+                [btnnotgoing setTitle:[NSString stringWithFormat:@"%i",indexPath.row] forState:UIControlStateNormal];
+                [btnnotgoing setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+                [btnnotgoing setEnabled:TRUE];
+                [btnnotgoing addTarget:self action:@selector(NotGoingNotification:) forControlEvents:UIControlEventTouchUpInside];
                 
                 [cell.contentView addSubview:btnnotgoing];
                 [cell.contentView addSubview:btngoing];
@@ -403,6 +490,11 @@
       [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
     
      [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    // To "clear" the footer view
+    return [[UIView new] autorelease];
 }
 
 #pragma mark -

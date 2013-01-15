@@ -10,26 +10,29 @@
 #import "TTTAttributedLabel.h"
 #import "IconDownloader.h"
 #import "MBProgressHUD.h"
+#import "PostActivityRequestInvocation.h"
 
 @class MBProgressHUD;
+@class MainServiceManager;
+@class SoclivityManager;
 @protocol WaitingOnYouDelegate <NSObject>
 
 @optional
 - (void)pushContactsInvitesScreen;
 @end
 
-@interface WaitingOnYouView : UIView<UITableViewDataSource,UITableViewDelegate,TTTAttributedLabelDelegate,IconDownloaderDelegate,MBProgressHUDDelegate>{
+@interface WaitingOnYouView : UIView<UITableViewDataSource,UITableViewDelegate,TTTAttributedLabelDelegate,IconDownloaderDelegate,MBProgressHUDDelegate,PostActivityRequestInvocationDelegate>{
     
     UITableView*waitingTableView;
     NSMutableArray *_notifications;
-    id<WaitingOnYouDelegate>delegate;
-    
     NSMutableData *responsedata;
     UIActionSheet * loadingActionSheet;
-    
-     MBProgressHUD *HUD;
-    
     NSMutableDictionary *imageDownloadsInProgress;
+    
+    MBProgressHUD *HUD;
+    MainServiceManager *devServer;
+    id<WaitingOnYouDelegate>delegate;
+     SoclivityManager *SOC;
 }
 @property (nonatomic,retain) NSMutableArray *_notifications;
 @property (nonatomic,assign)id<WaitingOnYouDelegate>delegate;

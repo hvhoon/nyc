@@ -14,6 +14,7 @@
 #import "SoclivityUtilities.h"
 #import "SoclivitySqliteClass.h"
 #import "TTTAttributedLabel.h"
+#import "NotificationsViewController.h"
 
 static NSString* kAppId = @"160726900680967";//kanav
 #define kShowAlertKey @"ShowAlert"
@@ -66,7 +67,13 @@ NSString *lstrphoto;
 
 -(void)HideNotification
 {
-    [vw_notification removeFromSuperview];
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         [self.vw_notification setFrame:CGRectMake(0, -20, 320, 58)];
+                     }
+                     completion:^(BOOL finished){
+                       [vw_notification removeFromSuperview];
+                     }];
 }
 
 - (void)countdownTracker:(NSTimer *)theTimer {
@@ -79,6 +86,14 @@ NSString *lstrphoto;
         
         [self HideNotification];
     }//END if (counter ==5)
+}
+
+-(void)backgroundtap:(id)sender
+{
+    [self HideNotification];
+    
+    NotificationsViewController *objwaiting=[[NotificationsViewController alloc] initWithNibName:@"NotificationsViewController" bundle:nil];
+    [self.navigationController pushViewController:objwaiting animated:YES];
 }
 
 -(void)DownloadImage:(NSString *)lstrphotourl
@@ -98,7 +113,7 @@ NSString *lstrphoto;
 {
     timer =[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countdownTracker:) userInfo:nil repeats:YES];
     
-    vw_notification=[[UIView alloc] initWithFrame:CGRectMake(0, 20, 320, 58)];
+    vw_notification=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 58)];
     vw_notification.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"InAppAlertBar.png"]];
     
     UIImageView *imgvw=[[UIImageView alloc] init];
@@ -159,11 +174,6 @@ NSString *lstrphoto;
     [vw_notification addSubview:self.summaryLabel];
     [vw_notification addSubview:imgvw1];
     
-    /*[UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.5];
-    [UIView setAnimationTransition:UIViewAnimationOptionTransitionCurlDown forView:vw_notification cache:YES];
-    [UIView setAnimationDelegate:self];*/
-    
     if ([[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==11)
     {
         [vw_notification addSubview:imgvw1];
@@ -175,7 +185,16 @@ NSString *lstrphoto;
         [self.window addSubview:vw_notification];
     }//END Else Statement
     
-     //[UIView commitAnimations];
+    [UIView beginAnimations:nil context:@"flipTransitionToFront"];
+    [UIView setAnimationDuration:0.5];
+    [self.vw_notification setFrame:CGRectMake(0, 20, 320, 58)];
+    [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.vw_notification cache:YES];
+    [UIView setAnimationDelegate:self];
+    [UIView commitAnimations];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundtap:)];
+    [self.vw_notification addGestureRecognizer:tapGesture];
+    [tapGesture release];
 }
 
 - (void)setSummaryText:(NSString *)text {
@@ -261,8 +280,6 @@ NSString *lstrphoto;
     [self.window makeKeyAndVisible];
     [self registerForNotifications];
     
-    //[self ShowNotification:NULL];
-    
     return YES;
 }
 
@@ -294,7 +311,37 @@ NSString *lstrphoto;
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-	NSDictionary* notifUserInfo = Nil;
+    
+    NSLog(@"userInfo::%@",userInfo);
+    
+    [[NSUserDefaults standardUserDefaults] setValue:userInfo forKey:@"Offline_Notification"];
+  /*  int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
+    count=count+1;
+    
+    [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%i",count] forKey:@"Waiting_On_You_Count"];
+    
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]==NULL)
+    {
+        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@",[[channel valueForKeyPath:@"data"] valueForKey:@"notification_id"]]  forKey:@"Notification_id"];
+    }//END if ([[NSUserDefaults standardUserDefaults] valueforKey:@"Notification_Count"]==NULL)
+    
+    else
+    {
+        NSString *lstrvalue=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
+        
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
+        
+        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrvalue,[[channel valueForKeyPath:@"data"] valueForKey:@"notification_id"]] forKey:@"Notification_id"];
+    }//END Else Statement
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
+    
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingonyouNotification" object:self userInfo:[channel valueForKeyPath:@"data"]];
+   */
+
+	/*NSDictionary* notifUserInfo = Nil;
 	if (!_appIsInbackground) {
 		
 		NSArray *notifArray = [NSArray arrayWithObject:kShowAlertKey];
@@ -307,7 +354,8 @@ NSString *lstrphoto;
     }
 	NSNotification* notification = [NSNotification notificationWithName:kRemoteNotificationReceivedNotification object:userInfo userInfo:notifUserInfo];
 	[[NSNotificationCenter defaultCenter] postNotification:notification];
-	[notifUserInfo release];
+	[notifUserInfo release];*/
+    
 }
 
 
@@ -440,19 +488,14 @@ NSString *lstrphoto;
     
     NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/player_app_status.json?id=%@&background_status=%i",ProductionServer,[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"],status] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
-    NSLog(@"url::%@",url);
-    
     NSURLResponse *response = nil;
     NSError *error = nil;
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
-    [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
-     NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     NSString *lstrresponse=[NSString stringWithUTF8String:[returnData bytes]];
     
-    NSLog(@"returnData::%@",returnData);
-    
-    NSLog(@"response::%@",response);
+    NSLog(@"response::%@",lstrresponse);
 
 }
 

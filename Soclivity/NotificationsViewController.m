@@ -115,6 +115,8 @@
         WaitingOnYouView *notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect andNotificationsListArray:self.arrnotification];
         notificationView.delegate=self;
         [self.view addSubview:notificationView];
+        
+        [self.view bringSubviewToFront:self.btnnotify];
             
     }//END Else Statement
     

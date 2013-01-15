@@ -39,7 +39,7 @@
 @end
 
 @implementation ActivityEventViewController
-@synthesize activityInfo,scrollView;
+@synthesize activityInfo,scrollView,btnnotify;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -61,6 +61,8 @@
     [super viewWillAppear:animated];
     NSLog(@"viewWillAppear in slide View Controller Called");
     
+    self.btnnotify.alpha=1;
+    
     [self.navigationController.navigationBar setHidden:YES];
 }
 #pragma mark - View lifecycle
@@ -75,6 +77,10 @@
     lastIndex=-1;
     [spinnerView stopAnimating];
     [spinnerView setHidden:YES];
+    
+    [self UpdateBadgeNotification];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
     
 #if 0
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,464)];
@@ -355,6 +361,37 @@
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,705);
 
     // Do any additional setup after loading the view from its nib.
+}
+
+-(void)UpdateBadgeNotification
+{
+    self.btnnotify.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
+    
+    int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
+    
+    if (count==0)
+    {
+        self.btnnotify.alpha=0;
+    }//END if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"Wait
+    
+    else
+    {
+        if ([[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] length]<2)
+        {
+            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notifyDigit1.png"] forState:UIControlStateNormal];
+            self.btnnotify.frame = CGRectMake(self.btnnotify.frame.origin.x,self.btnnotify.frame.origin.y,27,27);
+            
+        }//END if ([[NSString stringWithFormat:@"%i",[[[
+        
+        else{
+            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notifyDigit2.png"] forState:UIControlStateNormal];
+            self.btnnotify.frame = CGRectMake(self.btnnotify.frame.origin.x,self.btnnotify.frame.origin.y,33,28);
+        }//END Else Statement
+        
+        self.btnnotify.alpha=1;
+        [self.btnnotify setTitle:[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] forState:UIControlStateNormal];
+        [self.btnnotify setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }//END Else Statement
 }
 
 -(void)BottonBarButtonHideAndShow:(NSInteger)type{
@@ -1087,8 +1124,6 @@
     
 }
 -(IBAction)editButtonClicked:(id)sender{
-    
-    
     NSString *nibNameBundle=nil;
     if([SoclivityUtilities deviceType] & iPhone5){
         nibNameBundle=@"CreateActivityViewController_iphone5";
@@ -1280,7 +1315,8 @@
         
 }
 -(IBAction)backToActivityAnimateTransition:(id)sender{
-    
+   
+    [self.btnnotify setAlpha:1];
     inviteUsersToActivityButton.hidden=YES;
     inTransition=FALSE;
     if(activityInfo.activityRelationType==6){

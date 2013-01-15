@@ -37,21 +37,22 @@
 {
     [super viewDidLoad];
     
-    UIViewController* prevController = [self.navigationController.viewControllers objectAtIndex:0];
-    
-    if ([prevController isKindOfClass:[InvitesViewController class]])
-    {
-        for (UIView *view in prevController.view.subviews)
+    for (UIViewController *vw_contrller in self.navigationController.viewControllers) {
+        if ([vw_contrller isKindOfClass:[InvitesViewController class]])
         {
-            if ([view isKindOfClass:[UIButton class]])
+            for (UIView *view in vw_contrller.view.subviews)
             {
-                if (view.tag==1111)
+                if ([view isKindOfClass:[UIButton class]])
                 {
-                    view.alpha=0;
-                }//END if (view.tag==1111)
-            }
-        }//END for (UIView *view in prevController.view.subviews)
+                    if (view.tag==1111)
+                    {
+                        view.alpha=0;
+                    }//END if (view.tag==1111)
+                }
+            }//END for (UIView *view in prevController.view.subviews)
+        }//END if ([vw_contrller isKindOfClass:[ActivityEventViewController class]])
     }
+
     
     devServer=[[MainServiceManager alloc]init];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
