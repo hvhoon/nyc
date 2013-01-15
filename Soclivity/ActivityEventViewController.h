@@ -58,7 +58,6 @@
 }
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property (nonatomic,retain)InfoActivityClass *activityInfo;
-@property (nonatomic, retain)IBOutlet UIButton *btnnotify;
 
 -(IBAction)backButtonPressed:(id)sender;
 -(IBAction)addEventActivityPressed:(id)sender;
