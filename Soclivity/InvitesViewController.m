@@ -94,9 +94,6 @@
     
     
     for (UIViewController *vw_contrller in self.navigationController.viewControllers) {
-        if ([vw_contrller isKindOfClass:[ActivityEventViewController class]])
-        {
-            [self.btnnotify setAlpha:0];
             for (UIView *view in vw_contrller.view.subviews)
             {
                 if ([view isKindOfClass:[UIButton class]])
@@ -107,8 +104,7 @@
                     }//END if (view.tag==1111)
                 }
             }//END for (UIView *view in prevController.view.subviews)
-        }//END if ([vw_contrller isKindOfClass:[ActivityEventViewController class]])
-    }
+    }//END if ([vw_contrller isKindOfClass:[ActivityEventViewController class]])
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
     

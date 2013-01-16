@@ -22,6 +22,9 @@
 
 
 -(void)invoke {
+    
+    NSLog(@"body::%@",[self body]);
+    
     NSString *a= [NSString stringWithFormat:@"%@/signin.json",ProductionServer];
     [self post:a
 		  body:[self body]];

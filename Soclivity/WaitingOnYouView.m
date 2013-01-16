@@ -98,20 +98,61 @@ NSString *lstrnotifyid;
     }//END Else Statement
 }
 
+-(void)AcceptNotification:(id)sender
+{
+    lstrnotifyid=[sender currentTitle];
+    
+    [waitingTableView.superview setUserInteractionEnabled:FALSE];
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        [self startAnimation];
+        [devServer postActivityRequestInvocation:7  playerId:[SOC.loggedInUser.idSoc intValue] actId:[sender tag] delegate:self];
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        [alert release];
+        return;
+    }//END Else Statement
+}
+
+-(void)DeclineNotification:(id)sender
+{
+    lstrnotifyid=[sender currentTitle];
+    
+    [waitingTableView.superview setUserInteractionEnabled:FALSE];
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        [self startAnimation];
+        [devServer postActivityRequestInvocation:9  playerId:[SOC.loggedInUser.idSoc intValue] actId:[sender tag] delegate:self];
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        [alert release];
+        return;
+    }//END Else Statement
+}
+
 -(void)PostActivityRequestInvocationDidFinish:(PostActivityRequestInvocation*)invocation
                                  withResponse:(BOOL)response relationTypeTag:(NSInteger)relationTypeTag
                                     withError:(NSError*)error{
 
-    [self SetNotificationStatus:[[self._notifications objectAtIndex:[lstrnotifyid intValue]] valueForKey:@"id"]];
+    NSArray *SplitNotifyarray=[lstrnotifyid componentsSeparatedByString:@","];
+    [self SetNotificationStatus:[SplitNotifyarray objectAtIndex:1]];
+    
     
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]!=NULL)
     {
         NSString *lstrnotify=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
+        
         NSArray *SpliArray=[lstrnotify componentsSeparatedByString:@","];
         
         for (int i=0; i<[SpliArray count]; i++)
         {
-            if ([[SpliArray objectAtIndex:i] intValue]==[[[self._notifications objectAtIndex:[lstrnotifyid intValue]] valueForKey:@"id"] intValue])
+            if ([[SpliArray objectAtIndex:i] intValue]==[[SplitNotifyarray objectAtIndex:1] intValue])
             {
                 int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
                 count=count-1;
@@ -121,7 +162,7 @@ NSString *lstrnotifyid;
         }//END for (int i=0; i<[SpliArray count]; i++)
     }
     
-    [self._notifications removeObjectAtIndex:[lstrnotifyid intValue]];
+    [self._notifications removeObjectAtIndex:[[SplitNotifyarray objectAtIndex:0] intValue]];
     
     NSDictionary *dictcount=[[NSDictionary alloc] initWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"],@"Waiting_On_You_Count", nil];
     
@@ -153,8 +194,11 @@ NSString *lstrnotifyid;
     {
         height=[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+50;
     }//END if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]==NULL)
-
     
+    else if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==12)
+    {
+        height=[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+50;
+    }//END if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]==NULL)
     else
     {
          height=[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+20;
@@ -227,6 +271,8 @@ NSString *lstrnotifyid;
     [img_vw setContentMode:UIViewContentModeScaleAspectFit];
     img_vw.tag=indexPath.row;
     
+    NSLog(@"type::%@",[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"]);
+    
     if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"]!=[NSNull null])
     {
         if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==1)
@@ -265,7 +311,7 @@ NSString *lstrnotifyid;
             [cell.contentView addSubview:img_vw];
         }//END if ([[[self._notifications objectAt
         
-        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==8 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==13)
+        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==8 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==12|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==13)
         {
             IconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
             
@@ -296,7 +342,7 @@ NSString *lstrnotifyid;
                 btngoing.frame=CGRectMake(150,[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+20, 71, 25);
                 [btngoing setBackgroundImage:[UIImage imageNamed:@"S11_goingButton.png"] forState:UIControlStateNormal];
                 btngoing.tag=[[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] intValue];
-                [btngoing setTitle:[NSString stringWithFormat:@"%i",indexPath.row] forState:UIControlStateNormal];
+                [btngoing setTitle:[NSString stringWithFormat:@"%i,%@",indexPath.row,[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]] forState:UIControlStateNormal];
                 [btngoing setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
                 [btngoing setEnabled:TRUE];
                 [btngoing addTarget:self action:@selector(GoingNotification:) forControlEvents:UIControlEventTouchUpInside];
@@ -305,7 +351,7 @@ NSString *lstrnotifyid;
                 btnnotgoing.frame=CGRectMake(230,[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+20, 71, 25);
                 [btnnotgoing setBackgroundImage:[UIImage imageNamed:@"S11_notGoingButton.png"] forState:UIControlStateNormal];
                 btnnotgoing.tag=[[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] intValue];
-                [btnnotgoing setTitle:[NSString stringWithFormat:@"%i",indexPath.row] forState:UIControlStateNormal];
+                [btnnotgoing setTitle:[NSString stringWithFormat:@"%i,%@",indexPath.row,[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]] forState:UIControlStateNormal];
                 [btnnotgoing setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
                 [btnnotgoing setEnabled:TRUE];
                 [btnnotgoing addTarget:self action:@selector(NotGoingNotification:) forControlEvents:UIControlEventTouchUpInside];
@@ -315,36 +361,35 @@ NSString *lstrnotifyid;
                 
             }//END  if (notif.type==6)
             
+            if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==12)
+            {
+                UIButton *btnaccept=[UIButton buttonWithType:UIButtonTypeCustom];
+                btnaccept.frame=CGRectMake(150,[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+20, 71, 25);
+                [btnaccept setBackgroundImage:[UIImage imageNamed:@"S11_joinAcceptButton.png"] forState:UIControlStateNormal];
+                btnaccept.tag=[[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] intValue];
+                [btnaccept setTitle:[NSString stringWithFormat:@"%i,%@",indexPath.row,[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]] forState:UIControlStateNormal];
+                [btnaccept setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+                [btnaccept setEnabled:TRUE];
+                [btnaccept addTarget:self action:@selector(AcceptNotification:) forControlEvents:UIControlEventTouchUpInside];
+                
+                UIButton *btndecline=[UIButton buttonWithType:UIButtonTypeCustom];
+                btndecline.frame=CGRectMake(230,[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+20, 71, 25);
+                [btndecline setBackgroundImage:[UIImage imageNamed:@"S11_joinDeclineButton.png"] forState:UIControlStateNormal];
+                btndecline.tag=[[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] intValue];
+                [btndecline setTitle:[NSString stringWithFormat:@"%i,%@",indexPath.row,[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]] forState:UIControlStateNormal];
+                [btndecline setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+                [btndecline setEnabled:TRUE];
+                [btndecline addTarget:self action:@selector(DeclineNotification:) forControlEvents:UIControlEventTouchUpInside];
+                
+                [cell.contentView addSubview:btndecline];
+                [cell.contentView addSubview:btnaccept];
+                
+            }//END  if (notif.type==12)
+            
            // self.img_vw.image=[UIImage imageNamed:@"S11_picBox.png"];
         }//END if ([[[self._notifications objectAtIndex:indexPath.row]
     
     }//END if ([[[self._notifications objectAtIndex:indexPat
-    
-   /*if (notif.type==1 || notif.type==5 || notif.type==6 || notif.type==9 || notif.type==10 || notif.type==11)
-    {
-        [cell addSubview:Borderimg_vw];
-    }//END  if (notif.type==1)
-    
-        
-    if (notif.type==11)
-    {
-        [cell addSubview:Borderimg_vw];
-        
-        UIButton *btnaccept=[UIButton buttonWithType:UIButtonTypeCustom];
-        btnaccept.frame=CGRectMake(150, 85, 71, 25);
-        [btnaccept setBackgroundImage:[UIImage imageNamed:@"S11_joinAcceptButton.png"] forState:UIControlStateNormal];
-        btnaccept.tag=indexPath.row;
-        
-        UIButton *btndecline=[UIButton buttonWithType:UIButtonTypeCustom];
-        btndecline.frame=CGRectMake(230, 85, 71, 25);
-        [btndecline setBackgroundImage:[UIImage imageNamed:@"S11_joinDeclineButton.png"] forState:UIControlStateNormal];
-        btndecline.tag=indexPath.row;
-        
-        [cell addSubview:btndecline];
-        [cell addSubview:btnaccept];
-        
-    }//END  if (notif.type==7)
-*/
     
     UIButton *btnindicator=[UIButton buttonWithType:UIButtonTypeCustom];
     btnindicator.frame=CGRectMake(276, 20, 38, 38);
@@ -460,9 +505,8 @@ NSString *lstrnotifyid;
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self RemoveNotification:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]];
-    
     [self SetNotificationStatus:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]];
+    [self RemoveNotification:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]];
     
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]!=NULL)
     {

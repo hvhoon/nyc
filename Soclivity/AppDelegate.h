@@ -41,4 +41,5 @@
 -(FacebookLogin*)SetUpFacebook;
 - (void)setUpActivityDataList;
 -(void)IncreaseBadgeIcon;
+ //-(void)registerForNotifications;
 @end

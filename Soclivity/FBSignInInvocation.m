@@ -8,6 +8,7 @@
 
 #import "FBSignInInvocation.h"
 #import "JSON.h"
+#import "AppDelegate.h"
 @interface FBSignInInvocation (private)
 -(NSString*)body;
 @end
@@ -19,6 +20,7 @@
 	[super dealloc];
 }
 -(void)invoke {
+    
     NSString *a= [NSString stringWithFormat:@"%@/signin.json",ProductionServer];
     [self post:a
          body:[self body]];
@@ -31,6 +33,11 @@
     [bodyD setObject:email forKey:@"email"];
     [bodyD setObject:fbuid forKey:@"fbuid"];
     [bodyD setObject:access_token forKey:@"access_token"];
+    
+    if([[NSUserDefaults standardUserDefaults] valueForKey:@"device_token"]!=NULL)
+    {
+        [bodyD setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"device_token"]  forKey:@"device_token"];
+    }//END if([[NSUserDefaults standardUserDefaults] valueForKey:@"device_token"]!=NULL)
     
     NSString *bodyData = [NSString stringWithFormat:@"%@",[bodyD JSONRepresentation]];
     

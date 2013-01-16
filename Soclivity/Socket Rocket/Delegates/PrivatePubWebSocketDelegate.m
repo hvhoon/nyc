@@ -242,7 +242,7 @@
         [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingonyouNotification" object:self userInfo:[channel valueForKeyPath:@"data"]];
-        }//END if ([[[channel value
+    }//END if ([[[channel value
 }
 
 @end

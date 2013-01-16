@@ -174,7 +174,7 @@ NSString *lstrphoto;
     [vw_notification addSubview:self.summaryLabel];
     [vw_notification addSubview:imgvw1];
     
-    if ([[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==11)
+    if ([[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==6 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==8 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==11 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==12 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==13)
     {
         [vw_notification addSubview:imgvw1];
         [self DownloadImage:(NSString *)[[dict valueForKey:@"userInfo"] valueForKey:@"photo_url"]];
@@ -303,6 +303,8 @@ NSString *lstrphoto;
     token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
     
     [[NSUserDefaults standardUserDefaults] setValue:token forKey:@"device_token"];
+    
+    NSLog(@"device token::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"device_token"]);
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
@@ -312,35 +314,35 @@ NSString *lstrphoto;
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
-    NSLog(@"userInfo::%@",userInfo);
-    
-    [[NSUserDefaults standardUserDefaults] setValue:userInfo forKey:@"Offline_Notification"];
-  /*  int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
-    count=count+1;
-    
-    [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%i",count] forKey:@"Waiting_On_You_Count"];
-    
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]==NULL)
+    if (_appIsInbackground)
     {
-        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@",[[channel valueForKeyPath:@"data"] valueForKey:@"notification_id"]]  forKey:@"Notification_id"];
+        int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
+        count=count+1;
+    
+        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%i",count] forKey:@"Waiting_On_You_Count"];
+    
+        if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]==NULL)
+        {
+        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@",[[userInfo valueForKey:@"params"] valueForKey:@"notification_id"]]  forKey:@"Notification_id"];
     }//END if ([[NSUserDefaults standardUserDefaults] valueforKey:@"Notification_Count"]==NULL)
     
-    else
-    {
+        else
+        {
         NSString *lstrvalue=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
         
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
         
-        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrvalue,[[channel valueForKeyPath:@"data"] valueForKey:@"notification_id"]] forKey:@"Notification_id"];
+        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrvalue,[[userInfo valueForKey:@"params"] valueForKey:@"notification_id"]] forKey:@"Notification_id"];
     }//END Else Statement
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
+        NSDictionary *dictcount=[[NSDictionary alloc] initWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"],@"Waiting_On_You_Count", nil];
     
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingonyouNotification" object:self userInfo:[channel valueForKeyPath:@"data"]];
-   */
-
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
+    }
+    
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingonyouNotification" object:self userInfo:[channel valueForKeyPath:@"data"]];
 	/*NSDictionary* notifUserInfo = Nil;
 	if (!_appIsInbackground) {
 		
@@ -407,6 +409,9 @@ NSString *lstrphoto;
 
 
 -(FacebookLogin*)SetUpFacebook{
+    
+     [self registerForNotifications];
+    
     FacebookLogin *login=[[FacebookLogin alloc]init];
 
     facebook = [[Facebook alloc] initWithAppId:kAppId andDelegate:login];

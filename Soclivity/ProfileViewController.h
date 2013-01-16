@@ -33,6 +33,8 @@
 @property (nonatomic,retain)id <ProfileScreenViewDelegate>delegate;
 @property (nonatomic,retain)ActivityTypeSelectView *activityTypesView;
 @property (nonatomic,assign) BOOL isFirstTime;
+@property (nonatomic, retain)IBOutlet UIButton *btnnotify;
+
 -(IBAction)profileSliderPressed:(id)sender;
 -(IBAction)getStartedAction:(id)sender;
 - (void)startAnimation:(NSInteger)type;
