@@ -45,7 +45,13 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-     self.btnnotify.alpha=1;
+    for (UIViewController *vw_contrller in self.navigationController.viewControllers) {
+        if([vw_contrller isKindOfClass:[ActivityEventViewController class]])
+        {
+            self.btnnotify.alpha=0;
+        }//END if([vw_contrller isKindOf
+    }//END if ([vw_contrller isKindOfClass:[ActivityEventViewController class]])
+
      [self.view bringSubviewToFront:self.btnnotify];
     
     [activityInvites closeAnimation];
@@ -91,20 +97,8 @@
     SOC=[SoclivityManager SharedInstance];
     
     [self UpdateBadgeNotification];
-    
-    
-    for (UIViewController *vw_contrller in self.navigationController.viewControllers) {
-            for (UIView *view in vw_contrller.view.subviews)
-            {
-                if ([view isKindOfClass:[UIButton class]])
-                {
-                    if (view.tag==1111)
-                    {
-                        view.alpha=0;
-                    }//END if (view.tag==1111)
-                }
-            }//END for (UIView *view in prevController.view.subviews)
-    }//END if ([vw_contrller isKindOfClass:[ActivityEventViewController class]])
+
+    self.btnnotify.alpha=1;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
     

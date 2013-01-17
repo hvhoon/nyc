@@ -281,8 +281,9 @@ NSDateFormatter* gJSONDateFormatter = nil;
             }//END  if ([[[response JSONValu
             
             else{
+                [[NSUserDefaults standardUserDefaults] setValue:[[[[response JSONValue] valueForKey:@"channel"] JSONValue] valueForKey:@"channel"] forKey:@"Channel"];
                 RRAViewController *objrra=[[RRAViewController alloc] initWithNibName:nil bundle:nil];
-                [objrra fetchPrivatePubConfiguration:[[[[response JSONValue] valueForKey:@"channel"] JSONValue] valueForKey:@"channel"]];
+                [objrra fetchPrivatePubConfiguration:[[NSUserDefaults standardUserDefaults] valueForKey:@"Channel"]];
             }//END Else Statement
         }//END if ([[response JSONValue] valueForKey:@"channel"]!=NULL)
         

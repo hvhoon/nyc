@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "DDMenuController.h"
 #import "FBConnect.h"
+#import "SRWebSocket.h"
+
 @class FacebookLogin;
 @class SlideViewController;
 @class TTTAttributedLabel;
@@ -33,6 +35,8 @@
 @property (nonatomic, retain) NSMutableDictionary *userPermissions;
 @property (nonatomic, assign) BOOL resetSuccess;
 @property (nonatomic, retain) TTTAttributedLabel *summaryLabel;
+
+@property (nonatomic, retain)SRWebSocket *objsrwebsocket;
 
 @property(nonatomic, retain) NSMutableData *responsedata;
 

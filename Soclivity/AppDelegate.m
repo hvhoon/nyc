@@ -15,6 +15,8 @@
 #import "SoclivitySqliteClass.h"
 #import "TTTAttributedLabel.h"
 #import "NotificationsViewController.h"
+#import "RRAViewController.h"
+#import "SRWebSocket.h"
 
 static NSString* kAppId = @"160726900680967";//kanav
 #define kShowAlertKey @"ShowAlert"
@@ -50,7 +52,7 @@ static inline NSRegularExpression * NameRegularExpression() {
 @synthesize facebook;
 @synthesize userPermissions;
 @synthesize resetSuccess;
-@synthesize responsedata,vw_notification;
+@synthesize responsedata,vw_notification,objsrwebsocket;
 
 @synthesize summaryLabel = _summaryLabel;
 UIImageView *imgvw1;
@@ -61,6 +63,9 @@ NSString *lstrphoto;
 
 - (void)dealloc
 {
+    //[self.objsrwebsocket setDelegate:nil];
+    //[self.objsrwebsocket release],self.objsrwebsocket = nil;
+    
     [_window release];
     [super dealloc];
 }
@@ -174,7 +179,7 @@ NSString *lstrphoto;
     [vw_notification addSubview:self.summaryLabel];
     [vw_notification addSubview:imgvw1];
     
-    if ([[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==6 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==8 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==11 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==12 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==13)
+    if ([[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==6 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==8 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==11 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==12 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==13 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==14)
     {
         [vw_notification addSubview:imgvw1];
         [self DownloadImage:(NSString *)[[dict valueForKey:@"userInfo"] valueForKey:@"photo_url"]];
@@ -216,9 +221,7 @@ NSString *lstrphoto;
                 
                 [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:result.range];
                 [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor darkGrayColor] CGColor] range:result.range];
-            }
-            
-            
+            }//END if (boldFont)
         }];
         
         int times = [[text componentsSeparatedByString:@"#"] count]-1;
@@ -359,8 +362,6 @@ NSString *lstrphoto;
 	[notifUserInfo release];*/
     
 }
-
-
 
 -(void)setUpActivityDataList{
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"Activities" withExtension:@"plist"];
@@ -548,7 +549,11 @@ NSString *lstrphoto;
     
     dispatch_async(dispatch_get_main_queue(), ^{
        // while ([application backgroundTimeRemaining] > 0.5) {
-            
+        //RRAViewController *objprivate=[[RRAViewController alloc] init];
+        //objprivate=nil;
+        
+       // [self.objsrwebsocket close];
+        
         [self PostBackgroundStatus:1];
            /* NSString *friend = [self checkForIncomingChat];
             if (friend) {
@@ -580,6 +585,11 @@ NSString *lstrphoto;
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+   // NSLog(@"Channel::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Channel"]);
+    
+   // RRAViewController *objrra=[[RRAViewController alloc] initWithNibName:nil bundle:nil];
+    //[objrra fetchPrivatePubConfiguration:[[NSUserDefaults standardUserDefaults] valueForKey:@"Channel"]];
+    
     [self PostBackgroundStatus:0];
     
     /*

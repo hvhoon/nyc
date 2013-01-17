@@ -141,13 +141,16 @@ NSString *lstrnotifyid;
                                     withError:(NSError*)error{
 
     NSArray *SplitNotifyarray=[lstrnotifyid componentsSeparatedByString:@","];
+    
+    NSLog(@"lstrnotifyid::%@",lstrnotifyid);
+    
     [self SetNotificationStatus:[SplitNotifyarray objectAtIndex:1]];
+    [self RemoveNotification:[SplitNotifyarray objectAtIndex:1]];
     
     
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]!=NULL)
     {
         NSString *lstrnotify=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
-        
         NSArray *SpliArray=[lstrnotify componentsSeparatedByString:@","];
         
         for (int i=0; i<[SpliArray count]; i++)
@@ -158,9 +161,9 @@ NSString *lstrnotifyid;
                 count=count-1;
                 
                 [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%i",count] forKey:@"Waiting_On_You_Count"];
-            }
+            }//END if ([[SpliArray objectAtIndex:i] intValue]
         }//END for (int i=0; i<[SpliArray count]; i++)
-    }
+    }//END if ([[NSUserDefaults standardUserDefaults
     
     [self._notifications removeObjectAtIndex:[[SplitNotifyarray objectAtIndex:0] intValue]];
     
@@ -271,8 +274,6 @@ NSString *lstrnotifyid;
     [img_vw setContentMode:UIViewContentModeScaleAspectFit];
     img_vw.tag=indexPath.row;
     
-    NSLog(@"type::%@",[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"]);
-    
     if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"]!=[NSNull null])
     {
         if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==1)
@@ -311,7 +312,7 @@ NSString *lstrnotifyid;
             [cell.contentView addSubview:img_vw];
         }//END if ([[[self._notifications objectAt
         
-        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==8 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==12|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==13)
+        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==8 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==12|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==13|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==14)
         {
             IconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
             
@@ -459,8 +460,6 @@ NSString *lstrnotifyid;
 
 -(void)RemoveNotification:(NSString *)lstrid
 {
-    [self startAnimation];
-    
     NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/deletenotification.json?logged_in_user_id=%@&notification_id=%@",ProductionServer,[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"],lstrid] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
@@ -470,6 +469,8 @@ NSString *lstrnotifyid;
 
 -(void)SetNotificationStatus:(NSString *)lstrid
 {
+    [self startAnimation];
+    
     NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/notification_read.json?id=%i&read_notification=1",ProductionServer,[lstrid intValue]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];

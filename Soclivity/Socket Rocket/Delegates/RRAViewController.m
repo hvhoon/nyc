@@ -7,6 +7,7 @@
 //
 
 #import "RRAViewController.h"
+#import "AppDelegate.h"
 
 @interface RRAViewController ()
   @property (nonatomic, retain) SRWebSocket *websocketClient;
@@ -34,6 +35,10 @@
     
   self.websocketClient = [[SRWebSocket alloc] initWithURLRequest:configurationRequest];
   self.websocketClient.delegate = self.websocketDelegate;
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate.objsrwebsocket = self.websocketClient;
+    
     
   [self.websocketClient open];
 }
