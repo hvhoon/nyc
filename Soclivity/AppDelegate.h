@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "DDMenuController.h"
 #import "FBConnect.h"
-#import "SRWebSocket.h"
 
 @class FacebookLogin;
 @class SlideViewController;
@@ -35,9 +34,6 @@
 @property (nonatomic, retain) NSMutableDictionary *userPermissions;
 @property (nonatomic, assign) BOOL resetSuccess;
 @property (nonatomic, retain) TTTAttributedLabel *summaryLabel;
-
-@property (nonatomic, retain)SRWebSocket *objsrwebsocket;
-
 @property(nonatomic, retain) NSMutableData *responsedata;
 
 @property(nonatomic, retain)UIView *vw_notification;
@@ -45,5 +41,6 @@
 -(FacebookLogin*)SetUpFacebook;
 - (void)setUpActivityDataList;
 -(void)IncreaseBadgeIcon;
+-(void)PostBackgroundStatus:(int)status;
  //-(void)registerForNotifications;
 @end

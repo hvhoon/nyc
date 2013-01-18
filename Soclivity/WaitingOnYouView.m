@@ -102,11 +102,13 @@ NSString *lstrnotifyid;
 {
     lstrnotifyid=[sender currentTitle];
     
+    NSArray *SplitNotifyarray=[lstrnotifyid componentsSeparatedByString:@","];
+    
     [waitingTableView.superview setUserInteractionEnabled:FALSE];
     
     if([SoclivityUtilities hasNetworkConnection]){
         [self startAnimation];
-        [devServer postActivityRequestInvocation:7  playerId:[SOC.loggedInUser.idSoc intValue] actId:[sender tag] delegate:self];
+        [devServer postActivityRequestInvocation:7  playerId:[[SplitNotifyarray objectAtIndex:2] intValue] actId:[sender tag] delegate:self];
     }
     else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
@@ -239,6 +241,7 @@ NSString *lstrnotifyid;
     cell.summaryLabel.userInteractionEnabled = YES;
     cell.summaryLabel.backgroundColor=[UIColor clearColor];
     
+    NSLog(@"self._notifications::%@",self._notifications);
     
     if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"updated_at"]!=[NSNull null])
     {
@@ -368,7 +371,7 @@ NSString *lstrnotifyid;
                 btnaccept.frame=CGRectMake(150,[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+20, 71, 25);
                 [btnaccept setBackgroundImage:[UIImage imageNamed:@"S11_joinAcceptButton.png"] forState:UIControlStateNormal];
                 btnaccept.tag=[[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] intValue];
-                [btnaccept setTitle:[NSString stringWithFormat:@"%i,%@",indexPath.row,[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]] forState:UIControlStateNormal];
+                [btnaccept setTitle:[NSString stringWithFormat:@"%i,%@,%@",indexPath.row,[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"],[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"reffered_to"]] forState:UIControlStateNormal];
                 [btnaccept setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
                 [btnaccept setEnabled:TRUE];
                 [btnaccept addTarget:self action:@selector(AcceptNotification:) forControlEvents:UIControlEventTouchUpInside];
@@ -469,8 +472,6 @@ NSString *lstrnotifyid;
 
 -(void)SetNotificationStatus:(NSString *)lstrid
 {
-    [self startAnimation];
-    
     NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/notification_read.json?id=%i&read_notification=1",ProductionServer,[lstrid intValue]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
@@ -506,6 +507,8 @@ NSString *lstrnotifyid;
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self startAnimation];
+    
     [self SetNotificationStatus:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]];
     [self RemoveNotification:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]];
     

@@ -7,7 +7,6 @@
 //
 
 #import "RRAViewController.h"
-#import "AppDelegate.h"
 
 @interface RRAViewController ()
   @property (nonatomic, retain) SRWebSocket *websocketClient;
@@ -34,11 +33,7 @@
   NSMutableURLRequest *configurationRequest = [[NSMutableURLRequest requestWithURL:url] retain];
     
   self.websocketClient = [[SRWebSocket alloc] initWithURLRequest:configurationRequest];
-  self.websocketClient.delegate = self.websocketDelegate;
-    
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    appDelegate.objsrwebsocket = self.websocketClient;
-    
+    self.websocketClient.delegate =self.websocketDelegate;
     
   [self.websocketClient open];
 }
@@ -47,6 +42,8 @@
 //  NSString *resourceUrl = [NSString stringWithFormat:@"http://localhost:3000/api/websockets/configuration.json?channel=%@", NEW_MESSAGES_CHANNEL];
     
     NSString *resourceUrl = [NSString stringWithFormat:@"http://dev.soclivity.com/api/websockets/configuration.json?channel=%@",lstrnewchannel];
+    
+    NSLog(@"resourceUrl::%@",resourceUrl);
     
   NSURL *url = [NSURL URLWithString:resourceUrl];
     

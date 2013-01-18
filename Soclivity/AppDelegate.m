@@ -15,8 +15,7 @@
 #import "SoclivitySqliteClass.h"
 #import "TTTAttributedLabel.h"
 #import "NotificationsViewController.h"
-#import "RRAViewController.h"
-#import "SRWebSocket.h"
+#import "SlidingDrawerViewController.h"
 
 static NSString* kAppId = @"160726900680967";//kanav
 #define kShowAlertKey @"ShowAlert"
@@ -52,7 +51,7 @@ static inline NSRegularExpression * NameRegularExpression() {
 @synthesize facebook;
 @synthesize userPermissions;
 @synthesize resetSuccess;
-@synthesize responsedata,vw_notification,objsrwebsocket;
+@synthesize responsedata,vw_notification;
 
 @synthesize summaryLabel = _summaryLabel;
 UIImageView *imgvw1;
@@ -63,9 +62,6 @@ NSString *lstrphoto;
 
 - (void)dealloc
 {
-    //[self.objsrwebsocket setDelegate:nil];
-    //[self.objsrwebsocket release],self.objsrwebsocket = nil;
-    
     [_window release];
     [super dealloc];
 }
@@ -502,7 +498,6 @@ NSString *lstrphoto;
     NSString *lstrresponse=[NSString stringWithUTF8String:[returnData bytes]];
     
     NSLog(@"response::%@",lstrresponse);
-
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
@@ -549,11 +544,6 @@ NSString *lstrphoto;
     
     dispatch_async(dispatch_get_main_queue(), ^{
        // while ([application backgroundTimeRemaining] > 0.5) {
-        //RRAViewController *objprivate=[[RRAViewController alloc] init];
-        //objprivate=nil;
-        
-       // [self.objsrwebsocket close];
-        
         [self PostBackgroundStatus:1];
            /* NSString *friend = [self checkForIncomingChat];
             if (friend) {
@@ -586,10 +576,6 @@ NSString *lstrphoto;
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
    // NSLog(@"Channel::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Channel"]);
-    
-   // RRAViewController *objrra=[[RRAViewController alloc] initWithNibName:nil bundle:nil];
-    //[objrra fetchPrivatePubConfiguration:[[NSUserDefaults standardUserDefaults] valueForKey:@"Channel"]];
-    
     [self PostBackgroundStatus:0];
     
     /*
