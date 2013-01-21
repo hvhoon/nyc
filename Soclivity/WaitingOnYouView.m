@@ -399,6 +399,8 @@ NSString *lstrnotifyid;
     btnindicator.frame=CGRectMake(276, 20, 38, 38);
     [btnindicator setBackgroundImage:[UIImage imageNamed:@"rightArrow.png"] forState:UIControlStateNormal];
     [btnindicator setBackgroundColor:[UIColor clearColor]];
+    [btnindicator setTag:[[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]];
+    [btnindicator addTarget:self action:@selector(NavigationScreen:) forControlEvents:UIControlEventTouchUpInside];
     
     [cell.contentView addSubview:btnindicator];
     
@@ -460,6 +462,14 @@ NSString *lstrnotifyid;
     NSString *description = [self._notifications objectAtIndex:indexPath.row];
     NSLog(@"description=%@",description);
 }*/
+
+-(void)NavigationScreen:(id)sender
+{
+    if ([sender tag]==1)
+    {
+        
+    }//END if ([sender tag]==1)
+}
 
 -(void)RemoveNotification:(NSString *)lstrid
 {

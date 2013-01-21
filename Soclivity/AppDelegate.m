@@ -364,6 +364,8 @@ NSString *lstrphoto;
     NSArray *playDictionariesArray = [[NSArray alloc ] initWithContentsOfURL:url];
     NSMutableArray *playsArray = [NSMutableArray arrayWithCapacity:[playDictionariesArray count]];
     
+    NSLog(@"playDictionariesArray::%@",playDictionariesArray);
+    
     for (NSDictionary *playDictionary in playDictionariesArray) {
         
         InfoActivityClass *play = [[InfoActivityClass alloc] init];
@@ -496,8 +498,6 @@ NSString *lstrphoto;
     
     NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     NSString *lstrresponse=[NSString stringWithUTF8String:[returnData bytes]];
-    
-    NSLog(@"response::%@",lstrresponse);
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
@@ -543,7 +543,11 @@ NSString *lstrphoto;
     }];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-       // while ([application backgroundTimeRemaining] > 0.5) {
+       // while ([application backgroundTimeRemaining] > 0.5) {   
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"CloseSocketRocket" object:self userInfo:nil];
+        
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingonyouNotification" object:self userInfo:[channel valueForKeyPath:@"data"]];
+        
         [self PostBackgroundStatus:1];
            /* NSString *friend = [self checkForIncomingChat];
             if (friend) {
@@ -575,8 +579,11 @@ NSString *lstrphoto;
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-   // NSLog(@"Channel::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Channel"]);
     [self PostBackgroundStatus:0];
+    
+    [[NSUserDefaults standardUserDefaults] valueForKey:@"Channel"];
+        
+    [_objrra fetchPrivatePubConfiguration:[[NSUserDefaults standardUserDefaults] valueForKey:@"Channel"]];
     
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.

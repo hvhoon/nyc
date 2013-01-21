@@ -42,8 +42,6 @@
     [pendingRequestArray release];
     [activityDate release];
     [activityTime release];
-     
-     
 }
 
 @end

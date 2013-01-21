@@ -795,8 +795,10 @@
 
 
     ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
-    
     activityEventViewController.activityInfo=response;
+    
+    // NSLog(@"response::%@",activityEventViewController.activityInfo);
+    
 	[[self navigationController] pushViewController:activityEventViewController animated:YES];
     [activityEventViewController release];
 

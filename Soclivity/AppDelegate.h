@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DDMenuController.h"
 #import "FBConnect.h"
+#import "RRAViewController.h"
 
 @class FacebookLogin;
 @class SlideViewController;
@@ -35,6 +36,7 @@
 @property (nonatomic, assign) BOOL resetSuccess;
 @property (nonatomic, retain) TTTAttributedLabel *summaryLabel;
 @property(nonatomic, retain) NSMutableData *responsedata;
+@property (nonatomic, retain)RRAViewController *objrra;
 
 @property(nonatomic, retain)UIView *vw_notification;
 

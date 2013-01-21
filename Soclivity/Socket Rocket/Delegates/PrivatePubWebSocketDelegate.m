@@ -52,6 +52,9 @@
 }
 
 - (void) disconnect {
+    
+  NSLog(@"self.webSocket::%@",self.webSocket);
+     
   assert(self.webSocket != NULL);
 
   NSDictionary *disconnect = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -59,6 +62,9 @@
     self.clientId, @"clientId",
     [NSNumber numberWithInt:self.messageId++], @"id",
     nil];
+    
+  NSLog(@"disconnect::%@",[disconnect JSONRepresentation]);
+    
   [self.webSocket send: [disconnect JSONRepresentation]];
 }
 
@@ -142,7 +148,7 @@
     [self.webSocket send:[subscription JSONRepresentation] ];
   }
 
-  - (void) webSocket:(SRWebSocket *)webSocket didReceiveMessage:(NSString *)message {
+- (void) webSocket:(SRWebSocket *)webSocket didReceiveMessage:(NSString *)message {
       id JSON = [[message JSONValue] objectAtIndex:0];
     //NSLog(@"recv subscription %@", JSON);
 

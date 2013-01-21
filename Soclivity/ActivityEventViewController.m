@@ -91,6 +91,7 @@
     scrollView.indicatorStyle=UIScrollViewIndicatorStyleBlack;
     scrollView.clipsToBounds = YES;
     
+    NSLog(@"activityInfo::%@",activityInfo);
     
     if([activityInfo.goingCount intValue]==0 && activityInfo.pendingRequestCount==0){
         scrollView.scrollEnabled=NO;

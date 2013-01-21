@@ -299,6 +299,9 @@ static NSData *CRLFCRLF;
 {
     self = [super init];
     if (self) {
+         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (close) name:@"CloseSocketRocket" object:nil];
+        
+         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (open) name:@"OpenSocketRocket" object:nil];
         
         assert(request.URL);
         _url = request.URL;
@@ -528,6 +531,7 @@ static NSData *CRLFCRLF;
     self.readyState = SR_CLOSING;
 
     SRFastLog(@"Closing with code %d reason %@", code, reason);
+    
     dispatch_async(_workQueue, ^{
         if (wasConnecting) {
             [self _disconnect];
@@ -574,6 +578,7 @@ static NSData *CRLFCRLF;
 - (void)_failWithError:(NSError *)error;
 {
     dispatch_async(_workQueue, ^{
+        
         if (self.readyState != SR_CLOSED) {
             _failed = YES;
             dispatch_async(_callbackQueue, ^{
@@ -772,7 +777,6 @@ static inline BOOL closeCodeIsValid(int closeCode) {
 - (void)_handleFrameHeader:(frame_header)frame_header curData:(NSData *)curData;
 {
     assert(frame_header.opcode != 0);
-    
     if (self.readyState != SR_OPEN) {
         return;
     }
