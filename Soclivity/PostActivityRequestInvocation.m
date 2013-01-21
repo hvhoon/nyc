@@ -77,6 +77,13 @@
             [self post:a body:nil];
         }
             break;
+            
+        case 13:
+        {
+            a= [NSString stringWithFormat:@"%@/declinerequest.json?id=%d&pid=%d&astatus=true",ProductionServer,activityId,playerId];
+            [self post:a body:nil];
+        }
+            break;
 
      
 

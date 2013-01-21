@@ -127,7 +127,7 @@ NSString *lstrnotifyid;
     
     if([SoclivityUtilities hasNetworkConnection]){
         [self startAnimation];
-        [devServer postActivityRequestInvocation:9  playerId:[SOC.loggedInUser.idSoc intValue] actId:[sender tag] delegate:self];
+        [devServer postActivityRequestInvocation:13  playerId:[SOC.loggedInUser.idSoc intValue] actId:[sender tag] delegate:self];
     }
     else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
@@ -143,8 +143,6 @@ NSString *lstrnotifyid;
                                     withError:(NSError*)error{
 
     NSArray *SplitNotifyarray=[lstrnotifyid componentsSeparatedByString:@","];
-    
-    NSLog(@"lstrnotifyid::%@",lstrnotifyid);
     
     [self SetNotificationStatus:[SplitNotifyarray objectAtIndex:1]];
     [self RemoveNotification:[SplitNotifyarray objectAtIndex:1]];
@@ -315,7 +313,7 @@ NSString *lstrnotifyid;
             [cell.contentView addSubview:img_vw];
         }//END if ([[[self._notifications objectAt
         
-        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==8 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==12|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==13|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==14)
+        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==8 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==9 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==12|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==13|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==14)
         {
             IconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
             
