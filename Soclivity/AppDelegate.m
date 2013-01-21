@@ -127,7 +127,7 @@ NSString *lstrphoto;
     
     self.summaryLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
     self.summaryLabel.frame=CGRectMake(50, 0, 200, 50);
-    self.summaryLabel.textColor=[SoclivityUtilities returnTextFontColor:4];
+    self.summaryLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     self.summaryLabel.font =[UIFont fontWithName:@"Helvetica-Condensed" size:12];
     self.summaryLabel.lineBreakMode = UILineBreakModeWordWrap;
     self.summaryLabel.numberOfLines = 0;
@@ -186,9 +186,9 @@ NSString *lstrphoto;
         [self.window addSubview:vw_notification];
     }//END Else Statement
     
-    [UIView beginAnimations:nil context:@"flipTransitionToFront"];
+    [UIView beginAnimations:nil context:@"flipView"];
     [UIView setAnimationDuration:0.5];
-    [self.vw_notification setFrame:CGRectMake(0, 20, 320, 58)];
+    [self.vw_notification setFrame:CGRectMake(0, 18, 320, 60)];
     [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.vw_notification cache:YES];
     [UIView setAnimationDelegate:self];
     [UIView commitAnimations];
