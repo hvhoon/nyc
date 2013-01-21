@@ -175,7 +175,7 @@ NSString *lstrphoto;
     [vw_notification addSubview:self.summaryLabel];
     [vw_notification addSubview:imgvw1];
     
-    if ([[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==6 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==8 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==11 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==12 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==13 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==14)
+    if ([[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==6 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==8 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==9 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==11 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==12 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==13 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==14)
     {
         [vw_notification addSubview:imgvw1];
         [self DownloadImage:(NSString *)[[dict valueForKey:@"userInfo"] valueForKey:@"photo_url"]];
@@ -565,7 +565,7 @@ NSString *lstrphoto;
                 }
             }
             */ 
-        //}
+    //}
         
         [application endBackgroundTask:self->bgTask];
         self->bgTask = UIBackgroundTaskInvalid;
@@ -581,8 +581,6 @@ NSString *lstrphoto;
 {
     [self PostBackgroundStatus:0];
     
-    [[NSUserDefaults standardUserDefaults] valueForKey:@"Channel"];
-        
     [_objrra fetchPrivatePubConfiguration:[[NSUserDefaults standardUserDefaults] valueForKey:@"Channel"]];
     
     /*
