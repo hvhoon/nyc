@@ -9,10 +9,9 @@
 
 @property (nonatomic, copy) NSString *summaryText;
 @property (nonatomic, retain) TTTAttributedLabel *summaryLabel;
-@property (nonatomic, assign) NSInteger hashCount;
 @property (nonatomic, copy) NSString *timeText;
 @property (nonatomic, retain) UILabel *lbltime;
-@property (nonatomic, assign) NSInteger notifytype;
+@property (copy, readwrite) NSString *lstrnotificationtype;
 
 + (CGFloat)heightForCellWithText:(NSString *)text;
 

@@ -20,6 +20,7 @@
 #import "EventShareActivity.h"
 #import "SoclivityUtilities.h"
 #import "ProfileViewController.h"
+
 @interface WelcomeScreenViewController(Private) <MBProgressHUDDelegate>
 @end
 @implementation WelcomeScreenViewController
@@ -37,7 +38,6 @@
 {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
     // Release any cached data, images, etc that aren't in use.
 }
 
@@ -136,9 +136,6 @@
 
     
     [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(performTransition) userInfo:nil repeats:YES]; 
-    
-    
-    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
@@ -242,9 +239,6 @@
     
 }
 -(void)SignInUsingFacebookButtonClicked{
-    
-    
-    
     if([SoclivityUtilities hasNetworkConnection]){
         
     

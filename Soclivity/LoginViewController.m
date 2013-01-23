@@ -104,7 +104,7 @@
     if([SoclivityUtilities hasNetworkConnection]){
     [self startLoginAnimation];
     [devServer getLoginInvocation:self.emailAddress.text Password:self.password.text  delegate:self];
-    }
+    }//END if([SoclivityUtilities hasNetworkConnection])
     else {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil 
 													   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -112,9 +112,7 @@
 		[alert show];
 		[alert release];
 		return;
-		
-	}
-
+	}//END Else Statement
 }
 
 // Login process complete
@@ -133,10 +131,9 @@
     
     // Login successful
     if(obj.status && [obj.password_status isEqualToString:@"null"]){
-        
         SoclivityManager *SOC=[SoclivityManager SharedInstance];
          SOC.loggedInUser=obj;
-        if([ SFHFKeychainUtils storeUsername:@"password" andPassword: password.text forServiceName:@"Soclivity" updateExisting:YES error:nil])
+        if([SFHFKeychainUtils storeUsername:@"password" andPassword: password.text forServiceName:@"Soclivity" updateExisting:YES error:nil])
             NSLog(@"Password Encrypted");
         
         if([ SFHFKeychainUtils storeUsername:@"emailAddress" andPassword: emailAddress.text forServiceName:@"Soclivity" updateExisting:YES error:nil])
@@ -149,7 +146,6 @@
         [alert show];
         [alert release];
         return;
-
     }
     
     // Login with temporary password successful

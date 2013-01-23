@@ -8,22 +8,40 @@
 
 #import <UIKit/UIKit.h>
 #import "TTTAttributedLabel.h"
+#import "IconDownloader.h"
+#import "MBProgressHUD.h"
+#import "PostActivityRequestInvocation.h"
 
+@class MBProgressHUD;
+@class MainServiceManager;
+@class SoclivityManager;
 @protocol WaitingOnYouDelegate <NSObject>
 
 @optional
 - (void)pushContactsInvitesScreen;
 @end
 
-@interface WaitingOnYouView : UIView<UITableViewDataSource,UITableViewDelegate,TTTAttributedLabelDelegate>{
+@interface WaitingOnYouView : UIView<UITableViewDataSource,UITableViewDelegate,TTTAttributedLabelDelegate,IconDownloaderDelegate,MBProgressHUDDelegate,PostActivityRequestInvocationDelegate>{
     
     UITableView*waitingTableView;
-    NSArray *_espressos;
+    NSMutableArray *_notifications;
+    NSMutableData *responsedata;
+    UIActionSheet * loadingActionSheet;
+    NSMutableDictionary *imageDownloadsInProgress;
+    
+    MBProgressHUD *HUD;
+    MainServiceManager *devServer;
     id<WaitingOnYouDelegate>delegate;
+     SoclivityManager *SOC;
 }
-@property (nonatomic,retain) NSArray *espressos;
+@property (nonatomic,retain) NSMutableArray *_notifications;
 @property (nonatomic,assign)id<WaitingOnYouDelegate>delegate;
-@property (nonatomic, retain)UIImageView *img_vw;
+@property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
 
 - (id)initWithFrame:(CGRect)frame andNotificationsListArray:(NSArray*)andNotificationsListArray;
+
+-(void)startAnimation;
+-(void)hideMBProgress;
+-(void)appImageDidLoad:(NSIndexPath *)indexPath;
+
 @end

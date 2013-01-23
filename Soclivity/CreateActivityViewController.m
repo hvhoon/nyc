@@ -312,8 +312,6 @@
     descriptionTextView.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     descriptionTextView.textColor=[SoclivityUtilities returnTextFontColor:5];
     descriptionTextView.backgroundColor=[UIColor clearColor];
-
-    descriptionTextView.autocorrectionType=UITextAutocorrectionTypeNo;
     descriptionTextView.textAlignment=UITextAlignmentLeft;
     descriptionTextView.editable = YES;
     descriptionTextView.delegate = self;

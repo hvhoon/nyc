@@ -59,7 +59,12 @@ static inline NSTextCheckingType NSTextCheckingTypeFromUIDataDetectorType(UIData
 static inline NSDictionary * NSAttributedStringAttributesFromLabel(TTTAttributedLabel *label) {
     NSMutableDictionary *mutableAttributes = [NSMutableDictionary dictionary]; 
     
-    CTFontRef font = CTFontCreateWithName(( CFStringRef)label.font.fontName, label.font.pointSize, NULL);
+   // CTFontRef font = CTFontCreateWithName(( CFStringRef)label.font.fontName, label.font.pointSize, NULL);
+    
+    NSString *lstrfontname=@"Helvetica-Condensed";
+    
+    CTFontRef font =CTFontCreateWithName((CFStringRef)lstrfontname,14,NULL);
+    
     [mutableAttributes setObject:( id)font forKey:(NSString *)kCTFontAttributeName];
     CFRelease(font);
     

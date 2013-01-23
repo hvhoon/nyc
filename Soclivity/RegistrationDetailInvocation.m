@@ -107,6 +107,8 @@
     {
         [bodyD setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"device_token"]  forKey:@"device_token"];
     }//END if([[NSUserDefaults standardUserDefaults] valueForKey:@"device_token"]!=NULL)
+    
+    NSLog(@"bodyD::%@",bodyD);
 
     NSString *bodyData = [NSString stringWithFormat:@"{\"player\":%@}",[bodyD JSONRepresentation]];
      NSLog(@"bodyData=%@",bodyData);
@@ -192,7 +194,7 @@
 -(BOOL)handleHttpOK:(NSMutableData *)data {
     
     NSString *response=[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-    NSLog(@"response=%@",response);
+   // NSLog(@"response=%@",response);
 
 
     

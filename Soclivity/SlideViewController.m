@@ -12,6 +12,8 @@
 #import "UpComingCompletedEventsViewController.h"
 #import "InvitesViewController.h"
 #import "BlockedListViewController.h"
+#import "AppDelegate.h"
+
 #define kSVCLeftAnchorX                 100.0f
 #define kSVCRightAnchorX                190.0f
 #define kSVCSwipeNavigationBarOnly      YES
@@ -120,6 +122,7 @@
 @implementation SlideViewController
 
 @synthesize delegate = _delegate;
+@synthesize lstrnotificationscount;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -134,6 +137,7 @@
         _slideNavigationControllerState = kSlideNavigationControllerStateNormal;
         
     }
+    
     return self;
 }
 
@@ -151,18 +155,16 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    NSLog(@"viewWillAppear in slide View Controller Called");
 }
 - (void)viewDidLoad {
     
-    self.view.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S7_background.png"]];
+    self.view.backgroundColor= [SoclivityUtilities returnBackgroundColor:2];
+    //self.view.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S7_background.png"]];
     _tableView.scrollEnabled=NO;
     _tableView.bounces=NO;
-    _tableView.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S7_background.png"]];
     if (![self.delegate respondsToSelector:@selector(configureSearchDatasourceWithString:)] || ![self.delegate respondsToSelector:@selector(searchDatasource)]) {
         _tableView.frame = CGRectMake(0.0f, 0.0f, 269.0f, 460.0f);
     }
-    
     _slideNavigationController.view.layer.shadowColor = [[UIColor blackColor] CGColor];
     _slideNavigationController.view.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
     _slideNavigationController.view.layer.shadowRadius = 4.0f;
@@ -191,6 +193,8 @@
     
     if ([self.delegate respondsToSelector:@selector(initialSelectedIndexPath)])
         [_tableView selectRowAtIndexPath:[self.delegate initialSelectedIndexPath] animated:NO scrollPosition:UITableViewScrollPositionTop];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (WaitingOnYou_Count) name:@"WaitingOnYou_Count" object:nil];
     
 }
 
@@ -399,7 +403,11 @@
         _slideNavigationControllerState = kSlideNavigationControllerStateNormal;
         
     }
-    
+}
+
+-(void)WaitingOnYou_Count
+{
+    [_tableView reloadData];
 }
 
 #pragma mark UITableViewDelegate / UITableViewDatasource Methods
@@ -459,6 +467,11 @@
     
     }
 
+    for (UIView *view in cell.contentView.subviews)
+    {
+        [view removeFromSuperview];
+    }//END  for (UIView *view in cell.contentView.subviews)
+    
     NSDictionary *viewControllerDictionary = nil;
     
     if (_slideNavigationControllerState == kSlideNavigationControllerStateSearching) {
@@ -683,7 +696,7 @@
             CGRect notificationNoLabelRect=CGRectMake(6,4,15,14);
             UILabel *notificationNoLabel=[[UILabel alloc] initWithFrame:notificationNoLabelRect];
             notificationNoLabel.textAlignment=UITextAlignmentCenter;
-            notificationNoLabel.text=@"0";
+            notificationNoLabel.text=[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]];
             notificationNoLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
             notificationNoLabel.textColor=[UIColor whiteColor];
             notificationNoLabel.shadowColor = [UIColor blackColor];
@@ -810,6 +823,8 @@
     Class viewControllerClass = [viewControllerDictionary objectForKey:kSlideViewControllerViewControllerClassKey];
     NSString *nibNameOrNil = [viewControllerDictionary objectForKey:kSlideViewControllerViewControllerNibNameKey];
     UIViewController *viewController = [[viewControllerClass alloc] initWithNibName:nibNameOrNil bundle:nil];
+    
+    NSLog(@"viewcontroller::%@",viewController);
     
     if([viewController isKindOfClass:[HomeViewController class]]){
         
