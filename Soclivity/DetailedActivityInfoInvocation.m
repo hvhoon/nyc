@@ -19,6 +19,9 @@
 }
 -(void)invoke {
     NSString *a= [NSString stringWithFormat:@"%@/getactivity.json?id=%d&pid=%d&lat=%f&lng=%f",ProductionServer,activityId,playerId,currentLatitude,currentLongitude];
+    
+    NSLog(@"a::%@",a);
+    
      [self get:a];
 }
 
@@ -30,7 +33,11 @@
 	NSDictionary* resultsd = [[[NSString alloc] initWithData:data 
                                                encoding:NSUTF8StringEncoding] JSONValue];
     
+     NSLog(@"resultsd::%@",resultsd);
+    
     InfoActivityClass* response =[InfoActivityClass DetailInfoParse:resultsd];
+    
+   // NSLog(@"response::%@",response);
     
 	[self.delegate DetailedActivityInfoInvocationDidFinish:self withResponse:response withError:Nil];
 	return YES;

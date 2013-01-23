@@ -14,7 +14,7 @@
 @synthesize activeDownload;
 @synthesize imageConnection;
 @synthesize tagkey;
-@synthesize inviteRecord;
+@synthesize inviteRecord,img_waitingonyou,lstrwaitingonyouurl;
 #pragma mark
 
 - (void)dealloc
@@ -34,6 +34,7 @@
 {
     self.activeDownload = [NSMutableData data];
     tagkey=uniqueKey;
+    
     switch (tagkey){
         case kParticipantInActivity:
         {
@@ -58,6 +59,20 @@
                 NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
                                          [NSURLRequest requestWithURL:
                                           [NSURL URLWithString:inviteRecord.profilePhotoUrl]] delegate:self];
+                self.imageConnection = conn;
+                [conn release];
+            }
+            
+        }
+            break;
+            
+        case kWaitingOnYou:
+        {
+            if(self.lstrwaitingonyouurl != nil)
+            {
+                NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
+                                         [NSURLRequest requestWithURL:
+                                          [NSURL URLWithString:self.lstrwaitingonyouurl]] delegate:self];
                 self.imageConnection = conn;
                 [conn release];
             }
@@ -119,6 +134,12 @@
                 self.inviteRecord.profileImage =image;
                 
             }
+               break;
+               
+           case kWaitingOnYou:
+           {
+               self.img_waitingonyou =[[UIImage alloc] initWithData:UIImagePNGRepresentation(image)];
+           }
                 break;
         }
     
@@ -132,7 +153,7 @@
         
     // call our delegate and tell it that our icon is ready for display
     [delegate appImageDidLoad:self.indexPathInTableView];
-     [image release];
+     //[image release];
 }
 
 @end

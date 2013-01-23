@@ -150,8 +150,6 @@
     
 }
 - (void)parserFoundObjectEnd:(SBJsonStreamParser*)parser{
-    
-    
     //if(arrayInsert){
     if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer)||(jsonQueryKey==kForgotPassword)){
         if((responseStatus)||(jsonQueryKey==kRegisterPlayer)){
@@ -222,7 +220,6 @@
 
 - (void)parser:(SBJsonStreamParser*)parser foundString:(NSString*)string{
     //    	NSLog(@"Inside json delegate foundString");
-    
     if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer)||(jsonQueryKey==kForgotPassword)){
             
         if ([mappedKey isEqualToString:@"birth_date"]) {

@@ -91,6 +91,7 @@
     scrollView.indicatorStyle=UIScrollViewIndicatorStyleBlack;
     scrollView.clipsToBounds = YES;
     
+    NSLog(@"activityInfo::%@",activityInfo);
     
     if([activityInfo.goingCount intValue]==0 && activityInfo.pendingRequestCount==0){
         scrollView.scrollEnabled=NO;
@@ -356,7 +357,6 @@
 
     // Do any additional setup after loading the view from its nib.
 }
-
 -(void)BottonBarButtonHideAndShow:(NSInteger)type{
     
     switch (type) {
@@ -1087,8 +1087,6 @@
     
 }
 -(IBAction)editButtonClicked:(id)sender{
-    
-    
     NSString *nibNameBundle=nil;
     if([SoclivityUtilities deviceType] & iPhone5){
         nibNameBundle=@"CreateActivityViewController_iphone5";
@@ -1280,7 +1278,7 @@
         
 }
 -(IBAction)backToActivityAnimateTransition:(id)sender{
-    
+   
     inviteUsersToActivityButton.hidden=YES;
     inTransition=FALSE;
     if(activityInfo.activityRelationType==6){

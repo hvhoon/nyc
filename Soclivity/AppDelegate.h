@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "DDMenuController.h"
 #import "FBConnect.h"
+#import "RRAViewController.h"
+
 @class FacebookLogin;
+@class SlideViewController;
+@class TTTAttributedLabel;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate>{
     UINavigationController *navigationController;
     DDMenuController *menuController;
@@ -17,15 +22,27 @@
     NSMutableDictionary *userPermissions;
     BOOL resetSuccess;
     BOOL _appIsInbackground;
+    
+    NSMutableData *responsedata;
+    
+    UIBackgroundTaskIdentifier bgTask;
 }
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic,retain) UINavigationController *navigationController;
+@property (nonatomic, retain) UINavigationController *navigationController;
 @property (retain, nonatomic) DDMenuController *menuController;
 @property (nonatomic, retain) Facebook *facebook;
 @property (nonatomic, retain) NSMutableDictionary *userPermissions;
-@property (nonatomic,assign)BOOL resetSuccess;
+@property (nonatomic, assign) BOOL resetSuccess;
+@property (nonatomic, retain) TTTAttributedLabel *summaryLabel;
+@property(nonatomic, retain) NSMutableData *responsedata;
+@property (nonatomic, retain)RRAViewController *objrra;
+
+@property(nonatomic, retain)UIView *vw_notification;
 
 -(FacebookLogin*)SetUpFacebook;
 - (void)setUpActivityDataList;
+-(void)IncreaseBadgeIcon;
+-(void)PostBackgroundStatus:(int)status;
+ //-(void)registerForNotifications;
 @end

@@ -64,9 +64,15 @@
             break;
     }
     
-    NSString *bodyData = [NSString stringWithFormat:@"%@",[bodyD JSONRepresentation]];
+    if([[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"]!=nil)
+    {
+        [bodyD setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"] forKey:@"logged_in_user_id"]; 
+    }//END if([[NSUserDefaults standardUserDefaults] valueForKey:
     
-    NSLog(@"bodyData=%@",bodyData);
+    [bodyD setObject:activityObj.where_zip forKey:@"where_zip"];
+
+    NSString *bodyData = [NSString stringWithFormat:@"%@",[bodyD JSONRepresentation]];
+
 	return bodyData;
 #endif
 }

@@ -48,7 +48,6 @@
 {
    self = [super initWithFrame:frame];
     if (self) {
-        
     }
     return self;
 }
@@ -922,6 +921,18 @@ else {
 }   
 #endif
 -(IBAction)activityMapPlotButtonClicked:(id)sender{
+    
+    for (UIView *view in self.superview.superview.superview.subviews)
+    {
+        if ([view isKindOfClass:[UIButton class]])
+        {
+            if (view.tag==1111)
+            {
+                view.alpha=0;
+            }//END if (view.tag==1111)
+        }
+    }//END for (UIView *view in prevController.view.subviews)
+    
     if((activityObject.activityRelationType==6)||(activityObject.activityRelationType==5)){
             [self ActivityEventOnMap];
         }

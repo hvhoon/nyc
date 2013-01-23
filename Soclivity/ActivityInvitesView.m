@@ -344,7 +344,6 @@ NSString * const kSearchTextKey = @"Search Text";
         cell = [[[InviteUserTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                                 reuseIdentifier:CellIdentifier] autorelease];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
     }
 	
 	/*
@@ -363,7 +362,6 @@ NSString * const kSearchTextKey = @"Search Text";
         product = [[[[self.InviteEntriesArray objectAtIndex:indexPath.section] objectForKey:@"Elements"]
                     objectAtIndex:indexPath.row]objectForKey:@"ActivityInvite"];
         count=[[[self.InviteEntriesArray objectAtIndex:indexPath.section] objectForKey:@"Elements"]count];
-
     }
 	
     if(indexPath.row==count-1){

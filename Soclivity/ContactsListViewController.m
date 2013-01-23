@@ -14,6 +14,7 @@
 #import "MainServiceManager.h"
 #import "MBProgressHUD.h"
 #import "PostActivityRequestInvocation.h"
+#import "InvitesViewController.h"
 @interface ContactsListViewController ()<MBProgressHUDDelegate,PostActivityRequestInvocationDelegate>
 
 - (void)startIconDownload:(InviteObjectClass*)appRecord forIndexPath:(NSIndexPath *)indexPath;
@@ -35,6 +36,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    for (UIViewController *vw_contrller in self.navigationController.viewControllers) {
+        if ([vw_contrller isKindOfClass:[InvitesViewController class]])
+        {
+            for (UIView *view in vw_contrller.view.subviews)
+            {
+                if ([view isKindOfClass:[UIButton class]])
+                {
+                    if (view.tag==1111)
+                    {
+                        view.alpha=0;
+                    }//END if (view.tag==1111)
+                }
+            }//END for (UIView *view in prevController.view.subviews)
+        }//END if ([vw_contrller isKindOfClass:[ActivityEventViewController class]])
+    }
+
+    
     devServer=[[MainServiceManager alloc]init];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     
@@ -457,7 +476,6 @@
     switch (relationTypeTag) {
         case 11:
         {
-            
             if(inviteFriends && response){
                 
                 HUD.labelText = @"Invited";

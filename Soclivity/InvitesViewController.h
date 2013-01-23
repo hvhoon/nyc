@@ -46,6 +46,8 @@
 @property (nonatomic,assign)BOOL inviteFriends;
 @property (nonatomic,retain)NSArray *inviteArray;
 @property (nonatomic,assign)NSInteger activityId;
+@property (nonatomic, retain)IBOutlet UIButton *btnnotify;
+
 -(IBAction)profileSliderPressed:(id)sender;
 -(IBAction)popBackToActivityScreen:(id)sender;
 -(void)startAnimation:(int)type;

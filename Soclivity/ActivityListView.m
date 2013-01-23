@@ -81,6 +81,9 @@
     
     //self.plays =[SoclivityUtilities getPlayerActivities];
     self.plays =[SoclivitySqliteClass returnAllValidActivities];
+    
+    NSLog(@"self.plays::%@",self.plays);
+    
     [self sortingFilterRefresh];
 #if 0    
 //    [self.sectionInfoArray removeAllObjects];
@@ -113,6 +116,9 @@
 		}
 		}
 		self.sectionInfoArray = infoArray;
+    
+    NSLog(@"self.sectionInfoArray::%@",self.sectionInfoArray);
+    
 		[infoArray release];
 //}
     [self.tableView reloadData];
@@ -276,6 +282,9 @@
     NSLog(@"activitySection=%d",activitySection);
     spinnerIndex=activitySection;
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:activitySection];
+    
+    NSLog(@"section=%@",sectionInfo.play);
+    
     [delegate PushToDetailActivityView:sectionInfo.play andFlipType:1];
 
 }

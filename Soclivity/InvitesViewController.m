@@ -17,11 +17,13 @@
 #import "SoclivityManager.h"
 #import "GetPlayersClass.h"
 #import "GetActivityInvitesInvocation.h"
+#import "ActivityEventViewController.h"
 @interface InvitesViewController(Private) <MBProgressHUDDelegate,PostActivityRequestInvocationDelegate,GetActivityInvitesInvocationDelegate>
 @end
 
 @implementation InvitesViewController
-@synthesize delegate,settingsButton,activityBackButton,inviteTitleLabel,openSlotsNoLabel,activityName,num_of_slots,inviteFriends,activityInvites,inviteArray,activityId;
+@synthesize delegate,settingsButton,activityBackButton,inviteTitleLabel,openSlotsNoLabel,activityName,num_of_slots,inviteFriends,activityInvites,inviteArray,activityId,btnnotify;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -43,10 +45,49 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    [activityInvites closeAnimation];
-    
+    for (UIViewController *vw_contrller in self.navigationController.viewControllers) {
+        if([vw_contrller isKindOfClass:[ActivityEventViewController class]])
+        {
+            self.btnnotify.alpha=0;
+        }//END if([vw_contrller isKindOf
+    }//END if ([vw_contrller isKindOfClass:[ActivityEventViewController class]])
 
+     [self.view bringSubviewToFront:self.btnnotify];
+    
+    [activityInvites closeAnimation];
 }
+
+-(void)UpdateBadgeNotification
+{
+    self.btnnotify.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
+    
+    int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
+    
+    if (count==0)
+    {
+        self.btnnotify.alpha=0;
+    }//END if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"Wait
+    
+    else
+    {
+        if ([[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] length]<2)
+        {
+            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notifyDigit1.png"] forState:UIControlStateNormal];
+            self.btnnotify.frame = CGRectMake(self.btnnotify.frame.origin.x,self.btnnotify.frame.origin.y,27,27);
+            
+        }//END if ([[NSString stringWithFormat:@"%i",[[[
+        
+        else{
+            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notifyDigit2.png"] forState:UIControlStateNormal];
+            self.btnnotify.frame = CGRectMake(self.btnnotify.frame.origin.x,self.btnnotify.frame.origin.y,33,28);
+        }//END Else Statement
+        
+        self.btnnotify.alpha=1;
+        [self.btnnotify setTitle:[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] forState:UIControlStateNormal];
+        [self.btnnotify setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }//END Else Statement
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -54,6 +95,12 @@
     [super viewDidLoad];
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
+    
+    [self UpdateBadgeNotification];
+
+    self.btnnotify.alpha=1;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
     
     if(inviteFriends){
     settingsButton.hidden=YES;
@@ -80,7 +127,7 @@
     activityRect=CGRectMake(0, 44, 320, 377+88);
             
     else
-        activityRect=CGRectMake(0, 44, 320, 377);
+        activityRect=CGRectMake(0, 44, 320, 357);  //377
     activityInvites=[[ActivityInvitesView alloc]initWithFrame:activityRect andInviteListArray:inviteArray];
     activityInvites.delegate=self;
     [self.view addSubview:activityInvites];

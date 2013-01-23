@@ -39,6 +39,7 @@
 
 #define kParticipantInActivity 55
 #define kInviteUsers 56
+#define kWaitingOnYou 57
 
 #define kPlayActivity 12
 #define kEatActivity 13
