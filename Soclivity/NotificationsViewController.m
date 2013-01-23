@@ -62,7 +62,7 @@
 
 -(void)GetNotifications
 {
-    NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/myactivities.json?logged_in_user_id=%@",ProductionServer,[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/mynotifications?logged_in_user_id=%@",ProductionServer,[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
     [[NSURLConnection alloc] initWithRequest:request delegate:self];
