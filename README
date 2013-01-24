@@ -2,14 +2,15 @@ Please use the following syntax with your commits
 =================================================
 Using the syntax below will ensure that the appropriate comments are added to the referenced stories in Pivotaltracker and the GitHub issues list.  This will help with management of the project overall.
 
-1. As you update user stories
-[#req.ID] <Description of change/update to the user story>
+1. Start working on a story/bug
+<JIRA ID> #start-build #comment <add your comments here>
+<JIRA ID1> <JIRA-ID2> #start-build #comment Start working on multiple items together.
 
 2. Once a user story is complete
-[complete #req.ID] <Description of functionality added>
+<JIRA ID> #complete-build #comment Finished fixing the bug or developing the feature, send to the testers.
 
-3. As you update issues
-#<issue number> <Description of what has been implemented>
+3. Directly close the issue
+<JIRA ID> #close #comment Skip the testing phase and directly close out the issue.
 
-4. As you close issues
-Close #<issue number> <Description of what was done to close the issue>
+4. Just add comments to the story/bug
+<JIRA ID> #comment Comments made here will be added to the story or bug.
