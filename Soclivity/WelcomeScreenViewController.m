@@ -58,53 +58,63 @@
     rootView=[[UIView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.view addSubview:rootView];
 
-    
-    UIImageView *socLogoImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"logo.png"]];
-    socLogoImageView.frame=CGRectMake(51, 80, 219, 58);
-    
+    // All the background images
     playImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"green_play.png"]];
     playImageView.frame=[[UIScreen mainScreen] bounds];
-    UIImageView*playHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"play.png"]];
-    playHighlightImage.frame=CGRectMake(33, 150, 254, 14);
-    [playImageView addSubview:playHighlightImage];
-    
     [rootView addSubview:playImageView];
-    [playHighlightImage release];
     
     eatImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"orange_eat.png"]];
     eatImageView.frame=[[UIScreen mainScreen] bounds];
-    UIImageView*eatHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"eat.png"]];
-    eatHighlightImage.frame=CGRectMake(33, 150, 254, 14);
-    [eatImageView addSubview:eatHighlightImage];
-    
     [rootView addSubview:eatImageView];
-    [eatHighlightImage release];
     
     seeImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"purple_see.png"]];
     seeImageView.frame=[[UIScreen mainScreen] bounds];
-    UIImageView*seeHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"see.png"]];
-    seeHighlightImage.frame=CGRectMake(33, 150, 254, 14);
-    [seeImageView addSubview:seeHighlightImage];
-    
     [rootView addSubview:seeImageView];
-    [seeHighlightImage release];
     
     createImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"red_create.png"]];
     createImageView.frame=[[UIScreen mainScreen] bounds];
-    UIImageView*createHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"create.png"]];
-    createHighlightImage.frame=CGRectMake(33, 150, 254, 14);
-    [createImageView addSubview:createHighlightImage];
-    
     [rootView addSubview:createImageView];
-    [createHighlightImage release];
     
     learnImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"aqua_learn.png"]];
     learnImageView.frame=[[UIScreen mainScreen] bounds];
+    [rootView addSubview:learnImageView];
+
+    
+    // Initialize all the other images
+    UIImageView *socLogoImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"logo.png"]];
+    UIImageView*playHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"play.png"]];
+    UIImageView*eatHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"eat.png"]];
+    UIImageView*seeHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"see.png"]];
+    UIImageView*createHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"create.png"]];
     UIImageView*learnHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"learn.png"]];
-    learnHighlightImage.frame=CGRectMake(33, 150, 254, 14);
+
+
+    
+    // Change the logo location based on device type
+    float x=0;
+    
+    if([SoclivityUtilities deviceType] & iPhone5){
+        x = 44.0;
+    }
+    
+    socLogoImageView.frame=CGRectMake(51, x+80, 219, 58);
+    playHighlightImage.frame=CGRectMake(33, x+150, 254, 14);
+    eatHighlightImage.frame=CGRectMake(33, x+150, 254, 14);
+    seeHighlightImage.frame=CGRectMake(33, x+150, 254, 14);
+    createHighlightImage.frame=CGRectMake(33, x+150, 254, 14);
+    learnHighlightImage.frame=CGRectMake(33, x+150, 254, 14);
+    
+    // Adding these images to the screen
+    [playImageView addSubview:playHighlightImage];
+    [playHighlightImage release];
+    [eatImageView addSubview:eatHighlightImage];
+    [eatHighlightImage release];
+    [seeImageView addSubview:seeHighlightImage];
+    [seeHighlightImage release];
+    [createImageView addSubview:createHighlightImage];
+    [createHighlightImage release];
     [learnImageView addSubview:learnHighlightImage];
     [learnHighlightImage release];
-    [rootView addSubview:learnImageView];
     
     
     eatImageView.hidden=YES;
@@ -116,12 +126,12 @@
     
     
     UIImageView *socSignupImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S01_signIn.png"]];
-    socSignupImageView.frame=CGRectMake(28, [UIScreen mainScreen].bounds.size.height-230, 263, 44);
+    socSignupImageView.frame=CGRectMake(28, x+250, 263, 44);
     [self.view addSubview:socSignupImageView];
     [socSignupImageView release];
     
     // Sign-in button
-    signIn=[[UILabel alloc]initWithFrame:CGRectMake(87, [UIScreen mainScreen].bounds.size.height-227, 230, 35)];
+    signIn=[[UILabel alloc]initWithFrame:CGRectMake(87, x+253, 230, 35)];
     signIn.text=@"Sign in Using Facebook";
     signIn.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17.0];
     
@@ -133,14 +143,14 @@
     [self.view addSubview:signIn];
     [signIn release];
     
-    spinner=[[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(252, [UIScreen mainScreen].bounds.size.height-219, 20, 20)];
+    spinner=[[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(252, x+261, 20, 20)];
     [spinner setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
     [spinner hidesWhenStopped];
     [self.view addSubview:spinner];
     [spinner release];
     
     UIButton *signInUsingFacebbokButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    signInUsingFacebbokButton.frame=CGRectMake(28,[UIScreen mainScreen].bounds.size.height-230,263,44);
+    signInUsingFacebbokButton.frame=CGRectMake(28, x+250, 263, 44);
     [signInUsingFacebbokButton addTarget:self action:@selector(SignInUsingFacebookButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signInUsingFacebbokButton];
     
