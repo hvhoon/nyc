@@ -97,12 +97,12 @@
         x = 44.0;
     }
     
-    socLogoImageView.frame=CGRectMake(51, x+80, 219, 58);
-    playHighlightImage.frame=CGRectMake(33, x+150, 254, 14);
-    eatHighlightImage.frame=CGRectMake(33, x+150, 254, 14);
-    seeHighlightImage.frame=CGRectMake(33, x+150, 254, 14);
-    createHighlightImage.frame=CGRectMake(33, x+150, 254, 14);
-    learnHighlightImage.frame=CGRectMake(33, x+150, 254, 14);
+    socLogoImageView.frame=CGRectMake(51, x+120, 219, 58);
+    playHighlightImage.frame=CGRectMake(33, x+190, 254, 14);
+    eatHighlightImage.frame=CGRectMake(33, x+190, 254, 14);
+    seeHighlightImage.frame=CGRectMake(33, x+190, 254, 14);
+    createHighlightImage.frame=CGRectMake(33, x+190, 254, 14);
+    learnHighlightImage.frame=CGRectMake(33, x+190, 254, 14);
     
     // Adding these images to the screen
     [playImageView addSubview:playHighlightImage];
