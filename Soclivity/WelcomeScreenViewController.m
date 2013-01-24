@@ -21,7 +21,7 @@
 #import "SoclivityUtilities.h"
 #import "ProfileViewController.h"
 
-@interface WelcomeScreenViewController(Private) <MBProgressHUDDelegate>
+@interface WelcomeScreenViewController(Private)
 @end
 @implementation WelcomeScreenViewController
 
@@ -113,27 +113,51 @@
     learnImageView.hidden=YES;
     [self.view addSubview:socLogoImageView];
     [socLogoImageView release];
-    UIImageView *socSignupImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sign-up.png"]];
-    socSignupImageView.frame=CGRectMake(26, [UIScreen mainScreen].bounds.size.height-173, 265, 132);//287
+    
+    
+    UIImageView *socSignupImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S01_signIn.png"]];
+    socSignupImageView.frame=CGRectMake(28, [UIScreen mainScreen].bounds.size.height-230, 263, 44);
     [self.view addSubview:socSignupImageView];
     [socSignupImageView release];
     
+    // Sign-in button
+    signIn=[[UILabel alloc]initWithFrame:CGRectMake(87, [UIScreen mainScreen].bounds.size.height-227, 230, 35)];
+    signIn.text=@"Sign in Using Facebook";
+    signIn.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17.0];
+    
+    signIn.textColor=[SoclivityUtilities returnTextFontColor:5];
+    signIn.backgroundColor=[UIColor clearColor];
+    signIn.shadowColor = [UIColor whiteColor];
+    signIn.shadowOffset = CGSizeMake(0,0.5);
+    
+    [self.view addSubview:signIn];
+    [signIn release];
+    
+    spinner=[[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(252, [UIScreen mainScreen].bounds.size.height-219, 20, 20)];
+    [spinner setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+    [spinner hidesWhenStopped];
+    [self.view addSubview:spinner];
+    [spinner release];
     
     UIButton *signInUsingFacebbokButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    signInUsingFacebbokButton.frame=CGRectMake(26,[UIScreen mainScreen].bounds.size.height-173,265,44.6);
+    signInUsingFacebbokButton.frame=CGRectMake(28,[UIScreen mainScreen].bounds.size.height-230,263,44);
     [signInUsingFacebbokButton addTarget:self action:@selector(SignInUsingFacebookButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signInUsingFacebbokButton];
     
+    //Disabling the other sign-in methods
+    
+    /*
     UIButton *signUpButton=[UIButton buttonWithType:UIButtonTypeCustom];
     signUpButton.frame=CGRectMake(26,[UIScreen mainScreen].bounds.size.height-173+44,265,44.6);//331
     [signUpButton addTarget:self action:@selector(SignUpButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signUpButton];
     
+     
     UIButton *alreadySignedUpButton=[UIButton buttonWithType:UIButtonTypeCustom];
     alreadySignedUpButton.frame=CGRectMake(26,[UIScreen mainScreen].bounds.size.height-173+44+45.2,265,44.6);
     [alreadySignedUpButton addTarget:self action:@selector(AlreadySignedUpButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:alreadySignedUpButton];
-
+*/
     
     [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(performTransition) userInfo:nil repeats:YES]; 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
@@ -261,7 +285,9 @@
 
 }
 -(void)userCancelFBRequest{
-    [HUD hide:YES];
+    [spinner stopAnimating];
+    [self.view setUserInteractionEnabled:YES];
+    signIn.text=@"Sign in Using Facebook";
 }
 -(void)pushToRegistration{
     
@@ -277,14 +303,20 @@
 
     ProfileViewController *registrationViewControler=[[ProfileViewController alloc] initWithNibName:nibNameBundle bundle:nil];
     registrationViewControler.isFirstTime=TRUE;
-    [HUD hide:YES];
+    
+    [spinner stopAnimating];
+    [self.view setUserInteractionEnabled:YES];
+    
 	[[self navigationController] pushViewController:registrationViewControler animated:YES];
     [registrationViewControler release];
 #else
     //check for facebook user Already registered or else redirect to registraion page
     RegistrationViewControler *registrationViewControler=[[RegistrationViewControler alloc] initWithNibName:@"RegistrationViewControler" bundle:nil];
     registrationViewControler.facebookTag=TRUE;
-    [HUD hide:YES];
+    
+    [spinner stopAnimating];
+    [self.view setUserInteractionEnabled:YES];
+    
 	[[self navigationController] pushViewController:registrationViewControler animated:YES];
     [registrationViewControler release];
 #endif
@@ -292,7 +324,10 @@
 }
 
 -(void)pushToHomeViewController{
-    [HUD hide:YES];
+    
+    [spinner stopAnimating];
+    [self.view setUserInteractionEnabled:YES];
+    
     NSString *nibNameBundle=nil;
     if([SoclivityUtilities deviceType] & iPhone5){
         nibNameBundle=@"SlideViewController";
@@ -345,21 +380,9 @@
 
 -(void)startFacebookSignup {
     // Setup animation settings
-    HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
-    HUD.labelText = @"Facebook Sign-in";
-    
-    [self.view addSubview:HUD];
-    HUD.delegate = self;
-    [HUD show:YES];
+    signIn.text = @"Signing In...";
+    [self.view setUserInteractionEnabled:NO];
+    [spinner startAnimating];
     
 }
-
--(void)hudWasHidden:(MBProgressHUD *)hud {
-    // Remove HUD from screen when the HUD was hidded
-	[HUD removeFromSuperview];
-	[HUD release];
-	HUD = nil;
-}
-
 @end
