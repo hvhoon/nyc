@@ -33,7 +33,7 @@ NSString *lstrnotifyid;
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self._notifications =[andNotificationsListArray retain];
+        self._notifications =[[andNotificationsListArray valueForKey:@"notifications"] retain];
         self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
         devServer=[[MainServiceManager alloc]init];
         SOC=[SoclivityManager SharedInstance];
@@ -57,6 +57,7 @@ NSString *lstrnotifyid;
         [self addSubview:waitingTableView];
         waitingTableView.clipsToBounds=YES;
         
+        //[self SetNotificationStatus];
     }
     return self;
 }
@@ -144,34 +145,9 @@ NSString *lstrnotifyid;
 
     NSArray *SplitNotifyarray=[lstrnotifyid componentsSeparatedByString:@","];
     
-    [self SetNotificationStatus:[SplitNotifyarray objectAtIndex:1]];
+   // [self SetNotificationStatus:[SplitNotifyarray objectAtIndex:1]];
     [self RemoveNotification:[SplitNotifyarray objectAtIndex:1]];
-    
-    
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]!=NULL)
-    {
-        NSString *lstrnotify=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
-        NSArray *SpliArray=[lstrnotify componentsSeparatedByString:@","];
-        
-        for (int i=0; i<[SpliArray count]; i++)
-        {
-            if ([[SpliArray objectAtIndex:i] intValue]==[[SplitNotifyarray objectAtIndex:1] intValue])
-            {
-                int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
-                count=count-1;
-                
-                [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%i",count] forKey:@"Waiting_On_You_Count"];
-            }//END if ([[SpliArray objectAtIndex:i] intValue]
-        }//END for (int i=0; i<[SpliArray count]; i++)
-    }//END if ([[NSUserDefaults standardUserDefaults
-    
     [self._notifications removeObjectAtIndex:[[SplitNotifyarray objectAtIndex:0] intValue]];
-    
-    NSDictionary *dictcount=[[NSDictionary alloc] initWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"],@"Waiting_On_You_Count", nil];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
-    
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
     
     [waitingTableView.superview setUserInteractionEnabled:TRUE];
     
@@ -191,17 +167,17 @@ NSString *lstrnotifyid;
     if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]==[NSNull null])
     {
         height=60;
-    }//END if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]==NULL)
+    }//END if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]==NULL)
     
     else if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6)
     {
         height=[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+50;
-    }//END if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]==NULL)
+    }//END if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]==NULL)
     
     else if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==12)
     {
         height=[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+50;
-    }//END if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]==NULL)
+    }//END if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]==NULL)
     else
     {
          height=[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+20;
@@ -234,12 +210,12 @@ NSString *lstrnotifyid;
     {
         cell.summaryText =[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"];
         cell.summaryLabel.delegate = self;
-    }//END if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"noti
+    }//END if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"noti
     
     cell.summaryLabel.userInteractionEnabled = YES;
     cell.summaryLabel.backgroundColor=[UIColor clearColor];
     
-    NSLog(@"self._notifications::%@",self._notifications);
+    NSLog(@"notifications::%@",self._notifications);
     
     if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"updated_at"]!=[NSNull null])
     {
@@ -257,7 +233,7 @@ NSString *lstrnotifyid;
         
         cell.TimeText =prefixDateString;
 
-    }//END if ([[self._notifications objectAtIndex:indexPath.row] valueForK
+    }//END if ([[[self._notifications objectAtIndex:indexPath.row] valueForK
     
     cell.lbltime.userInteractionEnabled = YES;
     cell.lbltime.backgroundColor=[UIColor clearColor];
@@ -284,7 +260,7 @@ NSString *lstrnotifyid;
             img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
             
             [cell.contentView addSubview:img_vw];
-        }//END if ([[[self._notifications objectAtIndex:indexPath
+        }//END if ([[[[self._notifications  objectAtIndex:indexPath
         
         if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==2)
         {
@@ -293,7 +269,7 @@ NSString *lstrnotifyid;
             img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
             
             [cell.contentView addSubview:img_vw];
-        }//END if ([[[self._notifications objectAt
+        }//END if ([[[[self._notifications objectAt
         
         if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==3)
         {
@@ -302,7 +278,7 @@ NSString *lstrnotifyid;
             img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
             
             [cell.contentView addSubview:img_vw];
-        }//END if ([[[self._notifications objectAt
+        }//END if ([[[[self._notifications objectAt
         
         if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==4)
         {
@@ -311,7 +287,7 @@ NSString *lstrnotifyid;
             img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
             
             [cell.contentView addSubview:img_vw];
-        }//END if ([[[self._notifications objectAt
+        }//END if ([[[[self._notifications objectAt
         
         if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==8 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==9 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==12|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==13|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==14)
         {
@@ -389,9 +365,9 @@ NSString *lstrnotifyid;
             }//END  if (notif.type==12)
             
            // self.img_vw.image=[UIImage imageNamed:@"S11_picBox.png"];
-        }//END if ([[[self._notifications objectAtIndex:indexPath.row]
+        }//END if ([[[[self._notifications objectAtIndex:indexPath.row]
     
-    }//END if ([[[self._notifications objectAtIndex:indexPat
+    }//END if ([[[[self._notifications objectAtIndex:indexPat
     
     UIButton *btnindicator=[UIButton buttonWithType:UIButtonTypeCustom];
     btnindicator.frame=CGRectMake(276, 20, 38, 38);
@@ -401,6 +377,23 @@ NSString *lstrnotifyid;
     [btnindicator addTarget:self action:@selector(NavigationScreen:) forControlEvents:UIControlEventTouchUpInside];
     
     [cell.contentView addSubview:btnindicator];
+    
+    if([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"is_read"]!=[NSNull null])
+    {
+        if([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"is_read"] intValue]==0)
+        {
+            cell.contentView.backgroundColor=[UIColor whiteColor];
+        }//END if([[[self._notifications objectAtIndex:indexPat
+        
+        else{
+            cell.contentView.backgroundColor=[SoclivityUtilities returnTextFontColor:10];
+        }//ENd Else Statement
+    }//END if ([[[self._notifications objectAtIndex:in
+    
+    else if([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"is_read"]==[NSNull null])
+    {
+        cell.contentView.backgroundColor=[UIColor whiteColor];
+    }
     
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
@@ -440,7 +433,7 @@ NSString *lstrnotifyid;
                 [self startIconDownloadForIndexPath:indexPath];
             }
         }
-        }
+    }
 }
 
 - (void)appImageDidLoad:(NSIndexPath *)indexPath
@@ -456,10 +449,20 @@ NSString *lstrnotifyid;
 
 #pragma mark - UITableViewDelegate
 
-/*- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *description = [self._notifications objectAtIndex:indexPath.row];
-    NSLog(@"description=%@",description);
-}*/
+-(void)SetNotificationStatus:(NSString *)lstrid
+{
+    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"http://%@/notification_read.json?id=%@&read_notification=1",ProductionServer,lstrid]];
+    
+	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
+    [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self SetNotificationStatus:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]];
+    //NSString *description = [[self._notifications objectAtIndex:indexPath.row];
+    //NSLog(@"description=%@",description);
+}
 
 -(void)NavigationScreen:(id)sender
 {
@@ -476,15 +479,6 @@ NSString *lstrnotifyid;
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
     [[NSURLConnection alloc] initWithRequest:request delegate:self];
 
-}
-
--(void)SetNotificationStatus:(NSString *)lstrid
-{
-    NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/notification_read.json?id=%i&read_notification=1",ProductionServer,[lstrid intValue]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    
-	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
-    [[NSURLConnection alloc] initWithRequest:request delegate:self];
- 
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
@@ -512,12 +506,10 @@ NSString *lstrnotifyid;
     [loadingActionSheet dismissWithClickedButtonIndex:0 animated:YES];
 }
 
-
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self startAnimation];
     
-    [self SetNotificationStatus:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]];
     [self RemoveNotification:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]];
     
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]!=NULL)
@@ -535,17 +527,10 @@ NSString *lstrnotifyid;
                 [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%i",count] forKey:@"Waiting_On_You_Count"];
             }
         }//END for (int i=0; i<[SpliArray count]; i++)
-    }
+    }//END if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notif
     
     [self._notifications removeObjectAtIndex:indexPath.row];
-    
-    NSDictionary *dictcount=[[NSDictionary alloc] initWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"],@"Waiting_On_You_Count", nil];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
-    
-      [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
-    
-     [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
+    [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {

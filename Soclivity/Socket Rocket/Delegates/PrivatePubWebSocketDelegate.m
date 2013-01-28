@@ -219,16 +219,14 @@
     
     NSString *channel = [[[message JSONValue] objectAtIndex:0] valueForKeyPath:@"data"];
     
-    NSLog(@"channel::%@",channel);
-    
     if ([[channel valueForKeyPath:@"data"] valueForKey:@"message"]!=NULL)
     {
-        int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
-        count=count+1;
         
-        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%i",count] forKey:@"Waiting_On_You_Count"];
+        NSLog(@"badge::%@",[[channel valueForKey:@"data"] valueForKey:@"badge"]);
+        
+        [[NSUserDefaults standardUserDefaults] setValue:[[channel valueForKey:@"data"] valueForKey:@"badge"] forKey:@"Waiting_On_You_Count"];
           
-          if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]==NULL)
+          if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]==NULL || [[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"] isEqualToString:@""])
           {
               [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@",[[channel valueForKeyPath:@"data"] valueForKey:@"notification_id"]]  forKey:@"Notification_id"];
           }//END if ([[NSUserDefaults standardUserDefaults] valueforKey:@"Notification_Count"]==NULL)
@@ -236,9 +234,6 @@
           else
           {
               NSString *lstrvalue=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
-              
-              [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
-
               [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrvalue,[[channel valueForKeyPath:@"data"] valueForKey:@"notification_id"]] forKey:@"Notification_id"];
           }//END Else Statement
         

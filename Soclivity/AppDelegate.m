@@ -289,10 +289,7 @@ NSString *lstrphoto;
 
 -(void)IncreaseBadgeIcon
 {
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]!=0)
-    {
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber: [[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]];
-    }//END if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]!=0)
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: [[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]];
 }
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
@@ -312,6 +309,8 @@ NSString *lstrphoto;
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+    NSLog(@"userInfo::%@",userInfo);
     
     if (_appIsInbackground)
     {
@@ -497,7 +496,11 @@ NSString *lstrphoto;
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
     
     NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    NSString *lstrresponse=[NSString stringWithUTF8String:[returnData bytes]];
+    
+    if(returnData!=NULL)
+    {
+       NSString *lstrresponse=[NSString stringWithUTF8String:[returnData bytes]]; 
+    }//END if(returnData!=NULL)
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {

@@ -62,9 +62,16 @@
 
 -(void)GetNotifications
 {
-    NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/mynotifications.json?logged_in_user_id=%@",ProductionServer,[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString *lstrnotificationid=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
     
-	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
+    if(lstrnotificationid==NULL || [lstrnotificationid isEqualToString:@"(null)"])
+    {
+      lstrnotificationid=@"";
+    }//END if(lstrnotificationid==NULL || [lstrnotific
+        
+    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"http://%@/mynotifications.json?logged_in_user_id=%@&ids=%@",ProductionServer,[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"],lstrnotificationid]];
+    
+	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
@@ -101,6 +108,13 @@
     }//END if ([[[self.arrnotification objectAtIndex:i] valueForKey:@
         
     else{
+        
+        [[NSUserDefaults standardUserDefaults] setValue:[self.arrnotification valueForKey:@"badge"] forKey:@"Waiting_On_You_Count"];
+         
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:[self.arrnotification valueForKey:@"badge"]];
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
+
         notificationImageView.hidden=YES;
         socFadedImageView.hidden=YES;
             
