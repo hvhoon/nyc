@@ -86,7 +86,7 @@
         [sectionTwo setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
         
         NSMutableDictionary *notificationsViewControllerDictionary = [NSMutableDictionary dictionary];
-        [notificationsViewControllerDictionary setObject:@"Waiting on you" forKey:kSlideViewControllerViewControllerTitleKey];
+        [notificationsViewControllerDictionary setObject:@"Notifications" forKey:kSlideViewControllerViewControllerTitleKey];
         
         if([SoclivityUtilities deviceType] & iPhone5){
             nibNameBundle=@"NotificationsViewController_iphone5";
@@ -117,7 +117,7 @@
         [sectionThree setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
         
         NSMutableDictionary *homeViewControllerDictionary = [NSMutableDictionary dictionary];
-        [homeViewControllerDictionary setObject:@"Activities around you" forKey:kSlideViewControllerViewControllerTitleKey];
+        [homeViewControllerDictionary setObject:@"Activities Around Me" forKey:kSlideViewControllerViewControllerTitleKey];
         
         if([SoclivityUtilities deviceType] & iPhone5){
             nibNameBundle=@"HomeViewController_iphone5";
@@ -152,7 +152,7 @@
         [sectionFour setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
         
         NSMutableDictionary *upcomingCompletedEventsViewControllerDictionary = [NSMutableDictionary dictionary];
-        [upcomingCompletedEventsViewControllerDictionary setObject:@"Your Activities" forKey:kSlideViewControllerViewControllerTitleKey];
+        [upcomingCompletedEventsViewControllerDictionary setObject:@"My Activities" forKey:kSlideViewControllerViewControllerTitleKey];
         
         if([SoclivityUtilities deviceType] & iPhone5){
             nibNameBundle=@"UpComingCompletedEventsViewController_iphone5";
@@ -182,7 +182,7 @@
         [sectionFive setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
         
         NSMutableDictionary *invitesViewControllerDictionary = [NSMutableDictionary dictionary];
-        [invitesViewControllerDictionary setObject:@"Invite people" forKey:kSlideViewControllerViewControllerTitleKey];
+        [invitesViewControllerDictionary setObject:@"Invite People" forKey:kSlideViewControllerViewControllerTitleKey];
         
         
         if([SoclivityUtilities deviceType] & iPhone5){
@@ -298,7 +298,7 @@
         [sectionEight setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
         
         NSMutableDictionary *emailNotifyControllerDictionary = [NSMutableDictionary dictionary];
-        [emailNotifyControllerDictionary setObject:@"Email notifications" forKey:kSlideViewControllerViewControllerTitleKey];
+        [emailNotifyControllerDictionary setObject:@"Email Notifications" forKey:kSlideViewControllerViewControllerTitleKey];
         
         NSNumber *emailNotifyTag=[NSNumber numberWithInt:8];
         [emailNotifyControllerDictionary setObject:emailNotifyTag forKey:kSlideViewControllerViewControllerTagKey];
