@@ -281,9 +281,6 @@ NSDateFormatter* gJSONDateFormatter = nil;
             }//END  if ([[[response JSONValu
             
             else{
-                
-                NSLog(@"channel::%@",[[[[response JSONValue] valueForKey:@"channel"] JSONValue] valueForKey:@"channel"]);
-                
                 [[NSUserDefaults standardUserDefaults] setValue:[[[[response JSONValue] valueForKey:@"channel"] JSONValue] valueForKey:@"channel"] forKey:@"Channel"];
                 
                 [(AppDelegate *)[[UIApplication sharedApplication] delegate] PostBackgroundStatus:0];

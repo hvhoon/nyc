@@ -150,7 +150,6 @@
 
 - (void) webSocket:(SRWebSocket *)webSocket didReceiveMessage:(NSString *)message {
       id JSON = [[message JSONValue] objectAtIndex:0];
-    //NSLog(@"recv subscription %@", JSON);
 
     Boolean subscriptionWasSuccessful = [[JSON valueForKeyPath:@"successful"] boolValue];
     if (subscriptionWasSuccessful) {

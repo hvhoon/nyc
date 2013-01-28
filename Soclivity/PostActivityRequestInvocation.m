@@ -85,8 +85,6 @@
         }
             break;
 
-     
-
      }
 
 
@@ -105,7 +103,6 @@
 
 
 -(BOOL)handleHttpOK:(NSMutableData *)data {
-    
     
     NSLog(@"handleHttpOK");
 	NSDictionary* resultsd = [[[NSString alloc] initWithData:data 
