@@ -38,6 +38,7 @@
 @property (nonatomic,assign)id<WaitingOnYouDelegate>delegate;
 @property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
 @property (nonatomic, retain) NSString *lstrnotificationid;
+@property (nonatomic,retain) NSMutableArray *arr_notificationids;
 
 - (id)initWithFrame:(CGRect)frame andNotificationsListArray:(NSArray*)andNotificationsListArray;
 

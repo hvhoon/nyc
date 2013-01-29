@@ -33,6 +33,8 @@
       case 5:
       case 3:
         {
+           // a= [NSString stringWithFormat:@"%@/declinerequest.json?id=%d&pid=%d&not_going=true",ProductionServer,activityId,playerId];
+            
             a= [NSString stringWithFormat:@"%@/leaveactivity.json?id=%d&pid=%d&pstatus=true",ProductionServer,activityId,playerId];
             [self post:a body:nil];
         }

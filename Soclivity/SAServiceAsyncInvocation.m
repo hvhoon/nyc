@@ -252,6 +252,8 @@ NSDateFormatter* gJSONDateFormatter = nil;
 	
     BOOL finalize = YES;
     NSString *response=[[NSString alloc] initWithData:_receivedData encoding:NSASCIIStringEncoding];
+
+     NSLog(@"count::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]);
     
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"]==NULL)
     {
@@ -261,6 +263,8 @@ NSDateFormatter* gJSONDateFormatter = nil;
         
         [[NSUserDefaults standardUserDefaults] setValue:[[response JSONValue] valueForKey:@"unread_notification"] forKey:@"Notification_id"];
     }//END  if ([[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"]==NULL)
+    
+    NSLog(@"count::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]);
     
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
 

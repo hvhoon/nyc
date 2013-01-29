@@ -175,11 +175,11 @@ NSString *lstrphoto;
     [vw_notification addSubview:self.summaryLabel];
     [vw_notification addSubview:imgvw1];
     
-    if ([[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==6 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==8 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==9 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==11 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==12 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==13 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==14)
+    if ([[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==6 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==8 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==9 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==11 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==12 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==13 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==14 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==16)
     {
         [vw_notification addSubview:imgvw1];
         [self DownloadImage:(NSString *)[[dict valueForKey:@"userInfo"] valueForKey:@"photo_url"]];
-    }//END if ([[dict valueForKey:@"activity_type"] intValue]==11)
+    }//END if ([[[dict valueForKey:@"userInfo"] valueForKey:@"activ
     
     else
     {
@@ -236,12 +236,14 @@ NSString *lstrphoto;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [self IncreaseBadgeIcon];
-    
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"logged_in_user_id"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Waiting_On_You_Count"];
+
+    [self IncreaseBadgeIcon];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (ShowNotification:) name:@"WaitingonyouNotification" object:nil];
+    
+     NSLog(@"count::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]);
     
     //[self setUpActivityDataList];
     [SoclivitySqliteClass copyDatabaseIfNeeded];
@@ -314,15 +316,10 @@ NSString *lstrphoto;
     
     if (_appIsInbackground)
     {
-        int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
-        count=count+1;
-    
-        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%i",count] forKey:@"Waiting_On_You_Count"];
-    
         if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]==NULL)
         {
-        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@",[[userInfo valueForKey:@"params"] valueForKey:@"notification_id"]]  forKey:@"Notification_id"];
-    }//END if ([[NSUserDefaults standardUserDefaults] valueforKey:@"Notification_Count"]==NULL)
+            [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@",[[userInfo valueForKey:@"params"] valueForKey:@"notification_id"]]  forKey:@"Notification_id"];
+        }//END if ([[NSUserDefaults standardUserDefaults] valueforKey:@"Notification_Count"]==NULL)
     
         else
         {
@@ -332,12 +329,19 @@ NSString *lstrphoto;
         
         [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrvalue,[[userInfo valueForKey:@"params"] valueForKey:@"notification_id"]] forKey:@"Notification_id"];
     }//END Else Statement
-    
+        
+        if (userInfo!=NULL)
+        {
+            [[NSUserDefaults standardUserDefaults] setValue:[[userInfo valueForKey:@"aps"] valueForKey:@"badge"] forKey:@"Waiting_On_You_Count"];
+        }//END if (userInfo!=NULL)
+        
         NSDictionary *dictcount=[[NSDictionary alloc] initWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"],@"Waiting_On_You_Count", nil];
-    
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
-    
+        
         [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
+        
+        NSLog(@"count::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]);
     }
     
     //[[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingonyouNotification" object:self userInfo:[channel valueForKeyPath:@"data"]];
@@ -546,6 +550,9 @@ NSString *lstrphoto;
     }];
     
     dispatch_async(dispatch_get_main_queue(), ^{
+        
+        _appIsInbackground=TRUE;
+        
        // while ([application backgroundTimeRemaining] > 0.5) {   
     [[NSNotificationCenter defaultCenter] postNotificationName:@"CloseSocketRocket" object:self userInfo:nil];
         
@@ -582,6 +589,8 @@ NSString *lstrphoto;
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    _appIsInbackground=FALSE;
+    
     [self PostBackgroundStatus:0];
     
     [_objrra fetchPrivatePubConfiguration:[[NSUserDefaults standardUserDefaults] valueForKey:@"Channel"]];

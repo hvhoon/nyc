@@ -24,7 +24,7 @@
 
 
 @implementation WaitingOnYouView
-@synthesize _notifications,delegate,imageDownloadsInProgress;
+@synthesize _notifications,delegate,imageDownloadsInProgress,arr_notificationids;
 
 NSString *lstrnotifyid;
 
@@ -34,6 +34,12 @@ NSString *lstrnotifyid;
     if (self) {
         // Initialization code
         self._notifications =[[andNotificationsListArray valueForKey:@"notifications"] retain];
+        
+        if ([andNotificationsListArray valueForKey:@"unreadnotification"]!=[NSNull null])
+        {
+            self.arr_notificationids=[[andNotificationsListArray valueForKey:@"unreadnotification"] retain];
+        }//END if ([andNotificationsListArray
+        
         self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
         devServer=[[MainServiceManager alloc]init];
         SOC=[SoclivityManager SharedInstance];
@@ -50,7 +56,7 @@ NSString *lstrnotifyid;
         [waitingTableView setDelegate:self];
         [waitingTableView setDataSource:self];
         waitingTableView.scrollEnabled=YES;
-        waitingTableView.backgroundColor=[SoclivityUtilities returnTextFontColor:10];
+        waitingTableView.backgroundColor=[UIColor clearColor]; //[SoclivityUtilities returnTextFontColor:10];
         waitingTableView.separatorStyle=UITableViewCellSeparatorStyleSingleLine; //UITableViewCellSeparatorStyleNone;
         waitingTableView.separatorColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"S11_divider.png"]]; //[UIColor clearColor];
         waitingTableView.showsVerticalScrollIndicator=YES;
@@ -124,11 +130,13 @@ NSString *lstrnotifyid;
 {
     lstrnotifyid=[sender currentTitle];
     
+     NSArray *SplitNotifyarray=[lstrnotifyid componentsSeparatedByString:@","];
+    
     [waitingTableView.superview setUserInteractionEnabled:FALSE];
     
     if([SoclivityUtilities hasNetworkConnection]){
         [self startAnimation];
-        [devServer postActivityRequestInvocation:13  playerId:[SOC.loggedInUser.idSoc intValue] actId:[sender tag] delegate:self];
+        [devServer postActivityRequestInvocation:13  playerId:[[SplitNotifyarray objectAtIndex:2] intValue] actId:[sender tag] delegate:self];
     }
     else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
@@ -146,10 +154,12 @@ NSString *lstrnotifyid;
     NSArray *SplitNotifyarray=[lstrnotifyid componentsSeparatedByString:@","];
     
    // [self SetNotificationStatus:[SplitNotifyarray objectAtIndex:1]];
-    [self RemoveNotification:[SplitNotifyarray objectAtIndex:1]];
+    //[self RemoveNotification:[SplitNotifyarray objectAtIndex:1]];
     [self._notifications removeObjectAtIndex:[[SplitNotifyarray objectAtIndex:0] intValue]];
     
     [waitingTableView.superview setUserInteractionEnabled:TRUE];
+    
+    [waitingTableView reloadData];
     
     [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
 }
@@ -201,7 +211,7 @@ NSString *lstrnotifyid;
         if (![view isKindOfClass:[UILabel class]])
         {
              [view removeFromSuperview];
-        }
+        }//END if (![view isKindOfClass:[UILabel class]])
     }//END for (UIView *view in cell.contentView.subviews)
     
     cell.backgroundColor=[UIColor whiteColor];
@@ -214,8 +224,6 @@ NSString *lstrnotifyid;
     
     cell.summaryLabel.userInteractionEnabled = YES;
     cell.summaryLabel.backgroundColor=[UIColor clearColor];
-    
-    NSLog(@"notifications::%@",self._notifications);
     
     if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"updated_at"]!=[NSNull null])
     {
@@ -289,7 +297,8 @@ NSString *lstrnotifyid;
             [cell.contentView addSubview:img_vw];
         }//END if ([[[[self._notifications objectAt
         
-        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==8 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==9 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==12|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==13|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==14)
+        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==8 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==9 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==12|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==13|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==14||
+            [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==16)
         {
             IconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
             
@@ -354,7 +363,7 @@ NSString *lstrnotifyid;
                 btndecline.frame=CGRectMake(230,[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+20, 71, 25);
                 [btndecline setBackgroundImage:[UIImage imageNamed:@"S11_joinDeclineButton.png"] forState:UIControlStateNormal];
                 btndecline.tag=[[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] intValue];
-                [btndecline setTitle:[NSString stringWithFormat:@"%i,%@",indexPath.row,[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]] forState:UIControlStateNormal];
+                [btndecline setTitle:[NSString stringWithFormat:@"%i,%@,%@",indexPath.row,[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"],[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"reffered_to"]] forState:UIControlStateNormal];
                 [btndecline setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
                 [btndecline setEnabled:TRUE];
                 [btndecline addTarget:self action:@selector(DeclineNotification:) forControlEvents:UIControlEventTouchUpInside];
@@ -363,8 +372,6 @@ NSString *lstrnotifyid;
                 [cell.contentView addSubview:btnaccept];
                 
             }//END  if (notif.type==12)
-            
-           // self.img_vw.image=[UIImage imageNamed:@"S11_picBox.png"];
         }//END if ([[[[self._notifications objectAtIndex:indexPath.row]
     
     }//END if ([[[[self._notifications objectAtIndex:indexPat
@@ -378,22 +385,22 @@ NSString *lstrnotifyid;
     
     [cell.contentView addSubview:btnindicator];
     
-    if([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"is_read"]!=[NSNull null])
+    cell.contentView.backgroundColor=[SoclivityUtilities returnTextFontColor:10];
+    
+    NSString *lstrid=[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"];
+   
+    if (self.arr_notificationids!=NULL)
     {
-        if([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"is_read"] intValue]==0)
+        if ([self.arr_notificationids containsObject:lstrid])
         {
             cell.contentView.backgroundColor=[UIColor whiteColor];
-        }//END if([[[self._notifications objectAtIndex:indexPat
+        }//END for (lstrid in self.arr_notificationids)
         
-        else{
+        else
+        {
             cell.contentView.backgroundColor=[SoclivityUtilities returnTextFontColor:10];
-        }//ENd Else Statement
-    }//END if ([[[self._notifications objectAtIndex:in
-    
-    else if([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"is_read"]==[NSNull null])
-    {
-        cell.contentView.backgroundColor=[UIColor whiteColor];
-    }
+        }//END Else Statement
+    }//END if (self.arr_notificationids!=NULL)
     
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
@@ -459,7 +466,7 @@ NSString *lstrnotifyid;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self SetNotificationStatus:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]];
+    //[self SetNotificationStatus:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]];
     //NSString *description = [[self._notifications objectAtIndex:indexPath.row];
     //NSLog(@"description=%@",description);
 }

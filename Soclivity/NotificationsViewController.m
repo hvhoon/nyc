@@ -101,7 +101,6 @@
     [self.responsedata release];
 
     if ([self.arrnotification count]==0) {
-            
         self.view.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
         notificationImageView.hidden=NO;
         socFadedImageView.hidden=NO;
@@ -131,7 +130,6 @@
         [self.view addSubview:notificationView];
         
         [self.view bringSubviewToFront:self.btnnotify];
-            
     }//END Else Statement
     
     [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
@@ -169,7 +167,6 @@
     socFadedImageView.hidden=YES;
     
     if([SoclivityUtilities hasNetworkConnection]){
-        
         [self startAnimation];
          [self GetNotifications];
     }//END if([SoclivityUtilities hasNetworkConnection])
