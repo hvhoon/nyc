@@ -567,6 +567,7 @@
             yTextLabel=16.0f;
             showLineOrSwitch=TRUE;
             yLeftImage=10.0f;
+            cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
             
         }
             break;
@@ -626,18 +627,17 @@
     
     if(([tagNumber intValue]==kWaitingOnU) ||([tagNumber intValue]==kUpcoming_Completed)||([tagNumber intValue]==kInvite)||([tagNumber intValue]==kActivityFeed) || ([tagNumber intValue]==kAbout)){
         
-        if([tagNumber intValue]==kAbout){
+        if([tagNumber intValue]==kInvite || [tagNumber intValue]==kAbout){
             longLineImageView.image=Nil;
         }
          else
             longLineImageView.image=[UIImage imageNamed:@"S7_short-line.png"];
             longLineImageView.frame=CGRectMake(25,yCompLine, longLineImageView.image.size.width, longLineImageView.image.size.height);
-
     }
     else
-    longLineImageView.frame=CGRectMake(0,yCompLine-2, longLineImageView.image.size.width, longLineImageView.image.size.height);
-    [cell.contentView addSubview:longLineImageView];
-    [longLineImageView release];
+        longLineImageView.frame=CGRectMake(0,yCompLine-2, longLineImageView.image.size.width, longLineImageView.image.size.height);
+        [cell.contentView addSubview:longLineImageView];
+        [longLineImageView release];
     }
     else{
         //draw a custom switch control

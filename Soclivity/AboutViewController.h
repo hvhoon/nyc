@@ -18,7 +18,12 @@
 @interface AboutViewController : UIViewController{
     id <AboutViewDelegate>delegate;
 }
+
 @property (nonatomic,retain)id <AboutViewDelegate>delegate;
+@property (nonatomic, retain)IBOutlet UIButton *btnnotify;
+
 -(IBAction)profileSliderPressed:(id)sender;
+
+
 
 @end

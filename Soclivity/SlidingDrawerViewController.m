@@ -207,23 +207,6 @@
         
         [datasource addObject:sectionFive];
         
-        
-        // Button to the about page
-        NSMutableDictionary *sectionTen = [NSMutableDictionary dictionary];
-        [sectionTen setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
-        
-        NSMutableDictionary *AboutViewControllerDictionary = [NSMutableDictionary dictionary];
-        [AboutViewControllerDictionary setObject:@"About" forKey:kSlideViewControllerViewControllerTitleKey];
-        [AboutViewControllerDictionary setObject:@"AboutViewController" forKey:kSlideViewControllerViewControllerNibNameKey];
-        
-        NSNumber *AboutTag=[NSNumber numberWithInt:10];
-        [AboutViewControllerDictionary setObject:AboutTag forKey:kSlideViewControllerViewControllerTagKey];
-        [AboutViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
-        [AboutViewControllerDictionary setObject:[AboutViewController class] forKey:kSlideViewControllerViewControllerClassKey];
-        [AboutViewControllerDictionary setObject:[UIImage imageNamed:@"S7_blocked_icon.png"] forKey:kSlideViewControllerViewControllerIconKey];
-        [sectionTen setObject:[NSArray arrayWithObject:AboutViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
-        [datasource addObject:sectionTen];
-        
     
         NSMutableDictionary *sectionSix = [NSMutableDictionary dictionary];
         [sectionSix setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
@@ -240,6 +223,21 @@
         
         [datasource addObject:sectionSix];
 
+        // Button to the about page
+        NSMutableDictionary *sectionTen = [NSMutableDictionary dictionary];
+        [sectionTen setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
+        
+        NSMutableDictionary *AboutViewControllerDictionary = [NSMutableDictionary dictionary];
+        [AboutViewControllerDictionary setObject:@"Need Help?" forKey:kSlideViewControllerViewControllerTitleKey];
+        [AboutViewControllerDictionary setObject:@"AboutViewController" forKey:kSlideViewControllerViewControllerNibNameKey];
+        
+        NSNumber *AboutTag=[NSNumber numberWithInt:10];
+        [AboutViewControllerDictionary setObject:AboutTag forKey:kSlideViewControllerViewControllerTagKey];
+        [AboutViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
+        [AboutViewControllerDictionary setObject:[AboutViewController class] forKey:kSlideViewControllerViewControllerClassKey];
+        [AboutViewControllerDictionary setObject:[UIImage imageNamed:@"S7_blocked_icon.png"] forKey:kSlideViewControllerViewControllerIconKey];
+        [sectionTen setObject:[NSArray arrayWithObject:AboutViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
+        [datasource addObject:sectionTen];
         
         NSMutableDictionary *sectionSeven = [NSMutableDictionary dictionary];
         [sectionSeven setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
