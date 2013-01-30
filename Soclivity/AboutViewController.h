@@ -1,5 +1,5 @@
 //
-//  BlockedListViewController.h
+//  AboutListViewController.h
 //  Soclivity
 //
 //  Created by Kanav Gupta on 7/13/12.
@@ -8,17 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol BlockedListViewDelegate <NSObject>
+@protocol AboutViewDelegate <NSObject>
 
 @optional
 - (void)showLeft:(id)sender;
 @end
 
 
-@interface BlockedListViewController : UIViewController{
-    id <BlockedListViewDelegate>delegate;
+@interface AboutViewController : UIViewController{
+    id <AboutViewDelegate>delegate;
 }
-@property (nonatomic,retain)id <BlockedListViewDelegate>delegate;
+@property (nonatomic,retain)id <AboutViewDelegate>delegate;
 -(IBAction)profileSliderPressed:(id)sender;
 
 @end

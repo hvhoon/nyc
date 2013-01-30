@@ -1,14 +1,14 @@
 //
-//  BlockedListViewController.m
+//  AboutViewController.m
 //  Soclivity
 //
 //  Created by Kanav Gupta on 7/13/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "BlockedListViewController.h"
+#import "AboutViewController.h"
 
-@implementation BlockedListViewController
+@implementation AboutViewController
 @synthesize delegate;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

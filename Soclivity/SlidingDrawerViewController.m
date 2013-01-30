@@ -17,7 +17,7 @@
 #import "UpComingCompletedEventsViewController.h"
 #import "SoclivityUtilities.h"
 #import "InvitesViewController.h"
-#import "BlockedListViewController.h"
+#import "AboutViewController.h"
 @implementation SlidingDrawerViewController
 @synthesize datasource = _datasource,isFBlogged;
 
@@ -208,29 +208,23 @@
         [datasource addObject:sectionFive];
         
         
-#if 0
-        NSMutableDictionary *sectionSix = [NSMutableDictionary dictionary];
-        [sectionSix setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
+        // Button to the about page
+        NSMutableDictionary *sectionTen = [NSMutableDictionary dictionary];
+        [sectionTen setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
         
-        NSMutableDictionary *blockListViewControllerDictionary = [NSMutableDictionary dictionary];
-        [blockListViewControllerDictionary setObject:@"Your blocked List" forKey:kSlideViewControllerViewControllerTitleKey];
-        [blockListViewControllerDictionary setObject:@"BlockedListViewController" forKey:kSlideViewControllerViewControllerNibNameKey];
+        NSMutableDictionary *AboutViewControllerDictionary = [NSMutableDictionary dictionary];
+        [AboutViewControllerDictionary setObject:@"About" forKey:kSlideViewControllerViewControllerTitleKey];
+        [AboutViewControllerDictionary setObject:@"AboutViewController" forKey:kSlideViewControllerViewControllerNibNameKey];
         
-        NSNumber *blockedListTag=[NSNumber numberWithInt:6];
-        [blockListViewControllerDictionary setObject:blockedListTag forKey:kSlideViewControllerViewControllerTagKey];
+        NSNumber *AboutTag=[NSNumber numberWithInt:10];
+        [AboutViewControllerDictionary setObject:AboutTag forKey:kSlideViewControllerViewControllerTagKey];
+        [AboutViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
+        [AboutViewControllerDictionary setObject:[AboutViewController class] forKey:kSlideViewControllerViewControllerClassKey];
+        [AboutViewControllerDictionary setObject:[UIImage imageNamed:@"S7_blocked_icon.png"] forKey:kSlideViewControllerViewControllerIconKey];
+        [sectionTen setObject:[NSArray arrayWithObject:AboutViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
+        [datasource addObject:sectionTen];
         
-        [blockListViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
-
-        [blockListViewControllerDictionary setObject:[UpComingCompletedEventsViewController class] forKey:kSlideViewControllerViewControllerClassKey];
-        [blockListViewControllerDictionary setObject:[UIImage imageNamed:@"S7_blocked_icon.png"] forKey:kSlideViewControllerViewControllerIconKey];
-        
-        
-        [sectionSix setObject:[NSArray arrayWithObject:blockListViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
-        
-        [datasource addObject:sectionSix];
-        
-        
-#else
+    
         NSMutableDictionary *sectionSix = [NSMutableDictionary dictionary];
         [sectionSix setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
         
@@ -246,9 +240,6 @@
         
         [datasource addObject:sectionSix];
 
-        
-#endif
-        
         
         NSMutableDictionary *sectionSeven = [NSMutableDictionary dictionary];
         [sectionSeven setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
