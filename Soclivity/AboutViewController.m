@@ -8,9 +8,10 @@
 
 #import "AboutViewController.h"
 #import "SoclivityUtilities.h"
+#import "JMC.h"
 
 @implementation AboutViewController
-@synthesize delegate;
+@synthesize delegate, buildText;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -37,6 +38,15 @@
     // Color background
     self.view.backgroundColor = [SoclivityUtilities returnBackgroundColor:0];
     
+    // Build text
+    buildText.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    buildText.textColor = [SoclivityUtilities returnTextFontColor:5];
+
+    // Submit an issue
+    submitBug.titleLabel.text = @"Report an Issue";
+    submitBug.titleLabel.textColor = [SoclivityUtilities returnTextFontColor:5];
+    submitBug.titleLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17];
+    
     // Badge logic
     [self UpdateBadgeNotification];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
@@ -50,6 +60,8 @@
 
 - (void)viewDidUnload
 {
+    [self setBuildText:nil];
+    [self setBuildText:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -92,5 +104,13 @@
     }//END Else Statement
 }
 
+-(IBAction)submitBugPressed:(id)sender {
+    [self presentModalViewController:[[JMC sharedInstance] feedbackViewController] animated:YES];
+}
 
+
+- (void)dealloc {
+    [buildText release];
+    [super dealloc];
+}
 @end
