@@ -56,15 +56,14 @@ NSString *lstrnotifyid;
         [waitingTableView setDelegate:self];
         [waitingTableView setDataSource:self];
         waitingTableView.scrollEnabled=YES;
-        waitingTableView.backgroundColor=[UIColor clearColor]; //[SoclivityUtilities returnTextFontColor:10];
+        //waitingTableView.backgroundColor=[SoclivityUtilities returnTextFontColor:10];
+        waitingTableView.backgroundColor=[UIColor clearColor];
         waitingTableView.separatorStyle=UITableViewCellSeparatorStyleSingleLine; //UITableViewCellSeparatorStyleNone;
         waitingTableView.separatorColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"S11_divider.png"]]; //[UIColor clearColor];
         waitingTableView.showsVerticalScrollIndicator=YES;
         [self addSubview:waitingTableView];
         waitingTableView.clipsToBounds=YES;
-        
-        //[self SetNotificationStatus];
-    }
+    }//ENd if (self)
     return self;
 }
 
@@ -94,7 +93,7 @@ NSString *lstrnotifyid;
     
     if([SoclivityUtilities hasNetworkConnection]){
         [self startAnimation];
-        [devServer postActivityRequestInvocation:3  playerId:[SOC.loggedInUser.idSoc intValue] actId:[sender tag] delegate:self];
+        [devServer postActivityRequestInvocation:14  playerId:[SOC.loggedInUser.idSoc intValue] actId:[sender tag] delegate:self];
     }
     else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
@@ -154,7 +153,7 @@ NSString *lstrnotifyid;
     NSArray *SplitNotifyarray=[lstrnotifyid componentsSeparatedByString:@","];
     
    // [self SetNotificationStatus:[SplitNotifyarray objectAtIndex:1]];
-    //[self RemoveNotification:[SplitNotifyarray objectAtIndex:1]];
+    [self RemoveNotification:[SplitNotifyarray objectAtIndex:1]];
     [self._notifications removeObjectAtIndex:[[SplitNotifyarray objectAtIndex:0] intValue]];
     
     [waitingTableView.superview setUserInteractionEnabled:TRUE];
@@ -204,6 +203,18 @@ NSString *lstrnotifyid;
         cell = [[AttributedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
    // }
     
+    int rowheight=60;
+    
+    if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]==[NSNull null])
+    {
+        rowheight=60;
+    }//END if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]==NULL)
+    
+    else
+    {
+        rowheight=[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+20;
+    }//END Else Statement`
+    
     cell.lstrnotificationtype=[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"];
     
     for (UIView *view in cell.contentView.subviews)
@@ -213,8 +224,6 @@ NSString *lstrnotifyid;
              [view removeFromSuperview];
         }//END if (![view isKindOfClass:[UILabel class]])
     }//END for (UIView *view in cell.contentView.subviews)
-    
-    cell.backgroundColor=[UIColor whiteColor];
     
     if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]!=[NSNull null])
     {
@@ -346,6 +355,8 @@ NSString *lstrnotifyid;
                 [cell.contentView addSubview:btnnotgoing];
                 [cell.contentView addSubview:btngoing];
                 
+                rowheight=[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+50;
+                
             }//END  if (notif.type==6)
             
             if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==12)
@@ -371,6 +382,8 @@ NSString *lstrnotifyid;
                 [cell.contentView addSubview:btndecline];
                 [cell.contentView addSubview:btnaccept];
                 
+                rowheight=[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+50;
+                
             }//END  if (notif.type==12)
         }//END if ([[[[self._notifications objectAtIndex:indexPath.row]
     
@@ -385,23 +398,31 @@ NSString *lstrnotifyid;
     
     [cell.contentView addSubview:btnindicator];
     
-    cell.contentView.backgroundColor=[SoclivityUtilities returnTextFontColor:10];
-    
     NSString *lstrid=[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"];
-   
-    if (self.arr_notificationids!=NULL)
+    
+    UIView *vw_background=[[UIView alloc] initWithFrame:CGRectMake(0,0,320,rowheight)];
+    vw_background.backgroundColor=[UIColor colorWithRed:0.90601503759398
+                                           green:0.90601503759398
+                                           blue:0.90601503759398
+                                           alpha:1.0]; //[SoclivityUtilities returnTextFontColor:10];
+
+    if (self.arr_notificationids!=NULL && [self.arr_notificationids count]!=0)
     {
         if ([self.arr_notificationids containsObject:lstrid])
         {
-            cell.contentView.backgroundColor=[UIColor whiteColor];
+            vw_background.backgroundColor=[UIColor whiteColor];
         }//END for (lstrid in self.arr_notificationids)
         
         else
         {
-            cell.contentView.backgroundColor=[SoclivityUtilities returnTextFontColor:10];
+            vw_background.backgroundColor=[UIColor colorWithRed:0.90601503759398
+                                                          green:0.90601503759398
+                                                           blue:0.90601503759398
+                                                    alpha:1.0];
         }//END Else Statement
     }//END if (self.arr_notificationids!=NULL)
     
+    [cell.contentView insertSubview:vw_background atIndex:0];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     return cell;

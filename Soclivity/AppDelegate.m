@@ -106,7 +106,6 @@ NSString *lstrphoto;
                               [NSURL URLWithString:[NSString stringWithFormat:@"http://%@%@",ProductionServer,lstrphotourl]]] delegate:self];
     
     lstrphoto=@"photo";
-    
     NSLog(@"conn::%@",conn);
 }
 
@@ -243,8 +242,6 @@ NSString *lstrphoto;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (ShowNotification:) name:@"WaitingonyouNotification" object:nil];
     
-     NSLog(@"count::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]);
-    
     //[self setUpActivityDataList];
     [SoclivitySqliteClass copyDatabaseIfNeeded];
 	BOOL openSuccessful=[SoclivitySqliteClass openDatabase:[SoclivitySqliteClass getDBPath]];
@@ -339,10 +336,8 @@ NSString *lstrphoto;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
         
-        [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
-        
-        NSLog(@"count::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]);
-    }
+        [self IncreaseBadgeIcon];
+    }//END  if (_appIsInbackground)
     
     //[[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingonyouNotification" object:self userInfo:[channel valueForKeyPath:@"data"]];
 	/*NSDictionary* notifUserInfo = Nil;
@@ -503,7 +498,39 @@ NSString *lstrphoto;
     
     if(returnData!=NULL)
     {
-       NSString *lstrresponse=[NSString stringWithUTF8String:[returnData bytes]]; 
+        //NSString *lstrresponse=[NSString stringWithUTF8String:[returnData bytes]];
+        
+        NSString *lstrresponse = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+        
+        if (lstrresponse!=NULL)
+        {
+            if ([[lstrresponse JSONValue] valueForKeyPath:@"badge"]!=NULL)
+            {
+                [[NSUserDefaults standardUserDefaults] setValue:[[lstrresponse JSONValue] valueForKeyPath:@"badge"] forKey:@"Waiting_On_You_Count"];
+                
+                NSDictionary *dictcount=[[NSDictionary alloc] initWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"],@"Waiting_On_You_Count", nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
+                [self IncreaseBadgeIcon];
+            }//END if ([[lstrresponse JSONValue] valueForKeyPath:@"badge"]!=NULL)
+            
+            if ([[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"]!=NULL && [[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] count]!=0)
+            {
+                for (int i=0; i<[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] count]; i++)
+                {
+                    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]==NULL)
+                    {
+                        [[NSUserDefaults standardUserDefaults] setValue:[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]  forKey:@"Notification_id"];
+                    }//END if ([[NSUserDefaults standardUserDefaults] valueforKey:@"Notification_Count"]==NULL)
+                    
+                    else
+                    {
+                        NSString *lstrvalue=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
+                        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
+                        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrvalue,[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]] forKey:@"Notification_id"];
+                    }//END Else Statement
+                }//END  for (int i=0; i<[[[lstrresponse JSONValue] value
+            }
+        }//END if (lstrresponse!=NULL)
     }//END if(returnData!=NULL)
 }
 
@@ -533,7 +560,7 @@ NSString *lstrphoto;
         imgvw1.image=image;
         [self.window addSubview:vw_notification];
     }//END if ([lstrphoto isEqualToString:@"photo"])
-    
+
     [connection release];
 }
 

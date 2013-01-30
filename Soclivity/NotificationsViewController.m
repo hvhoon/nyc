@@ -14,6 +14,8 @@
 @implementation NotificationsViewController
 @synthesize delegate,responsedata,arrnotification,btnnotify;
 
+WaitingOnYouView *notificationView;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -63,6 +65,8 @@
 -(void)GetNotifications
 {
     NSString *lstrnotificationid=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
+    
+    NSLog(@"lstrnotificationid::%@",lstrnotificationid);
     
     if(lstrnotificationid==NULL || [lstrnotificationid isEqualToString:@"(null)"])
     {
@@ -141,7 +145,7 @@
     HUD.yOffset = -40.0;
     HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
     HUD.labelText = @"Loading...";
-    [self.view addSubview:HUD];
+    [self.view insertSubview:HUD aboveSubview:notificationView];
     HUD.delegate = self;
     [HUD show:YES];
 }
