@@ -16,6 +16,7 @@
 #import "TTTAttributedLabel.h"
 #import "NotificationsViewController.h"
 #import "SlidingDrawerViewController.h"
+#import "JMC.h"
 
 static NSString* kAppId = @"160726900680967";//kanav
 #define kShowAlertKey @"ShowAlert"
@@ -235,6 +236,11 @@ NSString *lstrphoto;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // Adding JIRA monitoring
+    [[JMC sharedInstance] configureJiraConnect:@"https://soclivity.atlassian.net/"
+                                    projectKey:@"MIA"
+                                        apiKey:@"76935221-9c6b-4b40-9f"];
+    
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"logged_in_user_id"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Waiting_On_You_Count"];
 
