@@ -56,7 +56,6 @@ NSString *lstrnotifyid;
         [waitingTableView setDelegate:self];
         [waitingTableView setDataSource:self];
         waitingTableView.scrollEnabled=YES;
-        //waitingTableView.backgroundColor=[SoclivityUtilities returnTextFontColor:10];
         waitingTableView.backgroundColor=[UIColor clearColor];
         waitingTableView.separatorStyle=UITableViewCellSeparatorStyleSingleLine; //UITableViewCellSeparatorStyleNone;
         waitingTableView.separatorColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"S11_divider.png"]]; //[UIColor clearColor];
@@ -401,11 +400,7 @@ NSString *lstrnotifyid;
     NSString *lstrid=[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"];
     
     UIView *vw_background=[[UIView alloc] initWithFrame:CGRectMake(0,0,320,rowheight)];
-    vw_background.backgroundColor=[UIColor colorWithRed:0.90601503759398
-                                           green:0.90601503759398
-                                           blue:0.90601503759398
-                                           alpha:1.0]; //[SoclivityUtilities returnTextFontColor:10];
-
+    vw_background.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
     if (self.arr_notificationids!=NULL && [self.arr_notificationids count]!=0)
     {
         if ([self.arr_notificationids containsObject:lstrid])
@@ -415,10 +410,7 @@ NSString *lstrnotifyid;
         
         else
         {
-            vw_background.backgroundColor=[UIColor colorWithRed:0.90601503759398
-                                                          green:0.90601503759398
-                                                           blue:0.90601503759398
-                                                    alpha:1.0];
+            vw_background.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
         }//END Else Statement
     }//END if (self.arr_notificationids!=NULL)
     

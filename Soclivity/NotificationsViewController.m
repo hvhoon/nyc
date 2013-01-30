@@ -105,7 +105,7 @@ WaitingOnYouView *notificationView;
     [self.responsedata release];
 
     if ([self.arrnotification count]==0) {
-        self.view.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
+        self.view.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
         notificationImageView.hidden=NO;
         socFadedImageView.hidden=NO;
     }//END if ([[[self.arrnotification objectAtIndex:i] valueForKey:@
@@ -166,7 +166,7 @@ WaitingOnYouView *notificationView;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (BadgeNotification) name:@"WaitingOnYou_Count" object:nil];
     
-    self.view.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
+    self.view.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
     notificationImageView.hidden=YES;
     socFadedImageView.hidden=YES;
     
