@@ -46,6 +46,8 @@
     submitBug.titleLabel.text = @"Report an Issue";
     submitBug.titleLabel.textColor = [SoclivityUtilities returnTextFontColor:5];
     submitBug.titleLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17];
+    submitBug.titleLabel.shadowColor = [UIColor whiteColor];
+    submitBug.titleLabel.shadowOffset = CGSizeMake(0, 0.5);
     
     // Badge logic
     [self UpdateBadgeNotification];

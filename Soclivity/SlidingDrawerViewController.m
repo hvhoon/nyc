@@ -229,8 +229,13 @@
         
         NSMutableDictionary *AboutViewControllerDictionary = [NSMutableDictionary dictionary];
         [AboutViewControllerDictionary setObject:@"Need Help?" forKey:kSlideViewControllerViewControllerTitleKey];
-        [AboutViewControllerDictionary setObject:@"AboutViewController" forKey:kSlideViewControllerViewControllerNibNameKey];
         
+        if([SoclivityUtilities deviceType] & iPhone5)
+            nibNameBundle=@"AboutViewController_iphone5";
+        else
+            nibNameBundle=@"AboutViewController";
+        
+        [AboutViewControllerDictionary setObject:nibNameBundle forKey:kSlideViewControllerViewControllerNibNameKey];
         NSNumber *AboutTag=[NSNumber numberWithInt:10];
         [AboutViewControllerDictionary setObject:AboutTag forKey:kSlideViewControllerViewControllerTagKey];
         [AboutViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
@@ -238,6 +243,7 @@
         [AboutViewControllerDictionary setObject:[UIImage imageNamed:@"S7_blocked_icon.png"] forKey:kSlideViewControllerViewControllerIconKey];
         [sectionTen setObject:[NSArray arrayWithObject:AboutViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
         [datasource addObject:sectionTen];
+        
         
         NSMutableDictionary *sectionSeven = [NSMutableDictionary dictionary];
         [sectionSeven setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
