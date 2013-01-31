@@ -236,10 +236,6 @@ NSString *lstrphoto;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Adding JIRA monitoring
-    [[JMC sharedInstance] configureJiraConnect:@"https://soclivity.atlassian.net/"
-                                    projectKey:@"MIA"
-                                        apiKey:@"76935221-9c6b-4b40-9f4f-eba47fa7f24b"];
     
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"logged_in_user_id"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Waiting_On_You_Count"];
@@ -283,6 +279,11 @@ NSString *lstrphoto;
 
     [self.window makeKeyAndVisible];
     [self registerForNotifications];
+    
+    // Adding JIRA monitoring
+    [[JMC sharedInstance] configureJiraConnect:@"https://soclivity.atlassian.net/"
+                                    projectKey:@"MIA"
+                                        apiKey:@"76935221-9c6b-4b40-9f4f-eba47fa7f24b"];
     
     return YES;
 }
