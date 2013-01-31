@@ -32,10 +32,11 @@ NSString *lstrnotifyid;
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
         // Initialization code
         self._notifications =[[andNotificationsListArray valueForKey:@"notifications"] retain];
         
-        if ([andNotificationsListArray valueForKey:@"unreadnotification"]!=[NSNull null])
+        if ([andNotificationsListArray valueForKey:@"unreadnotification"]!=[NSNull null] || [andNotificationsListArray valueForKey:@"unreadnotification"]!=NULL)
         {
             self.arr_notificationids=[[andNotificationsListArray valueForKey:@"unreadnotification"] retain];
         }//END if ([andNotificationsListArray
@@ -305,8 +306,7 @@ NSString *lstrnotifyid;
             [cell.contentView addSubview:img_vw];
         }//END if ([[[[self._notifications objectAt
         
-        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==8 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==9 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==12|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==13|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==14||
-            [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==16)
+        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==8 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==9 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==12|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==13|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==14|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==15|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==16)
         {
             IconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
             
@@ -479,6 +479,17 @@ NSString *lstrnotifyid;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    /*NSLog(@"sender::%@",[self._notifications objectAtIndex:indexPath.row]);
+    
+    NSDictionary *dictactivity=[[NSDictionary alloc] init];
+    //[[dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] forKey:@"Activity_ID"];
+     //[dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] forKey:@"Activity_ID"];
+    
+    HomeViewController *objhome=[[HomeViewController alloc] init];
+    [objhome Pushactivity:dictactivity];
+     */
+    
     //[self SetNotificationStatus:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]];
     //NSString *description = [[self._notifications objectAtIndex:indexPath.row];
     //NSLog(@"description=%@",description);

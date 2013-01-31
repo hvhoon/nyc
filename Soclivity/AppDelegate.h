@@ -10,13 +10,18 @@
 #import "DDMenuController.h"
 #import "FBConnect.h"
 #import "RRAViewController.h"
+#import "MainServiceManager.h"
+#import "SoclivityManager.h"
+#import "DetailedActivityInfoInvocation.h"
 
 
 @class FacebookLogin;
 @class SlideViewController;
 @class TTTAttributedLabel;
+@class MainServiceManager;
+@class SoclivityManager;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate>{
+@interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate,DetailedActivityInfoInvocationDelegate>{
     UINavigationController *navigationController;
     DDMenuController *menuController;
     Facebook *facebook;
@@ -27,6 +32,8 @@
     NSMutableData *responsedata;
     
     UIBackgroundTaskIdentifier bgTask;
+    MainServiceManager *devServer;
+    SoclivityManager *SOC;
 }
 
 @property (strong, nonatomic) UIWindow *window;

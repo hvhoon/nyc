@@ -279,11 +279,14 @@
 
 -(void)selectActivityView:(NSInteger)activitySection{
     
-    NSLog(@"activitySection=%d",activitySection);
+    NSLog(@" activity list activitySection=%d",activitySection);
+    
+     NSLog(@" self.sectionInfoArray=%@",self.sectionInfoArray);
+    
     spinnerIndex=activitySection;
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:activitySection];
     
-    NSLog(@"section=%@",sectionInfo.play);
+    NSLog(@"activity list section=%@",sectionInfo.play);
     
     [delegate PushToDetailActivityView:sectionInfo.play andFlipType:1];
 

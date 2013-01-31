@@ -17,6 +17,8 @@
 #import "NotificationsViewController.h"
 #import "SlidingDrawerViewController.h"
 #import "JMC.h"
+#import "GetPlayersClass.h"
+#import "ActivityEventViewController.h"
 
 
 static NSString* kAppId = @"160726900680967";//kanav
@@ -94,9 +96,6 @@ NSString *lstrphoto;
 -(void)backgroundtap:(id)sender
 {
     [self HideNotification];
-    
-    NotificationsViewController *objwaiting=[[NotificationsViewController alloc] initWithNibName:@"NotificationsViewController" bundle:nil];
-    [self.navigationController pushViewController:objwaiting animated:YES];
 }
 
 -(void)DownloadImage:(NSString *)lstrphotourl
@@ -172,11 +171,18 @@ NSString *lstrphoto;
         imgvw1.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
     }//END if ([[[self._notifications objectAt
     
+    UIButton *btnaction=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btnaction.frame=CGRectMake(0, 0, 285, 55);
+    btnaction.backgroundColor=[UIColor clearColor];
+    btnaction.tag=[[[[dict valueForKey:@"userInfo"] valueForKey:@"activity"] valueForKey:@"id"] intValue];
+    [btnaction addTarget:self action:@selector(backgroundtap:) forControlEvents:UIControlEventTouchUpInside];
+    
     [vw_notification addSubview:btnclose];
     [vw_notification addSubview:self.summaryLabel];
     [vw_notification addSubview:imgvw1];
+    [vw_notification addSubview:btnaction];
     
-    if ([[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==6 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==8 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==9 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==11 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==12 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==13 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==14 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==16)
+    if ([[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==6 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==8 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==9 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==11 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==12 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==13 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==14 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==15 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==16)
     {
         [vw_notification addSubview:imgvw1];
         [self DownloadImage:(NSString *)[[dict valueForKey:@"userInfo"] valueForKey:@"photo_url"]];
@@ -193,10 +199,6 @@ NSString *lstrphoto;
     [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.vw_notification cache:YES];
     [UIView setAnimationDelegate:self];
     [UIView commitAnimations];
-    
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundtap:)];
-    [self.vw_notification addGestureRecognizer:tapGesture];
-    [tapGesture release];
 }
 
 - (void)setSummaryText:(NSString *)text {
@@ -501,14 +503,13 @@ NSString *lstrphoto;
     NSError *error = nil;
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
     
+    NSString *lstrnotificationid=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
+    
     NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     
     if(returnData!=NULL)
     {
-        //NSString *lstrresponse=[NSString stringWithUTF8String:[returnData bytes]];
-        
         NSString *lstrresponse = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-        
         if (lstrresponse!=NULL)
         {
             if ([[lstrresponse JSONValue] valueForKeyPath:@"badge"]!=NULL)
@@ -520,20 +521,47 @@ NSString *lstrphoto;
                 [self IncreaseBadgeIcon];
             }//END if ([[lstrresponse JSONValue] valueForKeyPath:@"badge"]!=NULL)
             
+            NSLog(@"lstrresponse1111::%@",[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"]);
+            
             if ([[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"]!=NULL && [[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] count]!=0)
             {
                 for (int i=0; i<[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] count]; i++)
                 {
-                    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]==NULL)
+                    NSLog(@"lstrnotificationid::%@",lstrnotificationid);
+                    
+                    if (lstrnotificationid!=NULL)
                     {
-                        [[NSUserDefaults standardUserDefaults] setValue:[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]  forKey:@"Notification_id"];
-                    }//END if ([[NSUserDefaults standardUserDefaults] valueforKey:@"Notification_Count"]==NULL)
+                         NSArray *SplitArray=[lstrnotificationid componentsSeparatedByString:@","];
+                        
+                        NSLog(@"SplitArray::%@",SplitArray);
+                        
+                        if (![SplitArray containsObject:[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]])
+                        {
+                            if (lstrnotificationid==NULL || [lstrnotificationid isEqualToString:@""])
+                            {
+                                [[NSUserDefaults standardUserDefaults] setValue:[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]  forKey:@"Notification_id"];
+                            }//END if ([[NSUserDefaults standardUserDefaults] valueforKey:@"Notification_Count"]==NULL)
+                            
+                            else
+                            {
+                                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
+                                [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrnotificationid,[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]] forKey:@"Notification_id"];
+                            }//END Else Statement
+                        }//END if (![SplitArray containsObject:[[[ls
+                    }//END if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notif
                     
                     else
                     {
-                        NSString *lstrvalue=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
-                        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
-                        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrvalue,[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]] forKey:@"Notification_id"];
+                        if (lstrnotificationid==NULL || [lstrnotificationid isEqualToString:@""])
+                        {
+                            [[NSUserDefaults standardUserDefaults] setValue:[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]  forKey:@"Notification_id"];
+                        }//END if ([[NSUserDefaults standardUserDefaults] valueforKey:@"Notification_Count"]==NULL)
+                        
+                        else
+                        {
+                            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
+                            [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrnotificationid,[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]] forKey:@"Notification_id"];
+                        }//END Else Statement
                     }//END Else Statement
                 }//END  for (int i=0; i<[[[lstrresponse JSONValue] value
             }
@@ -590,9 +618,7 @@ NSString *lstrphoto;
        // while ([application backgroundTimeRemaining] > 0.5) {   
     [[NSNotificationCenter defaultCenter] postNotificationName:@"CloseSocketRocket" object:self userInfo:nil];
         
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingonyouNotification" object:self userInfo:[channel valueForKeyPath:@"data"]];
-        
-        [self PostBackgroundStatus:1];
+    [self PostBackgroundStatus:1];
            /* NSString *friend = [self checkForIncomingChat];
             if (friend) {
                 UILocalNotification *localNotif = [[UILocalNotification alloc] init];
