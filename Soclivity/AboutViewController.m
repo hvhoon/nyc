@@ -43,7 +43,7 @@
     NSString* bundleName = [appMetaData objectForKey:@"CFBundleShortVersionString"];
     
     // Build text
-    self.buildText.text = [NSString stringWithFormat:@"Soclivity (%@)", bundleName];
+    self.buildText.text = [NSString stringWithFormat:@"%@", bundleName];
     self.buildText.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     self.buildText.textColor = [SoclivityUtilities returnTextFontColor:5];
 
