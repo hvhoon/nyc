@@ -66,9 +66,7 @@ WaitingOnYouView *notificationView;
 {
     NSString *lstrnotificationid=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
     
-    NSLog(@"lstrnotificationid::%@",lstrnotificationid);
-    
-    if(lstrnotificationid==NULL || [lstrnotificationid isEqualToString:@"(null)"])
+    if(lstrnotificationid==NULL || [lstrnotificationid intValue]==0)
     {
       lstrnotificationid=@"";
     }//END if(lstrnotificationid==NULL || [lstrnotific

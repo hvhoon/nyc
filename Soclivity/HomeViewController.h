@@ -69,4 +69,7 @@
 -(void)getUpdatedLocationWithActivities;
 -(void)loadingActivityMonitor;
 -(void)synchronousDownloadProfilePhotoBytes:(InfoActivityClass*)player;
+
+-(void)Pushactivity:(NSDictionary *)dictactivity;
+
 @end

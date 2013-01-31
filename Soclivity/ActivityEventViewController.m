@@ -864,13 +864,19 @@
             
         }               
             break;
-            
-            
+
         case 10:
         {
             SOC.localCacheUpdate=TRUE;
             [SoclivitySqliteClass deleteActivityRecords:activityInfo.activityId];
             [self.navigationController popViewControllerAnimated:YES];
+            
+        }
+            break;
+            
+        case 15:
+        {
+            [participantListTableView updatePlayerListWithSectionHeaders];
             
         }
             break;
@@ -1596,7 +1602,7 @@
     if([SoclivityUtilities hasNetworkConnection]){
         
             [self startAnimation:kRemovePlayerRequest];
-            [devServer postActivityRequestInvocation:9  playerId:playerId actId:activityInfo.activityId delegate:self];
+            [devServer postActivityRequestInvocation:15  playerId:playerId actId:activityInfo.activityId delegate:self];
     }
     else{
         

@@ -33,8 +33,6 @@
       case 5:
       case 3:
         {
-           // a= [NSString stringWithFormat:@"%@/declinerequest.json?id=%d&pid=%d&not_going=true",ProductionServer,activityId,playerId];
-            
             a= [NSString stringWithFormat:@"%@/leaveactivity.json?id=%d&pid=%d&pstatus=true",ProductionServer,activityId,playerId];
             [self post:a body:nil];
         }
@@ -90,6 +88,13 @@
         case 14:
         {
              a= [NSString stringWithFormat:@"%@/declinerequest.json?id=%d&pid=%d&not_going=true",ProductionServer,activityId,playerId];
+            [self post:a body:nil];
+        }
+            break;
+            
+        case 15:
+        {
+            a= [NSString stringWithFormat:@"%@/removeparticipant.json?id=%d&pid=%d",ProductionServer,activityId,playerId];
             [self post:a body:nil];
         }
             break;

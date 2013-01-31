@@ -607,8 +607,44 @@
 #pragma mark -
 #pragma mark New Activity Push Method
 
+-(void)Pushactivity:(NSDictionary *)dictactivity
+{
+    NSLog(@"activityid::%@",dictactivity);
+    
+  /*  NSLog(@"[SOC.loggedInUser.idSoc intValue]::%i",[SOC.loggedInUser.idSoc intValue]);
+    
+    NSLog(@"actlatitute::%f",SOC.currentLocation.coordinate.latitude);
+    
+    NSLog(@"longitude::%f",SOC.currentLocation.coordinate.longitude);
+    
+    if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        [devServer getDetailedActivityInfoInvocation:[SOC.loggedInUser.idSoc intValue]    actId:activityid  latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude delegate:self];
+    }
+    else{
+        if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+   */
+}
+
 -(void)PushToDetailActivityView:(InfoActivityClass*)detailedInfo andFlipType:(NSInteger)andFlipType{
     NSLog(@"PushToDetailActivityView");
+    
+     NSLog(@"detailedInfo::%d",detailedInfo.activityId);
+    
     flipKeyViewTag=andFlipType;
     
    if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
