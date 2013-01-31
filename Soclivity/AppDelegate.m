@@ -18,6 +18,7 @@
 #import "SlidingDrawerViewController.h"
 #import "JMC.h"
 
+
 static NSString* kAppId = @"160726900680967";//kanav
 #define kShowAlertKey @"ShowAlert"
 #define kRemoteNotificationReceivedNotification @"RemoteNotificationReceivedWhileRunning"
@@ -282,9 +283,8 @@ NSString *lstrphoto;
     
     // Adding JIRA monitoring
     [[JMC sharedInstance] configureJiraConnect:@"https://soclivity.atlassian.net/"
-                                    projectKey:@"MIA"
+                                          projectKey:@"MIA"
                                         apiKey:@"76935221-9c6b-4b40-9f4f-eba47fa7f24b"];
-    
     return YES;
 }
 

@@ -11,7 +11,7 @@
 #import "JMC.h"
 
 @implementation AboutViewController
-@synthesize delegate, buildText;
+@synthesize delegate;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -39,21 +39,25 @@
     self.view.backgroundColor = [SoclivityUtilities returnBackgroundColor:0];
     
     // Build text
-    buildText.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
-    buildText.textColor = [SoclivityUtilities returnTextFontColor:5];
+    self.buildText.text = @"Soclivity BETA";
+    self.buildText.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    self.buildText.textColor = [SoclivityUtilities returnTextFontColor:5];
 
     // Submit an issue
-    submitBug.titleLabel.text = @"Report an Issue";
-    submitBug.titleLabel.textColor = [SoclivityUtilities returnTextFontColor:5];
-    submitBug.titleLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17];
-    submitBug.titleLabel.shadowColor = [UIColor whiteColor];
-    submitBug.titleLabel.shadowOffset = CGSizeMake(0, 0.5);
+    self.submitBug.titleLabel.textColor = [SoclivityUtilities returnTextFontColor:5];
+    self.submitBug.titleLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
+    self.submitBug.titleLabel.shadowColor = [UIColor whiteColor];
+    self.submitBug.titleLabel.shadowOffset = CGSizeMake(0, 0.5);
+    
+    // Submit an issue
+    self.viewAllBugs.titleLabel.textColor = [SoclivityUtilities returnTextFontColor:5];
+    self.viewAllBugs.titleLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
+    self.viewAllBugs.titleLabel.shadowColor = [UIColor whiteColor];
+    self.viewAllBugs.titleLabel.shadowOffset = CGSizeMake(0, 0.5);
     
     // Badge logic
     [self UpdateBadgeNotification];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
-    
-    
     
 }
 -(IBAction)profileSliderPressed:(id)sender{
@@ -63,7 +67,8 @@
 - (void)viewDidUnload
 {
     [self setBuildText:nil];
-    [self setBuildText:nil];
+    [self setViewAllBugs:nil];
+    [self setSubmitBug:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -110,9 +115,15 @@
     [self presentModalViewController:[[JMC sharedInstance] feedbackViewController] animated:YES];
 }
 
+- (IBAction)viewAllIssues:(id)sender {
+    [self presentModalViewController:[[JMC sharedInstance] viewController] animated:YES];
+}
+
 
 - (void)dealloc {
-    [buildText release];
+    [_buildText release];
+    [_viewAllBugs release];
+    [_submitBug release];
     [super dealloc];
 }
 @end

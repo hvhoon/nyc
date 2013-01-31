@@ -17,14 +17,18 @@
 
 @interface AboutViewController : UIViewController{
     id <AboutViewDelegate>delegate;
-    UIButton *submitBug;
 }
 
 @property (nonatomic,retain)id <AboutViewDelegate>delegate;
-@property (nonatomic, retain)IBOutlet UIButton *btnnotify;
+@property (retain, nonatomic) IBOutlet UIButton *viewAllBugs;
+@property (retain, nonatomic) IBOutlet UIButton *submitBug;
 @property (retain, nonatomic) IBOutlet UILabel *buildText;
--(IBAction)profileSliderPressed:(id)sender;
--(IBAction)submitBugPressed:(id)sender;
+@property (nonatomic, retain)IBOutlet UIButton *btnnotify;
+- (IBAction)profileSliderPressed:(id)sender;
+- (IBAction)submitBugPressed:(id)sender;
+- (IBAction)viewAllIssues:(id)sender;
+
+
 
 
 
