@@ -38,8 +38,12 @@
     // Color background
     self.view.backgroundColor = [SoclivityUtilities returnBackgroundColor:0];
     
+    // Extract App Name
+    NSDictionary *appMetaData = [[NSBundle mainBundle] infoDictionary];
+    NSString* bundleName = [appMetaData objectForKey:@"CFBundleShortVersionString"];
+    
     // Build text
-    self.buildText.text = @"Soclivity BETA";
+    self.buildText.text = [NSString stringWithFormat:@"Soclivity (%@)", bundleName];
     self.buildText.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     self.buildText.textColor = [SoclivityUtilities returnTextFontColor:5];
 
