@@ -59,8 +59,6 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    NSLog(@"viewWillAppear in slide View Controller Called");
-    
     [self.navigationController.navigationBar setHidden:YES];
 }
 #pragma mark - View lifecycle
@@ -90,8 +88,6 @@
 
     scrollView.indicatorStyle=UIScrollViewIndicatorStyleBlack;
     scrollView.clipsToBounds = YES;
-    
-    NSLog(@"activityInfo::%@",activityInfo);
     
     if([activityInfo.goingCount intValue]==0 && activityInfo.pendingRequestCount==0){
         scrollView.scrollEnabled=NO;

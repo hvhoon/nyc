@@ -106,6 +106,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (Pushactivity:) name:@"PushActivityView" object:nil];
+    
     if(SOC.currentLocation.coordinate.latitude!=0.0f && SOC.currentLocation.coordinate.longitude!=0.0f){
         
         [self StartGettingActivities];
@@ -607,13 +609,15 @@
 #pragma mark -
 #pragma mark New Activity Push Method
 
--(void)Pushactivity:(NSDictionary *)dictactivity
+-(void)Pushactivity:(NSNotification *)dictactivity
 {
     if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
+    NSLog(@"dictactivity::%@",dictactivity);
+    
     if([SoclivityUtilities hasNetworkConnection]){
-        [devServer getDetailedActivityInfoInvocation:[[dictactivity valueForKey:@"user_id"] intValue]    actId:[[dictactivity valueForKey:@"activity_id"] intValue]  latitude:[[dictactivity valueForKey:@"lat"] floatValue] longitude:[[dictactivity valueForKey:@"lng"] floatValue] delegate:self];
+        [devServer getDetailedActivityInfoInvocation:[[[dictactivity valueForKey:@"userInfo"] valueForKey:@"user_id"] intValue]    actId:[[[dictactivity valueForKey:@"userInfo"] valueForKey:@"activity_id"] intValue]  latitude:[[[dictactivity valueForKey:@"userInfo"] valueForKey:@"lat"] floatValue] longitude:[[[dictactivity valueForKey:@"userInfo"] valueForKey:@"lng"] floatValue] delegate:self];
     }
     else{
         if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
@@ -632,9 +636,6 @@
 }
 
 -(void)PushToDetailActivityView:(InfoActivityClass*)detailedInfo andFlipType:(NSInteger)andFlipType{
-    NSLog(@"PushToDetailActivityView");
-    
-     NSLog(@"detailedInfo::%d",detailedInfo.activityId);
     
     flipKeyViewTag=andFlipType;
     
@@ -751,7 +752,6 @@
     int index=0;
     for(ParticipantClass *pC in player.friendsArray){
         index++;
-        NSLog(@"friendsArray=%d",index);
             NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:pC.photoUrl]];
             UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];
              if(image.size.height != image.size.width)
@@ -814,44 +814,46 @@
 }
 -(void)pushActivityController:(InfoActivityClass*)response{
     
-    NSString*nibNameBundle=nil;
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"NotificationActivity"]==NULL || [[NSUserDefaults standardUserDefaults] valueForKey:@"Notification Activity"]==[NSNull null])
+    {
+        NSString*nibNameBundle=nil;
+        
+        if([SoclivityUtilities deviceType] & iPhone5){
+            nibNameBundle=@"ActivityEventViewController_iphone5";
+        }
+        else{
+            nibNameBundle=@"ActivityEventViewController";
+        }
+        
+        ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+        activityEventViewController.activityInfo=response;
+        
+        [[self navigationController] pushViewController:activityEventViewController animated:YES];
+        [activityEventViewController release];
+        
+        if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        
+        switch (flipKeyViewTag) {
+            case 1:
+            {
+                [activityTableView BytesDownloadedTimeToHideTheSpinner];
+                
+            }
+                break;
+                
+            case 2:
+            {
+                [socEventMapView spinnerCloseAndIfoDisclosureButtonUnhide];
+                
+            }
+                break;
+        }
+    }//END if ([[NSUserDefaults standardUserDefau
     
-    if([SoclivityUtilities deviceType] & iPhone5){
-        nibNameBundle=@"ActivityEventViewController_iphone5";
-    }
     else{
-        nibNameBundle=@"ActivityEventViewController";
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] Activity:response];
     }
-
-
-    ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
-    activityEventViewController.activityInfo=response;
-    
-    // NSLog(@"response::%@",activityEventViewController.activityInfo);
-    
-	[[self navigationController] pushViewController:activityEventViewController animated:YES];
-    [activityEventViewController release];
-
-    if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
-
-    switch (flipKeyViewTag) {
-        case 1:
-        {
-            [activityTableView BytesDownloadedTimeToHideTheSpinner];
-            
-        }
-            break;
-            
-        case 2:
-        {
-            [socEventMapView spinnerCloseAndIfoDisclosureButtonUnhide];
-            
-        }
-            break;
-    }
-
-    
 }
 
 -(void)PushToProfileView:(InfoActivityClass*)detailedInfo{

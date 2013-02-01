@@ -12,16 +12,13 @@
 #import "RRAViewController.h"
 #import "MainServiceManager.h"
 #import "SoclivityManager.h"
-#import "DetailedActivityInfoInvocation.h"
 
 
 @class FacebookLogin;
 @class SlideViewController;
 @class TTTAttributedLabel;
-@class MainServiceManager;
-@class SoclivityManager;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate,DetailedActivityInfoInvocationDelegate>{
+@interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate>{
     UINavigationController *navigationController;
     DDMenuController *menuController;
     Facebook *facebook;
@@ -52,5 +49,7 @@
 - (void)setUpActivityDataList;
 -(void)IncreaseBadgeIcon;
 -(void)PostBackgroundStatus:(int)status;
+
+-(void)Activity:(InfoActivityClass*)response;
  //-(void)registerForNotifications;
 @end

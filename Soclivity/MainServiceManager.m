@@ -80,12 +80,7 @@
     
 }
 -(void)getDetailedActivityInfoInvocation:(NSInteger)pId actId:(NSInteger)actId  latitude:(float)latitude longitude:(float)longitude delegate:(id<DetailedActivityInfoInvocationDelegate>)delegate{
-    
-    NSLog(@"pId::%i",pId);
-    NSLog(@"actId::%i",actId);
-    NSLog(@"latitude::%f",latitude);
-    NSLog(@"longitude::%f",longitude);
-    
+
     DetailedActivityInfoInvocation *invocation = [[[DetailedActivityInfoInvocation alloc] init] autorelease];
     invocation.playerId = pId;
     invocation.activityId = actId;

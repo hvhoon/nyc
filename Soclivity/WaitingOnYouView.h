@@ -12,6 +12,8 @@
 #import "MBProgressHUD.h"
 #import "PostActivityRequestInvocation.h"
 
+@class NotificationsViewController;
+
 @class MBProgressHUD;
 @class MainServiceManager;
 @class SoclivityManager;
@@ -39,6 +41,7 @@
 @property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
 @property (nonatomic, retain) NSString *lstrnotificationid;
 @property (nonatomic,retain) NSMutableArray *arr_notificationids;
+@property (nonatomic, retain) NotificationsViewController *superDelegate;
 
 - (id)initWithFrame:(CGRect)frame andNotificationsListArray:(NSArray*)andNotificationsListArray;
 

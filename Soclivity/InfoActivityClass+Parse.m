@@ -20,8 +20,6 @@
 		return Nil;
 	}
 	
-    NSLog(@"ACTDict::%@",ACTDict);
-    
 	InfoActivityClass *play = [[[InfoActivityClass alloc] init] autorelease];
     play.activityName = [ACTDict objectForKey:@"name"];
     NSNumber *type = [ACTDict objectForKey:@"atype"];
@@ -85,8 +83,6 @@
 	
 	NSMutableArray *schedules = [[[NSMutableArray alloc] init] autorelease];
 	for (int i = 0; i < ActivitiesSchedulesAt.count; i++) {
-        
-        NSLog(@"ActivitiesSchedulesAt::%@",ActivitiesSchedulesAt);
         
         InfoActivityClass *sch = [InfoActivityClass ActivitiesFromDictionary:[ActivitiesSchedulesAt objectAtIndex:i] isQuotation:NO];
         if (sch) {

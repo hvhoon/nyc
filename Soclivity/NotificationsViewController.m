@@ -128,6 +128,7 @@ WaitingOnYouView *notificationView;
             waitingOnYouRect=CGRectMake(0, 44, 320, 377);
             
         WaitingOnYouView *notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect andNotificationsListArray:self.arrnotification];
+        notificationView.superDelegate = self;
         notificationView.delegate=self;
         [self.view addSubview:notificationView];
         
@@ -151,6 +152,7 @@ WaitingOnYouView *notificationView;
 -(void)hideMBProgress{
     [HUD hide:YES];
 }
+
 
 #pragma mark - View lifecycle
 

@@ -82,8 +82,6 @@
     //self.plays =[SoclivityUtilities getPlayerActivities];
     self.plays =[SoclivitySqliteClass returnAllValidActivities];
     
-    NSLog(@"self.plays::%@",self.plays);
-    
     [self sortingFilterRefresh];
 #if 0    
 //    [self.sectionInfoArray removeAllObjects];

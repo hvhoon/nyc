@@ -70,6 +70,24 @@ NSString *lstrphoto;
     [super dealloc];
 }
 
+-(void)Activity:(InfoActivityClass*)response
+{
+     NSString*nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"ActivityEventViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"ActivityEventViewController";
+    }
+    
+    ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+    activityEventViewController.activityInfo=response;
+    [navigationController pushViewController:activityEventViewController animated:YES];
+    //[self.window addSubview:navigationController.view];
+    [activityEventViewController release];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"NotificationActivity"];
+}
+
 -(void)HideNotification
 {
     [UIView animateWithDuration:0.5
@@ -171,7 +189,7 @@ NSString *lstrphoto;
         imgvw1.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
     }//END if ([[[self._notifications objectAt
     
-    UIButton *btnaction=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIButton *btnaction=[UIButton buttonWithType:UIButtonTypeCustom];
     btnaction.frame=CGRectMake(0, 0, 285, 55);
     btnaction.backgroundColor=[UIColor clearColor];
     btnaction.tag=[[[[dict valueForKey:@"userInfo"] valueForKey:@"activity"] valueForKey:@"id"] intValue];
@@ -242,6 +260,7 @@ NSString *lstrphoto;
     
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"logged_in_user_id"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Waiting_On_You_Count"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"NotificationActivity"];
 
     [self IncreaseBadgeIcon];
     
@@ -518,8 +537,6 @@ NSString *lstrphoto;
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
                 [self IncreaseBadgeIcon];
             }//END if ([[lstrresponse JSONValue] valueForKeyPath:@"badge"]!=NULL)
-            
-            NSLog(@"lstrresponse1111::%@",[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"]);
             
             if ([[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"]!=NULL && [[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] count]!=0)
             {
