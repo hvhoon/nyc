@@ -318,8 +318,6 @@ NSString *lstrphoto;
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
-    NSLog(@"userInfo::%@",userInfo);
-    
     if (_appIsInbackground)
     {
         if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]==NULL)
@@ -653,7 +651,18 @@ NSString *lstrphoto;
     
     [self PostBackgroundStatus:0];
     
-    [_objrra fetchPrivatePubConfiguration:[[NSUserDefaults standardUserDefaults] valueForKey:@"Channel"]];
+    if([SoclivityUtilities hasNetworkConnection]){
+       [_objrra fetchPrivatePubConfiguration:[[NSUserDefaults standardUserDefaults] valueForKey:@"Channel"]];
+    }//END if([SoclivityUtilities hasNetworkConnection])
+    else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+    }//ENd Else Statement
     
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.

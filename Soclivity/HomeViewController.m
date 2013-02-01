@@ -609,19 +609,11 @@
 
 -(void)Pushactivity:(NSDictionary *)dictactivity
 {
-    NSLog(@"activityid::%@",dictactivity);
-    
-  /*  NSLog(@"[SOC.loggedInUser.idSoc intValue]::%i",[SOC.loggedInUser.idSoc intValue]);
-    
-    NSLog(@"actlatitute::%f",SOC.currentLocation.coordinate.latitude);
-    
-    NSLog(@"longitude::%f",SOC.currentLocation.coordinate.longitude);
-    
     if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
     if([SoclivityUtilities hasNetworkConnection]){
-        [devServer getDetailedActivityInfoInvocation:[SOC.loggedInUser.idSoc intValue]    actId:activityid  latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude delegate:self];
+        [devServer getDetailedActivityInfoInvocation:[[dictactivity valueForKey:@"user_id"] intValue]    actId:[[dictactivity valueForKey:@"activity_id"] intValue]  latitude:[[dictactivity valueForKey:@"lat"] floatValue] longitude:[[dictactivity valueForKey:@"lng"] floatValue] delegate:self];
     }
     else{
         if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
@@ -637,7 +629,6 @@
         
         
     }
-   */
 }
 
 -(void)PushToDetailActivityView:(InfoActivityClass*)detailedInfo andFlipType:(NSInteger)andFlipType{

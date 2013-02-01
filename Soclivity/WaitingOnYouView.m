@@ -480,15 +480,15 @@ NSString *lstrnotifyid;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    /*NSLog(@"sender::%@",[self._notifications objectAtIndex:indexPath.row]);
-    
-    NSDictionary *dictactivity=[[NSDictionary alloc] init];
-    //[[dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] forKey:@"Activity_ID"];
-     //[dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] forKey:@"Activity_ID"];
+   /* NSMutableDictionary *dictactivity=[[NSMutableDictionary alloc] init];
+    [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] forKey:@"activity_id"];
+    [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"lat"] forKey:@"lat"];
+    [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"lng"] forKey:@"lng"];
+    [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"user_id"] forKey:@"user_id"];
     
     HomeViewController *objhome=[[HomeViewController alloc] init];
     [objhome Pushactivity:dictactivity];
-     */
+    */
     
     //[self SetNotificationStatus:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]];
     //NSString *description = [[self._notifications objectAtIndex:indexPath.row];
