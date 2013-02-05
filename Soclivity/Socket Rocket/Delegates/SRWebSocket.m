@@ -301,8 +301,6 @@ static NSData *CRLFCRLF;
     if (self) {
          [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (close) name:@"CloseSocketRocket" object:nil];
         
-         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (open) name:@"OpenSocketRocket" object:nil];
-        
         assert(request.URL);
         _url = request.URL;
         NSString *scheme = [_url scheme];

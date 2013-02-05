@@ -1680,4 +1680,12 @@
         [socProfileViewController release];
     }
 }
+
+#pragma mark - Touches
+
+-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [super touchesBegan:touches withEvent:event];
+    
+}
+
 @end

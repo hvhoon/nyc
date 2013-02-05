@@ -80,10 +80,13 @@ NSString *lstrphoto;
         nibNameBundle=@"ActivityEventViewController";
     }
     
+    NSLog(@"self.window::%@",self.window.subviews);
+    
     ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
     activityEventViewController.activityInfo=response;
-    [navigationController pushViewController:activityEventViewController animated:YES];
-    //[self.window addSubview:navigationController.view];
+    //[navigationController pushViewController:activityEventViewController animated:YES];
+    [self.window addSubview:activityEventViewController.view];
+    [self.window bringSubviewToFront:activityEventViewController.view];
     [activityEventViewController release];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"NotificationActivity"];
 }
@@ -118,6 +121,8 @@ NSString *lstrphoto;
 
 -(void)DownloadImage:(NSString *)lstrphotourl
 {
+     NSLog(@"DownloadImage");
+    
     self.responsedata=[[NSMutableData alloc] init];
     
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
@@ -130,6 +135,8 @@ NSString *lstrphoto;
 
 -(void)ShowNotification:(NSNotification*)dict
 {
+     NSLog(@"ShowNotification");
+    
     timer =[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countdownTracker:) userInfo:nil repeats:YES];
     
     vw_notification=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 58)];
@@ -221,6 +228,8 @@ NSString *lstrphoto;
 
 - (void)setSummaryText:(NSString *)text {
     
+    NSLog(@"setSummaryText");
+    
     [self.summaryLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
         NSRange stringRange = NSMakeRange(0, [mutableAttributedString length]);
         
@@ -257,6 +266,7 @@ NSString *lstrphoto;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSLog(@"didFinishLaunchingWithOptions");
     
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"logged_in_user_id"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Waiting_On_You_Count"];
@@ -332,10 +342,14 @@ NSString *lstrphoto;
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
+    NSLog(@"didFailToRegisterForRemoteNotificationsWithError");
+    
 	NSLog(@"Failed to get token, error: %@", error);
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+    NSLog(@"didReceiveRemoteNotification");
     
     if (_appIsInbackground)
     {
@@ -384,6 +398,8 @@ NSString *lstrphoto;
 }
 
 -(void)setUpActivityDataList{
+     NSLog(@"setUpActivityDataList");
+    
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"Activities" withExtension:@"plist"];
     NSArray *playDictionariesArray = [[NSArray alloc ] initWithContentsOfURL:url];
     NSMutableArray *playsArray = [NSMutableArray arrayWithCapacity:[playDictionariesArray count]];
@@ -432,6 +448,8 @@ NSString *lstrphoto;
 
 
 -(FacebookLogin*)SetUpFacebook{
+    
+     NSLog(@"SetUpFacebook");
     
      [self registerForNotifications];
     
@@ -504,6 +522,8 @@ NSString *lstrphoto;
 }
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+     NSLog(@"applicationWillResignActive");
+    
     /*
      Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
      Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -512,9 +532,13 @@ NSString *lstrphoto;
 
 -(void)PostBackgroundStatus:(int)status
 {
+    NSLog(@"PostBackgroundStatus");
+    
     self.responsedata=[[NSMutableData alloc] init];
     
     NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/player_app_status.json?id=%@&background_status=%i",ProductionServer,[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"],status] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSLog(@"url::%@",url);
     
     NSURLResponse *response = nil;
     NSError *error = nil;
@@ -523,6 +547,8 @@ NSString *lstrphoto;
     NSString *lstrnotificationid=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
     
     NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    
+     NSLog(@"returnData::%@",returnData);
     
     if(returnData!=NULL)
     {
@@ -585,14 +611,21 @@ NSString *lstrphoto;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-	[self.responsedata setLength:0];
+	 NSLog(@"didReceiveResponse");
+    
+    [self.responsedata setLength:0];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+   
+     NSLog(@"didReceiveData");
+    
     [self.responsedata appendData:data];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    
+     NSLog(@"didFailWithError");
     
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Internet Connection"
 													message:@"Try Again Later" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
@@ -603,6 +636,8 @@ NSString *lstrphoto;
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection{
 
+     NSLog(@"connectionDidFinishLoading");
+    
     if ([lstrphoto isEqualToString:@"photo"])
     {
         UIImage *image = [[UIImage alloc] initWithData:self.responsedata];
@@ -616,6 +651,8 @@ NSString *lstrphoto;
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+     NSLog(@"applicationDidEnterBackground");
+    
     // bgTask is instance variable
     NSAssert(self->bgTask == UIBackgroundTaskInvalid, nil);
     
@@ -664,13 +701,18 @@ NSString *lstrphoto;
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    NSLog(@"applicationWillEnterForeground");
+    
     _appIsInbackground=FALSE;
     
     [self PostBackgroundStatus:0];
     
-    if([SoclivityUtilities hasNetworkConnection]){
-       [_objrra fetchPrivatePubConfiguration:[[NSUserDefaults standardUserDefaults] valueForKey:@"Channel"]];
-    }//END if([SoclivityUtilities hasNetworkConnection])
+    //if([SoclivityUtilities hasNetworkConnection]){
+        
+        NSLog(@"hasNetworkConnection");
+        
+    [_objrra fetchPrivatePubConfiguration:[[NSUserDefaults standardUserDefaults] valueForKey:@"Channel"]];
+   /* }//END if([SoclivityUtilities hasNetworkConnection])
     else{
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
@@ -680,6 +722,7 @@ NSString *lstrphoto;
         [alert release];
         return;
     }//ENd Else Statement
+    */
     
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
@@ -688,6 +731,8 @@ NSString *lstrphoto;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    NSLog(@"applicationDidBecomeActive");
+    
     [[self facebook] extendAccessTokenIfNeeded];
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
@@ -696,6 +741,8 @@ NSString *lstrphoto;
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+     NSLog(@"applicationWillTerminate");
+    
     /*
      Called when the application is about to terminate.
      Save data if appropriate.
@@ -703,10 +750,15 @@ NSString *lstrphoto;
      */
 }
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    NSLog(@"handleOpenURL");
+    
     return [self.facebook handleOpenURL:url];
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
+    NSLog(@"sourceApplication");
+    
     return [self.facebook handleOpenURL:url];
 }
 @end

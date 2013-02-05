@@ -32,6 +32,8 @@
     
   NSMutableURLRequest *configurationRequest = [[NSMutableURLRequest requestWithURL:url] retain];
     
+    NSLog(@"configurationRequest::%@",configurationRequest);
+    
   self.websocketClient = [[SRWebSocket alloc] initWithURLRequest:configurationRequest];
     self.websocketClient.delegate =self.websocketDelegate;
     

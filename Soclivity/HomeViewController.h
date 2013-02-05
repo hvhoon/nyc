@@ -70,6 +70,4 @@
 -(void)loadingActivityMonitor;
 -(void)synchronousDownloadProfilePhotoBytes:(InfoActivityClass*)player;
 
--(void)Pushactivity:(NSNotification *)dictactivity;
-
 @end

@@ -43,6 +43,7 @@
 @property (nonatomic,retain) NSMutableArray *arr_notificationids;
 @property (nonatomic, retain) NotificationsViewController *superDelegate;
 
+
 - (id)initWithFrame:(CGRect)frame andNotificationsListArray:(NSArray*)andNotificationsListArray;
 
 -(void)startAnimation;

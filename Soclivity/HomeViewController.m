@@ -22,6 +22,7 @@
 #import "UpComingCompletedEventsViewController.h"
 #import "SOCProfileViewController.h"
 #import "CreateActivityViewController.h"
+
 @interface HomeViewController(Private) <MBProgressHUDDelegate,NewActivityViewDelegate>
 @end
 
@@ -67,7 +68,7 @@
     self.btnnotify.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
     
     
-    NSLog(@"count::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]);
+    NSLog(@"homeview controller count::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]);
     
     int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
     
@@ -105,8 +106,6 @@
     [self UpdateBadgeNotification];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (Pushactivity:) name:@"PushActivityView" object:nil];
     
     if(SOC.currentLocation.coordinate.latitude!=0.0f && SOC.currentLocation.coordinate.longitude!=0.0f){
         
@@ -609,32 +608,6 @@
 #pragma mark -
 #pragma mark New Activity Push Method
 
--(void)Pushactivity:(NSNotification *)dictactivity
-{
-    if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
-        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    
-    NSLog(@"dictactivity::%@",dictactivity);
-    
-    if([SoclivityUtilities hasNetworkConnection]){
-        [devServer getDetailedActivityInfoInvocation:[[[dictactivity valueForKey:@"userInfo"] valueForKey:@"user_id"] intValue]    actId:[[[dictactivity valueForKey:@"userInfo"] valueForKey:@"activity_id"] intValue]  latitude:[[[dictactivity valueForKey:@"userInfo"] valueForKey:@"lat"] floatValue] longitude:[[[dictactivity valueForKey:@"userInfo"] valueForKey:@"lng"] floatValue] delegate:self];
-    }
-    else{
-        if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
-            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-        
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        
-        [alert show];
-        [alert release];
-        return;
-        
-        
-    }
-}
-
 -(void)PushToDetailActivityView:(InfoActivityClass*)detailedInfo andFlipType:(NSInteger)andFlipType{
     
     flipKeyViewTag=andFlipType;
@@ -814,8 +787,9 @@
 }
 -(void)pushActivityController:(InfoActivityClass*)response{
     
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"NotificationActivity"]==NULL || [[NSUserDefaults standardUserDefaults] valueForKey:@"Notification Activity"]==[NSNull null])
+    if(![[[NSUserDefaults standardUserDefaults] valueForKey:@"NotificationActivity"] isEqualToString:@"TRUE"] || [[NSUserDefaults standardUserDefaults] valueForKey:@"NotificationActivity"]==NULL)
     {
+    
         NSString*nibNameBundle=nil;
         
         if([SoclivityUtilities deviceType] & iPhone5){
@@ -824,7 +798,9 @@
         else{
             nibNameBundle=@"ActivityEventViewController";
         }
-        
+    
+        NSLog(@"Nav controller : %@", self.navigationController);
+    
         ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
         activityEventViewController.activityInfo=response;
         
@@ -849,10 +825,13 @@
             }
                 break;
         }
-    }//END if ([[NSUserDefaults standardUserDefau
+    }
     
     else{
-        [(AppDelegate *)[[UIApplication sharedApplication] delegate] Activity:response];
+        
+       NSDictionary *dictresponse=[[NSDictionary alloc] initWithObjectsAndKeys:response,@"InviteActivity", nil];
+        
+       [[NSNotificationCenter defaultCenter] postNotificationName:@"NavigationViews" object:self userInfo:dictresponse];
     }
 }
 

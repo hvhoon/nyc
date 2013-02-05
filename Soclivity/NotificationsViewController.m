@@ -10,6 +10,7 @@
 #import "SoclivityUtilities.h"
 #import "NotificationClass.h"
 #import <QuartzCore/QuartzCore.h>
+#import "ActivityEventViewController.h"
 
 @implementation NotificationsViewController
 @synthesize delegate,responsedata,arrnotification,btnnotify;
@@ -127,7 +128,7 @@ WaitingOnYouView *notificationView;
         else
             waitingOnYouRect=CGRectMake(0, 44, 320, 377);
             
-        WaitingOnYouView *notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect andNotificationsListArray:self.arrnotification];
+        notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect andNotificationsListArray:self.arrnotification];
         notificationView.superDelegate = self;
         notificationView.delegate=self;
         [self.view addSubview:notificationView];
@@ -154,6 +155,81 @@ WaitingOnYouView *notificationView;
 }
 
 
+#pragma mark -
+
+-(void) navigate:(NSMutableDictionary*)dict{
+    [self Pushactivity:dict];
+}
+
+-(void)Pushactivity:(NSMutableDictionary *)dictactivity
+{
+    devServer=[[MainServiceManager alloc]init];
+    
+    if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        [devServer getDetailedActivityInfoInvocation:[[dictactivity valueForKey:@"user_id"] intValue]    actId:[[dictactivity valueForKey:@"activity_id"] intValue]  latitude:[[dictactivity valueForKey:@"lat"] floatValue] longitude:[[dictactivity valueForKey:@"lng"] floatValue] delegate:self];
+    }
+    else{
+        if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+}
+
+#pragma mark DetailedActivityInfoInvocationDelegate Method
+-(void)DetailedActivityInfoInvocationDidFinish:(DetailedActivityInfoInvocation*)invocation
+                                  withResponse:(InfoActivityClass*)responses
+                                     withError:(NSError*)error{
+    
+    
+    
+    [self performSelectorOnMainThread:@selector(pushActivityController:) withObject:responses waitUntilDone:NO];
+    
+#if 0
+    NSOperationQueue *queue = [NSOperationQueue new];
+    NSInvocationOperation *operation = [[NSInvocationOperation alloc]
+                                        initWithTarget:self
+                                        selector:@selector(synchronousDownloadProfilePhotoBytes:)
+                                        object:responses];
+    [queue addOperation:operation];
+    [operation release];
+    
+#endif
+    
+}
+
+-(void)pushActivityController:(InfoActivityClass*)response{
+    
+    NSString*nibNameBundle=nil;
+    
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"ActivityEventViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"ActivityEventViewController";
+    }
+    
+    ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+    activityEventViewController.activityInfo=response;
+    
+    [[self navigationController] pushViewController:activityEventViewController animated:YES];
+    [activityEventViewController release];
+    
+    if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -165,6 +241,8 @@ WaitingOnYouView *notificationView;
     [self BadgeNotification];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (BadgeNotification) name:@"WaitingOnYou_Count" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (navigate:) name:@"NavigationViews" object:nil];
     
     self.view.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
     notificationImageView.hidden=YES;

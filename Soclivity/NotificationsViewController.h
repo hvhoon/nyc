@@ -11,13 +11,15 @@
 #import "MBProgressHUD.h"
 
 @class MBProgressHUD;
+@class MainServiceManager;
+
 @protocol NotificationsScreenViewDelegate <NSObject>
 
 @optional
 - (void)showLeft:(id)sender;
 @end
 
-@interface NotificationsViewController : UIViewController<WaitingOnYouDelegate,MBProgressHUDDelegate>{
+@interface NotificationsViewController : UIViewController<WaitingOnYouDelegate,MBProgressHUDDelegate,DetailedActivityInfoInvocationDelegate,GetActivitiesInvocationDelegate>{
     id <NotificationsScreenViewDelegate>delegate;
     IBOutlet UILabel *waitingOnYouLabel;
     IBOutlet UIImageView*notificationImageView;
@@ -30,6 +32,7 @@
     UIActionSheet * loadingActionSheet;
     
     MBProgressHUD *HUD;
+    MainServiceManager *devServer;
 }
 @property (nonatomic,retain)id <NotificationsScreenViewDelegate>delegate;
 @property(nonatomic, retain) NSMutableData *responsedata;
@@ -41,5 +44,7 @@
 
 -(void)startAnimation;
 -(void)hideMBProgress;
+
+-(void) navigate:(NSMutableDictionary*)dict;
 
 @end

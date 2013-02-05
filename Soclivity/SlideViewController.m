@@ -817,13 +817,11 @@
         
         HomeViewController *homeController=(HomeViewController*)viewController;
         homeController.delegate=self;
-        
     }
     
     else if([viewController isKindOfClass:[ProfileViewController class]]){
         ProfileViewController *profileController=(ProfileViewController*)viewController;
         profileController.delegate=self;
-        
     }
     
     else if([viewController isKindOfClass:[NotificationsViewController class]]){

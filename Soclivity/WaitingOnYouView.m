@@ -15,6 +15,7 @@
 #import "MainServiceManager.h"
 #import "SoclivityManager.h"
 #import "GetPlayersClass.h"
+#import "NotificationsViewController.h"
 
 @interface WaitingOnYouView ()
 
@@ -24,7 +25,7 @@
 
 
 @implementation WaitingOnYouView
-@synthesize _notifications,delegate,imageDownloadsInProgress,arr_notificationids, superDelegate;
+@synthesize _notifications,delegate,imageDownloadsInProgress,arr_notificationids, superDelegate = _superDelegate;
 
 NSString *lstrnotifyid;
 
@@ -481,21 +482,17 @@ NSString *lstrnotifyid;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     
-    /*NSMutableDictionary *dictactivity=[[NSMutableDictionary alloc] init];
+    NSMutableDictionary *dictactivity=[[NSMutableDictionary alloc] init];
     [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] forKey:@"activity_id"];
     [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"lat"] forKey:@"lat"];
     [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"lng"] forKey:@"lng"];
     [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"user_id"] forKey:@"user_id"];
     
-    [self removeFromSuperview];
-    [self.superview removeFromSuperview];
-    [[NSUserDefaults standardUserDefaults] setValue:@"TRUE" forKey:@"NotificationActivity"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"PushActivityView" object:self userInfo:dictactivity];
-
+    [_superDelegate navigate:dictactivity];
+    
     //[self SetNotificationStatus:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]];
     //NSString *description = [[self._notifications objectAtIndex:indexPath.row];
     //NSLog(@"description=%@",description);
-     */
 }
 
 -(void)NavigationScreen:(id)sender
