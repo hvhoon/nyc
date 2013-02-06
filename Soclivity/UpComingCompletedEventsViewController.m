@@ -315,6 +315,8 @@
 
 -(void)PushToProfileView:(InfoActivityClass*)detailedInfo{
     
+    NSLog(@"upcoming completed events");
+    
     if([SOC.loggedInUser.idSoc intValue]==detailedInfo.organizerId){
         NSString*nibNameBundle=nil;
         

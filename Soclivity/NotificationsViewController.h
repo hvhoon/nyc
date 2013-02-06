@@ -33,11 +33,15 @@
     
     MBProgressHUD *HUD;
     MainServiceManager *devServer;
+    
+    WaitingOnYouView *notificationView;
 }
 @property (nonatomic,retain)id <NotificationsScreenViewDelegate>delegate;
 @property(nonatomic, retain) NSMutableData *responsedata;
 @property(nonatomic, retain) NSMutableArray *arrnotification;
 @property (nonatomic, retain)IBOutlet UIButton *btnnotify;
+
+@property(copy, readwrite)NSString *lstrnotificationtypeid;
 
 -(IBAction)profileSliderPressed:(id)sender;
 //-(NSMutableArray*) SetUpNotifications;
@@ -46,5 +50,6 @@
 -(void)hideMBProgress;
 
 -(void) navigate:(NSMutableDictionary*)dict;
+-(void)synchronousDownloadProfilePhotoBytes:(InfoActivityClass*)player;
 
 @end

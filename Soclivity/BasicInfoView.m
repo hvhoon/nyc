@@ -87,12 +87,6 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
         [[profileBtn layer] setBorderColor:[SoclivityUtilities returnTextFontColor:4].CGColor];
         setYourPic.hidden=YES;
         
-        NSLog(@"firstName=%@",playerObj.first_name);
-        NSLog(@"last_name=%@",playerObj.last_name);
-        NSLog(@"email=%@",playerObj.email);
-        NSLog(@"gender=%@",playerObj.gender);
-        NSLog(@"birth_date=%@",playerObj.birth_date);
-        
         if([playerObj.gender isEqualToString:@"male"]){
             [maleButton setBackgroundImage:[UIImage imageNamed:@"S02_male.png"] forState:UIControlStateNormal];
             b_Female=FALSE;

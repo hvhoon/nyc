@@ -837,6 +837,8 @@
 
 -(void)PushToProfileView:(InfoActivityClass*)detailedInfo{
     
+    NSLog(@"home view");
+    
     if([SOC.loggedInUser.idSoc intValue]==detailedInfo.organizerId){
         NSString*nibNameBundle=nil;
         

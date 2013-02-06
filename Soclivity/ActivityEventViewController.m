@@ -342,7 +342,6 @@
     activityNameLabel.tag=kActivityLabel;
 
     [eventView loadViewWithActivityDetails:activityInfo];
-    
     [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
 
     
@@ -375,8 +374,6 @@
             chatButton.hidden=YES;
             
             [eventView decideToShowMapView:1];
-            
-            
         }
             break;
             //pending request
@@ -392,8 +389,6 @@
             chatButton.hidden=YES;
 
             [eventView decideToShowMapView:2];
-            
-            
         }
             break;
             
@@ -410,9 +405,6 @@
             leaveActivityButton.hidden=YES;
 
             [eventView decideToShowMapView:3];
-            
-            
-            
         }
             break;
             
@@ -433,8 +425,6 @@
         }
             break;
             
-            
-            
             //going //request approved(invited)
         case 5:
         {
@@ -452,9 +442,6 @@
             
         }
             break;
-            
-            
-            
             
             //organizer
         case 6:
@@ -1615,6 +1602,8 @@
     
 }
 -(void)pushUserProfileView{
+   
+    NSLog(@"activity event");
     
     if([SOC.loggedInUser.idSoc intValue]==activityInfo.organizerId){
         NSString*nibNameBundle=nil;
@@ -1649,6 +1638,8 @@
 }
 -(void)pushToprofileOfThePlayer:(ParticipantClass*)player{
     
+    NSLog(@"activity event");
+    
     if([SOC.loggedInUser.idSoc intValue]==player.participantId){
         NSString*nibNameBundle=nil;
         
@@ -1679,13 +1670,6 @@
         [[self navigationController] pushViewController:socProfileViewController animated:YES];
         [socProfileViewController release];
     }
-}
-
-#pragma mark - Touches
-
--(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    [super touchesBegan:touches withEvent:event];
-    
 }
 
 @end

@@ -73,11 +73,6 @@
     profileNameLabel.shadowColor = [UIColor blackColor];
     profileNameLabel.shadowOffset = CGSizeMake(0,-1);
     
-    
-    
-    
-
-    
     profileUserNameLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     profileUserNameLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     profileUserNameLabel.text=[NSString stringWithFormat:@"%@",playerObject.playerName];

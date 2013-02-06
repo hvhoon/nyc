@@ -11,6 +11,7 @@
 #import "IconDownloader.h"
 #import "MBProgressHUD.h"
 #import "PostActivityRequestInvocation.h"
+#import "MBProgressHUD.h"
 
 @class NotificationsViewController;
 

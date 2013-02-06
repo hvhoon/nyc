@@ -235,24 +235,7 @@ NSString *lstrnotifyid;
     cell.summaryLabel.userInteractionEnabled = YES;
     cell.summaryLabel.backgroundColor=[UIColor clearColor];
     
-    if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"updated_at"]!=[NSNull null])
-    {
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
-        NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-        [dateFormatter setTimeZone:gmt];
-        NSDate *activityDate = [dateFormatter dateFromString:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"updated_at"]];
-        
-        NSDate *date = activityDate;
-        NSDateFormatter *prefixDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-        [prefixDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-        [prefixDateFormatter setDateFormat:@"EEEE, MMMM d, hh:mma"];
-        NSString *prefixDateString = [prefixDateFormatter stringFromDate:date];
-        
-        cell.TimeText =prefixDateString;
-
-    }//END if ([[[self._notifications objectAtIndex:indexPath.row] valueForK
-    
+    cell.TimeText =[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"created_at"];
     cell.lbltime.userInteractionEnabled = YES;
     cell.lbltime.backgroundColor=[UIColor clearColor];
     
@@ -394,7 +377,7 @@ NSString *lstrnotifyid;
     [btnindicator setBackgroundImage:[UIImage imageNamed:@"rightArrow.png"] forState:UIControlStateNormal];
     [btnindicator setBackgroundColor:[UIColor clearColor]];
     [btnindicator setTag:[[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]];
-    [btnindicator addTarget:self action:@selector(NavigationScreen:) forControlEvents:UIControlEventTouchUpInside];
+    btnindicator.userInteractionEnabled=FALSE;
     
     [cell.contentView addSubview:btnindicator];
     
@@ -481,26 +464,35 @@ NSString *lstrnotifyid;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
-    NSMutableDictionary *dictactivity=[[NSMutableDictionary alloc] init];
-    [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] forKey:@"activity_id"];
-    [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"lat"] forKey:@"lat"];
-    [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"lng"] forKey:@"lng"];
-    [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"user_id"] forKey:@"user_id"];
-    
-    [_superDelegate navigate:dictactivity];
-    
+    if([SoclivityUtilities hasNetworkConnection]){
+       
+        [self startAnimation];
+        
+        NSMutableDictionary *dictactivity=[[NSMutableDictionary alloc] init];
+        [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] forKey:@"activity_id"];
+        [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"lat"] forKey:@"lat"];
+        [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"lng"] forKey:@"lng"];
+        [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"user_id"] forKey:@"user_id"];
+        
+        _superDelegate.lstrnotificationtypeid=[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"];
+        [_superDelegate navigate:dictactivity];
+        
+        [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
+
+    }
+    else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+    }//END Else Statement
+
     //[self SetNotificationStatus:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]];
     //NSString *description = [[self._notifications objectAtIndex:indexPath.row];
     //NSLog(@"description=%@",description);
-}
-
--(void)NavigationScreen:(id)sender
-{
-    if ([sender tag]==1)
-    {
-        
-    }//END if ([sender tag]==1)
 }
 
 -(void)RemoveNotification:(NSString *)lstrid

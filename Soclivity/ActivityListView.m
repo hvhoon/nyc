@@ -114,9 +114,6 @@
 		}
 		}
 		self.sectionInfoArray = infoArray;
-    
-    NSLog(@"self.sectionInfoArray::%@",self.sectionInfoArray);
-    
 		[infoArray release];
 //}
     [self.tableView reloadData];
@@ -277,14 +274,8 @@
 
 -(void)selectActivityView:(NSInteger)activitySection{
     
-    NSLog(@" activity list activitySection=%d",activitySection);
-    
-     NSLog(@" self.sectionInfoArray=%@",self.sectionInfoArray);
-    
     spinnerIndex=activitySection;
     SectionInfo *sectionInfo = [self.sectionInfoArray objectAtIndex:activitySection];
-    
-    NSLog(@"activity list section=%@",sectionInfo.play);
     
     [delegate PushToDetailActivityView:sectionInfo.play andFlipType:1];
 

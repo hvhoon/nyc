@@ -11,11 +11,12 @@
 #import "NotificationClass.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ActivityEventViewController.h"
+#import "SOCProfileViewController.h"
+#import "SocPlayerClass.h"
+#import "ParticipantClass.h"
 
 @implementation NotificationsViewController
-@synthesize delegate,responsedata,arrnotification,btnnotify;
-
-WaitingOnYouView *notificationView;
+@synthesize delegate,responsedata,arrnotification,btnnotify,lstrnotificationtypeid;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -127,7 +128,7 @@ WaitingOnYouView *notificationView;
             
         else
             waitingOnYouRect=CGRectMake(0, 44, 320, 377);
-            
+        
         notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect andNotificationsListArray:self.arrnotification];
         notificationView.superDelegate = self;
         notificationView.delegate=self;
@@ -209,28 +210,158 @@ WaitingOnYouView *notificationView;
     
 }
 
+-(void)synchronousDownloadProfilePhotoBytes:(InfoActivityClass*)player{
+    
+    int index=0;
+    for(ParticipantClass *pC in player.friendsArray){
+        index++;
+        NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:pC.photoUrl]];
+        UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];
+        if(image.size.height != image.size.width)
+            pC.profilePhotoImage = [SoclivityUtilities autoCrop:image];
+        
+        // If the image needs to be compressed
+        if(image.size.height > 56 || image.size.width > 56)
+            pC.profilePhotoImage = [SoclivityUtilities compressImage:image size:CGSizeMake(56,56)];
+        
+        
+    }
+    index=0;
+    for(ParticipantClass *pC in player.friendsOfFriendsArray){
+        index++;
+        NSLog(@"friendsOfFriendsArray=%d",index);
+        NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:pC.photoUrl]];
+        UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];
+        if(image.size.height != image.size.width)
+            pC.profilePhotoImage = [SoclivityUtilities autoCrop:image];
+        
+        // If the image needs to be compressed
+        if(image.size.height > 56 || image.size.width > 56)
+            pC.profilePhotoImage = [SoclivityUtilities compressImage:image size:CGSizeMake(56,56)];
+    }
+    
+    
+    index=0;
+    for(ParticipantClass *pC in player.pendingRequestArray){
+        index++;
+        NSLog(@"pendingRequestArray=%d",index);
+        NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:pC.photoUrl]];
+        UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];
+        if(image.size.height != image.size.width)
+            pC.profilePhotoImage = [SoclivityUtilities autoCrop:image];
+        
+        // If the image needs to be compressed
+        if(image.size.height > 56 || image.size.width > 56)
+            pC.profilePhotoImage = [SoclivityUtilities compressImage:image size:CGSizeMake(56,56)];
+    }
+    
+    index=0;
+    for(ParticipantClass *pC in player.otherParticipantsArray){
+        index++;
+        NSLog(@"otherParticipantsArray=%d",index);
+        NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:pC.photoUrl]];
+        UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];
+        if(image.size.height != image.size.width)
+            pC.profilePhotoImage = [SoclivityUtilities autoCrop:image];
+        
+        // If the image needs to be compressed
+        if(image.size.height > 56 || image.size.width > 56)
+            pC.profilePhotoImage = [SoclivityUtilities compressImage:image size:CGSizeMake(56,56)];
+    }
+    
+    
+    
+    [self performSelectorOnMainThread:@selector(pushActivityController:) withObject:player waitUntilDone:NO];
+    
+    
+}
+
 -(void)pushActivityController:(InfoActivityClass*)response{
     
-    NSString*nibNameBundle=nil;
+   if ([self.lstrnotificationtypeid intValue]==8 || [self.lstrnotificationtypeid intValue]==9 || [self.lstrnotificationtypeid intValue]==10 || [self.lstrnotificationtypeid intValue]==13 || [self.lstrnotificationtypeid intValue]==16)
+    {
+        SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
+        myClass.playerName=response.organizerName;
+        myClass.DOS=response.DOS;
+        myClass.activityId=response.activityId;
+        myClass.latestActivityName=response.activityName;
+        myClass.activityType=response.type;
+        myClass.profilePhotoUrl=response.ownerProfilePhotoUrl;
+        myClass.distance=[response.distance floatValue];
+        SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
+        socProfileViewController.playerObject=myClass;
+        [[self navigationController] pushViewController:socProfileViewController animated:YES];
+        [socProfileViewController release];
+    }//END if ([self.lstrnotificationtypeid intValue]==16)
     
-    if([SoclivityUtilities deviceType] & iPhone5){
-        nibNameBundle=@"ActivityEventViewController_iphone5";
-    }
+    else if ([self.lstrnotificationtypeid intValue]==1 || [self.lstrnotificationtypeid intValue]==2 || [self.lstrnotificationtypeid intValue]==3 || [self.lstrnotificationtypeid intValue]==4 || [self.lstrnotificationtypeid intValue]==5 || [self.lstrnotificationtypeid intValue]==6 || [self.lstrnotificationtypeid intValue]==11)
+    {
+        NSString*nibNameBundle=nil;
+        
+        if([SoclivityUtilities deviceType] & iPhone5){
+            nibNameBundle=@"ActivityEventViewController_iphone5";
+        }//END if([SoclivityUtilities deviceType] & iPhone5)
+        else{
+            nibNameBundle=@"ActivityEventViewController";
+        }//END Else Statement
+        
+        ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+        activityEventViewController.activityInfo=response;
+        
+        [[self navigationController] pushViewController:activityEventViewController animated:YES];
+        [activityEventViewController release];
+    }//END Else Statement
+    
     else{
-        nibNameBundle=@"ActivityEventViewController";
-    }
-    
-    ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
-    activityEventViewController.activityInfo=response;
-    
-    [[self navigationController] pushViewController:activityEventViewController animated:YES];
-    [activityEventViewController release];
+        
+        NSString*nibNameBundle=nil;
+            
+        if([SoclivityUtilities deviceType] & iPhone5){
+                nibNameBundle=@"ActivityEventViewController_iphone5";
+            }//END if([SoclivityUtilities deviceType] & iPhone5)
+        else{
+                nibNameBundle=@"ActivityEventViewController";
+            }//END Else Statement
+            
+        ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+        activityEventViewController.activityInfo=response;
+            
+        [[self navigationController] pushViewController:activityEventViewController animated:YES];
+        [activityEventViewController release];
+    }//END Else Statement
     
     if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    
+    [notificationView removeFromSuperview];
+}
+
+-(void)ActivitiesInvocationDidFinish:(GetActivitiesInvocation*)invocation
+                        withResponse:(NSArray*)responses
+                           withError:(NSError*)error{
+    //now time to write in the Sqlite DataBase(Delete and Clean the activities Table)
 }
 
 #pragma mark - View lifecycle
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    if([SoclivityUtilities hasNetworkConnection]){
+        [self startAnimation];
+        [self GetNotifications];
+    }//END if([SoclivityUtilities hasNetworkConnection])
+    else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+    }//END Else Statement
+    
+    [super viewWillAppear:YES];
+}
 
 - (void)viewDidLoad
 {
@@ -248,27 +379,12 @@ WaitingOnYouView *notificationView;
     notificationImageView.hidden=YES;
     socFadedImageView.hidden=YES;
     
-    if([SoclivityUtilities hasNetworkConnection]){
-        [self startAnimation];
-         [self GetNotifications];
-    }//END if([SoclivityUtilities hasNetworkConnection])
-    else{
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        
-        [alert show];
-        [alert release];
-        return;
-    }//END Else Statement
-    
     waitingOnYouLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
     waitingOnYouLabel.textColor=[UIColor whiteColor];
     waitingOnYouLabel.backgroundColor=[UIColor clearColor];
     waitingOnYouLabel.shadowColor = [UIColor blackColor];
     waitingOnYouLabel.shadowOffset = CGSizeMake(0,-1);
 }
-
 
 /*-(NSMutableArray*) SetUpDummyNotifications{
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"Notifications" withExtension:@"plist"];

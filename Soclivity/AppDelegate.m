@@ -70,27 +70,6 @@ NSString *lstrphoto;
     [super dealloc];
 }
 
--(void)Activity:(InfoActivityClass*)response
-{
-     NSString*nibNameBundle=nil;
-    if([SoclivityUtilities deviceType] & iPhone5){
-        nibNameBundle=@"ActivityEventViewController_iphone5";
-    }
-    else{
-        nibNameBundle=@"ActivityEventViewController";
-    }
-    
-    NSLog(@"self.window::%@",self.window.subviews);
-    
-    ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
-    activityEventViewController.activityInfo=response;
-    //[navigationController pushViewController:activityEventViewController animated:YES];
-    [self.window addSubview:activityEventViewController.view];
-    [self.window bringSubviewToFront:activityEventViewController.view];
-    [activityEventViewController release];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"NotificationActivity"];
-}
-
 -(void)HideNotification
 {
     [UIView animateWithDuration:0.5
@@ -121,8 +100,6 @@ NSString *lstrphoto;
 
 -(void)DownloadImage:(NSString *)lstrphotourl
 {
-     NSLog(@"DownloadImage");
-    
     self.responsedata=[[NSMutableData alloc] init];
     
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
@@ -135,7 +112,7 @@ NSString *lstrphoto;
 
 -(void)ShowNotification:(NSNotification*)dict
 {
-     NSLog(@"ShowNotification");
+    NSLog(@"dict::%@",dict);
     
     timer =[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countdownTracker:) userInfo:nil repeats:YES];
     
@@ -547,8 +524,6 @@ NSString *lstrphoto;
     NSString *lstrnotificationid=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
     
     NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-     NSLog(@"returnData::%@",returnData);
     
     if(returnData!=NULL)
     {
