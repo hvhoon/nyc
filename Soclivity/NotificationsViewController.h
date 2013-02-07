@@ -41,6 +41,8 @@
 @property(nonatomic, retain) NSMutableArray *arrnotification;
 @property (nonatomic, retain)IBOutlet UIButton *btnnotify;
 
+//@property (nonatomic, retain) WaitingOnYouView *waitingonyouviewdelegate;
+
 @property(copy, readwrite)NSString *lstrnotificationtypeid;
 
 -(IBAction)profileSliderPressed:(id)sender;

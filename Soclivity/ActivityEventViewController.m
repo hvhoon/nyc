@@ -468,7 +468,6 @@
 -(void)ButtonTapped:(UIButton*)sender{
     
     int tag=sender.tag;
-    NSLog(@"tag=%d",tag);
     if(page==0){
         
         
@@ -1327,7 +1326,6 @@
     [eventView setUpLabelViewElements:NO];
     
     NSArray *hashCount=[activityInfo.where_address componentsSeparatedByString:@"#"];
-    NSLog(@"hashCount=%d",[hashCount count]);
     if([hashCount count]==1){
         eventView.firstALineddressLabel.text=activityInfo.where_address;
         eventView.secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@",activityInfo.where_city,activityInfo.where_state];
@@ -1603,8 +1601,6 @@
 }
 -(void)pushUserProfileView{
    
-    NSLog(@"activity event");
-    
     if([SOC.loggedInUser.idSoc intValue]==activityInfo.organizerId){
         NSString*nibNameBundle=nil;
         
@@ -1637,9 +1633,6 @@
     }
 }
 -(void)pushToprofileOfThePlayer:(ParticipantClass*)player{
-    
-    NSLog(@"activity event");
-    
     if([SOC.loggedInUser.idSoc intValue]==player.participantId){
         NSString*nibNameBundle=nil;
         

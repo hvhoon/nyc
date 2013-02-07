@@ -249,12 +249,8 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
 // Setting the birthday
 -(void)dateSelected:(NSDate*)bDate {
     
-    NSLog(@"bDate=%@ and todayDate=%@",bDate,[NSDate date]);
-    
     // Really not sure what this interval stuff is here for?
     NSTimeInterval interval = [bDate timeIntervalSinceDate: [NSDate date]];
-    NSLog(@"interval=%f",interval);
-
     // Date selected must be less than today's date
     if ([bDate compare:[NSDate date]] == NSOrderedAscending) {
         
@@ -295,11 +291,6 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
 
 -(void)BasicInfoFields{
             
-    NSLog(@"enterNameTextField=%@",enterNameTextField.text);
-    NSLog(@"emailTextField=%@",emailTextField.text);
-    NSLog(@"enterPasswordTextField=%@",enterPasswordTextField.text);
-    NSLog(@"confirmPasswordTextField=%@",confirmPasswordTextField.text);
-    
     if(!enterNameTextField.text.length && !emailTextField.text.length && !enterPasswordTextField.text.length && !confirmPasswordTextField.text.length)
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Required Fields"

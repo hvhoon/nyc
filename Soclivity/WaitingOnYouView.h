@@ -44,11 +44,15 @@
 @property (nonatomic,retain) NSMutableArray *arr_notificationids;
 @property (nonatomic, retain) NotificationsViewController *superDelegate;
 
+@property (nonatomic,retain) UITableView*waitingTableView;
+
 
 - (id)initWithFrame:(CGRect)frame andNotificationsListArray:(NSArray*)andNotificationsListArray;
 
 -(void)startAnimation;
 -(void)hideMBProgress;
 -(void)appImageDidLoad:(NSIndexPath *)indexPath;
+
++(NSString*)NetworkTime:(NSString *)lstrtime;
 
 @end

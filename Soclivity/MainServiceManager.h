@@ -23,6 +23,7 @@
 #import "GetUpcomingActivitiesInvocation.h"
 #import "GetUserProfileInfoInvocation.h"
 #import "GetUsersByFirstLastNameInvocation.h"
+#import "AppDelegate.h"
 @interface MainServiceManager : SAService{
     
 }

@@ -50,6 +50,6 @@
 -(void)IncreaseBadgeIcon;
 -(void)PostBackgroundStatus:(int)status;
 
--(void)Activity:(InfoActivityClass*)response;
+//-(void)Activity:(InfoActivityClass*)response;
  //-(void)registerForNotifications;
 @end

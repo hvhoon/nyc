@@ -267,9 +267,6 @@
 #pragma mark Create New Activity methods
 
 -(void)newActivityButtonPressed{
-    NSLog(@"newActivityButtonPressed");
-    
-    
     NSString *nibNameBundle=nil;
     if([SoclivityUtilities deviceType] & iPhone5){
         nibNameBundle=@"CreateActivityViewController_iphone5";
@@ -288,9 +285,6 @@
 	[self.navigationController presentModalViewController:addNavigationController animated:YES];
 
 }
-
-
-
 
 -(void)cancelCreateActivityEventScreen{
     [self.navigationController dismissModalViewControllerAnimated:YES];
@@ -787,9 +781,6 @@
 }
 -(void)pushActivityController:(InfoActivityClass*)response{
     
-    if(![[[NSUserDefaults standardUserDefaults] valueForKey:@"NotificationActivity"] isEqualToString:@"TRUE"] || [[NSUserDefaults standardUserDefaults] valueForKey:@"NotificationActivity"]==NULL)
-    {
-    
         NSString*nibNameBundle=nil;
         
         if([SoclivityUtilities deviceType] & iPhone5){
@@ -798,8 +789,6 @@
         else{
             nibNameBundle=@"ActivityEventViewController";
         }
-    
-        NSLog(@"Nav controller : %@", self.navigationController);
     
         ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
         activityEventViewController.activityInfo=response;
@@ -825,19 +814,9 @@
             }
                 break;
         }
-    }
-    
-    else{
-        
-       NSDictionary *dictresponse=[[NSDictionary alloc] initWithObjectsAndKeys:response,@"InviteActivity", nil];
-        
-       [[NSNotificationCenter defaultCenter] postNotificationName:@"NavigationViews" object:self userInfo:dictresponse];
-    }
 }
 
 -(void)PushToProfileView:(InfoActivityClass*)detailedInfo{
-    
-    NSLog(@"home view");
     
     if([SOC.loggedInUser.idSoc intValue]==detailedInfo.organizerId){
         NSString*nibNameBundle=nil;

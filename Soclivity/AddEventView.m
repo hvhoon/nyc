@@ -215,7 +215,6 @@
     [prefixDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
     [prefixDateFormatter setDateFormat:@"EEEE, MMMM d, YYYY"];
     NSString *prefixDateString = [prefixDateFormatter stringFromDate:date];
-
     
     // Now adding the date to the view
     calendarIcon.image = [UIImage imageNamed:@"S05_calendarIcon.png"];

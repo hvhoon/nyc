@@ -25,7 +25,7 @@
 
 
 @implementation WaitingOnYouView
-@synthesize _notifications,delegate,imageDownloadsInProgress,arr_notificationids, superDelegate = _superDelegate;
+@synthesize _notifications,delegate,imageDownloadsInProgress,arr_notificationids,waitingTableView, superDelegate = _superDelegate;
 
 NSString *lstrnotifyid;
 
@@ -164,6 +164,97 @@ NSString *lstrnotifyid;
     [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
 }
 
+#pragma mark -get current time
+-(NSString *)NetworkTime:(NSString *)lstrtime{
+#if 1
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [dateFormatter setTimeZone:gmt];
+    
+    // how to get back time from current time in the same format
+    NSDate *lastDate = [dateFormatter dateFromString:lstrtime];//add the string
+    NSString *todayDate = [dateFormatter stringFromDate:[NSDate date]];
+    NSDate *currentDate=[dateFormatter dateFromString:todayDate];
+    
+    NSTimeInterval interval = [lastDate timeIntervalSinceDate:currentDate];
+    unsigned long seconds = interval;
+    unsigned long minutes = seconds / 60;
+    seconds %= 60;
+    unsigned long hours = minutes / 60;
+    if(hours)
+        minutes %= 60;
+    unsigned long days=hours/24;
+    if(days)
+        hours %=24;
+    
+    NSMutableString * result = [[NSMutableString new] autorelease];
+    dateFormatter.dateFormat=@"EEE, MMM d, h:mma";
+    
+    NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
+    NSInteger destinationGMTOffset1 = [destinationTimeZone secondsFromGMTForDate:lastDate];
+    NSInteger destinationGMTOffset2 = [destinationTimeZone secondsFromGMTForDate:currentDate];
+    
+    NSTimeInterval interval2 = destinationGMTOffset1;
+    NSTimeInterval interval3 = destinationGMTOffset2;
+    
+    NSDate* destinationDate = [[[NSDate alloc] initWithTimeInterval:interval2 sinceDate:lastDate] autorelease];
+    NSDate* currentDateTime = [[[NSDate alloc] initWithTimeInterval:interval3 sinceDate:currentDate] autorelease];
+    
+    NSString *activityTime=[dateFormatter stringFromDate:destinationDate];
+   // NSString  *currentTime=[dateFormatter stringFromDate:currentDateTime];
+    
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    int differenceInDays =
+    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:destinationDate]-
+    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:currentDateTime];
+    BOOL checkTime=TRUE;
+    switch (differenceInDays) {
+        case -1:
+        {
+            dateFormatter.dateFormat=@"h:mma";
+            [result appendFormat:@"%@",[NSString stringWithFormat:@"Yesterday, %@",[dateFormatter stringFromDate:destinationDate]]];
+        }//END  case -1:
+            break;
+        case 0:
+        {
+            if(hours && checkTime){
+                [result appendFormat: @"in %ld hrs", hours];
+            }//END if(hours && checkTime)
+            
+            if(minutes && checkTime){
+                
+                if(hours==0){
+                    [result appendFormat: @"in %ld min", minutes];
+                }//END if(hours==0)
+                else
+                    [result appendFormat: @" %ld min", minutes];
+                checkTime=FALSE;
+            }//END if(minutes && checkTime)
+            
+            dateFormatter.dateFormat=@"h:mma";
+            [result appendFormat:@"%@",[NSString stringWithFormat:@"Today, %@",[dateFormatter stringFromDate:destinationDate]]];
+        }//END case 0:
+            break;
+        case 1:
+        {
+            [result appendFormat: @"Tommorow"];
+            dateFormatter.dateFormat=@"h:mma";
+            
+            [result appendFormat:@"%@",[NSString stringWithFormat:@"Tomorrow, %@",[dateFormatter stringFromDate:destinationDate]]];
+        }//END case 1:
+            break;
+        default: {
+            [result appendFormat:@"%@",activityTime];
+        }//END default
+            break;
+    }//END switch (differenceInDays)
+    
+    return result;
+#endif
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -235,7 +326,11 @@ NSString *lstrnotifyid;
     cell.summaryLabel.userInteractionEnabled = YES;
     cell.summaryLabel.backgroundColor=[UIColor clearColor];
     
-    cell.TimeText =[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"created_at"];
+    if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"created_at"]!=NULL)
+    {
+        cell.TimeText =[self NetworkTime:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"created_at"]];
+    }//END if ([[self._notifications objectAtIndex:indexPath
+    
     cell.lbltime.userInteractionEnabled = YES;
     cell.lbltime.backgroundColor=[UIColor clearColor];
     
@@ -376,10 +471,19 @@ NSString *lstrnotifyid;
     btnindicator.frame=CGRectMake(276, 20, 38, 38);
     [btnindicator setBackgroundImage:[UIImage imageNamed:@"rightArrow.png"] forState:UIControlStateNormal];
     [btnindicator setBackgroundColor:[UIColor clearColor]];
-    [btnindicator setTag:[[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]];
+    btnindicator.tag=[[NSString stringWithFormat:@"222%i",indexPath.row] intValue];
     btnindicator.userInteractionEnabled=FALSE;
+    btnindicator.hidden=FALSE;
+    
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
+                                                  initWithFrame:CGRectMake(282.0f, 27.0f, 20.0f, 20.0f)];
+    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.tag=[[NSString stringWithFormat:@"111%i",indexPath.row] intValue];
+    [activityIndicator setHidden:TRUE];
+    [waitingTableView addSubview:activityIndicator];
     
     [cell.contentView addSubview:btnindicator];
+    [cell.contentView addSubview:activityIndicator];
     
     NSString *lstrid=[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"];
     
@@ -466,7 +570,14 @@ NSString *lstrnotifyid;
     
     if([SoclivityUtilities hasNetworkConnection]){
        
-        [self startAnimation];
+        UIButton *btn=(UIButton *)[self viewWithTag:[[NSString stringWithFormat:@"222%i",indexPath.row] intValue]];
+        [btn setHidden:TRUE];
+        
+        UIActivityIndicatorView *tmpimg = (UIActivityIndicatorView *)[self viewWithTag:[[NSString stringWithFormat:@"111%i",indexPath.row] intValue]];
+        [tmpimg startAnimating];
+        [tmpimg setHidden:NO];
+        
+        NSLog(@"notification::%@",[self._notifications objectAtIndex:indexPath.row]);
         
         NSMutableDictionary *dictactivity=[[NSMutableDictionary alloc] init];
         [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] forKey:@"activity_id"];

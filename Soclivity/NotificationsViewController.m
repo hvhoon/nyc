@@ -103,7 +103,7 @@
                                                     encoding:NSUTF8StringEncoding] JSONValue];
     
     [self.responsedata release];
-
+    
     if ([self.arrnotification count]==0) {
         self.view.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
         notificationImageView.hidden=NO;
@@ -113,28 +113,50 @@
     else{
         
         [[NSUserDefaults standardUserDefaults] setValue:[self.arrnotification valueForKey:@"badge"] forKey:@"Waiting_On_You_Count"];
-         
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:[self.arrnotification valueForKey:@"badge"]];
         [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
-
-        notificationImageView.hidden=YES;
-        socFadedImageView.hidden=YES;
-            
-        //NSMutableArray *notificationArray=[self SetUpDummyNotifications];
-        CGRect waitingOnYouRect;
-        if([SoclivityUtilities deviceType] & iPhone5)
-            waitingOnYouRect=CGRectMake(0, 44, 320,375+85);
-            
-        else
-            waitingOnYouRect=CGRectMake(0, 44, 320, 377);
         
-        notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect andNotificationsListArray:self.arrnotification];
-        notificationView.superDelegate = self;
-        notificationView.delegate=self;
-        [self.view addSubview:notificationView];
+        NSString *lstrviewexists;
         
-        [self.view bringSubviewToFront:self.btnnotify];
+        for(UIView *subview in [self.view subviews])
+        {
+            if([subview isKindOfClass:[WaitingOnYouView class]])
+            {
+                lstrviewexists=@"TRUE";
+            }//END if([subview isKindOfClass:[WaitingOnYouView class]])
+            
+            else{
+                lstrviewexists=@"FALSE";
+            }//END Else Statemnt
+        }//END for(UIView *subview in [self.view subviews])
+        
+        if ([lstrviewexists isEqualToString:@"TRUE"])
+        {
+            //notificationView = (WaitingOnYouView*)subview;
+            notificationView._notifications=self.arrnotification;
+            [notificationView.waitingTableView reloadData];
+        }//END if ([lstrviewexists isEqualToString:@"TRUE"])
+        
+        else{
+                notificationImageView.hidden=YES;
+                socFadedImageView.hidden=YES;
+                
+                //NSMutableArray *notificationArray=[self SetUpDummyNotifications];
+                CGRect waitingOnYouRect;
+                if([SoclivityUtilities deviceType] & iPhone5)
+                    waitingOnYouRect=CGRectMake(0, 44, 320,375+85);
+                
+                else
+                    waitingOnYouRect=CGRectMake(0, 44, 320, 377);
+                
+                notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect andNotificationsListArray:self.arrnotification];
+                notificationView.superDelegate = self;
+                notificationView.delegate=self;
+                [self.view addSubview:notificationView];
+                [self.view bringSubviewToFront:self.btnnotify];
+        }//END Else StaTEMENT
     }//END Else Statement
     
     [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
@@ -332,8 +354,6 @@
     
     if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-    
-    [notificationView removeFromSuperview];
 }
 
 -(void)ActivitiesInvocationDidFinish:(GetActivitiesInvocation*)invocation
@@ -346,6 +366,8 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    self.responsedata=[[NSMutableData alloc] init];
+    
     if([SoclivityUtilities hasNetworkConnection]){
         [self startAnimation];
         [self GetNotifications];
@@ -366,8 +388,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.responsedata=[[NSMutableData alloc] init];
     
     [self BadgeNotification];
     

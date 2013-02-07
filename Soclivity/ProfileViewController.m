@@ -86,6 +86,7 @@
         profileButton.hidden=YES;
         updateActivityLabel.text=@"Pick stuff you like to do...";
         activityTypesView.isRegisteration=TRUE;
+        self.btnnotify.hidden=TRUE;
     }
     else{
         
@@ -97,9 +98,9 @@
         getStartedButton.hidden=YES;
         profileButton.hidden=NO;
         updateActivityLabel.text=@"Update Activity Types";
+        self.btnnotify.hidden=FALSE;
         [activityTypesView updateActivityTypes];
     }//END Else Statement
-    
 
     // Do any additional setup after loading the view from its nib.
 }

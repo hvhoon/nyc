@@ -10,8 +10,6 @@
 
 @implementation MainServiceManager
 
-
-
 -(id)retain {	
 	return [super retain];
 }

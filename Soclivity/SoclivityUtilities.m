@@ -134,8 +134,8 @@ if(timer%2==0){
     NSString *activityTime=[dateFormatter stringFromDate:destinationDate];
     NSString  *currentTime=[dateFormatter stringFromDate:currentDateTime];
     NSTimeInterval interval5 = [destinationDate timeIntervalSinceDate:currentDateTime];
-    NSLog(@"activityTime=%@",activityTime);
-    NSLog(@"currentTime=%@",currentTime);
+    NSLog(@"activityTime 11111=%@",activityTime);
+    NSLog(@"currentTime 11111=%@",currentTime);
     NSLog(@"interval5,the actual difference=%f",interval5);
     
     
@@ -263,8 +263,8 @@ if(timer%2==0){
     
     NSString *activityTime=[dateFormatter stringFromDate:destinationDate];
     NSString  *currentTime=[dateFormatter stringFromDate:currentDateTime];
-    NSLog(@"activityTime=%@",activityTime);
-    NSLog(@"currentTime=%@",currentTime);
+    NSLog(@"activityTime 22222=%@",activityTime);
+    NSLog(@"currentTime 22222222=%@",currentTime);
     
     
     NSCalendar* calendar = [NSCalendar currentCalendar];
@@ -696,8 +696,8 @@ if(timer%2==0){
     NSString  *startFilterTime=[dateFormatter stringFromDate:startDateTime];
     NSString  *finishFilterTime=[dateFormatter stringFromDate:finishDateTime];
     
-    NSLog(@"activityTime=%@",activityTime);
-    NSLog(@"startFilterTime=%@",startFilterTime);
+    NSLog(@"activityTime 33333=%@",activityTime);
+    NSLog(@"startFilterTime 333333=%@",startFilterTime);
     NSLog(@"finishFilterTime=%@",finishFilterTime);
     
     int check=0;
@@ -1075,7 +1075,7 @@ if(timer%2==0){
     NSString  *endDateTime=[dateFormatter stringFromDate:EndDate];
     NSLog(@"currentTime=%@",currentTime);
     NSLog(@"startDate=%@",startDateTime);
-    NSLog(@"activityTime=%@",activityTime);
+    NSLog(@"activityTime 66666666=%@",activityTime);
     NSLog(@"EndDate=%@",endDateTime);
 
     
