@@ -293,12 +293,7 @@
     NSArray *myActivitiesArray=[abDict objectForKey:@"my_activities"];
 
     if([myActivitiesArray count]>0){
-        
-        NSLog(@"myActivitiesArray::%@",myActivitiesArray);
-    
     for(id obj in myActivitiesArray){
-        
-        NSLog(@"obj::%@",obj);
         
         InfoActivityClass *sch = [InfoActivityClass ActivitiesFromDictionary:obj isQuotation:YES];
             if (sch)
@@ -317,12 +312,7 @@
     NSArray *invitedToArray=[abDict objectForKey:@"invited_to"];
     if([invitedToArray count]>0){
     
-        NSLog(@"invitedToArray::%@",invitedToArray);
-        
     for(id obj in invitedToArray){
-        
-        NSLog(@"obj::%@",obj);
-        
         InfoActivityClass *sch = [InfoActivityClass ActivitiesFromDictionary:obj isQuotation:YES];
         if (sch)
             [schedules addObject:sch];
@@ -339,12 +329,7 @@
     NSArray *completedArray=[abDict objectForKey:@"completed"];
     if([completedArray count]>0){
     
-    NSLog(@"completedArray::%@",completedArray);
-        
     for(id obj in completedArray){
-        
-        NSLog(@"obj::%@",obj);
-        
         InfoActivityClass *sch = [InfoActivityClass ActivitiesFromDictionary:obj isQuotation:YES];
             if (sch)
                 [schedules addObject:sch];
@@ -362,12 +347,7 @@
     NSArray *goingToArray=[abDict objectForKey:@"going_to"];
     if([goingToArray count]>0){
         
-    NSLog(@"goingToArray::%@",goingToArray);
-        
     for(id obj in goingToArray){
-        
-        NSLog(@"obj::%@",obj);
-        
         InfoActivityClass *sch = [InfoActivityClass ActivitiesFromDictionary:obj isQuotation:YES];
         if (sch) 
             [schedules addObject:sch];

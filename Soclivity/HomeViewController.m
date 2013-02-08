@@ -684,8 +684,6 @@
 }
 
 -(void)currentLocation:(CLLocationCoordinate2D)theCoord{
-    
-    
 [self StartGettingActivities];
      
 }

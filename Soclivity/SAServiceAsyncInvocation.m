@@ -219,7 +219,7 @@ NSDateFormatter* gJSONDateFormatter = nil;
 - (void)connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response {
 	
 	[self setResponse:(NSHTTPURLResponse*)response];
-    NSString *response1=[[NSString alloc] initWithData:_receivedData encoding:NSASCIIStringEncoding];
+   // NSString *response1=[[NSString alloc] initWithData:_receivedData encoding:NSASCIIStringEncoding];
 
 	if (![[self response] isOK]) {
 		[self handleHttpError:[[self response] statusCode]];
@@ -228,7 +228,7 @@ NSDateFormatter* gJSONDateFormatter = nil;
 }
 
 - (void)connection:(NSURLConnection*)connection didReceiveData:(NSData*)data {
-    NSString *response=[[NSString alloc] initWithData:_receivedData encoding:NSASCIIStringEncoding];
+   // NSString *response=[[NSString alloc] initWithData:_receivedData encoding:NSASCIIStringEncoding];
 
 	if ([_response isOK]) {
 		[_receivedData appendData:data];
@@ -252,26 +252,34 @@ NSDateFormatter* gJSONDateFormatter = nil;
 	
     BOOL finalize = YES;
     NSString *response=[[NSString alloc] initWithData:_receivedData encoding:NSASCIIStringEncoding];
-
-     NSLog(@"sas service count::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]);
     
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"]==NULL)
+    if ([response JSONValue]!=NULL && [response length]!=0 && [[response JSONValue] count]!=0)
     {
-        [[NSUserDefaults standardUserDefaults] setValue:[[response JSONValue] valueForKey:@"logged_in_user_id"] forKey:@"logged_in_user_id"];
+        if ([[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"]==NULL)
+        {
+            if([[response JSONValue] valueForKey:@"logged_in_user_id"]!=[NSNull null])
+            {
+                [[NSUserDefaults standardUserDefaults] setValue:[[response JSONValue] valueForKey:@"logged_in_user_id"] forKey:@"logged_in_user_id"];
+            }//END if([[response JSONValue] valueForKey:@"logged_in_user_id"]!=[NSNull null])
+            
+            if([[response JSONValue] valueForKey:@"notification_count"]!=[NSNull null])
+            {
+                [[NSUserDefaults standardUserDefaults] setValue:[[response JSONValue] valueForKey:@"notification_count"] forKey:@"Waiting_On_You_Count"];
+            }//END if([[response JSONValue] valueForKey:@"notification_count"]!=[NSNull null])
+            
+            if([[response JSONValue] valueForKey:@"unread_notification"]!=[NSNull null])
+            {
+                [[NSUserDefaults standardUserDefaults] setValue:[[response JSONValue] valueForKey:@"unread_notification"] forKey:@"Notification_id"];
+            }//END if([[response JSONValue] valueForKey:@"unread_notification"]!=[NSNull null])
+        }//END  if ([[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"]==NULL)
         
-         [[NSUserDefaults standardUserDefaults] setValue:[[response JSONValue] valueForKey:@"notification_count"] forKey:@"Waiting_On_You_Count"];
-        
-        [[NSUserDefaults standardUserDefaults] setValue:[[response JSONValue] valueForKey:@"unread_notification"] forKey:@"Notification_id"];
-    }//END  if ([[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"]==NULL)
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
+    }//END if (response!=NULL || [response length]!=0)
     
-    NSLog(@"sas service count::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]);
-    
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
-
-	if ([[self response] isOK]) {
-		finalize = [self handleHttpOK:_receivedData];
+    if ([[self response] isOK]) {
+        finalize = [self handleHttpOK:_receivedData];
         
-        if ([[response JSONValue] valueForKey:@"channel"]!=NULL && [[response JSONValue] count]!=0)
+        if ([[response JSONValue] valueForKey:@"channel"]!=NULL && [[response JSONValue] count]!=0 && [[response JSONValue] valueForKey:@"channel"]!=[NSNull null])
         {
             if ([[[response JSONValue] valueForKeyPath:@"channel"] isKindOfClass:[NSArray class]])
             {
@@ -296,12 +304,14 @@ NSDateFormatter* gJSONDateFormatter = nil;
             }//END Else Statement
         }//END if ([[response JSONValue] valueForKey:@"channel"]!=NULL)
         
-	} else {
-		finalize = [self handleHttpError:[[self response] statusCode]];
-	}
-    if (finalize) {
-       // [self.finalizer finalize:self];
+    } else {
+        finalize = [self handleHttpError:[[self response] statusCode]];
     }
+    if (finalize) {
+        // [self.finalizer finalize:self];
+    }
+
+    
 }
 
 -(BOOL)handleHttpOK:(NSMutableData*)data {

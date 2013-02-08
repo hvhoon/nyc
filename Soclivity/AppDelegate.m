@@ -205,9 +205,6 @@ NSString *lstrphoto;
 }
 
 - (void)setSummaryText:(NSString *)text {
-    
-    NSLog(@"setSummaryText");
-    
     [self.summaryLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
         NSRange stringRange = NSMakeRange(0, [mutableAttributedString length]);
         
@@ -233,9 +230,7 @@ NSString *lstrphoto;
         for (int i=0; i<times; i++)
         {
             NSRange range = [[mutableAttributedString string] rangeOfString:@"#"];
-            
             [mutableAttributedString replaceCharactersInRange:NSMakeRange(range.location, 1) withString:@""];
-            
         }//END for (int i=0; i<[Splitarray count]; i++)
         
         return mutableAttributedString;
@@ -244,8 +239,6 @@ NSString *lstrphoto;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSLog(@"didFinishLaunchingWithOptions");
-    
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"logged_in_user_id"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Waiting_On_You_Count"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"NotificationActivity"];
@@ -304,6 +297,8 @@ NSString *lstrphoto;
 
 -(void)IncreaseBadgeIcon
 {
+    NSLog(@"waiting on you count::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]);
+    
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: [[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]];
 }
 
@@ -314,14 +309,10 @@ NSString *lstrphoto;
     token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
     
     [[NSUserDefaults standardUserDefaults] setValue:token forKey:@"device_token"];
-    
-    NSLog(@"device token::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"device_token"]);
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
-    NSLog(@"didFailToRegisterForRemoteNotificationsWithError");
-    
 	NSLog(@"Failed to get token, error: %@", error);
 }
 
@@ -498,8 +489,6 @@ NSString *lstrphoto;
 }
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-     NSLog(@"applicationWillResignActive");
-    
     /*
      Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
      Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -508,15 +497,11 @@ NSString *lstrphoto;
 
 -(void)PostBackgroundStatus:(int)status
 {
-    NSLog(@"PostBackgroundStatus");
-    
     self.responsedata=[[NSMutableData alloc] init];
     
     NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/player_app_status.json?id=%@&background_status=%i",ProductionServer,[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"],status] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
-    
-    //NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     
     NSString *lstrnotificationid=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
     
@@ -541,14 +526,9 @@ NSString *lstrphoto;
                  {
                      for (int i=0; i<[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] count]; i++)
                      {
-                         NSLog(@"lstrnotificationid::%@",lstrnotificationid);
-                         
                          if (lstrnotificationid!=NULL)
                          {
                              NSArray *SplitArray=[lstrnotificationid componentsSeparatedByString:@","];
-                             
-                             NSLog(@"SplitArray::%@",SplitArray);
-                             
                              if (![SplitArray containsObject:[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]])
                              {
                                  if (lstrnotificationid==NULL || [lstrnotificationid isEqualToString:@""])
@@ -570,7 +550,6 @@ NSString *lstrphoto;
                              {
                                  [[NSUserDefaults standardUserDefaults] setValue:[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]  forKey:@"Notification_id"];
                              }//END if ([[NSUserDefaults standardUserDefaults] valueforKey:@"Notification_Count"]==NULL)
-                             
                              else
                              {
                                  [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
@@ -580,7 +559,7 @@ NSString *lstrphoto;
                      }//END  for (int i=0; i<[[[lstrresponse JSONValue] value
                  }
              }//END if (lstrresponse!=NULL)
-         }
+         }//END if ([data length] >0 && error == nil)
          else if ([data length] == 0 && error == nil)
          {
              NSLog(@"Nothing was downloaded.");
@@ -631,8 +610,6 @@ NSString *lstrphoto;
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-     NSLog(@"applicationDidEnterBackground");
-    
     // bgTask is instance variable
     NSAssert(self->bgTask == UIBackgroundTaskInvalid, nil);
     
@@ -681,8 +658,6 @@ NSString *lstrphoto;
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    NSLog(@"applicationWillEnterForeground");
-    
     _appIsInbackground=FALSE;
     
     [self PostBackgroundStatus:0];
@@ -711,8 +686,6 @@ NSString *lstrphoto;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    NSLog(@"applicationDidBecomeActive");
-    
     [[self facebook] extendAccessTokenIfNeeded];
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
@@ -721,8 +694,6 @@ NSString *lstrphoto;
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-     NSLog(@"applicationWillTerminate");
-    
     /*
      Called when the application is about to terminate.
      Save data if appropriate.
@@ -730,15 +701,10 @@ NSString *lstrphoto;
      */
 }
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    NSLog(@"handleOpenURL");
-    
     return [self.facebook handleOpenURL:url];
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    
-    NSLog(@"sourceApplication");
-    
     return [self.facebook handleOpenURL:url];
 }
 @end
