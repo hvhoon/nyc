@@ -7,6 +7,7 @@
 //
 
 #import "ChatViewController.h"
+#import "ChattingTableViewCell.h"
 
 @interface ChatViewController ()
 
@@ -47,17 +48,12 @@
     return height;
 }
 
--(void)getContentView
-{
-    
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    ChattingTableViewCell *cell = (ChattingTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     //if (cell == nil) {
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+     cell = [[ChattingTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     // }
     
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];

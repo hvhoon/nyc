@@ -68,12 +68,16 @@
 {
     NSString *lstrnotificationid=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
     
+    NSLog(@"lstrnotificationid::%@",lstrnotificationid);
+    
     if(lstrnotificationid==NULL || [lstrnotificationid intValue]==0)
     {
       lstrnotificationid=@"";
     }//END if(lstrnotificationid==NULL || [lstrnotific
         
     NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"http://%@/mynotifications.json?logged_in_user_id=%@&ids=%@",ProductionServer,[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"],lstrnotificationid]];
+    
+    NSLog(@"url::%@",url);
     
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     [[NSURLConnection alloc] initWithRequest:request delegate:self];
@@ -103,6 +107,8 @@
                                                     encoding:NSUTF8StringEncoding] JSONValue];
     
     [self.responsedata release];
+    
+    NSLog(@"self.arrnotification::%@",self.arrnotification);
     
     if ([self.arrnotification count]==0) {
         self.view.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
@@ -290,12 +296,7 @@
         if(image.size.height > 56 || image.size.width > 56)
             pC.profilePhotoImage = [SoclivityUtilities compressImage:image size:CGSizeMake(56,56)];
     }
-    
-    
-    
     [self performSelectorOnMainThread:@selector(pushActivityController:) withObject:player waitUntilDone:NO];
-    
-    
 }
 
 -(void)pushActivityController:(InfoActivityClass*)response{
@@ -368,11 +369,14 @@
 {
     self.responsedata=[[NSMutableData alloc] init];
     
+    [self startAnimation];
+    
     if([SoclivityUtilities hasNetworkConnection]){
-        [self startAnimation];
         [self GetNotifications];
     }//END if([SoclivityUtilities hasNetworkConnection])
     else{
+        
+        [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
                                                        delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];

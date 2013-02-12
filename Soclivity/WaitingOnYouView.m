@@ -309,6 +309,8 @@ NSString *lstrnotifyid;
     
     cell.lstrnotificationtype=[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"];
     
+    NSLog(@"notification::%@",[self._notifications objectAtIndex:indexPath.row]);
+    
     for (UIView *view in cell.contentView.subviews)
     {
         if (![view isKindOfClass:[UILabel class]])
@@ -385,7 +387,8 @@ NSString *lstrnotifyid;
             [cell.contentView addSubview:img_vw];
         }//END if ([[[[self._notifications objectAt
         
-        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==8 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==9 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==12|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==13|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==14|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==15|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==16)
+        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6 ||
+            [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==7 ||[[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==8 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==9 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==12|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==13|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==14|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==15|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==16)
         {
             IconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
             

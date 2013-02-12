@@ -48,7 +48,6 @@
     NSLog(@"resourceUrl::%@",resourceUrl);
     
   NSURL *url = [NSURL URLWithString:resourceUrl];
-    
   NSURLRequest *request = [NSURLRequest requestWithURL:url];
 
   AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 

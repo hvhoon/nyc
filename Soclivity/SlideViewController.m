@@ -118,7 +118,7 @@
 @implementation SlideViewController
 
 @synthesize delegate = _delegate;
-@synthesize lstrnotificationscount;
+@synthesize lstrnotificationscount,_tableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -192,6 +192,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (WaitingOnYou_Count) name:@"WaitingOnYou_Count" object:nil];
     
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (PushNotificationView) name:@"PushNotification_View" object:nil];
 }
 
 #pragma mark Instance Methods
@@ -860,6 +861,12 @@
     
     [self slideInSlideNavigationControllerView];
     
+}
+
+-(void)PushNotificationView
+{
+    NSIndexPath *index=[NSIndexPath indexPathForRow:0 inSection:1];
+    [_tableView.delegate tableView:_tableView didSelectRowAtIndexPath:index];
 }
 
 - (void)showLeft:(id)sender{

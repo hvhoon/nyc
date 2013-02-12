@@ -19,6 +19,7 @@
 #import "JMC.h"
 #import "GetPlayersClass.h"
 #import "ActivityEventViewController.h"
+#import "SlideViewController.h"
 
 
 static NSString* kAppId = @"160726900680967";//kanav
@@ -63,6 +64,7 @@ UIImageView *imgvw1;
 int counter=0;
 NSTimer *timer;
 NSString *lstrphoto;
+int status=0;
 
 - (void)dealloc
 {
@@ -96,6 +98,76 @@ NSString *lstrphoto;
 -(void)backgroundtap:(id)sender
 {
     [self HideNotification];
+   
+    NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/received_notification.json?id=%i",ProductionServer,[[sender currentTitle] intValue]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSLog(@"url::%@",url);
+    
+	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
+    NSHTTPURLResponse *response = NULL;
+	NSError *error = nil;
+    NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    
+    NSString *lstrnotificationid=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
+    
+    if(returnData!=NULL)
+    {
+        NSString *lstrresponse = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+        
+        NSLog(@"lstrresponse::%@",lstrresponse);
+        if (lstrresponse!=NULL || [lstrresponse compare:@""]!=NSOrderedSame)
+        {
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
+            
+            if ([[lstrresponse JSONValue] valueForKeyPath:@"badge"]!=NULL)
+            {
+                [[NSUserDefaults standardUserDefaults] setValue:[[lstrresponse JSONValue] valueForKeyPath:@"badge"] forKey:@"Waiting_On_You_Count"];
+                
+                NSDictionary *dictcount=[[NSDictionary alloc] initWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"],@"Waiting_On_You_Count", nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
+                [self IncreaseBadgeIcon];
+            }//END if ([[lstrresponse JSONValue] valueForKeyPath:@"badge"]!=NULL)
+            
+            if ([[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"]!=NULL && [[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] count]!=0)
+            {
+                for (int i=0; i<[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] count]; i++)
+                {
+                    if (lstrnotificationid!=NULL)
+                    {
+                        NSArray *SplitArray=[lstrnotificationid componentsSeparatedByString:@","];
+                        if (![SplitArray containsObject:[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]])
+                        {
+                            if (lstrnotificationid==NULL || [lstrnotificationid isEqualToString:@""])
+                            {
+                                [[NSUserDefaults standardUserDefaults] setValue:[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]  forKey:@"Notification_id"];
+                            }//END if ([[NSUserDefaults standardUserDefaults] valueforKey:@"Notification_Count"]==NULL)
+                            
+                            else
+                            {
+                                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
+                                [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrnotificationid,[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]] forKey:@"Notification_id"];
+                            }//END Else Statement
+                        }//END if (![SplitArray containsObject:[[[ls
+                    }//END if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notif
+                    
+                    else
+                    {
+                        if (lstrnotificationid==NULL || [lstrnotificationid isEqualToString:@""])
+                        {
+                            [[NSUserDefaults standardUserDefaults] setValue:[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]  forKey:@"Notification_id"];
+                        }//END if ([[NSUserDefaults standardUserDefaults] valueforKey:@"Notification_Count"]==NULL)
+                        else
+                        {
+                            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
+                            [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrnotificationid,[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]] forKey:@"Notification_id"];
+                        }//END Else Statement
+                    }//END Else Statement
+                }//END  for (int i=0; i<[[[lstrresponse JSONValue] value
+            }
+        }//END if (lstrresponse!=NULL)
+    }//END if(returnData!=NULL)
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PushNotification_View" object:self userInfo:nil];
 }
 
 -(void)DownloadImage:(NSString *)lstrphotourl
@@ -112,8 +184,6 @@ NSString *lstrphoto;
 
 -(void)ShowNotification:(NSNotification*)dict
 {
-    NSLog(@"dict::%@",dict);
-    
     timer =[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countdownTracker:) userInfo:nil repeats:YES];
     
     vw_notification=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 58)];
@@ -177,6 +247,8 @@ NSString *lstrphoto;
     btnaction.frame=CGRectMake(0, 0, 285, 55);
     btnaction.backgroundColor=[UIColor clearColor];
     btnaction.tag=[[[[dict valueForKey:@"userInfo"] valueForKey:@"activity"] valueForKey:@"id"] intValue];
+    [btnaction setTitle:[NSString stringWithFormat:@"%i",[[[dict valueForKey:@"userInfo"] valueForKey:@"notification_id"] intValue]] forState:UIControlStateNormal];
+    [btnaction setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
     [btnaction addTarget:self action:@selector(backgroundtap:) forControlEvents:UIControlEventTouchUpInside];
     
     [vw_notification addSubview:btnclose];
@@ -297,8 +369,6 @@ NSString *lstrphoto;
 
 -(void)IncreaseBadgeIcon
 {
-    NSLog(@"waiting on you count::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]);
-    
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: [[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]];
 }
 
@@ -317,11 +387,8 @@ NSString *lstrphoto;
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    
-    NSLog(@"didReceiveRemoteNotification");
-    
-    if (_appIsInbackground)
-    {
+    //if (_appIsInbackground)
+    //{
         if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]==NULL)
         {
             [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@",[[userInfo valueForKey:@"params"] valueForKey:@"notification_id"]]  forKey:@"Notification_id"];
@@ -329,12 +396,10 @@ NSString *lstrphoto;
     
         else
         {
-        NSString *lstrvalue=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
-        
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
-        
-        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrvalue,[[userInfo valueForKey:@"params"] valueForKey:@"notification_id"]] forKey:@"Notification_id"];
-    }//END Else Statement
+            NSString *lstrvalue=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
+            [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrvalue,[[userInfo valueForKey:@"params"] valueForKey:@"notification_id"]] forKey:@"Notification_id"];
+        }//END Else Statement
         
         if (userInfo!=NULL)
         {
@@ -346,7 +411,10 @@ NSString *lstrphoto;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
         
         [self IncreaseBadgeIcon];
-    }//END  if (_appIsInbackground)
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"PushNotification_View" object:self userInfo:nil];
+    
+   // }//END  if (_appIsInbackground)
     
     //[[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingonyouNotification" object:self userInfo:[channel valueForKeyPath:@"data"]];
 	/*NSDictionary* notifUserInfo = Nil;
@@ -495,24 +563,34 @@ NSString *lstrphoto;
      */
 }
 
--(void)PostBackgroundStatus:(int)status
+-(void)PostBackgroundStatus
 {
-    self.responsedata=[[NSMutableData alloc] init];
+   // self.responsedata=[[NSMutableData alloc] init];
     
     NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/player_app_status.json?id=%@&background_status=%i",ProductionServer,[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"],status] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
-	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
+    NSLog(@"url::%@",url);
     
+	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
+    NSHTTPURLResponse *response = NULL;
+	NSError *error = nil;
     NSString *lstrnotificationid=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
     
-    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response,NSData *data,NSError *error)
+   /* [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response,NSData *data,NSError *error)
      {
+         
+          NSLog(@"[data length]::%d",[data length]);
+         
          if ([data length] >0 && error == nil)
          {
              NSString *lstrresponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
              
+              NSLog(@"lstrresponse:%@",lstrresponse);
+             
              if (lstrresponse!=NULL)
              {
+                 NSLog(@"lstrresponse:%@",[lstrresponse JSONValue]);
+                 
                  if ([[lstrresponse JSONValue] valueForKeyPath:@"badge"]!=NULL)
                  {
                      [[NSUserDefaults standardUserDefaults] setValue:[[lstrresponse JSONValue] valueForKeyPath:@"badge"] forKey:@"Waiting_On_You_Count"];
@@ -565,27 +643,73 @@ NSString *lstrphoto;
              NSLog(@"Nothing was downloaded.");
          }
      }];//END [NSURLConnection
-     
-    //NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    
+    */
+    
+    NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    if(returnData!=NULL)
+    {
+        NSString *lstrresponse = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+        if (lstrresponse!=NULL || [lstrresponse compare:@""]!=NSOrderedSame)
+        {
+            if ([[lstrresponse JSONValue] valueForKeyPath:@"badge"]!=NULL)
+            {
+                [[NSUserDefaults standardUserDefaults] setValue:[[lstrresponse JSONValue] valueForKeyPath:@"badge"] forKey:@"Waiting_On_You_Count"];
+                
+                NSDictionary *dictcount=[[NSDictionary alloc] initWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"],@"Waiting_On_You_Count", nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
+                [self IncreaseBadgeIcon];
+            }//END if ([[lstrresponse JSONValue] valueForKeyPath:@"badge"]!=NULL)
+            
+            if ([[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"]!=NULL && [[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] count]!=0)
+            {
+                for (int i=0; i<[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] count]; i++)
+                {
+                    if (lstrnotificationid!=NULL)
+                    {
+                        NSArray *SplitArray=[lstrnotificationid componentsSeparatedByString:@","];
+                        if (![SplitArray containsObject:[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]])
+                        {
+                            if (lstrnotificationid==NULL || [lstrnotificationid isEqualToString:@""])
+                            {
+                                [[NSUserDefaults standardUserDefaults] setValue:[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]  forKey:@"Notification_id"];
+                            }//END if ([[NSUserDefaults standardUserDefaults] valueforKey:@"Notification_Count"]==NULL)
+                            
+                            else
+                            {
+                                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
+                                [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrnotificationid,[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]] forKey:@"Notification_id"];
+                            }//END Else Statement
+                        }//END if (![SplitArray containsObject:[[[ls
+                    }//END if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notif
+                    
+                    else
+                    {
+                        if (lstrnotificationid==NULL || [lstrnotificationid isEqualToString:@""])
+                        {
+                            [[NSUserDefaults standardUserDefaults] setValue:[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]  forKey:@"Notification_id"];
+                        }//END if ([[NSUserDefaults standardUserDefaults] valueforKey:@"Notification_Count"]==NULL)
+                        else
+                        {
+                            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
+                            [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrnotificationid,[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]] forKey:@"Notification_id"];
+                        }//END Else Statement
+                    }//END Else Statement
+                }//END  for (int i=0; i<[[[lstrresponse JSONValue] value
+            }
+        }//END if (lstrresponse!=NULL)
+    }//END if(returnData!=NULL)
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-	 NSLog(@"didReceiveResponse");
-    
     [self.responsedata setLength:0];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-   
-     NSLog(@"didReceiveData");
-    
     [self.responsedata appendData:data];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    
-     NSLog(@"didFailWithError");
-    
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Internet Connection"
 													message:@"Try Again Later" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
 	[alert show];
@@ -594,9 +718,6 @@ NSString *lstrphoto;
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection{
-
-     NSLog(@"connectionDidFinishLoading");
-    
     if ([lstrphoto isEqualToString:@"photo"])
     {
         UIImage *image = [[UIImage alloc] initWithData:self.responsedata];
@@ -612,42 +733,31 @@ NSString *lstrphoto;
 {
     // bgTask is instance variable
     NSAssert(self->bgTask == UIBackgroundTaskInvalid, nil);
+     _appIsInbackground=TRUE;
     
-    bgTask = [application beginBackgroundTaskWithExpirationHandler: ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_queue_t currentBackgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    
+    self->bgTask = [application beginBackgroundTaskWithExpirationHandler: ^{
+        dispatch_async(currentBackgroundQueue, ^{
             [application endBackgroundTask:self->bgTask];
             self->bgTask = UIBackgroundTaskInvalid;
         });
     }];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        _appIsInbackground=TRUE;
-        
-       // while ([application backgroundTimeRemaining] > 0.5) {   
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"CloseSocketRocket" object:self userInfo:nil];
-     
-    [self PostBackgroundStatus:1];
-           /* NSString *friend = [self checkForIncomingChat];
-            if (friend) {
-                UILocalNotification *localNotif = [[UILocalNotification alloc] init];
-                if (localNotif) {
-                    localNotif.alertBody = [NSString stringWithFormat:
-                                            NSLocalizedString(@"%@ has a message for you.", nil), friend];
-                    localNotif.alertAction = NSLocalizedString(@"Read Message", nil);
-                    localNotif.soundName = @"alarmsound.caf";
-                    localNotif.applicationIconBadgeNumber = 1;
-                    [application presentLocalNotificationNow:localNotif];
-                    [localNotif release];
-                    friend = nil;
-                    break;
-                }
-            }
-            */ 
-    //}
-        
-        [application endBackgroundTask:self->bgTask];
-        self->bgTask = UIBackgroundTaskInvalid;
+    //dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(currentBackgroundQueue, ^{
+        status=1;
+            
+            // while ([application backgroundTimeRemaining] > 0.5) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"CloseSocketRocket" object:self userInfo:nil];
+            //[self performSelectorInBackground:@selector(PostBackgroundStatus) withObject:nil];
+            
+            [self PostBackgroundStatus];
+
+            [application endBackgroundTask:self->bgTask];
+             self->bgTask = UIBackgroundTaskInvalid;
+       // [application endBackgroundTask:self->bgTask];
+        //self->bgTask = UIBackgroundTaskInvalid;
     });
     
     /*
@@ -658,26 +768,38 @@ NSString *lstrphoto;
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    NSLog(@"applicationWillEnterForeground");
+    
+    [application endBackgroundTask:self->bgTask];
+    self->bgTask = UIBackgroundTaskInvalid;
+    
     _appIsInbackground=FALSE;
     
-    [self PostBackgroundStatus:0];
+    status=0;
     
-    //if([SoclivityUtilities hasNetworkConnection]){
+    if([[[NSUserDefaults standardUserDefaults] valueForKey:@"FromBackgroundState"] isEqualToString:@"TRUE"] && [[NSUserDefaults standardUserDefaults] valueForKey:@"FromBackgroundState"]!=NULL)
+    {
+        if([SoclivityUtilities hasNetworkConnection]){
+            
+            [self performSelectorInBackground:@selector(PostBackgroundStatus) withObject:nil];
+            [_objrra fetchPrivatePubConfiguration:[[NSUserDefaults standardUserDefaults] valueForKey:@"Channel"]];
+            
+            [application endBackgroundTask:self->bgTask];
+            self->bgTask = UIBackgroundTaskInvalid;
+            
+        }//END if([SoclivityUtilities hasNetworkConnection])
         
-        NSLog(@"hasNetworkConnection");
+        else{
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            
+            [alert show];
+            [alert release];
+            return;
+        }//ENd Else Statement
         
-    [_objrra fetchPrivatePubConfiguration:[[NSUserDefaults standardUserDefaults] valueForKey:@"Channel"]];
-   /* }//END if([SoclivityUtilities hasNetworkConnection])
-    else{
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        
-        [alert show];
-        [alert release];
-        return;
-    }//ENd Else Statement
-    */
+    }//END if([[[NSUserDefaults stand
     
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.

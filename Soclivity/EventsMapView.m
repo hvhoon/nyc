@@ -141,7 +141,7 @@
     
     BOOL canPost = (accuracy < kLocationAccuracyLimit);     // let user post if accuracy is good enouth
     if(canPost){
-        NSLog(@"canPost");
+       // NSLog(@"canPost");
     }
     else{
         
@@ -159,7 +159,7 @@
     
     //Updating road status with latest location
     
-    NSLog(@"Visible map width: %f", map.visibleMapRect.size.width);
+    //NSLog(@"Visible map width: %f", map.visibleMapRect.size.width);
     
 }
 #endif

@@ -43,12 +43,14 @@
 @property(nonatomic, retain) NSMutableData *responsedata;
 @property (nonatomic, retain)RRAViewController *objrra;
 
+@property (nonatomic, retain)SlideViewController *objslider;
+
 @property(nonatomic, retain)UIView *vw_notification;
 
 -(FacebookLogin*)SetUpFacebook;
 - (void)setUpActivityDataList;
 -(void)IncreaseBadgeIcon;
--(void)PostBackgroundStatus:(int)status;
+-(void)PostBackgroundStatus;
 
 //-(void)Activity:(InfoActivityClass*)response;
  //-(void)registerForNotifications;
