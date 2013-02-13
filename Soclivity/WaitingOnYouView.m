@@ -580,13 +580,30 @@ NSString *lstrnotifyid;
         [tmpimg startAnimating];
         [tmpimg setHidden:NO];
         
-        NSLog(@"notification::%@",[self._notifications objectAtIndex:indexPath.row]);
+        NSString *lstractivityid;
+        
+        if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"]==[NSNull null])
+        {
+            lstractivityid=@"0";
+        }//END if ([[self._notifications objectAtIndex:indexPath
+        
+        else if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"]!=[NSNull null]){
+            lstractivityid=[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"];
+        }//END Else Statement
         
         NSMutableDictionary *dictactivity=[[NSMutableDictionary alloc] init];
-        [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] forKey:@"activity_id"];
+        [dictactivity setValue:lstractivityid forKey:@"activity_id"];
         [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"lat"] forKey:@"lat"];
         [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"lng"] forKey:@"lng"];
-        [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"user_id"] forKey:@"user_id"];
+        
+        if([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==7 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==9 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==13)
+        {
+          [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"reffered_to"] forKey:@"user_id"];  
+        }
+        
+        else if([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]!=7 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]!=9 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]!=13){
+            [dictactivity setValue:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"user_id"] forKey:@"user_id"];
+        }
         
         _superDelegate.lstrnotificationtypeid=[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"];
         [_superDelegate navigate:dictactivity];

@@ -215,8 +215,6 @@
 
 - (void) webSocket:(SRWebSocket *)webSocket didReceiveMessage:(NSString *)message {
     
-    NSLog(@"socket did receive message");
-    
     NSDictionary *dictcount=[[NSDictionary alloc] initWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"],@"Waiting_On_You_Count", nil];
     
     NSString *channel = [[[message JSONValue] objectAtIndex:0] valueForKeyPath:@"data"];

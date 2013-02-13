@@ -12,6 +12,7 @@
 #import "RRAViewController.h"
 #import "MainServiceManager.h"
 #import "SoclivityManager.h"
+#import "NotificationsViewController.h"
 
 
 @class FacebookLogin;
@@ -31,6 +32,8 @@
     UIBackgroundTaskIdentifier bgTask;
     MainServiceManager *devServer;
     SoclivityManager *SOC;
+    
+    dispatch_queue_t currentBackgroundQueue;
 }
 
 @property (strong, nonatomic) UIWindow *window;
@@ -46,6 +49,8 @@
 @property (nonatomic, retain)SlideViewController *objslider;
 
 @property(nonatomic, retain)UIView *vw_notification;
+@property(nonatomic, retain)NSMutableDictionary *dict_notification;
+@property (nonatomic, retain) NotificationsViewController *superDelegate;
 
 -(FacebookLogin*)SetUpFacebook;
 - (void)setUpActivityDataList;

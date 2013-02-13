@@ -52,6 +52,7 @@
 -(void)hideMBProgress;
 
 -(void) navigate:(NSMutableDictionary*)dict;
+-(void)navigateview:(NSMutableDictionary*)dict;
 -(void)synchronousDownloadProfilePhotoBytes:(InfoActivityClass*)player;
 
 @end

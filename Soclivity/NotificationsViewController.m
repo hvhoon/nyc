@@ -38,9 +38,9 @@
 {
     self.btnnotify.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
     
-    int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
+    int notify_count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
     
-    if (count==0)
+    if (notify_count==0)
     {
         self.btnnotify.alpha=0;
     }//END if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"Wait
@@ -67,7 +67,6 @@
 -(void)GetNotifications
 {
     NSString *lstrnotificationid=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
-    
     NSLog(@"lstrnotificationid::%@",lstrnotificationid);
     
     if(lstrnotificationid==NULL || [lstrnotificationid intValue]==0)
@@ -103,14 +102,21 @@
 	[connection release];
     
     self.arrnotification=[[NSMutableArray alloc] init];
-    self.arrnotification = [[[NSString alloc] initWithData:self.responsedata
-                                                    encoding:NSUTF8StringEncoding] JSONValue];
+    
+    if (self.responsedata!=NULL)
+    {
+        self.arrnotification = [[[NSString alloc] initWithData:self.responsedata
+                                                      encoding:NSUTF8StringEncoding] JSONValue];
+    }//END if (self.responsedata!=NULL)
     
     [self.responsedata release];
     
     NSLog(@"self.arrnotification::%@",self.arrnotification);
     
-    if ([self.arrnotification count]==0) {
+    NSArray *arr_notifications=[self.arrnotification valueForKey:@"notifications"];
+    
+    if ([self.arrnotification count]==0 || [self.arrnotification valueForKey:@"notifications"]==NULL || [arr_notifications count]==0)
+    {
         self.view.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
         notificationImageView.hidden=NO;
         socFadedImageView.hidden=NO;
@@ -124,7 +130,7 @@
         [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
         
-        NSString *lstrviewexists;
+        NSString *lstrviewexists=NULL;
         
         for(UIView *subview in [self.view subviews])
         {
@@ -132,16 +138,17 @@
             {
                 lstrviewexists=@"TRUE";
             }//END if([subview isKindOfClass:[WaitingOnYouView class]])
-            
-            else{
-                lstrviewexists=@"FALSE";
-            }//END Else Statemnt
         }//END for(UIView *subview in [self.view subviews])
         
-        if ([lstrviewexists isEqualToString:@"TRUE"])
+        if (lstrviewexists!=NULL && [lstrviewexists isEqualToString:@"TRUE"])
         {
-            //notificationView = (WaitingOnYouView*)subview;
-            notificationView._notifications=self.arrnotification;
+            notificationView._notifications=[self.arrnotification valueForKey:@"notifications"];
+            
+            if ([self.arrnotification valueForKey:@"unreadnotification"]!=[NSNull null] || [self.arrnotification valueForKey:@"unreadnotification"]!=NULL)
+            {
+                notificationView.arr_notificationids=[[self.arrnotification valueForKey:@"unreadnotification"] retain];
+            }//END if ([self.arrnotification valu
+
             [notificationView.waitingTableView reloadData];
         }//END if ([lstrviewexists isEqualToString:@"TRUE"])
         
@@ -164,6 +171,8 @@
                 [self.view bringSubviewToFront:self.btnnotify];
         }//END Else StaTEMENT
     }//END Else Statement
+    
+    [arr_notifications release];
     
     [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
  }
@@ -190,8 +199,17 @@
     [self Pushactivity:dict];
 }
 
+-(void)navigateview:(NSMutableDictionary*)dict
+{
+    NSLog(@"dict::%@",dict);
+    
+    [self Pushactivity:[dict valueForKey:@"userInfo"]];
+}
+
 -(void)Pushactivity:(NSMutableDictionary *)dictactivity
 {
+    NSLog(@"dictactivity::%@",dictactivity);
+    
     devServer=[[MainServiceManager alloc]init];
     
     if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
@@ -301,7 +319,11 @@
 
 -(void)pushActivityController:(InfoActivityClass*)response{
     
-   if ([self.lstrnotificationtypeid intValue]==8 || [self.lstrnotificationtypeid intValue]==9 || [self.lstrnotificationtypeid intValue]==10 || [self.lstrnotificationtypeid intValue]==13 || [self.lstrnotificationtypeid intValue]==16)
+    NSLog(@"[self.lstrnotificationtypeid intValue]::%i",[self.lstrnotificationtypeid intValue]);
+    
+    NSLog(@"response::%@",responsedata);
+    
+   if ([self.lstrnotificationtypeid intValue]==7 || [self.lstrnotificationtypeid intValue]==8 || [self.lstrnotificationtypeid intValue]==9 || [self.lstrnotificationtypeid intValue]==10 || [self.lstrnotificationtypeid intValue]==13 || [self.lstrnotificationtypeid intValue]==16)
     {
         SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
         myClass.playerName=response.organizerName;
@@ -317,7 +339,7 @@
         [socProfileViewController release];
     }//END if ([self.lstrnotificationtypeid intValue]==16)
     
-    else if ([self.lstrnotificationtypeid intValue]==1 || [self.lstrnotificationtypeid intValue]==2 || [self.lstrnotificationtypeid intValue]==3 || [self.lstrnotificationtypeid intValue]==4 || [self.lstrnotificationtypeid intValue]==5 || [self.lstrnotificationtypeid intValue]==6 || [self.lstrnotificationtypeid intValue]==11)
+    else if ([self.lstrnotificationtypeid intValue]==1 || [self.lstrnotificationtypeid intValue]==2 || [self.lstrnotificationtypeid intValue]==3 || [self.lstrnotificationtypeid intValue]==4 || [self.lstrnotificationtypeid intValue]==5 || [self.lstrnotificationtypeid intValue]==6|| [self.lstrnotificationtypeid intValue]==11)
     {
         NSString*nibNameBundle=nil;
         

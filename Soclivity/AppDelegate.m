@@ -56,7 +56,7 @@ static inline NSRegularExpression * NameRegularExpression() {
 @synthesize facebook;
 @synthesize userPermissions;
 @synthesize resetSuccess;
-@synthesize responsedata,vw_notification;
+@synthesize responsedata,vw_notification,dict_notification;
 
 @synthesize summaryLabel = _summaryLabel;
 UIImageView *imgvw1;
@@ -65,6 +65,7 @@ int counter=0;
 NSTimer *timer;
 NSString *lstrphoto;
 int status=0;
+NSString *lstrnotificationid;
 
 - (void)dealloc
 {
@@ -167,7 +168,7 @@ int status=0;
         }//END if (lstrresponse!=NULL)
     }//END if(returnData!=NULL)
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"PushNotification_View" object:self userInfo:nil];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"AppDelegatePushView" object:self userInfo:self.dict_notification];
 }
 
 -(void)DownloadImage:(NSString *)lstrphotourl
@@ -184,6 +185,17 @@ int status=0;
 
 -(void)ShowNotification:(NSNotification*)dict
 {
+    
+    NSLog(@"dict::%@",dict);
+    
+    self.dict_notification=[[NSMutableDictionary alloc] init];
+    [self.dict_notification setValue:[[[dict valueForKey:@"userInfo"] valueForKey:@"activity"] valueForKey:@"id"] forKey:@"activity_id"];
+    [self.dict_notification setValue:[[dict valueForKey:@"userInfo"] valueForKey:@"lat"] forKey:@"lat"];
+    [self.dict_notification setValue:[[dict valueForKey:@"userInfo"] valueForKey:@"lng"] forKey:@"lng"];
+    [self.dict_notification setValue:[[[dict valueForKey:@"userInfo"] valueForKey:@"player"] valueForKey:@"id"] forKey:@"user_id"];
+    
+    lstrnotificationid=[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"];
+    
     timer =[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countdownTracker:) userInfo:nil repeats:YES];
     
     vw_notification=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 58)];
@@ -256,7 +268,7 @@ int status=0;
     [vw_notification addSubview:imgvw1];
     [vw_notification addSubview:btnaction];
     
-    if ([[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==6 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==8 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==9 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==11 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==12 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==13 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==14 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==15 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==16)
+    if ([[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==6 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==7 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==8 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==9 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==11 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==12 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==13 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==14 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==15 || [[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"] intValue]==16)
     {
         [vw_notification addSubview:imgvw];
         [vw_notification addSubview:imgvw1];
@@ -318,6 +330,8 @@ int status=0;
     [self IncreaseBadgeIcon];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (ShowNotification:) name:@"WaitingonyouNotification" object:nil];
+    
+   // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (PostBackgroundStatus) name:@"didEnterBackground" object:nil];
     
     //[self setUpActivityDataList];
     [SoclivitySqliteClass copyDatabaseIfNeeded];
@@ -565,8 +579,6 @@ int status=0;
 
 -(void)PostBackgroundStatus
 {
-   // self.responsedata=[[NSMutableData alloc] init];
-    
     NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/player_app_status.json?id=%@&background_status=%i",ProductionServer,[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"],status] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
     NSLog(@"url::%@",url);
@@ -731,11 +743,17 @@ int status=0;
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    /*if([SoclivityUtilities hasNetworkConnection]){
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"CloseSocketRocket" object:self userInfo:nil];
+        
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"didEnterBackground" object:self];
+    }*/
+    
     // bgTask is instance variable
     NSAssert(self->bgTask == UIBackgroundTaskInvalid, nil);
      _appIsInbackground=TRUE;
     
-    dispatch_queue_t currentBackgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    currentBackgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
     
     self->bgTask = [application beginBackgroundTaskWithExpirationHandler: ^{
         dispatch_async(currentBackgroundQueue, ^{
@@ -743,6 +761,7 @@ int status=0;
             self->bgTask = UIBackgroundTaskInvalid;
         });
     }];
+     
     
     //dispatch_async(dispatch_get_main_queue(), ^{
     dispatch_async(currentBackgroundQueue, ^{
@@ -750,15 +769,13 @@ int status=0;
             
             // while ([application backgroundTimeRemaining] > 0.5) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"CloseSocketRocket" object:self userInfo:nil];
-            //[self performSelectorInBackground:@selector(PostBackgroundStatus) withObject:nil];
-            
             [self PostBackgroundStatus];
 
             [application endBackgroundTask:self->bgTask];
              self->bgTask = UIBackgroundTaskInvalid;
-       // [application endBackgroundTask:self->bgTask];
-        //self->bgTask = UIBackgroundTaskInvalid;
     });
+    
+    dispatch_release(currentBackgroundQueue);
     
     /*
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
@@ -773,6 +790,8 @@ int status=0;
     [application endBackgroundTask:self->bgTask];
     self->bgTask = UIBackgroundTaskInvalid;
     
+   // dispatch_release(currentBackgroundQueue);
+    
     _appIsInbackground=FALSE;
     
     status=0;
@@ -784,8 +803,8 @@ int status=0;
             [self performSelectorInBackground:@selector(PostBackgroundStatus) withObject:nil];
             [_objrra fetchPrivatePubConfiguration:[[NSUserDefaults standardUserDefaults] valueForKey:@"Channel"]];
             
-            [application endBackgroundTask:self->bgTask];
-            self->bgTask = UIBackgroundTaskInvalid;
+            //[application endBackgroundTask:self->bgTask];
+            //self->bgTask = UIBackgroundTaskInvalid;
             
         }//END if([SoclivityUtilities hasNetworkConnection])
         
@@ -804,7 +823,7 @@ int status=0;
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
-}
+ }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
