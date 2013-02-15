@@ -12,7 +12,7 @@
   @property (nonatomic, retain) SRWebSocket *websocketClient;
   @property (nonatomic, retain) PrivatePubWebSocketDelegate* websocketDelegate;
   
-- (void) initializePrivatePubClientWithSubscriptionInformation: (id) JSON:(NSString *)lstrnewschnl;
+- (void) initializePrivatePubClientWithSubscriptionInformation: (id)JSON channel:(NSString *)lstrnewschnl;
 @end
 
 @implementation RRAViewController
@@ -20,7 +20,7 @@
 @synthesize websocketClient = _websocketClient, 
             websocketDelegate = _websocketDelegate;
 
-- (void) initializePrivatePubClientWithSubscriptionInformation: (id) JSON:(NSString *)lstrnewschnl {
+- (void) initializePrivatePubClientWithSubscriptionInformation: (id)JSON channel:(NSString *)lstrnewschnl {
     
     self.websocketDelegate = [[PrivatePubWebSocketDelegate alloc]
     initWithPrivatePubTimestamp: [JSON valueForKeyPath:@"timestamp"] 
@@ -32,7 +32,7 @@
     
   NSMutableURLRequest *configurationRequest = [[NSMutableURLRequest requestWithURL:url] retain];
     
-    NSLog(@"configurationRequest::%@",configurationRequest);
+    NSLog(@"configurationRequest=%@",configurationRequest);
     
   self.websocketClient = [[SRWebSocket alloc] initWithURLRequest:configurationRequest];
     self.websocketClient.delegate =self.websocketDelegate;
@@ -41,18 +41,17 @@
 }
 
 - (void) fetchPrivatePubConfiguration:(NSString *)lstrnewchannel {
-//  NSString *resourceUrl = [NSString stringWithFormat:@"http://localhost:3000/api/websockets/configuration.json?channel=%@", NEW_MESSAGES_CHANNEL];
     
     NSString *resourceUrl = [NSString stringWithFormat:@"http://dev.soclivity.com/api/websockets/configuration.json?channel=%@",lstrnewchannel];
     
-    NSLog(@"resourceUrl::%@",resourceUrl);
+    NSLog(@"resourceUrl=%@",resourceUrl);
     
   NSURL *url = [NSURL URLWithString:resourceUrl];
   NSURLRequest *request = [NSURLRequest requestWithURL:url];
 
   AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
     success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        [self initializePrivatePubClientWithSubscriptionInformation: JSON:lstrnewchannel];
+        [self initializePrivatePubClientWithSubscriptionInformation: JSON channel:lstrnewchannel];
     } 
     failure:^(NSURLRequest* request, NSHTTPURLResponse* response, NSError* error, id JSON) {
       NSLog(@"request was failed: %@", error);
