@@ -666,8 +666,8 @@ if(timer%2==0){
 
     
     
-    NSDate *startFilterDate;
-    NSDate *finishFilterDate;
+    NSDate *startFilterDate=nil;
+    NSDate *finishFilterDate=nil;
     if(SOC.filterObject.whenSearchType==1){
         startFilterDate=[NSDate date];
         finishFilterDate = [[NSDate date] dateByAddingTimeInterval:86400*2];
