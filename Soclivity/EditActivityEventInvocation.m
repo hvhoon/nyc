@@ -23,7 +23,7 @@
     [activityObj release];
 }
 -(void)invoke {
-    NSString *a= [NSString stringWithFormat:@"%@/activities/%d.json",ProductionServer,activityObj.activityId];
+    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/activities/%d.json",activityObj.activityId];
     [self put:a
           body:[self body]];
 }

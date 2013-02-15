@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1536</int>
-		<string key="IBDocument.SystemVersion">11G63b</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2840</string>
-		<string key="IBDocument.AppKitVersion">1138.51</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<int key="IBDocument.SystemTarget">1552</int>
+		<string key="IBDocument.SystemVersion">12C3012</string>
+		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
+		<string key="IBDocument.AppKitVersion">1187.34</string>
+		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1926</string>
+			<string key="NS.object.0">2083</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBMKMapView</string>
@@ -573,11 +573,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">btnnotify</string>
+						<string key="label">notifCountButton</string>
 						<reference key="source" ref="841351856"/>
 						<reference key="destination" ref="391599176"/>
 					</object>
-					<int key="connectionID">222</int>
+					<int key="connectionID">224</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -882,7 +882,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">222</int>
+			<int key="maxID">224</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -968,10 +968,11 @@
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="activityTableView">ActivityListView</string>
-						<string key="btnnotify">UIButton</string>
 						<string key="currentLocationBtn">UIButton</string>
 						<string key="listFlipBtn">UIButton</string>
 						<string key="mapflipBtn">UIButton</string>
+						<string key="notifCount">UIButton</string>
+						<string key="notifCountButton">UIButton</string>
 						<string key="profileBtn">UIButton</string>
 						<string key="refreshBtn">UIButton</string>
 						<string key="socEventMapView">EventsMapView</string>
@@ -987,10 +988,6 @@
 							<string key="name">activityTableView</string>
 							<string key="candidateClassName">ActivityListView</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="btnnotify">
-							<string key="name">btnnotify</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="currentLocationBtn">
 							<string key="name">currentLocationBtn</string>
 							<string key="candidateClassName">UIButton</string>
@@ -1001,6 +998,14 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="mapflipBtn">
 							<string key="name">mapflipBtn</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="notifCount">
+							<string key="name">notifCount</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="notifCountButton">
+							<string key="name">notifCountButton</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="profileBtn">
@@ -1065,6 +1070,6 @@
 			<string key="S04_titlebar.png">{320, 44}</string>
 			<string key="notifyDigit1.png">{27, 27}</string>
 		</dictionary>
-		<string key="IBCocoaTouchPluginVersion">1926</string>
+		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>

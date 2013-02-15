@@ -20,7 +20,7 @@
 #import "EventShareActivity.h"
 #import "SoclivityUtilities.h"
 #import "ProfileViewController.h"
-
+#import "RRAViewController.h"
 @interface WelcomeScreenViewController(Private)
 @end
 @implementation WelcomeScreenViewController
@@ -334,9 +334,17 @@
 }
 
 -(void)pushToHomeViewController{
-    
+
+   [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isLoggedIn"];
     [spinner stopAnimating];
     [self.view setUserInteractionEnabled:YES];
+    
+    
+    //rocket Socket Connection
+    RRAViewController *objrra=[[RRAViewController alloc]init];
+    [objrra fetchPrivatePubConfiguration];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] setObjrra:objrra];
+
     
     NSString *nibNameBundle=nil;
     if([SoclivityUtilities deviceType] & iPhone5){

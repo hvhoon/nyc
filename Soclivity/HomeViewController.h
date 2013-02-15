@@ -50,12 +50,12 @@
     SoclivityManager *SOC;
     MBProgressHUD *HUD;
     int flipKeyViewTag;
+    IBOutlet UIButton *notifCountButton;
 }
 
 @property (nonatomic,retain)id <HomeScreenDelegate>delegate;
 @property (nonatomic,retain)EventsMapView *socEventMapView;
 @property (nonatomic,retain)ActivityListView *activityTableView;
-@property (nonatomic, retain)IBOutlet UIButton *btnnotify;
 
 
 -(IBAction)profileSlidingDrawerTapped:(id)sender;

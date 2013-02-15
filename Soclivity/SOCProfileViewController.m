@@ -519,7 +519,7 @@
         play.typeOfRelation= [n intValue];
         NSNumber * DOS = [playDictionary objectForKey:@"DOS"];
         play.DOS= [DOS intValue];
-        play.profilePhotoUrl=[NSString stringWithFormat:@"http://%@%@",ProductionServer,[playDictionary objectForKey:@"profilePhotoUrl"]];
+        play.profilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[playDictionary objectForKey:@"profilePhotoUrl"]];
         
         
         [entries addObject:play];

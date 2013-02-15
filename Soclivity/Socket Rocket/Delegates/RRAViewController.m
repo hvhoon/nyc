@@ -7,7 +7,8 @@
 //
 
 #import "RRAViewController.h"
-
+#import "SoclivityManager.h"
+#import "GetPlayersClass.h"
 @interface RRAViewController ()
   @property (nonatomic, retain) SRWebSocket *websocketClient;
   @property (nonatomic, retain) PrivatePubWebSocketDelegate* websocketDelegate;
@@ -40,9 +41,9 @@
   [self.websocketClient open];
 }
 
-- (void) fetchPrivatePubConfiguration:(NSString *)lstrnewchannel {
-    
-    NSString *resourceUrl = [NSString stringWithFormat:@"http://dev.soclivity.com/api/websockets/configuration.json?channel=%@",lstrnewchannel];
+- (void) fetchPrivatePubConfiguration{
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    NSString *resourceUrl = [NSString stringWithFormat:@"http://dev.soclivity.com/api/websockets/configuration.json?channel=%@",SOC.loggedInUser.channel];
     
     NSLog(@"resourceUrl=%@",resourceUrl);
     
@@ -51,10 +52,10 @@
 
   AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
     success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        [self initializePrivatePubClientWithSubscriptionInformation: JSON channel:lstrnewchannel];
+        [self initializePrivatePubClientWithSubscriptionInformation: JSON channel:SOC.loggedInUser.channel];
     } 
     failure:^(NSURLRequest* request, NSHTTPURLResponse* response, NSError* error, id JSON) {
-      NSLog(@"request was failed: %@", error);
+            NSLog(@"request was failed: %@", error);
     }
   ];
 

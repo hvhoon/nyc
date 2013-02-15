@@ -16,12 +16,10 @@
 
 
 @class FacebookLogin;
-@class SlideViewController;
 @class TTTAttributedLabel;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate>{
     UINavigationController *navigationController;
-    DDMenuController *menuController;
     Facebook *facebook;
     NSMutableDictionary *userPermissions;
     BOOL resetSuccess;
@@ -38,16 +36,12 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, retain) UINavigationController *navigationController;
-@property (retain, nonatomic) DDMenuController *menuController;
 @property (nonatomic, retain) Facebook *facebook;
 @property (nonatomic, retain) NSMutableDictionary *userPermissions;
 @property (nonatomic, assign) BOOL resetSuccess;
 @property (nonatomic, retain) TTTAttributedLabel *summaryLabel;
 @property(nonatomic, retain) NSMutableData *responsedata;
 @property (nonatomic, retain)RRAViewController *objrra;
-
-@property (nonatomic, retain)SlideViewController *objslider;
-
 @property(nonatomic, retain)UIView *vw_notification;
 @property(nonatomic, retain)NSMutableDictionary *dict_notification;
 @property (nonatomic, retain) NotificationsViewController *superDelegate;
@@ -57,6 +51,4 @@
 -(void)IncreaseBadgeIcon;
 -(void)PostBackgroundStatus;
 
-//-(void)Activity:(InfoActivityClass*)response;
- //-(void)registerForNotifications;
 @end

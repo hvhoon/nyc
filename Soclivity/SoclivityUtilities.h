@@ -44,4 +44,5 @@ typedef enum
 +(NSString*)getFirstAndLastName:(NSString*)firstName lastName:(NSString*)lastName;
 +(NSString*)getStateAbbreviation:(NSString*)stateFullName;
 +(BOOL)hasLeadingNumberInString:(NSString*) str;
++(void)returnNotificationButtonWithCountUpdate:(UIButton*)button;
 @end

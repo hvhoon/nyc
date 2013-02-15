@@ -19,8 +19,8 @@
 #endif
 
 #define DATABASE_NAME @"SoclivityDB.sqlite"
-#define DeploymentServer @"dev.soclivity.com"
-#define ProductionServer @"66.228.42.237"
+#define ProductionServer @"dev.soclivity.com"
+//#define ProductionServer @"66.228.42.237"
 #define kLatLongAndActivities 122
 #define kNoLocation 123
 #define kOnlyLatLong 124

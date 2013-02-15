@@ -74,7 +74,7 @@
       lstrnotificationid=@"";
     }//END if(lstrnotificationid==NULL || [lstrnotific
         
-    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"http://%@/mynotifications.json?logged_in_user_id=%@&ids=%@",ProductionServer,[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"],lstrnotificationid]];
+    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"http://dev.soclivity.com/mynotifications.json?logged_in_user_id=%@&ids=%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"],lstrnotificationid]];
     
     NSLog(@"url::%@",url);
     

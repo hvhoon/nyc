@@ -8,33 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GetPlayersClass : NSObject{
-    
-    NSString *birth_date;
-    NSString *created_at;
-    NSString *email;
-    NSString *first_name;
-    NSNumber *idSoc;
-    NSString *last_name;
-    NSString *updated_at;
-    NSString *password;
-    NSString *password_confirmation;
-    NSData *profileImageData;
-    NSString *gender;
-    NSString*activityTypes;
-    NSString *password_status;
-    BOOL status;
-    NSString*statusMessage;
-    UIImage *FBProfileImage;
-    NSString *fullName;
-    NSString *current_location;
-    NSString *facebookUId;
-    NSString*facebookAccessToken;
-    BOOL registered;
-    NSString*profileImageUrl;
-
-    
-}
+@interface GetPlayersClass : NSObject
 @property(nonatomic,retain)NSString *birth_date;
 @property(nonatomic,retain)NSString *created_at;
 @property(nonatomic,retain)NSString *email;
@@ -57,4 +31,8 @@
 @property (nonatomic,retain)NSString *facebookAccessToken;
 @property (nonatomic,assign)BOOL registered;
 @property (nonatomic,retain)NSString*profileImageUrl;
+@property (nonatomic,retain)NSString *channel;
+@property (nonatomic,assign)NSInteger notification_count;
+@property (nonatomic,retain)NSString *unread_notification;
+
 @end

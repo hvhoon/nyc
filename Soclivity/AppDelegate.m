@@ -52,7 +52,6 @@ static inline NSRegularExpression * NameRegularExpression() {
 @implementation AppDelegate
 @synthesize navigationController;
 @synthesize window = _window;
-@synthesize menuController;
 @synthesize facebook;
 @synthesize userPermissions;
 @synthesize resetSuccess;
@@ -100,9 +99,9 @@ NSString *lstrnotificationid;
 {
     [self HideNotification];
    
-    NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/received_notification.json?id=%i",ProductionServer,[[sender currentTitle] intValue]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://dev.soclivity.com/received_notification.json?id=%i",[[sender currentTitle] intValue]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
-    NSLog(@"url::%@",url);
+    NSLog(@"url=%@",url);
     
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
     NSHTTPURLResponse *response = NULL;
@@ -177,7 +176,7 @@ NSString *lstrnotificationid;
     
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
                              [NSURLRequest requestWithURL:
-                              [NSURL URLWithString:[NSString stringWithFormat:@"http://%@%@",ProductionServer,lstrphotourl]]] delegate:self];
+                              [NSURL URLWithString:[NSString stringWithFormat:@"http://dev.soclivity.com%@",lstrphotourl]]] delegate:self];
     
     lstrphoto=@"photo";
     NSLog(@"conn::%@",conn);
@@ -323,6 +322,9 @@ NSString *lstrnotificationid;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isLoggedIn"];
+    
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"logged_in_user_id"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Waiting_On_You_Count"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"NotificationActivity"];
@@ -579,84 +581,15 @@ NSString *lstrnotificationid;
 
 -(void)PostBackgroundStatus
 {
-    NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/player_app_status.json?id=%@&background_status=%i",ProductionServer,[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"],status] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://dev.soclivity.com/player_app_status.json?id=%@&background_status=%i",[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"],status] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
-    NSLog(@"url::%@",url);
+    NSLog(@"url=%@",url);
     
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
     NSHTTPURLResponse *response = NULL;
 	NSError *error = nil;
     NSString *lstrnotificationid=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
     
-   /* [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response,NSData *data,NSError *error)
-     {
-         
-          NSLog(@"[data length]::%d",[data length]);
-         
-         if ([data length] >0 && error == nil)
-         {
-             NSString *lstrresponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-             
-              NSLog(@"lstrresponse:%@",lstrresponse);
-             
-             if (lstrresponse!=NULL)
-             {
-                 NSLog(@"lstrresponse:%@",[lstrresponse JSONValue]);
-                 
-                 if ([[lstrresponse JSONValue] valueForKeyPath:@"badge"]!=NULL)
-                 {
-                     [[NSUserDefaults standardUserDefaults] setValue:[[lstrresponse JSONValue] valueForKeyPath:@"badge"] forKey:@"Waiting_On_You_Count"];
-                     
-                     NSDictionary *dictcount=[[NSDictionary alloc] initWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"],@"Waiting_On_You_Count", nil];
-                     [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
-                     [self IncreaseBadgeIcon];
-                 }//END if ([[lstrresponse JSONValue] valueForKeyPath:@"badge"]!=NULL)
-                 
-                 if ([[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"]!=NULL && [[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] count]!=0)
-                 {
-                     for (int i=0; i<[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] count]; i++)
-                     {
-                         if (lstrnotificationid!=NULL)
-                         {
-                             NSArray *SplitArray=[lstrnotificationid componentsSeparatedByString:@","];
-                             if (![SplitArray containsObject:[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]])
-                             {
-                                 if (lstrnotificationid==NULL || [lstrnotificationid isEqualToString:@""])
-                                 {
-                                     [[NSUserDefaults standardUserDefaults] setValue:[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]  forKey:@"Notification_id"];
-                                 }//END if ([[NSUserDefaults standardUserDefaults] valueforKey:@"Notification_Count"]==NULL)
-                                 
-                                 else
-                                 {
-                                     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
-                                     [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrnotificationid,[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]] forKey:@"Notification_id"];
-                                 }//END Else Statement
-                             }//END if (![SplitArray containsObject:[[[ls
-                         }//END if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notif
-                         
-                         else
-                         {
-                             if (lstrnotificationid==NULL || [lstrnotificationid isEqualToString:@""])
-                             {
-                                 [[NSUserDefaults standardUserDefaults] setValue:[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]  forKey:@"Notification_id"];
-                             }//END if ([[NSUserDefaults standardUserDefaults] valueforKey:@"Notification_Count"]==NULL)
-                             else
-                             {
-                                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Notification_id"];
-                                 [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrnotificationid,[[[lstrresponse JSONValue] valueForKeyPath:@"unreadnotification"] objectAtIndex:i]] forKey:@"Notification_id"];
-                             }//END Else Statement
-                         }//END Else Statement
-                     }//END  for (int i=0; i<[[[lstrresponse JSONValue] value
-                 }
-             }//END if (lstrresponse!=NULL)
-         }//END if ([data length] >0 && error == nil)
-         else if ([data length] == 0 && error == nil)
-         {
-             NSLog(@"Nothing was downloaded.");
-         }
-     }];//END [NSURLConnection
-    
-    */
     
     NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     if(returnData!=NULL)

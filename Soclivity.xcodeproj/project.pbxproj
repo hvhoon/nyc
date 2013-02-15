@@ -4024,7 +4024,7 @@
 		680CE3D51551258700B8E937 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0460;
 			};
 			buildConfigurationList = 680CE3D81551258700B8E937 /* Build configuration list for PBXProject "Soclivity" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -4984,6 +4984,10 @@
 					armv6,
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
 				COPY_PHASE_STRIP = NO;
@@ -5019,6 +5023,10 @@
 					armv6,
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
 				COPY_PHASE_STRIP = YES;

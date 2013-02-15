@@ -77,6 +77,7 @@ int _maxNumRequestFailures;
 
         for (NSString *itemId in [items allKeys]) {
             JMCQueueItem *item = [self getItem:itemId];
+            NSLog(@"item=%@",item);
 
             // Get metadata and check if empty
             NSDictionary *metadata = [self metaDataFor:itemId];

@@ -519,7 +519,7 @@ NSString *lstrnotifyid;
     if (iconDownloader == nil)
     {
         iconDownloader = [[IconDownloader alloc] init];
-        iconDownloader.lstrwaitingonyouurl=[NSString stringWithFormat:@"http://%@%@",ProductionServer,[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"photo_url"]];
+        iconDownloader.lstrwaitingonyouurl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"photo_url"]];
         iconDownloader.indexPathInTableView = indexPath;
         iconDownloader.delegate = self;
         [imageDownloadsInProgress setObject:iconDownloader forKey:indexPath];
@@ -562,7 +562,7 @@ NSString *lstrnotifyid;
 
 -(void)SetNotificationStatus:(NSString *)lstrid
 {
-    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"http://%@/notification_read.json?id=%@&read_notification=1",ProductionServer,lstrid]];
+    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"http://dev.soclivity.com/notification_read.json?id=%@&read_notification=1",lstrid]];
     
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
     [[NSURLConnection alloc] initWithRequest:request delegate:self];
@@ -628,7 +628,7 @@ NSString *lstrnotifyid;
 
 -(void)RemoveNotification:(NSString *)lstrid
 {
-    NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/deletenotification.json?logged_in_user_id=%@&notification_id=%@",ProductionServer,[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"],lstrid] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://dev.soclivity.com/deletenotification.json?logged_in_user_id=%@&notification_id=%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"],lstrid] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
     [[NSURLConnection alloc] initWithRequest:request delegate:self];

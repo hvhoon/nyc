@@ -14,6 +14,7 @@
 #import "DetailInfoActivityClass.h"
 #import "SoclivityManager.h"
 #import "FilterPreferenceClass.h"
+#import "GetPlayersClass.h"
 
 #define PASSWORD_LENGTH 6
 
@@ -28,6 +29,33 @@ static NSArray *playerActivityDetails;
 +(NSArray *)getPlayerActivities{
     return playerActivityDetails;
     
+}
+
++(void)returnNotificationButtonWithCountUpdate:(UIButton*)button{
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    GetPlayersClass*player=SOC.loggedInUser;
+
+
+        button.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
+        button.alpha=1;
+
+        
+        
+        if (player.notification_count==0)
+                button.alpha=0;
+        else if(player.notification_count==1){
+            [button setBackgroundImage:[UIImage imageNamed:@"notifyDigit1.png"] forState:UIControlStateNormal];
+            button.frame = CGRectMake(button.frame.origin.x,button.frame.origin.y,27,27);
+          }
+        else{
+            [button setBackgroundImage:[UIImage imageNamed:@"notifyDigit2.png"] forState:UIControlStateNormal];
+            button.frame = CGRectMake(button.frame.origin.x,button.frame.origin.y,33,28);
+            
+            
+            [button setTitle:[NSString stringWithFormat:@"%d",player.notification_count] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        }
+    //return button;
 }
 
 +(NSString*)getStartAndFinishTimeLabel:(float)sliderValue{

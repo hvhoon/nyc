@@ -248,6 +248,24 @@ NSDateFormatter* gJSONDateFormatter = nil;
 	//[self.finalizer finalize:self];
 }
 
+#if 1
+- (void)connectionDidFinishLoading:(NSURLConnection*)connection {
+	
+    BOOL finalize = YES;
+    NSString *response=[[NSString alloc] initWithData:_receivedData encoding:NSASCIIStringEncoding];
+    NSLog(@"response=%@",response);
+    
+	if ([[self response] isOK]) {
+		finalize = [self handleHttpOK:self.receivedData];
+	} else {
+		finalize = [self handleHttpError:[[self response] statusCode]];
+	}
+    if (finalize) {
+        // [self.finalizer finalize:self];
+    }
+}
+#else
+
 - (void)connectionDidFinishLoading:(NSURLConnection*)connection {
 	
     BOOL finalize = YES;
@@ -271,11 +289,9 @@ NSDateFormatter* gJSONDateFormatter = nil;
             {
                 [[NSUserDefaults standardUserDefaults] setValue:[[response JSONValue] valueForKey:@"unread_notification"] forKey:@"Notification_id"];
             }//END if([[response JSONValue] valueForKey:@"unread_notification"]!=[NSNull null])
-        }//END  if ([[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"]==NULL)
-        
+        }
         [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
-    }//END if (response!=NULL || [response length]!=0)
-    
+    }
     if ([[self response] isOK]) {
         finalize = [self handleHttpOK:_receivedData];
         
@@ -288,9 +304,9 @@ NSDateFormatter* gJSONDateFormatter = nil;
                     if ([[[response JSONValue] valueForKeyPath:@"channel"] objectAtIndex:k]==@"<null>")
                     {
                         //do nothing
-                    }//END if (![[[[response JSONValue] valueForKeyPath:@"c
-                } //END  for (int k=0; k<[[[response JSONValue] valueForKeyPath:@"channel"] count]; k++)
-            }//END  if ([[[response JSONValu
+                    }
+                } 
+            }
             
             else{
                 [[NSUserDefaults standardUserDefaults] setValue:[[[[response JSONValue] valueForKey:@"channel"] JSONValue] valueForKey:@"channel"] forKey:@"Channel"];
@@ -303,8 +319,8 @@ NSDateFormatter* gJSONDateFormatter = nil;
                 
                 [[NSUserDefaults standardUserDefaults] setValue:@"TRUE" forKey:@"FromBackgroundState"];
                 
-            }//END Else Statement
-        }//END if ([[response JSONValue] valueForKey:@"channel"]!=NULL)
+            }
+        }
         
     } else {
         finalize = [self handleHttpError:[[self response] statusCode]];
@@ -315,7 +331,7 @@ NSDateFormatter* gJSONDateFormatter = nil;
 
     
 }
-
+#endif
 -(BOOL)handleHttpOK:(NSMutableData*)data {
 	// Override to handle gracefully
     return YES;

@@ -18,7 +18,7 @@
 	[super dealloc];
 }
 -(void)invoke {
-    NSString *a= [NSString stringWithFormat:@"%@/getactivity.json?id=%d&pid=%d&lat=%f&lng=%f",ProductionServer,activityId,playerId,currentLatitude,currentLongitude];
+    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/getactivity.json?id=%d&pid=%d&lat=%f&lng=%f",activityId,playerId,currentLatitude,currentLongitude];
     
      [self get:a];
 }

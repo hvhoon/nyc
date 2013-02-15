@@ -27,7 +27,7 @@
 @end
 
 @implementation HomeViewController
-@synthesize delegate,socEventMapView,activityTableView,btnnotify;
+@synthesize delegate,socEventMapView,activityTableView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -50,6 +50,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:YES];
+    [self UpdateBadgeNotification];
+    
     NSLog(@"viewWillAppear called in HomeViewController");
     if(SOC.localCacheUpdate){
         SOC.localCacheUpdate=FALSE;
@@ -63,47 +65,16 @@
     }
 }
 
--(void)UpdateBadgeNotification
-{
-    self.btnnotify.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
+-(void)UpdateBadgeNotification{
+    [SoclivityUtilities returnNotificationButtonWithCountUpdate:notifCountButton];
     
-    
-    NSLog(@"homeview controller count::%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"]);
-    
-    int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
-    
-    if (count==0)
-    {
-        self.btnnotify.alpha=0;
-    }//END if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"Wait
-    
-    else
-    {
-        if ([[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] length]<2)
-        {
-            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notifyDigit1.png"] forState:UIControlStateNormal];
-            self.btnnotify.frame = CGRectMake(self.btnnotify.frame.origin.x,self.btnnotify.frame.origin.y,27,27);
-            
-        }//END if ([[NSString stringWithFormat:@"%i",[[[
-        
-        else{
-            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notifyDigit2.png"] forState:UIControlStateNormal];
-            self.btnnotify.frame = CGRectMake(self.btnnotify.frame.origin.x,self.btnnotify.frame.origin.y,33,28);
-        }//END Else Statement
-        
-        self.btnnotify.alpha=1;
-        [self.btnnotify setTitle:[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] forState:UIControlStateNormal];
-        [self.btnnotify setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    }//END Else Statement
 }
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
     
-    [self UpdateBadgeNotification];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
     

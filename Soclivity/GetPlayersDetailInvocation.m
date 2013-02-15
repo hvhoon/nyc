@@ -20,7 +20,7 @@
 
 
 -(void)invoke {
-    NSString *a= [NSString stringWithFormat:@"%@/players.json",ProductionServer];
+    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/players.json"];
     [self get:a];
 }
 
