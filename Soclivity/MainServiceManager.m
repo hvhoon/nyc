@@ -148,5 +148,12 @@
     [self invoke:invocation withDelegate:delegate];
 
 }
-
+-(void)getUserNotificationsInfoInvocation:(id<GetNotificationsInvocationDelegate>)delegate notificationType:(NSInteger)type notficationId:(NSInteger)idType{
+        
+    GetNotificationsInvocation *invocation = [[[GetNotificationsInvocation alloc] init] autorelease];
+    invocation.notificationType=type;
+    invocation.notificationId=idType;
+    [self invoke:invocation withDelegate:delegate];
+        
+}
 @end

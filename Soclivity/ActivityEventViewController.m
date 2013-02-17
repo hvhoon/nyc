@@ -23,7 +23,6 @@
 #import "ParticipantClass.h"
 #import "GetActivityInvitesInvocation.h"
 #import "CreateActivityViewController.h"
-#import "ChatViewController.h"
 
 #define kEditMapElements 10
 #define kJoinRequest 11
@@ -1099,7 +1098,7 @@
 
 -(IBAction)chatButtonPressed:(id)sender{
     
-   /* if(!footerActivated){
+   if(!footerActivated){
         footerActivated=TRUE;
         CGContextRef context = UIGraphicsGetCurrentContext();
         [UIView beginAnimations:nil context:context];
@@ -1154,20 +1153,8 @@
         
         [UIView commitAnimations];
     }
-    */
     
-    NSString*nibNameBundle=nil;
     
-    if([SoclivityUtilities deviceType] & iPhone5){
-        nibNameBundle=@"ChatViewController_iphone5";
-    }
-    else{
-        nibNameBundle=@"ChatViewController";
-    }
-    
-    ChatViewController *objchat=[[ChatViewController alloc] initWithNibName:nibNameBundle bundle:nil];
-    objchat.lstractivityname=[NSString stringWithFormat:@"%@",activityInfo.activityName];
-    [self.navigationController pushViewController:objchat animated:YES];
 }
 
 -(IBAction)cancelRequestButtonPressed:(id)sender{

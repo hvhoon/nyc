@@ -11,7 +11,9 @@
 #import "SoclivityUtilities.h"
 #import "SlideViewController.h"
 #import "AppDelegate.h"
-
+#import "NotificationClass.h"
+#import "SoclivityManager.h"
+#import "GetPlayersClass.h"
 @interface PrivatePubWebSocketDelegate()
   @property (nonatomic) int messageId;
   @property (nonatomic, retain) SRWebSocket *webSocket;
@@ -215,35 +217,33 @@
 
 - (void) webSocket:(SRWebSocket *)webSocket didReceiveMessage:(NSString *)message {
     
-    NSLog(@"message=%@",message);
-    NSDictionary *dictcount=[[NSDictionary alloc] initWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"],@"Waiting_On_You_Count", nil];
+    //NSLog(@"message=%@",message);
     
     NSString *channel = [[[message JSONValue] objectAtIndex:0] valueForKeyPath:@"data"];
     
     if ([[channel valueForKeyPath:@"data"] valueForKey:@"message"]!=NULL)
     {
+        SoclivityManager *SOC=[SoclivityManager SharedInstance];
+        SOC.loggedInUser.notification_count=[[channel valueForKey:@"data"] valueForKey:@"badge"];
+        NSLog(@"badge=%@",[[channel valueForKey:@"data"] valueForKey:@"badge"]);
         
-        NSLog(@"badge::%@",[[channel valueForKey:@"data"] valueForKey:@"badge"]);
+        NSString *testString=SOC.loggedInUser.unread_notification;
         
-        [[NSUserDefaults standardUserDefaults] setValue:[[channel valueForKey:@"data"] valueForKey:@"badge"] forKey:@"Waiting_On_You_Count"];
-          
-          if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]==NULL || [[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"] isEqualToString:@""])
-          {
-              [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@",[[channel valueForKeyPath:@"data"] valueForKey:@"notification_id"]]  forKey:@"Notification_id"];
-          }//END if ([[NSUserDefaults standardUserDefaults] valueforKey:@"Notification_Count"]==NULL)
-          
-          else
-          {
-              NSString *lstrvalue=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
-              [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@,%@",lstrvalue,[[channel valueForKeyPath:@"data"] valueForKey:@"notification_id"]] forKey:@"Notification_id"];
-          }//END Else Statement
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
+        if(testString != nil && [testString class] != [NSNull class] && ![testString isEqualToString:@""]){
+            SOC.loggedInUser.unread_notification=[NSString stringWithFormat:@"%@,%@",testString,[[channel valueForKeyPath:@"data"] valueForKey:@"notification_id"]];
+            
+        }else{
+            
+            SOC.loggedInUser.unread_notification=[NSString stringWithFormat:@"%@",[[channel valueForKeyPath:@"data"] valueForKey:@"notification_id"]];
+            }
 
-        [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
+        
+        //[[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
+
+        //[(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingonyouNotification" object:self userInfo:[channel valueForKeyPath:@"data"]];
-    }//END if ([[[channel value
+    }
 }
 
 @end

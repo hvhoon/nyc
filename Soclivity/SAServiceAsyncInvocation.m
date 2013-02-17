@@ -247,8 +247,6 @@ NSDateFormatter* gJSONDateFormatter = nil;
 	[self handleHttpError:[[self response] statusCode]];
 	//[self.finalizer finalize:self];
 }
-
-#if 1
 - (void)connectionDidFinishLoading:(NSURLConnection*)connection {
 	
     BOOL finalize = YES;
@@ -264,74 +262,6 @@ NSDateFormatter* gJSONDateFormatter = nil;
         // [self.finalizer finalize:self];
     }
 }
-#else
-
-- (void)connectionDidFinishLoading:(NSURLConnection*)connection {
-	
-    BOOL finalize = YES;
-    NSString *response=[[NSString alloc] initWithData:_receivedData encoding:NSASCIIStringEncoding];
-    
-    if ([response JSONValue]!=NULL && [response length]!=0 && [[response JSONValue] count]!=0)
-    {
-        if ([[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"]==NULL)
-        {
-            if([[response JSONValue] valueForKey:@"logged_in_user_id"]!=[NSNull null])
-            {
-                [[NSUserDefaults standardUserDefaults] setValue:[[response JSONValue] valueForKey:@"logged_in_user_id"] forKey:@"logged_in_user_id"];
-            }//END if([[response JSONValue] valueForKey:@"logged_in_user_id"]!=[NSNull null])
-            
-            if([[response JSONValue] valueForKey:@"notification_count"]!=[NSNull null])
-            {
-                [[NSUserDefaults standardUserDefaults] setValue:[[response JSONValue] valueForKey:@"notification_count"] forKey:@"Waiting_On_You_Count"];
-            }//END if([[response JSONValue] valueForKey:@"notification_count"]!=[NSNull null])
-            
-            if([[response JSONValue] valueForKey:@"unread_notification"]!=[NSNull null])
-            {
-                [[NSUserDefaults standardUserDefaults] setValue:[[response JSONValue] valueForKey:@"unread_notification"] forKey:@"Notification_id"];
-            }//END if([[response JSONValue] valueForKey:@"unread_notification"]!=[NSNull null])
-        }
-        [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
-    }
-    if ([[self response] isOK]) {
-        finalize = [self handleHttpOK:_receivedData];
-        
-        if ([[response JSONValue] valueForKey:@"channel"]!=NULL && [[response JSONValue] count]!=0 && [[response JSONValue] valueForKey:@"channel"]!=[NSNull null])
-        {
-            if ([[[response JSONValue] valueForKeyPath:@"channel"] isKindOfClass:[NSArray class]])
-            {
-                for (int k=0; k<[[[response JSONValue] valueForKeyPath:@"channel"] count]; k++)
-                {
-                    if ([[[response JSONValue] valueForKeyPath:@"channel"] objectAtIndex:k]==@"<null>")
-                    {
-                        //do nothing
-                    }
-                } 
-            }
-            
-            else{
-                [[NSUserDefaults standardUserDefaults] setValue:[[[[response JSONValue] valueForKey:@"channel"] JSONValue] valueForKey:@"channel"] forKey:@"Channel"];
-                
-                [(AppDelegate *)[[UIApplication sharedApplication] delegate] PostBackgroundStatus];
-                
-                RRAViewController *objrra=[[RRAViewController alloc] initWithNibName:nil bundle:nil];
-                [objrra fetchPrivatePubConfiguration:[[[[response JSONValue] valueForKey:@"channel"] JSONValue] valueForKey:@"channel"]];
-                [(AppDelegate *)[[UIApplication sharedApplication] delegate] setObjrra:objrra];
-                
-                [[NSUserDefaults standardUserDefaults] setValue:@"TRUE" forKey:@"FromBackgroundState"];
-                
-            }
-        }
-        
-    } else {
-        finalize = [self handleHttpError:[[self response] statusCode]];
-    }
-    if (finalize) {
-        // [self.finalizer finalize:self];
-    }
-
-    
-}
-#endif
 -(BOOL)handleHttpOK:(NSMutableData*)data {
 	// Override to handle gracefully
     return YES;

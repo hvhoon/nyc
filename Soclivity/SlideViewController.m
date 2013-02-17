@@ -12,9 +12,9 @@
 #import "UpComingCompletedEventsViewController.h"
 #import "InvitesViewController.h"
 #import "AboutViewController.h"
-#import "AppDelegate.h"
 #import "JMC.h"
-
+#import "SoclivityManager.h"
+#import "GetPlayersClass.h"
 #define kSVCLeftAnchorX                 100.0f
 #define kSVCRightAnchorX                190.0f
 #define kSVCSwipeNavigationBarOnly      YES
@@ -192,7 +192,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (WaitingOnYou_Count) name:@"WaitingOnYou_Count" object:nil];
     
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (PushNotificationView) name:@"PushNotification_View" object:nil];
 }
 
 #pragma mark Instance Methods
@@ -684,7 +683,8 @@
             CGRect notificationNoLabelRect=CGRectMake(6,4,15,14);
             UILabel *notificationNoLabel=[[UILabel alloc] initWithFrame:notificationNoLabelRect];
             notificationNoLabel.textAlignment=UITextAlignmentCenter;
-            notificationNoLabel.text=[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]];
+            SoclivityManager *SOC=[SoclivityManager SharedInstance];
+            notificationNoLabel.text=[NSString stringWithFormat:@"%d",SOC.loggedInUser.notification_count];
             notificationNoLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
             notificationNoLabel.textColor=[UIColor whiteColor];
             notificationNoLabel.shadowColor = [UIColor blackColor];
@@ -713,7 +713,6 @@
     UISwitch* switchControl = sender;
     NSLog( @"The switch is %@", switchControl.on ? @"ON" : @"OFF" );
 }
-#if 1
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
@@ -791,7 +790,6 @@
         return 0.0f;
     }
 }
-#endif
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         
     NSDictionary *viewControllerDictionary = nil;
@@ -812,7 +810,6 @@
     NSString *nibNameOrNil = [viewControllerDictionary objectForKey:kSlideViewControllerViewControllerNibNameKey];
     UIViewController *viewController = [[viewControllerClass alloc] initWithNibName:nibNameOrNil bundle:nil];
     
-    NSLog(@"viewcontroller::%@",viewController);
     
     if([viewController isKindOfClass:[HomeViewController class]]){
         
@@ -862,13 +859,6 @@
     [self slideInSlideNavigationControllerView];
     
 }
-
--(void)PushNotificationView
-{
-    NSIndexPath *index=[NSIndexPath indexPathForRow:0 inSection:1];
-    [_tableView.delegate tableView:_tableView didSelectRowAtIndexPath:index];
-}
-
 - (void)showLeft:(id)sender{
     [self menuBarButtonItemPressed:sender];
 }

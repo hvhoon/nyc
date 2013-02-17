@@ -23,7 +23,7 @@
 #import "GetUpcomingActivitiesInvocation.h"
 #import "GetUserProfileInfoInvocation.h"
 #import "GetUsersByFirstLastNameInvocation.h"
-#import "AppDelegate.h"
+#import "GetNotificationsInvocation.h"
 @interface MainServiceManager : SAService{
     
 }
@@ -45,5 +45,7 @@
 -(void)getUpcomingActivitiesForUserInvocation:(NSInteger)playerSOCId player2:(NSInteger)player2 delegate:(id<GetUpcomingActivitiesInvocationDelegate>)delegate;
 -(void)getUserProfileInfoInvocation:(NSInteger)playerSOCId friendPlayer:(NSInteger)friendPlayer delegate:(id<GetUserProfileInfoInvocationDelegate>)delegate;
 -(void)searchUsersByNameInvocation:(NSInteger)playerSOCId searchText:(NSString*)searchText delegate:(id<GetUsersByFirstLastNameInvocationDelegate>)delegate;
+-(void)getUserNotificationsInfoInvocation:(id<GetNotificationsInvocationDelegate>)delegate notificationType:(NSInteger)type notficationId:(NSInteger)idType;
+
 
 @end

@@ -3,6 +3,7 @@
 #import "ParticipantClass.h"
 #import "InviteObjectClass.h"
 #import "SoclivityUtilities.h"
+#import "NotificationClass.h"
 #define kIconHeight 56
 #define kIconWidth 56
 
@@ -14,16 +15,17 @@
 @synthesize activeDownload;
 @synthesize imageConnection;
 @synthesize tagkey;
-@synthesize inviteRecord,img_waitingonyou,lstrwaitingonyouurl;
+@synthesize inviteRecord;
+@synthesize notificationRecord;
 #pragma mark
 
 - (void)dealloc
 {
     [appRecord release];
     [indexPathInTableView release];
-    
+    [notificationRecord release];
     [activeDownload release];
-    
+    [inviteRecord release];
     [imageConnection cancel];
     [imageConnection release];
     
@@ -66,13 +68,13 @@
         }
             break;
             
-        case kWaitingOnYou:
+        case kNotificationImageUrl:
         {
-            if(self.lstrwaitingonyouurl != nil)
+            if(notificationRecord.photoUrl!= nil)
             {
                 NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
                                          [NSURLRequest requestWithURL:
-                                          [NSURL URLWithString:self.lstrwaitingonyouurl]] delegate:self];
+                                          [NSURL URLWithString:notificationRecord.photoUrl]] delegate:self];
                 self.imageConnection = conn;
                 [conn release];
             }
@@ -80,7 +82,6 @@
         }
             break;
     }
-    // alloc+init and start an NSURLConnection; release on completion/failure
 }
 
 - (void)cancelDownload
@@ -136,9 +137,9 @@
             }
                break;
                
-           case kWaitingOnYou:
+           case kNotificationImageUrl:
            {
-               self.img_waitingonyou =[[UIImage alloc] initWithData:UIImagePNGRepresentation(image)];
+            self.notificationRecord.profileImage =image;
            }
                 break;
         }

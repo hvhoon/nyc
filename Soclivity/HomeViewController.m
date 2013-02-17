@@ -22,7 +22,7 @@
 #import "UpComingCompletedEventsViewController.h"
 #import "SOCProfileViewController.h"
 #import "CreateActivityViewController.h"
-
+#import "NotifyAnimationView.h"
 @interface HomeViewController(Private) <MBProgressHUDDelegate,NewActivityViewDelegate>
 @end
 
@@ -49,6 +49,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
     [self.navigationController.navigationBar setHidden:YES];
     [self UpdateBadgeNotification];
     
@@ -75,6 +76,8 @@
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
+
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
     
@@ -167,6 +170,15 @@
     
     // Do any additional setup after loading the view from its nib.
 }
+
+-(void)showInAppNotificationsUsingRocketSocket:(NSNotification*)object{
+    
+    NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:object];
+    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
+    [self.view addSubview:notif];
+    
+}
+
 
 - (void)didReceiveBackgroundNotification:(NSNotification*) note{
 

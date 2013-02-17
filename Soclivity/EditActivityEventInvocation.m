@@ -28,7 +28,7 @@
           body:[self body]];
 }
 -(NSString*)body {
-#if 1
+
 	NSMutableDictionary* bodyD = [[[NSMutableDictionary alloc] init] autorelease];
     
     switch (changePutUrlMethod) {
@@ -64,17 +64,11 @@
             break;
     }
     
-    if([[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"]!=nil)
-    {
-        [bodyD setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"] forKey:@"logged_in_user_id"]; 
-    }//END if([[NSUserDefaults standardUserDefaults] valueForKey:
-    
     [bodyD setObject:activityObj.where_zip forKey:@"where_zip"];
 
     NSString *bodyData = [NSString stringWithFormat:@"%@",[bodyD JSONRepresentation]];
 
 	return bodyData;
-#endif
 }
 -(BOOL)handleHttpOK:(NSMutableData *)data {
     NSError* error = nil;

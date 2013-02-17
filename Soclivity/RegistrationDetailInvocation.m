@@ -194,7 +194,7 @@
 -(BOOL)handleHttpOK:(NSMutableData *)data {
     
     NSString *response=[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-   // NSLog(@"response=%@",response);
+    NSLog(@"response=%@",response);
 
 
     
