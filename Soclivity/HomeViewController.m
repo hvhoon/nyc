@@ -22,7 +22,6 @@
 #import "UpComingCompletedEventsViewController.h"
 #import "SOCProfileViewController.h"
 #import "CreateActivityViewController.h"
-#import "NotifyAnimationView.h"
 @interface HomeViewController(Private) <MBProgressHUDDelegate,NewActivityViewDelegate>
 @end
 
@@ -175,10 +174,13 @@
     
     NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:object];
     NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
+    notif.delegate=self;
     [self.view addSubview:notif];
     
 }
-
+-(void)backgroundTapToPush{
+    
+}
 
 - (void)didReceiveBackgroundNotification:(NSNotification*) note{
 

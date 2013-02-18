@@ -274,8 +274,10 @@ static NSString* kAppId = @"160726900680967";//kanav
      */
 }
 
--(void)IntimateServerForAPNSOrRocketSocket
-{
+-(void)IntimateServerForAPNSOrRocketSocket{
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        
     SOC=[SoclivityManager SharedInstance];
     NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://dev.soclivity.com/player_app_status.json?id=%d&background_status=%i",[SOC.loggedInUser.idSoc intValue],status] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
@@ -328,8 +330,9 @@ static NSString* kAppId = @"160726900680967";//kanav
             }
             SOC.loggedInUser.unread_notification=finalIds;
         }
-    }}
-
+    }
+  }
+}
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
@@ -372,36 +375,15 @@ static NSString* kAppId = @"160726900680967";//kanav
         [application endBackgroundTask:self->bgTask];
         self->bgTask = UIBackgroundTaskInvalid;
         
-        
-        
-        status=0;
-        
-        if([[[NSUserDefaults standardUserDefaults] valueForKey:@"FromBackgroundState"] isEqualToString:@"TRUE"] && [[NSUserDefaults standardUserDefaults] valueForKey:@"FromBackgroundState"]!=NULL)
-        {
-            if([SoclivityUtilities hasNetworkConnection]){
+        if([SoclivityUtilities hasNetworkConnection]){
+                status=0;
+
                 [self IntimateServerForAPNSOrRocketSocket];
                 
                 //[_objrra fetchPrivatePubConfiguration];
-                
-                
             }
-            
-            else{
-                
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
-                                                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                
-                [alert show];
-                [alert release];
-                return;
-            }
-            
         }
-
-        
-    }
-    
- }
+}
 
 -(void)ShowNotification:(NSNotification*)dict
 {

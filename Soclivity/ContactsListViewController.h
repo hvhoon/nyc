@@ -10,6 +10,7 @@
 #import "CustomSearchbar.h"
 #import "InviteUserTableViewCell.h"
 #import "IconDownloader.h"
+#import "NotifyAnimationView.h"
 @class MainServiceManager;
 @class MBProgressHUD;
 @protocol ContactsListViewDelegate <NSObject>
@@ -19,7 +20,7 @@
 -(BOOL)CalculateOpenSlots;
 @end
 
-@interface ContactsListViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,SoclivitySearchBarDelegate,InviteTableViewCellDelegate,IconDownloaderDelegate>{
+@interface ContactsListViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,SoclivitySearchBarDelegate,InviteTableViewCellDelegate,IconDownloaderDelegate,NotifyAnimationViewDelegate>{
     
     IBOutlet UIButton*activityBackButton;
     IBOutlet UILabel *inviteTitleLabel;

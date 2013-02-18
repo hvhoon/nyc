@@ -18,7 +18,7 @@
 @end
 
 @implementation ProfileViewController
-@synthesize delegate,activityTypesView,isFirstTime,btnnotify;
+@synthesize delegate,activityTypesView,isFirstTime;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -38,7 +38,7 @@
 
 -(void)BadgeNotification
 {
-    [SoclivityUtilities returnNotificationButtonWithCountUpdate:self.btnnotify];
+    [SoclivityUtilities returnNotificationButtonWithCountUpdate:btnnotify];
 }
 
 #pragma mark - View lifecycle
@@ -53,7 +53,7 @@
     updateActivityLabel.backgroundColor=[UIColor clearColor];
     updateActivityLabel.shadowColor = [UIColor blackColor];
     updateActivityLabel.shadowOffset = CGSizeMake(0,-1);
-    self.btnnotify.hidden=FALSE;
+    btnnotify.hidden=FALSE;
 
     activityTypesView.delegate=self;
     
@@ -62,23 +62,41 @@
         profileButton.hidden=YES;
         updateActivityLabel.text=@"Pick stuff you like to do...";
         activityTypesView.isRegisteration=TRUE;
-        self.btnnotify.hidden=TRUE;
+        btnnotify.hidden=TRUE;
     }
     else{
         
         [self BadgeNotification];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (BadgeNotification) name:@"WaitingOnYou_Count" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
+
 
         activityTypesView.isRegisteration=FALSE;
         getStartedButton.hidden=YES;
         profileButton.hidden=NO;
         updateActivityLabel.text=@"Update Activity Types";
         [activityTypesView updateActivityTypes];
-    }//END Else Statement
+    }
 
     // Do any additional setup after loading the view from its nib.
 }
+
+
+-(void)showInAppNotificationsUsingRocketSocket:(NSNotification*)object{
+    
+    NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:object];
+    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
+    notif.delegate=self;
+    [self.view addSubview:notif];
+    
+}
+
+-(void)backgroundTapToPush{
+    
+}
+
 -(IBAction)profileSliderPressed:(id)sender{
      [delegate showLeft:sender];
 }

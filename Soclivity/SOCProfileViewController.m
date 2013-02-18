@@ -38,6 +38,9 @@
     [super viewDidLoad];
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
+
 
     loadNFriendsAtTimeArray=[[NSMutableArray alloc]init];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
@@ -187,6 +190,21 @@
 
     // Do any additional setup after loading the view from its nib.
 }
+
+
+-(void)showInAppNotificationsUsingRocketSocket:(NSNotification*)object{
+    
+    NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:object];
+    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
+    notif.delegate=self;
+    [self.view addSubview:notif];
+    
+}
+
+-(void)backgroundTapToPush{
+    
+}
+
 -(void)UserProfileInfoInvocationDidFinish:(GetUserProfileInfoInvocation*)invocation
                              withResponse:(SocPlayerClass*)response
                                 withError:(NSError*)error{
@@ -528,7 +546,7 @@
     
 }
 
--(IBAction)tapViewAll:(id)sender{
+-(void)tapViewAll:(id)sender{
     
     
     NSString*nibNameBundle=nil;

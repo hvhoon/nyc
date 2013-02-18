@@ -9,7 +9,6 @@
 #import "SettingsViewController.h"
 #import "HomeViewController.h"
 #import "UpComingCompletedEventsViewController.h"
-#import "DDMenuController.h"
 #import "WelcomeScreenViewController.h"
 
 @implementation SettingsViewController

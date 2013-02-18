@@ -28,6 +28,7 @@
     NSLog(@"handleHttpOK");
 	NSDictionary* resultsd = [[[NSString alloc] initWithData:data
                                                     encoding:NSUTF8StringEncoding] JSONValue];
+    NSLog(@"resultsd=%@",resultsd);
     
     
 	[self.delegate SearchUsersInvocationDidFinish:self withResponse:nil withError:Nil];

@@ -40,7 +40,7 @@
 @end
 
 @implementation ActivityEventViewController
-@synthesize activityInfo,scrollView;
+@synthesize activityInfo,scrollView,isCalledFromNotification;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -68,6 +68,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
+
     toggleFriends=TRUE;
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
@@ -353,6 +356,19 @@
 
     // Do any additional setup after loading the view from its nib.
 }
+
+-(void)showInAppNotificationsUsingRocketSocket:(NSNotification*)object{
+    
+    NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:object];
+    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
+    notif.delegate=self;
+    [self.view addSubview:notif];
+    
+}
+-(void)backgroundTapToPush{
+    
+}
+
 -(void)BottonBarButtonHideAndShow:(NSInteger)type{
     
     switch (type) {
@@ -468,7 +484,7 @@
 
 -(void)ButtonTapped:(UIButton*)sender{
     
-    int tag=sender.tag;
+    //int tag=sender.tag;
     if(page==0){
         
         
@@ -951,6 +967,10 @@
 -(IBAction)goingActivityButtonPressed:(id)sender{
     
     
+    if(isCalledFromNotification){
+        isCalledFromNotification=FALSE;
+    }
+    
     switch (activityInfo.activityRelationType) {
         case 4:
         {
@@ -981,6 +1001,10 @@
 -(IBAction)notGoingActivityButtonPressed:(id)sender{
     
     
+    if(isCalledFromNotification){
+        isCalledFromNotification=FALSE;
+    }
+
     switch (activityInfo.activityRelationType) {
         case 4:
         {

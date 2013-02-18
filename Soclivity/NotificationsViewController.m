@@ -14,7 +14,6 @@
 #import "SOCProfileViewController.h"
 #import "SocPlayerClass.h"
 #import "GetPlayersClass.h"
-#import "NotifyAnimationView.h"
 @implementation NotificationsViewController
 @synthesize delegate,notId;
 
@@ -137,9 +136,15 @@
     
     NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:object];
     NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
+    notif.delegate=self;
     [self.view addSubview:notif];
     
 }
+
+-(void)backgroundTapToPush{
+    
+}
+
 -(NSMutableArray*) SetUpDummyNotifications{
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"Notifications" withExtension:@"plist"];
     NSArray *playDictionariesArray = [[NSArray alloc ] initWithContentsOfURL:url];

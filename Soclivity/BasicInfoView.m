@@ -251,7 +251,7 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
     
     // Really not sure what this interval stuff is here for?
     NSTimeInterval interval = [bDate timeIntervalSinceDate: [NSDate date]];
-    NSLog(@"intervaal=%@",interval);
+    NSLog(@"interval=%f",interval);
     // Date selected must be less than today's date
     if ([bDate compare:[NSDate date]] == NSOrderedAscending) {
         

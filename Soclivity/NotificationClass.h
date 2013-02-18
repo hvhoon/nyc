@@ -15,7 +15,6 @@
     UIImage *profileImage;
     NSString *count;
     NSInteger notificationId;
-     MBProgressHUD *HUD;
     NSString *userId;
     BOOL isReceived;
     NSInteger activityId;

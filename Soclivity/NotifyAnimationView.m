@@ -25,7 +25,7 @@ static inline NSRegularExpression * NameRegularExpression() {
 
 
 @implementation NotifyAnimationView
-@synthesize summaryLabel;
+@synthesize summaryLabel,delegate;
 - (id)initWithFrame:(CGRect)frame andNotif:(NotificationClass*)andNotif
 {
     
@@ -280,6 +280,8 @@ else{
     }
     SOC.loggedInUser.unread_notification=finalIds;
     }
+    
+    [delegate backgroundTapToPush];
 }
 //[[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
 #endif

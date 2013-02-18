@@ -563,7 +563,6 @@
 		EA96E840155E269500BE82DF /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA96E83E155E269500BE82DF /* SettingsViewController.m */; };
 		EA96E841155E269500BE82DF /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA96E83F155E269500BE82DF /* SettingsViewController.xib */; };
 		EA96E846155E2AAC00BE82DF /* UpComingCompletedEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA96E844155E2AAC00BE82DF /* UpComingCompletedEventsViewController.m */; };
-		EA96E852155E37A500BE82DF /* DDMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA96E851155E37A500BE82DF /* DDMenuController.m */; };
 		EA96E85A155E670800BE82DF /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA96E858155E670800BE82DF /* HomeViewController.m */; };
 		EA96E85B155E670800BE82DF /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA96E859155E670800BE82DF /* HomeViewController.xib */; };
 		EA97008D156624CE005A271A /* AlertPrompt.m in Sources */ = {isa = PBXBuildFile; fileRef = EA97008B156624CE005A271A /* AlertPrompt.m */; };
@@ -1651,8 +1650,6 @@
 		EA96E83F155E269500BE82DF /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		EA96E843155E2AAC00BE82DF /* UpComingCompletedEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpComingCompletedEventsViewController.h; sourceTree = "<group>"; };
 		EA96E844155E2AAC00BE82DF /* UpComingCompletedEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpComingCompletedEventsViewController.m; sourceTree = "<group>"; };
-		EA96E850155E37A500BE82DF /* DDMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMenuController.h; sourceTree = "<group>"; };
-		EA96E851155E37A500BE82DF /* DDMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMenuController.m; sourceTree = "<group>"; };
 		EA96E857155E670800BE82DF /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		EA96E858155E670800BE82DF /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		EA96E859155E670800BE82DF /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
@@ -2244,7 +2241,6 @@
 				EA5BC966156CCC0700AC8C0C /* JSON */,
 				EA94D017156BAB4700B0E6F5 /* Facebook */,
 				EA94CFFE156B53F000B0E6F5 /* Objectify */,
-				EA96E84F155E378100BE82DF /* New Vendor */,
 				EA96E842155E2A8500BE82DF /* Upcoming/Completed */,
 				EA96E83C155E268000BE82DF /* Settings */,
 				EA91C324155A71A500BE5BB1 /* Services */,
@@ -3460,15 +3456,6 @@
 				EAC801AF16119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib */,
 			);
 			name = Upcoming/Completed;
-			sourceTree = "<group>";
-		};
-		EA96E84F155E378100BE82DF /* New Vendor */ = {
-			isa = PBXGroup;
-			children = (
-				EA96E850155E37A500BE82DF /* DDMenuController.h */,
-				EA96E851155E37A500BE82DF /* DDMenuController.m */,
-			);
-			name = "New Vendor";
 			sourceTree = "<group>";
 		};
 		EA96E856155E66ED00BE82DF /* Home */ = {
@@ -4790,7 +4777,6 @@
 				EA91C34B155A899900BE5BB1 /* GetPlayersClass.m in Sources */,
 				EA96E840155E269500BE82DF /* SettingsViewController.m in Sources */,
 				EA96E846155E2AAC00BE82DF /* UpComingCompletedEventsViewController.m in Sources */,
-				EA96E852155E37A500BE82DF /* DDMenuController.m in Sources */,
 				EA96E85A155E670800BE82DF /* HomeViewController.m in Sources */,
 				EAD44FF21564FA190075C8CA /* Base64.m in Sources */,
 				EA3ABAE81565709100B262F7 /* GetLoginInvocation.m in Sources */,
@@ -5062,11 +5048,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
 				COMPRESS_PNG_FILES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Soclivity/JMCClasses/Libraries\"",
-					"\"/Users/Harish/Downloads/atlassian-jiraconnect-ios-b64dab389bdb/JIRAConnect/JMCClasses/Libraries\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/Soclivity/JMCClasses/Libraries\"";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
@@ -5092,11 +5074,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
 				COMPRESS_PNG_FILES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Soclivity/JMCClasses/Libraries\"",
-					"\"/Users/Harish/Downloads/atlassian-jiraconnect-ios-b64dab389bdb/JIRAConnect/JMCClasses/Libraries\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/Soclivity/JMCClasses/Libraries\"";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Soclivity/Soclivity-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;

@@ -51,6 +51,9 @@
     [super viewDidLoad];
     devServer=[[MainServiceManager alloc]init];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
+
+    
     if(newActivity){
         activityObject=[[InfoActivityClass alloc]init];
         activityObject.type=1;
@@ -634,6 +637,18 @@
     // Do any additional setup after loading the view from its nib.
 }
 
+-(void)showInAppNotificationsUsingRocketSocket:(NSNotification*)object{
+    
+    NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:object];
+    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
+    notif.delegate=self;
+    [self.view addSubview:notif];
+    
+}
+
+-(void)backgroundTapToPush{
+    
+}
 
 -(void)setUpLabelViewElements:(BOOL)show{
     

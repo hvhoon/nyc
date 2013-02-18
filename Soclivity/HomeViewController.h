@@ -13,6 +13,7 @@
 #import "GetActivitiesInvocation.h"
 #import "LocationCustomManager.h"
 #import "DetailedActivityInfoInvocation.h"
+#import "NotifyAnimationView.h"
 
 @class MainServiceManager;
 @class SoclivityManager;
@@ -24,7 +25,7 @@
 - (void)showLeft:(id)sender;
 @end
 
-@interface HomeViewController : UIViewController<PullableViewDelegate,GetActivitiesInvocationDelegate,ActivityListViewDelegate,EventsMapViewDelegate,CoreLocationDelegate,DetailedActivityInfoInvocationDelegate>{
+@interface HomeViewController : UIViewController<PullableViewDelegate,GetActivitiesInvocationDelegate,ActivityListViewDelegate,EventsMapViewDelegate,CoreLocationDelegate,DetailedActivityInfoInvocationDelegate,NotifyAnimationViewDelegate>{
    
     IBOutlet UIButton *profileBtn;
     IBOutlet UIView *topNavBarView;

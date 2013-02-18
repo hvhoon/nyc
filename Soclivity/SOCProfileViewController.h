@@ -10,9 +10,10 @@
 #import "InviteUserTableViewCell.h"
 #import "IconDownloader.h"
 #import "MainServiceManager.h"
+#import "NotifyAnimationView.h"
 @class SocPlayerClass;
 @class SoclivityManager;
-@interface SOCProfileViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,InviteTableViewCellDelegate,IconDownloaderDelegate>{
+@interface SOCProfileViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,InviteTableViewCellDelegate,IconDownloaderDelegate,NotifyAnimationViewDelegate>{
     
     IBOutlet UILabel*profileNameLabel;
     IBOutlet UIImageView *profileImageview;
@@ -47,7 +48,7 @@
 @property (nonatomic,retain)NSMutableArray *loadNFriendsAtTimeArray;
 -(IBAction)profileBackButtonClicked:(id)sender;
 -(UIView*)SetupHeaderView;
--(IBAction)tapViewAll:(UITapGestureRecognizer*)sender;
+-(void)tapViewAll:(UITapGestureRecognizer*)sender;
 - (NSInteger)tableViewHeight;
 -(void)addLoadingMoreFooter:(NSInteger)loadMoreFooterHeight;
 -(void)viewDetailActivity:(id)sender;

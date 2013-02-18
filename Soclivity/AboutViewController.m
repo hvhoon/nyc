@@ -83,37 +83,10 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
--(void)UpdateBadgeNotification
-{
-    self.btnnotify.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
-    
-    int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
-    
-    if (count==0)
-    {
-        self.btnnotify.alpha=0;
-    }//END if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"Wait
-    
-    else
-    {
-        if ([[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] length]<2)
-        {
-            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notifyDigit1.png"] forState:UIControlStateNormal];
-            self.btnnotify.frame = CGRectMake(self.btnnotify.frame.origin.x,self.btnnotify.frame.origin.y,27,27);
-            
-        }//END if ([[NSString stringWithFormat:@"%i",[[[
-        
-        else{
-            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notifyDigit2.png"] forState:UIControlStateNormal];
-            self.btnnotify.frame = CGRectMake(self.btnnotify.frame.origin.x,self.btnnotify.frame.origin.y,33,28);
-        }//END Else Statement
-        
-        self.btnnotify.alpha=1;
-        [self.btnnotify setTitle:[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] forState:UIControlStateNormal];
-        [self.btnnotify setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    }//END Else Statement
+-(void)UpdateBadgeNotification{
+    [SoclivityUtilities returnNotificationButtonWithCountUpdate:btnnotify];
 }
+
 
 -(IBAction)submitBugPressed:(id)sender {
     [self presentModalViewController:[[JMC sharedInstance] feedbackViewController] animated:YES];

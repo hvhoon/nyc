@@ -35,6 +35,7 @@ static NSArray *playerActivityDetails;
     NotificationClass *notification=[[NotificationClass alloc]init];
     id obj=[object valueForKey:@"userInfo"];
     id obj1=[obj valueForKey:@"activity"];
+    NSLog(@"obj1=%@",obj1);
     notification.activityId=[[[[object valueForKey:@"userInfo"] valueForKey:@"activity"] valueForKey:@"id"]integerValue];
     notification.latitude=[[object valueForKey:@"userInfo"] valueForKey:@"lat"];
     notification.longitude=[[object valueForKey:@"userInfo"] valueForKey:@"lng"];

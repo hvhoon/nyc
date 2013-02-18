@@ -219,12 +219,12 @@
     
     //NSLog(@"message=%@",message);
     
-    NSString *channel = [[[message JSONValue] objectAtIndex:0] valueForKeyPath:@"data"];
+    id channel = [[[message JSONValue] objectAtIndex:0] valueForKeyPath:@"data"];
     
     if ([[channel valueForKeyPath:@"data"] valueForKey:@"message"]!=NULL)
     {
         SoclivityManager *SOC=[SoclivityManager SharedInstance];
-        SOC.loggedInUser.notification_count=[[channel valueForKey:@"data"] valueForKey:@"badge"];
+        SOC.loggedInUser.notification_count=[[[channel valueForKey:@"data"] valueForKey:@"badge"]integerValue];
         NSLog(@"badge=%@",[[channel valueForKey:@"data"] valueForKey:@"badge"]);
         
         NSString *testString=SOC.loggedInUser.unread_notification;

@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "AddEventView.h"
 #import "ParticipantListTableView.h"
+#import "NotifyAnimationView.h"
 @class InfoActivityClass;
 @class SoclivityManager;
 @class MainServiceManager;
 @class MBProgressHUD;
-@interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate,ParticipantListDelegate>{
+@interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate,ParticipantListDelegate,NotifyAnimationViewDelegate>{
     IBOutlet UIScrollView* scrollView;
     IBOutlet AddEventView *eventView;
     IBOutlet ParticipantListTableView *participantListTableView;
@@ -54,11 +55,12 @@
     BOOL inTransition;
     MainServiceManager *devServer;
     MBProgressHUD *HUD;
+    BOOL isCalledFromNotification;
     
 }
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property (nonatomic,retain)InfoActivityClass *activityInfo;
-
+@property(nonatomic,assign) BOOL isCalledFromNotification;
 -(IBAction)backButtonPressed:(id)sender;
 -(IBAction)addEventActivityPressed:(id)sender;
 -(IBAction)leaveEventActivityPressed:(id)sender;
