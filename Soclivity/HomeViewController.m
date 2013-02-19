@@ -22,6 +22,7 @@
 #import "UpComingCompletedEventsViewController.h"
 #import "SOCProfileViewController.h"
 #import "CreateActivityViewController.h"
+#import "NotificationClass.h"
 @interface HomeViewController(Private) <MBProgressHUDDelegate,NewActivityViewDelegate>
 @end
 
@@ -80,9 +81,6 @@
     [super viewDidLoad];
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
-
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
     
@@ -175,33 +173,128 @@
     // Do any additional setup after loading the view from its nib.
 }
 
--(void)showInAppNotificationsUsingRocketSocket:(NSNotification*)object{
+- (void)backgroundTapToPush:(NotificationClass*)notification{
     
-    NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:object];
-    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
-    notif.delegate=self;
-    [self.view addSubview:notif];
-    
-}
--(void)backgroundTapToPush:(NotificationClass*)notification{
     NSLog(@"Home Selected");
+
+    
+    if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    
+    notId=notification.notificationType;
+    GetPlayersClass *obj=SOC.loggedInUser;
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        pushInAppNotif=TRUE;
+        [devServer getDetailedActivityInfoInvocation:[obj.idSoc intValue]  actId:notification.activityId  latitude:[notification.latitude floatValue] longitude:[notification.longitude floatValue] delegate:self];
+        
+    }
+    else{
+        if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+}
+
+
+
+
+#pragma mark DetailedActivityInfoInvocationDelegate Method
+-(void)DetailedActivityInfoInvocationDidFinish:(DetailedActivityInfoInvocation*)invocation
+                                  withResponse:(InfoActivityClass*)response
+                                     withError:(NSError*)error{
+    
+    
+    if(pushInAppNotif){
+        pushInAppNotif=FALSE;
+    
+    if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    
+    
+    
+    
+    
+    switch ([notId integerValue]) {
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 11:
+        default:
+            
+            
+        {
+            NSString*nibNameBundle=nil;
+            
+            if([SoclivityUtilities deviceType] & iPhone5){
+                nibNameBundle=@"ActivityEventViewController_iphone5";
+            }
+            else{
+                nibNameBundle=@"ActivityEventViewController";
+            }
+            
+            ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+            activityEventViewController.activityInfo=response;
+            
+            [[self navigationController] pushViewController:activityEventViewController animated:YES];
+            [activityEventViewController release];
+            
+        }
+            break;
+            
+            
+        case 7:
+        case 8:
+        case 9:
+        case 10:
+        case 13:
+        case 16:
+            
+        {
+            SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
+            myClass.playerName=response.organizerName;
+            myClass.DOS=response.DOS;
+            myClass.activityId=response.activityId;
+            myClass.latestActivityName=response.activityName;
+            myClass.activityType=response.type;
+            myClass.profilePhotoUrl=response.ownerProfilePhotoUrl;
+            myClass.distance=[response.distance floatValue];
+            SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
+            socProfileViewController.playerObject=myClass;
+            [[self navigationController] pushViewController:socProfileViewController animated:YES];
+            [socProfileViewController release];
+            
+        }
+            
+            break;
+    }
+    
+}else{
+    
+    [self performSelectorOnMainThread:@selector(pushActivityController:) withObject:response waitUntilDone:NO];
+
+}
+
 }
 
 - (void)didReceiveBackgroundNotification:(NSNotification*) note{
     
     NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:note];
-    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
+    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 60) andNotif:notifObject];
     notif.delegate=self;
     [self.view addSubview:notif];
-
-
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notification Received" message:nil
-                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    
-    [alert show];
-    [alert release];
-    return;
-
 }
 
 -(void)getUpdatedLocationWithActivities{
@@ -686,7 +779,7 @@
 
 #pragma mark -
 #pragma mark DetailedActivityInfoInvocationDelegate Method
-
+#if 0
 -(void)DetailedActivityInfoInvocationDidFinish:(DetailedActivityInfoInvocation*)invocation
                                   withResponse:(InfoActivityClass*)responses
                                      withError:(NSError*)error{
@@ -707,7 +800,7 @@
 #endif
     
 }
-
+#endif
 -(void)synchronousDownloadProfilePhotoBytes:(InfoActivityClass*)player{
  
     int index=0;

@@ -83,8 +83,7 @@
     waitingOnYouLabel.backgroundColor=[UIColor clearColor];
     waitingOnYouLabel.shadowColor = [UIColor blackColor];
     waitingOnYouLabel.shadowOffset = CGSizeMake(0,-1);
-    [self.view insertSubview:btnnotify aboveSubview:waitingOnYouLabel];
-   // [self.view bringSubviewToFront:btnnotify];
+   //[self.view bringSubviewToFront:btnnotify];
 
 }
 
@@ -132,6 +131,7 @@
         notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect andNotificationsListArray:responses];
         notificationView.delegate=self;
         [self.view addSubview:notificationView];
+        [self.view insertSubview:btnnotify aboveSubview:notificationView];
     }
     
 

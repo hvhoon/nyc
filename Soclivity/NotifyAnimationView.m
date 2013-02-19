@@ -25,7 +25,7 @@ static inline NSRegularExpression * NameRegularExpression() {
 
 
 @implementation NotifyAnimationView
-@synthesize summaryLabel,delegate,notification;
+@synthesize summaryLabel,delegate,inAppNotif;
 - (id)initWithFrame:(CGRect)frame andNotif:(NotificationClass*)andNotif
 {
     
@@ -35,17 +35,12 @@ static inline NSRegularExpression * NameRegularExpression() {
             self.userInteractionEnabled = YES;
             self.opaque = NO;
             
-            notification=[andNotif retain];
-            UIView *notificationView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 58)];
+            inAppNotif=[andNotif retain];
+            UIView *notificationView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
             notificationView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"InAppAlertBar.png"]];
             
-            UIImageView *imageViewFrame=[[UIImageView alloc] init];
-            imageViewFrame.frame=CGRectMake(5, 5, 43, 43);
-            imageViewFrame.image=[UIImage imageNamed:@"S11_frame.png"];
             
-            UIImageView *leftImageView=[[UIImageView alloc] init];
-            leftImageView.frame=CGRectMake(10, 10, 32, 32);
-            leftImageView.backgroundColor=[UIColor clearColor];
+            UIImageView *leftImageView=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 30, 29)];
             
             self.summaryLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
             summaryLabel.frame=CGRectMake(50, 0, 200, 50);
@@ -59,13 +54,14 @@ static inline NSRegularExpression * NameRegularExpression() {
             [self setSummaryText:andNotif.notificationString];
             
             UIButton *btnclose=[UIButton buttonWithType:UIButtonTypeCustom];
-            btnclose.frame=CGRectMake(295, 16, 19, 19);
-            [btnclose setBackgroundImage:[UIImage imageNamed:@"InAppRemove.png"] forState:UIControlStateNormal];
+            btnclose.frame=CGRectMake(280, 7, 38, 38);
+            [btnclose setContentMode:UIViewContentModeCenter];
+            [btnclose setImage:[UIImage imageNamed:@"InAppRemove.png"] forState:UIControlStateNormal];
             [btnclose addTarget:self action:@selector(HideNotification) forControlEvents:UIControlEventTouchUpInside];
             
             CGSize imgSize;
             
-            switch (1) {
+            switch ([andNotif.notificationType intValue]) {
                 case 1:
                 {
                     leftImageView.image=[UIImage imageNamed:@"S11_infoChangeIcon.png"];
@@ -103,30 +99,6 @@ static inline NSRegularExpression * NameRegularExpression() {
                 }
                     break;
                     
-                    
-                    
-                    
-                default:
-                    break;
-            }
-            
-            
-            
-            
-            UIButton *btnaction=[UIButton buttonWithType:UIButtonTypeCustom];
-            btnaction.frame=CGRectMake(0, 0, 320, 58);
-            btnaction.backgroundColor=[UIColor clearColor];
-            //btnaction.tag=[[[[dict valueForKey:@"userInfo"] valueForKey:@"activity"] valueForKey:@"id"] intValue];
-            //[btnaction setTitle:[NSString stringWithFormat:@"%i",[[[dict valueForKey:@"userInfo"] valueForKey:@"notification_id"] intValue]] forState:UIControlStateNormal];
-            [btnaction setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
-            [btnaction addTarget:self action:@selector(backgroundtap:) forControlEvents:UIControlEventTouchUpInside];
-            
-            [notificationView addSubview:btnclose];
-            [notificationView addSubview:self.summaryLabel];
-            [notificationView addSubview:leftImageView];
-            [notificationView addSubview:btnaction];
-            
-            switch (6) {
                 case 6:
                 case 7:
                 case 8:
@@ -138,27 +110,41 @@ static inline NSRegularExpression * NameRegularExpression() {
                 case 15:
                 case 16:
                 {
+                    UIImageView *imageViewFrame=[[UIImageView alloc] init];
+                    imageViewFrame.frame=CGRectMake(6.5, 6, 37, 37);
+                    imageViewFrame.image=[UIImage imageNamed:@"S11_frame.png"];
+
                     NSString *str=[NSString stringWithFormat:@"%@",andNotif.photoUrl];
-                    leftImageView.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]]];
+                    leftImageView.frame=CGRectMake(10, 10, 30, 29);
+                    NSData *bytes=[NSData dataWithContentsOfURL:[NSURL URLWithString:str]];
+                    NSLog(@"Bytes Length=%d",[bytes length]);
+                    leftImageView.image=[UIImage imageWithData:bytes];
                     [notificationView addSubview:imageViewFrame];
-                    [notificationView addSubview:leftImageView];
-                    [self addSubview:notificationView];
                     
                 }
                     break;
                     
-                default:
-                {
-                    [self addSubview:notificationView];
-                    
-                }
-                    break;
             }
+            
+            [notificationView addSubview:leftImageView];
+            UIButton *btnaction=[UIButton buttonWithType:UIButtonTypeCustom];
+            btnaction.frame=CGRectMake(0, 0, 275, 60);
+            btnaction.backgroundColor=[UIColor clearColor];
+            [btnaction setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+            [btnaction addTarget:self action:@selector(backgroundtap:) forControlEvents:UIControlEventTouchUpInside];
+            
+            [notificationView addSubview:btnclose];
+            [notificationView addSubview:self.summaryLabel];
+            [notificationView addSubview:btnaction];
+            [self addSubview:notificationView];
+
+
+
             counter=0;
             timer =[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countdownTracker:) userInfo:nil repeats:YES];
 
-            CGRect popupStartRect=CGRectMake(0, -58, 320, 58);
-            CGRect popupEndRect=CGRectMake(0,0, 320, 58);
+            CGRect popupStartRect=CGRectMake(0, -60, 320, 60);
+            CGRect popupEndRect=CGRectMake(0,0, 320, 60);
             self.frame = popupStartRect;
             self.alpha = 1.0f;
             [UIView animateWithDuration:0.35 delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
@@ -184,7 +170,7 @@ static inline NSRegularExpression * NameRegularExpression() {
 
 -(void)HideNotification{
     
-    CGRect popupStartRect=CGRectMake(0, -58, 320, 58);
+    CGRect popupStartRect=CGRectMake(0, -60, 320, 60);
     [UIView animateWithDuration:0.7 delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.frame = popupStartRect;
     } completion:^(BOOL finished) {
@@ -229,11 +215,10 @@ static inline NSRegularExpression * NameRegularExpression() {
 -(void)backgroundtap:(UIButton*)sender{
     
     NSLog(@"backgroundtap on in app notification");
-    [delegate backgroundTapToPush:notification];
 
-#if 0
+#if 1
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
-    NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://dev.soclivity.com/received_notification.json?id=%i",[[sender currentTitle] intValue]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://dev.soclivity.com/received_notification.json?id=%i",inAppNotif.notificationId] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
     NSLog(@"url=%@",url);
     
@@ -246,10 +231,13 @@ static inline NSRegularExpression * NameRegularExpression() {
                                                     encoding:NSUTF8StringEncoding] JSONValue];
     
     SOC.loggedInUser.badgeCount=[[resultsd objectForKey:@"badge"]integerValue];
+    
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
 
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
-}
 #endif
+    [delegate backgroundTapToPush:inAppNotif];
+
 }
 
 /*

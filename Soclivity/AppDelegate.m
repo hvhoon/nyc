@@ -17,7 +17,6 @@
 #import "GetPlayersClass.h"
 #import "ActivityEventViewController.h"
 #import "SlideViewController.h"
-#import "NotificationClass.h"
 
 static NSString* kAppId = @"160726900680967";//kanav
 #define kShowAlertKey @"ShowAlert"
@@ -58,7 +57,6 @@ static NSString* kAppId = @"160726900680967";//kanav
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
-    //[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isLoggedIn"];
     //[self setUpActivityDataList];
     [SoclivitySqliteClass copyDatabaseIfNeeded];
@@ -89,7 +87,7 @@ static NSString* kAppId = @"160726900680967";//kanav
         // could optionally set for just this navBar
         //[navBar setBackgroundImage:...
     }
-    applicationBadge=-1;
+    applicationBadge=-2;
     [navigationController setNavigationBarHidden:YES];
     [self.window addSubview:navigationController.view];
 
@@ -129,6 +127,7 @@ static NSString* kAppId = @"160726900680967";//kanav
     NSDictionary* notifUserInfo = Nil;
     if(([[UIApplication sharedApplication]applicationIconBadgeNumber]-applicationBadge)==1){
         NSLog(@"offline");
+        applicationBadge=-2;
         SOC=[SoclivityManager SharedInstance];
         NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://dev.soclivity.com/received_notification.json?id=%@",[NSString stringWithFormat:@"%@",[[userInfo valueForKey:@"params"] valueForKey:@"notification_id"]]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         
@@ -162,8 +161,9 @@ static NSString* kAppId = @"160726900680967";//kanav
     else{
         SOC=[SoclivityManager SharedInstance];
 
-        NSArray *notifArray = [NSArray arrayWithObject:kShowAlertKey];
-		notifUserInfo = [[NSDictionary alloc] initWithObjects:notifArray forKeys:notifArray];
+//        NSArray *notifArray = [NSArray arrayWithObject:@"userInfo"];
+//		notifUserInfo = [[NSDictionary alloc] initWithObjects:notifArray forKeys:notifArray];
+        
         
         NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://dev.soclivity.com/rsparameter.json?id=%@",[NSString stringWithFormat:@"%@",[[userInfo valueForKey:@"params"] valueForKey:@"notification_id"]]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         
@@ -177,24 +177,15 @@ static NSString* kAppId = @"160726900680967";//kanav
         NSDictionary* resultsd = [[[NSString alloc] initWithData:returnData
                                                         encoding:NSUTF8StringEncoding] JSONValue];
         NSLog(@"result=%@",resultsd);
-        NSNumber *test=[resultsd objectForKey:@"badge"];
-        SOC.loggedInUser.badgeCount=    [test intValue];
         
-        
-
         SOC.loggedInUser.badgeCount=[[resultsd objectForKey:@"badge"]integerValue];
         
-        NSLog(@"test badge=%d and result Value=%d",SOC.loggedInUser.badgeCount,[[resultsd objectForKey:@"badge"]integerValue]);
-
-        NotificationClass *obj=[[NotificationClass alloc]init];
-        obj.timeOfNotification=[resultsd objectForKey:@"timing"];
-        obj.photoUrl=[resultsd objectForKey:@"photo_url"];
         
-        
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];        [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
 
 
-        NSNotification* notification = [NSNotification notificationWithName:kRemoteNotificationReceivedNotification object:obj userInfo:notifUserInfo];
+        NSNotification* notification = [NSNotification notificationWithName:kRemoteNotificationReceivedNotification object:nil userInfo:resultsd];
         [[NSNotificationCenter defaultCenter] postNotification:notification];
         [notifUserInfo release];
 

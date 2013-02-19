@@ -36,18 +36,17 @@ static NSArray *playerActivityDetails;
     id obj=[object valueForKey:@"userInfo"];
     id obj1=[obj valueForKey:@"activity"];
     NSLog(@"obj1=%@",obj1);
-    notification.activityId=[[[[object valueForKey:@"userInfo"] valueForKey:@"activity"] valueForKey:@"id"]integerValue];
+    notification.notificationId=[[[object valueForKey:@"userInfo"]valueForKey:@"notification_id"]integerValue];
+    notification.activityId=[[[[object valueForKey:@"userInfo"] valueForKey:@"activity"]valueForKey:@"id"]integerValue];
+    notification.notificationType=[[object valueForKey:@"userInfo"] valueForKey:@"activity_type"];
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    SOC.loggedInUser.badgeCount=[[[object valueForKey:@"userInfo"] valueForKey:@"badge"]intValue];
+    
     notification.latitude=[[object valueForKey:@"userInfo"] valueForKey:@"lat"];
     notification.longitude=[[object valueForKey:@"userInfo"] valueForKey:@"lng"];
     notification.notificationString=[[object valueForKey:@"userInfo"] valueForKey:@"message"];
-    notification.photoUrl=[NSString stringWithFormat:@"dev.soclivity.com%@",[[object valueForKey:@"userInfo"] valueForKey:@"photo_url"]];
+    notification.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[[object valueForKey:@"userInfo"] valueForKey:@"photo_url"]];
     notification.timeOfNotification=[[object valueForKey:@"userInfo"] valueForKey:@"timing"];
-#if 0
-    [self.dict_notification setValue:[[[dict valueForKey:@"userInfo"] valueForKey:@"activity"] valueForKey:@"id"] forKey:@"activity_id"];
-    [self.dict_notification setValue:[[[dict valueForKey:@"userInfo"] valueForKey:@"player"] valueForKey:@"id"] forKey:@"user_id"];
-    
-    lstrnotificationid=[[dict valueForKey:@"userInfo"] valueForKey:@"activity_type"];
-#endif
     return notification;
 }
 +(void)returnNotificationButtonWithCountUpdate:(UIButton*)button{

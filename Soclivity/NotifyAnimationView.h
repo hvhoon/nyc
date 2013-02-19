@@ -13,17 +13,17 @@
 @protocol NotifyAnimationViewDelegate <NSObject>
 
 @optional
--(void)backgroundTapToPush:(NotificationClass*)inAppNotif;
+-(void)backgroundTapToPush:(NotificationClass*)notification;
 @end
 
 @interface NotifyAnimationView : UIView{
     NSTimer *timer;
     NSInteger counter;
     id<NotifyAnimationViewDelegate>delegate;
-    NotificationClass *notification;
+    NotificationClass *inAppNotif;
 }
 @property(nonatomic,retain)id<NotifyAnimationViewDelegate>delegate;
 @property (nonatomic,retain)TTTAttributedLabel *summaryLabel;
-@property (nonatomic,retain)NotificationClass *notification;
+@property (nonatomic,retain)NotificationClass *inAppNotif;
 - (id)initWithFrame:(CGRect)frame andNotif:(NotificationClass*)andNotif;
 @end

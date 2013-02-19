@@ -23,7 +23,7 @@
 #import "ParticipantClass.h"
 #import "GetActivityInvitesInvocation.h"
 #import "CreateActivityViewController.h"
-
+#import "NotificationClass.h"
 #define kEditMapElements 10
 #define kJoinRequest 11
 #define kCancelPendingRequest 13
@@ -76,23 +76,12 @@
     NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
     notif.delegate=self;
     [self.view addSubview:notif];
-    
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Activity View Controller" message:nil
-                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    
-    [alert show];
-    [alert release];
-    return;
-    
 }
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
     
 
 
@@ -382,17 +371,114 @@
     // Do any additional setup after loading the view from its nib.
 }
 
--(void)showInAppNotificationsUsingRocketSocket:(NSNotification*)object{
+- (void)backgroundTapToPush:(NotificationClass*)notification{
     
-    NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:object];
-    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
-    notif.delegate=self;
-    [self.view addSubview:notif];
+    NSLog(@"Activity Selected");
+    
+    
+    if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    
+    notId=notification.notificationType;
+    GetPlayersClass *obj=SOC.loggedInUser;
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        [devServer getDetailedActivityInfoInvocation:[obj.idSoc intValue]  actId:notification.activityId  latitude:[notification.latitude floatValue] longitude:[notification.longitude floatValue] delegate:self];
+        
+    }
+    else{
+        if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+}
+
+
+
+
+#pragma mark DetailedActivityInfoInvocationDelegate Method
+-(void)DetailedActivityInfoInvocationDidFinish:(DetailedActivityInfoInvocation*)invocation
+                                  withResponse:(InfoActivityClass*)response
+                                     withError:(NSError*)error{
+    
+    
+        
+        if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        
+        
+        
+        
+        
+        switch ([notId integerValue]) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 11:
+            default:
+                
+                
+            {
+                NSString*nibNameBundle=nil;
+                
+                if([SoclivityUtilities deviceType] & iPhone5){
+                    nibNameBundle=@"ActivityEventViewController_iphone5";
+                }
+                else{
+                    nibNameBundle=@"ActivityEventViewController";
+                }
+                
+                ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+                activityEventViewController.activityInfo=response;
+                
+                [[self navigationController] pushViewController:activityEventViewController animated:YES];
+                [activityEventViewController release];
+                
+            }
+                break;
+                
+                
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 13:
+            case 16:
+                
+            {
+                SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
+                myClass.playerName=response.organizerName;
+                myClass.DOS=response.DOS;
+                myClass.activityId=response.activityId;
+                myClass.latestActivityName=response.activityName;
+                myClass.activityType=response.type;
+                myClass.profilePhotoUrl=response.ownerProfilePhotoUrl;
+                myClass.distance=[response.distance floatValue];
+                SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
+                socProfileViewController.playerObject=myClass;
+                [[self navigationController] pushViewController:socProfileViewController animated:YES];
+                [socProfileViewController release];
+                
+            }
+                
+                break;
+        }
+        
     
 }
--(void)backgroundTapToPush:(NotificationClass*)notification{
-        NSLog(@"Activity Selected");
-}
+
 
 -(void)BottonBarButtonHideAndShow:(NSInteger)type{
     

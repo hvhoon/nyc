@@ -10,11 +10,12 @@
 #import "AddEventView.h"
 #import "ParticipantListTableView.h"
 #import "NotifyAnimationView.h"
+#import "DetailedActivityInfoInvocation.h"
 @class InfoActivityClass;
 @class SoclivityManager;
 @class MainServiceManager;
 @class MBProgressHUD;
-@interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate,ParticipantListDelegate,NotifyAnimationViewDelegate>{
+@interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate,ParticipantListDelegate,NotifyAnimationViewDelegate,DetailedActivityInfoInvocationDelegate>{
     IBOutlet UIScrollView* scrollView;
     IBOutlet AddEventView *eventView;
     IBOutlet ParticipantListTableView *participantListTableView;
@@ -56,6 +57,7 @@
     MainServiceManager *devServer;
     MBProgressHUD *HUD;
     BOOL isCalledFromNotification;
+    NSString *notId;
     
 }
 @property (nonatomic, retain) UIScrollView* scrollView;

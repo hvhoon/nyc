@@ -52,6 +52,8 @@
     MBProgressHUD *HUD;
     int flipKeyViewTag;
     IBOutlet UIButton *notifCountButton;
+    NSString* notId;
+    BOOL pushInAppNotif;
 }
 
 @property (nonatomic,retain)id <HomeScreenDelegate>delegate;
