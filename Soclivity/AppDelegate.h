@@ -23,6 +23,7 @@
     MainServiceManager *devServer;
     SoclivityManager *SOC;
     dispatch_queue_t currentBackgroundQueue;
+    int applicationBadge;
     int status;
 }
 
@@ -36,7 +37,6 @@
 
 -(FacebookLogin*)SetUpFacebook;
 - (void)setUpActivityDataList;
--(void)IncreaseBadgeIcon;
 -(void)IntimateServerForAPNSOrRocketSocket;
 
 @end

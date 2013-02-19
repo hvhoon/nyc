@@ -17,9 +17,8 @@
 	}
 
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
-    SOC.loggedInUser.notification_count=[[ACTDict objectForKey:@"badge"]integerValue];
+    SOC.loggedInUser.badgeCount=[[ACTDict objectForKey:@"badge"]integerValue];
     
-    NSArray *unreadNotificationsArray=[ACTDict objectForKey:@"unreadnotification"];
 
     
     NSMutableArray *entries=[[[NSMutableArray alloc]init] autorelease];
@@ -39,23 +38,13 @@
         play.longitude = [notification objectForKey:@"lng"];
         play.timeOfNotification=[notification objectForKey:@"created_at"];
         NSNumber * received = [notification objectForKey:@"is_received"];
-        play.isReceived= [received boolValue];
+        play.isRead= [received boolValue];
         NSNumber * activityId = [notification objectForKey:@"activity_id"];
         play.activityId= [activityId intValue];
         NSNumber *referredTo = [notification objectForKey:@"reffered_to"];
         play.referredId= [referredTo intValue];
         
         play.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[notification objectForKey:@"photo_url"]];
-        play.isRead=TRUE;
-        
-        for(NSString* test in unreadNotificationsArray){
-        
-            if([test integerValue]==play.notificationId){
-                play.isRead=FALSE;
-            }
-            
-        }
-        
         
         [entries addObject:play];
         

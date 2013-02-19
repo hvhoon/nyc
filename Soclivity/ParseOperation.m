@@ -149,9 +149,6 @@
         else if([key isEqualToString:@"notification_count"]){
             mappedKey=key;
         }
-        else if([key isEqualToString:@"unread_notification"]){
-            mappedKey=key;
-        }
        
         
     }
@@ -222,7 +219,7 @@
             mappedKey=nil;
         }
         else if([mappedKey isEqualToString:@"notification_count"]){
-            self.playerObject.notification_count=[num integerValue];
+            self.playerObject.badgeCount=[num integerValue];
             mappedKey=nil;
         }
         
@@ -346,10 +343,6 @@
             self.playerObject.statusMessage = string;
             responseStatus=TRUE;
 			mappedKey=nil;
-        }
-        else if([mappedKey isEqualToString:@"unread_notification"]){
-            self.playerObject.unread_notification=string;
-            mappedKey=nil;
         }
         else if([mappedKey isEqualToString:@"channel"]){
             

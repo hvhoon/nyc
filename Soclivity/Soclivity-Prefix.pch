@@ -36,7 +36,7 @@
 #define kCustomRowHeight    50.0
 #define kSectionHeaderHeight    27.0
 #define TESTING 0
-#define OfflineTesting 1
+#define OfflineTesting 0
 #define kParticipantInActivity 55
 #define kInviteUsers 56
 #define kNotificationImageUrl 57

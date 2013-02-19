@@ -9,7 +9,7 @@
 #import "NotificationClass.h"
 
 @implementation NotificationClass
-@synthesize notificationString,type,profileImage,date,count,notificationId,userId,isReceived;
+@synthesize notificationString,type,profileImage,date,count,notificationId,userId;
 @synthesize activityId,expirationDate,photoUrl,latitude,longitude,notificationType,isRead;
 @synthesize rowHeight,timeOfNotification,referredId;
 

@@ -152,7 +152,7 @@
     [self.view addSubview:notif];
     
 }
--(void)backgroundTapToPush{
+-(void)backgroundTapToPush:(NotificationClass*)notification{
     
 }
 

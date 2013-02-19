@@ -54,18 +54,18 @@ static NSArray *playerActivityDetails;
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     GetPlayersClass*player=SOC.loggedInUser;
 
-
+    NSLog(@"badge=%d",player.badgeCount);
         button.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
         button.alpha=1;
 
         
         
-        if (player.notification_count==0)
+        if (player.badgeCount==0)
                 button.alpha=0;
-        else if(player.notification_count==1){
+        else if(player.badgeCount==1){
             [button setBackgroundImage:[UIImage imageNamed:@"notifyDigit1.png"] forState:UIControlStateNormal];
             button.frame = CGRectMake(button.frame.origin.x,button.frame.origin.y,27,27);
-            [button setTitle:[NSString stringWithFormat:@"%d",player.notification_count] forState:UIControlStateNormal];
+            [button setTitle:[NSString stringWithFormat:@"%d",player.badgeCount] forState:UIControlStateNormal];
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 
           }
@@ -74,7 +74,7 @@ static NSArray *playerActivityDetails;
             button.frame = CGRectMake(button.frame.origin.x,button.frame.origin.y,33,28);
             
             
-            [button setTitle:[NSString stringWithFormat:@"%d",player.notification_count] forState:UIControlStateNormal];
+            [button setTitle:[NSString stringWithFormat:@"%d",player.badgeCount] forState:UIControlStateNormal];
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }
 }

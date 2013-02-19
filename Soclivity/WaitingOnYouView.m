@@ -445,44 +445,11 @@
 -(void)notificationRemoved{
     
     NotificationClass *notificationSelect=[self.notificationsArray objectAtIndex:removeIndex];
-    BOOL haveToDelete=FALSE;
-    int index=0;
-    int check;
-    NSString *notifIds= SOC.loggedInUser.unread_notification;
-    
-    if(notifIds != nil && [notifIds class] != [NSNull class]){
-                NSArray *commaSeperated=[notifIds componentsSeparatedByString:@","];
-        NSMutableArray *testArray=[NSMutableArray arrayWithArray:commaSeperated];
-        index=0;
-        for(NSString *myId in testArray){
-            if([myId integerValue]==notificationSelect.notificationId){
-                haveToDelete=TRUE;
-                check=index;
-                SOC.loggedInUser.notification_count=SOC.loggedInUser.notification_count-1;
-                break;
-            }
-            index++;
+    if(!notificationSelect.isRead){
+        SOC.loggedInUser.badgeCount=SOC.loggedInUser.badgeCount-1;
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
 
-        }
-        
-        if(haveToDelete){
-            [testArray removeObjectAtIndex:check];
-            NSString *finalIds=nil;
-            if([testArray count]==0){
-                
-            }
-            
-            if([testArray count]==1){
-                finalIds=[testArray objectAtIndex:0];
-            }
-            else{
-                finalIds=[testArray objectAtIndex:0];
-                for(int i=1;i<[testArray count];i++){
-                finalIds=[NSString stringWithFormat:@"%@,%@",finalIds,[testArray objectAtIndex:i]];
-            }
-                SOC.loggedInUser.unread_notification=finalIds;
-            }
-        }
     }
     
     [self.notificationsArray removeObjectIdenticalTo:notificationSelect];

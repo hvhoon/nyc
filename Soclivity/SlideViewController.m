@@ -684,7 +684,7 @@
             UILabel *notificationNoLabel=[[UILabel alloc] initWithFrame:notificationNoLabelRect];
             notificationNoLabel.textAlignment=UITextAlignmentCenter;
             SoclivityManager *SOC=[SoclivityManager SharedInstance];
-            notificationNoLabel.text=[NSString stringWithFormat:@"%d",SOC.loggedInUser.notification_count];
+            notificationNoLabel.text=[NSString stringWithFormat:@"%d",SOC.loggedInUser.badgeCount];
             notificationNoLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
             notificationNoLabel.textColor=[UIColor whiteColor];
             notificationNoLabel.shadowColor = [UIColor blackColor];

@@ -271,7 +271,7 @@
         //redirect him to homeView Controller
         SoclivityManager *SOC=[SoclivityManager SharedInstance];
         SOC.loggedInUser=obj;
-
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
         [FBdelegate pushToHomeViewController];
     }
 }

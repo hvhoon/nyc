@@ -224,23 +224,13 @@
     if ([[channel valueForKeyPath:@"data"] valueForKey:@"message"]!=NULL)
     {
         SoclivityManager *SOC=[SoclivityManager SharedInstance];
-        SOC.loggedInUser.notification_count=[[[channel valueForKey:@"data"] valueForKey:@"badge"]integerValue];
+        SOC.loggedInUser.badgeCount=[[[channel valueForKey:@"data"] valueForKey:@"badge"]integerValue];
         NSLog(@"badge=%@",[[channel valueForKey:@"data"] valueForKey:@"badge"]);
         
-        NSString *testString=SOC.loggedInUser.unread_notification;
-        
-        if(testString != nil && [testString class] != [NSNull class] && ![testString isEqualToString:@""]){
-            SOC.loggedInUser.unread_notification=[NSString stringWithFormat:@"%@,%@",testString,[[channel valueForKeyPath:@"data"] valueForKey:@"notification_id"]];
-            
-        }else{
-            
-            SOC.loggedInUser.unread_notification=[NSString stringWithFormat:@"%@",[[channel valueForKeyPath:@"data"] valueForKey:@"notification_id"]];
-            }
-
         
         //[[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
 
-        //[(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
+        //[[UIApplication sharedApplication]setApplicationIconBadgeNumber:0];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingonyouNotification" object:self userInfo:[channel valueForKeyPath:@"data"]];
     }

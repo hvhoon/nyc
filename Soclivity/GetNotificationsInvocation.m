@@ -19,31 +19,12 @@
 
 -(void)invoke {
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
-    NSString *testString=SOC.loggedInUser.unread_notification;
-    NSString *finalIds=nil;
-    
-    if(testString != nil && [testString class] != [NSNull class] && ![testString isEqualToString:@""]){
-        NSArray *commaSeperated=[testString componentsSeparatedByString:@","];
-        if([commaSeperated count]==1){
-            finalIds=[commaSeperated objectAtIndex:0];
-        }
-        else{
-            finalIds=[commaSeperated objectAtIndex:0];
-            for(int i=1;i<[commaSeperated count];i++){
-                finalIds=[NSString stringWithFormat:@"%@,%@",finalIds,[commaSeperated objectAtIndex:i]];
-            }
-        }
-
-    }else{
-        
-        finalIds=@"";
-    }
     NSString*a=nil;
     
     switch (notificationType) {
         case kGetNotifications:
         {
-            a= [NSString stringWithFormat:@"dev.soclivity.com/mynotifications.json?logged_in_user_id=%d&ids=%@",[SOC.loggedInUser.idSoc intValue],finalIds];
+            a= [NSString stringWithFormat:@"dev.soclivity.com/mynotifications.json?logged_in_user_id=%d",[SOC.loggedInUser.idSoc intValue]];
 
             
         }

@@ -93,7 +93,7 @@
     
 }
 
--(void)backgroundTapToPush{
+-(void)backgroundTapToPush:(NotificationClass*)notification{
     
 }
 

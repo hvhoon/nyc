@@ -46,11 +46,17 @@
 
 #pragma mark - View lifecycle
 
+-(void)viewDidDisappear:(BOOL)animated{
+        [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
     [self.navigationController.navigationBar setHidden:YES];
     [self UpdateBadgeNotification];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
+
     
     NSLog(@"viewWillAppear called in HomeViewController");
     if(SOC.localCacheUpdate){
@@ -164,7 +170,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileBackground" object:Nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
 
     
     // Do any additional setup after loading the view from its nib.
@@ -178,11 +183,17 @@
     [self.view addSubview:notif];
     
 }
--(void)backgroundTapToPush{
-    
+-(void)backgroundTapToPush:(NotificationClass*)notification{
+    NSLog(@"Home Selected");
 }
 
 - (void)didReceiveBackgroundNotification:(NSNotification*) note{
+    
+    NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:note];
+    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
+    notif.delegate=self;
+    [self.view addSubview:notif];
+
 
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notification Received" message:nil
                                                    delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];

@@ -32,7 +32,6 @@
 @property (nonatomic,assign)BOOL registered;
 @property (nonatomic,retain)NSString*profileImageUrl;
 @property (nonatomic,retain)NSString *channel;
-@property (nonatomic,assign)NSInteger notification_count;
-@property (nonatomic,retain)NSString *unread_notification;
+@property (nonatomic,assign)NSInteger badgeCount;
 
 @end

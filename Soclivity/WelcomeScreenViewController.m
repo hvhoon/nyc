@@ -342,50 +342,17 @@
 -(void)pushToHomeViewController{
 
     
-#if OfflineTesting
-    SoclivityManager *SOC=[SoclivityManager SharedInstance];
-    NSNumber *num=[NSNumber numberWithInt:26];
-    GetPlayersClass *player=[[GetPlayersClass alloc]init];
-    SOC.loggedInUser=player;
-    SOC.loggedInUser.idSoc=num;
-    SOC.loggedInUser.channel=@"/channel/26";
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isLoggedIn"];
-    [spinner stopAnimating];
-    [self.view setUserInteractionEnabled:YES];
-    
-    
-    //rocket Socket Connection
-    RRAViewController *objrra=[[RRAViewController alloc]init];
-    [objrra fetchPrivatePubConfiguration];
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] setObjrra:objrra];
-    
-    
-    NSString *nibNameBundle=nil;
-    if([SoclivityUtilities deviceType] & iPhone5){
-        nibNameBundle=@"SlideViewController";
-    }
-    else{
-        nibNameBundle=@"SlideViewController_iphone5";
-    }
-    
-    SlidingDrawerViewController *slideViewController = [[SlidingDrawerViewController alloc] initWithNibName:nibNameBundle bundle:nil];
-    slideViewController.delegate = slideViewController;
-    slideViewController.isFBlogged=TRUE;
-    [self.navigationController pushViewController:slideViewController animated:YES];
-    [slideViewController release];
-
-    
-#else
    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isLoggedIn"];
     [spinner stopAnimating];
     [self.view setUserInteractionEnabled:YES];
     
     
+#if 0
     //rocket Socket Connection
     RRAViewController *objrra=[[RRAViewController alloc]init];
     [objrra fetchPrivatePubConfiguration];
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] setObjrra:objrra];
-
+#endif
     
     NSString *nibNameBundle=nil;
     if([SoclivityUtilities deviceType] & iPhone5){
@@ -400,7 +367,6 @@
     slideViewController.isFBlogged=TRUE;
     [self.navigationController pushViewController:slideViewController animated:YES];
     [slideViewController release];
-#endif
     
 }
 

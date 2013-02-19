@@ -25,7 +25,7 @@ static inline NSRegularExpression * NameRegularExpression() {
 
 
 @implementation NotifyAnimationView
-@synthesize summaryLabel,delegate;
+@synthesize summaryLabel,delegate,notification;
 - (id)initWithFrame:(CGRect)frame andNotif:(NotificationClass*)andNotif
 {
     
@@ -35,7 +35,7 @@ static inline NSRegularExpression * NameRegularExpression() {
             self.userInteractionEnabled = YES;
             self.opaque = NO;
             
-            
+            notification=[andNotif retain];
             UIView *notificationView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 58)];
             notificationView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"InAppAlertBar.png"]];
             
@@ -161,7 +161,7 @@ static inline NSRegularExpression * NameRegularExpression() {
             CGRect popupEndRect=CGRectMake(0,0, 320, 58);
             self.frame = popupStartRect;
             self.alpha = 1.0f;
-            [UIView animateWithDuration:0.35 delay:0.0f options:UIViewAnimationCurveEaseOut animations:^{
+            [UIView animateWithDuration:0.35 delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self.frame = popupEndRect;
             } completion:^(BOOL finished) {
             }];
@@ -185,7 +185,7 @@ static inline NSRegularExpression * NameRegularExpression() {
 -(void)HideNotification{
     
     CGRect popupStartRect=CGRectMake(0, -58, 320, 58);
-    [UIView animateWithDuration:0.7 delay:0.0f options:UIViewAnimationCurveEaseIn animations:^{
+    [UIView animateWithDuration:0.7 delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.frame = popupStartRect;
     } completion:^(BOOL finished) {
         self.alpha = 0.0f;
@@ -228,6 +228,9 @@ static inline NSRegularExpression * NameRegularExpression() {
 }
 -(void)backgroundtap:(UIButton*)sender{
     
+    NSLog(@"backgroundtap on in app notification");
+    [delegate backgroundTapToPush:notification];
+
 #if 0
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://dev.soclivity.com/received_notification.json?id=%i",[[sender currentTitle] intValue]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
@@ -242,48 +245,10 @@ static inline NSRegularExpression * NameRegularExpression() {
     NSDictionary* resultsd = [[[NSString alloc] initWithData:returnData
                                                     encoding:NSUTF8StringEncoding] JSONValue];
     
-    SOC.loggedInUser.notification_count=[[resultsd objectForKey:@"badge"]integerValue];
+    SOC.loggedInUser.badgeCount=[[resultsd objectForKey:@"badge"]integerValue];
 
-    
-    NSString *notifIds=SOC.loggedInUser.unread_notification;
-    NSArray *unreadNotificationsArray=[resultsd objectForKey:@"unreadnotification"];
-    NSString *finalIds=nil;
-    
-    if(notifIds != nil && [notifIds class] != [NSNull class] && ![notifIds isEqualToString:@""]){
-        NSArray *commaSeperated=[notifIds componentsSeparatedByString:@","];
-        NSMutableArray *testArray=[NSMutableArray arrayWithArray:commaSeperated];
-            if([unreadNotificationsArray count]==0){
-                SOC.loggedInUser.unread_notification=notifIds;
-            }
-            
-            else{
-                finalIds=[testArray objectAtIndex:0];
-                for(int i=0;i<[unreadNotificationsArray count];i++){
-                    
-                    [testArray addObject:[unreadNotificationsArray objectAtIndex:i]];
-                }
-                
-                for(int i=1;i<[testArray count];i++){
-                    finalIds=[NSString stringWithFormat:@"%@,%@",finalIds,[testArray objectAtIndex:i]];
-
-                }
-                        SOC.loggedInUser.unread_notification=finalIds;
-            }
-        }
-    
-else{
-    if([unreadNotificationsArray count]>0){
-    finalIds=[unreadNotificationsArray objectAtIndex:0];
-    for(int i=1;i<[unreadNotificationsArray count];i++){
-        finalIds=[NSString stringWithFormat:@"%@,%@",finalIds,[unreadNotificationsArray objectAtIndex:i]];
-        
-    }
-    SOC.loggedInUser.unread_notification=finalIds;
-    }
-    
-    [delegate backgroundTapToPush];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
 }
-//[[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
 #endif
 }
 

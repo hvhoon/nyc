@@ -60,9 +60,32 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
+
     [self.navigationController.navigationBar setHidden:YES];
 }
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
 #pragma mark - View lifecycle
+
+- (void)didReceiveBackgroundNotification:(NSNotification*) note{
+    
+    NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:note];
+    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
+    notif.delegate=self;
+    [self.view addSubview:notif];
+    
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Activity View Controller" message:nil
+                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    [alert show];
+    [alert release];
+    return;
+    
+}
 
 
 - (void)viewDidLoad
@@ -70,6 +93,8 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
+    
+
 
     toggleFriends=TRUE;
     devServer=[[MainServiceManager alloc]init];
@@ -365,8 +390,8 @@
     [self.view addSubview:notif];
     
 }
--(void)backgroundTapToPush{
-    
+-(void)backgroundTapToPush:(NotificationClass*)notification{
+        NSLog(@"Activity Selected");
 }
 
 -(void)BottonBarButtonHideAndShow:(NSInteger)type{

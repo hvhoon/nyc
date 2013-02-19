@@ -16,7 +16,6 @@
     NSString *count;
     NSInteger notificationId;
     NSString *userId;
-    BOOL isReceived;
     NSInteger activityId;
     NSString *expirationDate;
     NSString *photoUrl;
@@ -35,7 +34,6 @@
 @property (nonatomic,assign)NSString *count;
 @property (nonatomic,assign)NSInteger notificationId;
 @property (nonatomic,retain)NSString *userId;
-@property (nonatomic,assign)BOOL isReceived;
 @property (nonatomic,assign)NSInteger activityId;
 @property (nonatomic,retain)NSString*expirationDate;
 @property (nonatomic,retain)NSString*photoUrl;

@@ -83,8 +83,8 @@
     waitingOnYouLabel.backgroundColor=[UIColor clearColor];
     waitingOnYouLabel.shadowColor = [UIColor blackColor];
     waitingOnYouLabel.shadowOffset = CGSizeMake(0,-1);
-    
-    [self.view bringSubviewToFront:btnnotify];
+    [self.view insertSubview:btnnotify aboveSubview:waitingOnYouLabel];
+   // [self.view bringSubviewToFront:btnnotify];
 
 }
 
@@ -105,6 +105,11 @@
     
     
     [HUD hide:YES];
+    [self BadgeNotification];
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
+
 
     if([responses count]==0){
         self.view.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
@@ -141,7 +146,7 @@
     
 }
 
--(void)backgroundTapToPush{
+-(void)backgroundTapToPush:(NotificationClass*)notification{
     
 }
 
@@ -359,7 +364,24 @@
 }
 -(void)userWantsToDeleteTheNofication:(NSInteger)notificationId{
     
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        
+
     [devServer getUserNotificationsInfoInvocation:self notificationType:kRemoveNotification notficationId:notificationId];
+}
+else{
+    
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    [alert show];
+    [alert release];
+    return;
+    
+}
+
 }
 
 -(void)successRemoveNotification:(NSString*)msg{
