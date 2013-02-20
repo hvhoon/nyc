@@ -23,7 +23,6 @@
     MainServiceManager *devServer;
     SoclivityManager *SOC;
     dispatch_queue_t currentBackgroundQueue;
-    int applicationBadge;
     int status;
 }
 
@@ -34,7 +33,7 @@
 @property (nonatomic, assign) BOOL resetSuccess;
 @property (nonatomic, retain)RRAViewController *objrra;
 @property(nonatomic, retain)NSMutableDictionary *dict_notification;
-
+@property (nonatomic,assign) BOOL onlyOnce;
 -(FacebookLogin*)SetUpFacebook;
 - (void)setUpActivityDataList;
 -(void)IntimateServerForAPNSOrRocketSocket;

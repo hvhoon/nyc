@@ -41,7 +41,7 @@ static NSString* kAppId = @"160726900680967";//kanav
 @synthesize userPermissions;
 @synthesize resetSuccess;
 @synthesize dict_notification;
-
+@synthesize onlyOnce;
 
 
 
@@ -87,7 +87,6 @@ static NSString* kAppId = @"160726900680967";//kanav
         // could optionally set for just this navBar
         //[navBar setBackgroundImage:...
     }
-    applicationBadge=-2;
     [navigationController setNavigationBarHidden:YES];
     [self.window addSubview:navigationController.view];
 
@@ -123,46 +122,14 @@ static NSString* kAppId = @"160726900680967";//kanav
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
     NSLog(@"didReceiveRemoteNotification");
+    SOC=[SoclivityManager SharedInstance];
     
     NSDictionary* notifUserInfo = Nil;
-    if(([[UIApplication sharedApplication]applicationIconBadgeNumber]-applicationBadge)==1){
-        NSLog(@"offline");
-        applicationBadge=-2;
-        SOC=[SoclivityManager SharedInstance];
-        NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://dev.soclivity.com/received_notification.json?id=%@",[NSString stringWithFormat:@"%@",[[userInfo valueForKey:@"params"] valueForKey:@"notification_id"]]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    if(([[UIApplication sharedApplication]applicationIconBadgeNumber]-SOC.loggedInUser.badgeCount)==0){
         
-        NSLog(@"url=%@",url);
-        
-        NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
-        NSHTTPURLResponse *response = NULL;
-        NSError *error = nil;
-        NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-        
-        NSDictionary* resultsd = [[[NSString alloc] initWithData:returnData
-                                                        encoding:NSUTF8StringEncoding] JSONValue];
-        
-        SOC.loggedInUser.badgeCount=[[resultsd objectForKey:@"badge"]integerValue];
-        
-        NSLog(@"test badge=%d",SOC.loggedInUser.badgeCount);
-
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
-        
-        
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
-
-
-        
-         
-//        NSNotification* notification = [NSNotification notificationWithName:kRemoteNotificationBackgroundNotification object:userInfo userInfo:notifUserInfo];
-//        [[NSNotificationCenter defaultCenter] postNotification:notification];
-//        [notifUserInfo release];
-
-	}
-    else{
-        SOC=[SoclivityManager SharedInstance];
-
-//        NSArray *notifArray = [NSArray arrayWithObject:@"userInfo"];
-//		notifUserInfo = [[NSDictionary alloc] initWithObjects:notifArray forKeys:notifArray];
+        NSLog(@"Online");
+        //        NSArray *notifArray = [NSArray arrayWithObject:@"userInfo"];
+        //		notifUserInfo = [[NSDictionary alloc] initWithObjects:notifArray forKeys:notifArray];
         
         
         NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://dev.soclivity.com/rsparameter.json?id=%@",[NSString stringWithFormat:@"%@",[[userInfo valueForKey:@"params"] valueForKey:@"notification_id"]]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
@@ -176,19 +143,51 @@ static NSString* kAppId = @"160726900680967";//kanav
         
         NSDictionary* resultsd = [[[NSString alloc] initWithData:returnData
                                                         encoding:NSUTF8StringEncoding] JSONValue];
-        NSLog(@"result=%@",resultsd);
+        NSLog(@"badge Value=%d",[[resultsd objectForKey:@"badge"]integerValue]);
         
         SOC.loggedInUser.badgeCount=[[resultsd objectForKey:@"badge"]integerValue];
         
         
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
-
-
+        
+        
         NSNotification* notification = [NSNotification notificationWithName:kRemoteNotificationReceivedNotification object:nil userInfo:resultsd];
         [[NSNotificationCenter defaultCenter] postNotification:notification];
         [notifUserInfo release];
+        
+        
+    }
+    else{
+        NSLog(@"Offline");
+        SOC.loggedInUser.badgeCount=[[[userInfo valueForKey:@"aps"] valueForKey:@"badge"]integerValue];
+        
+        
+//        NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://dev.soclivity.com/received_notification.json?id=%@",[NSString stringWithFormat:@"%@",[[userInfo valueForKey:@"params"] valueForKey:@"notification_id"]]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//        
+//        NSLog(@"url=%@",url);
+//        
+//        NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
+//        NSHTTPURLResponse *response = NULL;
+//        NSError *error = nil;
+//        NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+//        
+//        NSDictionary* resultsd = [[[NSString alloc] initWithData:returnData
+//                                                        encoding:NSUTF8StringEncoding] JSONValue];
+//        
+//        SOC.loggedInUser.badgeCount=[[resultsd objectForKey:@"badge"]integerValue];
 
+//        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
+
+        NSLog(@"test badge=%d",SOC.loggedInUser.badgeCount);
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
+        
+        
+        
+        NSNotification* notification = [NSNotification notificationWithName:kRemoteNotificationBackgroundNotification object:nil userInfo:notifUserInfo];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        [notifUserInfo release];
 
     }
 
@@ -348,7 +347,6 @@ static NSString* kAppId = @"160726900680967";//kanav
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
         NSLog(@"applicationDidEnterBackground");
-    applicationBadge=[[UIApplication sharedApplication]applicationIconBadgeNumber];
 
 #if 0
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"isLoggedIn"]){

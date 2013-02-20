@@ -40,9 +40,11 @@
         NSNumber * received = [notification objectForKey:@"is_received"];
         play.isRead= [received boolValue];
         NSNumber * activityId = [notification objectForKey:@"activity_id"];
-        play.activityId= [activityId intValue];
+        if(activityId !=nil && [activityId class]!=[NSNull class])
+               play.activityId= [activityId intValue];
         NSNumber *referredTo = [notification objectForKey:@"reffered_to"];
-        play.referredId= [referredTo intValue];
+        if(referredTo !=nil && [referredTo class]!=[NSNull class])
+                play.referredId= [referredTo intValue];
         
         play.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[notification objectForKey:@"photo_url"]];
         

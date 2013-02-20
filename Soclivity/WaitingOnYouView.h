@@ -22,7 +22,6 @@
 -(void)userNotGoingNotification:(NSInteger)tag;
 -(void)acceptNotification:(NSInteger)tag player:(NSInteger)player;
 -(void)declineNotification:(NSInteger)tag player:(NSInteger)player;
--(void)tellToHideWaitingOnYouScreen;
 @end
 
 @interface WaitingOnYouView : UIView<UITableViewDataSource,UITableViewDelegate,TTTAttributedLabelDelegate,IconDownloaderDelegate,MBProgressHUDDelegate>{
@@ -48,4 +47,6 @@
 -(void)notificationRemoved;
 -(void)requestComplete;
 -(void)updateButtonAndAnimation;
+-(void)setUpBackgroundView;
+-(void)toReloadTableWithNotifications:(NSMutableArray*)listArray;
 @end

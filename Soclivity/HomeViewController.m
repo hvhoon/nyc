@@ -23,6 +23,7 @@
 #import "SOCProfileViewController.h"
 #import "CreateActivityViewController.h"
 #import "NotificationClass.h"
+#import "NotificationsViewController.h"
 @interface HomeViewController(Private) <MBProgressHUDDelegate,NewActivityViewDelegate>
 @end
 
@@ -57,6 +58,9 @@
     [self.navigationController.navigationBar setHidden:YES];
     [self UpdateBadgeNotification];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotificationInBackground:) name:@"RemoteNotificationReceivedWhileBackground" object:Nil];
+
 
     
     NSLog(@"viewWillAppear called in HomeViewController");
@@ -166,12 +170,28 @@
     refreshBtn.hidden=YES;
     currentLocationBtn.hidden=YES;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileBackground" object:Nil];
     
 
     
     // Do any additional setup after loading the view from its nib.
 }
+- (void)didReceiveNotificationInBackground:(NSNotification*) note{
+    NSString*nibNameBundle=nil;
+    
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"NotificationsViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"NotificationsViewController";
+    }
+
+    NotificationsViewController *notificationsViewController=[[NotificationsViewController alloc]initWithNibName:nibNameBundle bundle:[NSBundle mainBundle]];
+    notificationsViewController.isPushedFromStack=TRUE;
+    [self.navigationController pushViewController:notificationsViewController animated:YES];
+    
+}
+
+
 
 - (void)backgroundTapToPush:(NotificationClass*)notification{
     

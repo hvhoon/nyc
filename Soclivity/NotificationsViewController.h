@@ -23,16 +23,18 @@
 @interface NotificationsViewController : UIViewController<WaitingOnYouDelegate,MBProgressHUDDelegate,DetailedActivityInfoInvocationDelegate,GetNotificationsInvocationDelegate,PostActivityRequestInvocationDelegate,NotifyAnimationViewDelegate>{
     id <NotificationsScreenViewDelegate>delegate;
     IBOutlet UILabel *waitingOnYouLabel;
-    IBOutlet UIImageView*notificationImageView;
-    IBOutlet UIImageView*socFadedImageView;
     MBProgressHUD *HUD;
     MainServiceManager *devServer;
     IBOutlet UIButton *btnnotify;
     WaitingOnYouView *notificationView;
+    IBOutlet UIButton *sliderButton;
+    IBOutlet UIButton *backButton;
+    BOOL isPushedFromStack;
+    IBOutlet UIButton *btnnotify2;
 }
 @property (nonatomic,retain)id <NotificationsScreenViewDelegate>delegate;
 @property(copy, readwrite)NSString *notId;
-
+@property (nonatomic,assign)BOOL isPushedFromStack;
 -(IBAction)profileSliderPressed:(id)sender;
 -(void)startAnimation:(int)tag;
 

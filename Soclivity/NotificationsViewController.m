@@ -15,7 +15,7 @@
 #import "SocPlayerClass.h"
 #import "GetPlayersClass.h"
 @implementation NotificationsViewController
-@synthesize delegate,notId;
+@synthesize delegate,notId,isPushedFromStack;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,31 +33,20 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+-(void)viewDidDisappear:(BOOL)animated{
+    
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    SOC.loggedInUser.badgeCount=0;
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
 
+}
 
 
 -(void)viewWillAppear:(BOOL)animated{
 
     
     [super viewWillAppear:YES];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    self.view.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
-    notificationImageView.hidden=YES;
-    socFadedImageView.hidden=YES;
-
-    
-    devServer=[[MainServiceManager alloc]init];
-    [self BadgeNotification];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
-
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (BadgeNotification) name:@"WaitingOnYou_Count" object:nil];
-    
     
     if([SoclivityUtilities hasNetworkConnection]){
         [self startAnimation:1];
@@ -75,6 +64,53 @@
         return;
     }
 
+}
+
+-(IBAction)backButtonPressed:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.view.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
+    backButton.hidden=YES;
+    sliderButton.hidden=NO;
+    btnnotify2.hidden=YES;
+    btnnotify.hidden=NO;
+    
+    if(isPushedFromStack){
+        backButton.hidden=NO;
+        sliderButton.hidden=YES;
+        btnnotify.hidden=YES;
+        btnnotify2.hidden=NO;
+
+    }
+
+    
+    
+    CGRect waitingOnYouRect;
+    if([SoclivityUtilities deviceType] & iPhone5)
+        waitingOnYouRect=CGRectMake(0, 44, 320,375+85);
+    
+    else
+        waitingOnYouRect=CGRectMake(0, 44, 320, 377);
+    
+    notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect andNotificationsListArray:[NSMutableArray arrayWithCapacity:0]];
+    notificationView.delegate=self;
+    [self.view addSubview:notificationView];
+    [self.view insertSubview:btnnotify aboveSubview:notificationView];
+
+    devServer=[[MainServiceManager alloc]init];
+    [self BadgeNotification];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
+
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (BadgeNotification) name:@"WaitingOnYou_Count" object:nil];
+    
+    
+
     
     
     
@@ -83,56 +119,34 @@
     waitingOnYouLabel.backgroundColor=[UIColor clearColor];
     waitingOnYouLabel.shadowColor = [UIColor blackColor];
     waitingOnYouLabel.shadowOffset = CGSizeMake(0,-1);
-   //[self.view bringSubviewToFront:btnnotify];
 
 }
 
 -(void)BadgeNotification
 {
+    if(isPushedFromStack){
+        [SoclivityUtilities returnNotificationButtonWithCountUpdate:btnnotify2];
+    }
+    else{
     [SoclivityUtilities returnNotificationButtonWithCountUpdate:btnnotify];
+    }
 }
 
--(void)tellToHideWaitingOnYouScreen{
-    [notificationView removeFromSuperview];
-    self.view.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
-    notificationImageView.hidden=NO;
-    socFadedImageView.hidden=NO;
-    
-}
 
 -(void)notificationsToShowDidFinish:(GetNotificationsInvocation *)invocation withResponse:(NSArray *)responses withError:(NSError *)error{
     
     
     [HUD hide:YES];
     [self BadgeNotification];
+        if([responses count]>0)
+    [notificationView toReloadTableWithNotifications:[NSMutableArray arrayWithArray:responses]];
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
 
 
-    if([responses count]==0){
-        self.view.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
-        notificationImageView.hidden=NO;
-        socFadedImageView.hidden=NO;
-        
-
-    }
-    else{
-        notificationImageView.hidden=YES;
-        socFadedImageView.hidden=YES;
-        
-        CGRect waitingOnYouRect;
-        if([SoclivityUtilities deviceType] & iPhone5)
-            waitingOnYouRect=CGRectMake(0, 44, 320,375+85);
-        
-        else
-            waitingOnYouRect=CGRectMake(0, 44, 320, 377);
-        
-        notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect andNotificationsListArray:responses];
-        notificationView.delegate=self;
-        [self.view addSubview:notificationView];
-        [self.view insertSubview:btnnotify aboveSubview:notificationView];
-    }
+    
+    
     
 
 }
@@ -239,6 +253,12 @@
             break;
 
 
+        case 6:
+        {
+            HUD.labelText = @"Deleting";
+            
+        }
+            break;
 
 
             
@@ -367,7 +387,7 @@
     
     if([SoclivityUtilities hasNetworkConnection]){
         
-
+        [self startAnimation:6];
     [devServer getUserNotificationsInfoInvocation:self notificationType:kRemoveNotification notficationId:notificationId];
 }
 else{
@@ -385,6 +405,8 @@ else{
 }
 
 -(void)successRemoveNotification:(NSString*)msg{
+    
+    [HUD hide:YES];
     [notificationView notificationRemoved];
 }
 
@@ -504,6 +526,9 @@ else{
             break;
             
         default:
+        {
+            [notificationView requestComplete];
+        }
             break;
     }
 }

@@ -39,25 +39,73 @@
         
         SOC=[SoclivityManager SharedInstance];
         
-        CGRect activityTableRect;
-        if([SoclivityUtilities deviceType] & iPhone5)
-            activityTableRect=CGRectMake(0, 0, 320, 332+88+44);
+
         
-        else
-            activityTableRect=CGRectMake(0, 0, 320, 332+44);
-        
-        
-        waitingTableView=[[UITableView alloc]initWithFrame:activityTableRect];
-        [waitingTableView setDelegate:self];
-        [waitingTableView setDataSource:self];
-        waitingTableView.scrollEnabled=YES;
-        waitingTableView.backgroundColor=[UIColor clearColor];
-        waitingTableView.separatorColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"S11_divider.png"]];
-        waitingTableView.showsVerticalScrollIndicator=YES;
-        [self addSubview:waitingTableView];
-        waitingTableView.clipsToBounds=YES;
+        if([andNotificationsListArray count]==0){
+            [self setUpBackgroundView];
+            
+        }
+        else{
+            
+            [self SetupNotificationTable];
+
+        }
     }
     return self;
+}
+-(void)SetupNotificationTable{
+    CGRect activityTableRect;
+    
+    if([SoclivityUtilities deviceType] & iPhone5)
+        activityTableRect=CGRectMake(0, 0, 320, 332+88+44);
+    
+    else
+        activityTableRect=CGRectMake(0, 0, 320, 332+44);
+    
+    waitingTableView=[[UITableView alloc] initWithFrame:activityTableRect style:UITableViewStylePlain];
+    [waitingTableView setDelegate:self];
+    [waitingTableView setDataSource:self];
+    waitingTableView.scrollEnabled=YES;
+    waitingTableView.backgroundView=nil;
+    waitingTableView.backgroundColor=[UIColor clearColor];
+    waitingTableView.separatorColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"S11_divider.png"]];
+    waitingTableView.showsVerticalScrollIndicator=YES;
+    [self addSubview:waitingTableView];
+    waitingTableView.clipsToBounds=YES;
+
+}
+
+-(void)setUpBackgroundView{
+    CGRect activityTableRect;
+    
+    if([SoclivityUtilities deviceType] & iPhone5)
+        activityTableRect=CGRectMake(0, 0, 320, 332+88+44);
+    
+    else
+        activityTableRect=CGRectMake(0, 0, 320, 332+44);
+    
+    self.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
+    UIView *backgroundView=[[UIView alloc]initWithFrame:activityTableRect];
+    UIImageView *noNotificationsImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S11_noNotfications.png"]];
+    noNotificationsImageView.frame=CGRectMake(93, 112, 134, 151);
+    [backgroundView addSubview:noNotificationsImageView];
+    
+    UIImageView *logoFadedImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S11_logoFaded.png"]];
+    logoFadedImageView.frame=CGRectMake(105, 359, 111, 28);
+    [backgroundView addSubview:logoFadedImageView];
+    [self addSubview:backgroundView];
+
+
+}
+
+-(void)toReloadTableWithNotifications:(NSMutableArray*)listArray{
+    
+     self.notificationsArray =[listArray retain];
+    if(waitingTableView==nil){
+        [self SetupNotificationTable];
+
+    }
+    [waitingTableView reloadData];
 }
 
 #pragma mark - UITableViewDataSource
@@ -401,14 +449,6 @@
 
 
 
--(void)SetNotificationStatus:(NSString *)lstrid
-{
-    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"http://dev.soclivity.com/notification_read.json?id=%@&read_notification=1",lstrid]];
-    
-	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
-    [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    
-}
 
 
 -(void)rightArrowPressed:(UIButton*)sender{
@@ -457,7 +497,9 @@
     if([self.notificationsArray count]>0)
         [self.waitingTableView reloadData];
     else{
-        [delegate tellToHideWaitingOnYouScreen];
+        [self.waitingTableView removeFromSuperview];
+        [self setUpBackgroundView];
+        
     }
 }
 
