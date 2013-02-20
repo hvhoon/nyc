@@ -125,7 +125,8 @@ static NSString* kAppId = @"160726900680967";//kanav
     SOC=[SoclivityManager SharedInstance];
     
     NSDictionary* notifUserInfo = Nil;
-    if(([[UIApplication sharedApplication]applicationIconBadgeNumber]-SOC.loggedInUser.badgeCount)==0){
+    //if(([[UIApplication sharedApplication]applicationIconBadgeNumber]-SOC.loggedInUser.badgeCount)==0)
+    {
         
         NSLog(@"Online");
         //        NSArray *notifArray = [NSArray arrayWithObject:@"userInfo"];
@@ -158,10 +159,10 @@ static NSString* kAppId = @"160726900680967";//kanav
         
         
     }
-    else{
-        NSLog(@"Offline");
-        SOC.loggedInUser.badgeCount=[[[userInfo valueForKey:@"aps"] valueForKey:@"badge"]integerValue];
-        
+//    else{
+//        NSLog(@"Offline");
+//        SOC.loggedInUser.badgeCount=[[[userInfo valueForKey:@"aps"] valueForKey:@"badge"]integerValue];
+    
         
 //        NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://dev.soclivity.com/received_notification.json?id=%@",[NSString stringWithFormat:@"%@",[[userInfo valueForKey:@"params"] valueForKey:@"notification_id"]]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 //        
@@ -179,17 +180,17 @@ static NSString* kAppId = @"160726900680967";//kanav
 
 //        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
 
-        NSLog(@"test badge=%d",SOC.loggedInUser.badgeCount);
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
-        
-        
-        
-        NSNotification* notification = [NSNotification notificationWithName:kRemoteNotificationBackgroundNotification object:nil userInfo:notifUserInfo];
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
-        [notifUserInfo release];
-
-    }
+//        NSLog(@"test badge=%d",SOC.loggedInUser.badgeCount);
+//        
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
+//        
+//        
+//        
+//        NSNotification* notification = [NSNotification notificationWithName:kRemoteNotificationBackgroundNotification object:nil userInfo:notifUserInfo];
+//        [[NSNotificationCenter defaultCenter] postNotification:notification];
+//        [notifUserInfo release];
+//
+//    }
 
 }
 

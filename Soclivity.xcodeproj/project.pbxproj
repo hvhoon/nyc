@@ -2279,7 +2279,6 @@
 		680CE4271551286D00B8E937 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3C2B539016C529BF00C2C01D /* S05 .3 Chat */,
 				681C889616410F99004659AE /* Icon.png */,
 				681C889716410F99004659AE /* Icon@2x.png */,
 				6802EC3515B6611E00FF0048 /* Common */,
@@ -2294,11 +2293,12 @@
 				EA83247C159481C50063B786 /* S04.1.1 Calendar */,
 				686E79F615B5E3A800A05C7C /* S05 Activity Event */,
 				EA863A0B15C1585E0072C005 /* S05.1 Map View */,
+				3C2B539016C529BF00C2C01D /* S05 .3 Chat */,
 				EAAEF8A215DA60710085DBE5 /* S05.4 Activity Invites */,
 				EABEC7121622F4E200DB179E /* S06 Create Activity */,
-				EACE5F23165B93DA00D1B3D0 /* S11 Notifications */,
 				EA85DBDE15AFDD6A00AAD964 /* S07 Settings */,
 				EAC801B31611C61C00501765 /* S10 Upcoming */,
+				EACE5F23165B93DA00D1B3D0 /* S11 Notifications */,
 			);
 			name = Resources;
 			sourceTree = "<group>";

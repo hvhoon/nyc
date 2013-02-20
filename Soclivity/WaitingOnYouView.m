@@ -67,7 +67,7 @@
     waitingTableView.scrollEnabled=YES;
     waitingTableView.backgroundView=nil;
     waitingTableView.backgroundColor=[UIColor clearColor];
-    waitingTableView.separatorColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"S11_divider.png"]];
+    self.waitingTableView.separatorColor = [UIColor clearColor];
     waitingTableView.showsVerticalScrollIndicator=YES;
     [self addSubview:waitingTableView];
     waitingTableView.clipsToBounds=YES;
@@ -125,16 +125,16 @@
         case 6:
         case 12:
         {
-            notif.rowHeight=[AttributedTableViewCell heightForCellWithText:notif.notificationString];
-            height=notif.rowHeight+50.0f;
+            notif.rowHeight=[AttributedTableViewCell heightForCellWithText:notif.notificationString]+50.0f;
+            height=notif.rowHeight;
 
         }
             break;
             
         default:
         {
-            notif.rowHeight=[AttributedTableViewCell heightForCellWithText:notif.notificationString];
-            height=notif.rowHeight+20.0f;
+            notif.rowHeight=[AttributedTableViewCell heightForCellWithText:notif.notificationString]+20.0f;
+            height=notif.rowHeight;
         }
             break;
     }
@@ -155,11 +155,11 @@
     NotificationClass *cellNotification=[self.notificationsArray objectAtIndex:indexPath.row];
     
     if(cellNotification.notificationString != nil && [cellNotification.notificationString class] != [NSNull class]){
-        rowheight=60;
+        rowheight=cellNotification.rowHeight;
         
     }
     else
-        rowheight=cellNotification.rowHeight;
+        rowheight=60;
     
     cell.notificationType=cellNotification.notificationType;
     
@@ -173,7 +173,6 @@
     
     cell.summaryText =cellNotification.notificationString;
     cell.summaryLabel.delegate = self;
-    
     cell.summaryLabel.userInteractionEnabled = YES;
     cell.summaryLabel.backgroundColor=[UIColor clearColor];
     cell.TimeText =[SoclivityUtilities nofiticationTime:cellNotification.timeOfNotification];
@@ -276,7 +275,7 @@
                 case 6:
                 {
                     UIButton *btngoing=[UIButton buttonWithType:UIButtonTypeCustom];
-                    btngoing.frame=CGRectMake(150,cellNotification.rowHeight+20, 71, 25);
+                    btngoing.frame=CGRectMake(150,cellNotification.rowHeight-35, 71, 25);
                     [btngoing setBackgroundImage:[UIImage imageNamed:@"S11_goingButton.png"] forState:UIControlStateNormal];
                     btngoing.tag=indexPath.row;
                     [btngoing setTitle:[NSString stringWithFormat:@"%d,%d",cellNotification.activityId,cellNotification.notificationId] forState:UIControlStateNormal];
@@ -284,7 +283,7 @@
                     [btngoing addTarget:self action:@selector(GoingNotification:) forControlEvents:UIControlEventTouchUpInside];
                     
                     UIButton *btnnotgoing=[UIButton buttonWithType:UIButtonTypeCustom];
-                    btnnotgoing.frame=CGRectMake(230,cellNotification.rowHeight+20, 71, 25);
+                    btnnotgoing.frame=CGRectMake(230,cellNotification.rowHeight-35, 71, 25);
                     [btnnotgoing setBackgroundImage:[UIImage imageNamed:@"S11_notGoingButton.png"] forState:UIControlStateNormal];
                     btnnotgoing.tag=indexPath.row;
                     [btnnotgoing setTitle:[NSString stringWithFormat:@"%d,%d",cellNotification.activityId,cellNotification.notificationId] forState:UIControlStateNormal];
@@ -294,7 +293,6 @@
                     [cell.contentView addSubview:btnnotgoing];
                     [cell.contentView addSubview:btngoing];
                     
-                    rowheight=cellNotification.rowHeight+50;
                     
                 }
                     break;
@@ -302,7 +300,7 @@
                 case 12:
                 {
                     UIButton *btnaccept=[UIButton buttonWithType:UIButtonTypeCustom];
-                    btnaccept.frame=CGRectMake(150,cellNotification.rowHeight+20, 71, 25);
+                    btnaccept.frame=CGRectMake(150,cellNotification.rowHeight-35, 71, 25);
                     [btnaccept setBackgroundImage:[UIImage imageNamed:@"S11_joinAcceptButton.png"] forState:UIControlStateNormal];
                     btnaccept.tag=indexPath.row;
                     [btnaccept setTitle:[NSString stringWithFormat:@"%d,%d,%d",cellNotification.activityId,cellNotification.notificationId,cellNotification.referredId] forState:UIControlStateNormal];
@@ -310,7 +308,7 @@
                     [btnaccept addTarget:self action:@selector(AcceptNotification:) forControlEvents:UIControlEventTouchUpInside];
                     
                     UIButton *btndecline=[UIButton buttonWithType:UIButtonTypeCustom];
-                    btndecline.frame=CGRectMake(230,cellNotification.rowHeight+20, 71, 25);
+                    btndecline.frame=CGRectMake(230,cellNotification.rowHeight-35, 71, 25);
                     [btndecline setBackgroundImage:[UIImage imageNamed:@"S11_joinDeclineButton.png"] forState:UIControlStateNormal];
                     btndecline.tag=indexPath.row;
                     [btndecline setTitle:[NSString stringWithFormat:@"%d,%d,%d",cellNotification.activityId,cellNotification.notificationId,cellNotification.referredId] forState:UIControlStateNormal];
@@ -320,7 +318,6 @@
                     [cell.contentView addSubview:btndecline];
                     [cell.contentView addSubview:btnaccept];
                     
-                    rowheight=cellNotification.rowHeight+50;
                     
                 }
                     break;
@@ -373,6 +370,13 @@
     [cell.contentView insertSubview:backgroundView atIndex:0];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
+    if(indexPath.row!=[self.notificationsArray count]-1){
+        UIView *divider=[[UIView alloc]initWithFrame:CGRectMake(0, rowheight-1, 320, 1)];
+        divider.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"S11_divider.png"]];
+        [cell.contentView addSubview:divider];
+        [divider release];
+
+    }
     return cell;
 }
 
