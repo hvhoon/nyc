@@ -287,8 +287,28 @@
     
     
     if([SoclivityUtilities hasNetworkConnection]){
-        [devServer getDetailedActivityInfoInvocation:[notify.userId intValue]    actId:notify.activityId  latitude:[notify.latitude floatValue] longitude:[notify.longitude floatValue] delegate:self];
+        
+        switch ([notify.notificationType intValue]) {
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 13:
+            case 16:
+            {
+                [devServer getDetailedActivityInfoInvocation:notify.referredId    actId:notify.activityId  latitude:[notify.latitude floatValue] longitude:[notify.longitude floatValue] delegate:self];
                 
+            }
+                break;
+                
+            default:
+            {
+                [devServer getDetailedActivityInfoInvocation:[notify.userId intValue]    actId:notify.activityId  latitude:[notify.latitude floatValue] longitude:[notify.longitude floatValue] delegate:self];
+                
+            }
+                break;
+        }
+    
     }
     else{
         if([[UIApplication sharedApplication] isIgnoringInteractionEvents])

@@ -34,6 +34,7 @@
     id<WaitingOnYouDelegate>delegate;
     SoclivityManager *SOC;
     NSInteger removeIndex;
+    UIView*noNotificationBackgroundView;
     
 }
 @property (nonatomic,retain) NSMutableArray *notificationsArray;

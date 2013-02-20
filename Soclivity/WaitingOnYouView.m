@@ -35,7 +35,6 @@
         
         // Initialization code
         self.notificationsArray =[andNotificationsListArray retain];
-        self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
         
         SOC=[SoclivityManager SharedInstance];
         
@@ -85,23 +84,26 @@
         activityTableRect=CGRectMake(0, 0, 320, 332+44);
     
     self.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
-    UIView *backgroundView=[[UIView alloc]initWithFrame:activityTableRect];
+    noNotificationBackgroundView=[[UIView alloc]initWithFrame:activityTableRect];
     UIImageView *noNotificationsImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S11_noNotfications.png"]];
     noNotificationsImageView.frame=CGRectMake(93, 112, 134, 151);
-    [backgroundView addSubview:noNotificationsImageView];
+    [noNotificationBackgroundView addSubview:noNotificationsImageView];
     
     UIImageView *logoFadedImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S11_logoFaded.png"]];
     logoFadedImageView.frame=CGRectMake(105, 359, 111, 28);
-    [backgroundView addSubview:logoFadedImageView];
-    [self addSubview:backgroundView];
+    [noNotificationBackgroundView addSubview:logoFadedImageView];
+    [self addSubview:noNotificationBackgroundView];
 
 
 }
 
 -(void)toReloadTableWithNotifications:(NSMutableArray*)listArray{
     
+    self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
+
      self.notificationsArray =[listArray retain];
     if(waitingTableView==nil){
+        [noNotificationBackgroundView removeFromSuperview];
         [self SetupNotificationTable];
 
     }
