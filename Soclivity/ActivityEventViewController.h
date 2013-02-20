@@ -56,13 +56,11 @@
     BOOL inTransition;
     MainServiceManager *devServer;
     MBProgressHUD *HUD;
-    BOOL isCalledFromNotification;
     NSString *notId;
     
 }
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property (nonatomic,retain)InfoActivityClass *activityInfo;
-@property(nonatomic,assign) BOOL isCalledFromNotification;
 -(IBAction)backButtonPressed:(id)sender;
 -(IBAction)addEventActivityPressed:(id)sender;
 -(IBAction)leaveEventActivityPressed:(id)sender;

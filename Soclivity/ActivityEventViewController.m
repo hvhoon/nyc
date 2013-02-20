@@ -40,7 +40,7 @@
 @end
 
 @implementation ActivityEventViewController
-@synthesize activityInfo,scrollView,isCalledFromNotification;
+@synthesize activityInfo,scrollView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -1078,9 +1078,6 @@
 -(IBAction)goingActivityButtonPressed:(id)sender{
     
     
-    if(isCalledFromNotification){
-        isCalledFromNotification=FALSE;
-    }
     
     switch (activityInfo.activityRelationType) {
         case 4:
@@ -1112,10 +1109,6 @@
 -(IBAction)notGoingActivityButtonPressed:(id)sender{
     
     
-    if(isCalledFromNotification){
-        isCalledFromNotification=FALSE;
-    }
-
     switch (activityInfo.activityRelationType) {
         case 4:
         {
