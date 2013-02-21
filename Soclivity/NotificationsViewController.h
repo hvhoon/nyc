@@ -37,5 +37,5 @@
 @property (nonatomic,assign)BOOL isPushedFromStack;
 -(IBAction)profileSliderPressed:(id)sender;
 -(void)startAnimation:(int)tag;
-
+-(void)getUserNotifications;
 @end

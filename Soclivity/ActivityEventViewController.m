@@ -34,7 +34,6 @@
 #define kDeclinePlayerRequest 18
 #define kRemovePlayerRequest 19
 #define kLeaveActivity 20
-
 #define kActivityLabel 21
 @interface ActivityEventViewController (private)<EditActivityEventInvocationDelegate,MBProgressHUDDelegate,PostActivityRequestInvocationDelegate,GetActivityInvitesInvocationDelegate,NewActivityViewDelegate>
 @end

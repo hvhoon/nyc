@@ -37,6 +37,8 @@
     
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     SOC.loggedInUser.badgeCount=0;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"RemoteNotificationReceivedWhileRunning" object:nil];
+
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
 
@@ -48,6 +50,15 @@
     
     [super viewWillAppear:YES];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
+
+    
+    
+    [self getUserNotifications];
+
+}
+
+-(void)getUserNotifications{
     if([SoclivityUtilities hasNetworkConnection]){
         [self startAnimation:1];
         [devServer getUserNotificationsInfoInvocation:self notificationType:kGetNotifications notficationId:-1];
@@ -122,6 +133,14 @@
 
 }
 
+- (void)didReceiveBackgroundNotification:(NSNotification*) note{
+
+    // time to refresh the notification screen
+    
+    [self getUserNotifications];
+}
+
+
 -(void)BadgeNotification
 {
     if(isPushedFromStack){
@@ -137,9 +156,10 @@
     
     
     [HUD hide:YES];
+    
     [self BadgeNotification];
         if([responses count]>0)
-    [notificationView toReloadTableWithNotifications:[NSMutableArray arrayWithArray:responses]];
+            [notificationView toReloadTableWithNotifications:[NSMutableArray arrayWithArray:responses]];
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
@@ -333,6 +353,9 @@
 -(void)DetailedActivityInfoInvocationDidFinish:(DetailedActivityInfoInvocation*)invocation
                                   withResponse:(InfoActivityClass*)response
                                      withError:(NSError*)error{
+    
+    
+    [HUD hide:YES];
     
     if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
@@ -540,6 +563,7 @@ else{
         case 4:
         case 7:
         case 14:
+        case 13:
         {
             [notificationView requestComplete];
         }
@@ -547,7 +571,7 @@ else{
             
         default:
         {
-            [notificationView requestComplete];
+            //[notificationView requestComplete];
         }
             break;
     }

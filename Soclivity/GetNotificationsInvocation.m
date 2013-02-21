@@ -25,6 +25,9 @@
         case kGetNotifications:
         {
             a= [NSString stringWithFormat:@"dev.soclivity.com/mynotifications.json?logged_in_user_id=%d",[SOC.loggedInUser.idSoc intValue]];
+            
+            //a= [NSString stringWithFormat:@"dev.soclivity.com/mynotifications.json?logged_in_user_id=%d",24];
+
 
             
         }
@@ -66,6 +69,8 @@
             NSLog(@"messages=%@",message);
             [self.delegate successRemoveNotification:message];
         }
+            break;
+            
         default:
             break;
     }

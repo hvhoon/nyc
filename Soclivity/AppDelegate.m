@@ -132,7 +132,7 @@ static NSString* kAppId = @"160726900680967";//kanav
         //        NSArray *notifArray = [NSArray arrayWithObject:@"userInfo"];
         //		notifUserInfo = [[NSDictionary alloc] initWithObjects:notifArray forKeys:notifArray];
         
-        
+            if([SoclivityUtilities hasNetworkConnection]){
         NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://dev.soclivity.com/rsparameter.json?id=%@",[NSString stringWithFormat:@"%@",[[userInfo valueForKey:@"params"] valueForKey:@"notification_id"]]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         
         NSLog(@"url=%@",url);
@@ -156,6 +156,7 @@ static NSString* kAppId = @"160726900680967";//kanav
         NSNotification* notification = [NSNotification notificationWithName:kRemoteNotificationReceivedNotification object:nil userInfo:resultsd];
         [[NSNotificationCenter defaultCenter] postNotification:notification];
         [notifUserInfo release];
+            }
         
         
     }

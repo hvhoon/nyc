@@ -49,7 +49,7 @@
 #pragma mark - View lifecycle
 
 -(void)viewDidDisappear:(BOOL)animated{
-        [[NSNotificationCenter defaultCenter]removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"RemoteNotificationReceivedWhileRunning" object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

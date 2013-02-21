@@ -146,9 +146,9 @@
     static NSString *CellIdentifier = @"Cell";
     
     AttributedTableViewCell *cell = (AttributedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    //if (cell == nil) {
+    if (cell == nil) {
         cell = [[AttributedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-   // }
+    }
     
     CGFloat rowheight=0.0f;
     
@@ -159,10 +159,10 @@
         
     }
     else
-        rowheight=60;
+        rowheight=60.0f;
     
     cell.notificationType=cellNotification.notificationType;
-    
+
     for (UIView *view in cell.contentView.subviews)
     {
         if (![view isKindOfClass:[UILabel class]])
