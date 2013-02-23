@@ -492,9 +492,9 @@
     
     NotificationClass *notificationSelect=[self.notificationsArray objectAtIndex:removeIndex];
     if(!notificationSelect.isRead){
-        SOC.loggedInUser.badgeCount=SOC.loggedInUser.badgeCount-1;
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
+//        SOC.loggedInUser.badgeCount=SOC.loggedInUser.badgeCount-1;
+//        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
 
     }
     

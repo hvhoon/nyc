@@ -11,11 +11,13 @@
 #import "ParticipantListTableView.h"
 #import "NotifyAnimationView.h"
 #import "DetailedActivityInfoInvocation.h"
+#import "ChatActivityView.h"
 @class InfoActivityClass;
 @class SoclivityManager;
 @class MainServiceManager;
 @class MBProgressHUD;
-@interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate,ParticipantListDelegate,NotifyAnimationViewDelegate,DetailedActivityInfoInvocationDelegate>{
+
+@interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate,ParticipantListDelegate,NotifyAnimationViewDelegate,DetailedActivityInfoInvocationDelegate,ChatActivityViewDelegate>{
     IBOutlet UIScrollView* scrollView;
     IBOutlet AddEventView *eventView;
     IBOutlet ParticipantListTableView *participantListTableView;
@@ -45,7 +47,7 @@
     BOOL toggleFriends;
     int lastIndex;
     IBOutlet UIView *staticView;
-    IBOutlet UIView *chatView;
+    IBOutlet ChatActivityView *chatView;
     BOOL footerActivated;
     IBOutlet UIButton *backToActivityFromMapButton;
     SoclivityManager *SOC;

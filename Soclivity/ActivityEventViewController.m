@@ -90,7 +90,9 @@
     lastIndex=-1;
     [spinnerView stopAnimating];
     [spinnerView setHidden:YES];
+    chatView.delegate=self;
     
+    [chatView updateChatScreen:[NSMutableArray arrayWithCapacity:0]];
 #if 0
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,464)];
     
