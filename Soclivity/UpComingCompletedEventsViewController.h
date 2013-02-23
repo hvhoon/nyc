@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ActivityListView.h"
+#import "NotifyAnimationView.h"
 @class MainServiceManager;
 @class SoclivityManager;
 @protocol UpcomingCompletedEvnetsViewDelegate <NSObject>
@@ -17,7 +18,7 @@
 @end
 
 
-@interface UpComingCompletedEventsViewController : UIViewController<ActivityListViewDelegate>{
+@interface UpComingCompletedEventsViewController : UIViewController<ActivityListViewDelegate,NotifyAnimationViewDelegate>{
     id <UpcomingCompletedEvnetsViewDelegate>delegate;
     IBOutlet UILabel *activititesLabel;
      UIButton *organizedButton;
@@ -36,6 +37,7 @@
     NSArray *goingToArray;
     BOOL isNotLoggedInUser;
     NSInteger player2Id;
+    IBOutlet UIButton *btnnotify;
 }
 @property (nonatomic,retain)id <UpcomingCompletedEvnetsViewDelegate>delegate;
 @property (nonatomic,retain) ActivityListView *activityListView;
@@ -46,7 +48,6 @@
 @property (nonatomic,retain)NSArray *invitedToArray;
 @property (nonatomic,retain)NSArray *compeletedArray;
 @property (nonatomic,retain)NSArray *goingToArray;
-@property (nonatomic, retain)IBOutlet UIButton *btnnotify;
 
 -(IBAction)profileSliderPressed:(id)sender;
 -(void)organizedButtonPressed:(id)sender;

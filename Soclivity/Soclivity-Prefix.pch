@@ -19,8 +19,8 @@
 #endif
 
 #define DATABASE_NAME @"SoclivityDB.sqlite"
-#define DeploymentServer @"dev.soclivity.com"
-#define ProductionServer @"66.228.42.237"
+#define ProductionServer @"dev.soclivity.com"
+//#define ProductionServer @"66.228.42.237"
 #define kLatLongAndActivities 122
 #define kNoLocation 123
 #define kOnlyLatLong 124
@@ -36,10 +36,13 @@
 #define kCustomRowHeight    50.0
 #define kSectionHeaderHeight    27.0
 #define TESTING 0
-
+#define OfflineTesting 0
 #define kParticipantInActivity 55
 #define kInviteUsers 56
-#define kWaitingOnYou 57
+#define kNotificationImageUrl 57
+
+#define kRemoveNotification 58
+#define kGetNotifications 59
 
 #define kPlayActivity 12
 #define kEatActivity 13

@@ -22,7 +22,7 @@
 @end
 
 @implementation InvitesViewController
-@synthesize delegate,settingsButton,activityBackButton,inviteTitleLabel,openSlotsNoLabel,activityName,num_of_slots,inviteFriends,activityInvites,inviteArray,activityId,btnnotify;
+@synthesize delegate,settingsButton,activityBackButton,inviteTitleLabel,openSlotsNoLabel,activityName,num_of_slots,inviteFriends,activityInvites,inviteArray,activityId;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,48 +44,17 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    for (UIViewController *vw_contrller in self.navigationController.viewControllers) {
-        if([vw_contrller isKindOfClass:[ActivityEventViewController class]])
-        {
-            self.btnnotify.alpha=0;
-        }//END if([vw_contrller isKindOf
-    }//END if ([vw_contrller isKindOfClass:[ActivityEventViewController class]])
 
-     [self.view bringSubviewToFront:self.btnnotify];
+     [self.view bringSubviewToFront:btnnotify];
     
+
     [activityInvites closeAnimation];
 }
 
+
 -(void)UpdateBadgeNotification
 {
-    self.btnnotify.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
-    
-    int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
-    
-    if (count==0)
-    {
-        self.btnnotify.alpha=0;
-    }//END if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"Wait
-    
-    else
-    {
-        if ([[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] length]<2)
-        {
-            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notifyDigit1.png"] forState:UIControlStateNormal];
-            self.btnnotify.frame = CGRectMake(self.btnnotify.frame.origin.x,self.btnnotify.frame.origin.y,27,27);
-            
-        }//END if ([[NSString stringWithFormat:@"%i",[[[
-        
-        else{
-            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notifyDigit2.png"] forState:UIControlStateNormal];
-            self.btnnotify.frame = CGRectMake(self.btnnotify.frame.origin.x,self.btnnotify.frame.origin.y,33,28);
-        }//END Else Statement
-        
-        self.btnnotify.alpha=1;
-        [self.btnnotify setTitle:[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] forState:UIControlStateNormal];
-        [self.btnnotify setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    }//END Else Statement
+    [SoclivityUtilities returnNotificationButtonWithCountUpdate:btnnotify];
 }
 
 #pragma mark - View lifecycle
@@ -97,10 +66,11 @@
     SOC=[SoclivityManager SharedInstance];
     
     [self UpdateBadgeNotification];
-
-    self.btnnotify.alpha=1;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
+
     
     if(inviteFriends){
     settingsButton.hidden=YES;
@@ -132,6 +102,19 @@
     activityInvites.delegate=self;
     [self.view addSubview:activityInvites];
    // Do any additional setup after loading the view from its nib.
+}
+
+-(void)showInAppNotificationsUsingRocketSocket:(NSNotification*)object{
+    
+    NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:object];
+    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
+    notif.delegate=self;
+    [self.view addSubview:notif];
+    
+}
+
+-(void)backgroundTapToPush:(NotificationClass*)notification{
+    
 }
 
 
@@ -238,9 +221,7 @@
 
 -(void)inviteSoclivityUser:(int)invitePlayerId{
     
-
-    
-        if([SoclivityUtilities hasNetworkConnection]){
+if([SoclivityUtilities hasNetworkConnection]){
                 [self startAnimation:0];
     [devServer postActivityRequestInvocation:11  playerId:invitePlayerId actId:activityId delegate:self];
         }

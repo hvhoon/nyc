@@ -69,6 +69,7 @@ typedef enum {
 
 @property (nonatomic, assign) id <SlideViewControllerDelegate> delegate;
 @property (copy, readwrite)NSString *lstrnotificationscount;
+@property (nonatomic, retain)IBOutlet UITableView *_tableView;
 
 - (void)configureViewController:(UIViewController *)viewController;
 - (void)menuBarButtonItemPressed:(id)sender;

@@ -25,7 +25,7 @@
 
 
 -(void)invoke {
-    NSString *a= [NSString stringWithFormat:@"%@/activities.json",ProductionServer];
+    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/activities.json"];
 	[self post:a body:[self body]];
     
 }

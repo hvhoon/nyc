@@ -10,8 +10,6 @@
 
 @implementation MainServiceManager
 
-
-
 -(id)retain {	
 	return [super retain];
 }
@@ -80,6 +78,7 @@
     
 }
 -(void)getDetailedActivityInfoInvocation:(NSInteger)pId actId:(NSInteger)actId  latitude:(float)latitude longitude:(float)longitude delegate:(id<DetailedActivityInfoInvocationDelegate>)delegate{
+
     DetailedActivityInfoInvocation *invocation = [[[DetailedActivityInfoInvocation alloc] init] autorelease];
     invocation.playerId = pId;
     invocation.activityId = actId;
@@ -149,5 +148,12 @@
     [self invoke:invocation withDelegate:delegate];
 
 }
-
+-(void)getUserNotificationsInfoInvocation:(id<GetNotificationsInvocationDelegate>)delegate notificationType:(NSInteger)type notficationId:(NSInteger)idType{
+        
+    GetNotificationsInvocation *invocation = [[[GetNotificationsInvocation alloc] init] autorelease];
+    invocation.notificationType=type;
+    invocation.notificationId=idType;
+    [self invoke:invocation withDelegate:delegate];
+        
+}
 @end

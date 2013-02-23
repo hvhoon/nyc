@@ -9,9 +9,9 @@
 #import "NotificationClass.h"
 
 @implementation NotificationClass
-@synthesize notificationString,type,profileImage,date,count;
-
-
+@synthesize notificationString,type,profileImage,date,count,notificationId,userId;
+@synthesize activityId,expirationDate,photoUrl,latitude,longitude,notificationType,isRead;
+@synthesize rowHeight,timeOfNotification,referredId,backgroundTap;
 
 -(void)dealloc{
     [super dealloc];
@@ -19,6 +19,13 @@
     [date release];
     [profileImage release];
     [count release];
+    [userId release];
+    [expirationDate release];
+    [photoUrl release];
+    [latitude release];
+    [longitude release];
+    [notificationType release];
+    [timeOfNotification release];
 }
 
 @end

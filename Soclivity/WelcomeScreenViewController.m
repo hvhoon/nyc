@@ -20,8 +20,9 @@
 #import "EventShareActivity.h"
 #import "SoclivityUtilities.h"
 #import "ProfileViewController.h"
-
-@interface WelcomeScreenViewController(Private) <MBProgressHUDDelegate>
+#import "RRAViewController.h"
+#import "GetPlayersClass.h"
+@interface WelcomeScreenViewController(Private)
 @end
 @implementation WelcomeScreenViewController
 
@@ -58,53 +59,63 @@
     rootView=[[UIView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.view addSubview:rootView];
 
-    
-    UIImageView *socLogoImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"logo.png"]];
-    socLogoImageView.frame=CGRectMake(51, 80, 219, 58);
-    
+    // All the background images
     playImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"green_play.png"]];
     playImageView.frame=[[UIScreen mainScreen] bounds];
-    UIImageView*playHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"play.png"]];
-    playHighlightImage.frame=CGRectMake(33, 150, 254, 14);
-    [playImageView addSubview:playHighlightImage];
-    
     [rootView addSubview:playImageView];
-    [playHighlightImage release];
     
     eatImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"orange_eat.png"]];
     eatImageView.frame=[[UIScreen mainScreen] bounds];
-    UIImageView*eatHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"eat.png"]];
-    eatHighlightImage.frame=CGRectMake(33, 150, 254, 14);
-    [eatImageView addSubview:eatHighlightImage];
-    
     [rootView addSubview:eatImageView];
-    [eatHighlightImage release];
     
     seeImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"purple_see.png"]];
     seeImageView.frame=[[UIScreen mainScreen] bounds];
-    UIImageView*seeHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"see.png"]];
-    seeHighlightImage.frame=CGRectMake(33, 150, 254, 14);
-    [seeImageView addSubview:seeHighlightImage];
-    
     [rootView addSubview:seeImageView];
-    [seeHighlightImage release];
     
     createImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"red_create.png"]];
     createImageView.frame=[[UIScreen mainScreen] bounds];
-    UIImageView*createHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"create.png"]];
-    createHighlightImage.frame=CGRectMake(33, 150, 254, 14);
-    [createImageView addSubview:createHighlightImage];
-    
     [rootView addSubview:createImageView];
-    [createHighlightImage release];
     
     learnImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"aqua_learn.png"]];
     learnImageView.frame=[[UIScreen mainScreen] bounds];
+    [rootView addSubview:learnImageView];
+
+    
+    // Initialize all the other images
+    UIImageView *socLogoImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"logo.png"]];
+    UIImageView*playHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"play.png"]];
+    UIImageView*eatHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"eat.png"]];
+    UIImageView*seeHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"see.png"]];
+    UIImageView*createHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"create.png"]];
     UIImageView*learnHighlightImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"learn.png"]];
-    learnHighlightImage.frame=CGRectMake(33, 150, 254, 14);
+
+
+    
+    // Change the logo location based on device type
+    float x=0;
+    
+    if([SoclivityUtilities deviceType] & iPhone5){
+        x = 44.0;
+    }
+    
+    socLogoImageView.frame=CGRectMake(51, x+110, 219, 58);
+    playHighlightImage.frame=CGRectMake(33, x+180, 254, 14);
+    eatHighlightImage.frame=CGRectMake(33, x+180, 254, 14);
+    seeHighlightImage.frame=CGRectMake(33, x+180, 254, 14);
+    createHighlightImage.frame=CGRectMake(33, x+180, 254, 14);
+    learnHighlightImage.frame=CGRectMake(33, x+180, 254, 14);
+    
+    // Adding these images to the screen
+    [playImageView addSubview:playHighlightImage];
+    [playHighlightImage release];
+    [eatImageView addSubview:eatHighlightImage];
+    [eatHighlightImage release];
+    [seeImageView addSubview:seeHighlightImage];
+    [seeHighlightImage release];
+    [createImageView addSubview:createHighlightImage];
+    [createHighlightImage release];
     [learnImageView addSubview:learnHighlightImage];
     [learnHighlightImage release];
-    [rootView addSubview:learnImageView];
     
     
     eatImageView.hidden=YES;
@@ -113,27 +124,51 @@
     learnImageView.hidden=YES;
     [self.view addSubview:socLogoImageView];
     [socLogoImageView release];
-    UIImageView *socSignupImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sign-up.png"]];
-    socSignupImageView.frame=CGRectMake(26, [UIScreen mainScreen].bounds.size.height-173, 265, 132);//287
+    
+    
+    UIImageView *socSignupImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S01_signIn.png"]];
+    socSignupImageView.frame=CGRectMake(28, x+250, 263, 44);
     [self.view addSubview:socSignupImageView];
     [socSignupImageView release];
     
+    // Sign-in button
+    signIn=[[UILabel alloc]initWithFrame:CGRectMake(87, x+253, 230, 35)];
+    signIn.text=@"Sign in Using Facebook";
+    signIn.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17.0];
+    
+    signIn.textColor=[SoclivityUtilities returnTextFontColor:5];
+    signIn.backgroundColor=[UIColor clearColor];
+    signIn.shadowColor = [UIColor whiteColor];
+    signIn.shadowOffset = CGSizeMake(0,0.5);
+    
+    [self.view addSubview:signIn];
+    [signIn release];
+    
+    spinner=[[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(252, x+261, 20, 20)];
+    [spinner setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+    [spinner hidesWhenStopped];
+    [self.view addSubview:spinner];
+    [spinner release];
     
     UIButton *signInUsingFacebbokButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    signInUsingFacebbokButton.frame=CGRectMake(26,[UIScreen mainScreen].bounds.size.height-173,265,44.6);
+    signInUsingFacebbokButton.frame=CGRectMake(28, x+250, 263, 44);
     [signInUsingFacebbokButton addTarget:self action:@selector(SignInUsingFacebookButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signInUsingFacebbokButton];
     
+    //Disabling the other sign-in methods
+    
+    /*
     UIButton *signUpButton=[UIButton buttonWithType:UIButtonTypeCustom];
     signUpButton.frame=CGRectMake(26,[UIScreen mainScreen].bounds.size.height-173+44,265,44.6);//331
     [signUpButton addTarget:self action:@selector(SignUpButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signUpButton];
     
+     
     UIButton *alreadySignedUpButton=[UIButton buttonWithType:UIButtonTypeCustom];
     alreadySignedUpButton.frame=CGRectMake(26,[UIScreen mainScreen].bounds.size.height-173+44+45.2,265,44.6);
     [alreadySignedUpButton addTarget:self action:@selector(AlreadySignedUpButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:alreadySignedUpButton];
-
+*/
     
     [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(performTransition) userInfo:nil repeats:YES]; 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
@@ -239,6 +274,11 @@
     
 }
 -(void)SignInUsingFacebookButtonClicked{
+    
+#if OfflineTesting
+    [self pushToHomeViewController];
+#else
+
     if([SoclivityUtilities hasNetworkConnection]){
         
     
@@ -257,11 +297,13 @@
         return;
         
     }
-
+#endif
 
 }
 -(void)userCancelFBRequest{
-    [HUD hide:YES];
+    [spinner stopAnimating];
+    [self.view setUserInteractionEnabled:YES];
+    signIn.text=@"Sign in Using Facebook";
 }
 -(void)pushToRegistration{
     
@@ -277,14 +319,20 @@
 
     ProfileViewController *registrationViewControler=[[ProfileViewController alloc] initWithNibName:nibNameBundle bundle:nil];
     registrationViewControler.isFirstTime=TRUE;
-    [HUD hide:YES];
+    
+    [spinner stopAnimating];
+    [self.view setUserInteractionEnabled:YES];
+    
 	[[self navigationController] pushViewController:registrationViewControler animated:YES];
     [registrationViewControler release];
 #else
     //check for facebook user Already registered or else redirect to registraion page
     RegistrationViewControler *registrationViewControler=[[RegistrationViewControler alloc] initWithNibName:@"RegistrationViewControler" bundle:nil];
     registrationViewControler.facebookTag=TRUE;
-    [HUD hide:YES];
+    
+    [spinner stopAnimating];
+    [self.view setUserInteractionEnabled:YES];
+    
 	[[self navigationController] pushViewController:registrationViewControler animated:YES];
     [registrationViewControler release];
 #endif
@@ -292,7 +340,20 @@
 }
 
 -(void)pushToHomeViewController{
-    [HUD hide:YES];
+
+    
+   [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isLoggedIn"];
+    [spinner stopAnimating];
+    [self.view setUserInteractionEnabled:YES];
+    
+    
+#if 0
+    //rocket Socket Connection
+    RRAViewController *objrra=[[RRAViewController alloc]init];
+    [objrra fetchPrivatePubConfiguration];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] setObjrra:objrra];
+#endif
+    
     NSString *nibNameBundle=nil;
     if([SoclivityUtilities deviceType] & iPhone5){
         nibNameBundle=@"SlideViewController";
@@ -345,21 +406,9 @@
 
 -(void)startFacebookSignup {
     // Setup animation settings
-    HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
-    HUD.labelText = @"Facebook Sign-in";
-    
-    [self.view addSubview:HUD];
-    HUD.delegate = self;
-    [HUD show:YES];
+    signIn.text = @"Signing In...";
+    [self.view setUserInteractionEnabled:NO];
+    [spinner startAnimating];
     
 }
-
--(void)hudWasHidden:(MBProgressHUD *)hud {
-    // Remove HUD from screen when the HUD was hidded
-	[HUD removeFromSuperview];
-	[HUD release];
-	HUD = nil;
-}
-
 @end

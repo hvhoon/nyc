@@ -215,7 +215,6 @@
     [prefixDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
     [prefixDateFormatter setDateFormat:@"EEEE, MMMM d, YYYY"];
     NSString *prefixDateString = [prefixDateFormatter stringFromDate:date];
-
     
     // Now adding the date to the view
     calendarIcon.image = [UIImage imageNamed:@"S05_calendarIcon.png"];
@@ -1184,7 +1183,7 @@ else {
         aV.frame = CGRectMake(aV.frame.origin.x, aV.frame.origin.y - self.mapView.frame.size.height, aV.frame.size.width, aV.frame.size.height);
         
         // Animate drop
-        [UIView animateWithDuration:0.5 delay:0.04*[views indexOfObject:aV] options:UIViewAnimationCurveLinear animations:^{
+        [UIView animateWithDuration:0.5 delay:0.04*[views indexOfObject:aV] options:UIViewAnimationOptionCurveLinear animations:^{
             
             aV.frame = endFrame;
             
@@ -1416,19 +1415,6 @@ else {
         CLPlacemark * placemark1 = [placemarks objectAtIndex:0];
         
         secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@, %@",placemark1.thoroughfare,placemark1.locality,placemark1.administrativeArea];
-        
-        NSLog(@"placemark.city=%@",[placemark1.addressDictionary objectForKey:@"City"]);
-        NSLog(@"placemark.country=%@",placemark1.country);
-        NSLog(@"thoroughfare=%@",placemark1.thoroughfare);
-        NSLog(@"placemark.subThoroughfare=%@",placemark1.subThoroughfare);
-        NSLog(@"placemark.locality=%@",placemark1.locality);
-        NSLog(@"placemark.subLocality=%@",placemark1.subLocality);
-        NSLog(@"placemark.administrativeArea=%@",placemark1.administrativeArea);
-        NSLog(@"placemark.subAdministrativeArea=%@",placemark1.subAdministrativeArea);
-        NSLog(@"placemark.inlandWater=%@",placemark1.inlandWater);
-        NSLog(@"placemark.ocean=%@",placemark1.ocean);
-        NSLog(@"placemark.postalCode=%@",placemark1.postalCode);
-        
         [delegate enableDisableTickOnTheTopRight:YES];
     }
 }
@@ -1488,20 +1474,7 @@ else {
             PlacemarkClass *placemark=[[[PlacemarkClass alloc]init]autorelease];
             placemark.latitude = placemark1.location.coordinate.latitude;
             placemark.longitude = placemark1.location.coordinate.longitude;
-        NSLog(@"placemark.city=%@",[placemark1.addressDictionary objectForKey:@"City"]);
-        NSLog(@"placemark.street=%@",placemark1.thoroughfare);
-        NSLog(@"placemark.country=%@",placemark1.country);
-        NSLog(@"placemark.subThoroughfare=%@",placemark1.subThoroughfare);
-        NSLog(@"placemark.locality=%@",placemark1.locality);
-        NSLog(@"placemark.subLocality=%@",placemark1.subLocality);
-        NSLog(@"placemark.administrativeArea=%@",placemark1.administrativeArea);
-        NSLog(@"placemark.subAdministrativeArea=%@",placemark1.subAdministrativeArea);
-        NSLog(@"placemark.inlandWater=%@",placemark1.inlandWater);
-        NSLog(@"placemark.ocean=%@",placemark1.ocean);
-        NSLog(@"placemark.postalCode=%@",placemark1.postalCode);
-        
-        
-        
+
         placemark.streetNumber=placemark1.subThoroughfare;
         placemark.route=placemark1.thoroughfare;
         placemark.whereZip=placemark1.postalCode;

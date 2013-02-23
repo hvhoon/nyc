@@ -11,9 +11,10 @@
 #import "NotificationsViewController.h"
 #import "UpComingCompletedEventsViewController.h"
 #import "InvitesViewController.h"
-#import "BlockedListViewController.h"
-#import "AppDelegate.h"
-
+#import "AboutViewController.h"
+#import "JMC.h"
+#import "SoclivityManager.h"
+#import "GetPlayersClass.h"
 #define kSVCLeftAnchorX                 100.0f
 #define kSVCRightAnchorX                190.0f
 #define kSVCSwipeNavigationBarOnly      YES
@@ -28,13 +29,14 @@
 #define kCalendarSync 7
 #define kEmailNotifications 8
 #define kSignOut 9
-#define kLinkFacebook 10
+#define kAbout 10
 
-#define cellHeightMedium 45
+#define cellHeightDefault 43
+#define cellHeightSmall 35
 #define cellHeightLarge  65
 #define cellHeightSignOut 40
 
-@interface SlideViewController (private)<HomeScreenDelegate,ProfileScreenViewDelegate,NotificationsScreenViewDelegate,UpcomingCompletedEvnetsViewDelegate,InvitesViewDelegate,BlockedListViewDelegate>
+@interface SlideViewController (private)<HomeScreenDelegate,ProfileScreenViewDelegate,NotificationsScreenViewDelegate,UpcomingCompletedEvnetsViewDelegate,InvitesViewDelegate,AboutViewDelegate>
 @end
 
 @interface SlideViewNavigationBar : UINavigationBar {
@@ -92,16 +94,10 @@
     
     if (self) {
         
-        
-        //self.backgroundColor = [UIColor clearColor];
-        
         self.textLabel.textColor = [SoclivityUtilities returnTextFontColor:0];
         self.textLabel.highlightedTextColor = self.textLabel.textColor;
         self.textLabel.shadowColor = [SoclivityUtilities returnTextFontColor:9];
-        //self.textLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
-        //self.textLabel.backgroundColor = [UIColor clearColor];
         self.textLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
-        
         self.imageView.clipsToBounds = YES;
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     }
@@ -122,7 +118,7 @@
 @implementation SlideViewController
 
 @synthesize delegate = _delegate;
-@synthesize lstrnotificationscount;
+@synthesize lstrnotificationscount,_tableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -431,26 +427,17 @@
 
     
     switch ([tagNumber integerValue]) {
-        case kActivityFeed:
-        case kWaitingOnU:
-        case kUpcoming_Completed:
-        case kInvite:
-        case kCalendarSync:
-        case kEmailNotifications:
-             return cellHeightMedium;
         case kSignOut:
             return cellHeightSignOut;
         case kBlockedList:
             if([SoclivityUtilities deviceType] & iPhone5)
-                return 173.0f;
+                return 142.0f;
             else
-                return 85.0f;
-           
-
+                return 54.0f;
         case kProfileView:
             return cellHeightLarge;
         default:
-            return 45.0f;
+            return cellHeightDefault;
     }
 }
 
@@ -503,7 +490,7 @@
             
         case kProfileView:
         {
-            yCompLine=63.0f;
+            yCompLine=66.0f;
             yTextLabel=27.0f;
             showLineOrSwitch=TRUE;
             UIImageView *profilePicBorder=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_organizerPic.png"]];
@@ -555,9 +542,9 @@
         {
             
             if([SoclivityUtilities deviceType] & iPhone5)
-                yCompLine=171;
+                yCompLine=140;
             else
-                yCompLine=83;
+                yCompLine=52;
             yTextLabel=15.0f;
             showLineOrSwitch=TRUE;
             yLeftImage=11.0f;
@@ -574,12 +561,13 @@
             
         }
             break;
-        case kLinkFacebook:
+        case kAbout:
         {
             yCompLine=43;
-            yTextLabel=15.0f;
-            showLineOrSwitch=FALSE;
-            yLeftImage=11.0f;
+            yTextLabel=16.0f;
+            showLineOrSwitch=TRUE;
+            yLeftImage=10.0f;
+            cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
             
         }
             break;
@@ -624,7 +612,7 @@
         descriptionLabel.frame=CGRectMake(75,yTextLabel,205,17);
         descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17];
     }
-    else if([tagNumber intValue]==kProfileView || ([tagNumber intValue]==kCalendarSync)||([tagNumber intValue]==kEmailNotifications)||([tagNumber intValue]==kSignOut))
+    else if([tagNumber intValue]==kProfileView || ([tagNumber intValue]==kSignOut))
         descriptionLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     
     else
@@ -637,20 +625,19 @@
     if(showLineOrSwitch){
     UIImageView *longLineImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_long-line.png"]];
     
-    if(([tagNumber intValue]==kWaitingOnU) ||([tagNumber intValue]==kUpcoming_Completed)||([tagNumber intValue]==kInvite)||([tagNumber intValue]==kActivityFeed)){
+    if(([tagNumber intValue]==kWaitingOnU) ||([tagNumber intValue]==kUpcoming_Completed)||([tagNumber intValue]==kInvite)||([tagNumber intValue]==kActivityFeed) || ([tagNumber intValue]==kAbout)){
         
-        if(([tagNumber intValue]==kInvite)){
-        longLineImageView.image=Nil;
+        if([tagNumber intValue]==kInvite || [tagNumber intValue]==kAbout){
+            longLineImageView.image=Nil;
         }
          else
-        longLineImageView.image=[UIImage imageNamed:@"S7_short-line.png"];
-        longLineImageView.frame=CGRectMake(25,yCompLine, longLineImageView.image.size.width, longLineImageView.image.size.height);
-
+            longLineImageView.image=[UIImage imageNamed:@"S7_short-line.png"];
+            longLineImageView.frame=CGRectMake(25,yCompLine, longLineImageView.image.size.width, longLineImageView.image.size.height);
     }
     else
-    longLineImageView.frame=CGRectMake(0,yCompLine-2, longLineImageView.image.size.width, longLineImageView.image.size.height);
-    [cell.contentView addSubview:longLineImageView];
-    [longLineImageView release];
+        longLineImageView.frame=CGRectMake(0,yCompLine-2, longLineImageView.image.size.width, longLineImageView.image.size.height);
+        [cell.contentView addSubview:longLineImageView];
+        [longLineImageView release];
     }
     else{
         //draw a custom switch control
@@ -696,7 +683,8 @@
             CGRect notificationNoLabelRect=CGRectMake(6,4,15,14);
             UILabel *notificationNoLabel=[[UILabel alloc] initWithFrame:notificationNoLabelRect];
             notificationNoLabel.textAlignment=UITextAlignmentCenter;
-            notificationNoLabel.text=[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]];
+            SoclivityManager *SOC=[SoclivityManager SharedInstance];
+            notificationNoLabel.text=[NSString stringWithFormat:@"%d",SOC.loggedInUser.badgeCount];
             notificationNoLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
             notificationNoLabel.textColor=[UIColor whiteColor];
             notificationNoLabel.shadowColor = [UIColor blackColor];
@@ -725,7 +713,6 @@
     UISwitch* switchControl = sender;
     NSLog( @"The switch is %@", switchControl.on ? @"ON" : @"OFF" );
 }
-#if 1
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
@@ -803,7 +790,6 @@
         return 0.0f;
     }
 }
-#endif
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         
     NSDictionary *viewControllerDictionary = nil;
@@ -815,7 +801,7 @@
     }
     
     NSString *tapAndDrawerEffect = [viewControllerDictionary objectForKey:kSlideViewControllerViewControllerTapAndDrawerKey];
-    
+
     if(![tapAndDrawerEffect isEqualToString:@"TRUE"])
         return;
 
@@ -824,19 +810,16 @@
     NSString *nibNameOrNil = [viewControllerDictionary objectForKey:kSlideViewControllerViewControllerNibNameKey];
     UIViewController *viewController = [[viewControllerClass alloc] initWithNibName:nibNameOrNil bundle:nil];
     
-    NSLog(@"viewcontroller::%@",viewController);
     
     if([viewController isKindOfClass:[HomeViewController class]]){
         
         HomeViewController *homeController=(HomeViewController*)viewController;
         homeController.delegate=self;
-        
     }
     
     else if([viewController isKindOfClass:[ProfileViewController class]]){
         ProfileViewController *profileController=(ProfileViewController*)viewController;
         profileController.delegate=self;
-        
     }
     
     else if([viewController isKindOfClass:[NotificationsViewController class]]){
@@ -857,9 +840,9 @@
         
     }
     
-    else if([viewController isKindOfClass:[BlockedListViewController class]]){
-        BlockedListViewController *blockListController=(BlockedListViewController*)viewController;
-        blockListController.delegate=self;
+    else if([viewController isKindOfClass:[AboutViewController class]]){
+        AboutViewController *AboutController=(AboutViewController*)viewController;
+        AboutController.delegate=self;
         
     }
 
@@ -876,7 +859,6 @@
     [self slideInSlideNavigationControllerView];
     
 }
-
 - (void)showLeft:(id)sender{
     [self menuBarButtonItemPressed:sender];
 }

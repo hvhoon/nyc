@@ -10,6 +10,7 @@
 #import "MJDetailViewController.h"
 #import "CustomSearchBar.h"
 #import <MapKit/MapKit.h>
+#import "NotifyAnimationView.h"
 @class SoclivityManager;
 @class MainServiceManager;
 @class MBProgressHUD;
@@ -23,7 +24,7 @@
 @end
 
 
-@interface CreateActivityViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate,PickerDetailViewDelegate,SoclivitySearchBarDelegate,UISearchBarDelegate,MKMapViewDelegate>{
+@interface CreateActivityViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate,PickerDetailViewDelegate,SoclivitySearchBarDelegate,UISearchBarDelegate,MKMapViewDelegate,NotifyAnimationViewDelegate>{
     id<NewActivityViewDelegate>delegate;
     IBOutlet UILabel *createActivtyStaticLabel;
     IBOutlet UILabel *step1_of2Label;

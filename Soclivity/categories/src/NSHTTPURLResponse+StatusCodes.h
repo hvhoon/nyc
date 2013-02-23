@@ -8,7 +8,6 @@
 #import <Foundation/Foundation.h>
 @interface NSHTTPURLResponse (StatusCodes)
 -(BOOL)is200OK;
--(BOOL)is200OK;
 -(BOOL)isOK;
 -(BOOL)isRedirect;
 -(BOOL)isClientError;

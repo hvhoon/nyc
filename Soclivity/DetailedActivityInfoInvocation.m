@@ -18,9 +18,7 @@
 	[super dealloc];
 }
 -(void)invoke {
-    NSString *a= [NSString stringWithFormat:@"%@/getactivity.json?id=%d&pid=%d&lat=%f&lng=%f",ProductionServer,activityId,playerId,currentLatitude,currentLongitude];
-    
-    NSLog(@"a::%@",a);
+    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/getactivity.json?id=%d&pid=%d&lat=%f&lng=%f",activityId,playerId,currentLatitude,currentLongitude];
     
      [self get:a];
 }
@@ -32,8 +30,6 @@
     NSLog(@"handleHttpOK");
 	NSDictionary* resultsd = [[[NSString alloc] initWithData:data 
                                                encoding:NSUTF8StringEncoding] JSONValue];
-    
-     NSLog(@"resultsd::%@",resultsd);
     
     InfoActivityClass* response =[InfoActivityClass DetailInfoParse:resultsd];
     

@@ -23,6 +23,7 @@
 #import "ParticipantClass.h"
 #import "GetActivityInvitesInvocation.h"
 #import "CreateActivityViewController.h"
+#import "NotificationClass.h"
 #define kEditMapElements 10
 #define kJoinRequest 11
 #define kCancelPendingRequest 13
@@ -33,7 +34,6 @@
 #define kDeclinePlayerRequest 18
 #define kRemovePlayerRequest 19
 #define kLeaveActivity 20
-
 #define kActivityLabel 21
 @interface ActivityEventViewController (private)<EditActivityEventInvocationDelegate,MBProgressHUDDelegate,PostActivityRequestInvocationDelegate,GetActivityInvitesInvocationDelegate,NewActivityViewDelegate>
 @end
@@ -59,16 +59,31 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    NSLog(@"viewWillAppear in slide View Controller Called");
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
+
     [self.navigationController.navigationBar setHidden:YES];
 }
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
 #pragma mark - View lifecycle
+
+- (void)didReceiveBackgroundNotification:(NSNotification*) note{
+    
+    NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:note];
+    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
+    notif.delegate=self;
+    [self.view addSubview:notif];
+}
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+
+
     toggleFriends=TRUE;
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
@@ -90,8 +105,6 @@
 
     scrollView.indicatorStyle=UIScrollViewIndicatorStyleBlack;
     scrollView.clipsToBounds = YES;
-    
-    NSLog(@"activityInfo::%@",activityInfo);
     
     if([activityInfo.goingCount intValue]==0 && activityInfo.pendingRequestCount==0){
         scrollView.scrollEnabled=NO;
@@ -346,7 +359,6 @@
     activityNameLabel.tag=kActivityLabel;
 
     [eventView loadViewWithActivityDetails:activityInfo];
-    
     [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
 
     
@@ -357,6 +369,116 @@
 
     // Do any additional setup after loading the view from its nib.
 }
+
+- (void)backgroundTapToPush:(NotificationClass*)notification{
+    
+    NSLog(@"Activity Selected");
+    
+    
+    if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    
+    notId=notification.notificationType;
+    GetPlayersClass *obj=SOC.loggedInUser;
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        [devServer getDetailedActivityInfoInvocation:[obj.idSoc intValue]  actId:notification.activityId  latitude:[notification.latitude floatValue] longitude:[notification.longitude floatValue] delegate:self];
+        
+    }
+    else{
+        if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+}
+
+
+
+
+#pragma mark DetailedActivityInfoInvocationDelegate Method
+-(void)DetailedActivityInfoInvocationDidFinish:(DetailedActivityInfoInvocation*)invocation
+                                  withResponse:(InfoActivityClass*)response
+                                     withError:(NSError*)error{
+    
+    
+        
+        if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        
+        
+        
+        
+        
+        switch ([notId integerValue]) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 11:
+            default:
+                
+                
+            {
+                NSString*nibNameBundle=nil;
+                
+                if([SoclivityUtilities deviceType] & iPhone5){
+                    nibNameBundle=@"ActivityEventViewController_iphone5";
+                }
+                else{
+                    nibNameBundle=@"ActivityEventViewController";
+                }
+                
+                ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+                activityEventViewController.activityInfo=response;
+                
+                [[self navigationController] pushViewController:activityEventViewController animated:YES];
+                [activityEventViewController release];
+                
+            }
+                break;
+                
+                
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 13:
+            case 16:
+                
+            {
+                SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
+                myClass.playerName=response.organizerName;
+                myClass.DOS=response.DOS;
+                myClass.activityId=response.activityId;
+                myClass.latestActivityName=response.activityName;
+                myClass.activityType=response.type;
+                myClass.profilePhotoUrl=response.ownerProfilePhotoUrl;
+                myClass.distance=[response.distance floatValue];
+                SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
+                socProfileViewController.playerObject=myClass;
+                [[self navigationController] pushViewController:socProfileViewController animated:YES];
+                [socProfileViewController release];
+                
+            }
+                
+                break;
+        }
+        
+    
+}
+
+
 -(void)BottonBarButtonHideAndShow:(NSInteger)type{
     
     switch (type) {
@@ -379,8 +501,6 @@
             chatButton.hidden=YES;
             
             [eventView decideToShowMapView:1];
-            
-            
         }
             break;
             //pending request
@@ -396,8 +516,6 @@
             chatButton.hidden=YES;
 
             [eventView decideToShowMapView:2];
-            
-            
         }
             break;
             
@@ -414,9 +532,6 @@
             leaveActivityButton.hidden=YES;
 
             [eventView decideToShowMapView:3];
-            
-            
-            
         }
             break;
             
@@ -437,8 +552,6 @@
         }
             break;
             
-            
-            
             //going //request approved(invited)
         case 5:
         {
@@ -456,9 +569,6 @@
             
         }
             break;
-            
-            
-            
             
             //organizer
         case 6:
@@ -484,8 +594,7 @@
 
 -(void)ButtonTapped:(UIButton*)sender{
     
-    int tag=sender.tag;
-    NSLog(@"tag=%d",tag);
+    //int tag=sender.tag;
     if(page==0){
         
         
@@ -820,7 +929,7 @@
         }
             break;
         case 2:
-        case 3:
+        case 14://case 3
         {
             activityInfo.activityRelationType=1;
             [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
@@ -851,7 +960,7 @@
         }
             
         break;
-        case 8:
+        case 13://case 8
         {
             [participantListTableView updateParticipantListView:NO];
             
@@ -864,13 +973,19 @@
             
         }               
             break;
-            
-            
+
         case 10:
         {
             SOC.localCacheUpdate=TRUE;
             [SoclivitySqliteClass deleteActivityRecords:activityInfo.activityId];
             [self.navigationController popViewControllerAnimated:YES];
+            
+        }
+            break;
+            
+        case 15:
+        {
+            [participantListTableView updatePlayerListWithSectionHeaders];
             
         }
             break;
@@ -962,6 +1077,7 @@
 -(IBAction)goingActivityButtonPressed:(id)sender{
     
     
+    
     switch (activityInfo.activityRelationType) {
         case 4:
         {
@@ -998,7 +1114,7 @@
             
             if([SoclivityUtilities hasNetworkConnection]){
                 [self startAnimation:kSorryNotGoingRequest];
-                [devServer postActivityRequestInvocation:3  playerId:[SOC.loggedInUser.idSoc intValue] actId:activityInfo.activityId delegate:self];
+                [devServer postActivityRequestInvocation:14  playerId:[SOC.loggedInUser.idSoc intValue] actId:activityInfo.activityId delegate:self];
             }
             else{
                 
@@ -1107,10 +1223,9 @@
 
 }
 
-
 -(IBAction)chatButtonPressed:(id)sender{
     
-    if(!footerActivated){
+   if(!footerActivated){
         footerActivated=TRUE;
         CGContextRef context = UIGraphicsGetCurrentContext();
         [UIView beginAnimations:nil context:context];
@@ -1134,7 +1249,6 @@
         [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
         [UIView setAnimationDuration:1.0];
         [UIView setAnimationDelegate:self];
-        
         
         [UIView commitAnimations];
     }
@@ -1166,6 +1280,7 @@
         
         [UIView commitAnimations];
     }
+    
     
 }
 
@@ -1338,7 +1453,6 @@
     [eventView setUpLabelViewElements:NO];
     
     NSArray *hashCount=[activityInfo.where_address componentsSeparatedByString:@"#"];
-    NSLog(@"hashCount=%d",[hashCount count]);
     if([hashCount count]==1){
         eventView.firstALineddressLabel.text=activityInfo.where_address;
         eventView.secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@",activityInfo.where_city,activityInfo.where_state];
@@ -1458,8 +1572,6 @@
 -(void)EditActivityEventInvocationDidFinish:(EditActivityEventInvocation*)invocation
                                withResponse:(NSString*)responses requestType:(int)requestType withError:(NSError*)error{
     
-    
-    NSLog(@"responses=%@",responses);
     [HUD hide:YES];
     switch (requestType) {
         case kEditMapElements:
@@ -1494,8 +1606,6 @@
     SOC.editOrNewActivity=TRUE;
     activityNameLabel.text=activityObj.activityName;
     [eventView updateEditedActivityFields:activityObj];
-    
-    
 }
 
 -(void)enableDisableTickOnTheTopRight:(BOOL)show{
@@ -1572,7 +1682,7 @@
     }
     else{
         [self startAnimation:kDeclinePlayerRequest];
-        [devServer postActivityRequestInvocation:8  playerId:playerId actId:activityInfo.activityId delegate:self];
+        [devServer postActivityRequestInvocation:13  playerId:playerId actId:activityInfo.activityId delegate:self];
         
     }
     }
@@ -1596,7 +1706,7 @@
     if([SoclivityUtilities hasNetworkConnection]){
         
             [self startAnimation:kRemovePlayerRequest];
-            [devServer postActivityRequestInvocation:9  playerId:playerId actId:activityInfo.activityId delegate:self];
+            [devServer postActivityRequestInvocation:15  playerId:playerId actId:activityInfo.activityId delegate:self];
     }
     else{
         
@@ -1613,7 +1723,7 @@
     
 }
 -(void)pushUserProfileView{
-    
+   
     if([SOC.loggedInUser.idSoc intValue]==activityInfo.organizerId){
         NSString*nibNameBundle=nil;
         
@@ -1646,7 +1756,6 @@
     }
 }
 -(void)pushToprofileOfThePlayer:(ParticipantClass*)player{
-    
     if([SOC.loggedInUser.idSoc intValue]==player.participantId){
         NSString*nibNameBundle=nil;
         
@@ -1678,4 +1787,5 @@
         [socProfileViewController release];
     }
 }
+
 @end

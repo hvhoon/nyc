@@ -10,9 +10,12 @@
 #import "SoclivityUtilities.h"
 #import "NotificationClass.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "ActivityEventViewController.h"
+#import "SOCProfileViewController.h"
+#import "SocPlayerClass.h"
+#import "GetPlayersClass.h"
 @implementation NotificationsViewController
-@synthesize delegate,responsedata,arrnotification,btnnotify;
+@synthesize delegate,notId,isPushedFromStack;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,136 +33,49 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
--(void)BadgeNotification
-{
-    self.btnnotify.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
+-(void)viewDidDisappear:(BOOL)animated{
     
-    int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    SOC.loggedInUser.badgeCount=0;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"RemoteNotificationReceivedWhileRunning" object:nil];
     
-    if (count==0)
-    {
-        self.btnnotify.alpha=0;
-    }//END if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"Wait
-    
-    else
-    {
-        if ([[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] length]<2)
-        {
-            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notifyDigit1.png"] forState:UIControlStateNormal];
-            self.btnnotify.frame = CGRectMake(self.btnnotify.frame.origin.x,self.btnnotify.frame.origin.y,27,27);
-        }//END if ([[NSString stringWithFormat:@"%i",[[[N
-        
-        else{
-            [self.btnnotify setBackgroundImage:[UIImage imageNamed:@"notifyDigit2.png"] forState:UIControlStateNormal];
-            self.btnnotify.frame = CGRectMake(self.btnnotify.frame.origin.x,self.btnnotify.frame.origin.y,33,28);
-        }//END Else Statement
-        
-        self.btnnotify.alpha=1;
-        [self.btnnotify setTitle:[NSString stringWithFormat:@"%i",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue]] forState:UIControlStateNormal];
-        [self.btnnotify setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    }//END Else Statement
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"RandomFetch" object:nil];
+
+
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
+
 }
 
--(void)GetNotifications
-{
-    NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/mynotifications?logged_in_user_id=%@",ProductionServer,[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    
-	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
-    [[NSURLConnection alloc] initWithRequest:request delegate:self];
+-(void)startFetching{
+    [self getUserNotifications];
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-	[self.responsedata setLength:0];
+
+-(void)viewWillAppear:(BOOL)animated{
+
+    
+    [super viewWillAppear:YES];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startFetching) name:@"RandomFetch" object:Nil];
+
+
+    
+    
+    [self getUserNotifications];
+
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-	[self.responsedata appendData:data];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Internet Connection"
-													message:@"Try Again Later" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-	[alert show];
-	[alert release];
-	return;
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection{
-	[connection release];
-    
-    self.arrnotification=[[NSMutableArray alloc] init];
-    self.arrnotification = [[[NSString alloc] initWithData:self.responsedata
-                                                    encoding:NSUTF8StringEncoding] JSONValue];
-    
-    [self.responsedata release];
-
-    if ([self.arrnotification count]==0) {
-            
-        self.view.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
-        notificationImageView.hidden=NO;
-        socFadedImageView.hidden=NO;
-    }//END if ([[[self.arrnotification objectAtIndex:i] valueForKey:@
-        
-    else{
-        notificationImageView.hidden=YES;
-        socFadedImageView.hidden=YES;
-            
-        //NSMutableArray *notificationArray=[self SetUpDummyNotifications];
-        CGRect waitingOnYouRect;
-        if([SoclivityUtilities deviceType] & iPhone5)
-            waitingOnYouRect=CGRectMake(0, 44, 320,375+85);
-            
-        else
-            waitingOnYouRect=CGRectMake(0, 44, 320, 377);
-            
-        WaitingOnYouView *notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect andNotificationsListArray:self.arrnotification];
-        notificationView.delegate=self;
-        [self.view addSubview:notificationView];
-        
-        [self.view bringSubviewToFront:self.btnnotify];
-            
-    }//END Else Statement
-    
-    [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
- }
-
--(void)startAnimation{
-    // Setup animation settings
-    HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    HUD.yOffset = -40.0;
-    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
-    HUD.labelText = @"Loading...";
-    [self.view addSubview:HUD];
-    HUD.delegate = self;
-    [HUD show:YES];
-}
-
--(void)hideMBProgress{
-    [HUD hide:YES];
-}
-
-#pragma mark - View lifecycle
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    self.responsedata=[[NSMutableData alloc] init];
-    
-    [self BadgeNotification];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (BadgeNotification) name:@"WaitingOnYou_Count" object:nil];
-    
-    self.view.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
-    notificationImageView.hidden=YES;
-    socFadedImageView.hidden=YES;
-    
+-(void)getUserNotifications{
     if([SoclivityUtilities hasNetworkConnection]){
+        [self startAnimation:1];
+        [devServer getUserNotificationsInfoInvocation:self notificationType:kGetNotifications notficationId:-1];
         
-        [self startAnimation];
-         [self GetNotifications];
-    }//END if([SoclivityUtilities hasNetworkConnection])
+    }
     else{
+        
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
                                                        delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -167,17 +83,110 @@
         [alert show];
         [alert release];
         return;
-    }//END Else Statement
+    }
+
+}
+
+-(IBAction)backButtonPressed:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.view.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
+    backButton.hidden=YES;
+    sliderButton.hidden=NO;
+    btnnotify2.hidden=YES;
+    btnnotify.hidden=NO;
+    
+    if(isPushedFromStack){
+        backButton.hidden=NO;
+        sliderButton.hidden=YES;
+        btnnotify.hidden=YES;
+        btnnotify2.hidden=NO;
+
+    }
+
+    
+    
+    CGRect waitingOnYouRect;
+    if([SoclivityUtilities deviceType] & iPhone5)
+        waitingOnYouRect=CGRectMake(0, 44, 320,375+85);
+    
+    else
+        waitingOnYouRect=CGRectMake(0, 44, 320, 377);
+    
+    notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect andNotificationsListArray:[NSMutableArray arrayWithCapacity:0]];
+    notificationView.delegate=self;
+    [self.view addSubview:notificationView];
+    [self.view insertSubview:btnnotify aboveSubview:notificationView];
+
+    devServer=[[MainServiceManager alloc]init];
+    [self BadgeNotification];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
+
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (BadgeNotification) name:@"WaitingOnYou_Count" object:nil];
+    
+    
+
+    
+    
     
     waitingOnYouLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
     waitingOnYouLabel.textColor=[UIColor whiteColor];
     waitingOnYouLabel.backgroundColor=[UIColor clearColor];
     waitingOnYouLabel.shadowColor = [UIColor blackColor];
     waitingOnYouLabel.shadowOffset = CGSizeMake(0,-1);
+
+}
+
+- (void)didReceiveBackgroundNotification:(NSNotification*) note{
+
+    // time to refresh the notification screen
+    
+    [self getUserNotifications];
 }
 
 
-/*-(NSMutableArray*) SetUpDummyNotifications{
+-(void)BadgeNotification
+{
+    if(isPushedFromStack){
+        [SoclivityUtilities returnNotificationButtonWithCountUpdate:btnnotify2];
+    }
+    else{
+    [SoclivityUtilities returnNotificationButtonWithCountUpdate:btnnotify];
+    }
+}
+
+
+-(void)notificationsToShowDidFinish:(GetNotificationsInvocation *)invocation withResponse:(NSArray *)responses withError:(NSError *)error{
+    
+    
+    [HUD hide:YES];
+    
+    [self BadgeNotification];
+        if([responses count]>0)
+            [notificationView toReloadTableWithNotifications:[NSMutableArray arrayWithArray:responses]];
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
+
+
+    
+    
+    
+
+}
+
+
+-(void)backgroundTapToPush:(NotificationClass*)notification{
+    
+}
+
+-(NSMutableArray*) SetUpDummyNotifications{
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"Notifications" withExtension:@"plist"];
     NSArray *playDictionariesArray = [[NSArray alloc ] initWithContentsOfURL:url];
     NSMutableArray *content = [NSMutableArray new];
@@ -211,16 +220,363 @@
                 break;
                 
         }
-[content addObject:play];
-    }//END for (NSDictionary *playDictionary in playDictionariesArray)
+        [content addObject:play];
+    }
     
     return content;
     
-}*/
+}
 
 -(IBAction)profileSliderPressed:(id)sender{
     [delegate showLeft:sender];
 }
+
+-(void)startAnimation:(int)tag{
+    
+    // Setup animation settings
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    HUD.yOffset = -40.0;
+    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
+    switch (tag) {
+        case 1:
+        {
+            HUD.labelText = @"Fetching";
+            
+        }
+            break;
+            
+        case 2:
+        {
+            HUD.labelText = @"Going";
+            
+        }
+            break;
+            
+        case 3:
+        {
+            HUD.labelText = @"Not Going";
+            
+        }
+            break;
+            
+        case 4:
+        {
+            HUD.labelText = @"Accepted";
+            
+        }
+            break;
+            
+            
+        case 5:
+        {
+            HUD.labelText = @"Declined";
+            
+        }
+            break;
+
+
+        case 6:
+        {
+            HUD.labelText = @"Deleting";
+            
+        }
+            break;
+
+
+            
+        default:
+            break;
+    }
+    [self.view addSubview:HUD];
+    HUD.delegate = self;
+    [HUD show:YES];
+    
+}
+
+-(void)hideMBProgress{
+    [HUD hide:YES];
+}
+
+
+#pragma mark -
+
+- (void)pushUserToDetailedNavigation:(NotificationClass*)notify{
+    
+    if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    
+    notId=notify.notificationType;
+    
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        
+        switch ([notify.notificationType intValue]) {
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 13:
+            case 16:
+            {
+                [devServer getDetailedActivityInfoInvocation:notify.referredId    actId:notify.activityId  latitude:[notify.latitude floatValue] longitude:[notify.longitude floatValue] delegate:self];
+                
+            }
+                break;
+                
+            default:
+            {
+                [devServer getDetailedActivityInfoInvocation:[notify.userId intValue]    actId:notify.activityId  latitude:[notify.latitude floatValue] longitude:[notify.longitude floatValue] delegate:self];
+                
+            }
+                break;
+        }
+    
+    }
+    else{
+        if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+}
+
+
+
+
+#pragma mark DetailedActivityInfoInvocationDelegate Method
+-(void)DetailedActivityInfoInvocationDidFinish:(DetailedActivityInfoInvocation*)invocation
+                                  withResponse:(InfoActivityClass*)response
+                                     withError:(NSError*)error{
+    
+    
+    [HUD hide:YES];
+    
+    if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    
+
+    
+    
+        
+        switch ([notId integerValue]) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 11:
+            default:
+
+                
+            {
+                NSString*nibNameBundle=nil;
+                
+                if([SoclivityUtilities deviceType] & iPhone5){
+                    nibNameBundle=@"ActivityEventViewController_iphone5";
+                }
+                else{
+                    nibNameBundle=@"ActivityEventViewController";
+                }
+                
+                ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+                activityEventViewController.activityInfo=response;
+                
+                [[self navigationController] pushViewController:activityEventViewController animated:YES];
+                [activityEventViewController release];
+                
+            }
+                break;
+                
+                
+                case 7:
+                case 8:
+                case 9:
+                case 10:
+                case 13:
+                case 16:
+                
+            {
+                SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
+                myClass.playerName=response.organizerName;
+                myClass.DOS=response.DOS;
+                myClass.activityId=response.activityId;
+                myClass.latestActivityName=response.activityName;
+                myClass.activityType=response.type;
+                myClass.profilePhotoUrl=response.ownerProfilePhotoUrl;
+                myClass.distance=[response.distance floatValue];
+                SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
+                socProfileViewController.playerObject=myClass;
+                [[self navigationController] pushViewController:socProfileViewController animated:YES];
+                [socProfileViewController release];
+
+            }
+                
+                break;
+        }
+        
+    [notificationView updateButtonAndAnimation];
+
+    
+}
+-(void)userWantsToDeleteTheNofication:(NSInteger)notificationId{
+    
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        
+        [self startAnimation:6];
+    [devServer getUserNotificationsInfoInvocation:self notificationType:kRemoveNotification notficationId:notificationId];
+}
+else{
+    
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    [alert show];
+    [alert release];
+    return;
+    
+}
+
+}
+
+-(void)successRemoveNotification:(NSString*)msg{
+    
+    [HUD hide:YES];
+    [notificationView notificationRemoved];
+}
+
+-(void)userGoingNotification:(NSInteger)tag{
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        [self startAnimation:2];
+        [devServer postActivityRequestInvocation:4  playerId:[SOC.loggedInUser.idSoc intValue] actId:tag delegate:self];
+        
+    }
+    else{
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+
+
+}
+
+-(void)userNotGoingNotification:(NSInteger)tag{
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        [self startAnimation:3];
+        [devServer postActivityRequestInvocation:14  playerId:[SOC.loggedInUser.idSoc intValue] actId:tag delegate:self];
+        
+    }
+    else{
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+    
+    
+}
+-(void)acceptNotification:(NSInteger)tag player:(NSInteger)player{
+    
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        [self startAnimation:4];
+        
+        [devServer postActivityRequestInvocation:7  playerId:player actId:tag delegate:self];
+
+        
+    }
+    else{
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+    
+    
+}
+
+-(void)declineNotification:(NSInteger)tag player:(NSInteger)player{
+    
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        [self startAnimation:5];
+        
+        [devServer postActivityRequestInvocation:13  playerId:player actId:tag delegate:self];
+        
+        
+    }
+    else{
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+    
+    
+}
+
+-(void)PostActivityRequestInvocationDidFinish:(PostActivityRequestInvocation*)invocation
+                                 withResponse:(BOOL)response relationTypeTag:(NSInteger)relationTypeTag
+                                    withError:(NSError*)error{
+    [HUD hide:YES];
+    
+    switch (relationTypeTag) {
+        case 4:
+        case 7:
+        case 14:
+        case 13:
+        {
+            [notificationView requestComplete];
+        }
+            break;
+            
+    }
+}
+
+#pragma mark - View lifecycle
+
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];

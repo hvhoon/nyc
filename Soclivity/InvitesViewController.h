@@ -10,6 +10,7 @@
 #import "ActivityInvitesView.h"
 #import "ContactsListViewController.h"
 #import "UserContactList.h"
+#import "NotifyAnimationView.h"
 @class MBProgressHUD;
 @class MainServiceManager;
 @class SoclivityManager;
@@ -19,7 +20,7 @@
 - (void)showLeft:(id)sender;
 @end
 
-@interface InvitesViewController : UIViewController<ActivityInvitesViewDelegate,ContactsListViewDelegate,UserContactListDelegate>{
+@interface InvitesViewController : UIViewController<ActivityInvitesViewDelegate,ContactsListViewDelegate,UserContactListDelegate,NotifyAnimationViewDelegate>{
     id <InvitesViewDelegate>delegate;
     IBOutlet UIButton*settingsButton;
     IBOutlet UIButton*activityBackButton;
@@ -34,6 +35,7 @@
     MainServiceManager *devServer;
     NSInteger activityId;
     SoclivityManager *SOC;
+    IBOutlet UIButton*btnnotify;
 }
 @property (nonatomic,retain)id <InvitesViewDelegate>delegate;
 @property (nonatomic,retain)ActivityInvitesView *activityInvites;
@@ -46,7 +48,6 @@
 @property (nonatomic,assign)BOOL inviteFriends;
 @property (nonatomic,retain)NSArray *inviteArray;
 @property (nonatomic,assign)NSInteger activityId;
-@property (nonatomic, retain)IBOutlet UIButton *btnnotify;
 
 -(IBAction)profileSliderPressed:(id)sender;
 -(IBAction)popBackToActivityScreen:(id)sender;

@@ -25,7 +25,7 @@
     
     NSLog(@"body::%@",[self body]);
     
-    NSString *a= [NSString stringWithFormat:@"%@/signin.json",ProductionServer];
+    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/signin.json"];
     [self post:a
 		  body:[self body]];
 }

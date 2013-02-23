@@ -142,7 +142,13 @@
         else if ([key isEqualToString:@"photo_url"]) {
 			mappedKey=key;
         }
+        else if([key isEqualToString:@"channel"]){
+            mappedKey=key;
+        }
 
+        else if([key isEqualToString:@"notification_count"]){
+            mappedKey=key;
+        }
        
         
     }
@@ -150,14 +156,14 @@
     
 }
 - (void)parserFoundObjectEnd:(SBJsonStreamParser*)parser{
-    //if(arrayInsert){
+    
     if((jsonQueryKey==kGetPlayers)||(jsonQueryKey==kRegisterPlayer)||(jsonQueryKey==kLoginPlayer)||(jsonQueryKey==kForgotPassword)){
         if((responseStatus)||(jsonQueryKey==kRegisterPlayer)){
             [[self workingArray] addObject:self.playerObject];
              responseStatus=FALSE;
         }
     }
-    //}
+    
     
 }
 
@@ -212,6 +218,10 @@
             self.playerObject.idSoc = num;
             mappedKey=nil;
         }
+        else if([mappedKey isEqualToString:@"notification_count"]){
+            self.playerObject.badgeCount=[num integerValue];
+            mappedKey=nil;
+        }
         
         
     }
@@ -259,7 +269,7 @@
             mappedKey=nil;
         }
         else if([mappedKey isEqualToString:@"photo_url"]){
-            self.playerObject.profileImageUrl = [NSString stringWithFormat:@"http://%@%@",ProductionServer,string];
+            self.playerObject.profileImageUrl = [NSString stringWithFormat:@"http://dev.soclivity.com%@",string];
             
             mappedKey=nil;
 
@@ -333,6 +343,12 @@
             self.playerObject.statusMessage = string;
             responseStatus=TRUE;
 			mappedKey=nil;
+        }
+        else if([mappedKey isEqualToString:@"channel"]){
+            
+            NSString *test=[[string JSONValue] valueForKey:@"channel"];
+                self.playerObject.channel=test;
+            mappedKey=nil;
         }
         
     }

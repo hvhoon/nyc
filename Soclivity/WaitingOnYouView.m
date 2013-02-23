@@ -15,198 +15,130 @@
 #import "MainServiceManager.h"
 #import "SoclivityManager.h"
 #import "GetPlayersClass.h"
+#import "NotificationsViewController.h"
 
 @interface WaitingOnYouView ()
 
-- (void)startIconDownload:(InviteObjectClass*)appRecord forIndexPath:(NSIndexPath *)indexPath;
+- (void)startIconDownload:(NotificationClass*)appRecord forIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
 
 @implementation WaitingOnYouView
-@synthesize _notifications,delegate,imageDownloadsInProgress;
+@synthesize notificationsArray,delegate,imageDownloadsInProgress,waitingTableView;
 
-NSString *lstrnotifyid;
 
 - (id)initWithFrame:(CGRect)frame andNotificationsListArray:(NSMutableArray*)andNotificationsListArray
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
         // Initialization code
-        self._notifications =[andNotificationsListArray retain];
-        self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
-        devServer=[[MainServiceManager alloc]init];
+        self.notificationsArray =[andNotificationsListArray retain];
+        
         SOC=[SoclivityManager SharedInstance];
         
-        CGRect activityTableRect;
-        if([SoclivityUtilities deviceType] & iPhone5)
-            activityTableRect=CGRectMake(0, 0, 320, 332+88+44);
+
         
-        else
-            activityTableRect=CGRectMake(0, 0, 320, 332+44);
-        
-        
-        waitingTableView=[[UITableView alloc]initWithFrame:activityTableRect];
-        [waitingTableView setDelegate:self];
-        [waitingTableView setDataSource:self];
-        waitingTableView.scrollEnabled=YES;
-        waitingTableView.backgroundColor=[SoclivityUtilities returnTextFontColor:10];
-        waitingTableView.separatorStyle=UITableViewCellSeparatorStyleSingleLine; //UITableViewCellSeparatorStyleNone;
-        waitingTableView.separatorColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"S11_divider.png"]]; //[UIColor clearColor];
-        waitingTableView.showsVerticalScrollIndicator=YES;
-        [self addSubview:waitingTableView];
-        waitingTableView.clipsToBounds=YES;
-        
+        if([andNotificationsListArray count]==0){
+            [self setUpBackgroundView];
+            
+        }
+        else{
+            
+            [self SetupNotificationTable];
+
+        }
     }
     return self;
 }
+-(void)SetupNotificationTable{
+    CGRect activityTableRect;
+    
+    if([SoclivityUtilities deviceType] & iPhone5)
+        activityTableRect=CGRectMake(0, 0, 320, 332+88+44);
+    
+    else
+        activityTableRect=CGRectMake(0, 0, 320, 332+44);
+    
+    waitingTableView=[[UITableView alloc] initWithFrame:activityTableRect style:UITableViewStylePlain];
+    [waitingTableView setDelegate:self];
+    [waitingTableView setDataSource:self];
+    waitingTableView.scrollEnabled=YES;
+    waitingTableView.backgroundView=nil;
+    waitingTableView.backgroundColor=[UIColor clearColor];
+    self.waitingTableView.separatorColor = [UIColor clearColor];
+    waitingTableView.showsVerticalScrollIndicator=YES;
+    [self addSubview:waitingTableView];
+    waitingTableView.clipsToBounds=YES;
 
--(void)GoingNotification:(id)sender
-{
-    lstrnotifyid=[sender currentTitle];
-    
-    [waitingTableView.superview setUserInteractionEnabled:FALSE];
-    
-    if([SoclivityUtilities hasNetworkConnection]){
-        [self startAnimation];
-        [devServer postActivityRequestInvocation:4  playerId:[SOC.loggedInUser.idSoc intValue] actId:[sender tag] delegate:self];
-    }
-    else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
-        [alert release];
-        return;
-    }//END Else Statement
 }
 
--(void)NotGoingNotification:(id)sender
-{
-    lstrnotifyid=[sender currentTitle];
-    [waitingTableView.superview setUserInteractionEnabled:FALSE];
+-(void)setUpBackgroundView{
+    CGRect activityTableRect;
     
-    if([SoclivityUtilities hasNetworkConnection]){
-        [self startAnimation];
-        [devServer postActivityRequestInvocation:3  playerId:[SOC.loggedInUser.idSoc intValue] actId:[sender tag] delegate:self];
-    }
-    else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
-        [alert release];
-        return;
-    }//END Else Statement
+    if([SoclivityUtilities deviceType] & iPhone5)
+        activityTableRect=CGRectMake(0, 0, 320, 332+88+44);
+    
+    else
+        activityTableRect=CGRectMake(0, 0, 320, 332+44);
+    
+    self.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
+    noNotificationBackgroundView=[[UIView alloc]initWithFrame:activityTableRect];
+    UIImageView *noNotificationsImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S11_noNotfications.png"]];
+    noNotificationsImageView.frame=CGRectMake(93, 112, 134, 151);
+    [noNotificationBackgroundView addSubview:noNotificationsImageView];
+    
+    UIImageView *logoFadedImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S11_logoFaded.png"]];
+    logoFadedImageView.frame=CGRectMake(105, 359, 111, 28);
+    [noNotificationBackgroundView addSubview:logoFadedImageView];
+    [self addSubview:noNotificationBackgroundView];
+
+
 }
 
--(void)AcceptNotification:(id)sender
-{
-    lstrnotifyid=[sender currentTitle];
+-(void)toReloadTableWithNotifications:(NSMutableArray*)listArray{
     
-    NSArray *SplitNotifyarray=[lstrnotifyid componentsSeparatedByString:@","];
-    
-    [waitingTableView.superview setUserInteractionEnabled:FALSE];
-    
-    if([SoclivityUtilities hasNetworkConnection]){
-        [self startAnimation];
-        [devServer postActivityRequestInvocation:7  playerId:[[SplitNotifyarray objectAtIndex:2] intValue] actId:[sender tag] delegate:self];
+    self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
+
+     self.notificationsArray =[listArray retain];
+    if(waitingTableView==nil){
+        [noNotificationBackgroundView removeFromSuperview];
+        [self SetupNotificationTable];
+
     }
-    else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
-        [alert release];
-        return;
-    }//END Else Statement
-}
-
--(void)DeclineNotification:(id)sender
-{
-    lstrnotifyid=[sender currentTitle];
-    
-    [waitingTableView.superview setUserInteractionEnabled:FALSE];
-    
-    if([SoclivityUtilities hasNetworkConnection]){
-        [self startAnimation];
-        [devServer postActivityRequestInvocation:13  playerId:[SOC.loggedInUser.idSoc intValue] actId:[sender tag] delegate:self];
-    }
-    else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
-        [alert release];
-        return;
-    }//END Else Statement
-}
-
--(void)PostActivityRequestInvocationDidFinish:(PostActivityRequestInvocation*)invocation
-                                 withResponse:(BOOL)response relationTypeTag:(NSInteger)relationTypeTag
-                                    withError:(NSError*)error{
-
-    NSArray *SplitNotifyarray=[lstrnotifyid componentsSeparatedByString:@","];
-    
-    [self SetNotificationStatus:[SplitNotifyarray objectAtIndex:1]];
-    [self RemoveNotification:[SplitNotifyarray objectAtIndex:1]];
-    
-    
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]!=NULL)
-    {
-        NSString *lstrnotify=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
-        NSArray *SpliArray=[lstrnotify componentsSeparatedByString:@","];
-        
-        for (int i=0; i<[SpliArray count]; i++)
-        {
-            if ([[SpliArray objectAtIndex:i] intValue]==[[SplitNotifyarray objectAtIndex:1] intValue])
-            {
-                int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
-                count=count-1;
-                
-                [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%i",count] forKey:@"Waiting_On_You_Count"];
-            }//END if ([[SpliArray objectAtIndex:i] intValue]
-        }//END for (int i=0; i<[SpliArray count]; i++)
-    }//END if ([[NSUserDefaults standardUserDefaults
-    
-    [self._notifications removeObjectAtIndex:[[SplitNotifyarray objectAtIndex:0] intValue]];
-    
-    NSDictionary *dictcount=[[NSDictionary alloc] initWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"],@"Waiting_On_You_Count", nil];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
-    
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
-    
-    [waitingTableView.superview setUserInteractionEnabled:TRUE];
-    
-    [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
+    [waitingTableView reloadData];
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self._notifications count];
+    return [self.notificationsArray count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    int height=0;
+    CGFloat height=0.0f;
     
-    if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]==[NSNull null])
-    {
-        height=60;
-    }//END if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]==NULL)
+    NotificationClass *notif=[self.notificationsArray objectAtIndex:indexPath.row];
+    switch ([notif.notificationType integerValue]) {
+        case 6:
+        case 12:
+        {
+            notif.rowHeight=[AttributedTableViewCell heightForCellWithText:notif.notificationString]+50.0f;
+            height=notif.rowHeight;
+
+        }
+            break;
+            
+        default:
+        {
+            notif.rowHeight=[AttributedTableViewCell heightForCellWithText:notif.notificationString]+20.0f;
+            height=notif.rowHeight;
+        }
+            break;
+    }
     
-    else if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6)
-    {
-        height=[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+50;
-    }//END if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]==NULL)
-    
-    else if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==12)
-    {
-        height=[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+50;
-    }//END if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]==NULL)
-    else
-    {
-         height=[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+20;
-    }//END Else Statement
-        
     return height;
 }
 
@@ -216,342 +148,374 @@ NSString *lstrnotifyid;
     AttributedTableViewCell *cell = (AttributedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     //if (cell == nil) {
         cell = [[AttributedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-   // }
+    //}
     
-    cell.lstrnotificationtype=[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"];
+    CGFloat rowheight=0.0f;
     
+    NotificationClass *cellNotification=[self.notificationsArray objectAtIndex:indexPath.row];
+    
+    if(cellNotification.notificationString != nil && [cellNotification.notificationString class] != [NSNull class]){
+        rowheight=cellNotification.rowHeight;
+        
+    }
+    else
+        rowheight=60.0f;
+    
+    cell.notificationType=cellNotification.notificationType;
+
     for (UIView *view in cell.contentView.subviews)
     {
         if (![view isKindOfClass:[UILabel class]])
         {
              [view removeFromSuperview];
         }
-    }//END for (UIView *view in cell.contentView.subviews)
+    }
     
-    cell.backgroundColor=[UIColor whiteColor];
-    
-    if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]!=[NSNull null])
-    {
-        cell.summaryText =[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"];
-        cell.summaryLabel.delegate = self;
-    }//END if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"noti
-    
+    cell.summaryText =cellNotification.notificationString;
+    cell.summaryLabel.delegate = self;
     cell.summaryLabel.userInteractionEnabled = YES;
     cell.summaryLabel.backgroundColor=[UIColor clearColor];
-    
-    NSLog(@"self._notifications::%@",self._notifications);
-    
-    if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"updated_at"]!=[NSNull null])
-    {
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
-        NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-        [dateFormatter setTimeZone:gmt];
-        NSDate *activityDate = [dateFormatter dateFromString:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"updated_at"]];
-        
-        NSDate *date = activityDate;
-        NSDateFormatter *prefixDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-        [prefixDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-        [prefixDateFormatter setDateFormat:@"EEEE, MMMM d, hh:mma"];
-        NSString *prefixDateString = [prefixDateFormatter stringFromDate:date];
-        
-        cell.TimeText =prefixDateString;
-
-    }//END if ([[self._notifications objectAtIndex:indexPath.row] valueForK
+    cell.TimeText =[SoclivityUtilities nofiticationTime:cellNotification.timeOfNotification];
     
     cell.lbltime.userInteractionEnabled = YES;
     cell.lbltime.backgroundColor=[UIColor clearColor];
     
     CGSize imgSize;
     
-    UIImageView *Borderimg_vw=[[UIImageView alloc] init];
-    Borderimg_vw.frame=CGRectMake(15, 15, 37,37);
-    Borderimg_vw.backgroundColor=[UIColor clearColor];
-    Borderimg_vw.image=[UIImage imageNamed:@"S11_frame.png"];
-    [Borderimg_vw setContentMode:UIViewContentModeScaleAspectFit];
+    UIImageView *borderImageView=[[UIImageView alloc] init];
+    borderImageView.frame=CGRectMake(15, 15, 37,37);
+    borderImageView.backgroundColor=[UIColor clearColor];
+    borderImageView.image=[UIImage imageNamed:@"S11_frame.png"];
+    [borderImageView setContentMode:UIViewContentModeScaleAspectFit];
     
-    UIImageView *img_vw=[[UIImageView alloc] init];
-    img_vw.backgroundColor=[UIColor clearColor];
-    [img_vw setContentMode:UIViewContentModeScaleAspectFit];
-    img_vw.tag=indexPath.row;
+    UIImageView *imageView=[[UIImageView alloc] init];
+    imageView.backgroundColor=[UIColor clearColor];
+    [imageView setContentMode:UIViewContentModeScaleAspectFit];
+    imageView.tag=indexPath.row;
     
-    if ([[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"]!=[NSNull null])
-    {
-        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==1)
+    switch ([cellNotification.notificationType integerValue]) {
+        case 1:
         {
-            img_vw.image=[UIImage imageNamed:@"S11_infoChangeIcon.png"];
-            imgSize=[img_vw.image size];
-            img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
+            imageView.image=[UIImage imageNamed:@"S11_infoChangeIcon.png"];
+            imgSize=[imageView.image size];
+            imageView.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
             
-            [cell.contentView addSubview:img_vw];
-        }//END if ([[[self._notifications objectAtIndex:indexPath
-        
-        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==2)
+            [cell.contentView addSubview:imageView];
+            
+        }
+            break;
+            
+        case 2:
         {
-            img_vw.image=[UIImage imageNamed:@"S11_calendarIcon.png"];
-            imgSize=[img_vw.image size];
-            img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
+            imageView.image=[UIImage imageNamed:@"S11_calendarIcon.png"];
+            imgSize=[imageView.image size];
+            imageView.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
+            [cell.contentView addSubview:imageView];
             
-            [cell.contentView addSubview:img_vw];
-        }//END if ([[[self._notifications objectAt
-        
-        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==3)
+        }
+            break;
+            
+            
+        case 3:
         {
-            img_vw.image=[UIImage imageNamed:@"S11_clockLogo.png"];
-            imgSize=[img_vw.image size];
-            img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
+            imageView.image=[UIImage imageNamed:@"S11_clockLogo.png"];
+            imgSize=[imageView.image size];
+            imageView.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
             
-            [cell.contentView addSubview:img_vw];
-        }//END if ([[[self._notifications objectAt
-        
-        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==4)
+            [cell.contentView addSubview:imageView];
+            
+        }
+            break;
+            
+        case 4:
         {
-            img_vw.image=[UIImage imageNamed:@"S11_locationIcon.png"];
-             imgSize=[img_vw.image size];
-            img_vw.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
+            imageView.image=[UIImage imageNamed:@"S11_locationIcon.png"];
+            imgSize=[imageView.image size];
+            imageView.frame=CGRectMake(18, 18, imgSize.width,imgSize.height);
             
-            [cell.contentView addSubview:img_vw];
-        }//END if ([[[self._notifications objectAt
-        
-        if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==8 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==9 || [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==11|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==12|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==13|| [[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==14)
+            [cell.contentView addSubview:imageView];
+            
+        }
+            break;
+            
+            
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+        case 11:
+        case 12:
+        case 13:
+        case 14:
+        case 15:
+        case 16:
         {
-            IconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
-            
-            if (!iconDownloader.img_waitingonyou)
+            if (!cellNotification.profileImage)
             {
                 if (waitingTableView.dragging == NO && waitingTableView.decelerating == NO)
                 {
-                    [self startIconDownloadForIndexPath:indexPath];
-                }//END if (waitingTableView.dragging == NO && waitingTableView.decelerating == NO)
-                
+                    [self startIconDownload:cellNotification forIndexPath:indexPath];
+                }
                 // if a download is deferred or in progress, return a placeholder image
-                img_vw.image = [UIImage imageNamed:@"S11_picBox.png"];
+                imageView.image = [UIImage imageNamed:@"picbox.png"];
+                
             }
             else
             {
-                img_vw.image = [iconDownloader.img_waitingonyou retain];
-            }//END Else Statement
+                imageView.image = [cellNotification.profileImage retain];
+            }
             
-            imgSize=[img_vw.image size];
-            img_vw.frame=CGRectMake(3,3,30,29);
+            imgSize=[imageView.image size];
+            imageView.frame=CGRectMake(3,3,30,29);
             
-            [Borderimg_vw addSubview:img_vw];
-            [cell.contentView addSubview:Borderimg_vw];
+            [borderImageView addSubview:imageView];
+            [cell.contentView addSubview:borderImageView];
             
-            if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==6)
-            {
-                UIButton *btngoing=[UIButton buttonWithType:UIButtonTypeCustom];
-                btngoing.frame=CGRectMake(150,[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+20, 71, 25);
-                [btngoing setBackgroundImage:[UIImage imageNamed:@"S11_goingButton.png"] forState:UIControlStateNormal];
-                btngoing.tag=[[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] intValue];
-                [btngoing setTitle:[NSString stringWithFormat:@"%i,%@",indexPath.row,[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]] forState:UIControlStateNormal];
-                [btngoing setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
-                [btngoing setEnabled:TRUE];
-                [btngoing addTarget:self action:@selector(GoingNotification:) forControlEvents:UIControlEventTouchUpInside];
-                
-                UIButton *btnnotgoing=[UIButton buttonWithType:UIButtonTypeCustom];
-                btnnotgoing.frame=CGRectMake(230,[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+20, 71, 25);
-                [btnnotgoing setBackgroundImage:[UIImage imageNamed:@"S11_notGoingButton.png"] forState:UIControlStateNormal];
-                btnnotgoing.tag=[[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] intValue];
-                [btnnotgoing setTitle:[NSString stringWithFormat:@"%i,%@",indexPath.row,[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]] forState:UIControlStateNormal];
-                [btnnotgoing setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
-                [btnnotgoing setEnabled:TRUE];
-                [btnnotgoing addTarget:self action:@selector(NotGoingNotification:) forControlEvents:UIControlEventTouchUpInside];
-                
-                [cell.contentView addSubview:btnnotgoing];
-                [cell.contentView addSubview:btngoing];
-                
-            }//END  if (notif.type==6)
+            switch ([cellNotification.notificationType integerValue]) {
+                case 6:
+                {
+                    UIButton *btngoing=[UIButton buttonWithType:UIButtonTypeCustom];
+                    btngoing.frame=CGRectMake(150,cellNotification.rowHeight-35, 71, 25);
+                    [btngoing setBackgroundImage:[UIImage imageNamed:@"S11_goingButton.png"] forState:UIControlStateNormal];
+                    btngoing.tag=indexPath.row;
+                    [btngoing setTitle:[NSString stringWithFormat:@"%d,%d",cellNotification.activityId,cellNotification.notificationId] forState:UIControlStateNormal];
+                    [btngoing setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+                    [btngoing addTarget:self action:@selector(GoingNotification:) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    UIButton *btnnotgoing=[UIButton buttonWithType:UIButtonTypeCustom];
+                    btnnotgoing.frame=CGRectMake(230,cellNotification.rowHeight-35, 71, 25);
+                    [btnnotgoing setBackgroundImage:[UIImage imageNamed:@"S11_notGoingButton.png"] forState:UIControlStateNormal];
+                    btnnotgoing.tag=indexPath.row;
+                    [btnnotgoing setTitle:[NSString stringWithFormat:@"%d,%d",cellNotification.activityId,cellNotification.notificationId] forState:UIControlStateNormal];
+                    [btnnotgoing setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+                    [btnnotgoing addTarget:self action:@selector(NotGoingNotification:) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    [cell.contentView addSubview:btnnotgoing];
+                    [cell.contentView addSubview:btngoing];
+                    
+                    
+                }
+                    break;
+                    
+                case 12:
+                {
+                    UIButton *btnaccept=[UIButton buttonWithType:UIButtonTypeCustom];
+                    btnaccept.frame=CGRectMake(150,cellNotification.rowHeight-35, 71, 25);
+                    [btnaccept setBackgroundImage:[UIImage imageNamed:@"S11_joinAcceptButton.png"] forState:UIControlStateNormal];
+                    btnaccept.tag=indexPath.row;
+                    [btnaccept setTitle:[NSString stringWithFormat:@"%d,%d,%d",cellNotification.activityId,cellNotification.notificationId,cellNotification.referredId] forState:UIControlStateNormal];
+                    [btnaccept setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+                    [btnaccept addTarget:self action:@selector(AcceptNotification:) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    UIButton *btndecline=[UIButton buttonWithType:UIButtonTypeCustom];
+                    btndecline.frame=CGRectMake(230,cellNotification.rowHeight-35, 71, 25);
+                    [btndecline setBackgroundImage:[UIImage imageNamed:@"S11_joinDeclineButton.png"] forState:UIControlStateNormal];
+                    btndecline.tag=indexPath.row;
+                    [btndecline setTitle:[NSString stringWithFormat:@"%d,%d,%d",cellNotification.activityId,cellNotification.notificationId,cellNotification.referredId] forState:UIControlStateNormal];
+                    [btndecline setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+                    [btndecline addTarget:self action:@selector(DeclineNotification:) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    [cell.contentView addSubview:btndecline];
+                    [cell.contentView addSubview:btnaccept];
+                    
+                    
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+
             
-            if ([[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]==12)
-            {
-                UIButton *btnaccept=[UIButton buttonWithType:UIButtonTypeCustom];
-                btnaccept.frame=CGRectMake(150,[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+20, 71, 25);
-                [btnaccept setBackgroundImage:[UIImage imageNamed:@"S11_joinAcceptButton.png"] forState:UIControlStateNormal];
-                btnaccept.tag=[[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] intValue];
-                [btnaccept setTitle:[NSString stringWithFormat:@"%i,%@,%@",indexPath.row,[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"],[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"reffered_to"]] forState:UIControlStateNormal];
-                [btnaccept setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
-                [btnaccept setEnabled:TRUE];
-                [btnaccept addTarget:self action:@selector(AcceptNotification:) forControlEvents:UIControlEventTouchUpInside];
-                
-                UIButton *btndecline=[UIButton buttonWithType:UIButtonTypeCustom];
-                btndecline.frame=CGRectMake(230,[AttributedTableViewCell heightForCellWithText:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification"]]+20, 71, 25);
-                [btndecline setBackgroundImage:[UIImage imageNamed:@"S11_joinDeclineButton.png"] forState:UIControlStateNormal];
-                btndecline.tag=[[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"activity_id"] intValue];
-                [btndecline setTitle:[NSString stringWithFormat:@"%i,%@",indexPath.row,[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]] forState:UIControlStateNormal];
-                [btndecline setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
-                [btndecline setEnabled:TRUE];
-                [btndecline addTarget:self action:@selector(DeclineNotification:) forControlEvents:UIControlEventTouchUpInside];
-                
-                [cell.contentView addSubview:btndecline];
-                [cell.contentView addSubview:btnaccept];
-                
-            }//END  if (notif.type==12)
+        }
+            break;
+
+
+
+
             
-           // self.img_vw.image=[UIImage imageNamed:@"S11_picBox.png"];
-        }//END if ([[[self._notifications objectAtIndex:indexPath.row]
+        default:
+            break;
+    }
     
-    }//END if ([[[self._notifications objectAtIndex:indexPat
+    UIButton *buttonArrow=[UIButton buttonWithType:UIButtonTypeCustom];
+    buttonArrow.frame=CGRectMake(276, 20, 38, 38);
+    [buttonArrow setBackgroundImage:[UIImage imageNamed:@"rightArrow.png"] forState:UIControlStateNormal];
+    [buttonArrow addTarget:self action:@selector(rightArrowPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [buttonArrow setBackgroundColor:[UIColor clearColor]];
+    buttonArrow.tag=[[NSString stringWithFormat:@"222%i",indexPath.row] intValue];
     
-    UIButton *btnindicator=[UIButton buttonWithType:UIButtonTypeCustom];
-    btnindicator.frame=CGRectMake(276, 20, 38, 38);
-    [btnindicator setBackgroundImage:[UIImage imageNamed:@"rightArrow.png"] forState:UIControlStateNormal];
-    [btnindicator setBackgroundColor:[UIColor clearColor]];
-    [btnindicator setTag:[[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"notification_type"] intValue]];
-    [btnindicator addTarget:self action:@selector(NavigationScreen:) forControlEvents:UIControlEventTouchUpInside];
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
+                                                  initWithFrame:CGRectMake(282.0f, 27.0f, 20.0f, 20.0f)];
+    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.tag=[[NSString stringWithFormat:@"111%i",indexPath.row] intValue];
+    [activityIndicator setHidden:TRUE];
+    [waitingTableView addSubview:activityIndicator];
     
-    [cell.contentView addSubview:btnindicator];
+    [cell.contentView addSubview:buttonArrow];
+    [cell.contentView addSubview:activityIndicator];
     
+    
+    UIView *backgroundView=[[UIView alloc] initWithFrame:CGRectMake(0,0,320,rowheight)];
+    backgroundView.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
+    
+    if(cellNotification.isRead){
+        backgroundView.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
+        
+    }
+    else{
+        backgroundView.backgroundColor=[UIColor whiteColor];
+        
+    }
+    [cell.contentView insertSubview:backgroundView atIndex:0];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
+    if(indexPath.row!=[self.notificationsArray count]-1){
+        UIView *divider=[[UIView alloc]initWithFrame:CGRectMake(0, rowheight-1, 320, 1)];
+        divider.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"S11_divider.png"]];
+        [cell.contentView addSubview:divider];
+        [divider release];
+
+    }
     return cell;
 }
+
 
 #pragma mark -
 #pragma mark Lazy Loading
 
-- (void)startIconDownloadForIndexPath:(NSIndexPath *)indexPath{
-    IconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
+- (void)startIconDownload:(NotificationClass*)appRecord forIndexPath:(NSIndexPath *)indexPath{
+    IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
     if (iconDownloader == nil)
     {
         iconDownloader = [[IconDownloader alloc] init];
-        iconDownloader.lstrwaitingonyouurl=[NSString stringWithFormat:@"http://%@%@",ProductionServer,[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"photo_url"]];
+        iconDownloader.notificationRecord = appRecord;
         iconDownloader.indexPathInTableView = indexPath;
         iconDownloader.delegate = self;
         [imageDownloadsInProgress setObject:iconDownloader forKey:indexPath];
-        [iconDownloader startDownload:kWaitingOnYou];
-    }//END if (iconDownloader == nil)
+        [iconDownloader startDownload:kNotificationImageUrl];
+        [iconDownloader release];
+    }
 }
+
+
+
+
 
 - (void)loadImagesForOnscreenRows{
     
     
-    int count=0;
-        count=[_notifications count];
-    if (count> 0)
-    {
+    if ([self.notificationsArray count]> 0)    {
         NSArray *visiblePaths = [waitingTableView indexPathsForVisibleRows];
         
-        for (NSIndexPath *indexPath in visiblePaths)
-        {
-            IconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
-            if (!iconDownloader.img_waitingonyou) // avoid the app icon download if the app already has an icon
+            for (NSIndexPath *indexPath in visiblePaths)
             {
-                [self startIconDownloadForIndexPath:indexPath];
+                NotificationClass *appRecord = (NotificationClass*)[self.notificationsArray objectAtIndex:indexPath.row];
+                
+                if (!appRecord.profileImage) // avoid the app icon download if the app already has an icon
+                {
+                    [self startIconDownload:appRecord forIndexPath:indexPath];
+                }
             }
         }
-        }
+    
+    
+    
 }
 
 - (void)appImageDidLoad:(NSIndexPath *)indexPath
 {
-    IconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
+    IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
     if (iconDownloader != nil)
     {
-        // Display the newly loaded image
-    }//END if (iconDownloader != nil)
+        AttributedTableViewCell *cell = (AttributedTableViewCell*)[waitingTableView cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
+        CGSize imgSize;
+        
+        UIImageView *borderImageView=[[UIImageView alloc] init];
+        borderImageView.frame=CGRectMake(15, 15, 37,37);
+        borderImageView.backgroundColor=[UIColor clearColor];
+        borderImageView.image=[UIImage imageNamed:@"S11_frame.png"];
+        [borderImageView setContentMode:UIViewContentModeScaleAspectFit];
+        
+        UIImageView *imageView=[[UIImageView alloc] init];
+        imageView.backgroundColor=[UIColor clearColor];
+        [imageView setContentMode:UIViewContentModeScaleAspectFit];
+        imageView.tag=indexPath.row;
+        imageView.image=iconDownloader.notificationRecord.profileImage;
+        imgSize=[imageView.image size];
+        imageView.frame=CGRectMake(3,3,30,29);
+        
+        [borderImageView addSubview:imageView];
+        [cell.contentView addSubview:borderImageView];
+   }
     
     [waitingTableView reloadData];
 }
 
-#pragma mark - UITableViewDelegate
 
-/*- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *description = [self._notifications objectAtIndex:indexPath.row];
-    NSLog(@"description=%@",description);
-}*/
 
--(void)NavigationScreen:(id)sender
-{
-    if ([sender tag]==1)
-    {
-        
-    }//END if ([sender tag]==1)
-}
 
--(void)RemoveNotification:(NSString *)lstrid
-{
-    NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/deletenotification.json?logged_in_user_id=%@&notification_id=%@",ProductionServer,[[NSUserDefaults standardUserDefaults] valueForKey:@"logged_in_user_id"],lstrid] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+
+
+-(void)rightArrowPressed:(UIButton*)sender{
+    UIButton *btn=(UIButton *)[self.waitingTableView viewWithTag:sender.tag];
+    [btn setHidden:TRUE];
+    removeIndex=sender.tag%222;
+    UIActivityIndicatorView *tmpimg = (UIActivityIndicatorView *)[self viewWithTag:[[NSString stringWithFormat:@"111%i",sender.tag%222] intValue]];
+    [tmpimg startAnimating];
+    [tmpimg setHidden:NO];
     
-	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
-    [[NSURLConnection alloc] initWithRequest:request delegate:self];
-
-}
-
--(void)SetNotificationStatus:(NSString *)lstrid
-{
-    NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://%@/notification_read.json?id=%i&read_notification=1",ProductionServer,[lstrid intValue]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
-	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
-    [[NSURLConnection alloc] initWithRequest:request delegate:self];
- 
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-	[responsedata setLength:0];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-	[responsedata appendData:data];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Internet Connection"
-													message:@"Try Again Later" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-	[alert show];
-	[alert release];
-	return;
-	
-	
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection{
-	[connection release];
+    NotificationClass *notificationSelect=[self.notificationsArray objectAtIndex:sender.tag%222];
+    [delegate pushUserToDetailedNavigation:notificationSelect];
     
-    [waitingTableView reloadData];
-    [loadingActionSheet dismissWithClickedButtonIndex:0 animated:YES];
+}
+
+-(void)updateButtonAndAnimation{
+    NSString *arrowButtonValue=[NSString stringWithFormat:@"222%d",removeIndex];
+    [(UIButton*)[self.waitingTableView viewWithTag:[arrowButtonValue intValue]] setHidden:NO];
+    
+    NSString *spinnerValue=[NSString stringWithFormat:@"111%d",removeIndex];
+    
+    UIActivityIndicatorView *tmpimg = (UIActivityIndicatorView *)[self.waitingTableView viewWithTag:[spinnerValue intValue]];
+    [tmpimg stopAnimating];
+    [tmpimg setHidden:YES];
+    
 }
 
 
--(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self startAnimation];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [self SetNotificationStatus:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]];
-    [self RemoveNotification:[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"]];
+}
+
+-(void)notificationRemoved{
     
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"]!=NULL)
-    {
-        NSString *lstrnotify=[[NSUserDefaults standardUserDefaults] valueForKey:@"Notification_id"];
-        NSArray *SpliArray=[lstrnotify componentsSeparatedByString:@","];
-        
-        for (int i=0; i<[SpliArray count]; i++)
-        {
-            if ([[SpliArray objectAtIndex:i] intValue]==[[[self._notifications objectAtIndex:indexPath.row] valueForKey:@"id"] intValue])
-            {
-                int count=[[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"] intValue];
-                count=count-1;
-                
-                [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%i",count] forKey:@"Waiting_On_You_Count"];
-            }
-        }//END for (int i=0; i<[SpliArray count]; i++)
+    NotificationClass *notificationSelect=[self.notificationsArray objectAtIndex:removeIndex];
+    if(!notificationSelect.isRead){
+        SOC.loggedInUser.badgeCount=SOC.loggedInUser.badgeCount-1;
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
+
     }
     
-    [self._notifications removeObjectAtIndex:indexPath.row];
+    [self.notificationsArray removeObjectIdenticalTo:notificationSelect];
     
-    NSDictionary *dictcount=[[NSDictionary alloc] initWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] valueForKey:@"Waiting_On_You_Count"],@"Waiting_On_You_Count", nil];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:dictcount];
-    
-      [(AppDelegate *)[[UIApplication sharedApplication] delegate] IncreaseBadgeIcon];
-    
-     [self performSelector:@selector(hideMBProgress) withObject:nil afterDelay:1.0];
+    if([self.notificationsArray count]>0)
+        [self.waitingTableView reloadData];
+    else{
+        [self.waitingTableView removeFromSuperview];
+        [self setUpBackgroundView];
+        
+    }
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    // To "clear" the footer view
-    return [[UIView new] autorelease];
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NotificationClass *obj=[self.notificationsArray objectAtIndex:indexPath.row];
+    removeIndex=indexPath.row;
+    [delegate userWantsToDeleteTheNofication:obj.notificationId];
 }
+
 
 #pragma mark -
 #pragma mark Deferred image loading (UIScrollViewDelegate)
@@ -570,21 +534,41 @@ NSString *lstrnotifyid;
     [self loadImagesForOnscreenRows];
 }
 
--(void)startAnimation{
-    // Setup animation settings
-    HUD = [[MBProgressHUD alloc] initWithView:waitingTableView];
-    HUD.yOffset = -40.0;
-    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
-    HUD.labelText = @"Loading...";
-    [waitingTableView addSubview:HUD];
-    HUD.delegate = self;
-    [HUD show:YES];
+-(void)GoingNotification:(UIButton*)sender{
+    NSArray *test=[[sender currentTitle] componentsSeparatedByString:@","];
+    removeIndex=sender.tag;
+    [delegate userGoingNotification:[[test objectAtIndex:0]integerValue]];
+    
+    
 }
 
--(void)hideMBProgress{
-    [HUD hide:YES];
+-(void)NotGoingNotification:(UIButton*)sender{
+    
+    NSArray *test=[[sender currentTitle] componentsSeparatedByString:@","];
+    removeIndex=sender.tag;
+    [delegate userNotGoingNotification:[[test objectAtIndex:0]integerValue]];
+
 }
 
+-(void)AcceptNotification:(UIButton*)sender{
+    
+    NSArray *test=[[sender currentTitle] componentsSeparatedByString:@","];
+    removeIndex=sender.tag;
+    [delegate acceptNotification:[[test objectAtIndex:0]integerValue] player:[[test objectAtIndex:2]intValue]];
+
+}
+
+-(void)DeclineNotification:(UIButton*)sender{
+    NSArray *test=[[sender currentTitle] componentsSeparatedByString:@","];
+    removeIndex=sender.tag;
+    [delegate declineNotification:[[test objectAtIndex:0]integerValue] player:[[test objectAtIndex:2]intValue]];
+    
+}
+
+-(void)requestComplete{
+    NotificationClass *notifCl=[self.notificationsArray objectAtIndex:removeIndex];
+    [delegate userWantsToDeleteTheNofication:notifCl.notificationId];
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

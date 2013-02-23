@@ -17,7 +17,7 @@
 
 -(void)invoke {
     
-    NSString*a= [NSString stringWithFormat:@"%@/mutualfriends.json?pid=&fid=",ProductionServer];
+    NSString*a= [NSString stringWithFormat:@"dev.soclivity.com/mutualfriends.json?pid=&fid="];
     
     [self get:a];
 }
@@ -28,6 +28,7 @@
     NSLog(@"handleHttpOK");
 	NSDictionary* resultsd = [[[NSString alloc] initWithData:data
                                                     encoding:NSUTF8StringEncoding] JSONValue];
+    NSLog(@"resultsd=%@",resultsd);
     
     
 	[self.delegate SearchUsersInvocationDidFinish:self withResponse:nil withError:Nil];

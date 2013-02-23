@@ -31,14 +31,14 @@
     switch (inviteeType) {
         case 1:
         {
-            a= [NSString stringWithFormat:@"%@/activityinvites.json?id=%d&pid=%d",ProductionServer,activityId,playerId];
+            a= [NSString stringWithFormat:@"dev.soclivity.com/activityinvites.json?id=%d&pid=%d",activityId,playerId];
             [self get:a];
         }
             break;
             
         case 2:
         {
-            a= [NSString stringWithFormat:@"%@/abcheck.json",ProductionServer];
+            a= [NSString stringWithFormat:@"dev.soclivity.com/abcheck.json"];
             [self post:a body:[self body]];
         }
             break;

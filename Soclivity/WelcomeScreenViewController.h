@@ -17,9 +17,10 @@
     UIImageView *seeImageView;
     UIImageView *createImageView;
     UIImageView*learnImageView;
+    UILabel* signIn;
+    UIActivityIndicatorView* spinner;
     int rnd;
     int backgroundState;
-    MBProgressHUD *HUD;
 }
 -(void)performTransition;
 -(void)SignUpButtonClicked;

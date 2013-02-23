@@ -13,6 +13,7 @@
 #import "GetActivitiesInvocation.h"
 #import "LocationCustomManager.h"
 #import "DetailedActivityInfoInvocation.h"
+#import "NotifyAnimationView.h"
 
 @class MainServiceManager;
 @class SoclivityManager;
@@ -24,7 +25,7 @@
 - (void)showLeft:(id)sender;
 @end
 
-@interface HomeViewController : UIViewController<PullableViewDelegate,GetActivitiesInvocationDelegate,ActivityListViewDelegate,EventsMapViewDelegate,CoreLocationDelegate,DetailedActivityInfoInvocationDelegate>{
+@interface HomeViewController : UIViewController<PullableViewDelegate,GetActivitiesInvocationDelegate,ActivityListViewDelegate,EventsMapViewDelegate,CoreLocationDelegate,DetailedActivityInfoInvocationDelegate,NotifyAnimationViewDelegate>{
    
     IBOutlet UIButton *profileBtn;
     IBOutlet UIView *topNavBarView;
@@ -50,12 +51,14 @@
     SoclivityManager *SOC;
     MBProgressHUD *HUD;
     int flipKeyViewTag;
+    IBOutlet UIButton *notifCountButton;
+    NSString* notId;
+    BOOL pushInAppNotif;
 }
 
 @property (nonatomic,retain)id <HomeScreenDelegate>delegate;
 @property (nonatomic,retain)EventsMapView *socEventMapView;
 @property (nonatomic,retain)ActivityListView *activityTableView;
-@property (nonatomic, retain)IBOutlet UIButton *btnnotify;
 
 
 -(IBAction)profileSlidingDrawerTapped:(id)sender;
@@ -69,4 +72,5 @@
 -(void)getUpdatedLocationWithActivities;
 -(void)loadingActivityMonitor;
 -(void)synchronousDownloadProfilePhotoBytes:(InfoActivityClass*)player;
+
 @end

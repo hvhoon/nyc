@@ -348,7 +348,7 @@
 }
 
 -(void)detailActivity:(id)sender{
-    NSLog(@"detailActivity");
+    NSLog(@"section header detailActivity");
     if ([delegate respondsToSelector:@selector(selectActivityView:)]) {
         NSString *arrowButtonValue=[NSString stringWithFormat:@"555%d",section];
         [(UIButton*)[self viewWithTag:[arrowButtonValue intValue]] setHidden:YES];

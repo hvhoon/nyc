@@ -19,7 +19,7 @@
 	[super dealloc];
 }
 -(void)invoke {
-    NSString *a= [NSString stringWithFormat:@"%@/password/%d.json",ProductionServer,userId];
+    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/password/%d.json",userId];
     [self put:a
 		  body:[self body]];
 }
