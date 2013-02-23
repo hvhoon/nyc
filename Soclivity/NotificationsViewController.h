@@ -9,37 +9,32 @@
 #import <UIKit/UIKit.h>
 #import "WaitingOnYouView.h"
 #import "MBProgressHUD.h"
-
-@class MBProgressHUD;
+#import "GetNotificationsInvocation.h"
+#import "PostActivityRequestInvocation.h"
+@class MainServiceManager;
 @protocol NotificationsScreenViewDelegate <NSObject>
 
 @optional
 - (void)showLeft:(id)sender;
+
 @end
 
-@interface NotificationsViewController : UIViewController<WaitingOnYouDelegate,MBProgressHUDDelegate>{
+@interface NotificationsViewController : UIViewController<WaitingOnYouDelegate,MBProgressHUDDelegate,DetailedActivityInfoInvocationDelegate,GetNotificationsInvocationDelegate,PostActivityRequestInvocationDelegate>{
     id <NotificationsScreenViewDelegate>delegate;
     IBOutlet UILabel *waitingOnYouLabel;
-    IBOutlet UIImageView*notificationImageView;
-    IBOutlet UIImageView*socFadedImageView;
-    
-    NSMutableData *responsedata;
-    
-    NSMutableArray *arrnotification;
-    
-    UIActionSheet * loadingActionSheet;
-    
     MBProgressHUD *HUD;
+    MainServiceManager *devServer;
+    IBOutlet UIButton *btnnotify;
+    WaitingOnYouView *notificationView;
+    IBOutlet UIButton *sliderButton;
+    IBOutlet UIButton *backButton;
+    BOOL isPushedFromStack;
+    IBOutlet UIButton *btnnotify2;
 }
 @property (nonatomic,retain)id <NotificationsScreenViewDelegate>delegate;
-@property(nonatomic, retain) NSMutableData *responsedata;
-@property(nonatomic, retain) NSMutableArray *arrnotification;
-@property (nonatomic, retain)IBOutlet UIButton *btnnotify;
-
+@property(copy, readwrite)NSString *notId;
+@property (nonatomic,assign)BOOL isPushedFromStack;
 -(IBAction)profileSliderPressed:(id)sender;
-//-(NSMutableArray*) SetUpNotifications;
-
--(void)startAnimation;
--(void)hideMBProgress;
-
+-(void)startAnimation:(int)tag;
+-(void)getUserNotifications;
 @end

@@ -38,6 +38,9 @@
     [super viewDidLoad];
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
+
 
     loadNFriendsAtTimeArray=[[NSMutableArray alloc]init];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
@@ -72,11 +75,6 @@
     profileNameLabel.backgroundColor=[UIColor clearColor];
     profileNameLabel.shadowColor = [UIColor blackColor];
     profileNameLabel.shadowOffset = CGSizeMake(0,-1);
-    
-    
-    
-    
-
     
     profileUserNameLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     profileUserNameLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -192,6 +190,21 @@
 
     // Do any additional setup after loading the view from its nib.
 }
+
+
+-(void)showInAppNotificationsUsingRocketSocket:(NSNotification*)object{
+    
+    NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:object];
+    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
+    notif.delegate=self;
+    [self.view addSubview:notif];
+    
+}
+
+-(void)backgroundTapToPush:(NotificationClass*)notification{
+    
+}
+
 -(void)UserProfileInfoInvocationDidFinish:(GetUserProfileInfoInvocation*)invocation
                              withResponse:(SocPlayerClass*)response
                                 withError:(NSError*)error{
@@ -524,7 +537,7 @@
         play.typeOfRelation= [n intValue];
         NSNumber * DOS = [playDictionary objectForKey:@"DOS"];
         play.DOS= [DOS intValue];
-        play.profilePhotoUrl=[NSString stringWithFormat:@"http://%@%@",ProductionServer,[playDictionary objectForKey:@"profilePhotoUrl"]];
+        play.profilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[playDictionary objectForKey:@"profilePhotoUrl"]];
         
         
         [entries addObject:play];
@@ -533,7 +546,7 @@
     
 }
 
--(IBAction)tapViewAll:(id)sender{
+-(void)tapViewAll:(id)sender{
     
     
     NSString*nibNameBundle=nil;

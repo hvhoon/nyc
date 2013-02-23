@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@class NotificationClass;
 typedef enum
 {
     iPhone          = 1 << 1,
@@ -44,4 +44,7 @@ typedef enum
 +(NSString*)getFirstAndLastName:(NSString*)firstName lastName:(NSString*)lastName;
 +(NSString*)getStateAbbreviation:(NSString*)stateFullName;
 +(BOOL)hasLeadingNumberInString:(NSString*) str;
++(void)returnNotificationButtonWithCountUpdate:(UIButton*)button;
++(NSString *)nofiticationTime:(NSString *)timeString;
++(NotificationClass*)getNotificationObject:(NSNotification*)object;
 @end

@@ -14,7 +14,8 @@
 #import "DetailInfoActivityClass.h"
 #import "SoclivityManager.h"
 #import "FilterPreferenceClass.h"
-
+#import "GetPlayersClass.h"
+#import "NotificationClass.h"
 #define PASSWORD_LENGTH 6
 
 @implementation SoclivityUtilities
@@ -28,6 +29,60 @@ static NSArray *playerActivityDetails;
 +(NSArray *)getPlayerActivities{
     return playerActivityDetails;
     
+}
++(NotificationClass*)getNotificationObject:(NSNotification*)object{
+    
+    NotificationClass *notification=[[NotificationClass alloc]init];
+    id obj=[object valueForKey:@"userInfo"];
+    id obj1=[obj valueForKey:@"activity"];
+    NSLog(@"obj1=%@",obj1);
+    notification.notificationId=[[[object valueForKey:@"userInfo"]valueForKey:@"notification_id"]integerValue];
+    if(obj1!=nil && obj1!=[NSNull class] && [[obj1 allKeys]count]!=0){
+        notification.activityId=[[obj1 valueForKey:@"id"]integerValue];
+        notification.backgroundTap=TRUE;
+    }
+    else{
+        notification.backgroundTap=FALSE;
+    }
+    
+    notification.notificationType=[[object valueForKey:@"userInfo"] valueForKey:@"activity_type"];
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    SOC.loggedInUser.badgeCount=[[[object valueForKey:@"userInfo"] valueForKey:@"badge"]intValue];
+    
+    notification.latitude=[[object valueForKey:@"userInfo"] valueForKey:@"lat"];
+    notification.longitude=[[object valueForKey:@"userInfo"] valueForKey:@"lng"];
+    notification.notificationString=[[object valueForKey:@"userInfo"] valueForKey:@"message"];
+    notification.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[[object valueForKey:@"userInfo"] valueForKey:@"photo_url"]];
+    notification.timeOfNotification=[[object valueForKey:@"userInfo"] valueForKey:@"timing"];
+    return notification;
+}
++(void)returnNotificationButtonWithCountUpdate:(UIButton*)button{
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    GetPlayersClass*player=SOC.loggedInUser;
+
+    NSLog(@"badge=%d",player.badgeCount);
+        button.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
+        button.alpha=1;
+
+        
+        
+        if (player.badgeCount==0)
+                button.alpha=0;
+        else if(player.badgeCount==1){
+            [button setBackgroundImage:[UIImage imageNamed:@"notifyDigit1.png"] forState:UIControlStateNormal];
+            button.frame = CGRectMake(button.frame.origin.x,button.frame.origin.y,27,27);
+            [button setTitle:[NSString stringWithFormat:@"%d",player.badgeCount] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+
+          }
+        else{
+            [button setBackgroundImage:[UIImage imageNamed:@"notifyDigit2.png"] forState:UIControlStateNormal];
+            button.frame = CGRectMake(button.frame.origin.x,button.frame.origin.y,33,28);
+            
+            
+            [button setTitle:[NSString stringWithFormat:@"%d",player.badgeCount] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        }
 }
 
 +(NSString*)getStartAndFinishTimeLabel:(float)sliderValue{
@@ -134,8 +189,8 @@ if(timer%2==0){
     NSString *activityTime=[dateFormatter stringFromDate:destinationDate];
     NSString  *currentTime=[dateFormatter stringFromDate:currentDateTime];
     NSTimeInterval interval5 = [destinationDate timeIntervalSinceDate:currentDateTime];
-    NSLog(@"activityTime=%@",activityTime);
-    NSLog(@"currentTime=%@",currentTime);
+    NSLog(@"activityTime 11111=%@",activityTime);
+    NSLog(@"currentTime 11111=%@",currentTime);
     NSLog(@"interval5,the actual difference=%f",interval5);
     
     
@@ -263,8 +318,8 @@ if(timer%2==0){
     
     NSString *activityTime=[dateFormatter stringFromDate:destinationDate];
     NSString  *currentTime=[dateFormatter stringFromDate:currentDateTime];
-    NSLog(@"activityTime=%@",activityTime);
-    NSLog(@"currentTime=%@",currentTime);
+    NSLog(@"activityTime 22222=%@",activityTime);
+    NSLog(@"currentTime 22222222=%@",currentTime);
     
     
     NSCalendar* calendar = [NSCalendar currentCalendar];
@@ -638,8 +693,8 @@ if(timer%2==0){
 
     
     
-    NSDate *startFilterDate;
-    NSDate *finishFilterDate;
+    NSDate *startFilterDate=nil;
+    NSDate *finishFilterDate=nil;
     if(SOC.filterObject.whenSearchType==1){
         startFilterDate=[NSDate date];
         finishFilterDate = [[NSDate date] dateByAddingTimeInterval:86400*2];
@@ -696,8 +751,8 @@ if(timer%2==0){
     NSString  *startFilterTime=[dateFormatter stringFromDate:startDateTime];
     NSString  *finishFilterTime=[dateFormatter stringFromDate:finishDateTime];
     
-    NSLog(@"activityTime=%@",activityTime);
-    NSLog(@"startFilterTime=%@",startFilterTime);
+    NSLog(@"activityTime 33333=%@",activityTime);
+    NSLog(@"startFilterTime 333333=%@",startFilterTime);
     NSLog(@"finishFilterTime=%@",finishFilterTime);
     
     int check=0;
@@ -1075,7 +1130,7 @@ if(timer%2==0){
     NSString  *endDateTime=[dateFormatter stringFromDate:EndDate];
     NSLog(@"currentTime=%@",currentTime);
     NSLog(@"startDate=%@",startDateTime);
-    NSLog(@"activityTime=%@",activityTime);
+    NSLog(@"activityTime 66666666=%@",activityTime);
     NSLog(@"EndDate=%@",endDateTime);
 
     
@@ -1288,6 +1343,78 @@ if(timer%2==0){
         return [str length] && isnumber([str characterAtIndex:0]);
     else
         return NO;
+}
++(NSString *)nofiticationTime:(NSString *)timeString{
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [dateFormatter setTimeZone:gmt];
+    
+    // how to get back time from current time in the same format
+    NSDate *lastDate = [dateFormatter dateFromString:timeString];//add the string
+    NSString *todayDate = [dateFormatter stringFromDate:[NSDate date]];
+    NSDate *currentDate=[dateFormatter dateFromString:todayDate];
+    
+    NSTimeInterval interval = [lastDate timeIntervalSinceDate:currentDate];
+    unsigned long seconds = interval;
+    unsigned long minutes = seconds / 60;
+    seconds %= 60;
+    unsigned long hours = minutes / 60;
+    if(hours)
+        minutes %= 60;
+    unsigned long days=hours/24;
+    if(days)
+        hours %=24;
+    
+    NSMutableString * result = [[NSMutableString new] autorelease];
+    dateFormatter.dateFormat=@"EEE, MMM d, h:mma";
+    
+    NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
+    NSInteger destinationGMTOffset1 = [destinationTimeZone secondsFromGMTForDate:lastDate];
+    NSInteger destinationGMTOffset2 = [destinationTimeZone secondsFromGMTForDate:currentDate];
+    
+    NSTimeInterval interval2 = destinationGMTOffset1;
+    NSTimeInterval interval3 = destinationGMTOffset2;
+    
+    NSDate* destinationDate = [[[NSDate alloc] initWithTimeInterval:interval2 sinceDate:lastDate] autorelease];
+    NSDate* currentDateTime = [[[NSDate alloc] initWithTimeInterval:interval3 sinceDate:currentDate] autorelease];
+    
+    NSString *activityTime=[dateFormatter stringFromDate:destinationDate];
+    
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    int differenceInDays =
+    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:destinationDate]-
+    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:currentDateTime];
+    switch (differenceInDays) {
+        case -1:
+        {
+            dateFormatter.dateFormat=@"h:mma";
+            [result appendFormat:@"%@",[NSString stringWithFormat:@"Yesterday, %@",[dateFormatter stringFromDate:destinationDate]]];
+        }
+            break;
+        case 0:
+        {
+            
+            dateFormatter.dateFormat=@"h:mma";
+            [result appendFormat:@"%@",[NSString stringWithFormat:@"Today, %@",[dateFormatter stringFromDate:destinationDate]]];
+        }
+            break;
+        case 1:
+        {
+            [result appendFormat: @"Tommorow"];
+            dateFormatter.dateFormat=@"h:mma";
+            
+            [result appendFormat:@"%@",[NSString stringWithFormat:@"Tomorrow, %@",[dateFormatter stringFromDate:destinationDate]]];
+        }
+            break;
+        default: {
+            [result appendFormat:@"%@",activityTime];
+        }
+            break;
+    }
+    
+    return result;
 }
 
 

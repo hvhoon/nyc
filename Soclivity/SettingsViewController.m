@@ -9,7 +9,6 @@
 #import "SettingsViewController.h"
 #import "HomeViewController.h"
 #import "UpComingCompletedEventsViewController.h"
-#import "DDMenuController.h"
 #import "WelcomeScreenViewController.h"
 
 @implementation SettingsViewController
@@ -52,13 +51,9 @@
     if(isFBlogged){
         [self FBlogout];
     }
-    DDMenuController *menuController = (DDMenuController*)((AppDelegate*)[[UIApplication sharedApplication] delegate]).menuController;
     
     WelcomeScreenViewController *welcomeScreenViewController=[[WelcomeScreenViewController alloc] initWithNibName:@"WelcomeScreenViewController" bundle:nil];
 	[[self navigationController] pushViewController:welcomeScreenViewController animated:YES];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:welcomeScreenViewController];
-    
-    [menuController setRootController:navController animated:YES];
     [welcomeScreenViewController release];
 
 }

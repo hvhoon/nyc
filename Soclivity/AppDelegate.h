@@ -7,42 +7,35 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DDMenuController.h"
 #import "FBConnect.h"
 #import "RRAViewController.h"
-
+#import "MainServiceManager.h"
+#import "SoclivityManager.h"
 @class FacebookLogin;
-@class SlideViewController;
-@class TTTAttributedLabel;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate>{
     UINavigationController *navigationController;
-    DDMenuController *menuController;
     Facebook *facebook;
     NSMutableDictionary *userPermissions;
     BOOL resetSuccess;
-    BOOL _appIsInbackground;
-    
     NSMutableData *responsedata;
-    
     UIBackgroundTaskIdentifier bgTask;
+    MainServiceManager *devServer;
+    SoclivityManager *SOC;
+    dispatch_queue_t currentBackgroundQueue;
+    int status;
 }
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, retain) UINavigationController *navigationController;
-@property (retain, nonatomic) DDMenuController *menuController;
 @property (nonatomic, retain) Facebook *facebook;
 @property (nonatomic, retain) NSMutableDictionary *userPermissions;
 @property (nonatomic, assign) BOOL resetSuccess;
-@property (nonatomic, retain) TTTAttributedLabel *summaryLabel;
-@property(nonatomic, retain) NSMutableData *responsedata;
 @property (nonatomic, retain)RRAViewController *objrra;
-
-@property(nonatomic, retain)UIView *vw_notification;
-
+@property(nonatomic, retain)NSMutableDictionary *dict_notification;
+@property (nonatomic,assign) BOOL onlyOnce;
 -(FacebookLogin*)SetUpFacebook;
 - (void)setUpActivityDataList;
--(void)IncreaseBadgeIcon;
--(void)PostBackgroundStatus:(int)status;
- //-(void)registerForNotifications;
+-(void)IntimateServerForAPNSOrRocketSocket;
+
 @end

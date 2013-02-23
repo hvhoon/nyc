@@ -39,11 +39,11 @@
     if(activityTypeUpdate){
         SoclivityManager *SOC=[SoclivityManager SharedInstance];
         GetPlayersClass *player=SOC.loggedInUser;
-       a= [NSString stringWithFormat:@"%@/players/%d.json",ProductionServer,[player.idSoc intValue]];
+       a= [NSString stringWithFormat:@"dev.soclivity.com/players/%d.json",[player.idSoc intValue]];
           [self put:a body:[self updateActivityBody]];
     }
     else{
-        a= [NSString stringWithFormat:@"%@/players.json",ProductionServer];
+        a= [NSString stringWithFormat:@"dev.soclivity.com/players.json"];
         [self post:a body:[self body]];//dev.soclivity.com/players/17.json
 
     }
@@ -194,7 +194,7 @@
 -(BOOL)handleHttpOK:(NSMutableData *)data {
     
     NSString *response=[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-   // NSLog(@"response=%@",response);
+    NSLog(@"response=%@",response);
 
 
     

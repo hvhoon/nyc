@@ -232,11 +232,9 @@ NSString * const kSearchTextKey = @"Search Text";
         play.typeOfRelation= [n intValue];
         NSNumber * DOS = [playDictionary objectForKey:@"DOS"];
         play.DOS= [DOS intValue];
-        play.profilePhotoUrl=[NSString stringWithFormat:@"http://%@%@",ProductionServer,[playDictionary objectForKey:@"profilePhotoUrl"]];
+        play.profilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[playDictionary objectForKey:@"profilePhotoUrl"]];
         NSNumber * status = [playDictionary objectForKey:@"status"];
         play.status=[status boolValue];
-        
-        NSLog(@"Value=%d",[n intValue]);
         
         switch (play.typeOfRelation) {
             case 0:
@@ -427,9 +425,6 @@ NSString * const kSearchTextKey = @"Search Text";
     sectionHeaderview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"pattern.png"]];
     
     //second section don't draw the first line
-    
-    NSLog(@"section =%d",section);
-    
     UIButton *topDividerLineButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     topDividerLineButton.frame = CGRectMake(0, 0, 320, 1);
     [topDividerLineButton setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]]];

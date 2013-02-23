@@ -141,7 +141,7 @@
     
     BOOL canPost = (accuracy < kLocationAccuracyLimit);     // let user post if accuracy is good enouth
     if(canPost){
-        NSLog(@"canPost");
+       // NSLog(@"canPost");
     }
     else{
         
@@ -159,7 +159,7 @@
     
     //Updating road status with latest location
     
-    NSLog(@"Visible map width: %f", map.visibleMapRect.size.width);
+    //NSLog(@"Visible map width: %f", map.visibleMapRect.size.width);
     
 }
 #endif
@@ -456,7 +456,7 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
         aV.frame = CGRectMake(aV.frame.origin.x, aV.frame.origin.y - self.mapView.frame.size.height, aV.frame.size.width, aV.frame.size.height);
         
         // Animate drop
-        [UIView animateWithDuration:0.5 delay:0.04*[views indexOfObject:aV] options:UIViewAnimationCurveLinear animations:^{
+        [UIView animateWithDuration:0.5 delay:0.04*[views indexOfObject:aV] options:UIViewAnimationOptionCurveLinear animations:^{
             
             aV.frame = endFrame;
             

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ActivityTypeSelectView.h"
+#import "NotifyAnimationView.h"
 @class MainServiceManager;
 @class MBProgressHUD;
 @class SoclivityManager;
@@ -18,7 +19,7 @@
 @end
 
 
-@interface ProfileViewController : UIViewController<ActivitySelectDelegate>{
+@interface ProfileViewController : UIViewController<ActivitySelectDelegate,NotifyAnimationViewDelegate>{
     id <ProfileScreenViewDelegate>delegate;
     IBOutlet ActivityTypeSelectView *activityTypesView;
     IBOutlet UILabel *updateActivityLabel;
@@ -29,11 +30,11 @@
     MainServiceManager *devServer;
     MBProgressHUD *HUD;
     SoclivityManager *SOC;
+    IBOutlet UIButton*btnnotify;
 }
 @property (nonatomic,retain)id <ProfileScreenViewDelegate>delegate;
 @property (nonatomic,retain)ActivityTypeSelectView *activityTypesView;
 @property (nonatomic,assign) BOOL isFirstTime;
-@property (nonatomic, retain)IBOutlet UIButton *btnnotify;
 
 -(IBAction)profileSliderPressed:(id)sender;
 -(IBAction)getStartedAction:(id)sender;

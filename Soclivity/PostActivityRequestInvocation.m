@@ -8,7 +8,8 @@
 
 #import "PostActivityRequestInvocation.h"
 #import "JSON.h"
-
+#import "SoclivityManager.h"
+#import "GetPlayersClass.h"
 
 @implementation PostActivityRequestInvocation
 @synthesize playerId,activityId,relationshipId;
@@ -24,7 +25,7 @@
     switch (relationshipId) {
       case 1:
         {
-            a= [NSString stringWithFormat:@"%@/joinactivity.json?id=%d&pid=%d&pstatus=true",ProductionServer,activityId,playerId];
+            a= [NSString stringWithFormat:@"dev.soclivity.com/joinactivity.json?id=%d&pid=%d&pstatus=true",activityId,playerId];
                 [self post:a body:nil];
         }
             break;
@@ -33,7 +34,7 @@
       case 5:
       case 3:
         {
-            a= [NSString stringWithFormat:@"%@/leaveactivity.json?id=%d&pid=%d&pstatus=true",ProductionServer,activityId,playerId];
+            a= [NSString stringWithFormat:@"dev.soclivity.com/leaveactivity.json?id=%d&pid=%d&pstatus=true",activityId,playerId];
             [self post:a body:nil];
         }
             break;
@@ -43,7 +44,7 @@
       case 8:
       case 9:
         {
-            a= [NSString stringWithFormat:@"%@/leaveactivity.json?id=%d&pid=%d&astatus=true",ProductionServer,activityId,playerId];
+            a= [NSString stringWithFormat:@"dev.soclivity.com/leaveactivity.json?id=%d&pid=%d&astatus=true",activityId,playerId];
             [self post:a body:nil];
         }
             break;
@@ -52,40 +53,52 @@
             
     case 4:
         {
-            a= [NSString stringWithFormat:@"%@/joinactivity.json?id=%d&pid=%d&pstatus=true",ProductionServer,activityId,playerId];
+            a= [NSString stringWithFormat:@"dev.soclivity.com/joinactivity.json?id=%d&pid=%d&pstatus=true",activityId,playerId];
             [self put:a body:nil];
         }
             break;
 
     case 7:
         {
-            a= [NSString stringWithFormat:@"%@/joinactivity.json?id=%d&pid=%d&astatus=true",ProductionServer,activityId,playerId];
+            a= [NSString stringWithFormat:@"dev.soclivity.com/joinactivity.json?id=%d&pid=%d&astatus=true",activityId,playerId];
                 [self put:a body:nil];
         }
             break;
             
     case 10:
         {
-            a= [NSString stringWithFormat:@"%@/activities/%d.json",ProductionServer,activityId];
+            a= [NSString stringWithFormat:@"dev.soclivity.com/activities/%d.json",activityId];
             [self delete:a];
         }
             break;
             
         case 11:
         {
-            a= [NSString stringWithFormat:@"%@/joinactivity.json?id=%d&pid=%d&astatus=true",ProductionServer,activityId,playerId];
+            a= [NSString stringWithFormat:@"dev.soclivity.com/joinactivity.json?id=%d&pid=%d&astatus=true",activityId,playerId];
             [self post:a body:nil];
         }
             break;
             
         case 13:
         {
-            a= [NSString stringWithFormat:@"%@/declinerequest.json?id=%d&pid=%d&astatus=true",ProductionServer,activityId,playerId];
+            a= [NSString stringWithFormat:@"dev.soclivity.com/declinerequest.json?id=%d&pid=%d",activityId,playerId];
             [self post:a body:nil];
         }
             break;
-
-     
+            
+        case 14:
+        {
+             a= [NSString stringWithFormat:@"dev.soclivity.com/declinerequest.json?id=%d&pid=%d&notgoing=true",activityId,playerId];
+            [self post:a body:nil];
+        }
+            break;
+            
+        case 15:
+        {
+            a= [NSString stringWithFormat:@"dev.soclivity.com/removeparticipant.json?id=%d&pid=%d",activityId,playerId];
+            [self post:a body:nil];
+        }
+            break;
 
      }
 
@@ -106,12 +119,30 @@
 
 -(BOOL)handleHttpOK:(NSMutableData *)data {
     
-    
     NSLog(@"handleHttpOK");
 	NSDictionary* resultsd = [[[NSString alloc] initWithData:data 
                                                     encoding:NSUTF8StringEncoding] JSONValue];
     NSNumber*resetStatus= [resultsd objectForKey:@"status"];
     NSLog(@"resetStatus=%@",resetStatus);
+    switch (relationshipId) {
+        case 4:
+        case 7:
+        case 13:
+        case 14:
+
+        {
+            NSNumber *badge=[resultsd objectForKey:@"badge"];
+            SoclivityManager*SOC=[SoclivityManager SharedInstance];
+            SOC.loggedInUser.badgeCount=[badge intValue];
+            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
+        }
+            break;
+            
+        default:
+            break;
+    }
 	[self.delegate PostActivityRequestInvocationDidFinish:self withResponse:[resetStatus boolValue] relationTypeTag:relationshipId withError:Nil];
 	return YES;
 }

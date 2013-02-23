@@ -87,12 +87,6 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
         [[profileBtn layer] setBorderColor:[SoclivityUtilities returnTextFontColor:4].CGColor];
         setYourPic.hidden=YES;
         
-        NSLog(@"firstName=%@",playerObj.first_name);
-        NSLog(@"last_name=%@",playerObj.last_name);
-        NSLog(@"email=%@",playerObj.email);
-        NSLog(@"gender=%@",playerObj.gender);
-        NSLog(@"birth_date=%@",playerObj.birth_date);
-        
         if([playerObj.gender isEqualToString:@"male"]){
             [maleButton setBackgroundImage:[UIImage imageNamed:@"S02_male.png"] forState:UIControlStateNormal];
             b_Female=FALSE;
@@ -255,12 +249,9 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
 // Setting the birthday
 -(void)dateSelected:(NSDate*)bDate {
     
-    NSLog(@"bDate=%@ and todayDate=%@",bDate,[NSDate date]);
-    
     // Really not sure what this interval stuff is here for?
     NSTimeInterval interval = [bDate timeIntervalSinceDate: [NSDate date]];
     NSLog(@"interval=%f",interval);
-
     // Date selected must be less than today's date
     if ([bDate compare:[NSDate date]] == NSOrderedAscending) {
         
@@ -301,11 +292,6 @@ BOOL validName, validEmail, validPassword, passwordsMatched, locationEntered;
 
 -(void)BasicInfoFields{
             
-    NSLog(@"enterNameTextField=%@",enterNameTextField.text);
-    NSLog(@"emailTextField=%@",emailTextField.text);
-    NSLog(@"enterPasswordTextField=%@",enterPasswordTextField.text);
-    NSLog(@"confirmPasswordTextField=%@",confirmPasswordTextField.text);
-    
     if(!enterNameTextField.text.length && !emailTextField.text.length && !enterPasswordTextField.text.length && !confirmPasswordTextField.text.length)
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Required Fields"

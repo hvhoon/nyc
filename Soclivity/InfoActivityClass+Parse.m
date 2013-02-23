@@ -20,8 +20,6 @@
 		return Nil;
 	}
 	
-    NSLog(@"ACTDict::%@",ACTDict);
-    
 	InfoActivityClass *play = [[[InfoActivityClass alloc] init] autorelease];
     play.activityName = [ACTDict objectForKey:@"name"];
     NSNumber *type = [ACTDict objectForKey:@"atype"];
@@ -85,8 +83,6 @@
 	
 	NSMutableArray *schedules = [[[NSMutableArray alloc] init] autorelease];
 	for (int i = 0; i < ActivitiesSchedulesAt.count; i++) {
-        
-        NSLog(@"ActivitiesSchedulesAt::%@",ActivitiesSchedulesAt);
         
         InfoActivityClass *sch = [InfoActivityClass ActivitiesFromDictionary:[ActivitiesSchedulesAt objectAtIndex:i] isQuotation:NO];
         if (sch) {
@@ -161,7 +157,7 @@
     
     
     NSString *photoUrl=[ACTDict objectForKey:@"owner_photo"];
-    play.ownerProfilePhotoUrl=[NSString stringWithFormat:@"http://%@%@",ProductionServer,photoUrl];
+    play.ownerProfilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",photoUrl];
     NSString*relation=[ACTDict objectForKey:@"ura_member"];
     
     if([relation isEqualToString:@"yes"]){
@@ -181,7 +177,7 @@
         pObject.participantId=[participantId intValue];
         pObject.dosConnection=1;
         pObject.name=[obj objectForKey:@"name"];
-        pObject.photoUrl=[NSString stringWithFormat:@"http://%@%@",ProductionServer,[obj objectForKey:@"photo"]];
+        pObject.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[obj objectForKey:@"photo"]];
         [DOS1Array addObject:pObject];
         
     }
@@ -198,7 +194,7 @@
         pObject.participantId=[participantId intValue];
         pObject.dosConnection=2;
         pObject.name=[object objectForKey:@"name"];
-        pObject.photoUrl=[NSString stringWithFormat:@"http://%@%@",ProductionServer,[object objectForKey:@"photo"]];
+        pObject.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[object objectForKey:@"photo"]];
         [DOS2Array addObject:pObject];
         
     }
@@ -216,7 +212,7 @@
         NSNumber *dos = [object objectForKey:@"dos"];
         pObject.dosConnection=[dos intValue];
         pObject.name=[object objectForKey:@"name"];
-        pObject.photoUrl=[NSString stringWithFormat:@"http://%@%@",ProductionServer,[object objectForKey:@"photo"]];
+        pObject.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[object objectForKey:@"photo"]];
         [pendingMembersArray addObject:pObject];
         
     }
@@ -234,7 +230,7 @@
         pObject.participantId=[participantId intValue];
         pObject.dosConnection=3;
         pObject.name=[object objectForKey:@"name"];
-        pObject.photoUrl=[NSString stringWithFormat:@"http://%@%@",ProductionServer,[object objectForKey:@"photo"]];
+        pObject.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[object objectForKey:@"photo"]];
         [DOS3FriendsArray addObject:pObject];
         
     }
@@ -297,12 +293,7 @@
     NSArray *myActivitiesArray=[abDict objectForKey:@"my_activities"];
 
     if([myActivitiesArray count]>0){
-        
-        NSLog(@"myActivitiesArray::%@",myActivitiesArray);
-    
     for(id obj in myActivitiesArray){
-        
-        NSLog(@"obj::%@",obj);
         
         InfoActivityClass *sch = [InfoActivityClass ActivitiesFromDictionary:obj isQuotation:YES];
             if (sch)
@@ -321,12 +312,7 @@
     NSArray *invitedToArray=[abDict objectForKey:@"invited_to"];
     if([invitedToArray count]>0){
     
-        NSLog(@"invitedToArray::%@",invitedToArray);
-        
     for(id obj in invitedToArray){
-        
-        NSLog(@"obj::%@",obj);
-        
         InfoActivityClass *sch = [InfoActivityClass ActivitiesFromDictionary:obj isQuotation:YES];
         if (sch)
             [schedules addObject:sch];
@@ -343,12 +329,7 @@
     NSArray *completedArray=[abDict objectForKey:@"completed"];
     if([completedArray count]>0){
     
-    NSLog(@"completedArray::%@",completedArray);
-        
     for(id obj in completedArray){
-        
-        NSLog(@"obj::%@",obj);
-        
         InfoActivityClass *sch = [InfoActivityClass ActivitiesFromDictionary:obj isQuotation:YES];
             if (sch)
                 [schedules addObject:sch];
@@ -366,12 +347,7 @@
     NSArray *goingToArray=[abDict objectForKey:@"going_to"];
     if([goingToArray count]>0){
         
-    NSLog(@"goingToArray::%@",goingToArray);
-        
     for(id obj in goingToArray){
-        
-        NSLog(@"obj::%@",obj);
-        
         InfoActivityClass *sch = [InfoActivityClass ActivitiesFromDictionary:obj isQuotation:YES];
         if (sch) 
             [schedules addObject:sch];

@@ -31,6 +31,8 @@
 @synthesize facebookAccessToken;
 @synthesize registered;
 @synthesize profileImageUrl;
+@synthesize channel;
+@synthesize badgeCount;
 -(void)dealloc{
     [super dealloc];
     [birth_date release];
@@ -53,5 +55,6 @@
     [facebookUId release];
     [facebookAccessToken release];
     [profileImageUrl release];
+    [channel release];
 }
 @end

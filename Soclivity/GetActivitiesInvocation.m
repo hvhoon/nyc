@@ -18,13 +18,12 @@
 	[super dealloc];
 }
 -(void)invoke {
-    NSString *a= [NSString stringWithFormat:@"%@/getactivities.json?lat=%f&lng=%f&pid=%d",ProductionServer,currentLatitude,currentLongitude,userSOCId];
+    NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/getactivities.json?lat=%f&lng=%f&pid=%d",currentLatitude,currentLongitude,userSOCId];
     [self get:a];
 }
 
 
 -(BOOL)handleHttpOK:(NSMutableData *)data {
-    
     
     NSLog(@"handleHttpOK");
 	NSArray* resultsd = [[[NSString alloc] initWithData:data 

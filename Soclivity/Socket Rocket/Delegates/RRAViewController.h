@@ -15,6 +15,6 @@
 @interface RRAViewController : UIViewController
 
 
-- (void) fetchPrivatePubConfiguration:(NSString *)lstrnewchannel;
+- (void) fetchPrivatePubConfiguration;
 
 @end

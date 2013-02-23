@@ -41,7 +41,7 @@
         play.typeOfRelation= 0;
         NSNumber * DOS = [obj objectForKey:@"dos"];
         play.DOS= [DOS intValue];
-        play.profilePhotoUrl=[NSString stringWithFormat:@"http://%@%@",ProductionServer,[obj objectForKey:@"photo"]];
+        play.profilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[obj objectForKey:@"photo"]];
         NSString * status = [obj objectForKey:@"going"];
         if([status isEqualToString:@"yes"]){
             play.status=TRUE;
@@ -93,7 +93,7 @@
         play.typeOfRelation= 1;
         NSNumber * DOS = [obj objectForKey:@"dos"];
         play.DOS= [DOS intValue];
-        play.profilePhotoUrl=[NSString stringWithFormat:@"http://%@%@",ProductionServer,[obj objectForKey:@"photo"]];
+        play.profilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[obj objectForKey:@"photo"]];
         NSString * status = [obj objectForKey:@"going"];
         if([status isEqualToString:@"yes"]){
             play.status=TRUE;
@@ -218,7 +218,7 @@
         play.typeOfRelation= 3;
         NSNumber * DOS = [obj objectForKey:@"dos"];
         play.DOS= [DOS intValue];
-        play.profilePhotoUrl=[NSString stringWithFormat:@"http://%@%@",ProductionServer,[obj objectForKey:@"photo"]];
+        play.profilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[obj objectForKey:@"photo"]];
         NSString * status = [obj objectForKey:@"going"];
         if([status isEqualToString:@"yes"]){
             play.status=TRUE;
@@ -268,7 +268,7 @@
         
         play.userName = [obj objectForKey:@"name"];
         play.typeOfRelation= 4;
-        play.profilePhotoUrl=[NSString stringWithFormat:@"http://%@/assets/picbox.png",ProductionServer];
+        play.profilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com/assets/picbox.png"];
         NSString * status = [obj objectForKey:@"going"];
         if([status isEqualToString:@"yes"]){
             play.status=TRUE;

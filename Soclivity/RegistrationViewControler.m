@@ -9,7 +9,6 @@
 #import "RegistrationViewControler.h"
 #import "MainServiceManager.h"
 #import "GetPlayersDetailInvocation.h"
-#import "DDMenuController.h"
 #import "SettingsViewController.h"
 #import "UpComingCompletedEventsViewController.h"
 #import "AppDelegate.h"
