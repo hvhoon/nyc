@@ -236,7 +236,10 @@ static inline NSRegularExpression * NameRegularExpression() {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
 
 #endif
-    [delegate backgroundTapToPush:inAppNotif];
+    if (inAppNotif.backgroundTap) {
+        [delegate backgroundTapToPush:inAppNotif];    
+    }
+
 
 }
 

@@ -8,7 +8,8 @@
 
 #import "PostActivityRequestInvocation.h"
 #import "JSON.h"
-
+#import "SoclivityManager.h"
+#import "GetPlayersClass.h"
 
 @implementation PostActivityRequestInvocation
 @synthesize playerId,activityId,relationshipId;
@@ -123,6 +124,25 @@
                                                     encoding:NSUTF8StringEncoding] JSONValue];
     NSNumber*resetStatus= [resultsd objectForKey:@"status"];
     NSLog(@"resetStatus=%@",resetStatus);
+    switch (relationshipId) {
+        case 4:
+        case 7:
+        case 13:
+        case 14:
+
+        {
+            NSNumber *badge=[resultsd objectForKey:@"badge"];
+            SoclivityManager*SOC=[SoclivityManager SharedInstance];
+            SOC.loggedInUser.badgeCount=[badge intValue];
+            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
+        }
+            break;
+            
+        default:
+            break;
+    }
 	[self.delegate PostActivityRequestInvocationDidFinish:self withResponse:[resetStatus boolValue] relationTypeTag:relationshipId withError:Nil];
 	return YES;
 }

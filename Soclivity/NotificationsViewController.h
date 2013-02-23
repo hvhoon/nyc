@@ -10,7 +10,6 @@
 #import "WaitingOnYouView.h"
 #import "MBProgressHUD.h"
 #import "GetNotificationsInvocation.h"
-#import "NotifyAnimationView.h"
 #import "PostActivityRequestInvocation.h"
 @class MainServiceManager;
 @protocol NotificationsScreenViewDelegate <NSObject>
@@ -20,7 +19,7 @@
 
 @end
 
-@interface NotificationsViewController : UIViewController<WaitingOnYouDelegate,MBProgressHUDDelegate,DetailedActivityInfoInvocationDelegate,GetNotificationsInvocationDelegate,PostActivityRequestInvocationDelegate,NotifyAnimationViewDelegate>{
+@interface NotificationsViewController : UIViewController<WaitingOnYouDelegate,MBProgressHUDDelegate,DetailedActivityInfoInvocationDelegate,GetNotificationsInvocationDelegate,PostActivityRequestInvocationDelegate>{
     id <NotificationsScreenViewDelegate>delegate;
     IBOutlet UILabel *waitingOnYouLabel;
     MBProgressHUD *HUD;

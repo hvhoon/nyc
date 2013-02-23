@@ -349,6 +349,8 @@ static NSString* kAppId = @"160726900680967";//kanav
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
         NSLog(@"applicationDidEnterBackground");
+    
+    [[NSUserDefaults standardUserDefaults]setValue:[NSNumber numberWithInt:[[UIApplication sharedApplication]applicationIconBadgeNumber]] forKey:@"PrevBadgeCount"];
 
 #if 0
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"isLoggedIn"]){
@@ -383,10 +385,16 @@ static NSString* kAppId = @"160726900680967";//kanav
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     NSLog(@"applicationWillEnterForeground");
+    
+
     SOC=[SoclivityManager SharedInstance];
     SOC.loggedInUser.badgeCount=[[UIApplication sharedApplication]applicationIconBadgeNumber];
     NSLog(@"SOC.loggedInUser.badgeCount=%d",SOC.loggedInUser.badgeCount);
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
+    
+//    if(([[UIApplication sharedApplication]applicationIconBadgeNumber]-[[[NSUserDefaults standardUserDefaults]valueForKey:@"PrevBadgeCount"]intValue])!=0){
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"RandomFetch" object:self userInfo:nil];
+//    }
     
     
 

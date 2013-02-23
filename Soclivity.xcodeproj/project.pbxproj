@@ -942,12 +942,12 @@
 		3C505485168ECF09001C1C5E /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		3C505486168ECF09001C1C5E /* NSData+SRB64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SRB64Additions.h"; sourceTree = "<group>"; };
 		3C505487168ECF09001C1C5E /* NSData+SRB64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SRB64Additions.m"; sourceTree = "<group>"; };
-		3C505490168ECF9C001C1C5E /* PrivatePubWebSocketDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivatePubWebSocketDelegate.h; sourceTree = "<group>"; };
-		3C505491168ECF9C001C1C5E /* PrivatePubWebSocketDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivatePubWebSocketDelegate.m; sourceTree = "<group>"; };
-		3C505492168ECF9C001C1C5E /* RRAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RRAViewController.h; sourceTree = "<group>"; };
-		3C505493168ECF9C001C1C5E /* RRAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RRAViewController.m; sourceTree = "<group>"; };
-		3C505494168ECF9C001C1C5E /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
-		3C505495168ECF9C001C1C5E /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
+		3C505490168ECF9C001C1C5E /* PrivatePubWebSocketDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrivatePubWebSocketDelegate.h; path = Delegates/PrivatePubWebSocketDelegate.h; sourceTree = "<group>"; };
+		3C505491168ECF9C001C1C5E /* PrivatePubWebSocketDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrivatePubWebSocketDelegate.m; path = Delegates/PrivatePubWebSocketDelegate.m; sourceTree = "<group>"; };
+		3C505492168ECF9C001C1C5E /* RRAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RRAViewController.h; path = Delegates/RRAViewController.h; sourceTree = "<group>"; };
+		3C505493168ECF9C001C1C5E /* RRAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RRAViewController.m; path = Delegates/RRAViewController.m; sourceTree = "<group>"; };
+		3C505494168ECF9C001C1C5E /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRWebSocket.h; path = Delegates/SRWebSocket.h; sourceTree = "<group>"; };
+		3C505495168ECF9C001C1C5E /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRWebSocket.m; path = Delegates/SRWebSocket.m; sourceTree = "<group>"; };
 		3C64847F168AD0AF00EAF56E /* S11_frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S11_frame.png; sourceTree = "<group>"; };
 		3C648480168AD0AF00EAF56E /* S11_frame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S11_frame@2x.png"; sourceTree = "<group>"; };
 		3C648481168AD0AF00EAF56E /* S11_picBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S11_picBox.png; sourceTree = "<group>"; };
@@ -2080,7 +2080,12 @@
 		3C505477168ECECA001C1C5E /* Socket Rocket */ = {
 			isa = PBXGroup;
 			children = (
-				3C50548F168ECF9C001C1C5E /* Delegates */,
+				3C505490168ECF9C001C1C5E /* PrivatePubWebSocketDelegate.h */,
+				3C505491168ECF9C001C1C5E /* PrivatePubWebSocketDelegate.m */,
+				3C505492168ECF9C001C1C5E /* RRAViewController.h */,
+				3C505493168ECF9C001C1C5E /* RRAViewController.m */,
+				3C505494168ECF9C001C1C5E /* SRWebSocket.h */,
+				3C505495168ECF9C001C1C5E /* SRWebSocket.m */,
 				3C505478168ECF09001C1C5E /* AFNetwroking */,
 			);
 			path = "Socket Rocket";
@@ -2106,19 +2111,6 @@
 				3C505487168ECF09001C1C5E /* NSData+SRB64Additions.m */,
 			);
 			path = AFNetwroking;
-			sourceTree = "<group>";
-		};
-		3C50548F168ECF9C001C1C5E /* Delegates */ = {
-			isa = PBXGroup;
-			children = (
-				3C505490168ECF9C001C1C5E /* PrivatePubWebSocketDelegate.h */,
-				3C505491168ECF9C001C1C5E /* PrivatePubWebSocketDelegate.m */,
-				3C505492168ECF9C001C1C5E /* RRAViewController.h */,
-				3C505493168ECF9C001C1C5E /* RRAViewController.m */,
-				3C505494168ECF9C001C1C5E /* SRWebSocket.h */,
-				3C505495168ECF9C001C1C5E /* SRWebSocket.m */,
-			);
-			path = Delegates;
 			sourceTree = "<group>";
 		};
 		6802EC3515B6611E00FF0048 /* Common */ = {

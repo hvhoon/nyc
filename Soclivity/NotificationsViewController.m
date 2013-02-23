@@ -38,10 +38,17 @@
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     SOC.loggedInUser.badgeCount=0;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"RemoteNotificationReceivedWhileRunning" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"RandomFetch" object:nil];
+
 
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
 
+}
+
+-(void)startFetching{
+    [self getUserNotifications];
 }
 
 
@@ -51,6 +58,9 @@
     [super viewWillAppear:YES];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startFetching) name:@"RandomFetch" object:Nil];
+
 
     
     
@@ -171,14 +181,6 @@
 
 }
 
--(void)showInAppNotificationsUsingRocketSocket:(NSNotification*)object{
-    
-    NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:object];
-    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
-    notif.delegate=self;
-    [self.view addSubview:notif];
-    
-}
 
 -(void)backgroundTapToPush:(NotificationClass*)notification{
     
@@ -569,11 +571,6 @@ else{
         }
             break;
             
-        default:
-        {
-            //[notificationView requestComplete];
-        }
-            break;
     }
 }
 

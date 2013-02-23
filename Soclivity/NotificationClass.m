@@ -11,7 +11,7 @@
 @implementation NotificationClass
 @synthesize notificationString,type,profileImage,date,count,notificationId,userId;
 @synthesize activityId,expirationDate,photoUrl,latitude,longitude,notificationType,isRead;
-@synthesize rowHeight,timeOfNotification,referredId;
+@synthesize rowHeight,timeOfNotification,referredId,backgroundTap;
 
 -(void)dealloc{
     [super dealloc];

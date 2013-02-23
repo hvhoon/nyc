@@ -929,7 +929,7 @@
         }
             break;
         case 2:
-        case 3:
+        case 14://case 3
         {
             activityInfo.activityRelationType=1;
             [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
@@ -960,7 +960,7 @@
         }
             
         break;
-        case 8:
+        case 13://case 8
         {
             [participantListTableView updateParticipantListView:NO];
             
@@ -1114,7 +1114,7 @@
             
             if([SoclivityUtilities hasNetworkConnection]){
                 [self startAnimation:kSorryNotGoingRequest];
-                [devServer postActivityRequestInvocation:3  playerId:[SOC.loggedInUser.idSoc intValue] actId:activityInfo.activityId delegate:self];
+                [devServer postActivityRequestInvocation:14  playerId:[SOC.loggedInUser.idSoc intValue] actId:activityInfo.activityId delegate:self];
             }
             else{
                 
@@ -1682,7 +1682,7 @@
     }
     else{
         [self startAnimation:kDeclinePlayerRequest];
-        [devServer postActivityRequestInvocation:8  playerId:playerId actId:activityInfo.activityId delegate:self];
+        [devServer postActivityRequestInvocation:13  playerId:playerId actId:activityInfo.activityId delegate:self];
         
     }
     }

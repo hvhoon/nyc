@@ -146,9 +146,9 @@
     static NSString *CellIdentifier = @"Cell";
     
     AttributedTableViewCell *cell = (AttributedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
+    //if (cell == nil) {
         cell = [[AttributedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    }
+    //}
     
     CGFloat rowheight=0.0f;
     

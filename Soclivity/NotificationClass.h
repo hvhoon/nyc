@@ -26,6 +26,7 @@
     CGFloat rowHeight;
     NSString*timeOfNotification;
     NSInteger referredId;
+    BOOL backgroundTap;
 }
 @property (nonatomic,retain)NSString *notificationString;
 @property (nonatomic,retain)NSString *date;
@@ -44,4 +45,5 @@
 @property(nonatomic,assign)CGFloat rowHeight;
 @property(nonatomic,retain)NSString*timeOfNotification;
 @property(nonatomic,assign)NSInteger referredId;
+@property (nonatomic,assign)BOOL backgroundTap;
 @end

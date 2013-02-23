@@ -37,8 +37,13 @@ static NSArray *playerActivityDetails;
     id obj1=[obj valueForKey:@"activity"];
     NSLog(@"obj1=%@",obj1);
     notification.notificationId=[[[object valueForKey:@"userInfo"]valueForKey:@"notification_id"]integerValue];
-    if([[object valueForKey:@"userInfo"] valueForKey:@"activity"]!=nil && [[object valueForKey:@"userInfo"] valueForKey:@"activity"]!=[NSNull class])
-    notification.activityId=[[[[object valueForKey:@"userInfo"] valueForKey:@"activity"]valueForKey:@"id"]integerValue];
+    if(obj1!=nil && obj1!=[NSNull class] && [[obj1 allKeys]count]!=0){
+        notification.activityId=[[obj1 valueForKey:@"id"]integerValue];
+        notification.backgroundTap=TRUE;
+    }
+    else{
+        notification.backgroundTap=FALSE;
+    }
     
     notification.notificationType=[[object valueForKey:@"userInfo"] valueForKey:@"activity_type"];
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
