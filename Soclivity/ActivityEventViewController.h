@@ -60,6 +60,13 @@
     MBProgressHUD *HUD;
     NSString *notId;
     
+    //chat
+    
+    IBOutlet UIButton *enterChatTextButton;
+    IBOutlet UILabel *commentChatLabel;
+    IBOutlet UIButton *postChatImageButton;
+    IBOutlet UILabel *imagePostChatlabel;
+    
 }
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property (nonatomic,retain)InfoActivityClass *activityInfo;
@@ -82,4 +89,6 @@
 -(IBAction)currentLocationBtnClicked:(id)sender;
 -(void)startAnimation:(int)type;
 -(IBAction)editViewToChangeActivityLocation:(id)sender;
+-(IBAction)enterChatTextButtonPressed:(id)sender;
+-(IBAction)postImageOnChatScreenPressed:(id)sender;
 @end

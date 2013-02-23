@@ -33,6 +33,10 @@
 		18C27CD916D91F0E00754EA6 /* S05.3_sendActive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C27CC116D91F0E00754EA6 /* S05.3_sendActive@2x.png */; };
 		18C27CDA16D91F0E00754EA6 /* S05.3_sendInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C27CC216D91F0E00754EA6 /* S05.3_sendInactive.png */; };
 		18C27CDB16D91F0E00754EA6 /* S05.3_sendInactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C27CC316D91F0E00754EA6 /* S05.3_sendInactive@2x.png */; };
+		18C27CE216D9305F00754EA6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C27CE116D9305F00754EA6 /* AudioToolbox.framework */; };
+		18C27CE516D932D200754EA6 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C27CE416D932D200754EA6 /* Message.m */; };
+		18C27CE816D933C000754EA6 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C27CE716D933C000754EA6 /* NSString+Additions.m */; };
+		18C27CEA16D949D000754EA6 /* ChatBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C27CE916D949D000754EA6 /* ChatBar.png */; };
 		3C02DB78169E9F2A00213EDE /* InAppAlertBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C02DB74169E9F2A00213EDE /* InAppAlertBar.png */; };
 		3C02DB79169E9F2A00213EDE /* InAppAlertBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C02DB75169E9F2A00213EDE /* InAppAlertBar@2x.png */; };
 		3C02DB7A169E9F2A00213EDE /* InAppRemove.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C02DB76169E9F2A00213EDE /* InAppRemove.png */; };
@@ -959,6 +963,13 @@
 		18C27CC116D91F0E00754EA6 /* S05.3_sendActive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05.3_sendActive@2x.png"; sourceTree = "<group>"; };
 		18C27CC216D91F0E00754EA6 /* S05.3_sendInactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05.3_sendInactive.png; sourceTree = "<group>"; };
 		18C27CC316D91F0E00754EA6 /* S05.3_sendInactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05.3_sendInactive@2x.png"; sourceTree = "<group>"; };
+		18C27CDF16D9303D00754EA6 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		18C27CE116D9305F00754EA6 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		18C27CE316D932D200754EA6 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		18C27CE416D932D200754EA6 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		18C27CE616D933C000754EA6 /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
+		18C27CE716D933C000754EA6 /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
+		18C27CE916D949D000754EA6 /* ChatBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChatBar.png; sourceTree = "<group>"; };
 		3C02DB74169E9F2A00213EDE /* InAppAlertBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InAppAlertBar.png; sourceTree = "<group>"; };
 		3C02DB75169E9F2A00213EDE /* InAppAlertBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "InAppAlertBar@2x.png"; sourceTree = "<group>"; };
 		3C02DB76169E9F2A00213EDE /* InAppRemove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InAppRemove.png; sourceTree = "<group>"; };
@@ -2067,6 +2078,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18C27CE216D9305F00754EA6 /* AudioToolbox.framework in Frameworks */,
 				684B5DE816B97FE3001DA695 /* AVFoundation.framework in Frameworks */,
 				684B5DE616B97FD6001DA695 /* MobileCoreServices.framework in Frameworks */,
 				3C505476168ECDAF001C1C5E /* libicucore.dylib in Frameworks */,
@@ -2104,8 +2116,12 @@
 		18C27CA916D91A9C00754EA6 /* Activity Chat */ = {
 			isa = PBXGroup;
 			children = (
+				18C27CE616D933C000754EA6 /* NSString+Additions.h */,
+				18C27CE716D933C000754EA6 /* NSString+Additions.m */,
 				18C27CAB16D91ACF00754EA6 /* ChatActivityView.h */,
 				18C27CAC16D91ACF00754EA6 /* ChatActivityView.m */,
+				18C27CE316D932D200754EA6 /* Message.h */,
+				18C27CE416D932D200754EA6 /* Message.m */,
 			);
 			name = "Activity Chat";
 			sourceTree = "<group>";
@@ -2179,6 +2195,7 @@
 		6802EC3515B6611E00FF0048 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				18C27CE916D949D000754EA6 /* ChatBar.png */,
 				3CC4EF5C1688673500A83BBB /* rightArrow.png */,
 				3CC4EF5D1688673500A83BBB /* rightArrow@2x.png */,
 				680B19AA1628E71B00EF3423 /* privateBlack.png */,
@@ -2229,6 +2246,8 @@
 		680CE3D31551258700B8E937 = {
 			isa = PBXGroup;
 			children = (
+				18C27CE116D9305F00754EA6 /* AudioToolbox.framework */,
+				18C27CDF16D9303D00754EA6 /* CoreData.framework */,
 				EA3F79851603359600D231B1 /* Default-568h@2x.png */,
 				680CE3E81551258700B8E937 /* Soclivity */,
 				680CE4271551286D00B8E937 /* Resources */,
@@ -4802,6 +4821,7 @@
 				18C27CD916D91F0E00754EA6 /* S05.3_sendActive@2x.png in Resources */,
 				18C27CDA16D91F0E00754EA6 /* S05.3_sendInactive.png in Resources */,
 				18C27CDB16D91F0E00754EA6 /* S05.3_sendInactive@2x.png in Resources */,
+				18C27CEA16D949D000754EA6 /* ChatBar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5015,6 +5035,8 @@
 				18BAD03D16D0C08700EC199D /* NotificationClass+Parse.m in Sources */,
 				18BAD04316D1321E00EC199D /* NotifyAnimationView.m in Sources */,
 				18C27CAD16D91ACF00754EA6 /* ChatActivityView.m in Sources */,
+				18C27CE516D932D200754EA6 /* Message.m in Sources */,
+				18C27CE816D933C000754EA6 /* NSString+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

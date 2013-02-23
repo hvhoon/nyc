@@ -24,6 +24,7 @@
 #import "GetActivityInvitesInvocation.h"
 #import "CreateActivityViewController.h"
 #import "NotificationClass.h"
+#import "Message.h"
 #define kEditMapElements 10
 #define kJoinRequest 11
 #define kCancelPendingRequest 13
@@ -90,9 +91,32 @@
     lastIndex=-1;
     [spinnerView stopAnimating];
     [spinnerView setHidden:YES];
-    chatView.delegate=self;
     
-    [chatView updateChatScreen:[NSMutableArray arrayWithCapacity:0]];
+    
+    commentChatLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    commentChatLabel.textColor=[UIColor whiteColor];
+    commentChatLabel.backgroundColor=[UIColor clearColor];
+    commentChatLabel.shadowColor=[UIColor blackColor];
+    commentChatLabel.shadowOffset=CGSizeMake(0,-1);
+    commentChatLabel.text=@"Comment";
+    
+    imagePostChatlabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    imagePostChatlabel.textColor=[UIColor whiteColor];
+    imagePostChatlabel.backgroundColor=[UIColor clearColor];
+    imagePostChatlabel.shadowColor=[UIColor blackColor];
+    imagePostChatlabel.shadowOffset=CGSizeMake(0,-1);
+    imagePostChatlabel.text=@"Image";
+
+    
+    chatView.delegate=self;
+    Message *myObj=[[Message alloc]init];
+    myObj.textDate=[NSDate date];
+    myObj.text=@"Awesome";
+    myObj.isMine=YES;
+    NSMutableArray *localArray=[[NSMutableArray alloc]init];
+    [localArray addObject:myObj];
+    
+    [chatView updateChatScreen:localArray];
 #if 0
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,464)];
     
@@ -480,6 +504,16 @@
     
 }
 
+
+-(IBAction)enterChatTextButtonPressed:(id)sender{
+    
+    chatView.chatBar.hidden=NO;
+    [chatView.chatInput becomeFirstResponder];
+}
+
+-(IBAction)postImageOnChatScreenPressed:(id)sender{
+    
+}
 
 -(void)BottonBarButtonHideAndShow:(NSInteger)type{
     
@@ -1238,11 +1272,23 @@
         
         [scrollView setHidden:YES];
         [chatView setHidden:NO];
+       
+       if(activityInfo.activityRelationType==5)
+       {
+           leaveActivityButton.hidden=YES;
+       }
+       enterChatTextButton.hidden=NO;
+       commentChatLabel.hidden=NO;
+       postChatImageButton.hidden=NO;
+       imagePostChatlabel.hidden=NO;
+
+       
+       
         [UIView commitAnimations];
         [editButtonForMapView setHidden:YES];
         
         if(inTransition)
-        currentLocationInMap.hidden=YES;
+            currentLocationInMap.hidden=YES;
         
         
         context = UIGraphicsGetCurrentContext();
@@ -1265,6 +1311,17 @@
         
         [scrollView setHidden:NO];
         [chatView setHidden:YES];
+        enterChatTextButton.hidden=YES;
+        commentChatLabel.hidden=YES;
+        postChatImageButton.hidden=YES;
+        imagePostChatlabel.hidden=YES;
+        
+        if(activityInfo.activityRelationType==5)
+        {
+            leaveActivityButton.hidden=NO;
+        }
+
+
         [UIView commitAnimations];
         
         if(activityInfo.activityRelationType==6)
