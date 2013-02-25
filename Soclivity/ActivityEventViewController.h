@@ -12,12 +12,13 @@
 #import "NotifyAnimationView.h"
 #import "DetailedActivityInfoInvocation.h"
 #import "ChatActivityView.h"
+#import "CameraCustom.h"
 @class InfoActivityClass;
 @class SoclivityManager;
 @class MainServiceManager;
 @class MBProgressHUD;
 
-@interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate,ParticipantListDelegate,NotifyAnimationViewDelegate,DetailedActivityInfoInvocationDelegate,ChatActivityViewDelegate>{
+@interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate,ParticipantListDelegate,NotifyAnimationViewDelegate,DetailedActivityInfoInvocationDelegate,ChatActivityViewDelegate,UIActionSheetDelegate,CustomCameraUploadDelegate>{
     IBOutlet UIScrollView* scrollView;
     IBOutlet AddEventView *eventView;
     IBOutlet ParticipantListTableView *participantListTableView;
@@ -66,6 +67,7 @@
     IBOutlet UILabel *commentChatLabel;
     IBOutlet UIButton *postChatImageButton;
     IBOutlet UILabel *imagePostChatlabel;
+    CameraCustom *cameraUpload;
     
 }
 @property (nonatomic, retain) UIScrollView* scrollView;

@@ -113,6 +113,7 @@
     myObj.textDate=[NSDate date];
     myObj.text=@"Awesome";
     myObj.isMine=YES;
+    myObj.isImage=NO;
     NSMutableArray *localArray=[[NSMutableArray alloc]init];
     [localArray addObject:myObj];
     
@@ -513,7 +514,104 @@
 
 -(IBAction)postImageOnChatScreenPressed:(id)sender{
     
+    cameraUpload=[[CameraCustom alloc]init];
+    cameraUpload.delegate=self;
+
+    
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Post an image"
+                                                       delegate:self
+                                              cancelButtonTitle:@"Cancel"
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:@"Image Gallery", @"Photo Capture",nil];
+    [sheet showInView:[UIApplication sharedApplication].keyWindow];
+    [sheet release];
+    
+
+
 }
+
+#pragma mark -
+#pragma mark UIActionSheet methods
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    //restore view opacities to normal
+    
+    switch (buttonIndex) {
+        case 0:
+        {
+            [self PushImageGallery];
+        }
+            break;
+            
+        case 1:
+        {
+            [self PushCamera];
+        }
+            break;
+    }
+    
+}
+
+#pragma mark -
+#pragma  mark CustomCamera Gallery and Capture Methods
+
+
+
+-(void)PushImageGallery{
+    UIImagePickerControllerSourceType sourceType=UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    
+    
+	if([UIImagePickerController isSourceTypeAvailable:sourceType]){
+        cameraUpload.galleryImage=TRUE;
+		cameraUpload.m_picker.sourceType = sourceType;
+        [self presentModalViewController:cameraUpload.m_picker animated:YES];
+    }
+    
+}
+
+
+-(void)PushCamera{
+    UIImagePickerControllerSourceType sourceType= UIImagePickerControllerSourceTypeCamera;
+	if([UIImagePickerController isSourceTypeAvailable:sourceType]){
+        cameraUpload.galleryImage=FALSE;
+		cameraUpload.m_picker.sourceType = sourceType;
+        [self presentModalViewController:cameraUpload.m_picker animated:YES];
+        
+	}
+    
+}
+
+
+-(void)imageCapture:(UIImage*)Img{
+    
+    [self dismissModalViewControllerAnimated:YES];
+    
+    // If the image is not a square please auto crop
+    if(Img.size.height != Img.size.width)
+        Img = [SoclivityUtilities autoCrop:Img];
+    
+    // If the image needs to be compressed
+    if(Img.size.height > 300 || Img.size.width > 300)
+        Img = [SoclivityUtilities compressImage:Img size:CGSizeMake(150,150)];
+    
+    Message *obj=[[Message alloc]init];
+    obj.textDate=[NSDate date];
+    obj.isMine=YES;
+    obj.isImage=YES;
+    obj.postImage=Img;
+    [chatView  userPostedAnImage:obj];
+    
+}
+
+
+-(void)dismissPickerModalController{
+    
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+
+
 
 -(void)BottonBarButtonHideAndShow:(NSInteger)type{
     

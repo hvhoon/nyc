@@ -9,12 +9,13 @@
 #import "Message.h"
 
 @implementation Message
-@synthesize text,isImage,textDate,formattedDate,isMine;
+@synthesize text,isImage,textDate,formattedDate,isMine,dateFrameOrigin,postImage;
 
 -(void)dealloc{
     [super dealloc];
     [text release];
     [textDate release];
     [formattedDate release];
+    [postImage release];
 }
 @end

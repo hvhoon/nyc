@@ -20,6 +20,13 @@
 @interface ChatActivityView : UIView<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIActionSheetDelegate>{
     UIView *chatBackgroundView;
     UITableView *chatTableView;
+    UIView *loadMoreFooterView;
+    UILabel *loadMoreFriendsLabel;
+    BOOL loadMore;
+    BOOL noChatList;
+    UIActivityIndicatorView *friendSpinnerLoadMore;
+    NSInteger mRemainingFriendsCount;
+    NSInteger mCountFriends;
 
 }
 -(void)setUpBackgroundView;
@@ -38,6 +45,7 @@
 - (void)clearChatInput;
 - (NSUInteger)addMessage:(Message *)message;
 - (NSUInteger)removeMessageAtIndex:(NSUInteger)index;
+-(void)userPostedAnImage:(Message*)post;
 
 @property(nonatomic,retain)UITableView *chatTableView;
 @property (nonatomic, assign) SystemSoundID receiveMessageSound;

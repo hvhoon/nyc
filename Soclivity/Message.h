@@ -14,4 +14,6 @@
 @property (nonatomic,retain)NSDate *textDate;
 @property(nonatomic,retain)NSString *formattedDate;
 @property (nonatomic,assign)BOOL isMine;
+@property (nonatomic,assign)CGFloat dateFrameOrigin;
+@property (nonatomic,retain)UIImage *postImage;
 @end
