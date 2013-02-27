@@ -20,13 +20,6 @@
 @interface ChatActivityView : UIView<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIActionSheetDelegate>{
     UIView *chatBackgroundView;
     UITableView *chatTableView;
-    UIView *loadMoreFooterView;
-    UILabel *loadMoreFriendsLabel;
-    BOOL loadMore;
-    BOOL noChatList;
-    UIActivityIndicatorView *friendSpinnerLoadMore;
-    NSInteger mRemainingFriendsCount;
-    NSInteger mCountFriends;
 
 }
 -(void)setUpBackgroundView;

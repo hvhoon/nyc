@@ -75,29 +75,32 @@ static CGFloat const kChatBarHeight4    = 94.0f;
     return self;
 }
 
--(UIView*)loadTableHeader{
+-(UIView*)loadTableHeader:(BOOL)response{
     
-    loadMoreFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 52.0f)];
+    UIView *loadMoreFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 52.0f)];
     loadMoreFooterView.backgroundColor = [UIColor whiteColor];
 	loadMoreFooterView.tag=145;
-    loadMoreFriendsLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 30, 120, 16)];
+    UILabel *loadMoreChatLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 20, 120, 16)];
     
-    loadMoreFriendsLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
-    loadMoreFriendsLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-    loadMoreFriendsLabel.textAlignment = UITextAlignmentLeft;
+    loadMoreChatLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    loadMoreChatLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    loadMoreChatLabel.textAlignment = UITextAlignmentLeft;
     
-    loadMoreFriendsLabel.text=[NSString stringWithFormat:@"Loading..."];
-    friendSpinnerLoadMore = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    friendSpinnerLoadMore.frame = CGRectMake(30,25, 25, 25);
+    UIActivityIndicatorView*friendSpinnerLoadMore = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    friendSpinnerLoadMore.frame = CGRectMake(30,15, 25, 25);
     [friendSpinnerLoadMore startAnimating];
     [loadMoreFooterView addSubview:friendSpinnerLoadMore];
     
-    [friendSpinnerLoadMore setHidden:YES];
-    
-	if(noChatList)
-        loadMoreFriendsLabel.text=@"No more messages";
+    [friendSpinnerLoadMore setHidden:NO];
+    if(response){
+        loadMoreChatLabel.text=[NSString stringWithFormat:@"Loading..."];
+        
+    }
+    else
+    loadMoreChatLabel.text=@"No more messages";
 	
-	[loadMoreFooterView addSubview:loadMoreFriendsLabel];
+	[loadMoreFooterView addSubview:loadMoreChatLabel];
+    [loadMoreChatLabel release];
     return loadMoreFooterView;
 
 }
@@ -190,14 +193,14 @@ static CGFloat const kChatBarHeight4    = 94.0f;
 
     
     if([SoclivityUtilities deviceType] & iPhone5){
-        noChatTableRect=CGRectMake(0, 0, 320, 376+88);
+        noChatTableRect=CGRectMake(0, 0, 320, 504);
         fadedRect=CGRectMake(105, 389, 111, 28);
         noChatRect=CGRectMake(75, 142, 169, 149);
 
     }
     
     else{
-        noChatTableRect=CGRectMake(0, 0, 320, 376);
+        noChatTableRect=CGRectMake(0, 0, 320,416);
         fadedRect=CGRectMake(105, 339, 111, 28);
         noChatRect=CGRectMake(75, 102, 169, 149);
     }
@@ -233,13 +236,15 @@ static CGFloat const kChatBarHeight4    = 94.0f;
     self.chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.chatTableView.backgroundColor=CHAT_BACKGROUND_COLOR;
     self.chatTableView.separatorColor = [UIColor clearColor];
-    self.chatTableView.contentInset = UIEdgeInsetsMake(7.0f, 0.0f, 0.0f, 0.0f);
+    //self.chatTableView.contentInset = UIEdgeInsetsMake(7.0f, 0.0f, 0.0f, 0.0f);
     self.chatTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
     UIViewAutoresizingFlexibleHeight;
     self.chatTableView.clipsToBounds=YES;
 
     self.chatTableView.showsVerticalScrollIndicator=YES;
     [self addSubview:self.chatTableView];
+    
+
     
     //[self.chatTableView setContentOffset:CGPointMake(0, 1*50)];
 
@@ -415,9 +420,7 @@ static CGFloat const kChatBarHeight4    = 94.0f;
     else{
         newMessage.isMine=NO;
     }
-    NSDate *now = [[NSDate alloc] init];
-    newMessage.textDate = now;
-    [now release];
+    newMessage.textDate = [NSDate date];
     
 //save in the database
     [self updateDataBaseFromChatScreen:newMessage type:1];
@@ -444,18 +447,48 @@ static CGFloat const kChatBarHeight4    = 94.0f;
         [self scrollToBottomAnimated:YES];
     }
 }
+#if 0
+-(NSUInteger)addMessage:(Message *)message{
+    
+    if(!message.isMine){
+        [cellMap addObject:@"Kanav Gupta"];
+    }
+    [cellMap addObject:message];
+    [cellMap addObject:message.textDate];
+    
+    if(message.isMine)
+        return 2;
+    else
+        return 3;
 
+    
+}
+#else
 - (NSUInteger)addMessage:(Message *)message
 {
     // Show sentDates at most every 15 minutes.
     NSDate *currentSentDate = message.textDate;
     NSUInteger numberOfObjectsAdded = 1;
-    NSUInteger prevIndex = [cellMap count] - 2;
+   // NSUInteger prevIndex = [cellMap count] - 2;
     
     // Show sentDates at most every 15 minutes.
     
     if([cellMap count])
     {
+        
+        
+        numberOfObjectsAdded=2;
+        if(!message.isMine){
+            [cellMap addObject:@"Kanav Gupta"];
+            numberOfObjectsAdded = 3;
+        }
+        
+        [cellMap addObject:message];
+        
+        // there are NO messages, definitely add a timestamp!
+        [cellMap addObject:currentSentDate];
+
+#if 0
         BOOL prevIsMessage = [[cellMap objectAtIndex:prevIndex] isKindOfClass:[Message class]];
         if(prevIsMessage)
         {
@@ -470,22 +503,27 @@ static CGFloat const kChatBarHeight4    = 94.0f;
                 numberOfObjectsAdded = 3;
             }
         }
+#endif
     }
     else
     {
-        [cellMap addObject:@"Kanav Gupta"];
+        numberOfObjectsAdded=2;
+        if(!message.isMine){
+            [cellMap addObject:@"Harish Hoon"];
+            numberOfObjectsAdded = 3;
+        }
+
         [cellMap addObject:message];
 
         // there are NO messages, definitely add a timestamp!
         [cellMap addObject:currentSentDate];
-        numberOfObjectsAdded = 3;
     }
     
     
     return numberOfObjectsAdded;
     
 }
-
+#endif
 
 - (NSUInteger)removeMessageAtIndex:(NSUInteger)index {
     //    NSLog(@"Delete message from cellMap");
@@ -511,11 +549,11 @@ static CGFloat const kChatBarHeight4    = 94.0f;
 #pragma mark UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //    NSLog(@"number of rows: %d", [cellMap count]);
     return [cellMap count];
 }
 
 #define SENT_DATE_TAG 101
+#define SENT_DATE_TAG2 107
 #define TEXT_TAG 102
 #define BACKGROUND_TAG 103
 #define PlayerNameTAG 104
@@ -526,17 +564,17 @@ static NSString *kMessageCell = @"MessageCell";
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UILabel *msgSentDate;
-    UILabel *playerNameLabel;
-    UIImageView *msgBackground;
-    UILabel *msgText;
-    UIImageView *borderImageView;
-    UIImageView *chatPostImageView;
+    UILabel *msgSentDate=nil;
+    UILabel *playerNameLabel=nil;
+    UIImageView *msgBackground=nil;
+    UILabel *msgText=nil;
+    UIImageView *borderImageView=nil;
+    UIImageView *chatPostImageView=nil;
     
     //    NSLog(@"cell for row: %d", [indexPath row]);
     
     NSObject *object = [cellMap objectAtIndex:[indexPath row]];
-    UITableViewCell *cell;
+    UITableViewCell *cell=nil;
     static NSDateFormatter *dateFormatter = nil;
     
     if (dateFormatter == nil) {
@@ -544,6 +582,15 @@ static NSString *kMessageCell = @"MessageCell";
         dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
         NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
         [dateFormatter setTimeZone:gmt];
+    }
+
+    
+    for (UIView *view in cell.contentView.subviews)
+    {
+        if (![view isKindOfClass:[UILabel class]])
+        {
+            [view removeFromSuperview];
+        }
     }
 
 
@@ -562,28 +609,29 @@ static NSString *kMessageCell = @"MessageCell";
             CGSize  size = [[SoclivityUtilities nofiticationTime:[dateFormatter stringFromDate:(NSDate *)object]] sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:kSentDateFontSize]];
 
             msgSentDate = [[UILabel alloc] initWithFrame:
-                           CGRectMake(12.0f, 0.0f,
+                           CGRectMake(15.0f, 0.0f,
                                       size.width, kSentDateFontSize+5.0f)];
-            msgSentDate.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             msgSentDate.clearsContextBeforeDrawing = NO;
-            msgSentDate.tag = SENT_DATE_TAG;
             msgSentDate.font = [UIFont fontWithName:@"Helvetica-Condensed" size:kSentDateFontSize];
             msgSentDate.textColor=[SoclivityUtilities returnTextFontColor:5];
 
             Message *obj=[cellMap objectAtIndex:[indexPath row]-1];
 
-            msgSentDate.lineBreakMode = UILineBreakModeTailTruncation;
-            if(!obj.isMine)
-                msgSentDate.textAlignment = UITextAlignmentLeft;
+            if(obj.isMine){
+                msgSentDate.tag=SENT_DATE_TAG2;
+                msgSentDate.frame=CGRectMake(tableView.frame.size.width-size.width-20,0.0f,size.width,kSentDateFontSize+5.0f);
+                
+                // msgSentDate.frame=CGRectMake(tableView.frame.size.width-size.width-20,0.0f,size.width,kSentDateFontSize+5.0f);
+                
+                msgSentDate.textAlignment = UITextAlignmentRight;
+
+            }
             else{
                 
-                //playerNameLabel.frame=CGRectMake(tableView.frame.size.width-size.width-20,0.0f,size.width,kSentDateFontSize+5.0f);
+                msgSentDate.textAlignment = UITextAlignmentLeft;
+                msgSentDate.tag = SENT_DATE_TAG;
+
                 
-                msgSentDate.frame=CGRectMake(obj.dateFrameOrigin-size.width,0.0f,size.width,kSentDateFontSize+5.0f);
-
-               // msgSentDate.frame=CGRectMake(tableView.frame.size.width-size.width-20,0.0f,size.width,kSentDateFontSize+5.0f);
-
-                msgSentDate.textAlignment = UITextAlignmentRight;
                 
             }
             msgSentDate.backgroundColor = CHAT_BACKGROUND_COLOR; // clearColor slows performance
@@ -591,7 +639,17 @@ static NSString *kMessageCell = @"MessageCell";
             [cell addSubview:msgSentDate];
             [msgSentDate release];
         } else {
-            msgSentDate = (UILabel *)[cell viewWithTag:SENT_DATE_TAG];
+            
+            Message *obj=[cellMap objectAtIndex:[indexPath row]-1];
+            
+            if(obj.isMine){
+                msgSentDate = (UILabel *)[cell viewWithTag:SENT_DATE_TAG2];
+                
+            }
+            else{
+                msgSentDate = (UILabel *)[cell viewWithTag:SENT_DATE_TAG];
+
+            }
         }
         
         
@@ -602,7 +660,7 @@ static NSString *kMessageCell = @"MessageCell";
         return cell;
     }
     
-    if ([object isKindOfClass:[NSString class]]) {
+    else if ([object isKindOfClass:[NSString class]]) {
         static NSString *KPlayerNameCellId = @"PlayerNameCell";
         cell = [tableView dequeueReusableCellWithIdentifier:KPlayerNameCellId];
         if (cell == nil) {
@@ -613,36 +671,15 @@ static NSString *kMessageCell = @"MessageCell";
             
             CGSize  size = [(NSString *)object sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:kSentDateFontSize]];
 
-            // Create message sentDate lable
             playerNameLabel = [[UILabel alloc] initWithFrame:
-                           CGRectMake(12.0f, 0.0f,
+                           CGRectMake(15.0f, 0.0f,
                                       size.width, kSentDateFontSize+5.0f)];
-            playerNameLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             playerNameLabel.clearsContextBeforeDrawing = NO;
             playerNameLabel.tag = PlayerNameTAG;
             playerNameLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:kSentDateFontSize];
             playerNameLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-
-            Message *obj=[cellMap objectAtIndex:[indexPath row]+1];
-            
-            playerNameLabel.lineBreakMode = UILineBreakModeTailTruncation;
-            if(!obj.isMine)
-                playerNameLabel.textAlignment = UITextAlignmentLeft;
-            else{
-                playerNameLabel.textAlignment = UITextAlignmentRight;
-                CGSize  size = [(NSString *)object sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:kSentDateFontSize]];
-                NSLog(@"width=%f",size.width);
-                
-                //Message *obj=[cellMap objectAtIndex:[indexPath row]-1];
-
-                playerNameLabel.frame=CGRectMake(tableView.frame.size.width-size.width-20,0.0f,size.width,kSentDateFontSize+5.0f);
-                
-                //playerNameLabel.frame=CGRectMake(obj.dateFrameOrigin-size.width,0.0f,size.width,kSentDateFontSize+5.0f);
-
-                
-            }
-
-            playerNameLabel.backgroundColor = CHAT_BACKGROUND_COLOR; // clearColor slows performance
+            playerNameLabel.textAlignment = UITextAlignmentLeft;
+            playerNameLabel.backgroundColor = CHAT_BACKGROUND_COLOR;
             playerNameLabel.textColor = [UIColor grayColor];
             [cell addSubview:playerNameLabel];
             [playerNameLabel release];
@@ -650,21 +687,11 @@ static NSString *kMessageCell = @"MessageCell";
             playerNameLabel = (UILabel *)[cell viewWithTag:PlayerNameTAG];
         }
         
-        static NSDateFormatter *dateFormatter = nil;
-        if (dateFormatter == nil) {
-            dateFormatter = [[NSDateFormatter alloc] init];
-            dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
-            NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-            [dateFormatter setTimeZone:gmt];
-        }
-        
-        
-        
         playerNameLabel.text =(NSString *)object;
         
         return cell;
     }
-    
+    else{
     Message *obj=[cellMap objectAtIndex:[indexPath row]];
 
     // Handle Message object.
@@ -675,14 +702,6 @@ static NSString *kMessageCell = @"MessageCell";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         
-        borderImageView=[[UIImageView alloc] init];
-        borderImageView.frame=CGRectMake(15, 15, 37,37);
-        borderImageView.backgroundColor=[UIColor clearColor];
-        borderImageView.tag=BORDER_TAG;
-        borderImageView.image=[UIImage imageNamed:@"S11_frame.png"];
-        [borderImageView setContentMode:UIViewContentModeScaleAspectFit];
-        [cell.contentView addSubview:borderImageView];
-        [borderImageView release];
 
         
         // Create message background image view
@@ -732,22 +751,28 @@ static NSString *kMessageCell = @"MessageCell";
         UIImage *bubbleImage;
         if (obj.isMine) { // right bubble
             
-            borderImageView.frame=CGRectMake(tableView.frame.size.width-15-37, 0, 37,37);
-            msgBackground.frame = CGRectMake(tableView.frame.size.width-150-15-37-12,
+            msgBackground.frame = CGRectMake(tableView.frame.size.width-150,
                                              3+5, 150+25,
                                              150+12);
             bubbleImage = [[UIImage imageNamed:@"S05.3_chatBubbleBlue.png"]
                            stretchableImageWithLeftCapWidth:15 topCapHeight:13];
             
-            chatPostImageView.frame=CGRectMake(tableView.frame.size.width-150-15-37,
+            chatPostImageView.frame=CGRectMake(tableView.frame.size.width-150,
                                                8+12, 150.0f, 150.0f);
             
             
-            obj.dateFrameOrigin=tableView.frame.size.width-150-15-37-5;
-            msgBackground.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-            chatPostImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+            obj.dateFrameOrigin=tableView.frame.size.width-150-5;
             
         } else { // left bubble
+            
+            
+            borderImageView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S11_frame.png"]];
+            borderImageView.frame=CGRectMake(15, 0, 37,37);
+            borderImageView.backgroundColor=[UIColor clearColor];
+            borderImageView.tag=BORDER_TAG;
+            [borderImageView setContentMode:UIViewContentModeScaleAspectFit];
+            [cell.contentView addSubview:borderImageView];
+
             msgBackground.frame = CGRectMake(15+40,5,
                                              150+19, 150+12);
             borderImageView.frame=CGRectMake(15,0, 37,37);
@@ -761,8 +786,8 @@ static NSString *kMessageCell = @"MessageCell";
             
             obj.dateFrameOrigin=15+40+22.0f+5.0f;
             
-            msgBackground.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
-            chatPostImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
+            [borderImageView release];
+
         }
         msgBackground.image = bubbleImage;
         chatPostImageView.image=obj.postImage;
@@ -770,53 +795,46 @@ static NSString *kMessageCell = @"MessageCell";
     else{
     
     // Configure the cell to show the message in a bubble. Layout message cell & its subviews.
-    CGSize size = [[(Message *)object text] sizeWithFont:[UIFont systemFontOfSize:kMessageFontSize]
+    CGSize size = [[(Message *)object text] sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:kMessageFontSize]
                                        constrainedToSize:CGSizeMake(kMessageTextWidth, CGFLOAT_MAX)
                                            lineBreakMode:UILineBreakModeWordWrap];
     UIImage *bubbleImage;
     if (obj.isMine) { // right bubble
-        CGFloat editWidth = tableView.editing ? 32.0f : 0.0f;
-        borderImageView.frame=CGRectMake(tableView.frame.size.width-15-37, 0, 37,37);
-        msgBackground.frame = CGRectMake(tableView.frame.size.width-size.width-34.0f-editWidth-15-37,
+        
+        msgBackground.frame = CGRectMake(tableView.frame.size.width-size.width-34.0f-10,
                                          kMessageFontSize-13.0f+5, size.width+34.0f,
                                          size.height+12.0f);
         bubbleImage = [[UIImage imageNamed:@"S05.3_chatBubbleBlue.png"]
                        stretchableImageWithLeftCapWidth:15 topCapHeight:13];
-        msgText.frame = CGRectMake(tableView.frame.size.width-size.width-22.0f-editWidth-15-37,
+        msgText.frame = CGRectMake(tableView.frame.size.width-size.width-22.0f,
                                    kMessageFontSize-9.0f, size.width+5.0f, size.height);
         
-        obj.dateFrameOrigin=tableView.frame.size.width-size.width-34.0f-editWidth+size.width-15-37-5;
-        msgBackground.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        msgText.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        obj.dateFrameOrigin=tableView.frame.size.width-size.width-22.0f+size.width;
         
     } else { // left bubble
         msgBackground.frame = CGRectMake(15+40,kMessageFontSize-13.0f+5,
                                          size.width+34.0f, size.height+12.0f);
-        borderImageView.frame=CGRectMake(15,0, 37,37);
+        
+        borderImageView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S11_frame.png"]];
+        borderImageView.frame=CGRectMake(15, 0, 37,37);
+        borderImageView.backgroundColor=[UIColor clearColor];
+        borderImageView.tag=BORDER_TAG;
+        [borderImageView setContentMode:UIViewContentModeScaleAspectFit];
+        [cell.contentView addSubview:borderImageView];
+
         bubbleImage = [[UIImage imageNamed:@"S05.3_chatBubbleGray.png"]
-                       stretchableImageWithLeftCapWidth:23 topCapHeight:15];
+                       stretchableImageWithLeftCapWidth:15 topCapHeight:13];//23 //15
         
         obj.dateFrameOrigin=15+40+22.0f+5.0f;
 
         msgText.frame = CGRectMake(22.0f+15+40, kMessageFontSize-9.0f, size.width+5.0f, size.height);
-        msgBackground.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
-        msgText.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
+        [borderImageView release];
     }
     msgBackground.image = bubbleImage;
     msgText.text = [(Message *)object text];
     }
-#if 0
-    // Mark message as read.
-    // Let's instead do this (asynchronously) from loadView and iterate over all messages
-    if (![(Message *)object read]) { // not read, so save as read
-        [(Message *)object setRead:[NSNumber numberWithBool:YES]];
-        NSError *error;
-        if (![managedObjectContext save:&error]) {
-            // TODO: Handle the error appropriately.
-            NSLog(@"Save message as read error %@, %@", error, [error userInfo]);
-        }
+        
     }
-#endif
     return cell;
 }
 
@@ -844,7 +862,7 @@ static NSString *kMessageCell = @"MessageCell";
             return 150.0f+22.0f;
         }else{
     // Set MessageCell height.
-    CGSize size = [[(Message *)object text] sizeWithFont:[UIFont systemFontOfSize:kMessageFontSize]
+    CGSize size = [[(Message *)object text] sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:kMessageFontSize]
                                        constrainedToSize:CGSizeMake(kMessageTextWidth, CGFLOAT_MAX)
                                            lineBreakMode:UILineBreakModeWordWrap];
     return size.height + 17.0f+5.0f;
@@ -859,26 +877,47 @@ static NSString *kMessageCell = @"MessageCell";
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	if ([scrollView contentOffset].y == scrollView.frame.origin.y) {
+    
+    if([scrollView contentOffset].y == scrollView.frame.origin.y){
         
-        //[friendSpinnerLoadMore setHidden:NO];
-        //[self performSelector:@selector(stopAnimatingHeader) withObject:nil afterDelay:0.5];
+        [self.chatTableView setTableHeaderView:[self loadTableHeader:YES]];
+        [self performSelector:@selector(stopAnimatingHeader) withObject:nil afterDelay:5.0];
 	}
     
     
 }
 
 - (void) addItemsToStartOfTableView{
-    //copy the existing data
-    NSInteger i,l;
-    NSMutableArray *arr1=[NSMutableArray arrayWithArray:cellMap];
-    //get the first element of the array
-    Message *no=[arr1 objectAtIndex:1];
-    l=[no intValue]-10;
-    for(i=[no intValue]-1;i>=l;i--){
-        [arr1 insertObject:[NSNumber numberWithInt:i] atIndex:0];
+    NSMutableArray *arr1=[NSMutableArray arrayWithCapacity:10*3];
+    for(int i=0;i<10;i++){
+        Message *testMessage=[[Message alloc]init];
+        testMessage.textDate=[NSDate date];
+        testMessage.text=@"No worries";
+        if(random() % 2){
+            testMessage.isMine=YES;
+        }
+        else{
+            testMessage.isMine=NO;
+        }
+        testMessage.isImage=NO;
+
+        if(!testMessage.isMine){
+            [arr1 addObject:@"Harish Hoon"];
+            
+        }
+        [arr1 addObject:testMessage];
+        
+        // there are NO messages, definitely add a timestamp!
+        [arr1 addObject:[NSDate date]];
+
+
     }
-    self.cellMap=arr1;
+    
+    NSMutableArray *testArray=[NSMutableArray arrayWithCapacity:[arr1 count]+[cellMap count]];
+    [testArray addObjectsFromArray:arr1];
+    [testArray addObjectsFromArray:cellMap];
+    [cellMap removeAllObjects];
+    cellMap=[testArray retain];
 }
 
 
@@ -887,18 +926,19 @@ static NSString *kMessageCell = @"MessageCell";
 - (void) stopAnimatingHeader{
     //add the data
     
-    [friendSpinnerLoadMore setHidden:YES];
     [self addItemsToStartOfTableView];
     //set an offset so visible cells aren't blasted
-    [self.chatTableView setContentOffset:CGPointMake(0, 10*(kSentDateFontSize + 7.0f))];
+    
+    //[self.chatTableView setContentOffset:CGPointMake(0, 10*(kSentDateFontSize + 15.0f))];
     [self.chatTableView reloadData];
+    [self.chatTableView setTableHeaderView:nil];
 }
 
 
 
 -(void)updateDataBaseFromChatScreen:(id)message type:(NSInteger)type{
     
-    NSArray *indexPaths;
+    NSArray *indexPaths=nil;
     
     switch(type) {
         case 1: {
@@ -906,15 +946,50 @@ static NSString *kMessageCell = @"MessageCell";
             
             NSIndexPath *firstIndexPath = [NSIndexPath indexPathForRow:cellCount inSection:0];
             
+            switch ([self
+                      addMessage:message]) {
+                case 1:
+                {
+                    
+                }
+                    break;
+                    
+                case 2:
+                { // 2
+                    //                NSLog(@"insert 2 rows at index: %d", cellCount);
+                    indexPaths = [[NSArray alloc] initWithObjects:firstIndexPath,
+                                  [NSIndexPath indexPathForRow:cellCount+1 inSection:0], nil];
+                }
+                    break;
+
+                    
+                case 3:
+                {
+                    indexPaths = [[NSArray alloc] initWithObjects:firstIndexPath,
+                                  [NSIndexPath indexPathForRow:cellCount+1 inSection:0],[NSIndexPath indexPathForRow:cellCount+2 inSection:0], nil];
+                    
+                }
+                    break;
+
+                    
+                default:
+                    break;
+            }
+#if 0
             if ([self addMessage:message] == 1) {
                 //                NSLog(@"insert 1 row at index: %d", cellCount);
                 indexPaths = [[NSArray alloc] initWithObjects:firstIndexPath, nil];
-            } else { // 2
+            } else if([self addMessage:message] == 2) { // 2
                 //                NSLog(@"insert 2 rows at index: %d", cellCount);
                 indexPaths = [[NSArray alloc] initWithObjects:firstIndexPath,
-                              [NSIndexPath indexPathForRow:cellCount+1 inSection:0],[NSIndexPath indexPathForRow:cellCount+2 inSection:0], nil];
+                              [NSIndexPath indexPathForRow:cellCount+1 inSection:0], nil];
             }
-            
+            else{
+                indexPaths = [[NSArray alloc] initWithObjects:firstIndexPath,
+                              [NSIndexPath indexPathForRow:cellCount+1 inSection:0],[NSIndexPath indexPathForRow:cellCount+2 inSection:0], nil];
+                
+            }
+#endif
             [_chatTableView insertRowsAtIndexPaths:indexPaths
                                withRowAnimation:UITableViewRowAnimationNone];
             [indexPaths release];
