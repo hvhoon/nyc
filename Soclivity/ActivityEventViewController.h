@@ -67,6 +67,7 @@
     IBOutlet UILabel *commentChatLabel;
     IBOutlet UIButton *postChatImageButton;
     IBOutlet UILabel *imagePostChatlabel;
+    IBOutlet UIButton *resignTextDoneButton;
     CameraCustom *cameraUpload;
     
 }
@@ -93,4 +94,5 @@
 -(IBAction)editViewToChangeActivityLocation:(id)sender;
 -(IBAction)enterChatTextButtonPressed:(id)sender;
 -(IBAction)postImageOnChatScreenPressed:(id)sender;
+-(IBAction)resignTextDonePressed:(id)sender;
 @end

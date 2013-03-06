@@ -24,7 +24,7 @@
 #import "GetActivityInvitesInvocation.h"
 #import "CreateActivityViewController.h"
 #import "NotificationClass.h"
-#import "Message.h"
+#import "MessageInputView.h"
 #define kEditMapElements 10
 #define kJoinRequest 11
 #define kCancelPendingRequest 13
@@ -106,18 +106,12 @@
     imagePostChatlabel.shadowColor=[UIColor blackColor];
     imagePostChatlabel.shadowOffset=CGSizeMake(0,-1);
     imagePostChatlabel.text=@"Image";
-
     
     chatView.delegate=self;
-    Message *myObj=[[Message alloc]init];
-    myObj.textDate=[NSDate date];
-    myObj.text=@"Awesome";
-    myObj.isMine=YES;
-    myObj.isImage=NO;
-    NSMutableArray *localArray=[[NSMutableArray alloc]init];
-    [localArray addObject:myObj];
+    [chatView updateChatScreen];
+
     
-    [chatView updateChatScreen:localArray];
+    
 #if 0
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,464)];
     
@@ -505,11 +499,24 @@
     
 }
 
+-(IBAction)resignTextDonePressed:(id)sender{
+    chatView.inputView.hidden=YES;
+    [chatView.inputView.textView resignFirstResponder];
+}
+
+-(void)showDoneButton:(BOOL)show{
+    if(show){
+        resignTextDoneButton.hidden=NO;
+    }
+    else{
+        resignTextDoneButton.hidden=YES;
+    }
+}
+
 
 -(IBAction)enterChatTextButtonPressed:(id)sender{
-    
-    chatView.chatBar.hidden=NO;
-    [chatView.chatInput becomeFirstResponder];
+    chatView.inputView.hidden=NO;
+    [chatView.inputView.textView becomeFirstResponder];
 }
 
 -(IBAction)postImageOnChatScreenPressed:(id)sender{
@@ -592,15 +599,10 @@
         Img = [SoclivityUtilities autoCrop:Img];
     
     // If the image needs to be compressed
-    if(Img.size.height > 300 || Img.size.width > 300)
-        Img = [SoclivityUtilities compressImage:Img size:CGSizeMake(150,150)];
+    if(Img.size.height > 240 || Img.size.width > 240)
+        Img = [SoclivityUtilities compressImage:Img size:CGSizeMake(120,120)];
     
-    Message *obj=[[Message alloc]init];
-    obj.textDate=[NSDate date];
-    obj.isMine=YES;
-    obj.isImage=YES;
-    obj.postImage=Img;
-    [chatView  userPostedAnImage:obj];
+    [chatView postImagePressed:Img];
     
 }
 
@@ -1379,8 +1381,14 @@
        commentChatLabel.hidden=NO;
        postChatImageButton.hidden=NO;
        imagePostChatlabel.hidden=NO;
-
+       if(activityInfo.activityRelationType==6){
+           organizerEditButton.hidden=YES;
+           inviteUsersToActivityButton.hidden=YES;
+       }
        
+       
+           newActivityButton.hidden=YES;
+       //resignTextDoneButton.hidden=NO;
        
         [UIView commitAnimations];
         [editButtonForMapView setHidden:YES];
@@ -1414,9 +1422,18 @@
         postChatImageButton.hidden=YES;
         imagePostChatlabel.hidden=YES;
         
+       newActivityButton.hidden=NO;
+       resignTextDoneButton.hidden=YES;
+        
         if(activityInfo.activityRelationType==5)
         {
             leaveActivityButton.hidden=NO;
+        }
+
+        
+        if(activityInfo.activityRelationType==6){
+            organizerEditButton.hidden=NO;
+            inviteUsersToActivityButton.hidden=NO;
         }
 
 

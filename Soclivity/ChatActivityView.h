@@ -8,44 +8,34 @@
 
 #import <UIKit/UIKit.h>
 #import <AudioToolbox/AudioToolbox.h>
-#import "Message.h"
-@class Message;
+#import "UIBubbleTableViewDataSource.h"
+#import "MessageSoundEffect.h"
+
+@class MessageInputView;
+
 @protocol ChatActivityViewDelegate <NSObject>
 
 @optional
--(void)removeParticipantFromEvent:(NSInteger)playerId;
+-(void)showDoneButton:(BOOL)show;
 @end
 
 
-@interface ChatActivityView : UIView<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIActionSheetDelegate>{
-    UIView *chatBackgroundView;
-    UITableView *chatTableView;
-
-}
--(void)setUpBackgroundView;
--(void)SetupChatTableView;
--(void)updateChatScreen:(NSMutableArray*)updatedChatArray;
-- (void)enableSendButton;
-- (void)disableSendButton;
-- (void)resetSendButton;
-
-- (void)keyboardWillShow:(NSNotification *)notification;
-- (void)keyboardWillHide:(NSNotification *)notification;
-- (void)resizeViewWithOptions:(NSDictionary *)options;
-- (void)scrollToBottomAnimated:(BOOL)animated;
-
-- (void)sendMessage;
-- (void)clearChatInput;
-- (NSUInteger)addMessage:(Message *)message;
-- (NSUInteger)removeMessageAtIndex:(NSUInteger)index;
--(void)userPostedAnImage:(Message*)post;
-
-@property(nonatomic,retain)UITableView *chatTableView;
-@property (nonatomic, assign) SystemSoundID receiveMessageSound;
+@interface ChatActivityView : UIView<UIActionSheetDelegate,UIBubbleTableViewDataSource,UITextViewDelegate>
 @property (nonatomic,retain)id<ChatActivityViewDelegate>delegate;
-@property (nonatomic, retain) UIImageView *chatBar;
-@property (nonatomic, retain) UITextView *chatInput;
-@property (nonatomic, assign) CGFloat previousContentHeight;
-@property (nonatomic, retain) UIButton *sendButton;
-@property (nonatomic, copy) NSMutableArray *cellMap;
+@property (strong, nonatomic) MessageInputView *inputView;
+@property (assign, nonatomic) CGFloat previousTextViewContentHeight;
+#pragma mark - Actions
+- (void)sendPressed:(UIButton *)sender withText:(NSString *)text;
+- (void)sendPressed:(UIButton *)sender;
+-(void)updateChatScreen;
+
+- (void)finishSend;
+- (void)scrollToBottomAnimated:(BOOL)animated;
+-(void)postImagePressed:(UIImage*)image;
+
+#pragma mark - Keyboard notifications
+- (void)handleWillShowKeyboard:(NSNotification *)notification;
+- (void)handleWillHideKeyboard:(NSNotification *)notification;
+- (void)keyboardWillShowHide:(NSNotification *)notification;
+
 @end

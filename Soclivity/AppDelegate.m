@@ -56,10 +56,10 @@ static NSString* kAppId = @"160726900680967";//kanav
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isLoggedIn"];
     //[self setUpActivityDataList];
     [SoclivitySqliteClass copyDatabaseIfNeeded];
+    
 	BOOL openSuccessful=[SoclivitySqliteClass openDatabase:[SoclivitySqliteClass getDBPath]];
 	if(openSuccessful)
 		

@@ -189,8 +189,8 @@ if(timer%2==0){
     NSString *activityTime=[dateFormatter stringFromDate:destinationDate];
     NSString  *currentTime=[dateFormatter stringFromDate:currentDateTime];
     NSTimeInterval interval5 = [destinationDate timeIntervalSinceDate:currentDateTime];
-    NSLog(@"activityTime 11111=%@",activityTime);
-    NSLog(@"currentTime 11111=%@",currentTime);
+    NSLog(@"activityTime =%@",activityTime);
+    NSLog(@"currentTime=%@",currentTime);
     NSLog(@"interval5,the actual difference=%f",interval5);
     
     
@@ -318,8 +318,8 @@ if(timer%2==0){
     
     NSString *activityTime=[dateFormatter stringFromDate:destinationDate];
     NSString  *currentTime=[dateFormatter stringFromDate:currentDateTime];
-    NSLog(@"activityTime 22222=%@",activityTime);
-    NSLog(@"currentTime 22222222=%@",currentTime);
+    NSLog(@"activityTime =%@",activityTime);
+    NSLog(@"currentTime =%@",currentTime);
     
     
     NSCalendar* calendar = [NSCalendar currentCalendar];
