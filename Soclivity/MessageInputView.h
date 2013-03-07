@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 
 
-@interface MessageInputView : UIImageView
+@interface MessageInputView : UIImageView<UITextViewDelegate>
 @property (strong, nonatomic) UITextView *textView;
 @property (strong, nonatomic) UIButton *sendButton;
-
+@property (strong,nonatomic) UILabel *placeholderLabel;
 
 #pragma mark - Message input view
 + (CGFloat)textViewLineHeight;

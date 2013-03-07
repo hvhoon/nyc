@@ -19,7 +19,6 @@
 
 - (void)initializator
 {
-    // UITableView properties
     
     self.backgroundColor = [UIColor clearColor];
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -28,10 +27,18 @@
     self.delegate = self;
     self.dataSource = self;
     
-    // UIBubbleTableView default properties
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    tapGesture.numberOfTapsRequired=1;
+    [self setUserInteractionEnabled:YES];
+    [self addGestureRecognizer:tapGesture];
+    [tapGesture release];
+
     
-    self.snapInterval = 1;//120
+    self.snapInterval = 1;
     self.typingBubble = NSBubbleTypingTypeNobody;
+}
+-(void)handleTapGesture:(id)sender{
+    [self.bubbleDataSource resignKeyBoard];
 }
 
 - (id)init
@@ -125,9 +132,8 @@
     [super reloadData];
 }
 
-#pragma mark - UITableViewDelegate implementation
 
-#pragma mark - UITableViewDataSource implementation
+#pragma mark - UITableViewDelegate & UITableViewDataSource implementation
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -138,15 +144,15 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // This is for now typing bubble
+    // typing bubble
 	//if (section >= [self.bubbleSection count]) return 1;
     ActivityChatData *rowElement=[[self.bubbleSection objectAtIndex:section]objectAtIndex:0];
     if(rowElement.type==BubbleTypeMine){
-        NSLog(@"Count in row=%d",[[self.bubbleSection objectAtIndex:section] count] + 1);
+        //NSLog(@"Count in row=%d",[[self.bubbleSection objectAtIndex:section] count] + 1);
         return [[self.bubbleSection objectAtIndex:section] count] + 1;
     }
     else{
-                NSLog(@"Count in row=%d",[[self.bubbleSection objectAtIndex:section] count] + 2);
+                //NSLog(@"Count in row=%d",[[self.bubbleSection objectAtIndex:section] count] + 2);
         return [[self.bubbleSection objectAtIndex:section] count] + 2;
     }
     
@@ -160,7 +166,8 @@
 //        return MAX([UIBubbleTypingTableViewCell height], self.showAvatars ? 52 : 0);
 //    }
     
-    
+    int delta=0;
+
     ActivityChatData *rowElement=[[self.bubbleSection objectAtIndex:indexPath.section]objectAtIndex:0];
     if(rowElement.type==BubbleTypeMine){
 
@@ -169,25 +176,26 @@
     {
         return [UIBubbleHeaderFooterTableViewCell height];
     }
-    
     ActivityChatData *data = [[self.bubbleSection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    return MAX(data.insets.top + data.view.frame.size.height + data.insets.bottom, data.showAvatars ? 39 : 0);
+        if([data.view isKindOfClass:[UIImageView class]]){
+            delta=5.0;
+        }
+        return MAX(data.insets.top + data.view.frame.size.height + data.insets.bottom+delta, data.showAvatars ? 39 : 0);
     }else{
         
         
-        if (indexPath.row ==0)
-        {
-            return [UIBubbleHeaderFooterTableViewCell heightForName];
-        }
-        
-
-        if (indexPath.row ==2)
+        if (indexPath.row ==0||indexPath.row==2)
         {
             return [UIBubbleHeaderFooterTableViewCell height];
         }
         
+
         ActivityChatData *data = [[self.bubbleSection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row-1];
-        return MAX(data.insets.top + data.view.frame.size.height + data.insets.bottom, data.showAvatars ? 39 : 0);
+        if([data.view isKindOfClass:[UIImageView class]]){
+            delta=5.0;
+        }
+
+        return MAX(data.insets.top + data.view.frame.size.height + data.insets.bottom+delta, data.showAvatars ? 39 : 0);
 
     }
 }
@@ -233,6 +241,9 @@
         if (cell == nil) cell = [[UIBubbleTableViewCell alloc] init];
         
         cell.data = data;
+        cell.section=indexPath.row-1;
+        cell.delegate=self;
+
         cell.showAvatar = data.showAvatars;
         return cell;
 
@@ -267,12 +278,90 @@
         if (cell == nil) cell = [[UIBubbleTableViewCell alloc] init];
         
         cell.data = data;
+        cell.section=indexPath.row-1;
+        cell.delegate=self;
+
         cell.showAvatar = data.showAvatars;
         return cell;
         
     }
     
 }
+-(void)tellToStopInteraction:(BOOL)tell{
+    [self.bubbleDataSource userInteraction:tell];
+}
+-(void)deleteThisSection:(NSInteger)sectionIndex{
+    
+    [self.bubbleDataSource removeBubbleDataObjectAtIndex:sectionIndex];
+    [self reloadData];
+}
+#if 0
+
+//http://dev.soclivity.com/activity_chats.json?activity_id=270
+
+//activity_photo_data
+//http://dev.soclivity.com/activity_chats.json?{"activity_id":"270","player_id":"55","description":"kanav"}
+- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+    
+    if (action == @selector(copy:) ||
+        action == @selector(delete:)){
+    }
+    return YES;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+        return NO;
+}
+
+- (BOOL)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+    
+    if (action == @selector(copy:) ||
+        action == @selector(delete:))
+        return YES;
+    
+    return NO;
+}
+
+#pragma mark -
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+- (BOOL)canPerformAction:(SEL)action
+              withSender:(id)sender
+{
+    if (action == @selector(cameraAction:) ||
+        action == @selector(textAction:))
+        return YES;
+    
+    return [super canPerformAction:action withSender:sender];
+}
+
+- (void)cameraAction:(id)sender
+{
+    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Camera Item Pressed", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", nil) otherButtonTitles:nil] show];
+}
+
+
+- (void)textAction:(id)sender
+{
+    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Text Item Pressed", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", nil) otherButtonTitles:nil] show];
+}
+- (void)copy:(id)sender {
+	
+	// Get the General pasteboard and the current tile.
+	UIPasteboard *gpBoard = [UIPasteboard generalPasteboard];
+}
+
+- (void)delete:(id)sender {
+	
+	// Get the General pasteboard and the current tile.
+	UIPasteboard *gpBoard = [UIPasteboard generalPasteboard];
+}
+
+#endif
 
 
 /*

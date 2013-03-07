@@ -15,7 +15,9 @@
 @protocol UIBubbleTableViewDataSource <NSObject>
 
 @optional
-
+-(void)removeBubbleDataObjectAtIndex:(NSInteger)objectIndex;
+-(void)resignKeyBoard;
+-(void)userInteraction:(BOOL)test;
 @required
 
 - (NSInteger)rowsForBubbleTable:(ChatTableView *)tableView;

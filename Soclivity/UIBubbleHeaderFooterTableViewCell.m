@@ -26,9 +26,6 @@
 {
     return 28.0;
 }
-+(CGFloat)heightForName{
-    return 38.0;
-}
 - (void)setDate:(NSDate *)value
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -72,7 +69,7 @@
     }
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.label = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, self.frame.size.width, [UIBubbleHeaderFooterTableViewCell height])];
+    self.label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, self.frame.size.width, [UIBubbleHeaderFooterTableViewCell height])];
     self.label.text = value;
     self.label.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
     self.label.textColor=[SoclivityUtilities returnTextFontColor:5];

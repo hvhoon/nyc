@@ -8,10 +8,27 @@
 
 #import <UIKit/UIKit.h>
 #import "ActivityChatData.h"
-@interface UIBubbleTableViewCell : UITableViewCell
+
+@protocol UIBubbleTableViewCellDelegate <NSObject>
+
+@optional
+-(void)deleteThisSection:(NSInteger)sectionIndex;
+-(void)tellToStopInteraction:(BOOL)tell;
+@end
+
+@interface UIBubbleTableViewCell : UITableViewCell<UIGestureRecognizerDelegate>{
+id <UIBubbleTableViewCellDelegate>delegate;
+}
+
 
 @property (nonatomic, strong) ActivityChatData *data;
 @property (nonatomic) BOOL showAvatar;
+@property (nonatomic,retain)id<UIBubbleTableViewCellDelegate>delegate;
+@property (nonatomic,assign)NSInteger section;
 
+@end
 
+@interface CHDemoView : UIView
+- (void)singleTapAction:(UITapGestureRecognizer*)ges;
+@property (nonatomic,assign)CGRect originRect;
 @end

@@ -86,13 +86,11 @@ const UIEdgeInsets imageInsetsSomeone = {11, 18, 16, 14};
 
     if (size.width > 120)
     {
-        //size.height /= (size.width / 120);
         size.width = 120;
     }
     
     if (size.height > 120)
     {
-        //size.height /= (size.width / 120);
         size.height = 120;
     }
 

@@ -516,6 +516,7 @@
 
 -(IBAction)enterChatTextButtonPressed:(id)sender{
     chatView.inputView.hidden=NO;
+    [self.inputView setUserInteractionEnabled:YES];
     [chatView.inputView.textView becomeFirstResponder];
 }
 

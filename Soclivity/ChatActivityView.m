@@ -60,7 +60,7 @@
     ActivityChatData *photoBubble = [ActivityChatData dataWithImage:[UIImage imageNamed:@"aqua_learn.png"] date:[NSDate dateWithTimeIntervalSinceNow:-290] name:@"Harish Hoon" type:BubbleTypeSomeoneElse];
     photoBubble.avatar = [UIImage imageNamed:@"picbox.png"];
     photoBubble.showAvatars=YES;
-    ActivityChatData *replyBubble = [ActivityChatData dataWithText:@"Wow.. Really cool picture out there. iPhone 5 has really nice camera, yeah?" date:[NSDate dateWithTimeIntervalSinceNow:-5] name:@"Kanav Gupta" type:BubbleTypeMine ];
+    ActivityChatData *replyBubble = [ActivityChatData dataWithText:@"Wow.. Really cool picture out there. iPhone 5 has really nice camera, yeah?" date:[NSDate dateWithTimeIntervalSinceNow:-5] name:@"Kanav Gupta" type:BubbleTypeMine];
     replyBubble.avatar = nil;
     replyBubble.showAvatars=NO;
     bubbleData = [[NSMutableArray alloc] initWithObjects:heyBubble, photoBubble, replyBubble, nil];
@@ -72,7 +72,7 @@
     
     CGSize size = self.frame.size;
 	
-    CGRect tableFrame = CGRectMake(0.0f, 0.0f, size.width, size.height-48);//84
+    CGRect tableFrame = CGRectMake(0.0f,0.0f, size.width, size.height-40);//84
 	self.bubbleTable = [[ChatTableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
 	self.bubbleTable.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
@@ -121,6 +121,11 @@
 {
     return [bubbleData objectAtIndex:row];
 }
+
+-(void)removeBubbleDataObjectAtIndex:(NSInteger)objectIndex{
+    [bubbleData removeObjectAtIndex:objectIndex];
+}
+
 
 
 - (void)sendPressed:(UIButton *)sender withText:(NSString *)text
@@ -218,10 +223,26 @@
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
     [textView resignFirstResponder];
+    if (![textView hasText]) {
+        self.inputView.placeholderLabel.hidden = NO;
+    }
+
+}
+
+-(void)resignKeyBoard{
+    [self.inputView.textView resignFirstResponder];
 }
 
 - (void)textViewDidChange:(UITextView *)textView
 {
+    
+    if(![textView hasText]) {
+        self.inputView.placeholderLabel.hidden = NO;
+    }
+    else{
+        self.inputView.placeholderLabel.hidden = YES;
+    }
+
     CGFloat maxHeight = [MessageInputView maxHeight];
     CGFloat textViewContentHeight = textView.contentSize.height;
     CGFloat changeInHeight = textViewContentHeight - self.previousTextViewContentHeight;
@@ -252,11 +273,39 @@
     self.inputView.sendButton.enabled = ([textView.text trimWhitespace].length > 0);
 }
 
+
 #pragma mark - Keyboard notifications
 - (void)handleWillShowKeyboard:(NSNotification *)notification
 {
-    [self.delegate showDoneButton:YES];
-    [self keyboardWillShowHide:notification];
+    
+        [self.delegate showDoneButton:YES];
+        [self keyboardWillShowHide:notification];
+}
+
+-(void)userInteraction:(BOOL)test{
+    
+
+ //   [self.inputView.textView setUserInteractionEnabled:test];
+    if(test){
+        /*[[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(handleWillShowKeyboard:)
+                                                     name:UIKeyboardWillShowNotification
+                                                   object:nil];*/
+        //[self.inputView.textView becomeFirstResponder];
+
+
+//        [self.inputView setHidden:NO];
+//            self.inputView.alpha=1.0f;
+   }
+    else{
+        
+        //[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+        
+                [self.inputView.textView becomeFirstResponder];
+
+//        [self.inputView setHidden:YES];
+//        self.inputView.alpha=0.0f;
+   }
 }
 
 - (void)handleWillHideKeyboard:(NSNotification *)notification

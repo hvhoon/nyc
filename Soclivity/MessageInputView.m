@@ -62,6 +62,15 @@
     self.textView.keyboardType = UIKeyboardTypeDefault;
     self.textView.returnKeyType = UIReturnKeyDefault;
     [self addSubview:self.textView];
+    
+    self.placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 2.0, self.textView.frame.size.width - 20.0, 34.0f)];
+    [self.placeholderLabel setText:@"Entering text here!"];
+    [self.placeholderLabel setBackgroundColor:[UIColor clearColor]];
+    self.placeholderLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    self.placeholderLabel.textColor=[UIColor lightGrayColor];
+    
+    [self.textView addSubview:self.placeholderLabel];
+
 	
     UIImageView *inputFieldBack = [[UIImageView alloc] initWithFrame:CGRectMake(self.textView.frame.origin.x - 1.0f,
                                                                                 0.0f,
@@ -75,16 +84,21 @@
 - (void)setupSendButton
 {
     self.sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.sendButton.frame = CGRectMake(self.frame.size.width - 65.0f, 8.0f, 59.0f, 26.0f);
+    
     self.sendButton.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin);
     
+    self.sendButton.frame=CGRectMake(self.frame.size.width - 65.0f, 5, 56, 30);
+    
+    [self.sendButton setBackgroundImage:[UIImage imageNamed:@"S05.3_sendActive.png"] forState:UIControlStateNormal];
+    [self.sendButton setBackgroundImage:[UIImage imageNamed:@"S05.3_sendInactive.png"] forState:UIControlStateDisabled];
+    [self.sendButton setBackgroundImage:[UIImage imageNamed:@"S05.3_sendActive.png"] forState:UIControlStateHighlighted];
+#if 0
     UIEdgeInsets insets = UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f);
     UIImage *sendBack = [[UIImage imageNamed:@"send"] resizableImageWithCapInsets:insets];
     UIImage *sendBackHighLighted = [[UIImage imageNamed:@"send-highlighted"] resizableImageWithCapInsets:insets];
-    [self.sendButton setBackgroundImage:sendBack forState:UIControlStateNormal];
-    [self.sendButton setBackgroundImage:sendBack forState:UIControlStateDisabled];
-    [self.sendButton setBackgroundImage:sendBackHighLighted forState:UIControlStateHighlighted];
-    
+
+    self.sendButton.frame = CGRectMake(self.frame.size.width - 65.0f, 8.0f, 59.0f, 26.0f);
+
     NSString *title = NSLocalizedString(@"Send", nil);
     [self.sendButton setTitle:title forState:UIControlStateNormal];
     [self.sendButton setTitle:title forState:UIControlStateHighlighted];
@@ -99,7 +113,7 @@
     [self.sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     [self.sendButton setTitleColor:[UIColor colorWithWhite:1.0f alpha:0.5f] forState:UIControlStateDisabled];
-    
+#endif
     self.sendButton.enabled = NO;
     [self addSubview:self.sendButton];
 }

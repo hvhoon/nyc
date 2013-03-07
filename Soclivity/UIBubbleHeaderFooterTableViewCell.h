@@ -11,7 +11,6 @@
 @interface UIBubbleHeaderFooterTableViewCell : UITableViewCell
 
 + (CGFloat)height;
-+(CGFloat)heightForName;
 
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic,strong) NSString *name;

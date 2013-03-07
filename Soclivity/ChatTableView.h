@@ -18,7 +18,7 @@ typedef enum _NSBubbleTypingType
 } NSBubbleTypingType;
 
 
-@interface ChatTableView : UITableView<UITableViewDelegate, UITableViewDataSource>
+@interface ChatTableView : UITableView<UITableViewDelegate, UITableViewDataSource,UIBubbleTableViewCellDelegate>
 @property (nonatomic,retain)NSMutableArray *bubbleSection;
 @property (nonatomic, assign)id<UIBubbleTableViewDataSource> bubbleDataSource;
 @property (nonatomic) NSTimeInterval snapInterval;
