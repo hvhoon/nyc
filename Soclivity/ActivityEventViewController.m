@@ -596,12 +596,12 @@
     [self dismissModalViewControllerAnimated:YES];
     
     // If the image is not a square please auto crop
-    if(Img.size.height != Img.size.width)
+//    if(Img.size.height != Img.size.width)
         Img = [SoclivityUtilities autoCrop:Img];
     
     // If the image needs to be compressed
-    if(Img.size.height > 240 || Img.size.width > 240)
-        Img = [SoclivityUtilities compressImage:Img size:CGSizeMake(120,120)];
+ //   if(Img.size.height > 240 || Img.size.width > 240)
+       // Img = [SoclivityUtilities compressImage:Img size:CGSizeMake(120,120)];
     
     [chatView postImagePressed:Img];
     

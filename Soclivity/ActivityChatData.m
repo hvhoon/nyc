@@ -75,6 +75,7 @@ const UIEdgeInsets imageInsetsSomeone = {11, 18, 16, 14};
 
 - (id)initWithImage:(UIImage *)image date:(NSDate *)date name:(NSString*)name type:(NSBubbleType)type
 {
+#if 0
     CGSize size = image.size;
     
     if(image.size.height != image.size.width)
@@ -94,8 +95,8 @@ const UIEdgeInsets imageInsetsSomeone = {11, 18, 16, 14};
         size.height = 120;
     }
 
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+#endif
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 120, 120)];
     imageView.image = image;
     [imageView autorelease];
     
