@@ -14,8 +14,9 @@
 #import "MessageInputView.h"
 #import "NSString+MessagesView.h"
 
-#define INPUT_HEIGHT 40.0f
 
+#define INPUT_HEIGHT 40.0f
+#define kLoadingPrevMessage 1
 
 @interface ChatActivityView ()
 {
@@ -31,6 +32,7 @@
 @synthesize bubbleTable;
 @synthesize delegate=_delegate;
 @synthesize inputView;
+@synthesize holdHistoryArray;
 - (void)dealloc {
     
     [super dealloc];
@@ -52,6 +54,36 @@
 -(void)updateChatScreen:(NSMutableArray*)chatArray{
     
     [chatBackgroundView removeFromSuperview];
+    holdHistoryArray=[NSMutableArray new];
+    bubbleData=[NSMutableArray new];
+    if([chatArray count]>kLoadingPrevMessage){
+
+    [holdHistoryArray addObjectsFromArray:chatArray];
+        int index=0,total=0;
+        for(int i=[holdHistoryArray count]-1;i>=0;i--){
+         
+                if(index==kLoadingPrevMessage)
+                    break;
+            
+            ActivityChatData *chat=[holdHistoryArray objectAtIndex:i];
+                [bubbleData addObject:chat];
+                  index++;
+        }
+        
+        if([holdHistoryArray count]<kLoadingPrevMessage){
+            total=[holdHistoryArray count];
+        }
+        else{
+            total=kLoadingPrevMessage;
+        }
+        for(int i=0;i<total;i++)
+            [holdHistoryArray removeLastObject];
+    
+    
+    }
+    else{
+        [bubbleData addObjectsFromArray:chatArray];
+    }
     
     
     self.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
@@ -69,7 +101,7 @@
     //bubbleTable.typingBubble = NSBubbleTypingTypeSomebody;
 
 #endif
-    bubbleData=[chatArray retain];
+    //bubbleData=[chatArray retain];
     
     
 
@@ -80,16 +112,20 @@
 	self.bubbleTable = [[ChatTableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
 	self.bubbleTable.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    bubbleTable.bubbleDataSource = self;
+    if([holdHistoryArray count]>0){
+        self.bubbleTable.tableHeaderView=[self loadTableHeader];
+        bubbleTable.contentInset = UIEdgeInsetsMake(-52.0f, 0, 0, 0);
+    }
     
-    bubbleTable.snapInterval = 1;//120
+    bubbleTable.bubbleDataSource = self;
+    bubbleTable.snapInterval = 1;
 
 	[self addSubview:self.bubbleTable];
     
     [self.bubbleTable reloadData];
 	
     
-    CGRect inputFrame = CGRectMake(0.0f, size.height - INPUT_HEIGHT, size.width, INPUT_HEIGHT);
+    CGRect inputFrame = CGRectMake(0.0f, size.height + INPUT_HEIGHT, size.width, INPUT_HEIGHT);
     self.inputView = [[MessageInputView alloc] initWithFrame:inputFrame];
     self.inputView.textView.delegate = self;
     [self.inputView.sendButton addTarget:self action:@selector(sendPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -340,13 +376,15 @@
                                       inputViewFrame.size.width,
                                       inputViewFrame.size.height);
     
+    
+#if 1
     UIEdgeInsets insets = UIEdgeInsetsMake(0.0f,
                                            0.0f,
                                            self.frame.size.height - keyboardY,
                                            0.0f);
 	self.bubbleTable.contentInset = insets;
 	self.bubbleTable.scrollIndicatorInsets = insets;
-    
+#endif
     [UIView commitAnimations];
 }
 
@@ -354,29 +392,25 @@
 #pragma mark - Keyboard events
 
 
--(UIView*)loadTableHeader:(BOOL)response{
+-(UIView*)loadTableHeader{
     
     UIView *loadMoreFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 52.0f)];
-    loadMoreFooterView.backgroundColor = [UIColor whiteColor];
+    loadMoreFooterView.backgroundColor = [SoclivityUtilities returnBackgroundColor:1];
 	loadMoreFooterView.tag=145;
-    UILabel *loadMoreChatLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 20, 120, 16)];
-    
+    UILabel *loadMoreChatLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 15, 200, 20)];
+    loadMoreChatLabel.backgroundColor=[UIColor clearColor];
     loadMoreChatLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     loadMoreChatLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     loadMoreChatLabel.textAlignment = UITextAlignmentLeft;
     
     UIActivityIndicatorView*friendSpinnerLoadMore = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    friendSpinnerLoadMore.frame = CGRectMake(30,15, 25, 25);
+    friendSpinnerLoadMore.frame = CGRectMake(10,15, 25, 25);
     [friendSpinnerLoadMore startAnimating];
     [loadMoreFooterView addSubview:friendSpinnerLoadMore];
     
     [friendSpinnerLoadMore setHidden:NO];
-    if(response){
-        loadMoreChatLabel.text=[NSString stringWithFormat:@"Loading..."];
+    loadMoreChatLabel.text=[NSString stringWithFormat:@"Load earlier messages..."];
         
-    }
-    else
-    loadMoreChatLabel.text=@"No more messages";
 	
 	[loadMoreFooterView addSubview:loadMoreChatLabel];
     [loadMoreChatLabel release];
@@ -418,38 +452,57 @@
     
 }
 
-#pragma mark -
-#pragma mark UIScrollView delegate
+-(void)userScrolledToLoadEarlierMessages{
+    self.bubbleTable.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    
-    if([scrollView contentOffset].y == scrollView.frame.origin.y){
-        
-        //[self.bubbleTable setTableHeaderView:[self loadTableHeader:YES]];
-        //[self performSelector:@selector(stopAnimatingHeader) withObject:nil afterDelay:5.0];
-	}
-    
-    
+    [self performSelector:@selector(stopAnimatingHeader) withObject:nil afterDelay:2.0];
 }
-
-
-
 
 //stop the header spinner
 - (void) stopAnimatingHeader{
     //add the data
     
-    //[self addItemsToStartOfTableView];
+    [self addItemsToStartOfTableView];
     //set an offset so visible cells aren't blasted
-    
-    //[self.chatTableView setContentOffset:CGPointMake(0, 10*(kSentDateFontSize + 15.0f))];
+    //[self.bubbleTable setContentOffset:CGPointMake(0, 10*(15.0f + 15.0f))];
     [self.bubbleTable reloadData];
-    [self.bubbleTable setTableHeaderView:nil];
 }
 
 
+-(void)addItemsToStartOfTableView{
+    
+    int total=0;
+    if([holdHistoryArray count]>0){
+    int index=0;
+    for(int i=[holdHistoryArray count]-1;i>=0;i--){
+        
+        if(index==kLoadingPrevMessage)
+            break;
+        
+        [bubbleData addObject:[holdHistoryArray objectAtIndex:i]];
+        index++;
+    }
+        if([holdHistoryArray count]<kLoadingPrevMessage){
+            total=[holdHistoryArray count];
+        }
+        else{
+            total=kLoadingPrevMessage;
+        }
+    for(int i=0;i<total;i++)
+        [holdHistoryArray removeLastObject];
+    }
+    
+    if([holdHistoryArray count]==0){
+        [self.bubbleTable setTableHeaderView:nil];
+            bubbleTable.contentInset = UIEdgeInsetsMake(0.0, 0, 0, 0);
 
+    }
+    else{
+        self.bubbleTable.contentInset = UIEdgeInsetsMake(-52, 0, 0, 0);
+        bubbleTable.isLoading=FALSE;
+    }
+
+}
 
 
 

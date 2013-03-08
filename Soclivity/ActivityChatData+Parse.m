@@ -10,7 +10,7 @@
 #import "SoclivityManager.h"
 #import "GetPlayersClass.h"
 @implementation ActivityChatData (Parse)
-+(NSMutableArray*)PlayersChatPertainingToActivity:(NSArray*)ACTArray{
++(NSArray*)PlayersChatPertainingToActivity:(NSArray*)ACTArray{
 	if (!ACTArray) {
 		return Nil;
 	}

@@ -18,6 +18,7 @@
 -(void)removeBubbleDataObjectAtIndex:(NSInteger)objectIndex;
 -(void)resignKeyBoard;
 -(void)userInteraction:(BOOL)test;
+-(void)userScrolledToLoadEarlierMessages;
 @required
 
 - (NSInteger)rowsForBubbleTable:(ChatTableView *)tableView;

@@ -25,6 +25,7 @@
 @property (nonatomic,retain)id<ChatActivityViewDelegate>delegate;
 @property (strong, nonatomic) MessageInputView *inputView;
 @property (assign, nonatomic) CGFloat previousTextViewContentHeight;
+@property (nonatomic,retain) NSMutableArray *holdHistoryArray;
 #pragma mark - Actions
 - (void)sendPressed:(UIButton *)sender withText:(NSString *)text;
 - (void)sendPressed:(UIButton *)sender;

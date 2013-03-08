@@ -81,7 +81,7 @@
     switch (requestType) {
         case 1:
         {
-            NSMutableArray *response=[ActivityChatData PlayersChatPertainingToActivity:resultsd];
+            NSArray *response=[ActivityChatData PlayersChatPertainingToActivity:resultsd];
             [self.delegate chatPostToDidFinish:self withResponse:response withError:Nil];
             
         }
@@ -89,7 +89,7 @@
             
         case 2:
         {
-            NSMutableArray *response=[ActivityChatData PlayersChatPertainingToActivity:resultsd];
+            NSArray *response=[ActivityChatData PlayersChatPertainingToActivity:resultsd];
             [self.delegate chatPostToDidFinish:self withResponse:response withError:Nil];
             
         }

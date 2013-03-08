@@ -15,7 +15,7 @@
 @synthesize snapInterval = _snapInterval;
 @synthesize bubbleSection = _bubbleSection;
 @synthesize typingBubble = _typingBubble;
-
+@synthesize isLoading;
 
 - (void)initializator
 {
@@ -295,11 +295,26 @@
     [self.bubbleDataSource removeBubbleDataObjectAtIndex:sectionIndex];
     [self reloadData];
 }
+
+#pragma mark -
+#pragma mark UIScrollView delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if(isLoading)
+        return;
+    //if(([scrollView contentOffset].y <= scrollView.frame.origin.y-20) && self.tableHeaderView!=Nil){
+    if((scrollView.contentOffset.y <=15) && self.tableHeaderView!=Nil){
+        isLoading=TRUE;
+        [self.bubbleDataSource userScrolledToLoadEarlierMessages];
+	}
+    
+    
+}
+
 #if 0
 
 
-//activity_photo_data
-//http://dev.soclivity.com/activity_chats.json?{"activity_id":"270","player_id":"55","description":"kanav"}
 - (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
     
     if (action == @selector(copy:) ||

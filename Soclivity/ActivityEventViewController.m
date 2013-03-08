@@ -1487,7 +1487,7 @@
 }
 
 -(void)chatPostToDidFinish:(ChatServiceInvocation*)invocation
-              withResponse:(NSMutableArray*)responses
+              withResponse:(NSArray*)responses
                  withError:(NSError*)error{
     
     [HUD hide:YES];
@@ -1495,7 +1495,7 @@
         [chatView setUpBackgroundNoChatView];
     }
     else
-        [chatView updateChatScreen:responses];
+        [chatView updateChatScreen:[NSMutableArray arrayWithArray:responses]];
 }
 
 -(void)postAtTextMessageOnTheServer:(NSString*)message{

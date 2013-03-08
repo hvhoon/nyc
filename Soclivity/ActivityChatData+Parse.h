@@ -9,6 +9,6 @@
 #import "ActivityChatData.h"
 @interface ActivityChatData (Parse)
 
-+(NSMutableArray*)PlayersChatPertainingToActivity:(NSArray*)ACTArray;
++(NSArray*)PlayersChatPertainingToActivity:(NSArray*)ACTArray;
 
 @end

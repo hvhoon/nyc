@@ -15,7 +15,7 @@
 @protocol ChatServiceInvocationDelegate
 
 -(void)chatPostToDidFinish:(ChatServiceInvocation*)invocation
-                       withResponse:(NSMutableArray*)responses
+                       withResponse:(NSArray*)responses
                           withError:(NSError*)error;
 @optional
 -(void)successRemoveNotification:(NSString*)msg;
