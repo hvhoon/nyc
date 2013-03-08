@@ -17,6 +17,7 @@
 
 @optional
 -(void)showDoneButton:(BOOL)show;
+-(void)postAtTextMessageOnTheServer:(NSString*)message;
 @end
 
 
@@ -27,8 +28,8 @@
 #pragma mark - Actions
 - (void)sendPressed:(UIButton *)sender withText:(NSString *)text;
 - (void)sendPressed:(UIButton *)sender;
--(void)updateChatScreen;
-
+-(void)updateChatScreen:(NSMutableArray*)chatArray;
+-(void)setUpBackgroundNoChatView;
 - (void)finishSend;
 - (void)scrollToBottomAnimated:(BOOL)animated;
 -(void)postImagePressed:(UIImage*)image;

@@ -232,7 +232,7 @@ NSDateFormatter* gJSONDateFormatter = nil;
 
 	if ([_response isOK]) {
 		[_receivedData appendData:data];
-	}//END if ([_response isOK])
+	}
 }
 
 -(BOOL)handleHttpError:(NSInteger)code { 

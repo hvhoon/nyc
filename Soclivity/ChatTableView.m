@@ -118,7 +118,7 @@
         {
             ActivityChatData *data = (ActivityChatData *)[bubbleData objectAtIndex:i];
             
-            if ([data.date timeIntervalSinceDate:last] > self.snapInterval)
+           // if ([data.date timeIntervalSinceDate:last] > self.snapInterval)
             {
                 currentSection = [[[NSMutableArray alloc] init] autorelease];
                 [self.bubbleSection addObject:currentSection];
@@ -148,11 +148,11 @@
 	//if (section >= [self.bubbleSection count]) return 1;
     ActivityChatData *rowElement=[[self.bubbleSection objectAtIndex:section]objectAtIndex:0];
     if(rowElement.type==BubbleTypeMine){
-        //NSLog(@"Count in row=%d",[[self.bubbleSection objectAtIndex:section] count] + 1);
+        NSLog(@"Count in row=%d",[[self.bubbleSection objectAtIndex:section] count] + 1);
         return [[self.bubbleSection objectAtIndex:section] count] + 1;
     }
     else{
-                //NSLog(@"Count in row=%d",[[self.bubbleSection objectAtIndex:section] count] + 2);
+                NSLog(@"Count in row=%d",[[self.bubbleSection objectAtIndex:section] count] + 2);
         return [[self.bubbleSection objectAtIndex:section] count] + 2;
     }
     
@@ -297,7 +297,6 @@
 }
 #if 0
 
-//http://dev.soclivity.com/activity_chats.json?activity_id=270
 
 //activity_photo_data
 //http://dev.soclivity.com/activity_chats.json?{"activity_id":"270","player_id":"55","description":"kanav"}

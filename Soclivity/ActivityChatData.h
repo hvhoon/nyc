@@ -24,8 +24,10 @@ typedef enum _NSBubbleType
 @property (readonly, nonatomic) UIEdgeInsets insets;
 @property (nonatomic, strong) UIImage *avatar;
 @property (nonatomic) BOOL showAvatars;
-
-
+@property (nonatomic,assign)NSInteger activityId;
+@property (nonatomic,assign)NSInteger playerId;
+@property (nonatomic,retain)NSString*avatarUrl;
+@property (nonatomic,assign)NSInteger chatId;
 - (id)initWithText:(NSString *)text date:(NSDate *)date name:(NSString*)name type:(NSBubbleType)type;
 + (id)dataWithText:(NSString *)text date:(NSDate *)date name:(NSString*)name type:(NSBubbleType)type;
 - (id)initWithImage:(UIImage *)image date:(NSDate *)date name:(NSString*)name type:(NSBubbleType)type;

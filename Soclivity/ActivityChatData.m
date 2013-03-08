@@ -18,8 +18,10 @@
 @synthesize insets = _insets;
 @synthesize avatar = _avatar;
 @synthesize showAvatars = _showAvatars;
-
-
+@synthesize activityId;
+@synthesize playerId;
+@synthesize avatarUrl;
+@synthesize chatId;
 - (void)dealloc
 {
     [_date release];
@@ -29,6 +31,7 @@
     [_name release];
     _name=nil;
     self.avatar = nil;
+    [avatarUrl release];
     
     [super dealloc];
 }

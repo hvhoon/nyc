@@ -13,12 +13,13 @@
 #import "DetailedActivityInfoInvocation.h"
 #import "ChatActivityView.h"
 #import "CameraCustom.h"
+#import "ChatServiceInvocation.h"
 @class InfoActivityClass;
 @class SoclivityManager;
 @class MainServiceManager;
 @class MBProgressHUD;
 
-@interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate,ParticipantListDelegate,NotifyAnimationViewDelegate,DetailedActivityInfoInvocationDelegate,ChatActivityViewDelegate,UIActionSheetDelegate,CustomCameraUploadDelegate>{
+@interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate,ParticipantListDelegate,NotifyAnimationViewDelegate,DetailedActivityInfoInvocationDelegate,ChatActivityViewDelegate,UIActionSheetDelegate,CustomCameraUploadDelegate,ChatServiceInvocationDelegate>{
     IBOutlet UIScrollView* scrollView;
     IBOutlet AddEventView *eventView;
     IBOutlet ParticipantListTableView *participantListTableView;
@@ -95,4 +96,6 @@
 -(IBAction)enterChatTextButtonPressed:(id)sender;
 -(IBAction)postImageOnChatScreenPressed:(id)sender;
 -(IBAction)resignTextDonePressed:(id)sender;
+-(void)startUpdatingChat;
+-(void)postAImageOnTheServer:(UIImage*)image;
 @end

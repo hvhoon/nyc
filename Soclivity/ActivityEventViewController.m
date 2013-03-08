@@ -36,6 +36,8 @@
 #define kRemovePlayerRequest 19
 #define kLeaveActivity 20
 #define kActivityLabel 21
+#define kChatPostRequest 22
+#define kChatPostMessageRequest 23
 @interface ActivityEventViewController (private)<EditActivityEventInvocationDelegate,MBProgressHUDDelegate,PostActivityRequestInvocationDelegate,GetActivityInvitesInvocationDelegate,NewActivityViewDelegate>
 @end
 
@@ -108,7 +110,7 @@
     imagePostChatlabel.text=@"Image";
     
     chatView.delegate=self;
-    [chatView updateChatScreen];
+    [self startUpdatingChat];
 
     
     
@@ -602,6 +604,8 @@
     // If the image needs to be compressed
  //   if(Img.size.height > 240 || Img.size.width > 240)
        // Img = [SoclivityUtilities compressImage:Img size:CGSizeMake(120,120)];
+    
+    //[self postAImageOnTheServer:Img];
     
     [chatView postImagePressed:Img];
     
@@ -1406,6 +1410,8 @@
         [UIView setAnimationDelegate:self];
         
         [UIView commitAnimations];
+       
+       
     }
     else{
         footerActivated=FALSE;
@@ -1456,6 +1462,84 @@
         [UIView commitAnimations];
     }
     
+    
+}
+-(void)startUpdatingChat{
+    
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        
+        [self startAnimation:kChatPostRequest];
+        [devServer chatPostsOnActivity:activityInfo.activityId playerId:[SOC.loggedInUser.idSoc intValue] delegate:self message:nil chatRequest:1 imageToPost:nil];
+    }
+    else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+
+}
+
+-(void)chatPostToDidFinish:(ChatServiceInvocation*)invocation
+              withResponse:(NSMutableArray*)responses
+                 withError:(NSError*)error{
+    
+    [HUD hide:YES];
+    if([responses count]==0){
+        [chatView setUpBackgroundNoChatView];
+    }
+    else
+        [chatView updateChatScreen:responses];
+}
+
+-(void)postAtTextMessageOnTheServer:(NSString*)message{
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        
+        [self startAnimation:kChatPostMessageRequest];
+        
+        [devServer chatPostsOnActivity:activityInfo.activityId playerId:[SOC.loggedInUser.idSoc intValue] delegate:self message:message chatRequest:2 imageToPost:nil];
+    }
+    else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+
+}
+
+
+-(void)postAImageOnTheServer:(UIImage*)image{
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        
+        [self startAnimation:kChatPostMessageRequest];
+        
+        [devServer chatPostsOnActivity:activityInfo.activityId playerId:[SOC.loggedInUser.idSoc intValue] delegate:self message:nil chatRequest:3 imageToPost:UIImagePNGRepresentation(image)];
+    }
+    else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
     
 }
 
@@ -1732,8 +1816,19 @@
             
         }
             break;
-
             
+        case kChatPostRequest:
+        {
+            HUD.labelText = @"Fetching";
+            
+        }
+            break;
+
+        case kChatPostMessageRequest:
+        {
+            HUD.labelText = @"Posting";
+        }
+            break;
         default:
             break;
     }

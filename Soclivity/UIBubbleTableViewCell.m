@@ -141,7 +141,7 @@
     self.customView = self.data.view;
     
     if([self.data.view isKindOfClass:[UIImageView class]]){
-        NSLog(@"Image View");
+        //NSLog(@"Image View");
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
         tapGesture.numberOfTapsRequired=1;
         [self.customView setUserInteractionEnabled:YES];
@@ -150,7 +150,7 @@
         
     }
     else{
-        NSLog(@"Not Image View");
+        //NSLog(@"Not Image View");
     }
 
     self.customView.frame = CGRectMake(x + self.data.insets.left, y + self.data.insets.top, width, height);

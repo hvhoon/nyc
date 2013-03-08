@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18B74BCE16EA472000F28F3D /* ChatServiceInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B74BCD16EA472000F28F3D /* ChatServiceInvocation.m */; };
+		18B74BD116EA482200F28F3D /* ActivityChatData+Parse.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B74BD016EA482200F28F3D /* ActivityChatData+Parse.m */; };
 		18BAD03716D0BF9600EC199D /* GetNotificationsInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BAD03616D0BF9600EC199D /* GetNotificationsInvocation.m */; };
 		18BAD03D16D0C08700EC199D /* NotificationClass+Parse.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BAD03C16D0C08700EC199D /* NotificationClass+Parse.m */; };
 		18BAD04316D1321E00EC199D /* NotifyAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BAD04216D1321D00EC199D /* NotifyAnimationView.m */; };
@@ -948,6 +950,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18B74BCC16EA472000F28F3D /* ChatServiceInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatServiceInvocation.h; sourceTree = "<group>"; };
+		18B74BCD16EA472000F28F3D /* ChatServiceInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatServiceInvocation.m; sourceTree = "<group>"; };
+		18B74BCF16EA482200F28F3D /* ActivityChatData+Parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ActivityChatData+Parse.h"; sourceTree = "<group>"; };
+		18B74BD016EA482200F28F3D /* ActivityChatData+Parse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ActivityChatData+Parse.m"; sourceTree = "<group>"; };
 		18BAD03516D0BF9600EC199D /* GetNotificationsInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetNotificationsInvocation.h; sourceTree = "<group>"; };
 		18BAD03616D0BF9600EC199D /* GetNotificationsInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetNotificationsInvocation.m; sourceTree = "<group>"; };
 		18BAD03B16D0C08700EC199D /* NotificationClass+Parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NotificationClass+Parse.h"; sourceTree = "<group>"; };
@@ -2140,6 +2146,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18B74BCA16EA46C300F28F3D /* Chat Services */ = {
+			isa = PBXGroup;
+			children = (
+				18B74BCC16EA472000F28F3D /* ChatServiceInvocation.h */,
+				18B74BCD16EA472000F28F3D /* ChatServiceInvocation.m */,
+			);
+			name = "Chat Services";
+			sourceTree = "<group>";
+		};
 		18BAD03316D0BF6B00EC199D /* Get Notifications Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -2177,6 +2192,8 @@
 				18EC4F4D16E66B9F00759D50 /* NSString+MessagesView.m */,
 				18EC4F5416E66C3200759D50 /* MessageInputView.h */,
 				18EC4F5516E66C3300759D50 /* MessageInputView.m */,
+				18B74BCF16EA482200F28F3D /* ActivityChatData+Parse.h */,
+				18B74BD016EA482200F28F3D /* ActivityChatData+Parse.m */,
 			);
 			name = "Activity Chat";
 			sourceTree = "<group>";
@@ -3452,6 +3469,7 @@
 		EA91C324155A71A500BE5BB1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				18B74BCA16EA46C300F28F3D /* Chat Services */,
 				18BAD03316D0BF6B00EC199D /* Get Notifications Service */,
 				EACE5F1B165B81B200D1B3D0 /* Search People On Soclivity */,
 				EABEAA1C1644DD8E004C686C /* User Profile */,
@@ -5117,6 +5135,8 @@
 				18EC4F4B16E66B1400759D50 /* MessageSoundEffect.m in Sources */,
 				18EC4F4E16E66B9F00759D50 /* NSString+MessagesView.m in Sources */,
 				18EC4F5616E66C3400759D50 /* MessageInputView.m in Sources */,
+				18B74BCE16EA472000F28F3D /* ChatServiceInvocation.m in Sources */,
+				18B74BD116EA482200F28F3D /* ActivityChatData+Parse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

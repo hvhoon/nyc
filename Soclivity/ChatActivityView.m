@@ -49,11 +49,13 @@
     return self;
 }
 
--(void)chatScreenLoaded{
+-(void)updateChatScreen:(NSMutableArray*)chatArray{
+    
+    [chatBackgroundView removeFromSuperview];
     
     
     self.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
-    
+#if 0
     ActivityChatData *heyBubble = [ActivityChatData dataWithText:@"Hey, Soclivity  is releasing soon" date:[NSDate dateWithTimeIntervalSinceNow:-300] name:@"Harish Hoon" type:BubbleTypeSomeoneElse];
     heyBubble.avatar = [UIImage imageNamed:@"picbox.png"];
     heyBubble.showAvatars=YES;
@@ -64,9 +66,11 @@
     replyBubble.avatar = nil;
     replyBubble.showAvatars=NO;
     bubbleData = [[NSMutableArray alloc] initWithObjects:heyBubble, photoBubble, replyBubble, nil];
-    
-    
     //bubbleTable.typingBubble = NSBubbleTypingTypeSomebody;
+
+#endif
+    bubbleData=[chatArray retain];
+    
     
 
     
@@ -130,6 +134,10 @@
 
 - (void)sendPressed:(UIButton *)sender withText:(NSString *)text
 {
+    
+    
+    //[self.delegate postAtTextMessageOnTheServer:text];
+    
     
     if((bubbleData.count - 1) % 2)
         [MessageSoundEffect playMessageSentSound];
@@ -376,24 +384,7 @@
 
 }
 
--(void)updateChatScreen{
-    
-    
-
-    if(0){
-        [self setUpBackgroundView];
-    }
-    else{
-        [self chatScreenLoaded];
-    }
-    
-
-
-}
-
-
-
--(void)setUpBackgroundView{
+-(void)setUpBackgroundNoChatView{
     CGRect noChatTableRect;
     
     CGRect fadedRect;
