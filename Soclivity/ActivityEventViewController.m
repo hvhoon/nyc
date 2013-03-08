@@ -502,6 +502,18 @@
 }
 
 -(IBAction)resignTextDonePressed:(id)sender{
+    
+    if([chatView.bubbleData count]==0){
+        
+    [chatView.bubbleTable setHidden:YES];
+    [chatView.chatBackgroundView setHidden:NO];
+
+    }
+    else{
+        [chatView.bubbleTable setHidden:NO];
+            [chatView.chatBackgroundView setHidden:YES];
+    }
+    
     chatView.inputView.hidden=YES;
     [chatView.inputView.textView resignFirstResponder];
 }
@@ -518,6 +530,8 @@
 
 -(IBAction)enterChatTextButtonPressed:(id)sender{
     chatView.inputView.hidden=NO;
+    [chatView.chatBackgroundView setHidden:YES];
+
     [self.inputView setUserInteractionEnabled:YES];
     [chatView.inputView.textView becomeFirstResponder];
 }
@@ -606,6 +620,13 @@
        // Img = [SoclivityUtilities compressImage:Img size:CGSizeMake(120,120)];
     
     //[self postAImageOnTheServer:Img];
+    
+    if([chatView.bubbleData count]==0){
+        [chatView.bubbleTable setHidden:NO];
+        [chatView.chatBackgroundView setHidden:YES];
+        
+    }
+
     
     [chatView postImagePressed:Img];
     
@@ -1491,11 +1512,8 @@
                  withError:(NSError*)error{
     
     [HUD hide:YES];
-    if([responses count]==0){
-        [chatView setUpBackgroundNoChatView];
-    }
-    else
-        [chatView updateChatScreen:[NSMutableArray arrayWithArray:responses]];
+    
+    [chatView updateChatScreen:[NSMutableArray arrayWithArray:responses]];
 }
 
 -(void)postAtTextMessageOnTheServer:(NSString*)message{

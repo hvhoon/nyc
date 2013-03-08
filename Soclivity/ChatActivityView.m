@@ -18,21 +18,13 @@
 #define INPUT_HEIGHT 40.0f
 #define kLoadingPrevMessage 1
 
-@interface ChatActivityView ()
-{
-    ChatTableView *bubbleTable;
-    UIView *chatBackgroundView;
-    NSMutableArray *bubbleData;
-}
-@property(nonatomic,retain)ChatTableView *bubbleTable;
-@end
-
-
 @implementation ChatActivityView
 @synthesize bubbleTable;
 @synthesize delegate=_delegate;
 @synthesize inputView;
 @synthesize holdHistoryArray;
+@synthesize chatBackgroundView;
+@synthesize bubbleData;
 - (void)dealloc {
     
     [super dealloc];
@@ -53,40 +45,10 @@
 
 -(void)updateChatScreen:(NSMutableArray*)chatArray{
     
-    [chatBackgroundView removeFromSuperview];
-    holdHistoryArray=[NSMutableArray new];
-    bubbleData=[NSMutableArray new];
-    if([chatArray count]>kLoadingPrevMessage){
-
-    [holdHistoryArray addObjectsFromArray:chatArray];
-        int index=0,total=0;
-        for(int i=[holdHistoryArray count]-1;i>=0;i--){
-         
-                if(index==kLoadingPrevMessage)
-                    break;
-            
-            ActivityChatData *chat=[holdHistoryArray objectAtIndex:i];
-                [bubbleData addObject:chat];
-                  index++;
-        }
-        
-        if([holdHistoryArray count]<kLoadingPrevMessage){
-            total=[holdHistoryArray count];
-        }
-        else{
-            total=kLoadingPrevMessage;
-        }
-        for(int i=0;i<total;i++)
-            [holdHistoryArray removeLastObject];
-    
-    
-    }
-    else{
-        [bubbleData addObjectsFromArray:chatArray];
-    }
-    
-    
     self.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
+
+    
+    
 #if 0
     ActivityChatData *heyBubble = [ActivityChatData dataWithText:@"Hey, Soclivity  is releasing soon" date:[NSDate dateWithTimeIntervalSinceNow:-300] name:@"Harish Hoon" type:BubbleTypeSomeoneElse];
     heyBubble.avatar = [UIImage imageNamed:@"picbox.png"];
@@ -101,11 +63,40 @@
     //bubbleTable.typingBubble = NSBubbleTypingTypeSomebody;
 
 #endif
-    //bubbleData=[chatArray retain];
     
     
 
-    
+    holdHistoryArray=[NSMutableArray new];
+    bubbleData=[NSMutableArray new];
+    if([chatArray count]>kLoadingPrevMessage){
+        
+        [holdHistoryArray addObjectsFromArray:chatArray];
+        int index=0,total=0;
+        for(int i=[holdHistoryArray count]-1;i>=0;i--){
+            
+            if(index==kLoadingPrevMessage)
+                break;
+            
+            ActivityChatData *chat=[holdHistoryArray objectAtIndex:i];
+            [bubbleData addObject:chat];
+            index++;
+        }
+        
+        if([holdHistoryArray count]<kLoadingPrevMessage){
+            total=[holdHistoryArray count];
+        }
+        else{
+            total=kLoadingPrevMessage;
+        }
+        for(int i=0;i<total;i++)
+            [holdHistoryArray removeLastObject];
+        
+        
+    }
+    else{
+        [bubbleData addObjectsFromArray:chatArray];
+    }
+
     CGSize size = self.frame.size;
 	
     CGRect tableFrame = CGRectMake(0.0f,0.0f, size.width, size.height-40);//84
@@ -122,7 +113,6 @@
 
 	[self addSubview:self.bubbleTable];
     
-    [self.bubbleTable reloadData];
 	
     
     CGRect inputFrame = CGRectMake(0.0f, size.height + INPUT_HEIGHT, size.width, INPUT_HEIGHT);
@@ -133,7 +123,6 @@
 
     
     
-    [self scrollToBottomAnimated:NO];
     
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(handleWillShowKeyboard:)
@@ -147,6 +136,50 @@
     
     
     [self.inputView setHidden:YES];
+    
+    if([bubbleData count]==0){
+        
+            
+            [self.bubbleTable setHidden:YES];
+            
+            CGRect noChatTableRect;
+            
+            CGRect fadedRect;
+            CGRect noChatRect;
+            UIImageView *logoFadedImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S11_logoFaded.png"]];
+            UIImageView *noChatImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05.3_chatBlankImage.png"]];
+            
+            
+            if([SoclivityUtilities deviceType] & iPhone5){
+                noChatTableRect=CGRectMake(0, 0, 320, 504);
+                fadedRect=CGRectMake(105, 389, 111, 28);
+                noChatRect=CGRectMake(75, 142, 169, 149);
+                
+            }
+            
+            else{
+                noChatTableRect=CGRectMake(0, 0, 320,416);
+                fadedRect=CGRectMake(105, 339, 111, 28);
+                noChatRect=CGRectMake(75, 102, 169, 149);
+            }
+            
+            self.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
+            chatBackgroundView=[[UIView alloc]initWithFrame:noChatTableRect];
+            noChatImageView.frame=noChatRect;
+            [chatBackgroundView addSubview:noChatImageView];
+            
+            logoFadedImageView.frame=fadedRect;
+            [chatBackgroundView addSubview:logoFadedImageView];
+            [self addSubview:chatBackgroundView];
+            
+            
+        }
+    else{
+
+        [self.bubbleTable reloadData];
+        [self scrollToBottomAnimated:NO];
+
+    }
 
 }
 
@@ -220,6 +253,7 @@
 
 - (void)sendPressed:(UIButton *)sender
 {
+    [self.bubbleTable setHidden:NO];
     [self sendPressed:sender
              withText:[self.inputView.textView.text trimWhitespace]];
 }
@@ -236,9 +270,9 @@
 
 - (void)scrollToBottomAnimated:(BOOL)animated
 {
-    
+    if([bubbleData count]!=0){
 #if 1
-    NSInteger rows = 2;
+    NSInteger rows = 0;
     
     ActivityChatData *data=[[bubbleTable.bubbleSection lastObject]objectAtIndex:0];
     if(data.type==BubbleTypeMine){
@@ -253,6 +287,7 @@
                               atScrollPosition:UITableViewScrollPositionBottom
                                       animated:animated];
     }
+}
 #endif
 }
 
@@ -378,7 +413,11 @@
     
     
 #if 1
-    UIEdgeInsets insets = UIEdgeInsetsMake(0.0f,
+    CGFloat type=0.0f;
+    if([holdHistoryArray count]>0){
+        type=-52.0f;
+    }
+    UIEdgeInsets insets = UIEdgeInsetsMake(type,
                                            0.0f,
                                            self.frame.size.height - keyboardY,
                                            0.0f);
@@ -418,39 +457,6 @@
 
 }
 
--(void)setUpBackgroundNoChatView{
-    CGRect noChatTableRect;
-    
-    CGRect fadedRect;
-    CGRect noChatRect;
-    UIImageView *logoFadedImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S11_logoFaded.png"]];
-    UIImageView *noChatImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05.3_chatBlankImage.png"]];
-
-    
-    if([SoclivityUtilities deviceType] & iPhone5){
-        noChatTableRect=CGRectMake(0, 0, 320, 504);
-        fadedRect=CGRectMake(105, 389, 111, 28);
-        noChatRect=CGRectMake(75, 142, 169, 149);
-
-    }
-    
-    else{
-        noChatTableRect=CGRectMake(0, 0, 320,416);
-        fadedRect=CGRectMake(105, 339, 111, 28);
-        noChatRect=CGRectMake(75, 102, 169, 149);
-    }
-    
-    self.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
-    chatBackgroundView=[[UIView alloc]initWithFrame:noChatTableRect];
-    noChatImageView.frame=noChatRect;
-    [chatBackgroundView addSubview:noChatImageView];
-    
-    logoFadedImageView.frame=fadedRect;
-    [chatBackgroundView addSubview:logoFadedImageView];
-    [self addSubview:chatBackgroundView];
-    
-    
-}
 
 -(void)userScrolledToLoadEarlierMessages{
     self.bubbleTable.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);

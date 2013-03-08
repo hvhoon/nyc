@@ -21,16 +21,21 @@
 @end
 
 
-@interface ChatActivityView : UIView<UIActionSheetDelegate,UIBubbleTableViewDataSource,UITextViewDelegate>
+@interface ChatActivityView : UIView<UIActionSheetDelegate,UIBubbleTableViewDataSource,UITextViewDelegate>{
+    ChatTableView *bubbleTable;
+}
 @property (nonatomic,retain)id<ChatActivityViewDelegate>delegate;
 @property (strong, nonatomic) MessageInputView *inputView;
 @property (assign, nonatomic) CGFloat previousTextViewContentHeight;
 @property (nonatomic,retain) NSMutableArray *holdHistoryArray;
+@property (nonatomic,retain)UIView*chatBackgroundView;
+@property (nonatomic,retain) NSMutableArray *bubbleData;
+@property(nonatomic,retain)ChatTableView *bubbleTable;
+
 #pragma mark - Actions
 - (void)sendPressed:(UIButton *)sender withText:(NSString *)text;
 - (void)sendPressed:(UIButton *)sender;
 -(void)updateChatScreen:(NSMutableArray*)chatArray;
--(void)setUpBackgroundNoChatView;
 - (void)finishSend;
 - (void)scrollToBottomAnimated:(BOOL)animated;
 -(void)postImagePressed:(UIImage*)image;
