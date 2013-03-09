@@ -23,6 +23,9 @@
 
 @interface ChatActivityView : UIView<UIActionSheetDelegate,UIBubbleTableViewDataSource,UITextViewDelegate>{
     ChatTableView *bubbleTable;
+    UIView *loadPrevMessagesView;
+    BOOL isKeyboardInView;
+    CGFloat keyboardY;
 }
 @property (nonatomic,retain)id<ChatActivityViewDelegate>delegate;
 @property (strong, nonatomic) MessageInputView *inputView;

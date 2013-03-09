@@ -104,8 +104,8 @@
 	self.bubbleTable.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     if([holdHistoryArray count]>0){
-        self.bubbleTable.tableHeaderView=[self loadTableHeader];
-        bubbleTable.contentInset = UIEdgeInsetsMake(-52.0f, 0, 0, 0);
+        [self loadTableHeader];
+        //bubbleTable.contentInset = UIEdgeInsetsMake(-52.0f, 0, 0, 0);
     }
     
     bubbleTable.bubbleDataSource = self;
@@ -199,7 +199,9 @@
     [bubbleData removeObjectAtIndex:objectIndex];
 }
 
-
+-(NSInteger)earlierCount{
+    return  [holdHistoryArray count];
+}
 
 - (void)sendPressed:(UIButton *)sender withText:(NSString *)text
 {
@@ -356,7 +358,7 @@
 #pragma mark - Keyboard notifications
 - (void)handleWillShowKeyboard:(NSNotification *)notification
 {
-    
+        isKeyboardInView=TRUE;
         [self.delegate showDoneButton:YES];
         [self keyboardWillShowHide:notification];
 }
@@ -389,6 +391,7 @@
 
 - (void)handleWillHideKeyboard:(NSNotification *)notification
 {
+    isKeyboardInView=FALSE;
     [self.delegate showDoneButton:NO];
     [self keyboardWillShowHide:notification];
 }
@@ -403,7 +406,7 @@
 	[UIView setAnimationCurve:curve];
 	[UIView setAnimationDuration:duration];
     
-    CGFloat keyboardY = [self convertRect:keyboardRect fromView:nil].origin.y;
+    keyboardY = [self convertRect:keyboardRect fromView:nil].origin.y;
     
     CGRect inputViewFrame = self.inputView.frame;
     self.inputView.frame = CGRectMake(inputViewFrame.origin.x,
@@ -413,11 +416,7 @@
     
     
 #if 1
-    CGFloat type=0.0f;
-    if([holdHistoryArray count]>0){
-        type=-52.0f;
-    }
-    UIEdgeInsets insets = UIEdgeInsetsMake(type,
+    UIEdgeInsets insets = UIEdgeInsetsMake(0.0f,
                                            0.0f,
                                            self.frame.size.height - keyboardY,
                                            0.0f);
@@ -431,11 +430,11 @@
 #pragma mark - Keyboard events
 
 
--(UIView*)loadTableHeader{
+-(void)loadTableHeader{
     
-    UIView *loadMoreFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 52.0f)];
-    loadMoreFooterView.backgroundColor = [SoclivityUtilities returnBackgroundColor:1];
-	loadMoreFooterView.tag=145;
+    loadPrevMessagesView = [[UIView alloc] initWithFrame:CGRectMake(0, -52.0f, 320, 52.0f)];
+    loadPrevMessagesView.backgroundColor = [SoclivityUtilities returnBackgroundColor:1];
+	loadPrevMessagesView.tag=145;
     UILabel *loadMoreChatLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 15, 200, 20)];
     loadMoreChatLabel.backgroundColor=[UIColor clearColor];
     loadMoreChatLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
@@ -445,21 +444,21 @@
     UIActivityIndicatorView*friendSpinnerLoadMore = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     friendSpinnerLoadMore.frame = CGRectMake(10,15, 25, 25);
     [friendSpinnerLoadMore startAnimating];
-    [loadMoreFooterView addSubview:friendSpinnerLoadMore];
+    [loadPrevMessagesView addSubview:friendSpinnerLoadMore];
     
     [friendSpinnerLoadMore setHidden:NO];
     loadMoreChatLabel.text=[NSString stringWithFormat:@"Load earlier messages..."];
         
 	
-	[loadMoreFooterView addSubview:loadMoreChatLabel];
+	[loadPrevMessagesView addSubview:loadMoreChatLabel];
     [loadMoreChatLabel release];
-    return loadMoreFooterView;
+    [self.bubbleTable addSubview:loadPrevMessagesView];
 
 }
 
 
 -(void)userScrolledToLoadEarlierMessages{
-    self.bubbleTable.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.bubbleTable.contentInset = UIEdgeInsetsMake(52, 0, 0, 0);
 
     [self performSelector:@selector(stopAnimatingHeader) withObject:nil afterDelay:2.0];
 }
@@ -469,9 +468,18 @@
     //add the data
     
     [self addItemsToStartOfTableView];
-    //set an offset so visible cells aren't blasted
-    //[self.bubbleTable setContentOffset:CGPointMake(0, 10*(15.0f + 15.0f))];
     [self.bubbleTable reloadData];
+    
+    if(isKeyboardInView){
+        
+        UIEdgeInsets insets = UIEdgeInsetsMake(0.0f,
+                                               0.0f,
+                                               self.frame.size.height - keyboardY,
+                                               0.0f);
+        self.bubbleTable.contentInset = insets;
+
+    }
+
 }
 
 
@@ -499,12 +507,14 @@
     }
     
     if([holdHistoryArray count]==0){
-        [self.bubbleTable setTableHeaderView:nil];
             bubbleTable.contentInset = UIEdgeInsetsMake(0.0, 0, 0, 0);
+           [loadPrevMessagesView setHidden:YES];
+
 
     }
     else{
-        self.bubbleTable.contentInset = UIEdgeInsetsMake(-52, 0, 0, 0);
+        //self.bubbleTable.contentInset = UIEdgeInsetsMake(-52, 0, 0, 0);
+        self.bubbleTable.contentInset = UIEdgeInsetsMake(0.0, 0, 0, 0);
         bubbleTable.isLoading=FALSE;
     }
 

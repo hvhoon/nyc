@@ -303,12 +303,11 @@
 {
     if(isLoading)
         return;
-    //if(([scrollView contentOffset].y <= scrollView.frame.origin.y-20) && self.tableHeaderView!=Nil){
-    if((scrollView.contentOffset.y <=15) && self.tableHeaderView!=Nil){
+    if(scrollView.contentOffset.y <= -52 && [self.bubbleDataSource earlierCount]>0){
         isLoading=TRUE;
         [self.bubbleDataSource userScrolledToLoadEarlierMessages];
-	}
-    
+        
+    }
     
 }
 

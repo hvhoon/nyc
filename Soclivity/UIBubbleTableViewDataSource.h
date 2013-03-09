@@ -19,6 +19,7 @@
 -(void)resignKeyBoard;
 -(void)userInteraction:(BOOL)test;
 -(void)userScrolledToLoadEarlierMessages;
+-(NSInteger)earlierCount;
 @required
 
 - (NSInteger)rowsForBubbleTable:(ChatTableView *)tableView;
