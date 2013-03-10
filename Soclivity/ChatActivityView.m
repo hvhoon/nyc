@@ -414,7 +414,12 @@
                                       inputViewFrame.size.width,
                                       inputViewFrame.size.height);
     
-    
+    if(!isKeyboardInView){
+        [inputView setHidden:YES];
+    }
+    else{
+        [inputView setHidden:NO];
+    }
 #if 1
     UIEdgeInsets insets = UIEdgeInsetsMake(0.0f,
                                            0.0f,
