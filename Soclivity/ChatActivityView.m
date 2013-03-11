@@ -363,30 +363,9 @@
         [self keyboardWillShowHide:notification];
 }
 
--(void)userInteraction:(BOOL)test{
-    
 
- //   [self.inputView.textView setUserInteractionEnabled:test];
-    if(test){
-        /*[[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(handleWillShowKeyboard:)
-                                                     name:UIKeyboardWillShowNotification
-                                                   object:nil];*/
-        //[self.inputView.textView becomeFirstResponder];
-
-
-//        [self.inputView setHidden:NO];
-//            self.inputView.alpha=1.0f;
-   }
-    else{
-        
-        //[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-        
-                [self.inputView.textView becomeFirstResponder];
-
-//        [self.inputView setHidden:YES];
-//        self.inputView.alpha=0.0f;
-   }
+-(void)showMenu:(ActivityChatData*)type tapTypeSelect:(NSInteger)tapTypeSelect{
+    [self.delegate showMenu:type tapTypeSelect:tapTypeSelect];
 }
 
 - (void)handleWillHideKeyboard:(NSNotification *)notification

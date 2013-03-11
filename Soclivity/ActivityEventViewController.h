@@ -18,7 +18,7 @@
 @class SoclivityManager;
 @class MainServiceManager;
 @class MBProgressHUD;
-
+@class ActivityChatData;
 @interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate,ParticipantListDelegate,NotifyAnimationViewDelegate,DetailedActivityInfoInvocationDelegate,ChatActivityViewDelegate,UIActionSheetDelegate,CustomCameraUploadDelegate,ChatServiceInvocationDelegate>{
     IBOutlet UIScrollView* scrollView;
     IBOutlet AddEventView *eventView;
@@ -71,6 +71,10 @@
     IBOutlet UIButton *resignTextDoneButton;
     CameraCustom *cameraUpload;
     
+    int tapType;
+    BOOL enable;
+    int menuSection;
+    ActivityChatData *menuChat;
 }
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property (nonatomic,retain)InfoActivityClass *activityInfo;

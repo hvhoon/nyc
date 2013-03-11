@@ -25,6 +25,8 @@
 #import "CreateActivityViewController.h"
 #import "NotificationClass.h"
 #import "MessageInputView.h"
+#import "ActivityChatData.h"
+
 #define kEditMapElements 10
 #define kJoinRequest 11
 #define kCancelPendingRequest 13
@@ -498,6 +500,128 @@
                 break;
         }
         
+    
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender
+{
+    
+    if([chatView.inputView.textView isFirstResponder] && !enable){
+        
+        tapType=-1;
+    }
+    switch (tapType) {
+        case 1:
+        {
+            if (action == @selector(delete:)) {
+                return YES;
+            }
+            
+        }
+            break;
+        case 2:
+        {
+            if (action == @selector(copy:) ||
+                action == @selector(delete:)) {
+                return YES;
+            }
+            
+        }
+            break;
+            
+        case 3:
+        {
+            
+            if (action == @selector(paste:)) {
+                return NO;
+            }
+
+            else if (action == @selector(copy:)) {
+                return YES;
+            }
+
+            
+        }
+            break;
+            
+    }
+    return NO;
+}
+
+- (void)copy:(id)sender {
+    enable=FALSE;
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    NSString* copyCode = pasteboard.string;
+    NSLog(@"copyCode=%@",copyCode);
+//    ActivityChatData *chat=[chatView.bubbleData objectAtIndex:menuSection];
+    UILabel *label=(UILabel*)menuChat.view;
+//    pasteboard.string =label.text;
+    pasteboard.string=label.text;
+    
+    //[self.delegate tellToStopInteraction:YES];
+}
+
+- (void)delete:(id)sender {
+	enable=FALSE;
+    
+    switch (tapType) {
+        case 2:
+        case 1:
+        {
+            int index=0;
+            BOOL found=FALSE;
+            for(ActivityChatData *chat in chatView.bubbleData){
+                if([chat.date isEqualToDate:menuChat.date]){
+                    NSLog(@"test success");
+                    found=TRUE;
+                    break;
+                }
+                else{
+                    NSLog(@"test failed");                    
+                }
+                index++;
+            }
+            if(found){
+                [chatView.bubbleData removeObjectAtIndex:index];
+                [chatView.bubbleTable reloadData];
+            }
+
+        }
+            break;
+            
+        default:
+            break;
+    }
+    //[self.delegate deleteThisSection:section];
+}
+- (void)showMenu:(CGRect)frame{
+    //[self.delegate tellToStopInteraction:NO];
+    
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    
+    
+    //[self becomeFirstResponder];
+    //[window becomeFirstResponder];
+    //[self.delegate becomeFirstResponder];
+    
+    [[UIMenuController sharedMenuController] setTargetRect:frame inView:self.view];
+    [[UIMenuController sharedMenuController] setMenuVisible:YES animated:NO];
+    
+    //[self.delegate tellToStopInteraction:YES];
+    
+    //[self canResignFirstResponder];
+    //[self resignFirstResponder];
+    
+}
+
+-(void)showMenu:(ActivityChatData*)type tapTypeSelect:(NSInteger)tapTypeSelect{
+    [self becomeFirstResponder];
+    enable=TRUE;
+    tapType=tapTypeSelect;
+    menuChat=[type retain];
     
 }
 

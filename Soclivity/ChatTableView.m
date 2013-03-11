@@ -310,6 +310,9 @@
     }
     
 }
+-(void)showMenu:(ActivityChatData*)type tapTypeSelect:(NSInteger)tapTypeSelect{
+    [self.bubbleDataSource showMenu:type tapTypeSelect:tapTypeSelect];
+}
 
 #if 0
 

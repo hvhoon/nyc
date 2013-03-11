@@ -166,7 +166,7 @@
     }
     
     self.bubbleImage.frame = CGRectMake(x, y, width + self.data.insets.left + self.data.insets.right, height + self.data.insets.top + self.data.insets.bottom);
-#if 0
+#if 1
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(handleLongPress:)];
     lpgr.minimumPressDuration = 2.0; //seconds
@@ -311,6 +311,8 @@
    //[self becomeFirstResponder];
     //[window becomeFirstResponder];
     //[self.delegate becomeFirstResponder];
+   // UILabel *label=(UILabel*)self.data.view;
+   [delegate showMenu:self.data tapTypeSelect:tapType];
     
     [[UIMenuController sharedMenuController] setTargetRect:frame inView:self];
     [[UIMenuController sharedMenuController] setMenuVisible:YES animated:NO];

@@ -12,12 +12,13 @@
 #import "MessageSoundEffect.h"
 
 @class MessageInputView;
-
+@class ActivityChatData;
 @protocol ChatActivityViewDelegate <NSObject>
 
 @optional
 -(void)showDoneButton:(BOOL)show;
 -(void)postAtTextMessageOnTheServer:(NSString*)message;
+-(void)showMenu:(ActivityChatData*)type tapTypeSelect:(NSInteger)tapTypeSelect;
 @end
 
 

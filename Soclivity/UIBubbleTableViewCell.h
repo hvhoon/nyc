@@ -14,6 +14,8 @@
 @optional
 -(void)deleteThisSection:(NSInteger)sectionIndex;
 -(void)tellToStopInteraction:(BOOL)tell;
+
+-(void)showMenu:(ActivityChatData*)type tapTypeSelect:(NSInteger)tapTypeSelect;
 @end
 
 @interface UIBubbleTableViewCell : UITableViewCell<UIGestureRecognizerDelegate>{

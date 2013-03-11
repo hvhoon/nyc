@@ -20,6 +20,7 @@
 -(void)userInteraction:(BOOL)test;
 -(void)userScrolledToLoadEarlierMessages;
 -(NSInteger)earlierCount;
+-(void)showMenu:(ActivityChatData*)type tapTypeSelect:(NSInteger)tapTypeSelect;
 @required
 
 - (NSInteger)rowsForBubbleTable:(ChatTableView *)tableView;

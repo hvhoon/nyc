@@ -118,10 +118,42 @@
     [self addSubview:self.sendButton];
 }
 
+
+-(BOOL)canPerformAction:(SEL)action withSender:(id)sender
+{
+    return NO;
+    if (action == @selector(paste:)){
+        return [super canPerformAction:action withSender:sender];
+
+    }
+    else{
+        return NO;
+    }
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return NO;
+}
 #pragma mark - Message input view
 + (CGFloat)textViewLineHeight
 {
     return 35.0f; // for fontSize 15.0f
+}
+
+- (void)paste:(id)sender {
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    NSString* copyCode = pasteboard.string;
+    NSLog(@"copyCode=%@",copyCode);
+    
+    //[self.delegate tellToStopInteraction:YES];
+}
+
+- (void)copy:(id)sender {
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    NSString* copyCode = pasteboard.string;
+    NSLog(@"copyCode=%@",copyCode);
+    
+    //[self.delegate tellToStopInteraction:YES];
 }
 
 + (CGFloat)maxLines
