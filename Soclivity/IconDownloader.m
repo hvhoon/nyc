@@ -19,6 +19,7 @@
 @synthesize inviteRecord;
 @synthesize notificationRecord;
 @synthesize postChatRecord;
+@synthesize getAvatarRecord;
 #pragma mark
 
 - (void)dealloc
@@ -30,6 +31,8 @@
     [inviteRecord release];
     [imageConnection cancel];
     [imageConnection release];
+    [getAvatarRecord release];
+    [postChatRecord release];
     
     [super dealloc];
 }
@@ -98,6 +101,21 @@
             
         }
             break;
+            
+        case kActivityAvatarData:
+        {
+            if(getAvatarRecord.avatarUrl!= nil)
+            {
+                NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
+                                         [NSURLRequest requestWithURL:
+                                          [NSURL URLWithString:getAvatarRecord.avatarUrl]] delegate:self];
+                self.imageConnection = conn;
+                [conn release];
+            }
+            
+        }
+            break;
+
 
     }
 }
@@ -134,6 +152,9 @@
     
     if(tagkey==kActivityPostChatData){
         self.postChatRecord.postImage = image;
+    }
+    else if(tagkey==kActivityAvatarData){
+        self.getAvatarRecord.avatar=image;
     }
     else{
     if(image.size.height != image.size.width)
@@ -174,7 +195,11 @@
     self.imageConnection = nil;
         
     // call our delegate and tell it that our icon is ready for display
-    [delegate appImageDidLoad:self.indexPathInTableView];
+    if(tagkey==kActivityAvatarData)
+        [delegate appImageDidLoad2:self.indexPathInTableView];
+    else{
+        [delegate appImageDidLoad:self.indexPathInTableView];        
+    }
      //[image release];
 }
 

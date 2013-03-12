@@ -64,7 +64,7 @@
                 ActivityChatData *heyBubble = [ActivityChatData dataWithImage:[UIImage imageNamed:@"S05.3_chatImageFrame.png"] date:lastDate name:[friend objectForKey:@"player_name"] type:BubbleTypeSomeoneElse];
                 heyBubble.postImageUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[friend objectForKey:@"activity_photo_url"]];
 
-                heyBubble.avatar = [UIImage imageNamed:@"picbox.png"];
+                heyBubble.avatar = nil;
                 heyBubble.avatarUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[friend objectForKey:@"player_photo"]];
                 heyBubble.showAvatars=YES;
                 heyBubble.chatId=[[friend objectForKey:@"id"]integerValue];
@@ -75,7 +75,7 @@
             }
             else{
             ActivityChatData *heyBubble = [ActivityChatData dataWithText:[friend objectForKey:@"description"] date:lastDate name:[friend objectForKey:@"player_name"] type:BubbleTypeSomeoneElse];
-            heyBubble.avatar = [UIImage imageNamed:@"picbox.png"];
+            heyBubble.avatar = nil;
             heyBubble.avatarUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[friend objectForKey:@"player_photo"]];
             heyBubble.showAvatars=YES;
             heyBubble.chatId=[[friend objectForKey:@"id"]integerValue];

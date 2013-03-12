@@ -21,13 +21,15 @@ typedef enum _NSBubbleTypingType
 @interface ChatTableView : UITableView<UITableViewDelegate, UITableViewDataSource,UIBubbleTableViewCellDelegate,IconDownloaderDelegate>{
     BOOL isLoading;
     NSMutableDictionary *imageDownloadsInProgress;
+    NSMutableDictionary *imageDownloadsInProgress2;
 }
 @property (nonatomic,assign)BOOL isLoading;
 @property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
+@property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress2;
 @property (nonatomic,retain)NSMutableArray *bubbleSection;
 @property (nonatomic, assign)id<UIBubbleTableViewDataSource> bubbleDataSource;
 @property (nonatomic) NSTimeInterval snapInterval;
 @property (nonatomic) NSBubbleTypingType typingBubble;
 
-
+- (void)startAvatarDownload:(ActivityChatData*)appRecord forIndexPath:(NSIndexPath *)indexPath;
 @end

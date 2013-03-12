@@ -17,9 +17,11 @@
 @synthesize typingBubble = _typingBubble;
 @synthesize isLoading;
 @synthesize imageDownloadsInProgress;
+@synthesize imageDownloadsInProgress2;
 - (void)initializator
 {
     imageDownloadsInProgress=[[NSMutableDictionary alloc]init];
+    imageDownloadsInProgress2=[[NSMutableDictionary alloc]init];
     self.backgroundColor = [UIColor clearColor];
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
     assert(self.style == UITableViewStylePlain);
@@ -229,12 +231,10 @@
             }
             else{
                 test.image = [data.postImage retain];
-                //data.view=test;
                 
             }
             
         }
-
         
         cell.data = data;
         cell.delegate=self;
@@ -286,11 +286,24 @@
             }
             else{
                 test.image = [data.postImage retain];
-                //data.view=test;
                 
             }
 
         }
+        
+        if(!data.avatar){
+            
+            if (self.dragging == NO && self.decelerating == NO)
+            {
+                [self startAvatarDownload:data forIndexPath:indexPath];
+            }
+            
+        }
+        else{
+            cell.data.avatar=data.avatar;
+            
+        }
+
     
         cell.data = data;
         cell.delegate=self;
@@ -317,6 +330,24 @@
 }
 
 
+- (void)startAvatarDownload:(ActivityChatData*)appRecord forIndexPath:(NSIndexPath *)indexPath{
+    IconDownloader *iconDownloader = [imageDownloadsInProgress2 objectForKey:indexPath];
+    if (iconDownloader == nil)
+    {
+        iconDownloader = [[IconDownloader alloc] init];
+        iconDownloader.getAvatarRecord = appRecord;
+        iconDownloader.indexPathInTableView = indexPath;
+        iconDownloader.delegate = self;
+        [imageDownloadsInProgress setObject:iconDownloader forKey:indexPath];
+        [iconDownloader startDownload:kActivityAvatarData];
+        [iconDownloader release];
+    }
+}
+
+
+
+
+
 - (void)loadImagesForOnscreenRows{
     if ([self.bubbleSection count] > 0)
     {
@@ -338,6 +369,23 @@
     
 }
 
+
+- (void)appImageDidLoad2:(NSIndexPath *)indexPath
+{
+    IconDownloader *iconDownloader = [imageDownloadsInProgress2 objectForKey:indexPath];
+    if (iconDownloader != nil)
+    {
+        UIBubbleTableViewCell *cell = (UIBubbleTableViewCell*)[self cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
+        // Display the newly loaded image
+        cell.data.avatar =iconDownloader.getAvatarRecord.avatar;
+        [self.bubbleDataSource chatObjectUpdate:iconDownloader.getAvatarRecord];
+    }
+    
+    [self reloadData];
+}
+
+
+
 - (void)appImageDidLoad:(NSIndexPath *)indexPath
 {
     IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
@@ -347,7 +395,6 @@
         // Display the newly loaded image
         cell.data =iconDownloader.postChatRecord;
         [self.bubbleDataSource chatObjectUpdate:iconDownloader.postChatRecord];
-        //[cell setNeedsDisplay];
     }
     
     [self reloadData];
