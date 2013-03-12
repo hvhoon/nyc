@@ -54,7 +54,7 @@
     self.textView.scrollEnabled = YES;
     self.textView.scrollsToTop = NO;
     self.textView.userInteractionEnabled = YES;
-    self.textView.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:16.0f];
+    self.textView.font = [UIFont fontWithName:@"Helvetica-Condensed" size:16.0f];
 
     self.textView.textColor = [SoclivityUtilities returnTextFontColor:4];
     self.textView.backgroundColor = [UIColor whiteColor];
@@ -76,7 +76,7 @@
                                                                                 0.0f,
                                                                                 self.textView.frame.size.width + 2.0f,
                                                                                 self.frame.size.height)];
-    inputFieldBack.image = [[UIImage imageNamed:@"input-field"] resizableImageWithCapInsets:UIEdgeInsetsMake(20.0f, 12.0f, 18.0f, 18.0f)];
+    inputFieldBack.image = [[UIImage imageNamed:@"input-field2"] resizableImageWithCapInsets:UIEdgeInsetsMake(20.0f, 12.0f, 18.0f, 18.0f)];
     inputFieldBack.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     [self addSubview:inputFieldBack];
 }

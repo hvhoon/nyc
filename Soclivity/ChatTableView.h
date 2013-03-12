@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UIBubbleTableViewDataSource.h"
 #import "UIBubbleTableViewCell.h"
-
+#import "IconDownloader.h"
 typedef enum _NSBubbleTypingType
 {
     NSBubbleTypingTypeNobody = 0,
@@ -18,10 +18,12 @@ typedef enum _NSBubbleTypingType
 } NSBubbleTypingType;
 
 
-@interface ChatTableView : UITableView<UITableViewDelegate, UITableViewDataSource,UIBubbleTableViewCellDelegate>{
+@interface ChatTableView : UITableView<UITableViewDelegate, UITableViewDataSource,UIBubbleTableViewCellDelegate,IconDownloaderDelegate>{
     BOOL isLoading;
+    NSMutableDictionary *imageDownloadsInProgress;
 }
 @property (nonatomic,assign)BOOL isLoading;
+@property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
 @property (nonatomic,retain)NSMutableArray *bubbleSection;
 @property (nonatomic, assign)id<UIBubbleTableViewDataSource> bubbleDataSource;
 @property (nonatomic) NSTimeInterval snapInterval;

@@ -4,6 +4,7 @@
 #import "InviteObjectClass.h"
 #import "SoclivityUtilities.h"
 #import "NotificationClass.h"
+#import "ActivityChatData.h"
 #define kIconHeight 56
 #define kIconWidth 56
 
@@ -17,6 +18,7 @@
 @synthesize tagkey;
 @synthesize inviteRecord;
 @synthesize notificationRecord;
+@synthesize postChatRecord;
 #pragma mark
 
 - (void)dealloc
@@ -81,6 +83,22 @@
             
         }
             break;
+            
+            
+        case kActivityPostChatData:
+        {
+            if(postChatRecord.postImageUrl!= nil)
+            {
+                NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
+                                         [NSURLRequest requestWithURL:
+                                          [NSURL URLWithString:postChatRecord.postImageUrl]] delegate:self];
+                self.imageConnection = conn;
+                [conn release];
+            }
+            
+        }
+            break;
+
     }
 }
 
@@ -114,7 +132,10 @@
     // Set appIcon and clear temporary data/image
     UIImage *image = [[UIImage alloc] initWithData:self.activeDownload];
     
-    
+    if(tagkey==kActivityPostChatData){
+        self.postChatRecord.postImage = image;
+    }
+    else{
     if(image.size.height != image.size.width)
         image = [SoclivityUtilities autoCrop:image];
     
@@ -145,7 +166,7 @@
         }
     
 	
-	
+    }
     self.activeDownload = nil;
 
     

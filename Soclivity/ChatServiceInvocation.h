@@ -11,15 +11,16 @@
 #import "SAServiceAsyncInvocation.h"
 
 @class ChatServiceInvocation;
-
+@class ActivityChatData;
 @protocol ChatServiceInvocationDelegate
 
 -(void)chatPostToDidFinish:(ChatServiceInvocation*)invocation
                        withResponse:(NSArray*)responses
                           withError:(NSError*)error;
 @optional
--(void)successRemoveNotification:(NSString*)msg;
-
+-(void)userPostedAText:(ActivityChatData*)msg;
+-(void)userPostedAnImage:(ActivityChatData*)imagePost;
+-(void)chatDeleted:(NSString*)message;
 @end
 
 

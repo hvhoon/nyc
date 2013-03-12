@@ -22,6 +22,8 @@
 @synthesize playerId;
 @synthesize avatarUrl;
 @synthesize chatId;
+@synthesize postImageUrl;
+@synthesize postImage;
 - (void)dealloc
 {
     [_date release];
@@ -32,7 +34,8 @@
     _name=nil;
     self.avatar = nil;
     [avatarUrl release];
-    
+    [postImageUrl release];
+    [postImage release];
     [super dealloc];
 }
 
@@ -78,28 +81,7 @@ const UIEdgeInsets imageInsetsSomeone = {11, 18, 16, 14};
 
 - (id)initWithImage:(UIImage *)image date:(NSDate *)date name:(NSString*)name type:(NSBubbleType)type
 {
-#if 0
-    CGSize size = image.size;
-    
-    if(image.size.height != image.size.width)
-        image = [SoclivityUtilities autoCrop:image];
-    
-    // If the image needs to be compressed
-    if(image.size.height > 240 || image.size.width > 240)
-        image = [SoclivityUtilities compressImage:image size:CGSizeMake(120,120)];
-
-    if (size.width > 120)
-    {
-        size.width = 120;
-    }
-    
-    if (size.height > 120)
-    {
-        size.height = 120;
-    }
-
-#endif
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 120, 120)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 93, 93)];
     imageView.image = image;
     [imageView autorelease];
     

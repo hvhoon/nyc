@@ -16,7 +16,7 @@
 
 
 #define INPUT_HEIGHT 40.0f
-#define kLoadingPrevMessage 1
+#define kLoadingPrevMessage 5
 
 @implementation ChatActivityView
 @synthesize bubbleTable;
@@ -203,55 +203,40 @@
     return  [holdHistoryArray count];
 }
 
+-(void)chatObjectUpdate:(ActivityChatData*)post{
+    for(ActivityChatData *data in self.bubbleData){
+        if([data isEqual:post]){
+            data=post;
+        }
+    }
+}
+
 - (void)sendPressed:(UIButton *)sender withText:(NSString *)text
 {
     
     
-    //[self.delegate postAtTextMessageOnTheServer:text];
+    [self.delegate postAtTextMessageOnTheServer:text];
     
     
-    if((bubbleData.count - 1) % 2)
-        [MessageSoundEffect playMessageSentSound];
-    else
-        [MessageSoundEffect playMessageReceivedSound];
-    int num=rand()%2;
-    
-    ActivityChatData *sayBubble = [ActivityChatData dataWithText:text date:[NSDate dateWithTimeIntervalSinceNow:0] name:@"Kanav Gupta" type:num];
-    if(num==BubbleTypeSomeoneElse){
-            sayBubble.showAvatars=YES;
-            sayBubble.avatar = [UIImage imageNamed:@"picbox.png"];
-    }else{
-            sayBubble.showAvatars=NO;
-            sayBubble.avatar = nil;
-    }
-    [bubbleData addObject:sayBubble];
-    
-    [self finishSend];
+    //[MessageSoundEffect playMessageReceivedSound];
 }
 
--(void)postImagePressed:(UIImage*)image{
+-(void)messageRecieved:(ActivityChatData*)chat{
+    [MessageSoundEffect playMessageSentSound];
+    [bubbleData addObject:chat];
     
-    if((bubbleData.count - 1) % 2)
-        [MessageSoundEffect playMessageSentSound];
-    else
-        [MessageSoundEffect playMessageReceivedSound];
-    int num=rand()%2;
+    [self finishSend];
     
-    ActivityChatData *sayBubble = [ActivityChatData dataWithImage:image date:[NSDate dateWithTimeIntervalSinceNow:0] name:@"Kanav Gupta" type:num];
-    
-    if(num==BubbleTypeSomeoneElse){
-        sayBubble.showAvatars=YES;
-        sayBubble.avatar = [UIImage imageNamed:@"picbox.png"];
-    }else{
-        sayBubble.showAvatars=NO;
-        sayBubble.avatar = nil;
-    }
-    [bubbleData addObject:sayBubble];
+}
+
+-(void)postImagePressed:(ActivityChatData*)chatObject{
+    [MessageSoundEffect playMessageSentSound];
+    [bubbleData addObject:chatObject];
     
     [self.bubbleTable reloadData];
     [self scrollToBottomAnimated:YES];
-
 }
+
 
 - (void)sendPressed:(UIButton *)sender
 {
@@ -417,7 +402,7 @@
 -(void)loadTableHeader{
     
     loadPrevMessagesView = [[UIView alloc] initWithFrame:CGRectMake(0, -52.0f, 320, 52.0f)];
-    loadPrevMessagesView.backgroundColor = [SoclivityUtilities returnBackgroundColor:1];
+    loadPrevMessagesView.backgroundColor = [SoclivityUtilities returnBackgroundColor:0];
 	loadPrevMessagesView.tag=145;
     UILabel *loadMoreChatLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 15, 200, 20)];
     loadMoreChatLabel.backgroundColor=[UIColor clearColor];
@@ -443,8 +428,7 @@
 
 -(void)userScrolledToLoadEarlierMessages{
     self.bubbleTable.contentInset = UIEdgeInsetsMake(52, 0, 0, 0);
-
-    [self performSelector:@selector(stopAnimatingHeader) withObject:nil afterDelay:2.0];
+    [self performSelector:@selector(stopAnimatingHeader) withObject:nil afterDelay:1.5];
 }
 
 //stop the header spinner
@@ -461,6 +445,7 @@
                                                self.frame.size.height - keyboardY,
                                                0.0f);
         self.bubbleTable.contentInset = insets;
+        self.bubbleTable.scrollIndicatorInsets = insets;
 
     }
 

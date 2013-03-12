@@ -48,7 +48,13 @@
             break;
             
             
+            case 4:
+        {
+            NSString*a=[NSString stringWithFormat:@"dev.soclivity.com/activity_chats/%d.json",playerId];
+            [self delete:a];
 
+        }
+            break;
         default:
             break;
     }
@@ -60,10 +66,14 @@
     [bodyD setObject:[NSNumber numberWithInt:activityId] forKey:@"activity_id"];
     [bodyD setObject:[NSNumber numberWithInt:playerId] forKey:@"player_id"];
     
-    if(requestType==2)
+    if(requestType==2){
         [bodyD setObject:textMessage forKey:@"description"];
-    if(requestType==3)
+        
+    }
+    if(requestType==3){
+        [bodyD setObject:@"IMG" forKey:@"description"];
         [bodyD setObject:[Base64 encode:imageData] forKey:@"activity_photo_data"];
+    }
     
     NSString *bodyData = [NSString stringWithFormat:@"%@",[bodyD JSONRepresentation]];
     NSLog(@"body=%@",[bodyD JSONRepresentation]);
@@ -75,12 +85,13 @@
     
     
     NSLog(@"handleHttpOK");
-	NSArray* resultsd = [[[NSString alloc] initWithData:data
-                                                    encoding:NSUTF8StringEncoding] JSONValue];
     
     switch (requestType) {
         case 1:
         {
+            NSArray* resultsd = [[[NSString alloc] initWithData:data
+                                                       encoding:NSUTF8StringEncoding] JSONValue];
+
             NSArray *response=[ActivityChatData PlayersChatPertainingToActivity:resultsd];
             [self.delegate chatPostToDidFinish:self withResponse:response withError:Nil];
             
@@ -89,13 +100,39 @@
             
         case 2:
         {
-            NSArray *response=[ActivityChatData PlayersChatPertainingToActivity:resultsd];
-            [self.delegate chatPostToDidFinish:self withResponse:response withError:Nil];
+            NSDictionary* resultsd = [[[NSString alloc] initWithData:data
+                                                       encoding:NSUTF8StringEncoding] JSONValue];
+
+            ActivityChatData *response=[ActivityChatData postChatTextIntercept:resultsd];
+            [self.delegate userPostedAText:response];
+            
+        }
+            break;
+            
+        case 3:
+        {
+            NSDictionary* resultsd = [[[NSString alloc] initWithData:data
+                                                            encoding:NSUTF8StringEncoding] JSONValue];
+            
+            ActivityChatData *response=[ActivityChatData postChatImageIntercept:resultsd];
+            response.postImage=[UIImage imageWithData:imageData];
+            
+            [self.delegate userPostedAnImage:response];
             
         }
             break;
 
+        case 4:
+        {
+            NSDictionary* resultsd = [[[NSString alloc] initWithData:data
+                                                            encoding:NSUTF8StringEncoding] JSONValue];
+            NSString*resetStatus= [resultsd objectForKey:@"status"];
             
+            [self.delegate chatDeleted:resetStatus];
+
+            
+        }
+            break;
         default:
             break;
     }

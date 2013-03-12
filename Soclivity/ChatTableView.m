@@ -16,10 +16,10 @@
 @synthesize bubbleSection = _bubbleSection;
 @synthesize typingBubble = _typingBubble;
 @synthesize isLoading;
-
+@synthesize imageDownloadsInProgress;
 - (void)initializator
 {
-    
+    imageDownloadsInProgress=[[NSMutableDictionary alloc]init];
     self.backgroundColor = [UIColor clearColor];
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
     assert(self.style == UITableViewStylePlain);
@@ -138,14 +138,11 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     int result = [self.bubbleSection count];
-    //if (self.typingBubble != NSBubbleTypingTypeNobody) result++;
     return result;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // typing bubble
-	//if (section >= [self.bubbleSection count]) return 1;
     ActivityChatData *rowElement=[[self.bubbleSection objectAtIndex:section]objectAtIndex:0];
     if(rowElement.type==BubbleTypeMine){
         NSLog(@"Count in row=%d",[[self.bubbleSection objectAtIndex:section] count] + 1);
@@ -160,12 +157,6 @@
 
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Now typing
-//	if (indexPath.section >= [self.bubbleSection count])
-//    {
-//        return MAX([UIBubbleTypingTableViewCell height], self.showAvatars ? 52 : 0);
-//    }
-    
     int delta=0;
 
     ActivityChatData *rowElement=[[self.bubbleSection objectAtIndex:indexPath.section]objectAtIndex:0];
@@ -202,20 +193,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Now typing
-//	if (indexPath.section >= [self.bubbleSection count])
-//    {
-//        static NSString *cellId = @"tblBubbleTypingCell";
-//        UIBubbleHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-//        ActivityChatData *data = [[self.bubbleSection objectAtIndex:indexPath.section] objectAtIndex:0];
-//        
-//        if (cell == nil) cell = [[UIBubbleHeaderTableViewCell alloc] init];
-//        
-//        cell.date = data.date;
-//        
-//        return cell;
-//    }
-    
     ActivityChatData *rowElement=[[self.bubbleSection objectAtIndex:indexPath.section]objectAtIndex:0];
     if(rowElement.type==BubbleTypeMine){
         
@@ -240,8 +217,26 @@
         
         if (cell == nil) cell = [[UIBubbleTableViewCell alloc] init];
         
+        if([data.view isKindOfClass:[UIImageView class]]){
+            
+            UIImageView *test=(UIImageView*)data.view;
+            if(!data.postImage){
+                if (self.dragging == NO && self.decelerating == NO)
+                {
+                    [self startIconDownload:data forIndexPath:indexPath];
+                }
+                
+            }
+            else{
+                test.image = [data.postImage retain];
+                //data.view=test;
+                
+            }
+            
+        }
+
+        
         cell.data = data;
-        cell.section=indexPath.row-1;
         cell.delegate=self;
 
         cell.showAvatar = data.showAvatars;
@@ -274,11 +269,30 @@
         static NSString *cellId = @"tblBubbleCell";
         UIBubbleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         ActivityChatData *data = [[self.bubbleSection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row-1];
-        
         if (cell == nil) cell = [[UIBubbleTableViewCell alloc] init];
         
+        
+            
+        
+        if([data.view isKindOfClass:[UIImageView class]]){
+            
+            UIImageView *test=(UIImageView*)data.view;
+            if(!data.postImage){
+            if (self.dragging == NO && self.decelerating == NO)
+            {
+                [self startIconDownload:data forIndexPath:indexPath];
+            }
+                
+            }
+            else{
+                test.image = [data.postImage retain];
+                //data.view=test;
+                
+            }
+
+        }
+    
         cell.data = data;
-        cell.section=indexPath.row-1;
         cell.delegate=self;
 
         cell.showAvatar = data.showAvatars;
@@ -287,6 +301,58 @@
     }
     
 }
+
+- (void)startIconDownload:(ActivityChatData*)appRecord forIndexPath:(NSIndexPath *)indexPath{
+    IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
+    if (iconDownloader == nil)
+    {
+        iconDownloader = [[IconDownloader alloc] init];
+        iconDownloader.postChatRecord = appRecord;
+        iconDownloader.indexPathInTableView = indexPath;
+        iconDownloader.delegate = self;
+        [imageDownloadsInProgress setObject:iconDownloader forKey:indexPath];
+        [iconDownloader startDownload:kActivityPostChatData];
+        [iconDownloader release];
+    }
+}
+
+
+- (void)loadImagesForOnscreenRows{
+    if ([self.bubbleSection count] > 0)
+    {
+        NSArray *visiblePaths = [self indexPathsForVisibleRows];
+        for (NSIndexPath *indexPath in visiblePaths)
+        {
+            ActivityChatData *appRecord = (ActivityChatData *)[[self.bubbleSection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+            
+            if([appRecord.view isKindOfClass:[UIImageView class]]){
+            
+            if (!appRecord.postImage) // avoid the app icon download if the app already has an icon
+            {
+                [self startIconDownload:appRecord forIndexPath:indexPath];
+            }
+            }
+        }
+    }
+    
+    
+}
+
+- (void)appImageDidLoad:(NSIndexPath *)indexPath
+{
+    IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
+    if (iconDownloader != nil)
+    {
+        UIBubbleTableViewCell *cell = (UIBubbleTableViewCell*)[self cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
+        // Display the newly loaded image
+        cell.data =iconDownloader.postChatRecord;
+        [self.bubbleDataSource chatObjectUpdate:iconDownloader.postChatRecord];
+        //[cell setNeedsDisplay];
+    }
+    
+    [self reloadData];
+}
+
 -(void)tellToStopInteraction:(BOOL)tell{
     [self.bubbleDataSource userInteraction:tell];
 }
@@ -314,70 +380,23 @@
     [self.bubbleDataSource showMenu:type tapTypeSelect:tapTypeSelect];
 }
 
-#if 0
-
-
-- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+// Load images for all onscreen rows when scrolling is finished
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     
-    if (action == @selector(copy:) ||
-        action == @selector(delete:)){
+    if (!decelerate)
+    {
+        //[self loadImagesForOnscreenRows];
     }
-    return YES;
-}
-
-- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-        return NO;
 }
 
-- (BOOL)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     
-    if (action == @selector(copy:) ||
-        action == @selector(delete:))
-        return YES;
+    //[self loadImagesForOnscreenRows];
     
-    return NO;
-}
-
-#pragma mark -
-- (BOOL)canBecomeFirstResponder
-{
-    return YES;
-}
-
-- (BOOL)canPerformAction:(SEL)action
-              withSender:(id)sender
-{
-    if (action == @selector(cameraAction:) ||
-        action == @selector(textAction:))
-        return YES;
-    
-    return [super canPerformAction:action withSender:sender];
-}
-
-- (void)cameraAction:(id)sender
-{
-    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Camera Item Pressed", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", nil) otherButtonTitles:nil] show];
 }
 
 
-- (void)textAction:(id)sender
-{
-    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Text Item Pressed", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", nil) otherButtonTitles:nil] show];
-}
-- (void)copy:(id)sender {
-	
-	// Get the General pasteboard and the current tile.
-	UIPasteboard *gpBoard = [UIPasteboard generalPasteboard];
-}
-
-- (void)delete:(id)sender {
-	
-	// Get the General pasteboard and the current tile.
-	UIPasteboard *gpBoard = [UIPasteboard generalPasteboard];
-}
-
-#endif
 
 
 /*

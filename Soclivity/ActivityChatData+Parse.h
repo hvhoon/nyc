@@ -10,5 +10,6 @@
 @interface ActivityChatData (Parse)
 
 +(NSArray*)PlayersChatPertainingToActivity:(NSArray*)ACTArray;
-
++(ActivityChatData*)postChatTextIntercept:(NSDictionary*)data;
++(ActivityChatData*)postChatImageIntercept:(NSDictionary*)data;
 @end

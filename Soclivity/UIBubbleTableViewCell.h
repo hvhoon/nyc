@@ -26,11 +26,17 @@ id <UIBubbleTableViewCellDelegate>delegate;
 @property (nonatomic, strong) ActivityChatData *data;
 @property (nonatomic) BOOL showAvatar;
 @property (nonatomic,retain)id<UIBubbleTableViewCellDelegate>delegate;
-@property (nonatomic,assign)NSInteger section;
 
 @end
 
 @interface CHDemoView : UIView
+{
+    UIImageView* _imageView;
+    UIImage* _image;
+    float _scalingFactor;
+}
+@property (nonatomic, retain) UIImage* image;
+
 - (void)singleTapAction:(UITapGestureRecognizer*)ges;
 @property (nonatomic,assign)CGRect originRect;
 @end

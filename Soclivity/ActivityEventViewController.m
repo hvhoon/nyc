@@ -26,7 +26,6 @@
 #import "NotificationClass.h"
 #import "MessageInputView.h"
 #import "ActivityChatData.h"
-
 #define kEditMapElements 10
 #define kJoinRequest 11
 #define kCancelPendingRequest 13
@@ -40,6 +39,8 @@
 #define kActivityLabel 21
 #define kChatPostRequest 22
 #define kChatPostMessageRequest 23
+#define kChatPostDelete 24
+
 @interface ActivityEventViewController (private)<EditActivityEventInvocationDelegate,MBProgressHUDDelegate,PostActivityRequestInvocationDelegate,GetActivityInvitesInvocationDelegate,NewActivityViewDelegate>
 @end
 
@@ -568,15 +569,17 @@
 	enable=FALSE;
     
     switch (tapType) {
-        case 2:
         case 1:
+        case 2:
         {
             int index=0;
+            int chatI=0;
             BOOL found=FALSE;
             for(ActivityChatData *chat in chatView.bubbleData){
                 if([chat.date isEqualToDate:menuChat.date]){
                     NSLog(@"test success");
                     found=TRUE;
+                    chatI=chat.chatId;
                     break;
                 }
                 else{
@@ -585,8 +588,8 @@
                 index++;
             }
             if(found){
-                [chatView.bubbleData removeObjectAtIndex:index];
-                [chatView.bubbleTable reloadData];
+                removeChatIndex=index;
+                [self deleteChatPost:chatI];
             }
 
         }
@@ -595,26 +598,35 @@
         default:
             break;
     }
-    //[self.delegate deleteThisSection:section];
 }
-- (void)showMenu:(CGRect)frame{
-    //[self.delegate tellToStopInteraction:NO];
+-(void)deleteChatPost:(NSInteger)chatid{
     
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    if([SoclivityUtilities hasNetworkConnection]){
+        
+        [self startAnimation:kChatPostDelete];
+        
+        [devServer chatPostsOnActivity:activityInfo.activityId playerId:chatid delegate:self message:nil chatRequest:4 imageToPost:nil];
+    }
+    else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+
+}
+
+-(void)chatDeleted:(NSString*)message{
     
-    
-    //[self becomeFirstResponder];
-    //[window becomeFirstResponder];
-    //[self.delegate becomeFirstResponder];
-    
-    [[UIMenuController sharedMenuController] setTargetRect:frame inView:self.view];
-    [[UIMenuController sharedMenuController] setMenuVisible:YES animated:NO];
-    
-    //[self.delegate tellToStopInteraction:YES];
-    
-    //[self canResignFirstResponder];
-    //[self resignFirstResponder];
-    
+    [HUD hide:YES];
+    [chatView.bubbleData removeObjectAtIndex:removeChatIndex];
+    [chatView.bubbleTable reloadData];
+
 }
 
 -(void)showMenu:(ActivityChatData*)type tapTypeSelect:(NSInteger)tapTypeSelect{
@@ -658,6 +670,12 @@
 
     [self.inputView setUserInteractionEnabled:YES];
     [chatView.inputView.textView becomeFirstResponder];
+}
+
+-(void)userPostedAText:(ActivityChatData*)msg{
+    
+    [HUD hide:YES];
+    [chatView messageRecieved:msg];
 }
 
 -(IBAction)postImageOnChatScreenPressed:(id)sender{
@@ -735,15 +753,8 @@
     
     [self dismissModalViewControllerAnimated:YES];
     
-    // If the image is not a square please auto crop
-//    if(Img.size.height != Img.size.width)
-        Img = [SoclivityUtilities autoCrop:Img];
     
-    // If the image needs to be compressed
- //   if(Img.size.height > 240 || Img.size.width > 240)
-       // Img = [SoclivityUtilities compressImage:Img size:CGSizeMake(120,120)];
-    
-    //[self postAImageOnTheServer:Img];
+    [self postAImageOnTheServer:Img];
     
     if([chatView.bubbleData count]==0){
         [chatView.bubbleTable setHidden:NO];
@@ -752,7 +763,12 @@
     }
 
     
-    [chatView postImagePressed:Img];
+
+}
+-(void)userPostedAnImage:(ActivityChatData*)imagePost{
+    
+    [HUD hide:YES];
+    [chatView postImagePressed:imagePost];
     
 }
 
@@ -1968,7 +1984,14 @@
 
         case kChatPostMessageRequest:
         {
+                HUD.yOffset = -70.0;
             HUD.labelText = @"Posting";
+        }
+            break;
+            
+        case kChatPostDelete:
+        {
+           HUD.labelText = @"Deleting";
         }
             break;
         default:

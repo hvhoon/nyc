@@ -10,13 +10,26 @@
 #import "ActivityChatData.h"
 #import <QuartzCore/QuartzCore.h>
 
+#define IMAGE_BOUNDRY_SPACE 10
+
 @implementation CHDemoView
 @synthesize originRect;
+
+
+@synthesize image = _image;
+
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         self.userInteractionEnabled = YES;
+        _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        
+        [self setAutoresizesSubviews:YES];
+        [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+        
+        [self addSubview:_imageView];
+
         UITapGestureRecognizer *ges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)];
         ges.numberOfTapsRequired = 1;
         ges.numberOfTouchesRequired = 1;
@@ -25,6 +38,41 @@
     }
     return self;
 }
+
+-(void) setImage:(UIImage *)image
+{
+    _image = image;
+    [_imageView setImage:image];
+    [self reLayoutView];
+    
+}
+-(void) setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    if(_image != nil)
+        [self reLayoutView];
+}
+
+- (void) reLayoutView
+{
+    float imgWidth = _image.size.width;
+    float imgHeight = _image.size.height;
+    float viewWidth = self.bounds.size.width - 2*IMAGE_BOUNDRY_SPACE;
+    float viewHeight = self.bounds.size.height - 2*IMAGE_BOUNDRY_SPACE;
+    
+    float widthRatio = imgWidth / viewWidth;
+    float heightRatio = imgHeight / viewHeight;
+    _scalingFactor = widthRatio > heightRatio ? widthRatio : heightRatio;
+    
+    _imageView.bounds = CGRectMake(0, 0, imgWidth / _scalingFactor, imgHeight/_scalingFactor);
+    _imageView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+    
+    _imageView.layer.shadowColor = [UIColor blackColor].CGColor;
+    _imageView.layer.shadowOffset = CGSizeMake(3, 3);
+    _imageView.layer.shadowOpacity = 0.6;
+    _imageView.layer.shadowRadius = 1.0;
+}
+
 
 - (void)singleTapAction:(UITapGestureRecognizer *)ges {
     if (ges.state == UIGestureRecognizerStateEnded) {
@@ -57,7 +105,7 @@
 @synthesize bubbleImage = _bubbleImage;
 @synthesize showAvatar = _showAvatar;
 @synthesize avatarImage = _avatarImage;
-@synthesize tapType,delegate,section;
+@synthesize tapType,delegate;
 
 - (void)setFrame:(CGRect)frame
 {
@@ -140,7 +188,7 @@
     [self.customView removeFromSuperview];
     self.customView = self.data.view;
     
-    if([self.data.view isKindOfClass:[UIImageView class]]){
+    if([self.data.view isKindOfClass:[UIImageView class]] && self.data.postImage!=nil){
         //NSLog(@"Image View");
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
         tapGesture.numberOfTapsRequired=1;
@@ -169,7 +217,7 @@
 #if 1
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(handleLongPress:)];
-    lpgr.minimumPressDuration = 2.0; //seconds
+    lpgr.minimumPressDuration = 1.0; //seconds
     lpgr.delegate = self;
     [self.customView setUserInteractionEnabled:YES];
     [self.customView addGestureRecognizer:lpgr];
@@ -197,9 +245,9 @@
     
     UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
     CGRect imgFrame = [window convertRect:[touchedView frame] fromView:self];
-    UIImageView *touch=(UIImageView*)touchedView;
+    //UIImageView *touch=(UIImageView*)touchedView;
     CHDemoView *blackView = [[CHDemoView alloc] initWithFrame:imgFrame];
-    blackView.backgroundColor = [[UIColor alloc]initWithPatternImage:touch.image];
+    blackView.backgroundColor = [UIColor blackColor];
     blackView.originRect = imgFrame;
     [window addSubview:blackView];
     
@@ -207,9 +255,10 @@
     [UIView animateWithDuration:0.5
                      animations:^{
                          blackView.frame = window.frame;
+                         [blackView setImage:self.data.postImage];
+
                      }
                      completion:^(BOOL finished){
-                         
                      }];
     
 }
@@ -251,76 +300,13 @@
 
 
 
-- (BOOL)canBecomeFirstResponder {
-    return YES;
-}
-- (BOOL)canPerformAction:(SEL)action withSender:(id)sender
-{
-    switch (tapType) {
-        case 1:
-        {
-            if (action == @selector(delete:)) {
-                return YES;
-            }
-            
-        }
-            break;
-        case 2:
-        {
-            if (action == @selector(copy:) ||
-                action == @selector(delete:)) {
-                return YES;
-            }
-            
-        }
-            break;
-            
-        case 3:
-        {
-            if (action == @selector(copy:)) {
-                return YES;
-            }
-            
-        }
-            break;
-            
-    }
-    return NO;
-}
 
-- (void)copy:(id)sender {
-    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    NSString* copyCode = pasteboard.string;
-    NSLog(@"copyCode=%@",copyCode);
-    UILabel *label=(UILabel*)self.data.view;
-    pasteboard.string =label.text;
-
-    //[self.delegate tellToStopInteraction:YES];
-}
-
-- (void)delete:(id)sender {
-	
-    [self.delegate deleteThisSection:section];
-}
 - (void)showMenu:(CGRect)frame{
-    //[self.delegate tellToStopInteraction:NO];
-    
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-
-
-   //[self becomeFirstResponder];
-    //[window becomeFirstResponder];
-    //[self.delegate becomeFirstResponder];
-   // UILabel *label=(UILabel*)self.data.view;
    [delegate showMenu:self.data tapTypeSelect:tapType];
     
     [[UIMenuController sharedMenuController] setTargetRect:frame inView:self];
     [[UIMenuController sharedMenuController] setMenuVisible:YES animated:NO];
     
-    //[self.delegate tellToStopInteraction:YES];
-    
-    //[self canResignFirstResponder];
-    //[self resignFirstResponder];
     
 }
 
