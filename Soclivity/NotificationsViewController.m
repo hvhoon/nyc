@@ -374,6 +374,7 @@
             case 5:
             case 6:
             case 11:
+            case 17:
             default:
 
                 
@@ -389,7 +390,8 @@
                 
                 ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
                 activityEventViewController.activityInfo=response;
-                
+                if([notId integerValue]==17)
+                    activityEventViewController.footerActivated=YES;
                 [[self navigationController] pushViewController:activityEventViewController animated:YES];
                 [activityEventViewController release];
                 

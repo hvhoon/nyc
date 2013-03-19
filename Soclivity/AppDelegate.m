@@ -22,7 +22,7 @@ static NSString* kAppId = @"160726900680967";//kanav
 #define kShowAlertKey @"ShowAlert"
 #define kRemoteNotificationReceivedNotification @"RemoteNotificationReceivedWhileRunning"
 #define kRemoteNotificationBackgroundNotification @"RemoteNotificationReceivedWhileBackground"
-
+#define kNotificationForChatPost @"ChatNotification"
 @implementation UINavigationBar (CustomImage)
 
 - (void)drawRect:(CGRect)rect {
@@ -119,12 +119,57 @@ static NSString* kAppId = @"160726900680967";//kanav
 	NSLog(@"Failed to get token, error: %@", error);
 }
 
+
+//{
+//    aps =     {
+//        alert = "#Veer Singh# has send you a message in #Testing#. ";
+//        badge = 0;
+//        sound = default;
+//    };
+//    params =     {
+//        "activity_id" = 30;
+//        "chat_id" = 28;
+//        "notification_type" = 1;
+//        "photo_url" = "pimage.to_s";
+//        "player_id" = chat;
+//    };
+//}
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
     NSLog(@"didReceiveRemoteNotification");
     SOC=[SoclivityManager SharedInstance];
     
-    NSDictionary* notifUserInfo = Nil;
+    if([[[userInfo valueForKey:@"params"] valueForKey:@"notification_type"]isEqualToString:@"17"]){
+    
+        [[NSUserDefaults standardUserDefaults]setValue:[[userInfo valueForKey:@"params"] valueForKey:@"message"] forKey:@"message"];
+        SOC.loggedInUser.badgeCount=[[[userInfo valueForKey:@"aps"] valueForKey:@"badge"]integerValue];
+        NSInteger chatid=[[[userInfo valueForKey:@"params"] valueForKey:@"chat_id"]integerValue];
+        
+        NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://dev.soclivity.com/activity_chats/%d/acparameter.json",chatid] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        
+        NSLog(@"url=%@",url);
+        
+        NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
+        NSHTTPURLResponse *response = NULL;
+        NSError *error = nil;
+        NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        
+        NSDictionary* resultsd = [[[NSString alloc] initWithData:returnData
+                                                        encoding:NSUTF8StringEncoding] JSONValue];
+
+        
+        
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
+
+        
+        NSNotification* notification = [NSNotification notificationWithName:kNotificationForChatPost object:nil userInfo:resultsd];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+
+    }
+    else{
+    
+    //NSDictionary* notifUserInfo = Nil;
     //if(([[UIApplication sharedApplication]applicationIconBadgeNumber]-SOC.loggedInUser.badgeCount)==0)
     {
         
@@ -155,7 +200,7 @@ static NSString* kAppId = @"160726900680967";//kanav
         
         NSNotification* notification = [NSNotification notificationWithName:kRemoteNotificationReceivedNotification object:nil userInfo:resultsd];
         [[NSNotificationCenter defaultCenter] postNotification:notification];
-        [notifUserInfo release];
+        //[notifUserInfo release];
             }
         
         
@@ -192,7 +237,7 @@ static NSString* kAppId = @"160726900680967";//kanav
 //        [notifUserInfo release];
 //
 //    }
-
+    }
 }
 
 -(void)setUpActivityDataList{

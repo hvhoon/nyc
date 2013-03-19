@@ -218,19 +218,61 @@
     [self.delegate postAtTextMessageOnTheServer:text];
     
     
-    //[MessageSoundEffect playMessageReceivedSound];
-}
-
--(void)messageRecieved:(ActivityChatData*)chat{
-    [MessageSoundEffect playMessageSentSound];
-    [bubbleData addObject:chat];
-    
-    [self finishSend];
     
 }
 
--(void)postImagePressed:(ActivityChatData*)chatObject{
-    [MessageSoundEffect playMessageSentSound];
+-(void)messageSentOrRecieved:(ActivityChatData*)chat type:(NSInteger)type{
+    
+    switch (type) {
+        case 1:
+        {
+             [MessageSoundEffect playMessageSentSound];
+            [bubbleData addObject:chat];
+            
+            [self finishSend];
+
+        }
+            break;
+            
+        case 2:
+        {
+            [MessageSoundEffect playMessageReceivedSound];
+            [bubbleData addObject:chat];
+            
+            [self.bubbleTable reloadData];
+            [self scrollToBottomAnimated:YES];
+
+        }
+            break;
+
+            
+    }
+   
+    
+}
+
+
+
+
+
+-(void)postImagePressed:(ActivityChatData*)chatObject type:(NSInteger)type{
+    
+    switch (type) {
+        case 1:
+        {
+            [MessageSoundEffect playMessageSentSound];
+        }
+            break;
+            
+        case 2:
+        {
+            [MessageSoundEffect playMessageReceivedSound];
+        }
+            break;
+            
+            
+    }
+
     [bubbleData addObject:chatObject];
     
     [self.bubbleTable reloadData];

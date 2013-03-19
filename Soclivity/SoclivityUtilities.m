@@ -30,6 +30,38 @@ static NSArray *playerActivityDetails;
     return playerActivityDetails;
     
 }
+
+//{
+//    aps =     {
+//        alert = "#Veer Singh# has send you a message in #Testing#. ";
+//        badge = 0;
+//        sound = default;
+//    };
+//    params =     {
+//        "activity_id" = 30;
+//        "chat_id" = 28;
+//        "notification_type" = 1;
+//        "photo_url" = "pimage.to_s";
+//        "player_id" = chat;
+//    };
+//}
+
++(NotificationClass*)getNotificationChatPost:(NSNotification*)object{
+    NotificationClass *notification=[[NotificationClass alloc]init];
+    id obj=[object valueForKey:@"userInfo"];
+    id obj1=[obj valueForKey:@"activity_chat"];
+    NSLog(@"obj1=%@",obj1);
+    notification.notificationString=[[NSUserDefaults standardUserDefaults]valueForKey:@"message"];
+    notification.notificationId=[[obj1 valueForKey:@"id"]integerValue];
+    notification.activityId=[[obj1 valueForKey:@"activity_id"]integerValue];
+    notification.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[obj1 valueForKey:@"player_photo_url"]];
+    notification.playerId=[[obj1 valueForKey:@"player_id"]integerValue];
+    notification.backgroundTap=TRUE;
+    notification.notificationType=[NSString stringWithFormat:@"%d",17];
+    return notification;
+
+
+}
 +(NotificationClass*)getNotificationObject:(NSNotification*)object{
     
     NotificationClass *notification=[[NotificationClass alloc]init];

@@ -50,6 +50,9 @@
 
 -(void)viewDidDisappear:(BOOL)animated{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"RemoteNotificationReceivedWhileRunning" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ChatNotification" object:nil];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -60,6 +63,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotificationInBackground:) name:@"RemoteNotificationReceivedWhileBackground" object:Nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chatInAppNotification:) name:@"ChatNotification" object:Nil];
+
 
 
     
@@ -75,6 +82,17 @@
         [self StartGettingActivities];
     }
 }
+
+-(void)chatInAppNotification:(NSNotification*)note{
+    NotificationClass *notifObject=[SoclivityUtilities getNotificationChatPost:note];
+    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 60) andNotif:notifObject];
+    notif.delegate=self;
+    [self.view addSubview:notif];
+
+    
+    
+}
+
 
 -(void)UpdateBadgeNotification{
     [SoclivityUtilities returnNotificationButtonWithCountUpdate:notifCountButton];
@@ -198,6 +216,7 @@
     NSLog(@"Home Selected");
 
     
+    
     if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
@@ -252,6 +271,7 @@
         case 5:
         case 6:
         case 11:
+        case 17:
         default:
             
             
@@ -267,6 +287,9 @@
             
             ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
             activityEventViewController.activityInfo=response;
+            
+            if([notId integerValue]==17)
+                activityEventViewController.footerActivated=YES;
             
             [[self navigationController] pushViewController:activityEventViewController animated:YES];
             [activityEventViewController release];
@@ -299,7 +322,8 @@
         }
             
             break;
-    }
+            
+        }
     
 }else{
     

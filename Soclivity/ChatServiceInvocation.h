@@ -21,6 +21,8 @@
 -(void)userPostedAText:(ActivityChatData*)msg;
 -(void)userPostedAnImage:(ActivityChatData*)imagePost;
 -(void)chatDeleted:(NSString*)message;
+-(void)postDidFailed:(NSError*)error;
+-(void)addAPost:(ActivityChatData*)responses;
 @end
 
 

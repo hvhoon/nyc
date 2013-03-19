@@ -14,7 +14,7 @@
 
 @optional
 -(void)dismissPickerModalController;
--(void)imageCapture:(UIImage*)Img;
+-(void)imageCapture:(UIImage*)image;
 @end
 @interface CameraCustom : NSObject<UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     

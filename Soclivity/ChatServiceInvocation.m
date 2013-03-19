@@ -29,7 +29,7 @@
     switch (requestType) {
         case 1:
         {
-            NSString*a=[NSString stringWithFormat:@"dev.soclivity.com/activity_chats.json?activity_id=%d",activityId];
+            NSString*a=[NSString stringWithFormat:@"dev.soclivity.com/activity_chats.json?activity_id=%d&player_id=%d",activityId,playerId];
             [self get:a];
             
         }
@@ -55,6 +55,16 @@
 
         }
             break;
+            
+            
+        case 5:
+        {
+            NSString*a=[NSString stringWithFormat:@"dev.soclivity.com/activity_chats/%d/chat_detail.json",playerId];
+            [self get:a];
+            
+        }
+            break;
+
         default:
             break;
     }
@@ -133,6 +143,17 @@
             
         }
             break;
+        case 5:
+        {
+            NSDictionary* resultsd = [[[NSString alloc] initWithData:data
+                                                       encoding:NSUTF8StringEncoding] JSONValue];
+            
+            ActivityChatData *response=[ActivityChatData getChatInterceptFromUsers:resultsd];
+            
+            [self.delegate addAPost:response];
+
+        }
+            break;
         default:
             break;
     }
@@ -143,11 +164,10 @@
 }
 
 -(BOOL)handleHttpError:(NSInteger)code {
-	[self.delegate chatPostToDidFinish:self
-                                   withResponse:nil
-                                      withError:[NSError errorWithDomain:@"UserId"
-                                                                    code:[[self response] statusCode]
-                                                                userInfo:[NSDictionary dictionaryWithObject:@"Failed to Get Chat for a user. Please try again later" forKey:@"message"]]];
+    
+    [self.delegate postDidFailed:[NSError errorWithDomain:@"UserId"
+                                                     code:[[self response] statusCode]
+                                                 userInfo:[NSDictionary dictionaryWithObject:@"Failed to Get Chat for a user. Please try again later" forKey:@"message"]]];
 	return YES;
 }
 

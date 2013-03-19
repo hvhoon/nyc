@@ -12,4 +12,5 @@
 +(NSArray*)PlayersChatPertainingToActivity:(NSArray*)ACTArray;
 +(ActivityChatData*)postChatTextIntercept:(NSDictionary*)data;
 +(ActivityChatData*)postChatImageIntercept:(NSDictionary*)data;
++(ActivityChatData*)getChatInterceptFromUsers:(NSDictionary*)data;
 @end

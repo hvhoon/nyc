@@ -42,9 +42,8 @@
 -(void)updateChatScreen:(NSMutableArray*)chatArray;
 - (void)finishSend;
 - (void)scrollToBottomAnimated:(BOOL)animated;
--(void)messageRecieved:(ActivityChatData*)chat;
--(void)postImagePressed:(ActivityChatData*)chatObject;
-
+-(void)postImagePressed:(ActivityChatData*)chatObject type:(NSInteger)type;
+-(void)messageSentOrRecieved:(ActivityChatData*)chat type:(NSInteger)type;
 #pragma mark - Keyboard notifications
 - (void)handleWillShowKeyboard:(NSNotification *)notification;
 - (void)handleWillHideKeyboard:(NSNotification *)notification;

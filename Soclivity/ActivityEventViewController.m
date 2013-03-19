@@ -45,7 +45,7 @@
 @end
 
 @implementation ActivityEventViewController
-@synthesize activityInfo,scrollView;
+@synthesize activityInfo,scrollView,footerActivated;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -66,6 +66,11 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chatInAppNotification:) name:@"ChatNotification" object:Nil];
+    
+
 
     [self.navigationController.navigationBar setHidden:YES];
 }
@@ -82,7 +87,21 @@
     notif.delegate=self;
     [self.view addSubview:notif];
 }
+-(void)chatInAppNotification:(NSNotification*)note{
+    NotificationClass *notifObject=[SoclivityUtilities getNotificationChatPost:note];
+    if(notifObject.activityId==activityInfo.activityId)
+    
+    [devServer chatPostsOnActivity:activityInfo.activityId playerId:notifObject.notificationId delegate:self message:nil chatRequest:5 imageToPost:nil];
+    else{
+        NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
+        notif.delegate=self;
+        [self.view addSubview:notif];
 
+    }
+    
+   
+    
+}
 
 - (void)viewDidLoad
 {
@@ -394,6 +413,29 @@
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,705);
 
     // Do any additional setup after loading the view from its nib.
+    
+    if(footerActivated){
+        [scrollView setHidden:YES];
+        [chatView setHidden:NO];
+        
+        if(activityInfo.activityRelationType==5)
+        {
+            leaveActivityButton.hidden=YES;
+        }
+        enterChatTextButton.hidden=NO;
+        commentChatLabel.hidden=NO;
+        postChatImageButton.hidden=NO;
+        imagePostChatlabel.hidden=NO;
+        if(activityInfo.activityRelationType==6){
+            organizerEditButton.hidden=YES;
+            inviteUsersToActivityButton.hidden=YES;
+        }
+        
+        
+        newActivityButton.hidden=YES;
+        [editButtonForMapView setHidden:YES];
+
+    }
 }
 
 - (void)backgroundTapToPush:(NotificationClass*)notification{
@@ -452,6 +494,7 @@
             case 5:
             case 6:
             case 11:
+            case 17:
             default:
                 
                 
@@ -467,7 +510,9 @@
                 
                 ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
                 activityEventViewController.activityInfo=response;
-                
+                if([notId integerValue]==17){
+                    activityEventViewController.footerActivated=YES;
+                }
                 [[self navigationController] pushViewController:activityEventViewController animated:YES];
                 [activityEventViewController release];
                 
@@ -675,8 +720,19 @@
 -(void)userPostedAText:(ActivityChatData*)msg{
     
     [HUD hide:YES];
-    [chatView messageRecieved:msg];
+    [chatView messageSentOrRecieved:msg type:1];
 }
+
+-(void)addAPost:(ActivityChatData*)responses{
+    
+    if([responses.description isEqualToString:@"IMG"]){
+        
+        [chatView postImagePressed:responses type:2];
+    }
+    else
+        [chatView messageSentOrRecieved:responses type:2];
+}
+
 
 -(IBAction)postImageOnChatScreenPressed:(id)sender{
     
@@ -768,7 +824,7 @@
 -(void)userPostedAnImage:(ActivityChatData*)imagePost{
     
     [HUD hide:YES];
-    [chatView postImagePressed:imagePost];
+    [chatView postImagePressed:imagePost type:1];
     
 }
 
@@ -1656,6 +1712,7 @@
     [chatView updateChatScreen:[NSMutableArray arrayWithArray:responses]];
 }
 
+
 -(void)postAtTextMessageOnTheServer:(NSString*)message{
     
     if([SoclivityUtilities hasNetworkConnection]){
@@ -1684,8 +1741,9 @@
     if([SoclivityUtilities hasNetworkConnection]){
         
         [self startAnimation:kChatPostMessageRequest];
+        NSData *imageData=UIImageJPEGRepresentation(image, 0.1);
         
-        [devServer chatPostsOnActivity:activityInfo.activityId playerId:[SOC.loggedInUser.idSoc intValue] delegate:self message:nil chatRequest:3 imageToPost:UIImagePNGRepresentation(image)];
+        [devServer chatPostsOnActivity:activityInfo.activityId playerId:[SOC.loggedInUser.idSoc intValue] delegate:self message:nil chatRequest:3 imageToPost:imageData];
     }
     else{
         
@@ -1699,6 +1757,19 @@
         
     }
     
+}
+
+
+-(void)postDidFailed:(NSError*)error{
+    
+    [HUD hide:YES];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Something Went Wrong" message:nil
+                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    [alert show];
+    [alert release];
+    return;
+
 }
 
 -(IBAction)cancelRequestButtonPressed:(id)sender{
