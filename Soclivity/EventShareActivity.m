@@ -20,7 +20,7 @@
     event.location  = @"Miami";
     event.notes     = @"yaar please comes to my event";
     event.URL=[NSURL URLWithString:@"htttp://www.google.com"];
-    event.startDate = [[NSDate alloc] init];
+    event.startDate = [NSDate date];
     event.endDate   = [[NSDate alloc] initWithTimeInterval:1600 sinceDate:event.startDate];
     
     

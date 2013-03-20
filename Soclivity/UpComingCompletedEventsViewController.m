@@ -48,17 +48,33 @@
 }
 #pragma mark - View lifecycle
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
+
+
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"WaitingonyouNotification" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"WaitingOnYou_Count" object:nil];
+    
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
 
     [self UpdateBadgeNotification];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
 
     activititesLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
     activititesLabel.textColor=[UIColor whiteColor];
@@ -134,13 +150,15 @@
     [activityListView LoadTable];
     activityListView.isOrganizerList=TRUE;
     
-    [self performSelector:@selector(RefreshFromTheListView) withObject:nil afterDelay:1.0];
+    //[self performSelector:@selector(RefreshFromTheListView) withObject:nil afterDelay:1.0];
     
     
     if(isNotSettings){
         profileButton.hidden=YES;
         backActivityButton.hidden=NO;
     }
+        activityListView.tableView.contentOffset = CGPointMake(0, -90.0f);
+        [activityListView pullToRefreshMannually];
 
         // Do any additional setup after loading the view from its nib.
 }

@@ -45,10 +45,25 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
+
+        if(!inviteFriends){
      [self.view bringSubviewToFront:btnnotify];
-    
+            [self UpdateBadgeNotification];
+            
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
+
+        }
 
     [activityInvites closeAnimation];
+}
+
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"WaitingonyouNotification" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"WaitingOnYou_Count" object:nil];
+    
 }
 
 
@@ -65,11 +80,7 @@
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
     
-    [self UpdateBadgeNotification];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
 
     
     if(inviteFriends){
@@ -92,6 +103,7 @@
     openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
 
 }
+    
     CGRect activityRect;
             if([SoclivityUtilities deviceType] & iPhone5)
     activityRect=CGRectMake(0, 44, 320, 377+88);

@@ -375,6 +375,13 @@
     }
 }
 
+-(void)pullToRefreshMannually{
+    refreshLabel.text = self.textRelease;
+    [refreshArrow layer].transform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
+    [self startLoading];
+
+}
+
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (isLoading) return;
     isDragging = NO;

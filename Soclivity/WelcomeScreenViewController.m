@@ -306,7 +306,7 @@
     signIn.text=@"Sign in Using Facebook";
 }
 -(void)pushToRegistration{
-    
+
     
 #if 1
     NSString *nibNameBundle=nil;
@@ -341,6 +341,8 @@
 
 -(void)pushToHomeViewController{
 
+    //EventShareActivity *eventShare=[[EventShareActivity alloc]init];
+    //[eventShare sendEvent];
     
    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isLoggedIn"];
     [spinner stopAnimating];
