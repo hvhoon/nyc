@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "ActivityListView.h"
 #import "NotifyAnimationView.h"
+#import "MBProgressHUD.h"
+
 @class MainServiceManager;
 @class SoclivityManager;
 @protocol UpcomingCompletedEvnetsViewDelegate <NSObject>
@@ -18,7 +20,7 @@
 @end
 
 
-@interface UpComingCompletedEventsViewController : UIViewController<ActivityListViewDelegate,NotifyAnimationViewDelegate>{
+@interface UpComingCompletedEventsViewController : UIViewController<ActivityListViewDelegate,NotifyAnimationViewDelegate,MBProgressHUDDelegate>{
     id <UpcomingCompletedEvnetsViewDelegate>delegate;
     IBOutlet UILabel *activititesLabel;
      UIButton *organizedButton;
@@ -38,6 +40,10 @@
     BOOL isNotLoggedInUser;
     NSInteger player2Id;
     IBOutlet UIButton *btnnotify;
+    MBProgressHUD *HUD;
+    BOOL firstTime;
+    NSInteger typeOfAct;
+
 }
 @property (nonatomic,retain)id <UpcomingCompletedEvnetsViewDelegate>delegate;
 @property (nonatomic,retain) ActivityListView *activityListView;

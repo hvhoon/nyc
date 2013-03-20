@@ -16,7 +16,8 @@
 #import "SocPlayerClass.h"
 #import "SOCProfileViewController.h"
 #import "GetUpcomingActivitiesInvocation.h"
-@interface UpComingCompletedEventsViewController(Private) <DetailedActivityInfoInvocationDelegate,GetUpcomingActivitiesInvocationDelegate>
+@interface UpComingCompletedEventsViewController(Private) <DetailedActivityInfoInvocationDelegate,GetUpcomingActivitiesInvocationDelegate>{
+}
 @end
 
 
@@ -69,7 +70,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    typeOfAct=1;
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
 
@@ -177,7 +178,8 @@
 
 -(void)organizedButtonPressed:(id)sender{
     
-    [activityListView populateEvents:myActivitiesArray typeOfEvent:1];
+    typeOfAct=1;
+    [activityListView populateEvents:myActivitiesArray typeOfEvent:typeOfAct];
     
     [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_organizedHighlighted.png"] forState:UIControlStateNormal];
     [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_organizedHighlighted.png"] forState:UIControlStateHighlighted];
@@ -210,7 +212,8 @@
 
 -(void)invitedButtonPressed:(id)sender{
     
-    [activityListView populateEvents:invitedToArray typeOfEvent:2];
+    typeOfAct=2;
+    [activityListView populateEvents:invitedToArray typeOfEvent:typeOfAct];
     
     [organizedButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [organizedButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
@@ -244,8 +247,8 @@
 
 -(void)goingButtonPressed:(id)sender{
     
-    
-    [activityListView populateEvents:goingToArray typeOfEvent:3];
+    typeOfAct=3;
+    [activityListView populateEvents:goingToArray typeOfEvent:typeOfAct];
     
     [organizedButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [organizedButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
@@ -278,7 +281,8 @@
 
 -(void)completedButtonPressed:(id)sender{
     
-    [activityListView populateEvents:compeletedArray typeOfEvent:4];
+        typeOfAct=4;
+    [activityListView populateEvents:compeletedArray typeOfEvent:typeOfAct];
     
     [organizedButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [organizedButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
@@ -381,24 +385,61 @@
     
     [[NSUserDefaults standardUserDefaults] setValue:currentTime forKey:@"SOCActivityTimeUpdate"];
     
-    if(isNotLoggedInUser){
-        [devServer getUpcomingActivitiesForUserInvocation:[SOC.loggedInUser.idSoc intValue] player2:player2Id delegate:self];
-
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        if(!firstTime){
+        [self startAnimation];
+            firstTime=TRUE;
+        }
+        if(isNotLoggedInUser){
+            [devServer getUpcomingActivitiesForUserInvocation:[SOC.loggedInUser.idSoc intValue] player2:player2Id delegate:self];
+            
+            
+        }
+        else{
+            
+            
+            [devServer getUpcomingActivitiesForUserInvocation:[SOC.loggedInUser.idSoc intValue] player2:[SOC.loggedInUser.idSoc intValue] delegate:self];
+            
+        }
         
+
     }
     else{
-    
-    
-    [devServer getUpcomingActivitiesForUserInvocation:[SOC.loggedInUser.idSoc intValue] player2:[SOC.loggedInUser.idSoc intValue] delegate:self];
-    
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
     }
+
     
 
 }
 
+-(void)startAnimation{
+    // Setup animation settings
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    HUD.yOffset = -40.0;
+    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
+    HUD.labelText = @"Activities";
+    
+    [self.view addSubview:HUD];
+    HUD.delegate = self;
+    [HUD show:YES];
+    
+}
+
+
 -(void)UpcomingActivitiesInvocationDidFinish:(GetUpcomingActivitiesInvocation*)invocation
                                 withResponse:(NSArray*)responses
                                    withError:(NSError*)error{
+    
+    [HUD hide:YES];
     
     if([responses count]>0){
         
@@ -409,7 +450,6 @@
             {
                 NSLog(@"The user has got Organizing Activities");
                 myActivitiesArray=[[responses objectAtIndex:i] objectForKey:@"Elements"];
-                [activityListView populateEvents:myActivitiesArray typeOfEvent:1];
 
             }
                 break;
@@ -436,6 +476,38 @@
             }
                 break;
         }
+            
+            
+        }
+        
+        switch (typeOfAct) {
+            case 1:
+            {
+                [activityListView populateEvents:myActivitiesArray typeOfEvent:typeOfAct];
+
+            }
+                break;
+            case 2:
+            {
+                [activityListView populateEvents:invitedToArray typeOfEvent:typeOfAct];
+                
+            }
+                break;
+            case 4:
+            {
+                [activityListView populateEvents:compeletedArray typeOfEvent:typeOfAct];
+                
+            }
+                break;
+            case 3:
+            {
+                [activityListView populateEvents:goingToArray typeOfEvent:typeOfAct];
+                
+            }
+                break;
+                
+            default:
+                break;
         }
     }
     else{
@@ -461,7 +533,6 @@
     
     if([SoclivityUtilities hasNetworkConnection]){
         
-        //[self loadingActivityMonitor];
         [devServer getDetailedActivityInfoInvocation:[SOC.loggedInUser.idSoc intValue]    actId:detailedInfo.activityId  latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude delegate:self];
     }
     else{
