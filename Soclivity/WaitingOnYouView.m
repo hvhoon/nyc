@@ -28,27 +28,17 @@
 @synthesize notificationsArray,delegate,imageDownloadsInProgress,waitingTableView;
 
 
-- (id)initWithFrame:(CGRect)frame andNotificationsListArray:(NSMutableArray*)andNotificationsListArray
-{
+- (id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         
         // Initialization code
-        self.notificationsArray =[andNotificationsListArray retain];
         
         SOC=[SoclivityManager SharedInstance];
         
-
+        [self SetupNotificationTable];
         
-        if([andNotificationsListArray count]==0){
-            [self setUpBackgroundView];
             
-        }
-        else{
-            
-            [self SetupNotificationTable];
-
-        }
     }
     return self;
 }
@@ -90,7 +80,11 @@
     [noNotificationBackgroundView addSubview:noNotificationsImageView];
     
     UIImageView *logoFadedImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S11_logoFaded.png"]];
+        if([SoclivityUtilities deviceType] & iPhone5)
     logoFadedImageView.frame=CGRectMake(105, 359, 111, 28);
+        else{
+    logoFadedImageView.frame=CGRectMake(105, 339, 111, 28);
+        }
     [noNotificationBackgroundView addSubview:logoFadedImageView];
     [self addSubview:noNotificationBackgroundView];
 
@@ -98,16 +92,18 @@
 }
 
 -(void)toReloadTableWithNotifications:(NSMutableArray*)listArray{
-    
+    if([listArray count]!=0){
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
 
      self.notificationsArray =[listArray retain];
-    if(waitingTableView==nil){
-        [noNotificationBackgroundView removeFromSuperview];
-        [self SetupNotificationTable];
-
-    }
+    [noNotificationBackgroundView removeFromSuperview];
     [waitingTableView reloadData];
+    }
+    else{
+        [waitingTableView removeFromSuperview];
+        [self setUpBackgroundView];
+        
+    }
 }
 
 #pragma mark - UITableViewDataSource

@@ -43,7 +43,6 @@
 @property (nonatomic, retain) NSString *lstrnotificationid;
 @property (nonatomic,retain) UITableView*waitingTableView;
 
-- (id)initWithFrame:(CGRect)frame andNotificationsListArray:(NSArray*)andNotificationsListArray;
 -(void)appImageDidLoad:(NSIndexPath *)indexPath;
 -(void)notificationRemoved;
 -(void)requestComplete;

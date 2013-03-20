@@ -117,7 +117,7 @@
     else
         waitingOnYouRect=CGRectMake(0, 44, 320, 377);
     
-    notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect andNotificationsListArray:[NSMutableArray arrayWithCapacity:0]];
+    notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect];
     notificationView.delegate=self;
     [self.view addSubview:notificationView];
     [self.view insertSubview:btnnotify aboveSubview:notificationView];
@@ -168,17 +168,11 @@
     [HUD hide:YES];
     
     [self BadgeNotification];
-        if([responses count]>0)
-            [notificationView toReloadTableWithNotifications:[NSMutableArray arrayWithArray:responses]];
+    [notificationView toReloadTableWithNotifications:[NSMutableArray arrayWithArray:responses]];
+    
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
-
-
-    
-    
-    
-
 }
 
 
