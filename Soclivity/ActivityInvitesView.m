@@ -63,7 +63,7 @@ NSString * const kSearchTextKey = @"Search Text";
         [inviteUserTableView setDataSource:self];
         [inviteUserTableView setRowHeight:kCustomRowHeight];
         inviteUserTableView.scrollEnabled=YES;
-        inviteUserTableView.tableHeaderView=[self SetupHeaderView];
+        //inviteUserTableView.tableHeaderView=[self SetupHeaderView];
         inviteUserTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
         inviteUserTableView.sectionHeaderHeight = kSectionHeaderHeight;
         inviteUserTableView.separatorColor=[UIColor clearColor];
@@ -734,7 +734,7 @@ NSString * const kSearchTextKey = @"Search Text";
         [searchBar setShowsCancelButton:NO animated:YES];
         self.searchBarForInvites.showClearButton=NO;
         searching=NO;
-        inviteUserTableView.tableHeaderView=[self SetupHeaderView];
+       // inviteUserTableView.tableHeaderView=[self SetupHeaderView];
         [inviteUserTableView reloadData];
  
     }
@@ -742,7 +742,7 @@ NSString * const kSearchTextKey = @"Search Text";
         [searchBar setShowsCancelButton:NO animated:NO];
         self.searchBarForInvites.showClearButton=YES;
         searching=YES;
-        inviteUserTableView.tableHeaderView=nil;
+        //inviteUserTableView.tableHeaderView=nil;
         [self filterContentForSearchText:searchBar.text];
 
         
@@ -756,7 +756,7 @@ NSString * const kSearchTextKey = @"Search Text";
     
     self.searchBarForInvites.text=@"";
     searching=NO;
-    inviteUserTableView.tableHeaderView=[self SetupHeaderView];
+    //inviteUserTableView.tableHeaderView=[self SetupHeaderView];
     [inviteUserTableView reloadData];
 
     [searchBar setShowsCancelButton:NO animated:YES];
@@ -833,7 +833,7 @@ NSString * const kSearchTextKey = @"Search Text";
     
     
     searching=NO;
-    inviteUserTableView.tableHeaderView=[self SetupHeaderView];
+    //inviteUserTableView.tableHeaderView=[self SetupHeaderView];
     [inviteUserTableView reloadData];
     self.searchBarForInvites.text=@"";
     self.searchBarForInvites.showClearButton=NO;

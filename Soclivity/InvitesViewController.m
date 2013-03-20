@@ -48,6 +48,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
 
         if(!inviteFriends){
+            btnnotify.hidden=NO;
      [self.view bringSubviewToFront:btnnotify];
             [self UpdateBadgeNotification];
             
@@ -84,6 +85,7 @@
 
     
     if(inviteFriends){
+    btnnotify.hidden=YES;
     settingsButton.hidden=YES;
     activityBackButton.hidden=NO;
     inviteTitleLabel.text=[NSString stringWithFormat:@"%@",activityName];
