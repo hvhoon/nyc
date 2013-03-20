@@ -9,7 +9,8 @@
 #import "UIBubbleTableViewCell.h"
 #import "ActivityChatData.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "SoclivityManager.h"
+#import "GetPlayersClass.h"
 #define IMAGE_BOUNDRY_SPACE 10
 
 @implementation CHDemoView
@@ -271,7 +272,7 @@
     CGPoint touchPointInSuperview = [gestureRecognizer locationInView:self];
     UIView *touchedView = [self hitTest:touchPointInSuperview withEvent:nil];
 
-    
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
     if([gestureRecognizer.view  isKindOfClass:[UIImageView class]] && self.data.type==BubbleTypeMine)
     {
         tapType=1;
@@ -290,9 +291,25 @@
     }
     
     else if([gestureRecognizer.view  isKindOfClass:[UILabel class]] && self.data.type==BubbleTypeSomeoneElse){
+
         tapType=3;
+
+        if([SOC.loggedInUser.idSoc integerValue]==self.data.playerId)
+            tapType=2;
+        
         //CGRect bounds = gestureRecognizer.view.bounds;
         [self showMenu:[touchedView frame]];
+        
+    }
+    
+    else if([gestureRecognizer.view  isKindOfClass:[UIImageView class]] && self.data.type==BubbleTypeSomeoneElse && [SOC.loggedInUser.idSoc integerValue]==self.data.playerId)
+    {
+        tapType=1;
+        
+        // hooray, it's one of your image views! do something with it.
+        //CGRect bounds = gestureRecognizer.view.bounds;
+        [self showMenu:[touchedView frame]];
+        
         
     }
     

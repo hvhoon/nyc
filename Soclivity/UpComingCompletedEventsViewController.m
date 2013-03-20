@@ -150,15 +150,15 @@
     [activityListView LoadTable];
     activityListView.isOrganizerList=TRUE;
     
-    //[self performSelector:@selector(RefreshFromTheListView) withObject:nil afterDelay:1.0];
+    [self performSelector:@selector(RefreshFromTheListView) withObject:nil afterDelay:1.0];
     
     
     if(isNotSettings){
         profileButton.hidden=YES;
         backActivityButton.hidden=NO;
     }
-        activityListView.tableView.contentOffset = CGPointMake(0, -90.0f);
-        [activityListView pullToRefreshMannually];
+        //activityListView.tableView.contentOffset = CGPointMake(0, -90.0f);
+        //[activityListView pullToRefreshMannually];
 
         // Do any additional setup after loading the view from its nib.
 }
