@@ -173,13 +173,19 @@
         if([data.view isKindOfClass:[UIImageView class]]){
             delta=5.0;
         }
+        
+
         return MAX(data.insets.top + data.view.frame.size.height + data.insets.bottom+delta, data.showAvatars ? 39 : 0);
     }else{
         
         
-        if (indexPath.row ==0||indexPath.row==2)
+        if (indexPath.row ==0)
         {
             return [UIBubbleHeaderFooterTableViewCell height];
+        }
+        if(indexPath.row==2)
+        {
+            return [UIBubbleHeaderFooterTableViewCell height]-5;
         }
         
 
@@ -345,7 +351,10 @@
 }
 
 
-
+-(void)resetLazyLoaderArray{
+    [imageDownloadsInProgress2 removeAllObjects];
+    [imageDownloadsInProgress removeAllObjects];
+}
 
 
 - (void)loadImagesForOnscreenRows{

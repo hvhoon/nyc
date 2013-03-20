@@ -30,6 +30,6 @@ typedef enum _NSBubbleTypingType
 @property (nonatomic, assign)id<UIBubbleTableViewDataSource> bubbleDataSource;
 @property (nonatomic) NSTimeInterval snapInterval;
 @property (nonatomic) NSBubbleTypingType typingBubble;
-
+-(void)resetLazyLoaderArray;
 - (void)startAvatarDownload:(ActivityChatData*)appRecord forIndexPath:(NSIndexPath *)indexPath;
 @end

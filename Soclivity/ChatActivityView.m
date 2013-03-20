@@ -113,7 +113,7 @@
 
 	[self addSubview:self.bubbleTable];
     
-	
+    bubbleTable.contentInset = UIEdgeInsetsMake(5.0, 0, 0, 0);
     
     CGRect inputFrame = CGRectMake(0.0f, size.height + INPUT_HEIGHT, size.width, INPUT_HEIGHT);
     self.inputView = [[MessageInputView alloc] initWithFrame:inputFrame];
@@ -443,10 +443,10 @@
 
 -(void)loadTableHeader{
     
-    loadPrevMessagesView = [[UIView alloc] initWithFrame:CGRectMake(0, -52.0f, 320, 52.0f)];
+    loadPrevMessagesView = [[UIView alloc] initWithFrame:CGRectMake(0, -57.0f, 320, 57.0f)];
     loadPrevMessagesView.backgroundColor = [SoclivityUtilities returnBackgroundColor:0];
 	loadPrevMessagesView.tag=145;
-    UILabel *loadMoreChatLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 15, 200, 20)];
+    UILabel *loadMoreChatLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 15, 200, 20)];
     loadMoreChatLabel.backgroundColor=[UIColor clearColor];
     loadMoreChatLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     loadMoreChatLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -469,7 +469,7 @@
 
 
 -(void)userScrolledToLoadEarlierMessages{
-    self.bubbleTable.contentInset = UIEdgeInsetsMake(52, 0, 0, 0);
+    self.bubbleTable.contentInset = UIEdgeInsetsMake(57, 0, 0, 0);
     [self performSelector:@selector(stopAnimatingHeader) withObject:nil afterDelay:1.5];
 }
 
@@ -478,6 +478,8 @@
     //add the data
     
     [self addItemsToStartOfTableView];
+    
+    [self.bubbleTable resetLazyLoaderArray];
     [self.bubbleTable reloadData];
     
     if(isKeyboardInView){
@@ -518,14 +520,14 @@
     }
     
     if([holdHistoryArray count]==0){
-            bubbleTable.contentInset = UIEdgeInsetsMake(0.0, 0, 0, 0);
+            bubbleTable.contentInset = UIEdgeInsetsMake(5.0, 0, 0, 0);
            [loadPrevMessagesView setHidden:YES];
 
 
     }
     else{
         //self.bubbleTable.contentInset = UIEdgeInsetsMake(-52, 0, 0, 0);
-        self.bubbleTable.contentInset = UIEdgeInsetsMake(0.0, 0, 0, 0);
+        self.bubbleTable.contentInset = UIEdgeInsetsMake(5.0, 0, 0, 0);
         bubbleTable.isLoading=FALSE;
     }
 
