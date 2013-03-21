@@ -120,20 +120,6 @@ static NSString* kAppId = @"160726900680967";//kanav
 }
 
 
-//{
-//    aps =     {
-//        alert = "#Veer Singh# has send you a message in #Testing#. ";
-//        badge = 0;
-//        sound = default;
-//    };
-//    params =     {
-//        "activity_id" = 30;
-//        "chat_id" = 28;
-//        "notification_type" = 1;
-//        "photo_url" = "pimage.to_s";
-//        "player_id" = chat;
-//    };
-//}
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
     NSLog(@"didReceiveRemoteNotification");
@@ -169,13 +155,8 @@ static NSString* kAppId = @"160726900680967";//kanav
     }
     else{
     
-    //NSDictionary* notifUserInfo = Nil;
-    //if(([[UIApplication sharedApplication]applicationIconBadgeNumber]-SOC.loggedInUser.badgeCount)==0)
-    {
         
         NSLog(@"Online");
-        //        NSArray *notifArray = [NSArray arrayWithObject:@"userInfo"];
-        //		notifUserInfo = [[NSDictionary alloc] initWithObjects:notifArray forKeys:notifArray];
         
             if([SoclivityUtilities hasNetworkConnection]){
         NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://dev.soclivity.com/rsparameter.json?id=%@",[NSString stringWithFormat:@"%@",[[userInfo valueForKey:@"params"] valueForKey:@"notification_id"]]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
@@ -200,11 +181,10 @@ static NSString* kAppId = @"160726900680967";//kanav
         
         NSNotification* notification = [NSNotification notificationWithName:kRemoteNotificationReceivedNotification object:nil userInfo:resultsd];
         [[NSNotificationCenter defaultCenter] postNotification:notification];
-        //[notifUserInfo release];
             }
         
         
-    }
+    
 //    else{
 //        NSLog(@"Offline");
 //        SOC.loggedInUser.badgeCount=[[[userInfo valueForKey:@"aps"] valueForKey:@"badge"]integerValue];
@@ -395,7 +375,6 @@ static NSString* kAppId = @"160726900680967";//kanav
 {
         NSLog(@"applicationDidEnterBackground");
     
-    [[NSUserDefaults standardUserDefaults]setValue:[NSNumber numberWithInt:[[UIApplication sharedApplication]applicationIconBadgeNumber]] forKey:@"PrevBadgeCount"];
 
 #if 0
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"isLoggedIn"]){
@@ -440,10 +419,7 @@ static NSString* kAppId = @"160726900680967";//kanav
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ChatDeltaUpdate" object:self userInfo:nil];
 
-    
-//    if(([[UIApplication sharedApplication]applicationIconBadgeNumber]-[[[NSUserDefaults standardUserDefaults]valueForKey:@"PrevBadgeCount"]intValue])!=0){
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"RandomFetch" object:self userInfo:nil];
-//    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RandomFetch" object:self userInfo:nil];
     
     
 

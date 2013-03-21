@@ -59,7 +59,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startFetching) name:@"RandomFetch" object:Nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startFetching) name:@"RandomFetch" object:Nil];
 
 
     
