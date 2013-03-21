@@ -10,7 +10,11 @@
 #import "SoclivityManager.h"
 #import "GetPlayersClass.h"
 @implementation ActivityChatData (Parse)
-+(NSArray*)PlayersChatPertainingToActivity:(NSArray*)ACTArray{
+
++(NSArray*)PlayersDeltaPertainingToActivity:(NSDictionary*)data{
+    return [ActivityChatData PlayersChatPertainingToActivity:[data objectForKey:@"backgrounchat"]];
+}
++(NSArray*)PlayersChatPertainingToActivity:(NSArray*)ACTArray {
 	if (!ACTArray) {
 		return Nil;
 	}
@@ -38,6 +42,7 @@
 
                 replyBubble.avatar = nil;
                 replyBubble.showAvatars=NO;
+                replyBubble.ownerId=[[friend objectForKey:@"ownnerid"]integerValue];
                 replyBubble.chatId=[[friend objectForKey:@"id"]integerValue];
                 replyBubble.activityId=[[friend objectForKey:@"activity_id"]integerValue];
                 replyBubble.playerId=[[friend objectForKey:@"player_id"]integerValue];
@@ -51,6 +56,7 @@
             ActivityChatData *replyBubble = [ActivityChatData dataWithText:[friend objectForKey:@"description"] date:lastDate name:[friend objectForKey:@"player_name"] type:BubbleTypeMine];
             replyBubble.avatar = nil;
             replyBubble.showAvatars=NO;
+            replyBubble.ownerId=[[friend objectForKey:@"ownnerid"]integerValue];
             replyBubble.chatId=[[friend objectForKey:@"id"]integerValue];
             replyBubble.activityId=[[friend objectForKey:@"activity_id"]integerValue];
             replyBubble.playerId=[[friend objectForKey:@"player_id"]integerValue];
@@ -67,6 +73,7 @@
                 heyBubble.avatar = nil;
                 heyBubble.avatarUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[friend objectForKey:@"player_photo"]];
                 heyBubble.showAvatars=YES;
+                heyBubble.ownerId=[[friend objectForKey:@"ownnerid"]integerValue];
                 heyBubble.chatId=[[friend objectForKey:@"id"]integerValue];
                 heyBubble.activityId=[[friend objectForKey:@"activity_id"]integerValue];
                 heyBubble.playerId=[[friend objectForKey:@"player_id"]integerValue];
@@ -78,6 +85,7 @@
             heyBubble.avatar = nil;
             heyBubble.avatarUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[friend objectForKey:@"player_photo"]];
             heyBubble.showAvatars=YES;
+            heyBubble.ownerId=[[friend objectForKey:@"ownnerid"]integerValue];
             heyBubble.chatId=[[friend objectForKey:@"id"]integerValue];
             heyBubble.activityId=[[friend objectForKey:@"activity_id"]integerValue];
             heyBubble.playerId=[[friend objectForKey:@"player_id"]integerValue];
@@ -107,6 +115,7 @@
             ActivityChatData*replyBubble = [ActivityChatData dataWithText:[friend objectForKey:@"description"] date:lastDate name:[friend objectForKey:@"player_name"] type:BubbleTypeMine];
             replyBubble.avatar = nil;
             replyBubble.showAvatars=NO;
+            replyBubble.ownerId=[[friend objectForKey:@"ownnerid"]integerValue];
             replyBubble.chatId=[[friend objectForKey:@"id"]integerValue];
             replyBubble.activityId=[[friend objectForKey:@"activity_id"]integerValue];
             replyBubble.playerId=[[friend objectForKey:@"player_id"]integerValue];
@@ -131,6 +140,7 @@
     replyBubble.postImageUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[friend objectForKey:@"activity_photo_url"]];
     replyBubble.avatar = nil;
     replyBubble.showAvatars=NO;
+    replyBubble.ownerId=[[friend objectForKey:@"ownnerid"]integerValue];
     replyBubble.chatId=[[friend objectForKey:@"id"]integerValue];
     replyBubble.activityId=[[friend objectForKey:@"activity_id"]integerValue];
     replyBubble.playerId=[[friend objectForKey:@"player_id"]integerValue];
@@ -140,7 +150,13 @@
 }
 
 +(ActivityChatData*)getChatInterceptFromUsers:(NSDictionary*)data{
-     NSDictionary *friend=[data objectForKey:@"activity_chat"];
+    
+    
+    
+    NSDictionary *friend=[data objectForKey:@"activity_chat"];
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    SOC.loggedInUser.badgeCount=[[friend objectForKey:@"badge"]integerValue];
+
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
@@ -157,6 +173,7 @@
             heyBubble.avatar = nil;
             heyBubble.avatarUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[friend objectForKey:@"player_photo"]];
             heyBubble.showAvatars=YES;
+            heyBubble.ownerId=[[friend objectForKey:@"ownnerid"]integerValue];
             heyBubble.chatId=[[friend objectForKey:@"id"]integerValue];
             heyBubble.activityId=[[friend objectForKey:@"activity_id"]integerValue];
             heyBubble.playerId=[[friend objectForKey:@"player_id"]integerValue];
@@ -168,6 +185,7 @@
             heyBubble.avatar = nil;
             heyBubble.avatarUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[friend objectForKey:@"player_photo"]];
             heyBubble.showAvatars=YES;
+            heyBubble.ownerId=[[friend objectForKey:@"ownnerid"]integerValue];
             heyBubble.chatId=[[friend objectForKey:@"id"]integerValue];
             heyBubble.activityId=[[friend objectForKey:@"activity_id"]integerValue];
             heyBubble.playerId=[[friend objectForKey:@"player_id"]integerValue];

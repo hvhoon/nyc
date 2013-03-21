@@ -70,6 +70,9 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chatInAppNotification:) name:@"ChatNotification" object:Nil];
     
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (getDeltaUpdateInbackground) name:@"ChatDeltaUpdate" object:nil];
+
+    
 
 
     [self.navigationController.navigationBar setHidden:YES];
@@ -77,6 +80,28 @@
 
 -(void)viewDidDisappear:(BOOL)animated{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+-(void)getDeltaUpdateInbackground{
+    if([chatView.bubbleData count]==0)
+    [devServer chatPostsOnActivity:activityInfo.activityId chatId:0 delegate:self message:nil chatRequest:6 imageToPost:nil];
+    else{
+        ActivityChatData *lastObject=[chatView.bubbleData lastObject];
+        [devServer chatPostsOnActivity:activityInfo.activityId chatId:lastObject.chatId delegate:self message:nil chatRequest:6 imageToPost:nil];
+
+    }
+
+}
+
+-(void)deltaPostInBackground:(NSArray*)responses{
+    if([responses count]!=0){
+        if([chatView.bubbleData count]==0){
+            [chatView updateDeltaChatWithNewData:[NSMutableArray arrayWithArray:responses]];
+        }
+        else{
+            [chatView postsNewUpdateOnChatScreen:[NSMutableArray arrayWithArray:responses]];
+        }
+    }
 }
 #pragma mark - View lifecycle
 
@@ -91,7 +116,7 @@
     NotificationClass *notifObject=[SoclivityUtilities getNotificationChatPost:note];
     if(notifObject.activityId==activityInfo.activityId)
     
-    [devServer chatPostsOnActivity:activityInfo.activityId playerId:notifObject.notificationId delegate:self message:nil chatRequest:5 imageToPost:nil];
+    [devServer chatPostsOnActivity:activityInfo.activityId chatId:notifObject.notificationId delegate:self message:nil chatRequest:5 imageToPost:nil];
     else{
         NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
         notif.delegate=self;
@@ -650,7 +675,7 @@
         
         [self startAnimation:kChatPostDelete];
         
-        [devServer chatPostsOnActivity:activityInfo.activityId playerId:chatid delegate:self message:nil chatRequest:4 imageToPost:nil];
+        [devServer chatPostsOnActivity:activityInfo.activityId chatId:chatid delegate:self message:nil chatRequest:4 imageToPost:nil];
     }
     else{
         
@@ -724,6 +749,10 @@
 }
 
 -(void)addAPost:(ActivityChatData*)responses{
+    
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
+
     
     if([responses.description isEqualToString:@"IMG"]){
         
@@ -1687,7 +1716,7 @@
     if([SoclivityUtilities hasNetworkConnection]){
         
         [self startAnimation:kChatPostRequest];
-        [devServer chatPostsOnActivity:activityInfo.activityId playerId:[SOC.loggedInUser.idSoc intValue] delegate:self message:nil chatRequest:1 imageToPost:nil];
+        [devServer chatPostsOnActivity:activityInfo.activityId chatId:[SOC.loggedInUser.idSoc intValue] delegate:self message:nil chatRequest:1 imageToPost:nil];
     }
     else{
         
@@ -1719,7 +1748,7 @@
         
         [self startAnimation:kChatPostMessageRequest];
         
-        [devServer chatPostsOnActivity:activityInfo.activityId playerId:[SOC.loggedInUser.idSoc intValue] delegate:self message:message chatRequest:2 imageToPost:nil];
+        [devServer chatPostsOnActivity:activityInfo.activityId chatId:[SOC.loggedInUser.idSoc intValue] delegate:self message:message chatRequest:2 imageToPost:nil];
     }
     else{
         
@@ -1741,9 +1770,9 @@
     if([SoclivityUtilities hasNetworkConnection]){
         
         [self startAnimation:kChatPostMessageRequest];
-        NSData *imageData=UIImageJPEGRepresentation(image, 0.5f);
+        NSData *imageData=UIImageJPEGRepresentation(image, 0.7f);
         
-        [devServer chatPostsOnActivity:activityInfo.activityId playerId:[SOC.loggedInUser.idSoc intValue] delegate:self message:nil chatRequest:3 imageToPost:imageData];
+        [devServer chatPostsOnActivity:activityInfo.activityId chatId:[SOC.loggedInUser.idSoc intValue] delegate:self message:nil chatRequest:3 imageToPost:imageData];
     }
     else{
         

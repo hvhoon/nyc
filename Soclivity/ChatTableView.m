@@ -185,7 +185,7 @@
         }
         if(indexPath.row==2)
         {
-            return [UIBubbleHeaderFooterTableViewCell height]-5;
+            return [UIBubbleHeaderFooterTableViewCell height]-4;
         }
         
 

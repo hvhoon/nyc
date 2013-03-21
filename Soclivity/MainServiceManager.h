@@ -48,5 +48,5 @@
 -(void)searchUsersByNameInvocation:(NSInteger)playerSOCId searchText:(NSString*)searchText delegate:(id<GetUsersByFirstLastNameInvocationDelegate>)delegate;
 -(void)getUserNotificationsInfoInvocation:(id<GetNotificationsInvocationDelegate>)delegate notificationType:(NSInteger)type notficationId:(NSInteger)idType;
 
--(void)chatPostsOnActivity:(NSInteger)activityId playerId :(NSInteger)playerId delegate:(id<ChatServiceInvocationDelegate>)delegate message:(NSString*)message chatRequest:(NSInteger)chatRequest imageToPost:(NSData*)imageToPost;
+-(void)chatPostsOnActivity:(NSInteger)activityId chatId :(NSInteger)chatId delegate:(id<ChatServiceInvocationDelegate>)delegate message:(NSString*)message chatRequest:(NSInteger)chatRequest imageToPost:(NSData*)imageToPost;
 @end

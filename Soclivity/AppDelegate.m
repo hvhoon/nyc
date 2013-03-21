@@ -436,6 +436,10 @@ static NSString* kAppId = @"160726900680967";//kanav
     SOC.loggedInUser.badgeCount=[[UIApplication sharedApplication]applicationIconBadgeNumber];
     NSLog(@"SOC.loggedInUser.badgeCount=%d",SOC.loggedInUser.badgeCount);
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
+
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ChatDeltaUpdate" object:self userInfo:nil];
+
     
 //    if(([[UIApplication sharedApplication]applicationIconBadgeNumber]-[[[NSUserDefaults standardUserDefaults]valueForKey:@"PrevBadgeCount"]intValue])!=0){
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"RandomFetch" object:self userInfo:nil];

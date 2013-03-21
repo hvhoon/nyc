@@ -294,7 +294,7 @@
 
         tapType=3;
 
-        if([SOC.loggedInUser.idSoc integerValue]==self.data.playerId)
+        if([SOC.loggedInUser.idSoc integerValue]==self.data.ownerId)
             tapType=2;
         
         //CGRect bounds = gestureRecognizer.view.bounds;
@@ -302,7 +302,7 @@
         
     }
     
-    else if([gestureRecognizer.view  isKindOfClass:[UIImageView class]] && self.data.type==BubbleTypeSomeoneElse && [SOC.loggedInUser.idSoc integerValue]==self.data.playerId)
+    else if([gestureRecognizer.view  isKindOfClass:[UIImageView class]] && self.data.type==BubbleTypeSomeoneElse && [SOC.loggedInUser.idSoc integerValue]==self.data.ownerId)
     {
         tapType=1;
         

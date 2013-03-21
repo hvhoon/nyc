@@ -48,5 +48,7 @@
 - (void)handleWillShowKeyboard:(NSNotification *)notification;
 - (void)handleWillHideKeyboard:(NSNotification *)notification;
 - (void)keyboardWillShowHide:(NSNotification *)notification;
+-(void)updateDeltaChatWithNewData:(NSMutableArray*)responses;
+-(void)postsNewUpdateOnChatScreen:(NSMutableArray*)responses;
 
 @end

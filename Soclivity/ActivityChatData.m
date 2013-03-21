@@ -24,6 +24,7 @@
 @synthesize chatId;
 @synthesize postImageUrl;
 @synthesize postImage;
+@synthesize ownerId;
 - (void)dealloc
 {
     [_date release];

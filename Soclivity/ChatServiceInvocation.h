@@ -23,11 +23,12 @@
 -(void)chatDeleted:(NSString*)message;
 -(void)postDidFailed:(NSError*)error;
 -(void)addAPost:(ActivityChatData*)responses;
+-(void)deltaPostInBackground:(NSArray*)responses;
 @end
 
 
 @interface ChatServiceInvocation : ProjectAsyncInvocation
-@property(nonatomic,assign)NSInteger playerId;
+@property(nonatomic,assign)NSInteger chatId;
 @property(nonatomic,assign)NSInteger activityId;
 @property(nonatomic,retain)NSString*textMessage;
 @property(nonatomic,assign)NSInteger requestType;

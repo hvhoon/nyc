@@ -28,6 +28,7 @@ typedef enum _NSBubbleType
 @property (nonatomic,assign)NSInteger playerId;
 @property (nonatomic,retain)NSString*avatarUrl;
 @property (nonatomic,assign)NSInteger chatId;
+@property (nonatomic,assign)NSInteger ownerId;
 @property (nonatomic,retain)NSString*postImageUrl;
 @property (nonatomic,retain)UIImage*postImage;
 - (id)initWithText:(NSString *)text date:(NSDate *)date name:(NSString*)name type:(NSBubbleType)type;

@@ -10,12 +10,14 @@
 #import "ActivityChatData+Parse.h"
 #import "ActivityChatData.h"
 #import "Base64.h"
+#import "SoclivityManager.h"
+#import "GetPlayersClass.h"
 @interface ChatServiceInvocation (private)
 -(NSString*)body;
 @end
 
 @implementation ChatServiceInvocation
-@synthesize playerId,activityId,textMessage,imageData,requestType;
+@synthesize chatId,activityId,textMessage,imageData,requestType;
 
 
 -(void)dealloc {
@@ -26,10 +28,12 @@
 
 
 -(void)invoke {
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+
     switch (requestType) {
         case 1:
         {
-            NSString*a=[NSString stringWithFormat:@"dev.soclivity.com/activity_chats.json?activity_id=%d&player_id=%d",activityId,playerId];
+            NSString*a=[NSString stringWithFormat:@"dev.soclivity.com/activity_chats.json?activity_id=%d&player_id=%d",activityId,[SOC.loggedInUser.idSoc intValue]];
             [self get:a];
             
         }
@@ -50,7 +54,7 @@
             
             case 4:
         {
-            NSString*a=[NSString stringWithFormat:@"dev.soclivity.com/activity_chats/%d.json",playerId];
+            NSString*a=[NSString stringWithFormat:@"dev.soclivity.com/activity_chats/%d.json",chatId];
             [self delete:a];
 
         }
@@ -59,11 +63,21 @@
             
         case 5:
         {
-            NSString*a=[NSString stringWithFormat:@"dev.soclivity.com/activity_chats/%d/chat_detail.json",playerId];
+            NSString*a=[NSString stringWithFormat:@"dev.soclivity.com/activity_chats/%d/chat_detail.json?pid=%d",chatId,[SOC.loggedInUser.idSoc intValue]];
             [self get:a];
             
         }
             break;
+            
+            
+        case 6:
+        {
+            NSString*a=[NSString stringWithFormat:@"dev.soclivity.com/activity_chats/%d/backgroundchat.json?pid=%d&aid=%d",chatId,[SOC.loggedInUser.idSoc intValue],activityId];
+            [self get:a];
+            
+        }
+            break;
+
 
         default:
             break;
@@ -72,9 +86,9 @@
 
 -(NSString*)body{
 	NSMutableDictionary* bodyD = [[[NSMutableDictionary alloc] init] autorelease];
-    
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
     [bodyD setObject:[NSNumber numberWithInt:activityId] forKey:@"activity_id"];
-    [bodyD setObject:[NSNumber numberWithInt:playerId] forKey:@"player_id"];
+    [bodyD setObject:[NSNumber numberWithInt:[SOC.loggedInUser.idSoc intValue]] forKey:@"player_id"];
     
     if(requestType==2){
         [bodyD setObject:textMessage forKey:@"description"];
@@ -154,7 +168,19 @@
 
         }
             break;
-        default:
+        case 6:
+        {
+            NSDictionary* resultsd = [[[NSString alloc] initWithData:data
+                                                            encoding:NSUTF8StringEncoding] JSONValue];
+            
+            NSArray *response=[ActivityChatData PlayersDeltaPertainingToActivity:resultsd];
+            [self.delegate chatPostToDidFinish:self withResponse:response withError:Nil];
+
+            
+            
+            [self.delegate deltaPostInBackground:response];
+            
+        }
             break;
     }
     
