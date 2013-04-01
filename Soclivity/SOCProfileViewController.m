@@ -39,6 +39,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if([SoclivityUtilities deviceType] & iPhone5){
+        bottomBarImageView.frame=CGRectMake(0, 508, 320, 40);
+    }
+    else{
+        bottomBarImageView.frame=CGRectMake(0, 420, 320, 40);
+    }
+
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
     
@@ -128,12 +135,6 @@
     [operation release];
     
     
-    if([SoclivityUtilities deviceType] & iPhone5){
-        bottomBarImageView.frame=CGRectMake(0, 508, 320, 40);
-    }
-    else{
-        bottomBarImageView.frame=CGRectMake(0, 420, 320, 40);
-    }
     
     
     NSArray *listItems = [playerObject.playerName componentsSeparatedByString:@" "];
