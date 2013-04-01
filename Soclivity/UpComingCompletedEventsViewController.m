@@ -342,17 +342,8 @@
         
     }
     else{
-        SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
-        myClass.playerName=detailedInfo.organizerName;
-        myClass.DOS=detailedInfo.DOS;
-        myClass.friendId=detailedInfo.organizerId;
-        myClass.activityId=detailedInfo.activityId;
-        myClass.latestActivityName=detailedInfo.activityName;
-        myClass.activityType=detailedInfo.type;
-        myClass.profilePhotoUrl=detailedInfo.ownerProfilePhotoUrl;
-        myClass.distance=[detailedInfo.distance floatValue];
         SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
-        socProfileViewController.playerObject=myClass;
+        socProfileViewController.friendId=detailedInfo.organizerId;
         [[self navigationController] pushViewController:socProfileViewController animated:YES];
         [socProfileViewController release];
     }
