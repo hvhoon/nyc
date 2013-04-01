@@ -1762,7 +1762,7 @@
     if([SoclivityUtilities hasNetworkConnection]){
         
         [self startAnimation:kChatPostMessageRequest];
-        NSData *imageData=UIImageJPEGRepresentation(image, 0.7f);
+        NSData *imageData=UIImageJPEGRepresentation(image, 0.8f);
         
         [devServer chatPostsOnActivity:activityInfo.activityId chatId:[SOC.loggedInUser.idSoc intValue] delegate:self message:nil chatRequest:3 imageToPost:imageData];
     }
