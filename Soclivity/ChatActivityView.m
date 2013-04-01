@@ -428,7 +428,7 @@
         [inputView setHidden:NO];
     }
 #if 1
-    UIEdgeInsets insets = UIEdgeInsetsMake(0.0f,
+    UIEdgeInsets insets = UIEdgeInsetsMake(7.0,
                                            0.0f,
                                            self.frame.size.height - keyboardY,
                                            0.0f);
