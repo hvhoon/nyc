@@ -571,6 +571,7 @@ NSString * const kSearchTextKey = @"Search Text";
         case 2:
         {
             //facebook invite Pending
+            [delegate sendInviteOnFacebookPrivateMessage:product.inviteId];
             
         }
             break;

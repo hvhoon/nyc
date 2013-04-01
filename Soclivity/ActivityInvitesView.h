@@ -19,6 +19,7 @@
 -(void)inviteSoclivityUser:(int)invitePlayerId;
 -(BOOL)CalculateOpenSlots;
 -(void)PushUserToProfileScreen:(InviteObjectClass*)player;
+-(void)sendInviteOnFacebookPrivateMessage:(int)fbUId;
 @end
 
 

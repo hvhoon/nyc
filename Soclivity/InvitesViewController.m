@@ -253,6 +253,26 @@ if([SoclivityUtilities hasNetworkConnection]){
 
 }
 
+-(void)sendInviteOnFacebookPrivateMessage:(int)fbUId{
+ 
+    if([SoclivityUtilities hasNetworkConnection]){
+        [self startAnimation:0];
+        [devServer postActivityRequestInvocation:12 playerId:fbUId actId:activityId delegate:self];
+    }
+    else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+
+}
+
 
 -(void)startAnimation:(int)type{
     // Setup animation settings
