@@ -31,21 +31,6 @@ static NSArray *playerActivityDetails;
     
 }
 
-//{
-//    aps =     {
-//        alert = "#Veer Singh# has send you a message in #Testing#. ";
-//        badge = 0;
-//        sound = default;
-//    };
-//    params =     {
-//        "activity_id" = 30;
-//        "chat_id" = 28;
-//        "notification_type" = 1;
-//        "photo_url" = "pimage.to_s";
-//        "player_id" = chat;
-//    };
-//}
-
 +(NotificationClass*)getNotificationChatPost:(NSNotification*)object{
     NotificationClass *notification=[[NotificationClass alloc]init];
     id obj=[object valueForKey:@"userInfo"];
@@ -1449,5 +1434,90 @@ if(timer%2==0){
     return result;
 }
 
++(NSString *)upcomingTimeOfActivity:(NSString *)timeString{
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [dateFormatter setTimeZone:gmt];
+    
+    // how to get back time from current time in the same format
+    NSDate *lastDate = [dateFormatter dateFromString:timeString];//add the string
+    NSString *todayDate = [dateFormatter stringFromDate:[NSDate date]];
+    NSDate *currentDate=[dateFormatter dateFromString:todayDate];
+    
+    NSTimeInterval interval = [lastDate timeIntervalSinceDate:currentDate];
+    unsigned long seconds = interval;
+    unsigned long minutes = seconds / 60;
+    seconds %= 60;
+    unsigned long hours = minutes / 60;
+    if(hours)
+        minutes %= 60;
+    BOOL checkTime=TRUE;
+    NSMutableString * result = [[NSMutableString new] autorelease];
+    dateFormatter.dateFormat=@"EEE, MMM d, h:mma";
+    
+    NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
+    NSInteger destinationGMTOffset1 = [destinationTimeZone secondsFromGMTForDate:lastDate];
+    NSInteger destinationGMTOffset2 = [destinationTimeZone secondsFromGMTForDate:currentDate];
+    
+    NSTimeInterval interval2 = destinationGMTOffset1;
+    NSTimeInterval interval3 = destinationGMTOffset2;
+    
+    NSDate* destinationDate = [[[NSDate alloc] initWithTimeInterval:interval2 sinceDate:lastDate] autorelease];
+    NSDate* currentDateTime = [[[NSDate alloc] initWithTimeInterval:interval3 sinceDate:currentDate] autorelease];
+    
+    
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    int differenceInDays =
+    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:destinationDate]-
+    [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:currentDateTime];
+    switch (differenceInDays) {
+        case -1:
+        {
+            NSLog(@"Yesterday");
+        }
+            break;
+        case 0:
+        {
+            NSLog(@"Today");
+            
+            if(hours && checkTime){
+                [result appendFormat: @"IN %ld HOURS", hours];
+                checkTime=FALSE;
+            }
+            
+            if(minutes && checkTime){
+                
+                if(hours==0){
+                    [result appendFormat: @"IN %ld MINUTES", minutes];
+                }
+                else
+                    [result appendFormat: @"IN %ld MINUTES", minutes];
+                
+                checkTime=FALSE;
+                
+            }
+            
+            
+        }
+            break;
+        default:
+        {
+            NSLog(@"Tommorow");
+            
+            if(hours && checkTime){
+                [result appendFormat: @"IN %ld HOURS", hours];
+                checkTime=FALSE;
+            }
 
+            
+            
+        }
+            break;
+            
+    }
+    
+    return result;
+}
 @end

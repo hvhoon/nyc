@@ -16,14 +16,17 @@
 #import "ActivityEventViewController.h"
 #import "UpComingCompletedEventsViewController.h"
 #import "GetUserProfileInfoInvocation.h"
+#import "MBProgressHUD.h"
 #define TAG_COMMENT 1234
 
-@interface SOCProfileViewController ()<DetailedActivityInfoInvocationDelegate,GetUserProfileInfoInvocationDelegate>
+@interface SOCProfileViewController ()<DetailedActivityInfoInvocationDelegate,GetUserProfileInfoInvocationDelegate,MBProgressHUDDelegate>{
+    MBProgressHUD *HUD;
+}
 
 @end
 
 @implementation SOCProfileViewController
-@synthesize playerObject,commonFriendsArray,imageDownloadsInProgress,loadNFriendsAtTimeArray;
+@synthesize playerObject,imageDownloadsInProgress,loadNFriendsAtTimeArray,friendId,commonFriendsArray;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -39,9 +42,81 @@
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
     
+    [self getUserProfile];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
 
 
+}
+-(void)getUserProfile{
+    if([SoclivityUtilities hasNetworkConnection]){
+        [self startAnimation:1];
+        [devServer getUserProfileInfoInvocation:[SOC.loggedInUser.idSoc intValue] friendPlayer:friendId delegate:self];
+        
+    }
+    else{
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+    }
+    
+}
+
+-(void)startAnimation:(int)tag{
+    
+    // Setup animation settings
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    HUD.yOffset = -40.0;
+    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
+    switch (tag) {
+        case 1:
+        {
+            HUD.labelText = @"Loading";
+            
+        }
+            break;
+            
+            
+            
+            
+        default:
+            break;
+    }
+    [self.view addSubview:HUD];
+    HUD.delegate = self;
+    [HUD show:YES];
+    
+}
+
+-(void)hideMBProgress{
+    [HUD hide:YES];
+}
+
+-(void)showInAppNotificationsUsingRocketSocket:(NSNotification*)object{
+    
+    NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:object];
+    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
+    notif.delegate=self;
+    [self.view addSubview:notif];
+    
+}
+
+-(void)backgroundTapToPush:(NotificationClass*)notification{
+    
+}
+
+-(void)UserProfileInfoInvocationDidFinish:(GetUserProfileInfoInvocation*)invocation
+                             withResponse:(SocPlayerClass*)response
+                                withError:(NSError*)error{
+    
+    [self hideMBProgress];
+    playerObject=[response retain];
+    
     loadNFriendsAtTimeArray=[[NSMutableArray alloc]init];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     NSOperationQueue *queue = [NSOperationQueue new];
@@ -59,9 +134,9 @@
     else{
         bottomBarImageView.frame=CGRectMake(0, 420, 320, 40);
     }
-
     
-        NSArray *listItems = [playerObject.playerName componentsSeparatedByString:@" "];
+    
+    NSArray *listItems = [playerObject.playerName componentsSeparatedByString:@" "];
     
     NSString *firstName=nil;
     if(([listItems count]==2)||([listItems count]==1)){
@@ -84,75 +159,77 @@
     profileUserNameLabel.frame=CGRectMake(70, 73, size.width, 16);
     
     if(playerObject.DOS!=3){
-    
-    dosConnectionImageview.frame=CGRectMake(70+6+size.width, 74, 21, 12);
-    switch (playerObject.DOS){
-        case 1:
-            dosConnectionImageview.image=[UIImage imageNamed:@"S05_dos1.png"];
-            break;
-            
-        case 2:
-            dosConnectionImageview.image=[UIImage imageNamed:@"S05_dos2.png"];
-            break;
-            
-            
-        default:
-            break;
-    }
-    
-    // Determing the user's relationship to the organizer
-    profileTextLinkLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
-    profileTextLinkLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-    
-    switch (playerObject.DOS){
-        case 1:
-            profileTextLinkLabel.text=[NSString stringWithFormat:@"You and %@ are friends",playerObject.playerName];
-            break;
-            
-        case 2:
-            profileTextLinkLabel.text=[NSString stringWithFormat:@"You may know %@",playerObject.playerName];
-            break;
-    }
-    
-    
-    if(playerObject.DOS==1)
-        [self.view addSubview:[self SetupHeaderView]];
-    int delta=0;
-    if(playerObject.DOS!=1){
-        delta=93;
-    }
-
-    CGRect activityTableRect;
-    if([SoclivityUtilities deviceType] & iPhone5)
         
-        activityTableRect=CGRectMake(0, 220-delta, 320, 200+88+delta);
-    
-    else
-        activityTableRect=CGRectMake(0, 220-delta, 320, 200+delta);
-    
-    commonFriendsTableView=[[UITableView alloc]initWithFrame:activityTableRect];
-    [commonFriendsTableView setDelegate:self];
-    [commonFriendsTableView setDataSource:self];
-    [commonFriendsTableView setRowHeight:kCustomRowHeight];
-    commonFriendsTableView.scrollEnabled=YES;
-    //commonFriendsTableView.tableHeaderView=[self returnSectionHeader];
-    commonFriendsTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
-    commonFriendsTableView.separatorColor=[UIColor clearColor];
-    commonFriendsTableView.showsVerticalScrollIndicator=YES;
-    [self.view addSubview:commonFriendsTableView];
-    
-    
-    commonFriendsTableView.clipsToBounds=YES;
-    
-    [self SetUpDummyCommonFriends];
-    
-    
-    goLoading=TRUE;
-    numberOfFriendsWithPlayer=[commonFriendsArray count];
-    [self SetupCountForImagesRefresh:numberOfFriendsWithPlayer];
-    [self ImplementRefreshFunction];
-
-
+        dosConnectionImageview.frame=CGRectMake(70+6+size.width, 74, 21, 12);
+        switch (playerObject.DOS){
+            case 1:
+                dosConnectionImageview.image=[UIImage imageNamed:@"S05_dos1.png"];
+                break;
+                
+            case 2:
+                dosConnectionImageview.image=[UIImage imageNamed:@"S05_dos2.png"];
+                break;
+                
+                
+            default:
+                break;
+        }
+        
+        // Determing the user's relationship to the organizer
+        profileTextLinkLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
+        profileTextLinkLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+        
+        switch (playerObject.DOS){
+            case 1:
+                profileTextLinkLabel.text=[NSString stringWithFormat:@"You and %@ are friends",playerObject.playerName];
+                break;
+                
+            case 2:
+                profileTextLinkLabel.text=[NSString stringWithFormat:@"You may know %@",playerObject.playerName];
+                break;
+        }
+        
+        
+        if(playerObject.DOS==1)
+            [self.view addSubview:[self SetupHeaderView]];
+        int delta=0;
+        if(playerObject.DOS!=1){
+            delta=93;
+        }
+        
+        CGRect activityTableRect;
+        if([SoclivityUtilities deviceType] & iPhone5)
+            
+            activityTableRect=CGRectMake(0, 220-delta, 320, 200+88+delta);
+        
+        else
+            activityTableRect=CGRectMake(0, 220-delta, 320, 200+delta);
+        
+        commonFriendsTableView=[[UITableView alloc]initWithFrame:activityTableRect];
+        [commonFriendsTableView setDelegate:self];
+        [commonFriendsTableView setDataSource:self];
+        [commonFriendsTableView setRowHeight:kCustomRowHeight];
+        commonFriendsTableView.scrollEnabled=YES;
+        //commonFriendsTableView.tableHeaderView=[self returnSectionHeader];
+        commonFriendsTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+        commonFriendsTableView.separatorColor=[UIColor clearColor];
+        commonFriendsTableView.showsVerticalScrollIndicator=YES;
+        [self.view addSubview:commonFriendsTableView];
+        
+        
+        commonFriendsTableView.clipsToBounds=YES;
+        
+       commonFriendsArray=[[NSArray arrayWithArray:playerObject.commonFriends]retain];
+        
+        //[self SetUpDummyCommonFriends];
+        
+        
+        goLoading=TRUE;
+        numberOfFriendsWithPlayer=[commonFriendsArray count];
+        [self SetupCountForImagesRefresh:numberOfFriendsWithPlayer];
+        [self ImplementRefreshFunction];
+        
+        
     }
     else{
         profileUserNameLabel.frame=CGRectMake(70, 92, size.width, 16);
@@ -167,7 +244,7 @@
         topLabel.text=@"You can only view the profile of a";
         [self.view addSubview:topLabel];
         [topLabel release];
-
+        
         
         
         CGRect bottomLabelRect=CGRectMake(75,160,280,15);
@@ -180,36 +257,11 @@
         bottomLabel.text=@"friend or a friend of a friend";
         [self.view addSubview:bottomLabel];
         [bottomLabel release];
-
+        
     }
     
     
-    //commented for now will upadate once parameteres are parsed
-    //[devServer getUserProfileInfoInvocation:[SOC.loggedInUser.idSoc intValue] friendPlayer:playerObject.friendId delegate:self];
 
-
-    // Do any additional setup after loading the view from its nib.
-}
-
-
--(void)showInAppNotificationsUsingRocketSocket:(NSNotification*)object{
-    
-    NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:object];
-    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
-    notif.delegate=self;
-    [self.view addSubview:notif];
-    
-}
-
--(void)backgroundTapToPush:(NotificationClass*)notification{
-    
-}
-
--(void)UserProfileInfoInvocationDidFinish:(GetUserProfileInfoInvocation*)invocation
-                             withResponse:(SocPlayerClass*)response
-                                withError:(NSError*)error{
-    
-    
 }
 
 -(UIView*)returnSectionHeader{
@@ -356,7 +408,11 @@
     eventLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
     eventLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     eventLabel.backgroundColor=[UIColor clearColor];
-    eventLabel.text=@"UPCOMING - IN 3 HOURS";
+    if([SoclivityUtilities ValidActivityDate:playerObject.activityTime])
+        eventLabel.text=[NSString stringWithFormat:@"UPCOMING %@",[SoclivityUtilities upcomingTimeOfActivity:playerObject.activityTime]];
+    else{
+        eventLabel.text=@"COMPLETED";        
+    }
     [contactHeaderView addSubview:eventLabel];
     [eventLabel release];
     
@@ -430,13 +486,14 @@
     [contactHeaderView addSubview:mileslabel];
     [mileslabel release];
 
+    if([SoclivityUtilities ValidActivityDate:playerObject.activityTime]){
     UIButton *disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     disclosureButton.frame = CGRectMake(296, 51.5, 9, 14);
     [disclosureButton setBackgroundImage:[UIImage imageNamed:@"smallNextArrow.png"] forState:UIControlStateNormal];
     disclosureButton.tag=555;
     [disclosureButton addTarget:self action:@selector(viewDetailActivity:) forControlEvents:UIControlEventTouchUpInside];
     [contactHeaderView addSubview:disclosureButton];
-    
+    }
     
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
                                                   initWithFrame:CGRectMake(290.0f, 47.0f, 20.0f, 20.0f)];
@@ -542,7 +599,7 @@
         
         [entries addObject:play];
     }
-    commonFriendsArray=[[NSArray arrayWithArray:entries]retain];
+    //commonFriendsArray=[[NSArray arrayWithArray:entries]retain];
     
 }
 
@@ -561,7 +618,7 @@
     UpComingCompletedEventsViewController *upComingCompletedEventsViewController=[[UpComingCompletedEventsViewController alloc] initWithNibName:nibNameBundle bundle:nil];
     upComingCompletedEventsViewController.isNotSettings=TRUE;
     upComingCompletedEventsViewController.isNotLoggedInUser=TRUE;
-    upComingCompletedEventsViewController.player2Id=playerObject.friendId;
+    upComingCompletedEventsViewController.player2Id=friendId;
     [[self navigationController] pushViewController:upComingCompletedEventsViewController animated:YES];
     [upComingCompletedEventsViewController release];
 
@@ -571,21 +628,14 @@
  
     
     InviteObjectClass*player = [self.loadNFriendsAtTimeArray objectAtIndex:indexPath.row];
+    if(!player.isOnFacebook){
     
-    SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
-    myClass.playerName=player.userName;
-    myClass.DOS=player.DOS;
-    myClass.activityId=2;
-    myClass.latestActivityName=@"Oven Fresh";
-    myClass.activityType=1;
-    myClass.profilePhotoUrl=player.profilePhotoUrl;
-    myClass.distance=0.99;
     SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
-    socProfileViewController.playerObject=myClass;
+    socProfileViewController.friendId=player.inviteId;
     [[self navigationController] pushViewController:socProfileViewController animated:YES];
     [socProfileViewController release];
 
-
+    }
 }
 
 

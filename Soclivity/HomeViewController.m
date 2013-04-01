@@ -18,7 +18,6 @@
 #import "FilterPreferenceClass.h"
 #import "MBProgressHUD.h"
 #import "ParticipantClass.h"
-#import "SocPlayerClass.h"
 #import "UpComingCompletedEventsViewController.h"
 #import "SOCProfileViewController.h"
 #import "CreateActivityViewController.h"
@@ -310,16 +309,8 @@
         case 16:
             
         {
-            SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
-            myClass.playerName=response.organizerName;
-            myClass.DOS=response.DOS;
-            myClass.activityId=response.activityId;
-            myClass.latestActivityName=response.activityName;
-            myClass.activityType=response.type;
-            myClass.profilePhotoUrl=response.ownerProfilePhotoUrl;
-            myClass.distance=[response.distance floatValue];
             SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
-            socProfileViewController.playerObject=myClass;
+            socProfileViewController.friendId=response.organizerId;
             [[self navigationController] pushViewController:socProfileViewController animated:YES];
             [socProfileViewController release];
             
@@ -970,17 +961,8 @@
         
     }
     else{
-        SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
-        myClass.playerName=detailedInfo.organizerName;
-        myClass.DOS=detailedInfo.DOS;
-        myClass.activityId=detailedInfo.activityId;
-        myClass.latestActivityName=detailedInfo.activityName;
-        myClass.activityType=detailedInfo.type;
-        myClass.profilePhotoUrl=detailedInfo.ownerProfilePhotoUrl;
-        myClass.distance=[detailedInfo.distance floatValue];
-        myClass.friendId=detailedInfo.organizerId;
         SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
-        socProfileViewController.playerObject=myClass;
+        socProfileViewController.friendId=detailedInfo.organizerId;
         [[self navigationController] pushViewController:socProfileViewController animated:YES];
         [socProfileViewController release];
     }

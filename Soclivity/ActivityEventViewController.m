@@ -553,16 +553,8 @@
             case 16:
                 
             {
-                SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
-                myClass.playerName=response.organizerName;
-                myClass.DOS=response.DOS;
-                myClass.activityId=response.activityId;
-                myClass.latestActivityName=response.activityName;
-                myClass.activityType=response.type;
-                myClass.profilePhotoUrl=response.ownerProfilePhotoUrl;
-                myClass.distance=[response.distance floatValue];
                 SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
-                socProfileViewController.playerObject=myClass;
+                socProfileViewController.friendId=response.organizerId;
                 [[self navigationController] pushViewController:socProfileViewController animated:YES];
                 [socProfileViewController release];
                 
@@ -2308,16 +2300,8 @@
         
     }
     else{
-        SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
-        myClass.playerName=player.name;
-        myClass.DOS=player.dosConnection;
-        myClass.activityId=activityInfo.activityId;
-        myClass.latestActivityName=activityInfo.activityName;
-        myClass.activityType=activityInfo.type;
-        myClass.profilePhotoUrl=player.photoUrl;
-        myClass.distance=[activityInfo.distance floatValue];
         SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
-        socProfileViewController.playerObject=myClass;
+        socProfileViewController.friendId=player.participantId;
         [[self navigationController] pushViewController:socProfileViewController animated:YES];
         [socProfileViewController release];
     }

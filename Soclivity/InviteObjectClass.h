@@ -17,6 +17,7 @@
     UIImage *profileImage;
     BOOL status;
     NSInteger inviteId;
+    BOOL isOnFacebook;
 }
 @property (nonatomic,retain)NSString *userName;
 @property (nonatomic,retain)NSString *profilePhotoUrl;
@@ -25,4 +26,5 @@
 @property (nonatomic,assign)NSInteger DOS;
 @property (nonatomic,assign)BOOL status;
 @property (nonatomic,assign)NSInteger inviteId;
+@property (nonatomic,assign)BOOL isOnFacebook;
 @end

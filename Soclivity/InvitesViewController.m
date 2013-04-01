@@ -324,16 +324,8 @@ if([SoclivityUtilities hasNetworkConnection]){
 }
 
 -(void)PushUserToProfileScreen:(InviteObjectClass*)player{
-    SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
-    myClass.playerName=player.userName;
-    myClass.DOS=player.DOS;
-    myClass.activityId=activityId;
-    myClass.latestActivityName=activityName;
-    myClass.activityType=1;
-    myClass.profilePhotoUrl=player.profilePhotoUrl;
-    myClass.distance=0.99;
     SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
-    socProfileViewController.playerObject=myClass;
+    socProfileViewController.friendId=player.inviteId;
     [[self navigationController] pushViewController:socProfileViewController animated:YES];
     [socProfileViewController release];
 
