@@ -68,7 +68,7 @@
     if(lastActivity!=nil && [lastActivity class]!=[NSNull class]){
         play.activityId=[[lastActivity objectForKey:@"id"]integerValue];
         play.activityTime=[lastActivity objectForKey:@"when"];
-        play.latestActivityName=[lastActivity objectForKey:@"what"];
+        play.latestActivityName=[lastActivity objectForKey:@"name"];
         play.activityType=[[lastActivity objectForKey:@"atype"]integerValue];
         
         SoclivityManager *SOC=[SoclivityManager SharedInstance];
