@@ -11,13 +11,12 @@
 #import "SoclivityUtilities.h"
 #import "InvitesViewController.h"
 #import "MainServiceManager.h"
-#import "GetUsersByFirstLastNameInvocation.h"
+#import "MBProgressHUD.h"
 #define kAddressBookContacts 123
 
 NSString * const kSearchTextKey = @"Search Text";
 
 @interface ActivityInvitesView ()<GetUsersByFirstLastNameInvocationDelegate>
-
 - (void)startIconDownload:(InviteObjectClass*)appRecord forIndexPath:(NSIndexPath *)indexPath;
 
 @end
@@ -771,7 +770,12 @@ NSString * const kSearchTextKey = @"Search Text";
     inviteUserTableView.tableHeaderView=nil;
     
 
-    [self filterContentForSearchText:searchBar.text];
+    //[self filterContentForSearchText:searchBar.text];
+    
+   // load from soclivity Database
+    
+    [self searchSoclivityNetwork:searchBar.text];
+    
 /*
     if ([_searchTimer isValid])
         [_searchTimer invalidate];
@@ -791,11 +795,16 @@ NSString * const kSearchTextKey = @"Search Text";
     
 }
 
+-(void)searchSoclivityNetwork:(NSString*)text{
+    
+    [delegate searchSoclivityPlayers:text];
+
+}
 - (void) searchFromSoclivityDatabase:(NSTimer *)timer {
     
-    NSString * searchString = [timer.userInfo objectForKey:kSearchTextKey];
+   // NSString * searchString = [timer.userInfo objectForKey:kSearchTextKey];
     
-    [devServer searchUsersByNameInvocation:23 searchText:searchString delegate:self];
+    //[devServer searchUsersByNameInvocation:23 searchText:searchString delegate:self];
     // Cancel any active geocoding. Note: Cancelling calls the completion handler on the geocoder
 }
 
@@ -828,6 +837,32 @@ NSString * const kSearchTextKey = @"Search Text";
     
     
     
+}
+
+-(void)searchPlayersLoad:(NSArray*)players{
+    
+    self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
+    [self.filteredListContent removeAllObjects]; // First clear the filtered array.
+    
+    NSMutableArray *content = [NSMutableArray new];
+    for (NSDictionary *dict in players)
+    {
+        NSMutableArray *oldEntries = [dict objectForKey:@"Elements"];
+        NSLog(@"oldEntries count=%d",[oldEntries count]);
+        
+        for(NSDictionary *dict2 in oldEntries){
+            
+            InviteObjectClass*product = [dict2 objectForKey:@"ActivityInvite"];
+            NSLog(@"product Name=%@",product.userName);
+            
+            
+            [content addObject:product];
+            
+        }
+    }
+    [self.filteredListContent addObjectsFromArray:content];
+    [inviteUserTableView reloadData];
+
 }
 
 -(void)customCancelButtonHit{

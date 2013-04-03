@@ -18,7 +18,9 @@
 #import "GetPlayersClass.h"
 #import "GetActivityInvitesInvocation.h"
 #import "ActivityEventViewController.h"
-@interface InvitesViewController(Private) <MBProgressHUDDelegate,PostActivityRequestInvocationDelegate,GetActivityInvitesInvocationDelegate>
+#import "GetUsersByFirstLastNameInvocation.h"
+
+@interface InvitesViewController(Private) <MBProgressHUDDelegate,PostActivityRequestInvocationDelegate,GetActivityInvitesInvocationDelegate,GetUsersByFirstLastNameInvocationDelegate>
 @end
 
 @implementation InvitesViewController
@@ -279,11 +281,63 @@ if([SoclivityUtilities hasNetworkConnection]){
     HUD = [[MBProgressHUD alloc] initWithView:self.view];
     HUD.yOffset = -40.0;
     HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
-    HUD.labelText = @"Inviting";
+    
+    switch (type) {
+        case 1:
+        {
+            HUD.labelText = @"Inviting";
+            
+        }
+            break;
+            
+        case 2:
+        {
+            HUD.labelText = @"Searching";
+            
+        }
+            break;
+
+            
+        default:
+            break;
+    }
     [self.view addSubview:HUD];
     HUD.delegate = self;
     [HUD show:YES];
     
+}
+
+-(void)searchSoclivityPlayers:(NSString*)searchText{
+    if([SoclivityUtilities hasNetworkConnection]){
+        [self startAnimation:1];
+        [devServer searchUsersByNameInvocation:[SOC.loggedInUser.idSoc intValue] searchText:searchText actId:activityId delegate:self];
+        
+    }
+    else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+
+}
+
+
+-(void)SearchUsersInvocationDidFinish:(GetUsersByFirstLastNameInvocation*)invocation
+                         withResponse:(NSArray*)responses
+                            withError:(NSError*)error{
+    
+    [HUD hide:YES];
+    if([responses count]>0){
+        [activityInvites searchPlayersLoad:responses];
+        
+    }
+
 }
 
 -(void)PostActivityRequestInvocationDidFinish:(PostActivityRequestInvocation*)invocation
@@ -295,6 +349,7 @@ if([SoclivityUtilities hasNetworkConnection]){
     
     switch (relationTypeTag) {
         case 11:
+        case 12:
         {
             
             if(inviteFriends && response){

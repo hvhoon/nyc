@@ -141,9 +141,11 @@
 
 }
 
--(void)searchUsersByNameInvocation:(NSInteger)playerSOCId searchText:(NSString*)searchText delegate:(id<GetUsersByFirstLastNameInvocationDelegate>)delegate{
+-(void)searchUsersByNameInvocation:(NSInteger)playerSOCId searchText:(NSString*)searchText actId:(int)actId delegate:(id<GetUsersByFirstLastNameInvocationDelegate>)delegate{
 
     GetUsersByFirstLastNameInvocation *invocation = [[[GetUsersByFirstLastNameInvocation alloc] init] autorelease];
+    invocation.activityId=actId;
+    invocation.playerId=playerSOCId;
     invocation.searchName=searchText;
     [self invoke:invocation withDelegate:delegate];
 

@@ -9,7 +9,7 @@
 #import "GetUsersByFirstLastNameInvocation.h"
 
 @implementation GetUsersByFirstLastNameInvocation
-@synthesize searchName;
+@synthesize searchName,playerId,activityId;
 -(void)dealloc {
 	[super dealloc];
 }
@@ -17,7 +17,8 @@
 
 -(void)invoke {
     
-    NSString*a= [NSString stringWithFormat:@"dev.soclivity.com/mutualfriends.json?pid=&fid="];
+    //NSString*a= [NSString stringWithFormat:@"dev.soclivity.com/mutualfriends.json?pid=&fid="];
+        NSString*a= [NSString stringWithFormat:@"dev.soclivity.com/players/search_contact?id=%d&aid=%d&name=%@",playerId,activityId,searchName];
     
     [self get:a];
 }

@@ -24,4 +24,7 @@
 @interface GetUsersByFirstLastNameInvocation : ProjectAsyncInvocation
 
 @property (nonatomic,retain)NSString*searchName;
+@property (nonatomic,assign) NSInteger playerId;
+@property (nonatomic,assign) NSInteger activityId;
+
 @end

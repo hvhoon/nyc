@@ -20,6 +20,7 @@
 -(BOOL)CalculateOpenSlots;
 -(void)PushUserToProfileScreen:(InviteObjectClass*)player;
 -(void)sendInviteOnFacebookPrivateMessage:(int)fbUId;
+-(void)searchSoclivityPlayers:(NSString*)searchText;
 @end
 
 
@@ -48,5 +49,6 @@
 -(void)appImageDidLoad:(NSIndexPath *)indexPath;
 - (id)initWithFrame:(CGRect)frame andInviteListArray:(NSArray*)andInviteListArray;
 -(void)activityInviteStatusUpdate;
-- (void)searchFromSoclivityDatabase:(NSTimer *)timer ;
+- (void)searchFromSoclivityDatabase:(NSTimer *)timer;
+-(void)searchPlayersLoad:(NSArray*)players;
 @end

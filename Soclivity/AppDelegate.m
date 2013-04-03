@@ -406,6 +406,13 @@ static NSString* kAppId = @"160726900680967";//kanav
 #endif
 }
 
+
+//http://dev.soclivity.com/players/global_search.json?id=24&name=braham
+
+//http://dev.soclivity.com/players/search_contact?id=26&aid=277&name=kan
+//https://graph.facebook.com/oauth/authorize?client_id=160726900680967&scope=xmpp_login&redirect_uri=http://66.228.42.237/
+
+
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     NSLog(@"applicationWillEnterForeground");

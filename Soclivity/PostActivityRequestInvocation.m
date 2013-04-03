@@ -82,7 +82,7 @@
         case 12:
         {
             SoclivityManager*SOC=[SoclivityManager SharedInstance];
-             a= [NSString stringWithFormat:@"dev.soclivity.com/players/send_facebook_message.json?id=%d&fbuid=%d",[SOC.loggedInUser.idSoc integerValue],playerId];
+             a= [NSString stringWithFormat:@"dev.soclivity.com/players/send_facebook_message.json?id=%d&aid=%d&fbuid=%d",[SOC.loggedInUser.idSoc integerValue],activityId,playerId];
             [self post:a body:nil];
         }
             break;
