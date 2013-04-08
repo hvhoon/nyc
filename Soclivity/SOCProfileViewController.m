@@ -882,7 +882,7 @@
     {
         [self loadImagesForOnscreenRows];
     }
-    
+#if 0
         if(mSetLoadMoreFooter){
             if (scrollView.contentOffset.y <= footerHeight) {
                 [friendSpinnerLoadMore startAnimating];
@@ -901,7 +901,7 @@
             commonFriendsTableView.contentInset = UIEdgeInsetsMake(0, 0, 3*REFRESH_HEADER_HEIGHT/2, 0);//see the logic
             
         }
-        
+#endif
     
 }
 
@@ -923,6 +923,11 @@
                         mSetLoadMoreFooter=TRUE;
                         footerHeight=[self tableViewHeight];
                         [self addLoadingMoreFooter:footerHeight];
+                        commonFriendsTableView.contentInset = UIEdgeInsetsMake(0, 0, 3*REFRESH_HEADER_HEIGHT/2, 0);//see the logic
+                        
+                        [self performSelector:@selector(ImplementRefreshFunction) withObject:nil afterDelay:1.5];
+                        //[self ImplementRefreshFunction];
+
                         
                     }
                 }
@@ -935,6 +940,7 @@
             footerHeight=[self tableViewHeight];
             mSetLoadNoMoreFriendsFooter=TRUE;
             [self addLoadingMoreFooter:footerHeight];
+            [friendSpinnerLoadMore stopAnimating];
         }
 		
     
