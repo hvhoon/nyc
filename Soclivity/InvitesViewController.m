@@ -238,7 +238,7 @@
 -(void)inviteSoclivityUser:(int)invitePlayerId{
     
 if([SoclivityUtilities hasNetworkConnection]){
-                [self startAnimation:0];
+    [self startAnimation:0];
     [devServer postActivityRequestInvocation:11  playerId:invitePlayerId actId:activityId delegate:self];
         }
         else{
@@ -284,6 +284,7 @@ if([SoclivityUtilities hasNetworkConnection]){
     
     switch (type) {
         case 1:
+        case 0:
         {
             HUD.labelText = @"Inviting";
             
@@ -309,7 +310,7 @@ if([SoclivityUtilities hasNetworkConnection]){
 
 -(void)searchSoclivityPlayers:(NSString*)searchText{
     if([SoclivityUtilities hasNetworkConnection]){
-        [self startAnimation:1];
+        //[self startAnimation:1];
         [devServer searchUsersByNameInvocation:[SOC.loggedInUser.idSoc intValue] searchText:searchText actId:activityId delegate:self];
         
     }
@@ -332,11 +333,9 @@ if([SoclivityUtilities hasNetworkConnection]){
                          withResponse:(NSArray*)responses
                             withError:(NSError*)error{
     
-    [HUD hide:YES];
-    if([responses count]>0){
+    //[HUD hide:YES];
         [activityInvites searchPlayersLoad:responses];
         
-    }
 
 }
 

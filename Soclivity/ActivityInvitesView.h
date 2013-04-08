@@ -36,6 +36,11 @@
     InviteObjectClass *statusUpdate;
     NSTimer * _searchTimer;
     MainServiceManager *devServer;
+    UIButton *searchSoclivityUsersButton;
+    UILabel* searchingLabel;
+    UIActivityIndicatorView* spinner;
+    float delta;
+
 }
 @property (nonatomic,retain)CustomSearchbar *searchBarForInvites;
 @property (nonatomic,retain)NSArray *InviteEntriesArray;

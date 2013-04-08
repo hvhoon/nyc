@@ -13,4 +13,5 @@
 
 +(NSArray*)PlayersInvitesParse:(NSDictionary*)ACTDict;
 +(NSArray*)PlayersAddressBookParse:(NSDictionary*)ACTDict;
++(NSArray*)PlayersInvitesParse2:(NSDictionary*)ACTDict;
 @end

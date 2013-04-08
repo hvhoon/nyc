@@ -7,6 +7,8 @@
 //
 
 #import "GetUsersByFirstLastNameInvocation.h"
+#import "InviteObjectClass.h"
+#import "InviteObjectClass+Parse.h"
 
 @implementation GetUsersByFirstLastNameInvocation
 @synthesize searchName,playerId,activityId;
@@ -18,7 +20,10 @@
 -(void)invoke {
     
     //NSString*a= [NSString stringWithFormat:@"dev.soclivity.com/mutualfriends.json?pid=&fid="];
-        NSString*a= [NSString stringWithFormat:@"dev.soclivity.com/players/search_contact?id=%d&aid=%d&name=%@",playerId,activityId,searchName];
+        //NSString*a= [NSString stringWithFormat:@"dev.soclivity.com/players/search_contact.json?id=%d&aid=%d&name=%@",playerId,activityId,searchName];
+    
+    NSString*a= [NSString stringWithFormat:@"dev.soclivity.com/players/global_search.json?id=%d&aid=%d&name=%@",playerId,activityId,searchName];
+
     
     [self get:a];
 }
@@ -32,7 +37,9 @@
     NSLog(@"resultsd=%@",resultsd);
     
     
-	[self.delegate SearchUsersInvocationDidFinish:self withResponse:nil withError:Nil];
+    NSArray*response =[InviteObjectClass PlayersInvitesParse2:resultsd];
+
+	[self.delegate SearchUsersInvocationDidFinish:self withResponse:response withError:Nil];
 	return YES;
 }
 

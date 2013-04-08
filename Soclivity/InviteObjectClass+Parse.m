@@ -209,7 +209,7 @@
     
     
 	NSDictionary*rdswDict =[ACTDict objectForKey:@"rsp"];
-	NSArray*nos =[rdswDict objectForKey:@"rsp"];
+	NSArray*nos =[rdswDict objectForKey:@"nos"];
     
     for(id obj in nos){
         NSMutableDictionary *row = [[[NSMutableDictionary alloc] init] autorelease];
@@ -254,7 +254,7 @@
         }
     }
     
-    NSArray*friendsOnSoclivityArray =[ACTDict objectForKey:@"ons"];
+    NSArray*friendsOnSoclivityArray =[rdswDict objectForKey:@"ons"];
     
     for(id obj in friendsOnSoclivityArray){
         NSMutableDictionary *row = [[[NSMutableDictionary alloc] init] autorelease];
@@ -272,7 +272,7 @@
         NSNumber * DOS = [obj objectForKey:@"dos"];
         play.DOS= [DOS intValue];
         play.profilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[obj objectForKey:@"photo"]];
-        play.status = [[obj objectForKey:@"invite"]boolValue];        
+        play.status = [[obj objectForKey:@"going"]boolValue];        
         [row setValue:[NSNumber numberWithInt:1] forKey:@"relation"];
         
         for(NSDictionary *dict in content) {
