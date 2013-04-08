@@ -11,7 +11,7 @@
 #import "InviteObjectClass+Parse.h"
 
 @implementation GetUsersByFirstLastNameInvocation
-@synthesize searchName,playerId,activityId;
+@synthesize searchName,playerId,activityId,typeOfSearch;
 -(void)dealloc {
 	[super dealloc];
 }
@@ -21,8 +21,23 @@
     
     //NSString*a= [NSString stringWithFormat:@"dev.soclivity.com/mutualfriends.json?pid=&fid="];
         //NSString*a= [NSString stringWithFormat:@"dev.soclivity.com/players/search_contact.json?id=%d&aid=%d&name=%@",playerId,activityId,searchName];
+    NSString *a=nil;
+    switch (typeOfSearch) {
+        case 1:
+        {
+            a= [NSString stringWithFormat:@"dev.soclivity.com/players/global_search.json?id=%d&aid=%d&name=%@",playerId,activityId,searchName];
+            
+        }
+            break;
+            
+        case 2:
+        {
+            a= [NSString stringWithFormat:@"dev.soclivity.com/players/searchuser.json?id=%d&name=%@",playerId,searchName];
+            
+        }
+            break;
+    }
     
-    NSString*a= [NSString stringWithFormat:@"dev.soclivity.com/players/global_search.json?id=%d&aid=%d&name=%@",playerId,activityId,searchName];
 
     
     [self get:a];
@@ -35,17 +50,30 @@
 	NSDictionary* resultsd = [[[NSString alloc] initWithData:data
                                                     encoding:NSUTF8StringEncoding] JSONValue];
     NSLog(@"resultsd=%@",resultsd);
-    
-    
-    NSArray*response =[InviteObjectClass PlayersInvitesParse2:resultsd];
+    NSArray*response=nil;
+    switch (typeOfSearch) {
+        case 1:
+        {
+            response =[InviteObjectClass PlayersInvitesGlobalSearchToActivity:resultsd];
 
-	[self.delegate SearchUsersInvocationDidFinish:self withResponse:response withError:Nil];
+        }
+            break;
+            
+        case 2:
+        {
+            response =[InviteObjectClass PlayersInvitesToJoinSoclivityParse:resultsd];
+            
+        }
+            break;
+    }
+
+	[self.delegate SearchUsersInvocationDidFinish:self withResponse:response type:typeOfSearch withError:Nil];
 	return YES;
 }
 
 -(BOOL)handleHttpError:(NSInteger)code {
 	[self.delegate SearchUsersInvocationDidFinish:self
-                                         withResponse:nil
+                                         withResponse:nil type:typeOfSearch
                                             withError:[NSError errorWithDomain:@"UserId"
                                                                           code:[[self response] statusCode]
                                                                       userInfo:[NSDictionary dictionaryWithObject:@"Failed to Get activities for a user. Please try again later" forKey:@"message"]]];

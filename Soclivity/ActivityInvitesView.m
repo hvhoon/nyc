@@ -23,11 +23,12 @@ NSString * const kSearchTextKey = @"Search Text";
 
 @implementation ActivityInvitesView
 @synthesize searchBarForInvites,InviteEntriesArray,filteredListContent,delegate,imageDownloadsInProgress,statusUpdate;
-- (id)initWithFrame:(CGRect)frame andInviteListArray:(NSArray*)andInviteListArray
+- (id)initWithFrame:(CGRect)frame andInviteListArray:(NSArray*)andInviteListArray isActivityUserList:(BOOL)isActivityUserList
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        slotBuffer=isActivityUserList;
         [self setBackgroundColor:[UIColor whiteColor]];
         devServer=[[MainServiceManager alloc]init];
         InviteEntriesArray =[andInviteListArray retain];
@@ -508,6 +509,7 @@ NSString * const kSearchTextKey = @"Search Text";
             break;
            
         case 1:
+        case 5:
         {
             DOSImageView.image=[UIImage imageNamed:@"dos1.png"];
             DOScountLabel.text=[NSString stringWithFormat:@"FRIENDS ON SOCLIVITY"];
@@ -522,6 +524,17 @@ NSString * const kSearchTextKey = @"Search Text";
             
         }
             break;
+            
+            
+        case 6:
+        {
+            DOSImageView.frame=CGRectMake(12, 7.5, 16, 11);
+            DOSImageView.image=[UIImage imageNamed:@"S03_mail.png"];
+            DOScountLabel.text=[NSString stringWithFormat:@"INVITE FRIENDS TO SOCLIVITY"];
+            
+        }
+            break;
+
             
 
     }
@@ -557,6 +570,7 @@ NSString * const kSearchTextKey = @"Search Text";
     switch (rType) {
         case 0:
         case 1:
+        case 5:
         {
             [delegate PushUserToProfileScreen:product];
         }
@@ -590,6 +604,8 @@ NSString * const kSearchTextKey = @"Search Text";
         return;
     }
     
+    if(slotBuffer){
+    
     if(![delegate CalculateOpenSlots]){
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry No Slots Open" message:nil
@@ -601,7 +617,8 @@ NSString * const kSearchTextKey = @"Search Text";
         
         
     }
-
+        
+    }
 
     statusUpdate=[product retain];
     switch (relationType) {
@@ -620,6 +637,15 @@ NSString * const kSearchTextKey = @"Search Text";
             
         }
             break;
+            
+        case 6:
+        {
+            //facebook invite Pending
+            [delegate askUserToJoinSoclivityOnFacebook:product.inviteId];
+            
+        }
+            break;
+
 
     }
     
@@ -894,7 +920,7 @@ NSString * const kSearchTextKey = @"Search Text";
 }
 
 -(void)SearchUsersInvocationDidFinish:(GetUsersByFirstLastNameInvocation*)invocation
-                         withResponse:(NSArray*)responses
+                         withResponse:(NSArray*)responses type:(NSInteger)type
                             withError:(NSError*)error{
 	
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];

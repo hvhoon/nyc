@@ -114,6 +114,8 @@ static UIFont *boldText = nil;
             break;
             
         case 2:
+        case 4:
+        case 6:
         {
             if(inviteStatus){
                 
@@ -125,10 +127,9 @@ static UIFont *boldText = nil;
                 [[UIImage imageNamed:@"S05.4_invite.png"] drawInRect:inviteRect];
                 
             }
-
+            
         }
             break;
-            
             
         case 3:
         {
@@ -161,21 +162,7 @@ static UIFont *boldText = nil;
             break;
             
             
-        case 4:
-        {
-            if(inviteStatus){
-                
-                inviteRect=CGRectMake(280, 17.5, 21, 16);
-                [[UIImage imageNamed:@"S05.4_added.png"] drawInRect:inviteRect];
-            }
-            else{
-                inviteRect=CGRectMake(270, 17.5, 40, 23);
-                [[UIImage imageNamed:@"S05.4_invite.png"] drawInRect:inviteRect];
-                
-            }
-            
-        }
-            break;
+
 
 
 

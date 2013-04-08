@@ -15,7 +15,7 @@
 @protocol GetUsersByFirstLastNameInvocationDelegate
 
 -(void)SearchUsersInvocationDidFinish:(GetUsersByFirstLastNameInvocation*)invocation
-                             withResponse:(NSArray*)responses
+                         withResponse:(NSArray*)responses type:(NSInteger)type
                                 withError:(NSError*)error;
 
 @end
@@ -26,5 +26,5 @@
 @property (nonatomic,retain)NSString*searchName;
 @property (nonatomic,assign) NSInteger playerId;
 @property (nonatomic,assign) NSInteger activityId;
-
+@property (nonatomic,assign)NSInteger typeOfSearch;
 @end

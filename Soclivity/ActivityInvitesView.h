@@ -21,6 +21,7 @@
 -(void)PushUserToProfileScreen:(InviteObjectClass*)player;
 -(void)sendInviteOnFacebookPrivateMessage:(int)fbUId;
 -(void)searchSoclivityPlayers:(NSString*)searchText;
+-(void)askUserToJoinSoclivityOnFacebook:(NSInteger)facebookId;
 @end
 
 
@@ -40,6 +41,7 @@
     UILabel* searchingLabel;
     UIActivityIndicatorView* spinner;
     float delta;
+    BOOL slotBuffer;
 
 }
 @property (nonatomic,retain)CustomSearchbar *searchBarForInvites;
@@ -52,7 +54,7 @@
 -(UIView*)SetupHeaderView;
 -(void)closeAnimation;
 -(void)appImageDidLoad:(NSIndexPath *)indexPath;
-- (id)initWithFrame:(CGRect)frame andInviteListArray:(NSArray*)andInviteListArray;
+- (id)initWithFrame:(CGRect)frame andInviteListArray:(NSArray*)andInviteListArray isActivityUserList:(BOOL)isActivityUserList;
 -(void)activityInviteStatusUpdate;
 - (void)searchFromSoclivityDatabase:(NSTimer *)timer;
 -(void)searchPlayersLoad:(NSArray*)players;

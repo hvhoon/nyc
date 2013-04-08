@@ -22,8 +22,8 @@
     
     //NSString*a= [NSString stringWithFormat:@"dev.soclivity.com/mutualfriends.json?pid=%d&fid=%d",playerId,friendId];
     
-    //NSString *a=[NSString stringWithFormat:@"dev.soclivity.com/players/friendprofile.json?id=%d&fid=%d",playerId,friendId];
-    NSString *a=[NSString stringWithFormat:@"dev.soclivity.com/players/friendprofile.json?id=24&fid=25"];
+    NSString *a=[NSString stringWithFormat:@"dev.soclivity.com/players/friendprofile.json?id=%d&fid=%d",playerId,friendId];
+    //NSString *a=[NSString stringWithFormat:@"dev.soclivity.com/players/friendprofile.json?id=24&fid=25"];
     
     [self get:a];
 }

@@ -83,7 +83,12 @@
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
     
-    
+    inviteTitleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
+    inviteTitleLabel.textColor=[UIColor whiteColor];
+    inviteTitleLabel.backgroundColor=[UIColor clearColor];
+    inviteTitleLabel.shadowColor = [UIColor blackColor];
+    inviteTitleLabel.shadowOffset = CGSizeMake(0,-1);
+
 
     
     if(inviteFriends){
@@ -92,11 +97,6 @@
     activityBackButton.hidden=NO;
     inviteTitleLabel.text=[NSString stringWithFormat:@"%@",activityName];
     
-    inviteTitleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
-    inviteTitleLabel.textColor=[UIColor whiteColor];
-    inviteTitleLabel.backgroundColor=[UIColor clearColor];
-    inviteTitleLabel.shadowColor = [UIColor blackColor];
-    inviteTitleLabel.shadowOffset = CGSizeMake(0,-1);
 
     openSlotsNoLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     openSlotsNoLabel.textColor=[UIColor whiteColor];
@@ -106,7 +106,7 @@
     if(num_of_slots!=-1)
     openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
 
-}
+
     
     CGRect activityRect;
             if([SoclivityUtilities deviceType] & iPhone5)
@@ -114,9 +114,30 @@
             
     else
         activityRect=CGRectMake(0, 44, 320, 357);  //377
-    activityInvites=[[ActivityInvitesView alloc]initWithFrame:activityRect andInviteListArray:inviteArray];
+        activityInvites=[[ActivityInvitesView alloc]initWithFrame:activityRect andInviteListArray:inviteArray isActivityUserList:YES];
     activityInvites.delegate=self;
     [self.view addSubview:activityInvites];
+}
+    else{
+        
+        inviteTitleLabel.text=@"Invites";
+        if([SoclivityUtilities hasNetworkConnection]){
+            
+            [self startAnimation:3];
+            [devServer getActivityPlayerInvitesInvocation:[SOC.loggedInUser.idSoc intValue] actId:0 inviteeListType:3 abContacts:@"" delegate:self];
+        }
+        
+        else{
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            
+            [alert show];
+            [alert release];
+            return;
+        }
+
+    }
    // Do any additional setup after loading the view from its nib.
 }
 
@@ -191,31 +212,54 @@
 }
 
 -(void)ActivityInvitesInvocationDidFinish:(GetActivityInvitesInvocation*)invocation
-                             withResponse:(NSArray*)responses
+                             withResponse:(NSArray*)responses type:(NSInteger)type
                                 withError:(NSError*)error{
+    switch (type) {
+        case 2:
+        {
+            NSString *nibNameBundle=nil;
+            if([SoclivityUtilities deviceType] & iPhone5){
+                nibNameBundle=@"ContactsListViewController_iphone5";
+            }
+            else{
+                nibNameBundle=@"ContactsListViewController";
+            }
+            
+            
+            ContactsListViewController *contactsListViewController=[[ContactsListViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+            contactsListViewController.activityName=[NSString stringWithFormat:@"%@",activityName];
+            contactsListViewController.contactsListContentArray=responses;
+            contactsListViewController.num_of_slots=num_of_slots;
+            contactsListViewController.inviteFriends=inviteFriends;
+            contactsListViewController.delegate=self;
+            contactsListViewController.activityId=activityId;
+            [[self navigationController] pushViewController:contactsListViewController animated:YES];
+            [contactsListViewController release];
+            
+            
+            if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+                [[UIApplication sharedApplication] endIgnoringInteractionEvents];
 
-    NSString *nibNameBundle=nil;
-    if([SoclivityUtilities deviceType] & iPhone5){
-        nibNameBundle=@"ContactsListViewController_iphone5";
+        }
+            break;
+            
+        case 3:
+        {
+            [HUD hide:YES];
+            CGRect activityRect;
+            if([SoclivityUtilities deviceType] & iPhone5)
+                activityRect=CGRectMake(0, 44, 320, 377+88);
+            
+            else
+                activityRect=CGRectMake(0, 44, 320, 357);  //377
+            activityInvites=[[ActivityInvitesView alloc]initWithFrame:activityRect andInviteListArray:responses isActivityUserList:NO];
+            activityInvites.delegate=self;
+            [self.view addSubview:activityInvites];
+
+        }
+            break;
     }
-    else{
-        nibNameBundle=@"ContactsListViewController";
-    }
     
-    
-    ContactsListViewController *contactsListViewController=[[ContactsListViewController alloc] initWithNibName:nibNameBundle bundle:nil];
-    contactsListViewController.activityName=[NSString stringWithFormat:@"%@",activityName];
-    contactsListViewController.contactsListContentArray=responses;
-    contactsListViewController.num_of_slots=num_of_slots;
-    contactsListViewController.inviteFriends=inviteFriends;
-    contactsListViewController.delegate=self;
-    contactsListViewController.activityId=activityId;
-	[[self navigationController] pushViewController:contactsListViewController animated:YES];
-    [contactsListViewController release];
-    
-    
-    if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
 
 }
 - (void)pushContactsInvitesScreen{
@@ -275,6 +319,27 @@ if([SoclivityUtilities hasNetworkConnection]){
 
 }
 
+-(void)askUserToJoinSoclivityOnFacebook:(NSInteger)facebookId{
+    
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        [self startAnimation:0];
+        [devServer postActivityRequestInvocation:16 playerId:facebookId actId:0 delegate:self];
+    }
+    else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+
+}
+
 
 -(void)startAnimation:(int)type{
     // Setup animation settings
@@ -297,6 +362,14 @@ if([SoclivityUtilities hasNetworkConnection]){
             
         }
             break;
+            
+        case 3:
+        {
+            HUD.labelText = @"Fetching";
+            
+        }
+            break;
+
 
             
         default:
@@ -311,7 +384,13 @@ if([SoclivityUtilities hasNetworkConnection]){
 -(void)searchSoclivityPlayers:(NSString*)searchText{
     if([SoclivityUtilities hasNetworkConnection]){
         //[self startAnimation:1];
-        [devServer searchUsersByNameInvocation:[SOC.loggedInUser.idSoc intValue] searchText:searchText actId:activityId delegate:self];
+        
+            if(inviteFriends)
+        [devServer searchUsersByNameInvocation:[SOC.loggedInUser.idSoc intValue] searchText:searchText actId:activityId searchType:1 delegate:self];
+            else{
+                [devServer searchUsersByNameInvocation:[SOC.loggedInUser.idSoc intValue] searchText:searchText actId:0 searchType:2 delegate:self];
+                
+            }
         
     }
     else{
@@ -328,11 +407,10 @@ if([SoclivityUtilities hasNetworkConnection]){
 
 }
 
-
 -(void)SearchUsersInvocationDidFinish:(GetUsersByFirstLastNameInvocation*)invocation
-                         withResponse:(NSArray*)responses
+                         withResponse:(NSArray*)responses type:(NSInteger)type
                             withError:(NSError*)error{
-    
+
     //[HUD hide:YES];
         [activityInvites searchPlayersLoad:responses];
         
@@ -349,6 +427,7 @@ if([SoclivityUtilities hasNetworkConnection]){
     switch (relationTypeTag) {
         case 11:
         case 12:
+        case 16:
         {
             
             if(inviteFriends && response){
@@ -382,9 +461,13 @@ if([SoclivityUtilities hasNetworkConnection]){
 -(void)hideMBProgress{
     [HUD hide:YES];
     
+    if(inviteFriends){
+    
     if(num_of_slots!=-1){
     num_of_slots--;
     openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
+    }
+        
     }
     [activityInvites activityInviteStatusUpdate];
 

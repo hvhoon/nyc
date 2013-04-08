@@ -14,6 +14,8 @@
 		18BAD04316D1321E00EC199D /* NotifyAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BAD04216D1321D00EC199D /* NotifyAnimationView.m */; };
 		18BE4F271713327400957464 /* S05.4_globalSearch.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE4F251713327400957464 /* S05.4_globalSearch.png */; };
 		18BE4F281713327400957464 /* S05.4_globalSearch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE4F261713327400957464 /* S05.4_globalSearch@2x.png */; };
+		18BE4F2D17134E7100957464 /* S03_mail.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE4F2B17134E7100957464 /* S03_mail.png */; };
+		18BE4F2E17134E7100957464 /* S03_mail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE4F2C17134E7100957464 /* S03_mail@2x.png */; };
 		18C27CAD16D91ACF00754EA6 /* ChatActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C27CAC16D91ACF00754EA6 /* ChatActivityView.m */; };
 		18C27CC616D91F0E00754EA6 /* S05.3_addImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C27CAE16D91F0E00754EA6 /* S05.3_addImage.png */; };
 		18C27CC716D91F0E00754EA6 /* S05.3_addImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C27CAF16D91F0E00754EA6 /* S05.3_addImage@2x.png */; };
@@ -967,6 +969,8 @@
 		18BAD04216D1321D00EC199D /* NotifyAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotifyAnimationView.m; sourceTree = "<group>"; };
 		18BE4F251713327400957464 /* S05.4_globalSearch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05.4_globalSearch.png; sourceTree = "<group>"; };
 		18BE4F261713327400957464 /* S05.4_globalSearch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05.4_globalSearch@2x.png"; sourceTree = "<group>"; };
+		18BE4F2B17134E7100957464 /* S03_mail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S03_mail.png; sourceTree = "<group>"; };
+		18BE4F2C17134E7100957464 /* S03_mail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S03_mail@2x.png"; sourceTree = "<group>"; };
 		18C27CAB16D91ACF00754EA6 /* ChatActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatActivityView.h; sourceTree = "<group>"; };
 		18C27CAC16D91ACF00754EA6 /* ChatActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatActivityView.m; sourceTree = "<group>"; };
 		18C27CAE16D91F0E00754EA6 /* S05.3_addImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05.3_addImage.png; sourceTree = "<group>"; };
@@ -2174,6 +2178,16 @@
 			name = "Get Notifications Service";
 			sourceTree = "<group>";
 		};
+		18BE4F2A17134E7100957464 /* S03 Invites */ = {
+			isa = PBXGroup;
+			children = (
+				18BE4F2B17134E7100957464 /* S03_mail.png */,
+				18BE4F2C17134E7100957464 /* S03_mail@2x.png */,
+			);
+			name = "S03 Invites";
+			path = "Soclivity/S03 Invites";
+			sourceTree = "<group>";
+		};
 		18C27CA916D91A9C00754EA6 /* Activity Chat */ = {
 			isa = PBXGroup;
 			children = (
@@ -2456,6 +2470,7 @@
 				EAED84561554016200124D7D /* S01.2 Password Reset */,
 				EAED83E31554016200124D7D /* S02 Registration */,
 				EAED84241554016200124D7D /* S02.1 Registration */,
+				18BE4F2A17134E7100957464 /* S03 Invites */,
 				EAF2ADC415873028008EAE27 /* S04 Home */,
 				EA90FF4B1582074E00CA0C4F /* S04.1 Dropdown */,
 				EA83247C159481C50063B786 /* S04.1.1 Calendar */,
@@ -4935,6 +4950,8 @@
 				18D5AD6916EF8BBA002C5430 /* S05.3_inputTextBar@2x.png in Resources */,
 				18BE4F271713327400957464 /* S05.4_globalSearch.png in Resources */,
 				18BE4F281713327400957464 /* S05.4_globalSearch@2x.png in Resources */,
+				18BE4F2D17134E7100957464 /* S03_mail.png in Resources */,
+				18BE4F2E17134E7100957464 /* S03_mail@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
