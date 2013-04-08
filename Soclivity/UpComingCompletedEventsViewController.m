@@ -22,7 +22,7 @@
 
 
 @implementation UpComingCompletedEventsViewController
-@synthesize delegate,activityListView,isNotSettings,myActivitiesArray,invitedToArray,compeletedArray,goingToArray;
+@synthesize delegate,activityListView,isNotSettings,myActivitiesArray,invitedToArray,compeletedArray,goingToArray,playersName;
 @synthesize isNotLoggedInUser,player2Id;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -83,7 +83,9 @@
     activititesLabel.shadowColor = [UIColor blackColor];
     activititesLabel.shadowOffset = CGSizeMake(0,-1);
     
-    
+    if(isNotLoggedInUser){
+        activititesLabel.text=[NSString stringWithFormat:@"%@'s Activities",playersName];
+    }
     
     
     organizedButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];

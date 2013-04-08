@@ -620,6 +620,15 @@
     upComingCompletedEventsViewController.isNotSettings=TRUE;
     upComingCompletedEventsViewController.isNotLoggedInUser=TRUE;
     upComingCompletedEventsViewController.player2Id=friendId;
+    NSArray *listItems = [playerObject.playerName componentsSeparatedByString:@" "];
+    
+    NSString *firstName=nil;
+    if(([listItems count]==2)||([listItems count]==1)){
+        firstName=[listItems objectAtIndex:0];
+    }
+    
+
+    upComingCompletedEventsViewController.playersName=firstName;
     [[self navigationController] pushViewController:upComingCompletedEventsViewController animated:YES];
     [upComingCompletedEventsViewController release];
 
@@ -768,9 +777,27 @@
     topDividerLineButton.tag=[[NSString stringWithFormat:@"777%d",section]intValue];
     [sectionHeaderview addSubview:topDividerLineButton];
     
-    UIImageView *DOSImageView=[[UIImageView alloc]initWithFrame:CGRectMake(12, 7.5, 19, 11)];
+    CGRect commonFriendLabelRect=CGRectMake(7,7.5,19,12);
+    UILabel *commonCountLabel=[[UILabel alloc] initWithFrame:commonFriendLabelRect];
+    commonCountLabel.textAlignment=UITextAlignmentLeft;
     
-    CGRect DOSLabelRect=CGRectMake(38,7.5,240,12);
+    commonCountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
+    commonCountLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    commonCountLabel.backgroundColor=[UIColor clearColor];
+    commonCountLabel.text=[NSString stringWithFormat:@"%d",[commonFriendsArray count]];
+    
+    CGSize textSize = [[commonCountLabel text] sizeWithFont:[commonCountLabel font]];
+    
+    CGFloat strikeWidth = textSize.width;
+    commonCountLabel.frame=CGRectMake(7, 7.5, strikeWidth, 12);
+    
+    [sectionHeaderview addSubview:commonCountLabel];
+    [commonCountLabel release];
+
+    
+    UIImageView *DOSImageView=[[UIImageView alloc]initWithFrame:CGRectMake(strikeWidth+12, 7.5, 19, 11)];
+    
+    CGRect DOSLabelRect=CGRectMake(strikeWidth+38,7.5,240,12);
     UILabel *DOScountLabel=[[UILabel alloc] initWithFrame:DOSLabelRect];
     DOScountLabel.textAlignment=UITextAlignmentLeft;
     

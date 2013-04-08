@@ -54,7 +54,7 @@
 @property (nonatomic,retain)NSArray *invitedToArray;
 @property (nonatomic,retain)NSArray *compeletedArray;
 @property (nonatomic,retain)NSArray *goingToArray;
-
+@property (nonatomic,retain)NSString*playersName;
 -(IBAction)profileSliderPressed:(id)sender;
 -(void)organizedButtonPressed:(id)sender;
 -(void)goingButtonPressed:(id)sender;
