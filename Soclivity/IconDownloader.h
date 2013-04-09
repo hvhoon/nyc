@@ -2,6 +2,7 @@
 @class ParticipantClass;
 @class InviteObjectClass;
 @class NotificationClass;
+@class ActivityChatData;
 @protocol IconDownloaderDelegate;
 
 @interface IconDownloader : NSObject
@@ -14,6 +15,8 @@
     NSURLConnection *imageConnection;
     NSInteger tagkey;
     InviteObjectClass *inviteRecord;
+    ActivityChatData *postChatRecord;
+    ActivityChatData *getAvatarRecord;
     
 }
 @property (nonatomic,retain)InviteObjectClass *inviteRecord;
@@ -24,7 +27,8 @@
 @property (nonatomic,assign)NSInteger tagkey;
 @property (nonatomic, retain) NSMutableData *activeDownload;
 @property (nonatomic, retain) NSURLConnection *imageConnection;
-
+@property (nonatomic,retain)ActivityChatData *postChatRecord;
+@property (nonatomic,retain)ActivityChatData *getAvatarRecord;
 
 - (void)startDownload:(NSInteger)uniqueKey;
 - (void)cancelDownload;
@@ -34,5 +38,6 @@
 @protocol IconDownloaderDelegate 
 
 - (void)appImageDidLoad:(NSIndexPath *)indexPath;
-
+@optional
+- (void)appImageDidLoad2:(NSIndexPath *)indexPath;
 @end

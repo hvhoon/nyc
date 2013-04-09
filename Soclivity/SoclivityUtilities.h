@@ -47,4 +47,6 @@ typedef enum
 +(void)returnNotificationButtonWithCountUpdate:(UIButton*)button;
 +(NSString *)nofiticationTime:(NSString *)timeString;
 +(NotificationClass*)getNotificationObject:(NSNotification*)object;
++(NotificationClass*)getNotificationChatPost:(NSNotification*)object;
++(NSString *)upcomingTimeOfActivity:(NSString *)timeString;
 @end

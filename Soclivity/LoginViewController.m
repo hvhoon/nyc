@@ -104,7 +104,7 @@
     if([SoclivityUtilities hasNetworkConnection]){
     [self startLoginAnimation];
     [devServer getLoginInvocation:self.emailAddress.text Password:self.password.text  delegate:self];
-    }//END if([SoclivityUtilities hasNetworkConnection])
+    }
     else {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil 
 													   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -112,7 +112,7 @@
 		[alert show];
 		[alert release];
 		return;
-	}//END Else Statement
+	}
 }
 
 // Login process complete
@@ -349,24 +349,6 @@
         }
     }
 }
-#if 0
--(void)SetUpHomeScreen{
-    HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
-    DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
-    homeViewController.delegate=rootController;
-    SettingsViewController *leftController = [[SettingsViewController alloc] init];
-    rootController.leftViewController = leftController;
-    UpComingEventsViewController *rightController = [[UpComingEventsViewController alloc] init];
-    rootController.rightViewController = rightController;
-    
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    appDelegate.menuController=rootController;
-    [self.navigationController pushViewController:rootController animated:YES];
-    
-}
-
-#else
 -(void)SetUpHomeScreen{
     
     NSString *nibNameBundle=nil;
@@ -384,7 +366,7 @@
     [slideViewController release];
 
 }
-#endif
+
 #pragma mark -
 #pragma mark Animation methods
 

@@ -59,7 +59,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startFetching) name:@"RandomFetch" object:Nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startFetching) name:@"RandomFetch" object:Nil];
 
 
     
@@ -117,7 +117,7 @@
     else
         waitingOnYouRect=CGRectMake(0, 44, 320, 377);
     
-    notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect andNotificationsListArray:[NSMutableArray arrayWithCapacity:0]];
+    notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect];
     notificationView.delegate=self;
     [self.view addSubview:notificationView];
     [self.view insertSubview:btnnotify aboveSubview:notificationView];
@@ -168,17 +168,11 @@
     [HUD hide:YES];
     
     [self BadgeNotification];
-        if([responses count]>0)
-            [notificationView toReloadTableWithNotifications:[NSMutableArray arrayWithArray:responses]];
+    [notificationView toReloadTableWithNotifications:[NSMutableArray arrayWithArray:responses]];
+    
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
-
-
-    
-    
-    
-
 }
 
 
@@ -240,28 +234,28 @@
     switch (tag) {
         case 1:
         {
-            HUD.labelText = @"Fetching";
+            HUD.labelText = @"Loading...";
             
         }
             break;
             
         case 2:
         {
-            HUD.labelText = @"Going";
+            HUD.labelText = @"Going...";
             
         }
             break;
             
         case 3:
         {
-            HUD.labelText = @"Not Going";
+            HUD.labelText = @"Not Going...";
             
         }
             break;
             
         case 4:
         {
-            HUD.labelText = @"Accepted";
+            HUD.labelText = @"Accepted...";
             
         }
             break;
@@ -269,7 +263,7 @@
             
         case 5:
         {
-            HUD.labelText = @"Declined";
+            HUD.labelText = @"Declined...";
             
         }
             break;
@@ -277,7 +271,7 @@
 
         case 6:
         {
-            HUD.labelText = @"Deleting";
+            HUD.labelText = @"Updating...";
             
         }
             break;
@@ -374,6 +368,7 @@
             case 5:
             case 6:
             case 11:
+            case 17:
             default:
 
                 
@@ -389,7 +384,8 @@
                 
                 ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
                 activityEventViewController.activityInfo=response;
-                
+                if([notId integerValue]==17)
+                    activityEventViewController.footerActivated=YES;
                 [[self navigationController] pushViewController:activityEventViewController animated:YES];
                 [activityEventViewController release];
                 
@@ -405,16 +401,8 @@
                 case 16:
                 
             {
-                SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
-                myClass.playerName=response.organizerName;
-                myClass.DOS=response.DOS;
-                myClass.activityId=response.activityId;
-                myClass.latestActivityName=response.activityName;
-                myClass.activityType=response.type;
-                myClass.profilePhotoUrl=response.ownerProfilePhotoUrl;
-                myClass.distance=[response.distance floatValue];
                 SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
-                socProfileViewController.playerObject=myClass;
+                socProfileViewController.friendId=response.organizerId;
                 [[self navigationController] pushViewController:socProfileViewController animated:YES];
                 [socProfileViewController release];
 

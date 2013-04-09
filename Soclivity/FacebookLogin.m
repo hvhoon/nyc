@@ -34,7 +34,7 @@
 }
 -(void)setUpPermissions{
     permissions = [[NSArray alloc] initWithObjects:@"offline_access",@"user_likes", 
-                   @"read_stream",@"email",@"user_subscriptions",@"friends_subscriptions", nil];//subscribe
+                   @"read_stream",@"email",@"user_subscriptions",@"friends_subscriptions",@"publish_stream",@"xmpp_login", nil];//subscribe
     [self login];
     
 }

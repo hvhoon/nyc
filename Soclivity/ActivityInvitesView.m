@@ -11,25 +11,25 @@
 #import "SoclivityUtilities.h"
 #import "InvitesViewController.h"
 #import "MainServiceManager.h"
-#import "GetUsersByFirstLastNameInvocation.h"
+#import "MBProgressHUD.h"
 #define kAddressBookContacts 123
 
 NSString * const kSearchTextKey = @"Search Text";
 
 @interface ActivityInvitesView ()<GetUsersByFirstLastNameInvocationDelegate>
-
 - (void)startIconDownload:(InviteObjectClass*)appRecord forIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
 @implementation ActivityInvitesView
 @synthesize searchBarForInvites,InviteEntriesArray,filteredListContent,delegate,imageDownloadsInProgress,statusUpdate;
-- (id)initWithFrame:(CGRect)frame andInviteListArray:(NSArray*)andInviteListArray
+- (id)initWithFrame:(CGRect)frame andInviteListArray:(NSArray*)andInviteListArray isActivityUserList:(BOOL)isActivityUserList
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        
+        slotBuffer=isActivityUserList;
+        [self setBackgroundColor:[UIColor whiteColor]];
         devServer=[[MainServiceManager alloc]init];
         InviteEntriesArray =[andInviteListArray retain];
         self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
@@ -63,7 +63,7 @@ NSString * const kSearchTextKey = @"Search Text";
         [inviteUserTableView setDataSource:self];
         [inviteUserTableView setRowHeight:kCustomRowHeight];
         inviteUserTableView.scrollEnabled=YES;
-        inviteUserTableView.tableHeaderView=[self SetupHeaderView];
+        //inviteUserTableView.tableHeaderView=[self SetupHeaderView];
         inviteUserTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
         inviteUserTableView.sectionHeaderHeight = kSectionHeaderHeight;
         inviteUserTableView.separatorColor=[UIColor clearColor];
@@ -72,12 +72,58 @@ NSString * const kSearchTextKey = @"Search Text";
         
         
         inviteUserTableView.clipsToBounds=YES;
+        
+        
+        // Sign-in button
+        
+
+        
+        
+        searchSoclivityUsersButton=[UIButton buttonWithType:UIButtonTypeCustom];
+        searchSoclivityUsersButton.frame=CGRectMake(28,250, 263, 38);
+        [searchSoclivityUsersButton setBackgroundImage:[UIImage imageNamed:@"S05.4_globalSearch.png"] forState:UIControlStateNormal];
+        [searchSoclivityUsersButton setBackgroundImage:[UIImage imageNamed:@"S05.4_globalSearch.png"] forState:UIControlStateHighlighted];
+        [searchSoclivityUsersButton addTarget:self action:@selector(searchGlobalNetwork:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:searchSoclivityUsersButton];
+        [searchSoclivityUsersButton setHidden:YES];
+        
+        searchingLabel=[[UILabel alloc]initWithFrame:CGRectMake(87,253, 230, 35)];
+        searchingLabel.text=@"Search all Soclivity users";
+        searchingLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17.0];
+        
+        searchingLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+        searchingLabel.backgroundColor=[UIColor clearColor];
+        searchingLabel.shadowColor = [UIColor whiteColor];
+        searchingLabel.shadowOffset = CGSizeMake(0,0.5);
+        
+        [self addSubview:searchingLabel];
+        [searchingLabel setHidden:YES];
+        
+        spinner=[[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(252,261, 20, 20)];
+        [spinner setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+        [spinner hidesWhenStopped];
+        [self addSubview:spinner];
+        [spinner setHidden:YES];
+
+
         //[self SetUpDummyInvites];
 
 
         
     }
     return self;
+}
+
+-(void)searchGlobalNetwork:(id)sender{
+    
+    [searchBarForInvites resignFirstResponder];
+    searchingLabel.text=@"Searching....";
+    spinner.frame=CGRectMake(252, delta+75+8, 20, 20);
+    [spinner setHidden:NO];
+    [spinner startAnimating];
+    [self setUserInteractionEnabled:NO];
+    
+    [self searchSoclivityNetwork:searchBarForInvites.text];
 }
 
 -(UIView*)SetupHeaderView{
@@ -463,6 +509,7 @@ NSString * const kSearchTextKey = @"Search Text";
             break;
            
         case 1:
+        case 5:
         {
             DOSImageView.image=[UIImage imageNamed:@"dos1.png"];
             DOScountLabel.text=[NSString stringWithFormat:@"FRIENDS ON SOCLIVITY"];
@@ -477,6 +524,17 @@ NSString * const kSearchTextKey = @"Search Text";
             
         }
             break;
+            
+            
+        case 6:
+        {
+            DOSImageView.frame=CGRectMake(12, 7.5, 16, 11);
+            DOSImageView.image=[UIImage imageNamed:@"S03_mail.png"];
+            DOScountLabel.text=[NSString stringWithFormat:@"INVITE FRIENDS TO SOCLIVITY"];
+            
+        }
+            break;
+
             
 
     }
@@ -512,6 +570,7 @@ NSString * const kSearchTextKey = @"Search Text";
     switch (rType) {
         case 0:
         case 1:
+        case 5:
         {
             [delegate PushUserToProfileScreen:product];
         }
@@ -545,6 +604,8 @@ NSString * const kSearchTextKey = @"Search Text";
         return;
     }
     
+    if(slotBuffer){
+    
     if(![delegate CalculateOpenSlots]){
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry No Slots Open" message:nil
@@ -556,7 +617,8 @@ NSString * const kSearchTextKey = @"Search Text";
         
         
     }
-
+        
+    }
 
     statusUpdate=[product retain];
     switch (relationType) {
@@ -571,9 +633,19 @@ NSString * const kSearchTextKey = @"Search Text";
         case 2:
         {
             //facebook invite Pending
+            [delegate sendInviteOnFacebookPrivateMessage:product.inviteId];
             
         }
             break;
+            
+        case 6:
+        {
+            //facebook invite Pending
+            [delegate askUserToJoinSoclivityOnFacebook:product.inviteId];
+            
+        }
+            break;
+
 
     }
     
@@ -589,8 +661,7 @@ NSString * const kSearchTextKey = @"Search Text";
 #pragma mark -
 #pragma mark Content Filtering
 
-- (void)filterContentForSearchText:(NSString*)searchText
-{
+- (void)filterContentForSearchText:(NSString*)searchText{
 	
         self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
 	   [self.filteredListContent removeAllObjects]; // First clear the filtered array.
@@ -616,6 +687,45 @@ NSString * const kSearchTextKey = @"Search Text";
             }
         }
         [self.filteredListContent addObjectsFromArray:content];
+        CGRect activityTableRect;
+    delta=0.0f;
+    if([self.filteredListContent count]>=4){
+        
+
+        if([SoclivityUtilities deviceType] & iPhone5){
+            activityTableRect=CGRectMake(0, 44, 320, 227+88);
+                    delta=227+88;
+        }
+        
+        else{
+            activityTableRect=CGRectMake(0, 44, 320, 227);
+                    delta=227;
+        }
+
+
+
+      }
+    else{
+
+        if([SoclivityUtilities deviceType] & iPhone5){
+            delta=[self.filteredListContent count]*50+27+88;
+            activityTableRect=CGRectMake(0, 44, 320, [self.filteredListContent count]*50+27+88);
+        }
+        
+        else{
+            delta=[self.filteredListContent count]*50+27;
+            activityTableRect=CGRectMake(0, 44, 320, [self.filteredListContent count]*50+27);
+        }
+
+    }
+    
+        searchingLabel.text=@"Search all Soclivity users";
+        searchSoclivityUsersButton.frame=CGRectMake(29,delta+75, 263.0f, 38.0f);
+        searchSoclivityUsersButton.hidden=NO;
+        searchingLabel.frame=CGRectMake(29+20,delta+75+5, 230.0f, 25.0f);
+        searchingLabel.hidden=NO;
+    
+        inviteUserTableView.frame=activityTableRect;
         [inviteUserTableView reloadData];
         
     
@@ -734,7 +844,8 @@ NSString * const kSearchTextKey = @"Search Text";
         [searchBar setShowsCancelButton:NO animated:YES];
         self.searchBarForInvites.showClearButton=NO;
         searching=NO;
-        inviteUserTableView.tableHeaderView=[self SetupHeaderView];
+            [self refreshTableView];
+       // inviteUserTableView.tableHeaderView=[self SetupHeaderView];
         [inviteUserTableView reloadData];
  
     }
@@ -742,7 +853,7 @@ NSString * const kSearchTextKey = @"Search Text";
         [searchBar setShowsCancelButton:NO animated:NO];
         self.searchBarForInvites.showClearButton=YES;
         searching=YES;
-        inviteUserTableView.tableHeaderView=nil;
+        //inviteUserTableView.tableHeaderView=nil;
         [self filterContentForSearchText:searchBar.text];
 
         
@@ -756,7 +867,7 @@ NSString * const kSearchTextKey = @"Search Text";
     
     self.searchBarForInvites.text=@"";
     searching=NO;
-    inviteUserTableView.tableHeaderView=[self SetupHeaderView];
+    //inviteUserTableView.tableHeaderView=[self SetupHeaderView];
     [inviteUserTableView reloadData];
 
     [searchBar setShowsCancelButton:NO animated:YES];
@@ -771,6 +882,11 @@ NSString * const kSearchTextKey = @"Search Text";
     
 
     [self filterContentForSearchText:searchBar.text];
+    
+   // load from soclivity Database
+    
+
+    
 /*
     if ([_searchTimer isValid])
         [_searchTimer invalidate];
@@ -790,16 +906,21 @@ NSString * const kSearchTextKey = @"Search Text";
     
 }
 
+-(void)searchSoclivityNetwork:(NSString*)text{
+    
+    [delegate searchSoclivityPlayers:text];
+
+}
 - (void) searchFromSoclivityDatabase:(NSTimer *)timer {
     
-    NSString * searchString = [timer.userInfo objectForKey:kSearchTextKey];
+   // NSString * searchString = [timer.userInfo objectForKey:kSearchTextKey];
     
-    [devServer searchUsersByNameInvocation:23 searchText:searchString delegate:self];
+    //[devServer searchUsersByNameInvocation:23 searchText:searchString delegate:self];
     // Cancel any active geocoding. Note: Cancelling calls the completion handler on the geocoder
 }
 
 -(void)SearchUsersInvocationDidFinish:(GetUsersByFirstLastNameInvocation*)invocation
-                         withResponse:(NSArray*)responses
+                         withResponse:(NSArray*)responses type:(NSInteger)type
                             withError:(NSError*)error{
 	
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
@@ -829,11 +950,64 @@ NSString * const kSearchTextKey = @"Search Text";
     
 }
 
+-(void)searchPlayersLoad:(NSArray*)players{
+    
+    
+    if([players count]!=0){
+    self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
+    [self.filteredListContent removeAllObjects]; // First clear the filtered array.
+    
+    NSMutableArray *content = [NSMutableArray new];
+    for (NSDictionary *dict in players)
+    {
+        NSMutableArray *oldEntries = [dict objectForKey:@"Elements"];
+        NSLog(@"oldEntries count=%d",[oldEntries count]);
+        
+        for(NSDictionary *dict2 in oldEntries){
+            
+            InviteObjectClass*product = [dict2 objectForKey:@"ActivityInvite"];
+            NSLog(@"product Name=%@",product.userName);
+            
+            
+            [content addObject:product];
+            
+        }
+    }
+    [self.filteredListContent addObjectsFromArray:content];
+ }
+    [self refreshTableView];
+    [inviteUserTableView reloadData];
+
+}
+
+-(void)refreshTableView{
+    
+        
+    CGRect activityTableRect;
+    if([SoclivityUtilities deviceType] & iPhone5)
+        activityTableRect=CGRectMake(0, 44, 320, 332+88);
+    
+    else
+        activityTableRect=CGRectMake(0, 44, 320, 332);
+    
+    
+    
+    [spinner setHidden:YES];
+    [spinner stopAnimating];
+    [self setUserInteractionEnabled:YES];
+
+    searchSoclivityUsersButton.hidden=YES;
+    searchingLabel.hidden=YES;
+    
+    inviteUserTableView.frame=activityTableRect;
+   
+}
+
 -(void)customCancelButtonHit{
     
-    
+    [self refreshTableView];
     searching=NO;
-    inviteUserTableView.tableHeaderView=[self SetupHeaderView];
+    //inviteUserTableView.tableHeaderView=[self SetupHeaderView];
     [inviteUserTableView reloadData];
     self.searchBarForInvites.text=@"";
     self.searchBarForInvites.showClearButton=NO;

@@ -17,7 +17,7 @@
 @protocol GetActivityInvitesInvocationDelegate
 
 -(void)ActivityInvitesInvocationDidFinish:(GetActivityInvitesInvocation*)invocation
-                        withResponse:(NSArray*)responses
+                             withResponse:(NSArray*)responses type:(NSInteger)type
                            withError:(NSError*)error;
 
 @end

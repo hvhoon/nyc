@@ -27,7 +27,6 @@
 }
 
 -(NSString*)body {
-#if 1    
 	NSMutableDictionary* bodyD = [[[NSMutableDictionary alloc] init] autorelease];
     
     [bodyD setObject:email forKey:@"email"];
@@ -37,13 +36,12 @@
     if([[NSUserDefaults standardUserDefaults] valueForKey:@"device_token"]!=NULL)
     {
         [bodyD setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"device_token"]  forKey:@"device_token"];
-    }//END if([[NSUserDefaults standardUserDefaults] valueForKey:@"device_token"]!=NULL)
+    }
     
     NSString *bodyData = [NSString stringWithFormat:@"%@",[bodyD JSONRepresentation]];
     
     //    NSString *bodyData = [NSString stringWithFormat:@"{\"signin\":%@}",[bodyD JSONRepresentation]];
 	return bodyData;
-#endif    
 }
 
 -(BOOL)handleHttpOK:(NSMutableData *)data {

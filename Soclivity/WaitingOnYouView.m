@@ -28,27 +28,17 @@
 @synthesize notificationsArray,delegate,imageDownloadsInProgress,waitingTableView;
 
 
-- (id)initWithFrame:(CGRect)frame andNotificationsListArray:(NSMutableArray*)andNotificationsListArray
-{
+- (id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         
         // Initialization code
-        self.notificationsArray =[andNotificationsListArray retain];
         
         SOC=[SoclivityManager SharedInstance];
         
-
+        [self SetupNotificationTable];
         
-        if([andNotificationsListArray count]==0){
-            [self setUpBackgroundView];
             
-        }
-        else{
-            
-            [self SetupNotificationTable];
-
-        }
     }
     return self;
 }
@@ -90,7 +80,11 @@
     [noNotificationBackgroundView addSubview:noNotificationsImageView];
     
     UIImageView *logoFadedImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S11_logoFaded.png"]];
+        if([SoclivityUtilities deviceType] & iPhone5)
     logoFadedImageView.frame=CGRectMake(105, 359, 111, 28);
+        else{
+    logoFadedImageView.frame=CGRectMake(105, 339, 111, 28);
+        }
     [noNotificationBackgroundView addSubview:logoFadedImageView];
     [self addSubview:noNotificationBackgroundView];
 
@@ -98,16 +92,18 @@
 }
 
 -(void)toReloadTableWithNotifications:(NSMutableArray*)listArray{
-    
+    if([listArray count]!=0){
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
 
      self.notificationsArray =[listArray retain];
-    if(waitingTableView==nil){
-        [noNotificationBackgroundView removeFromSuperview];
-        [self SetupNotificationTable];
-
-    }
+    [noNotificationBackgroundView removeFromSuperview];
     [waitingTableView reloadData];
+    }
+    else{
+        [waitingTableView removeFromSuperview];
+        [self setUpBackgroundView];
+        
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -249,6 +245,7 @@
         case 14:
         case 15:
         case 16:
+        case 17:
         {
             if (!cellNotification.profileImage)
             {
@@ -492,9 +489,9 @@
     
     NotificationClass *notificationSelect=[self.notificationsArray objectAtIndex:removeIndex];
     if(!notificationSelect.isRead){
-        SOC.loggedInUser.badgeCount=SOC.loggedInUser.badgeCount-1;
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
+//        SOC.loggedInUser.badgeCount=SOC.loggedInUser.badgeCount-1;
+//        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
 
     }
     

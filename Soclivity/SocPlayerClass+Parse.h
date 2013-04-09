@@ -12,4 +12,5 @@
 @interface SocPlayerClass (Parse)
 
 +(SocPlayerClass*)GetUserProfileInfoAndCommonFriends:(NSDictionary*)ACTDict;
++(SocPlayerClass*)GetUserProfileInfoActivityPlusCommonFriends:(NSDictionary*)ACTDict;
 @end

@@ -43,6 +43,9 @@
 
 #define kRemoveNotification 58
 #define kGetNotifications 59
+#define kActivityPostChatData 60
+#define kActivityAvatarData 61 
+
 
 #define kPlayActivity 12
 #define kEatActivity 13

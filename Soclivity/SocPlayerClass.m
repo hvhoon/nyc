@@ -9,7 +9,7 @@
 #import "SocPlayerClass.h"
 
 @implementation SocPlayerClass
-@synthesize profileImage,profilePhotoUrl,playerName,DOS,activityType,latestActivityName,distance,activityId,friendId,isCommon,isCurrentActivity,commonFriends;
+@synthesize profileImage,profilePhotoUrl,playerName,DOS,activityType,latestActivityName,distance,activityId,friendId,isCommon,isCurrentActivity,commonFriends,fbUid,activityTime;
 
 
 -(void)dealloc{
@@ -19,5 +19,7 @@
     [playerName release];
     [latestActivityName release];
     [commonFriends release];
+    [fbUid release];
+    [activityTime release];
 }
 @end

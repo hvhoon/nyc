@@ -16,12 +16,13 @@
 #import "SocPlayerClass.h"
 #import "SOCProfileViewController.h"
 #import "GetUpcomingActivitiesInvocation.h"
-@interface UpComingCompletedEventsViewController(Private) <DetailedActivityInfoInvocationDelegate,GetUpcomingActivitiesInvocationDelegate>
+@interface UpComingCompletedEventsViewController(Private) <DetailedActivityInfoInvocationDelegate,GetUpcomingActivitiesInvocationDelegate>{
+}
 @end
 
 
 @implementation UpComingCompletedEventsViewController
-@synthesize delegate,activityListView,isNotSettings,myActivitiesArray,invitedToArray,compeletedArray,goingToArray;
+@synthesize delegate,activityListView,isNotSettings,myActivitiesArray,invitedToArray,compeletedArray,goingToArray,playersName;
 @synthesize isNotLoggedInUser,player2Id;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,17 +49,33 @@
 }
 #pragma mark - View lifecycle
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
+
+
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"WaitingonyouNotification" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"WaitingOnYou_Count" object:nil];
+    
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    typeOfAct=1;
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
 
     [self UpdateBadgeNotification];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
 
     activititesLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
     activititesLabel.textColor=[UIColor whiteColor];
@@ -66,7 +83,9 @@
     activititesLabel.shadowColor = [UIColor blackColor];
     activititesLabel.shadowOffset = CGSizeMake(0,-1);
     
-    
+    if(isNotLoggedInUser){
+        activititesLabel.text=[NSString stringWithFormat:@"%@'s Activities",playersName];
+    }
     
     
     organizedButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -134,13 +153,15 @@
     [activityListView LoadTable];
     activityListView.isOrganizerList=TRUE;
     
-    [self performSelector:@selector(RefreshFromTheListView) withObject:nil afterDelay:1.0];
+    [self performSelector:@selector(RefreshFromTheListView) withObject:nil afterDelay:0.1];
     
     
     if(isNotSettings){
         profileButton.hidden=YES;
         backActivityButton.hidden=NO;
     }
+        //activityListView.tableView.contentOffset = CGPointMake(0, -90.0f);
+        //[activityListView pullToRefreshMannually];
 
         // Do any additional setup after loading the view from its nib.
 }
@@ -159,7 +180,8 @@
 
 -(void)organizedButtonPressed:(id)sender{
     
-    [activityListView populateEvents:myActivitiesArray typeOfEvent:1];
+    typeOfAct=1;
+    [activityListView populateEvents:myActivitiesArray typeOfEvent:typeOfAct];
     
     [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_organizedHighlighted.png"] forState:UIControlStateNormal];
     [organizedButton setBackgroundImage:[UIImage imageNamed:@"S10_organizedHighlighted.png"] forState:UIControlStateHighlighted];
@@ -192,7 +214,8 @@
 
 -(void)invitedButtonPressed:(id)sender{
     
-    [activityListView populateEvents:invitedToArray typeOfEvent:2];
+    typeOfAct=2;
+    [activityListView populateEvents:invitedToArray typeOfEvent:typeOfAct];
     
     [organizedButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [organizedButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
@@ -226,8 +249,8 @@
 
 -(void)goingButtonPressed:(id)sender{
     
-    
-    [activityListView populateEvents:goingToArray typeOfEvent:3];
+    typeOfAct=3;
+    [activityListView populateEvents:goingToArray typeOfEvent:typeOfAct];
     
     [organizedButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [organizedButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
@@ -260,7 +283,8 @@
 
 -(void)completedButtonPressed:(id)sender{
     
-    [activityListView populateEvents:compeletedArray typeOfEvent:4];
+        typeOfAct=4;
+    [activityListView populateEvents:compeletedArray typeOfEvent:typeOfAct];
     
     [organizedButton setBackgroundImage:Nil forState:UIControlStateNormal];
     [organizedButton setBackgroundImage:Nil forState:UIControlStateHighlighted];
@@ -320,17 +344,8 @@
         
     }
     else{
-        SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
-        myClass.playerName=detailedInfo.organizerName;
-        myClass.DOS=detailedInfo.DOS;
-        myClass.friendId=detailedInfo.organizerId;
-        myClass.activityId=detailedInfo.activityId;
-        myClass.latestActivityName=detailedInfo.activityName;
-        myClass.activityType=detailedInfo.type;
-        myClass.profilePhotoUrl=detailedInfo.ownerProfilePhotoUrl;
-        myClass.distance=[detailedInfo.distance floatValue];
         SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
-        socProfileViewController.playerObject=myClass;
+        socProfileViewController.friendId=detailedInfo.organizerId;
         [[self navigationController] pushViewController:socProfileViewController animated:YES];
         [socProfileViewController release];
     }
@@ -363,24 +378,61 @@
     
     [[NSUserDefaults standardUserDefaults] setValue:currentTime forKey:@"SOCActivityTimeUpdate"];
     
-    if(isNotLoggedInUser){
-        [devServer getUpcomingActivitiesForUserInvocation:[SOC.loggedInUser.idSoc intValue] player2:player2Id delegate:self];
-
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        if(!firstTime){
+        [self startAnimation];
+            firstTime=TRUE;
+        }
+        if(isNotLoggedInUser){
+            [devServer getUpcomingActivitiesForUserInvocation:[SOC.loggedInUser.idSoc intValue] player2:player2Id delegate:self];
+            
+            
+        }
+        else{
+            
+            
+            [devServer getUpcomingActivitiesForUserInvocation:[SOC.loggedInUser.idSoc intValue] player2:[SOC.loggedInUser.idSoc intValue] delegate:self];
+            
+        }
         
+
     }
     else{
-    
-    
-    [devServer getUpcomingActivitiesForUserInvocation:[SOC.loggedInUser.idSoc intValue] player2:[SOC.loggedInUser.idSoc intValue] delegate:self];
-    
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
     }
+
     
 
 }
 
+-(void)startAnimation{
+    // Setup animation settings
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    HUD.yOffset = -40.0;
+    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
+    HUD.labelText = @"Loading...";
+    
+    [self.view addSubview:HUD];
+    HUD.delegate = self;
+    [HUD show:YES];
+    
+}
+
+
 -(void)UpcomingActivitiesInvocationDidFinish:(GetUpcomingActivitiesInvocation*)invocation
                                 withResponse:(NSArray*)responses
                                    withError:(NSError*)error{
+    
+    [HUD hide:YES];
     
     if([responses count]>0){
         
@@ -391,7 +443,6 @@
             {
                 NSLog(@"The user has got Organizing Activities");
                 myActivitiesArray=[[responses objectAtIndex:i] objectForKey:@"Elements"];
-                [activityListView populateEvents:myActivitiesArray typeOfEvent:1];
 
             }
                 break;
@@ -418,6 +469,38 @@
             }
                 break;
         }
+            
+            
+        }
+        
+        switch (typeOfAct) {
+            case 1:
+            {
+                [activityListView populateEvents:myActivitiesArray typeOfEvent:typeOfAct];
+
+            }
+                break;
+            case 2:
+            {
+                [activityListView populateEvents:invitedToArray typeOfEvent:typeOfAct];
+                
+            }
+                break;
+            case 4:
+            {
+                [activityListView populateEvents:compeletedArray typeOfEvent:typeOfAct];
+                
+            }
+                break;
+            case 3:
+            {
+                [activityListView populateEvents:goingToArray typeOfEvent:typeOfAct];
+                
+            }
+                break;
+                
+            default:
+                break;
         }
     }
     else{
@@ -443,7 +526,6 @@
     
     if([SoclivityUtilities hasNetworkConnection]){
         
-        //[self loadingActivityMonitor];
         [devServer getDetailedActivityInfoInvocation:[SOC.loggedInUser.idSoc intValue]    actId:detailedInfo.activityId  latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude delegate:self];
     }
     else{

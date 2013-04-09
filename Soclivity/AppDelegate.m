@@ -22,7 +22,7 @@ static NSString* kAppId = @"160726900680967";//kanav
 #define kShowAlertKey @"ShowAlert"
 #define kRemoteNotificationReceivedNotification @"RemoteNotificationReceivedWhileRunning"
 #define kRemoteNotificationBackgroundNotification @"RemoteNotificationReceivedWhileBackground"
-
+#define kNotificationForChatPost @"ChatNotification"
 @implementation UINavigationBar (CustomImage)
 
 - (void)drawRect:(CGRect)rect {
@@ -56,10 +56,10 @@ static NSString* kAppId = @"160726900680967";//kanav
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isLoggedIn"];
     //[self setUpActivityDataList];
     [SoclivitySqliteClass copyDatabaseIfNeeded];
+    //UIImageWriteToSavedPhotosAlbum([UIImage imageNamed:@"red_create.png"], nil, nil, nil);
 	BOOL openSuccessful=[SoclivitySqliteClass openDatabase:[SoclivitySqliteClass getDBPath]];
 	if(openSuccessful)
 		
@@ -119,18 +119,44 @@ static NSString* kAppId = @"160726900680967";//kanav
 	NSLog(@"Failed to get token, error: %@", error);
 }
 
+
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
     NSLog(@"didReceiveRemoteNotification");
     SOC=[SoclivityManager SharedInstance];
     
-    NSDictionary* notifUserInfo = Nil;
-    //if(([[UIApplication sharedApplication]applicationIconBadgeNumber]-SOC.loggedInUser.badgeCount)==0)
-    {
+    if([[[userInfo valueForKey:@"params"] valueForKey:@"notification_type"]isEqualToString:@"17"]){
+    
+        [[NSUserDefaults standardUserDefaults]setValue:[[userInfo valueForKey:@"params"] valueForKey:@"message"] forKey:@"message"];
+        SOC.loggedInUser.badgeCount=[[[userInfo valueForKey:@"aps"] valueForKey:@"badge"]integerValue];
+        NSInteger chatid=[[[userInfo valueForKey:@"params"] valueForKey:@"chat_id"]integerValue];
+        
+        NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://dev.soclivity.com/activity_chats/%d/acparameter.json",chatid] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        
+        NSLog(@"url=%@",url);
+        
+        NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
+        NSHTTPURLResponse *response = NULL;
+        NSError *error = nil;
+        NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        
+        NSDictionary* resultsd = [[[NSString alloc] initWithData:returnData
+                                                        encoding:NSUTF8StringEncoding] JSONValue];
+
+        
+        
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
+
+        
+        NSNotification* notification = [NSNotification notificationWithName:kNotificationForChatPost object:nil userInfo:resultsd];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+
+    }
+    else{
+    
         
         NSLog(@"Online");
-        //        NSArray *notifArray = [NSArray arrayWithObject:@"userInfo"];
-        //		notifUserInfo = [[NSDictionary alloc] initWithObjects:notifArray forKeys:notifArray];
         
             if([SoclivityUtilities hasNetworkConnection]){
         NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://dev.soclivity.com/rsparameter.json?id=%@",[NSString stringWithFormat:@"%@",[[userInfo valueForKey:@"params"] valueForKey:@"notification_id"]]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
@@ -155,11 +181,10 @@ static NSString* kAppId = @"160726900680967";//kanav
         
         NSNotification* notification = [NSNotification notificationWithName:kRemoteNotificationReceivedNotification object:nil userInfo:resultsd];
         [[NSNotificationCenter defaultCenter] postNotification:notification];
-        [notifUserInfo release];
             }
         
         
-    }
+    
 //    else{
 //        NSLog(@"Offline");
 //        SOC.loggedInUser.badgeCount=[[[userInfo valueForKey:@"aps"] valueForKey:@"badge"]integerValue];
@@ -192,7 +217,7 @@ static NSString* kAppId = @"160726900680967";//kanav
 //        [notifUserInfo release];
 //
 //    }
-
+    }
 }
 
 -(void)setUpActivityDataList{
@@ -350,7 +375,6 @@ static NSString* kAppId = @"160726900680967";//kanav
 {
         NSLog(@"applicationDidEnterBackground");
     
-    [[NSUserDefaults standardUserDefaults]setValue:[NSNumber numberWithInt:[[UIApplication sharedApplication]applicationIconBadgeNumber]] forKey:@"PrevBadgeCount"];
 
 #if 0
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"isLoggedIn"]){
@@ -382,6 +406,13 @@ static NSString* kAppId = @"160726900680967";//kanav
 #endif
 }
 
+
+//http://dev.soclivity.com/players/global_search.json?id=24&name=braham
+
+//http://dev.soclivity.com/players/search_contact?id=26&aid=277&name=kan
+//https://graph.facebook.com/oauth/authorize?client_id=160726900680967&scope=xmpp_login&redirect_uri=http://66.228.42.237/
+
+
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     NSLog(@"applicationWillEnterForeground");
@@ -391,10 +422,11 @@ static NSString* kAppId = @"160726900680967";//kanav
     SOC.loggedInUser.badgeCount=[[UIApplication sharedApplication]applicationIconBadgeNumber];
     NSLog(@"SOC.loggedInUser.badgeCount=%d",SOC.loggedInUser.badgeCount);
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
+
     
-//    if(([[UIApplication sharedApplication]applicationIconBadgeNumber]-[[[NSUserDefaults standardUserDefaults]valueForKey:@"PrevBadgeCount"]intValue])!=0){
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"RandomFetch" object:self userInfo:nil];
-//    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ChatDeltaUpdate" object:self userInfo:nil];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RandomFetch" object:self userInfo:nil];
     
     
 

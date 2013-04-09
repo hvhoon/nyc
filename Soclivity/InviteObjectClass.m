@@ -9,7 +9,7 @@
 #import "InviteObjectClass.h"
 
 @implementation InviteObjectClass
-@synthesize userName,profilePhotoUrl,profileImage,typeOfRelation,DOS,status,inviteId;
+@synthesize userName,profilePhotoUrl,profileImage,typeOfRelation,DOS,status,inviteId,isOnFacebook;
 
 
 

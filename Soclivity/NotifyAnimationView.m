@@ -109,6 +109,7 @@ static inline NSRegularExpression * NameRegularExpression() {
                 case 14:
                 case 15:
                 case 16:
+                case 17:
                 {
                     UIImageView *imageViewFrame=[[UIImageView alloc] init];
                     imageViewFrame.frame=CGRectMake(6.5, 6, 37, 37);
@@ -218,6 +219,10 @@ static inline NSRegularExpression * NameRegularExpression() {
 
 #if 1
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    
+    if([inAppNotif.notificationType integerValue]!=17){
+        
+    }
     NSURL *url=[NSURL URLWithString:[[NSString stringWithFormat:@"http://dev.soclivity.com/received_notification.json?id=%i",inAppNotif.notificationId] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
     NSLog(@"url=%@",url);

@@ -18,7 +18,6 @@
 #import "FilterPreferenceClass.h"
 #import "MBProgressHUD.h"
 #import "ParticipantClass.h"
-#import "SocPlayerClass.h"
 #import "UpComingCompletedEventsViewController.h"
 #import "SOCProfileViewController.h"
 #import "CreateActivityViewController.h"
@@ -50,6 +49,13 @@
 
 -(void)viewDidDisappear:(BOOL)animated{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"RemoteNotificationReceivedWhileRunning" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ChatNotification" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"WaitingOnYou_Count" object:nil];
+    
+    
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -60,7 +66,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotificationInBackground:) name:@"RemoteNotificationReceivedWhileBackground" object:Nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chatInAppNotification:) name:@"ChatNotification" object:Nil];
 
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
 
     
     NSLog(@"viewWillAppear called in HomeViewController");
@@ -76,6 +87,17 @@
     }
 }
 
+-(void)chatInAppNotification:(NSNotification*)note{
+    NotificationClass *notifObject=[SoclivityUtilities getNotificationChatPost:note];
+    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 60) andNotif:notifObject];
+    notif.delegate=self;
+    [self.view addSubview:notif];
+
+    
+    
+}
+
+
 -(void)UpdateBadgeNotification{
     [SoclivityUtilities returnNotificationButtonWithCountUpdate:notifCountButton];
     
@@ -86,7 +108,6 @@
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
     
     if(SOC.currentLocation.coordinate.latitude!=0.0f && SOC.currentLocation.coordinate.longitude!=0.0f){
         
@@ -198,6 +219,7 @@
     NSLog(@"Home Selected");
 
     
+    
     if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
@@ -252,6 +274,7 @@
         case 5:
         case 6:
         case 11:
+        case 17:
         default:
             
             
@@ -268,6 +291,9 @@
             ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
             activityEventViewController.activityInfo=response;
             
+            if([notId integerValue]==17)
+                activityEventViewController.footerActivated=YES;
+            
             [[self navigationController] pushViewController:activityEventViewController animated:YES];
             [activityEventViewController release];
             
@@ -283,23 +309,16 @@
         case 16:
             
         {
-            SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
-            myClass.playerName=response.organizerName;
-            myClass.DOS=response.DOS;
-            myClass.activityId=response.activityId;
-            myClass.latestActivityName=response.activityName;
-            myClass.activityType=response.type;
-            myClass.profilePhotoUrl=response.ownerProfilePhotoUrl;
-            myClass.distance=[response.distance floatValue];
             SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
-            socProfileViewController.playerObject=myClass;
+            socProfileViewController.friendId=response.organizerId;
             [[self navigationController] pushViewController:socProfileViewController animated:YES];
             [socProfileViewController release];
             
         }
             
             break;
-    }
+            
+        }
     
 }else{
     
@@ -942,17 +961,8 @@
         
     }
     else{
-        SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
-        myClass.playerName=detailedInfo.organizerName;
-        myClass.DOS=detailedInfo.DOS;
-        myClass.activityId=detailedInfo.activityId;
-        myClass.latestActivityName=detailedInfo.activityName;
-        myClass.activityType=detailedInfo.type;
-        myClass.profilePhotoUrl=detailedInfo.ownerProfilePhotoUrl;
-        myClass.distance=[detailedInfo.distance floatValue];
-        myClass.friendId=detailedInfo.organizerId;
         SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
-        socProfileViewController.playerObject=myClass;
+        socProfileViewController.friendId=detailedInfo.organizerId;
         [[self navigationController] pushViewController:socProfileViewController animated:YES];
         [socProfileViewController release];
     }

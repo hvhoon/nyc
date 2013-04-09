@@ -12,7 +12,6 @@
     NSInteger type;
     NSInteger stamp;
     NSString *btnstate;
-    
     NSString *organizerName;
     NSInteger DOS;
     NSInteger DOS1;
