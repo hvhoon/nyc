@@ -351,21 +351,21 @@ if([SoclivityUtilities hasNetworkConnection]){
         case 1:
         case 0:
         {
-            HUD.labelText = @"Inviting";
+            HUD.labelText = @"Inviting...";
             
         }
             break;
             
         case 2:
         {
-            HUD.labelText = @"Searching";
+            HUD.labelText = @"Searching...";
             
         }
             break;
             
         case 3:
         {
-            HUD.labelText = @"Fetching";
+            HUD.labelText = @"Loading...";
             
         }
             break;
