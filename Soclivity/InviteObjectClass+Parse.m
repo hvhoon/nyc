@@ -150,14 +150,7 @@
         play.userName = [obj objectForKey:@"name"];
         play.typeOfRelation= 2;
         play.profilePhotoUrl=[NSString stringWithFormat:@"https://graph.facebook.com/%ld/picture",[invId longValue]];
-        NSString * status = [obj objectForKey:@"going"];
-        if([status isEqualToString:@"yes"]){
-            play.status=TRUE;
-        }
-        else{
-            play.status=FALSE;
-        }
-        
+        play.status = [[obj objectForKey:@"invited"]boolValue];
         
         [row setValue:[NSNumber numberWithInt:2] forKey:@"relation"];
         
