@@ -83,7 +83,7 @@
     switch (tag) {
         case 1:
         {
-            HUD.labelText = @"Loading";
+            HUD.labelText = @"Loading...";
             
         }
             break;
@@ -177,16 +177,16 @@
         }
         
         // Determing the user's relationship to the organizer
-        profileTextLinkLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
+        profileTextLinkLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
         profileTextLinkLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
         
         switch (playerObject.DOS){
             case 1:
-                profileTextLinkLabel.text=[NSString stringWithFormat:@"You and %@ are friends",playerObject.playerName];
+                profileTextLinkLabel.text=[NSString stringWithFormat:@"You and %@ are friends",firstName];
                 break;
                 
             case 2:
-                profileTextLinkLabel.text=[NSString stringWithFormat:@"You may know %@",playerObject.playerName];
+                profileTextLinkLabel.text=[NSString stringWithFormat:@"You may know %@",firstName];
                 break;
         }
         
@@ -286,7 +286,7 @@
     UILabel *DOScountLabel=[[UILabel alloc] initWithFrame:DOSLabelRect];
     DOScountLabel.textAlignment=UITextAlignmentLeft;
     
-    DOScountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
+    DOScountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
     DOScountLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     DOScountLabel.backgroundColor=[UIColor clearColor];
     DOSImageView.image=[UIImage imageNamed:@"dos1.png"];
@@ -412,7 +412,7 @@
     if([SoclivityUtilities ValidActivityDate:playerObject.activityTime])
         eventLabel.text=[NSString stringWithFormat:@"UPCOMING %@",[SoclivityUtilities upcomingTimeOfActivity:playerObject.activityTime]];
     else{
-        eventLabel.text=@"COMPLETED";        
+        eventLabel.text=@"LAST COMPLETED";        
     }
     [contactHeaderView addSubview:eventLabel];
     [eventLabel release];
