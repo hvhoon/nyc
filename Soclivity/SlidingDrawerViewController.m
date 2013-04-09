@@ -240,7 +240,7 @@
         [AboutViewControllerDictionary setObject:AboutTag forKey:kSlideViewControllerViewControllerTagKey];
         [AboutViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
         [AboutViewControllerDictionary setObject:[AboutViewController class] forKey:kSlideViewControllerViewControllerClassKey];
-        [AboutViewControllerDictionary setObject:[UIImage imageNamed:@"S7_blocked_icon.png"] forKey:kSlideViewControllerViewControllerIconKey];
+        [AboutViewControllerDictionary setObject:[UIImage imageNamed:@"S07_infoIcon.png"] forKey:kSlideViewControllerViewControllerIconKey];
         [sectionTen setObject:[NSArray arrayWithObject:AboutViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
         [datasource addObject:sectionTen];
         
@@ -286,9 +286,8 @@
         [datasource addObject:sectionEight];
 #endif
         
-        
-        
-        
+        // Email switch
+        /*
         NSMutableDictionary *sectionEight = [NSMutableDictionary dictionary];
         [sectionEight setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
         
@@ -307,7 +306,8 @@
         [sectionEight setObject:[NSArray arrayWithObject:emailNotifyControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
         
         [datasource addObject:sectionEight];
-
+         */
+         
         NSMutableDictionary *sectionNine = [NSMutableDictionary dictionary];
         [sectionNine setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
         

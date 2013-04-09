@@ -431,9 +431,9 @@
             return cellHeightSignOut;
         case kBlockedList:
             if([SoclivityUtilities deviceType] & iPhone5)
-                return 142.0f;
+                return 185.0f;
             else
-                return 54.0f;
+                return 97.0f;
         case kProfileView:
             return cellHeightLarge;
         default:
@@ -542,12 +542,12 @@
         {
             
             if([SoclivityUtilities deviceType] & iPhone5)
-                yCompLine=140;
+                yCompLine=183;
             else
-                yCompLine=52;
+                yCompLine=95;
             yTextLabel=15.0f;
             showLineOrSwitch=TRUE;
-            yLeftImage=11.0f;
+            yLeftImage=9.0f;
 
             
         }
@@ -557,7 +557,7 @@
             yCompLine=43;
             yTextLabel=16.0f;
             showLineOrSwitch=FALSE;
-            yLeftImage=10.0f;
+            yLeftImage=8.0f;
             
         }
             break;
@@ -566,7 +566,7 @@
             yCompLine=43;
             yTextLabel=16.0f;
             showLineOrSwitch=TRUE;
-            yLeftImage=10.0f;
+            yLeftImage=9.0f;
             cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
             
         }
