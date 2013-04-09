@@ -419,7 +419,7 @@
     HUD = [[MBProgressHUD alloc] initWithView:self.view];
     HUD.yOffset = -40.0;
     HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
-    HUD.labelText = @"Activities";
+    HUD.labelText = @"Loading...";
     
     [self.view addSubview:HUD];
     HUD.delegate = self;

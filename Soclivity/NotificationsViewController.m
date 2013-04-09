@@ -234,28 +234,28 @@
     switch (tag) {
         case 1:
         {
-            HUD.labelText = @"Fetching";
+            HUD.labelText = @"Loading...";
             
         }
             break;
             
         case 2:
         {
-            HUD.labelText = @"Going";
+            HUD.labelText = @"Going...";
             
         }
             break;
             
         case 3:
         {
-            HUD.labelText = @"Not Going";
+            HUD.labelText = @"Not Going...";
             
         }
             break;
             
         case 4:
         {
-            HUD.labelText = @"Accepted";
+            HUD.labelText = @"Accepted...";
             
         }
             break;
@@ -263,7 +263,7 @@
             
         case 5:
         {
-            HUD.labelText = @"Declined";
+            HUD.labelText = @"Declined...";
             
         }
             break;
@@ -271,7 +271,7 @@
 
         case 6:
         {
-            HUD.labelText = @"Deleting";
+            HUD.labelText = @"Updating...";
             
         }
             break;
