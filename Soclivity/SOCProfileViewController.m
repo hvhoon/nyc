@@ -402,7 +402,7 @@
     patternImage.image=[UIImage imageNamed:@"pattern.png"];
     [contactHeaderView addSubview:patternImage];
     
-    CGRect eventLabelRect=CGRectMake(18,7.5,180,12);
+    CGRect eventLabelRect=CGRectMake(12,7.5,180,12);
     UILabel *eventLabel=[[UILabel alloc] initWithFrame:eventLabelRect];
     eventLabel.textAlignment=UITextAlignmentLeft;
     
@@ -481,7 +481,7 @@
     UILabel *mileslabel=[[UILabel alloc] initWithFrame:distanceLabelRect];
     mileslabel.textAlignment=UITextAlignmentLeft;
     mileslabel.text=[NSString stringWithFormat:@"%.02f miles away",playerObject.distance];
-    mileslabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
+    mileslabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:14];
     mileslabel.textColor=[SoclivityUtilities returnTextFontColor:1];
     mileslabel.backgroundColor=[UIColor clearColor];
     [contactHeaderView addSubview:mileslabel];
@@ -777,38 +777,38 @@
     topDividerLineButton.tag=[[NSString stringWithFormat:@"777%d",section]intValue];
     [sectionHeaderview addSubview:topDividerLineButton];
     
-    CGRect commonFriendLabelRect=CGRectMake(7,7.5,19,12);
+    // Added the DOS image
+    UIImageView *DOSImageView=[[UIImageView alloc]initWithFrame:CGRectMake(12, 7.5, 19, 11)];
+    DOSImageView.image=[UIImage imageNamed:@"dos1.png"];
+    [sectionHeaderview addSubview:DOSImageView];
+    [DOSImageView release];
+    
+    // Add the count of common friends
+    CGRect commonFriendLabelRect=CGRectMake(38,7.5,19,12);
     UILabel *commonCountLabel=[[UILabel alloc] initWithFrame:commonFriendLabelRect];
     commonCountLabel.textAlignment=UITextAlignmentLeft;
     
-    commonCountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
+    commonCountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
     commonCountLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     commonCountLabel.backgroundColor=[UIColor clearColor];
     commonCountLabel.text=[NSString stringWithFormat:@"%d",[commonFriendsArray count]];
     
     CGSize textSize = [[commonCountLabel text] sizeWithFont:[commonCountLabel font]];
-    
     CGFloat strikeWidth = textSize.width;
-    commonCountLabel.frame=CGRectMake(7, 7.5, strikeWidth, 12);
+    commonCountLabel.frame=CGRectMake(38, 7.5, strikeWidth, 12);
     
     [sectionHeaderview addSubview:commonCountLabel];
     [commonCountLabel release];
 
-    
-    UIImageView *DOSImageView=[[UIImageView alloc]initWithFrame:CGRectMake(strikeWidth+12, 7.5, 19, 11)];
-    
+    // Add the common friends text
     CGRect DOSLabelRect=CGRectMake(strikeWidth+38,7.5,240,12);
     UILabel *DOScountLabel=[[UILabel alloc] initWithFrame:DOSLabelRect];
     DOScountLabel.textAlignment=UITextAlignmentLeft;
-    
-    DOScountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
+    DOScountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
     DOScountLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     DOScountLabel.backgroundColor=[UIColor clearColor];
-    DOSImageView.image=[UIImage imageNamed:@"dos1.png"];
-    DOScountLabel.text=[NSString stringWithFormat:@"IN COMMON"];
-    
-    [sectionHeaderview addSubview:DOSImageView];
-    [DOSImageView release];
+    DOScountLabel.text=[NSString stringWithFormat:@" FRIENDS IN COMMON"];
+
     [sectionHeaderview addSubview:DOScountLabel];
     [DOScountLabel release];
     
