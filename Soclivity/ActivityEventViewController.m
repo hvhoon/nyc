@@ -113,6 +113,14 @@
     [self.view addSubview:notif];
 }
 -(void)chatInAppNotification:(NSNotification*)note{
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+    NSString  *currentTime=[dateFormatter stringFromDate:[NSDate date]];
+    
+    [[NSUserDefaults standardUserDefaults] setValue:currentTime forKey:@"ChatTimeStamp"];
+
+    
     NotificationClass *notifObject=[SoclivityUtilities getNotificationChatPost:note];
     if(notifObject.activityId==activityInfo.activityId)
     
@@ -1708,6 +1716,12 @@
     if([SoclivityUtilities hasNetworkConnection]){
         
         [self startAnimation:kChatPostRequest];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+        NSString  *currentTime=[dateFormatter stringFromDate:[NSDate date]];
+
+        [[NSUserDefaults standardUserDefaults] setValue:currentTime forKey:@"ChatTimeStamp"];
+
         [devServer chatPostsOnActivity:activityInfo.activityId chatId:[SOC.loggedInUser.idSoc intValue] delegate:self message:nil chatRequest:1 imageToPost:nil];
     }
     else{

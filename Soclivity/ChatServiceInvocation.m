@@ -72,7 +72,7 @@
             
         case 6:
         {
-            NSString*a=[NSString stringWithFormat:@"dev.soclivity.com/activity_chats/%d/backgroundchat.json?pid=%d&aid=%d",chatId,[SOC.loggedInUser.idSoc intValue],activityId];
+            NSString*a=[NSString stringWithFormat:@"dev.soclivity.com/activity_chats/backgroundchat.json?pid=%d&aid=%d&time=%@",[SOC.loggedInUser.idSoc intValue],activityId,[[NSUserDefaults standardUserDefaults]valueForKey:@"ChatTimeStamp"]];
             [self get:a];
             
         }
