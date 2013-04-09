@@ -271,7 +271,7 @@
 
         case 6:
         {
-            HUD.labelText = @"Loading...";
+            HUD.labelText = @"Updating...";
             
         }
             break;
