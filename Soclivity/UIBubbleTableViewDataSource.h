@@ -21,6 +21,7 @@
 -(void)userScrolledToLoadEarlierMessages;
 -(NSInteger)earlierCount;
 -(void)showMenu:(ActivityChatData*)type tapTypeSelect:(NSInteger)tapTypeSelect;
+-(void)chatObjectUpdate:(ActivityChatData*)post;
 @required
 
 - (NSInteger)rowsForBubbleTable:(ChatTableView *)tableView;

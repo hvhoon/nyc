@@ -42,6 +42,16 @@
             [self post:a body:[self body]];
         }
             break;
+            
+        case 3:
+        {
+            a= [NSString stringWithFormat:@"dev.soclivity.com/players/friendwithdos1.json?id=%d",playerId];
+            //a= [NSString stringWithFormat:@"dev.soclivity.com/players/friendwithdos1.json?id=24"];
+
+            [self get:a];
+        }
+            break;
+
 
     }
 }
@@ -73,15 +83,20 @@
         case 2:
             response =[InviteObjectClass PlayersAddressBookParse:resultsd];
             break;
+            
+        case 3:
+            response =[InviteObjectClass PlayersInvitesToJoinSoclivityParse:resultsd];
+            break;
+
     }
     
-	[self.delegate ActivityInvitesInvocationDidFinish:self withResponse:response withError:Nil];
+	[self.delegate ActivityInvitesInvocationDidFinish:self withResponse:response type:inviteeType withError:Nil];
 	return YES;
 }
 
 -(BOOL)handleHttpError:(NSInteger)code {
 	[self.delegate ActivityInvitesInvocationDidFinish:self
-                                    withResponse:nil
+                                    withResponse:nil type:inviteeType
                                        withError:[NSError errorWithDomain:@"UserId"
                                                                      code:[[self response] statusCode]
                                                                  userInfo:[NSDictionary dictionaryWithObject:@"Failed to Get user. Please try again later" forKey:@"message"]]];

@@ -141,10 +141,13 @@
 
 }
 
--(void)searchUsersByNameInvocation:(NSInteger)playerSOCId searchText:(NSString*)searchText delegate:(id<GetUsersByFirstLastNameInvocationDelegate>)delegate{
+-(void)searchUsersByNameInvocation:(NSInteger)playerSOCId searchText:(NSString*)searchText actId:(int)actId searchType:(NSInteger)searchType delegate:(id<GetUsersByFirstLastNameInvocationDelegate>)delegate{
 
     GetUsersByFirstLastNameInvocation *invocation = [[[GetUsersByFirstLastNameInvocation alloc] init] autorelease];
+    invocation.activityId=actId;
+    invocation.playerId=playerSOCId;
     invocation.searchName=searchText;
+    invocation.typeOfSearch=searchType;
     [self invoke:invocation withDelegate:delegate];
 
 }
@@ -156,12 +159,12 @@
     [self invoke:invocation withDelegate:delegate];
         
 }
--(void)chatPostsOnActivity:(NSInteger)activityId playerId :(NSInteger)playerId delegate:(id<ChatServiceInvocationDelegate>)delegate message:(NSString*)message chatRequest:(NSInteger)chatRequest imageToPost:(NSData*)imageToPost{
+-(void)chatPostsOnActivity:(NSInteger)activityId chatId :(NSInteger)chatId delegate:(id<ChatServiceInvocationDelegate>)delegate message:(NSString*)message chatRequest:(NSInteger)chatRequest imageToPost:(NSData*)imageToPost{
     
         
         ChatServiceInvocation *invocation = [[[ChatServiceInvocation alloc] init] autorelease];
         invocation.activityId=activityId;
-        invocation.playerId=playerId;
+        invocation.chatId=chatId;
         invocation.textMessage=message;
         invocation.requestType=chatRequest;
         invocation.imageData=imageToPost;

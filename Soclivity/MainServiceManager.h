@@ -45,8 +45,8 @@
 -(void)postCreateANewActivityInvocation:(InfoActivityClass*)activityObject delegate:(id<NewActivityRequestInvocationDelegate>)delegate;
 -(void)getUpcomingActivitiesForUserInvocation:(NSInteger)playerSOCId player2:(NSInteger)player2 delegate:(id<GetUpcomingActivitiesInvocationDelegate>)delegate;
 -(void)getUserProfileInfoInvocation:(NSInteger)playerSOCId friendPlayer:(NSInteger)friendPlayer delegate:(id<GetUserProfileInfoInvocationDelegate>)delegate;
--(void)searchUsersByNameInvocation:(NSInteger)playerSOCId searchText:(NSString*)searchText delegate:(id<GetUsersByFirstLastNameInvocationDelegate>)delegate;
+-(void)searchUsersByNameInvocation:(NSInteger)playerSOCId searchText:(NSString*)searchText actId:(int)actId searchType:(NSInteger)searchType delegate:(id<GetUsersByFirstLastNameInvocationDelegate>)delegate;
 -(void)getUserNotificationsInfoInvocation:(id<GetNotificationsInvocationDelegate>)delegate notificationType:(NSInteger)type notficationId:(NSInteger)idType;
 
--(void)chatPostsOnActivity:(NSInteger)activityId playerId :(NSInteger)playerId delegate:(id<ChatServiceInvocationDelegate>)delegate message:(NSString*)message chatRequest:(NSInteger)chatRequest imageToPost:(NSData*)imageToPost;
+-(void)chatPostsOnActivity:(NSInteger)activityId chatId :(NSInteger)chatId delegate:(id<ChatServiceInvocationDelegate>)delegate message:(NSString*)message chatRequest:(NSInteger)chatRequest imageToPost:(NSData*)imageToPost;
 @end

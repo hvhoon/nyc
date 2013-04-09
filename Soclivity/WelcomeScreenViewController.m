@@ -49,6 +49,8 @@
     [seeImageView release];
     [createImageView release];
     [learnImageView release];
+    [signIn release];
+    [spinner release];
 }
 #pragma mark - View lifecycle
 
@@ -142,18 +144,17 @@
     signIn.shadowOffset = CGSizeMake(0,0.5);
     
     [self.view addSubview:signIn];
-    [signIn release];
     
     spinner=[[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(252, x+261, 20, 20)];
     [spinner setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
     [spinner hidesWhenStopped];
     [self.view addSubview:spinner];
-    [spinner release];
+
     
-    UIButton *signInUsingFacebbokButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    signInUsingFacebbokButton.frame=CGRectMake(28, x+250, 263, 44);
-    [signInUsingFacebbokButton addTarget:self action:@selector(SignInUsingFacebookButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:signInUsingFacebbokButton];
+    UIButton *signInUsingFacebookButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    signInUsingFacebookButton.frame=CGRectMake(28, x+250, 263, 44);
+    [signInUsingFacebookButton addTarget:self action:@selector(SignInUsingFacebookButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:signInUsingFacebookButton];
     
     //Disabling the other sign-in methods
     
@@ -275,9 +276,6 @@
 }
 -(void)SignInUsingFacebookButtonClicked{
     
-#if OfflineTesting
-    [self pushToHomeViewController];
-#else
 
     if([SoclivityUtilities hasNetworkConnection]){
         
@@ -297,7 +295,6 @@
         return;
         
     }
-#endif
 
 }
 -(void)userCancelFBRequest{
@@ -306,7 +303,7 @@
     signIn.text=@"Sign in Using Facebook";
 }
 -(void)pushToRegistration{
-    
+
     
 #if 1
     NSString *nibNameBundle=nil;
@@ -341,6 +338,8 @@
 
 -(void)pushToHomeViewController{
 
+    //EventShareActivity *eventShare=[[EventShareActivity alloc]init];
+    //[eventShare sendEvent];
     
    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isLoggedIn"];
     [spinner stopAnimating];

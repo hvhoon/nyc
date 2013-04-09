@@ -69,6 +69,7 @@
 -(void)SortByTime;
 -(void)doFilteringByActivities;
 -(void)BytesDownloadedTimeToHideTheSpinner;
+-(void)pullToRefreshMannually;
 -(void)populateEvents:(NSArray*)listArray typeOfEvent:(NSInteger)typeOfEvent;
 @end
 NS_INLINE NSComparisonResult FilterSorting(NSString *s1, NSString *s2) {

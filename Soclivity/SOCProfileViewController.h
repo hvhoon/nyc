@@ -39,13 +39,15 @@
     BOOL mSetLoadNoMoreFriendsFooter;
     MainServiceManager *devServer;
     SoclivityManager *SOC;
+    NSInteger friendId;
 
 
 }
 @property (nonatomic,retain)SocPlayerClass *playerObject;
 @property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
-@property (nonatomic,retain)NSArray *commonFriendsArray;
 @property (nonatomic,retain)NSMutableArray *loadNFriendsAtTimeArray;
+@property (nonatomic,assign)NSInteger friendId;
+@property (nonatomic,retain)NSArray *commonFriendsArray;
 -(IBAction)profileBackButtonClicked:(id)sender;
 -(UIView*)SetupHeaderView;
 -(void)tapViewAll:(UITapGestureRecognizer*)sender;

@@ -532,16 +532,8 @@
     switch (rType) {
         case 3:
         {
-            SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
-            myClass.playerName=player.userName;
-            myClass.DOS=player.DOS;
-            myClass.activityId=2;
-            myClass.latestActivityName=@"Oven Fresh";
-            myClass.activityType=1;
-            myClass.profilePhotoUrl=player.profilePhotoUrl;
-            myClass.distance=0.99;
             SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
-            socProfileViewController.playerObject=myClass;
+            socProfileViewController.friendId=player.inviteId;
             [[self navigationController] pushViewController:socProfileViewController animated:YES];
             [socProfileViewController release];
             

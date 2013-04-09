@@ -26,7 +26,6 @@
 #import "NotificationClass.h"
 #import "MessageInputView.h"
 #import "ActivityChatData.h"
-
 #define kEditMapElements 10
 #define kJoinRequest 11
 #define kCancelPendingRequest 13
@@ -40,11 +39,13 @@
 #define kActivityLabel 21
 #define kChatPostRequest 22
 #define kChatPostMessageRequest 23
+#define kChatPostDelete 24
+
 @interface ActivityEventViewController (private)<EditActivityEventInvocationDelegate,MBProgressHUDDelegate,PostActivityRequestInvocationDelegate,GetActivityInvitesInvocationDelegate,NewActivityViewDelegate>
 @end
 
 @implementation ActivityEventViewController
-@synthesize activityInfo,scrollView;
+@synthesize activityInfo,scrollView,footerActivated;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -65,12 +66,42 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chatInAppNotification:) name:@"ChatNotification" object:Nil];
+    
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (getDeltaUpdateInbackground) name:@"ChatDeltaUpdate" object:nil];
+
+    
+
 
     [self.navigationController.navigationBar setHidden:YES];
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+-(void)getDeltaUpdateInbackground{
+    if([chatView.bubbleData count]==0)
+    [devServer chatPostsOnActivity:activityInfo.activityId chatId:0 delegate:self message:nil chatRequest:6 imageToPost:nil];
+    else{
+        ActivityChatData *lastObject=[chatView.bubbleData lastObject];
+        [devServer chatPostsOnActivity:activityInfo.activityId chatId:lastObject.chatId delegate:self message:nil chatRequest:6 imageToPost:nil];
+
+    }
+
+}
+
+-(void)deltaPostInBackground:(NSArray*)responses{
+    if([responses count]!=0){
+        if([chatView.bubbleData count]==0){
+            [chatView updateDeltaChatWithNewData:[NSMutableArray arrayWithArray:responses]];
+        }
+        else{
+            [chatView postsNewUpdateOnChatScreen:[NSMutableArray arrayWithArray:responses]];
+        }
+    }
 }
 #pragma mark - View lifecycle
 
@@ -81,7 +112,21 @@
     notif.delegate=self;
     [self.view addSubview:notif];
 }
+-(void)chatInAppNotification:(NSNotification*)note{
+    NotificationClass *notifObject=[SoclivityUtilities getNotificationChatPost:note];
+    if(notifObject.activityId==activityInfo.activityId)
+    
+    [devServer chatPostsOnActivity:activityInfo.activityId chatId:notifObject.notificationId delegate:self message:nil chatRequest:5 imageToPost:nil];
+    else{
+        NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
+        notif.delegate=self;
+        [self.view addSubview:notif];
 
+    }
+    
+   
+    
+}
 
 - (void)viewDidLoad
 {
@@ -393,6 +438,29 @@
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,705);
 
     // Do any additional setup after loading the view from its nib.
+    
+    if(footerActivated){
+        [scrollView setHidden:YES];
+        [chatView setHidden:NO];
+        
+        if(activityInfo.activityRelationType==5)
+        {
+            leaveActivityButton.hidden=YES;
+        }
+        enterChatTextButton.hidden=NO;
+        commentChatLabel.hidden=NO;
+        postChatImageButton.hidden=NO;
+        imagePostChatlabel.hidden=NO;
+        if(activityInfo.activityRelationType==6){
+            organizerEditButton.hidden=YES;
+            inviteUsersToActivityButton.hidden=YES;
+        }
+        
+        
+        newActivityButton.hidden=YES;
+        [editButtonForMapView setHidden:YES];
+
+    }
 }
 
 - (void)backgroundTapToPush:(NotificationClass*)notification{
@@ -451,6 +519,7 @@
             case 5:
             case 6:
             case 11:
+            case 17:
             default:
                 
                 
@@ -466,7 +535,9 @@
                 
                 ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
                 activityEventViewController.activityInfo=response;
-                
+                if([notId integerValue]==17){
+                    activityEventViewController.footerActivated=YES;
+                }
                 [[self navigationController] pushViewController:activityEventViewController animated:YES];
                 [activityEventViewController release];
                 
@@ -482,16 +553,8 @@
             case 16:
                 
             {
-                SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
-                myClass.playerName=response.organizerName;
-                myClass.DOS=response.DOS;
-                myClass.activityId=response.activityId;
-                myClass.latestActivityName=response.activityName;
-                myClass.activityType=response.type;
-                myClass.profilePhotoUrl=response.ownerProfilePhotoUrl;
-                myClass.distance=[response.distance floatValue];
                 SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
-                socProfileViewController.playerObject=myClass;
+                socProfileViewController.friendId=response.organizerId;
                 [[self navigationController] pushViewController:socProfileViewController animated:YES];
                 [socProfileViewController release];
                 
@@ -568,15 +631,17 @@
 	enable=FALSE;
     
     switch (tapType) {
-        case 2:
         case 1:
+        case 2:
         {
             int index=0;
+            int chatI=0;
             BOOL found=FALSE;
             for(ActivityChatData *chat in chatView.bubbleData){
                 if([chat.date isEqualToDate:menuChat.date]){
                     NSLog(@"test success");
                     found=TRUE;
+                    chatI=chat.chatId;
                     break;
                 }
                 else{
@@ -585,8 +650,8 @@
                 index++;
             }
             if(found){
-                [chatView.bubbleData removeObjectAtIndex:index];
-                [chatView.bubbleTable reloadData];
+                removeChatIndex=index;
+                [self deleteChatPost:chatI];
             }
 
         }
@@ -595,26 +660,35 @@
         default:
             break;
     }
-    //[self.delegate deleteThisSection:section];
 }
-- (void)showMenu:(CGRect)frame{
-    //[self.delegate tellToStopInteraction:NO];
+-(void)deleteChatPost:(NSInteger)chatid{
     
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    if([SoclivityUtilities hasNetworkConnection]){
+        
+        [self startAnimation:kChatPostDelete];
+        
+        [devServer chatPostsOnActivity:activityInfo.activityId chatId:chatid delegate:self message:nil chatRequest:4 imageToPost:nil];
+    }
+    else{
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
+
+}
+
+-(void)chatDeleted:(NSString*)message{
     
-    
-    //[self becomeFirstResponder];
-    //[window becomeFirstResponder];
-    //[self.delegate becomeFirstResponder];
-    
-    [[UIMenuController sharedMenuController] setTargetRect:frame inView:self.view];
-    [[UIMenuController sharedMenuController] setMenuVisible:YES animated:NO];
-    
-    //[self.delegate tellToStopInteraction:YES];
-    
-    //[self canResignFirstResponder];
-    //[self resignFirstResponder];
-    
+    [HUD hide:YES];
+    [chatView.bubbleData removeObjectAtIndex:removeChatIndex];
+    [chatView.bubbleTable reloadData];
+
 }
 
 -(void)showMenu:(ActivityChatData*)type tapTypeSelect:(NSInteger)tapTypeSelect{
@@ -659,6 +733,27 @@
     [self.inputView setUserInteractionEnabled:YES];
     [chatView.inputView.textView becomeFirstResponder];
 }
+
+-(void)userPostedAText:(ActivityChatData*)msg{
+    
+    [HUD hide:YES];
+    [chatView messageSentOrRecieved:msg type:1];
+}
+
+-(void)addAPost:(ActivityChatData*)responses{
+    
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
+
+    
+    if([responses.description isEqualToString:@"IMG"]){
+        
+        [chatView postImagePressed:responses type:2];
+    }
+    else
+        [chatView messageSentOrRecieved:responses type:2];
+}
+
 
 -(IBAction)postImageOnChatScreenPressed:(id)sender{
     
@@ -735,15 +830,8 @@
     
     [self dismissModalViewControllerAnimated:YES];
     
-    // If the image is not a square please auto crop
-//    if(Img.size.height != Img.size.width)
-        Img = [SoclivityUtilities autoCrop:Img];
     
-    // If the image needs to be compressed
- //   if(Img.size.height > 240 || Img.size.width > 240)
-       // Img = [SoclivityUtilities compressImage:Img size:CGSizeMake(120,120)];
-    
-    //[self postAImageOnTheServer:Img];
+    [self postAImageOnTheServer:Img];
     
     if([chatView.bubbleData count]==0){
         [chatView.bubbleTable setHidden:NO];
@@ -752,7 +840,12 @@
     }
 
     
-    [chatView postImagePressed:Img];
+
+}
+-(void)userPostedAnImage:(ActivityChatData*)imagePost{
+    
+    [HUD hide:YES];
+    [chatView postImagePressed:imagePost type:1];
     
 }
 
@@ -1453,7 +1546,7 @@
 
 }
 -(void)ActivityInvitesInvocationDidFinish:(GetActivityInvitesInvocation*)invocation
-                             withResponse:(NSArray*)responses
+                             withResponse:(NSArray*)responses type:(NSInteger)type
                                 withError:(NSError*)error{
     
     
@@ -1615,7 +1708,7 @@
     if([SoclivityUtilities hasNetworkConnection]){
         
         [self startAnimation:kChatPostRequest];
-        [devServer chatPostsOnActivity:activityInfo.activityId playerId:[SOC.loggedInUser.idSoc intValue] delegate:self message:nil chatRequest:1 imageToPost:nil];
+        [devServer chatPostsOnActivity:activityInfo.activityId chatId:[SOC.loggedInUser.idSoc intValue] delegate:self message:nil chatRequest:1 imageToPost:nil];
     }
     else{
         
@@ -1640,13 +1733,14 @@
     [chatView updateChatScreen:[NSMutableArray arrayWithArray:responses]];
 }
 
+
 -(void)postAtTextMessageOnTheServer:(NSString*)message{
     
     if([SoclivityUtilities hasNetworkConnection]){
         
         [self startAnimation:kChatPostMessageRequest];
         
-        [devServer chatPostsOnActivity:activityInfo.activityId playerId:[SOC.loggedInUser.idSoc intValue] delegate:self message:message chatRequest:2 imageToPost:nil];
+        [devServer chatPostsOnActivity:activityInfo.activityId chatId:[SOC.loggedInUser.idSoc intValue] delegate:self message:message chatRequest:2 imageToPost:nil];
     }
     else{
         
@@ -1668,8 +1762,9 @@
     if([SoclivityUtilities hasNetworkConnection]){
         
         [self startAnimation:kChatPostMessageRequest];
+        NSData *imageData=UIImageJPEGRepresentation(image, 1.0f);
         
-        [devServer chatPostsOnActivity:activityInfo.activityId playerId:[SOC.loggedInUser.idSoc intValue] delegate:self message:nil chatRequest:3 imageToPost:UIImagePNGRepresentation(image)];
+        [devServer chatPostsOnActivity:activityInfo.activityId chatId:[SOC.loggedInUser.idSoc intValue] delegate:self message:nil chatRequest:3 imageToPost:imageData];
     }
     else{
         
@@ -1683,6 +1778,19 @@
         
     }
     
+}
+
+
+-(void)postDidFailed:(NSError*)error{
+    
+    [HUD hide:YES];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Something Went Wrong" message:nil
+                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    [alert show];
+    [alert release];
+    return;
+
 }
 
 -(IBAction)cancelRequestButtonPressed:(id)sender{
@@ -1968,7 +2076,14 @@
 
         case kChatPostMessageRequest:
         {
+                HUD.yOffset = -70.0;
             HUD.labelText = @"Posting";
+        }
+            break;
+            
+        case kChatPostDelete:
+        {
+           HUD.labelText = @"Deleting";
         }
             break;
         default:
@@ -2153,16 +2268,8 @@
 
     }
     else{
-    SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
-    myClass.playerName=activityInfo.organizerName;
-    myClass.DOS=activityInfo.DOS;
-    myClass.activityId=activityInfo.activityId;
-    myClass.latestActivityName=activityInfo.activityName;
-    myClass.activityType=activityInfo.type;
-    myClass.profilePhotoUrl=activityInfo.ownerProfilePhotoUrl;
-    myClass.distance=[activityInfo.distance floatValue];
     SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
-    socProfileViewController.playerObject=myClass;
+    socProfileViewController.friendId=activityInfo.organizerId;
     [[self navigationController] pushViewController:socProfileViewController animated:YES];
     [socProfileViewController release];
     }
@@ -2185,16 +2292,8 @@
         
     }
     else{
-        SocPlayerClass *myClass=[[SocPlayerClass alloc]init];
-        myClass.playerName=player.name;
-        myClass.DOS=player.dosConnection;
-        myClass.activityId=activityInfo.activityId;
-        myClass.latestActivityName=activityInfo.activityName;
-        myClass.activityType=activityInfo.type;
-        myClass.profilePhotoUrl=player.photoUrl;
-        myClass.distance=[activityInfo.distance floatValue];
         SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
-        socProfileViewController.playerObject=myClass;
+        socProfileViewController.friendId=player.participantId;
         [[self navigationController] pushViewController:socProfileViewController animated:YES];
         [socProfileViewController release];
     }

@@ -75,9 +75,11 @@
     BOOL enable;
     int menuSection;
     ActivityChatData *menuChat;
+    int removeChatIndex;
 }
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property (nonatomic,retain)InfoActivityClass *activityInfo;
+@property (nonatomic,assign)BOOL footerActivated;
 -(IBAction)backButtonPressed:(id)sender;
 -(IBAction)addEventActivityPressed:(id)sender;
 -(IBAction)leaveEventActivityPressed:(id)sender;

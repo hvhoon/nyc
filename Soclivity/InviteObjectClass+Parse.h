@@ -13,4 +13,6 @@
 
 +(NSArray*)PlayersInvitesParse:(NSDictionary*)ACTDict;
 +(NSArray*)PlayersAddressBookParse:(NSDictionary*)ACTDict;
++(NSArray*)PlayersInvitesGlobalSearchToActivity:(NSDictionary*)ACTDict;
++(NSArray*)PlayersInvitesToJoinSoclivityParse:(NSDictionary*)ACTDict;
 @end
