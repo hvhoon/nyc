@@ -355,12 +355,12 @@
     if(facebookTag){
      //implememt different registration procedure for facebook.
         [activitySectionSecond startAnimation];
-        [devServer registrationDetailInvocation:self isFBuser:YES isActivityUpdate:NO];
+        [devServer registrationDetailInvocation:self isFBuser:YES isActivityUpdate:1];
         
     }
     else{
         [activitySectionSecond startAnimation];
-        [devServer registrationDetailInvocation:self isFBuser:NO isActivityUpdate:NO];
+        [devServer registrationDetailInvocation:self isFBuser:NO isActivityUpdate:2];
     }
         
     }

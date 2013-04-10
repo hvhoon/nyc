@@ -398,7 +398,13 @@
 -(UIView*)SetupHeaderView{
     UIView *contactHeaderView=[[UIView alloc]initWithFrame:CGRectMake(0, 127, 320,93)];
     
-    UIImageView*patternImage=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 27)];
+    UIButton *topDividerLineButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    topDividerLineButton.frame = CGRectMake(0, 0, 320, 1);
+    [topDividerLineButton setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]]];
+    [contactHeaderView addSubview:topDividerLineButton];
+
+    
+    UIImageView*patternImage=[[UIImageView alloc]initWithFrame:CGRectMake(0, 1, 320, 25)];
     patternImage.image=[UIImage imageNamed:@"pattern.png"];
     [contactHeaderView addSubview:patternImage];
     
@@ -428,6 +434,12 @@
     viewAllButton.backgroundColor=[UIColor clearColor];
     [viewAllButton addTarget:self action:@selector(tapViewAll:) forControlEvents:UIControlEventTouchUpInside];
     [contactHeaderView addSubview:viewAllButton];
+    
+    
+    UIView *bottomDividerLineview=[[[UIView alloc]initWithFrame:CGRectMake(0,26,320,1)]autorelease];
+    bottomDividerLineview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]];
+    [contactHeaderView addSubview:bottomDividerLineview];
+
 
     
     UIImageView *contactGraphicImgView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 27, 25, 66)];
