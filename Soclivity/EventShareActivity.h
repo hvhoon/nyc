@@ -12,7 +12,7 @@
     
     NSString *localIdentifier;
 }
--(void)sendEvent;
+-(void)deleteAllEvents;
 -(void)grantedAccess:(NSMutableArray*)eventArray;
 -(void)performCalendarActivity:(EKEventStore*)eventStore andList:(NSMutableArray*)array;
 @end

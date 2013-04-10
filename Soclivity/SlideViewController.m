@@ -796,6 +796,10 @@
     }
     else{
         [HUD hide:YES];
+        EventShareActivity *eventShare=[[EventShareActivity alloc]init];
+        [eventShare deleteAllEvents];
+
+        
         
     }
 

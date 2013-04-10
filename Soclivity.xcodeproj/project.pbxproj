@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18AD11FD1715E9CB00CC9870 /* Folder.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18AD11FC1715E9CB00CC9870 /* Folder.plist */; };
 		18B74BCE16EA472000F28F3D /* ChatServiceInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B74BCD16EA472000F28F3D /* ChatServiceInvocation.m */; };
 		18B74BD116EA482200F28F3D /* ActivityChatData+Parse.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B74BD016EA482200F28F3D /* ActivityChatData+Parse.m */; };
 		18BAD03716D0BF9600EC199D /* GetNotificationsInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BAD03616D0BF9600EC199D /* GetNotificationsInvocation.m */; };
@@ -959,6 +960,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18AD11FC1715E9CB00CC9870 /* Folder.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Folder.plist; sourceTree = "<group>"; };
 		18B74BCC16EA472000F28F3D /* ChatServiceInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatServiceInvocation.h; sourceTree = "<group>"; };
 		18B74BCD16EA472000F28F3D /* ChatServiceInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatServiceInvocation.m; sourceTree = "<group>"; };
 		18B74BCF16EA482200F28F3D /* ActivityChatData+Parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ActivityChatData+Parse.h"; sourceTree = "<group>"; };
@@ -2448,6 +2450,7 @@
 		680CE3E91551258700B8E937 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				18AD11FC1715E9CB00CC9870 /* Folder.plist */,
 				EACE5F62165B9A7C00D1B3D0 /* Notifications.plist */,
 				EAE094D11619A7C8005E69D0 /* Friends.plist */,
 				EABCE22315E7F658005B74E8 /* ContactList.plist */,
@@ -4960,6 +4963,7 @@
 				18BE4F2E17134E7100957464 /* S03_mail@2x.png in Resources */,
 				68958EF31714707B00B22A2D /* S07_infoIcon@2x.png in Resources */,
 				68958EF41714707B00B22A2D /* S07_infoIcon.png in Resources */,
+				18AD11FD1715E9CB00CC9870 /* Folder.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
