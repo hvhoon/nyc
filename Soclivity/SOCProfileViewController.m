@@ -123,7 +123,7 @@
     
     [self hideMBProgress];
     playerObject=[response retain];
-    
+           commonFriendsArray=[[NSArray arrayWithArray:playerObject.commonFriends]retain];
     loadNFriendsAtTimeArray=[[NSMutableArray alloc]init];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     NSOperationQueue *queue = [NSOperationQueue new];
@@ -201,10 +201,10 @@
         CGRect activityTableRect;
         if([SoclivityUtilities deviceType] & iPhone5)
             
-            activityTableRect=CGRectMake(0, 220-delta, 320, 200+88+delta);
+            activityTableRect=CGRectMake(0, 220-delta+kSectionHeaderHeight, 320, 200+88+delta-kSectionHeaderHeight);
         
         else
-            activityTableRect=CGRectMake(0, 220-delta, 320, 200+delta);
+            activityTableRect=CGRectMake(0, 220-delta+kSectionHeaderHeight, 320, 200+delta-kSectionHeaderHeight);
         
         commonFriendsTableView=[[UITableView alloc]initWithFrame:activityTableRect];
         [commonFriendsTableView setDelegate:self];
@@ -220,7 +220,7 @@
         
         commonFriendsTableView.clipsToBounds=YES;
         
-       commonFriendsArray=[[NSArray arrayWithArray:playerObject.commonFriends]retain];
+
         
         //[self SetUpDummyCommonFriends];
         
@@ -396,7 +396,7 @@
 
 
 -(UIView*)SetupHeaderView{
-    UIView *contactHeaderView=[[UIView alloc]initWithFrame:CGRectMake(0, 127, 320,93)];
+    UIView *contactHeaderView=[[UIView alloc]initWithFrame:CGRectMake(0, 127, 320,93+kSectionHeaderHeight)];
     
     UIButton *topDividerLineButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     topDividerLineButton.frame = CGRectMake(0, 0, 320, 1);
@@ -418,7 +418,7 @@
     if([SoclivityUtilities ValidActivityDate:playerObject.activityTime])
         eventLabel.text=[NSString stringWithFormat:@"UPCOMING %@",[SoclivityUtilities upcomingTimeOfActivity:playerObject.activityTime]];
     else{
-        eventLabel.text=@"LAST COMPLETED";        
+        eventLabel.text=[NSString stringWithFormat:@"LAST COMPLETED -%@",[SoclivityUtilities upcomingTimeOfActivity:playerObject.activityTime]];
     }
     [contactHeaderView addSubview:eventLabel];
     [eventLabel release];
@@ -516,6 +516,62 @@
     [contactHeaderView addSubview:activityIndicator];
     // release it
     [activityIndicator release];
+        
+        
+        UIView *sectionHeaderview=[[[UIView alloc]initWithFrame:CGRectMake(0,93,320,kSectionHeaderHeight)]autorelease];
+        sectionHeaderview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"pattern.png"]];
+        
+        //second section don't draw the first line
+        
+        
+        UIButton *topDividerLineButton2 = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        topDividerLineButton2.frame = CGRectMake(0, 0, 320, 1);
+        [topDividerLineButton2 setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]]];
+        [sectionHeaderview addSubview:topDividerLineButton2];
+        
+        // Added the DOS image
+        UIImageView *DOSImageView=[[UIImageView alloc]initWithFrame:CGRectMake(12, 7.5, 19, 11)];
+        DOSImageView.image=[UIImage imageNamed:@"dos1.png"];
+        [sectionHeaderview addSubview:DOSImageView];
+        [DOSImageView release];
+        
+        // Add the count of common friends
+        CGRect commonFriendLabelRect=CGRectMake(38,7.5,19,12);
+        UILabel *commonCountLabel=[[UILabel alloc] initWithFrame:commonFriendLabelRect];
+        commonCountLabel.textAlignment=UITextAlignmentLeft;
+        
+        commonCountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
+        commonCountLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+        commonCountLabel.backgroundColor=[UIColor clearColor];
+        commonCountLabel.text=[NSString stringWithFormat:@"%d",[commonFriendsArray count]];
+        commonCountLabel.tag=567;
+        CGSize textSize = [[commonCountLabel text] sizeWithFont:[commonCountLabel font]];
+        CGFloat strikeWidth = textSize.width;
+        commonCountLabel.frame=CGRectMake(38, 7.5, strikeWidth, 12);
+        
+        [sectionHeaderview addSubview:commonCountLabel];
+        [commonCountLabel release];
+        
+        // Add the common friends text
+        CGRect DOSLabelRect=CGRectMake(strikeWidth+38,7.5,240,12);
+        UILabel *DOScountLabel=[[UILabel alloc] initWithFrame:DOSLabelRect];
+        DOScountLabel.textAlignment=UITextAlignmentLeft;
+        DOScountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
+        DOScountLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+        DOScountLabel.backgroundColor=[UIColor clearColor];
+        DOScountLabel.text=[NSString stringWithFormat:@" FRIENDS IN COMMON"];
+        
+        [sectionHeaderview addSubview:DOScountLabel];
+        [DOScountLabel release];
+        
+        
+        UIView *bottomDividerLineview2=[[[UIView alloc]initWithFrame:CGRectMake(0,kSectionHeaderHeight-1,320,1)]autorelease];
+        bottomDividerLineview2.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]];
+        [sectionHeaderview addSubview:bottomDividerLineview2];
+        
+        [contactHeaderView addSubview:sectionHeaderview];
+        
+    
     
     
     return contactHeaderView;
@@ -766,12 +822,12 @@
 #if 1
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return kSectionHeaderHeight;
+    return 0.0f;
 }
 
 
 
-
+#if 0
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
@@ -832,6 +888,12 @@
     return sectionHeaderview;
     
 }
+#else
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+       return [[[UIView alloc]initWithFrame:CGRectZero]autorelease];
+}
+#endif
+
 #endif
 #pragma mark -
 #pragma mark Lazy Loading

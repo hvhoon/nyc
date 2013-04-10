@@ -1447,12 +1447,30 @@ if(timer%2==0){
     NSDate *currentDate=[dateFormatter dateFromString:todayDate];
     
     NSTimeInterval interval = [lastDate timeIntervalSinceDate:currentDate];
+    if(interval<0){
+        interval=interval*-1;
+    }
     unsigned long seconds = interval;
     unsigned long minutes = seconds / 60;
     seconds %= 60;
     unsigned long hours = minutes / 60;
     if(hours)
         minutes %= 60;
+    unsigned long days=hours/24;
+    if(days)
+        hours %=24;
+    
+    unsigned long months=days/30;
+    if(months)
+        months %=30;
+
+    
+    unsigned long year=months/12;
+    if(year)
+        year %=12;
+    
+
+
     BOOL checkTime=TRUE;
     NSMutableString * result = [[NSMutableString new] autorelease];
     dateFormatter.dateFormat=@"EEE, MMM d, h:mma";
@@ -1473,27 +1491,82 @@ if(timer%2==0){
     [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:destinationDate]-
     [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:currentDateTime];
     switch (differenceInDays) {
-        case -1:
-        {
-            NSLog(@"Yesterday");
-        }
-            break;
         case 0:
         {
+                NSLog(@"Today");
+                if(year && checkTime){
+                    [result appendFormat: @"IN %ld YEARS", year];
+                    checkTime=FALSE;
+                }
+                
+                
+                if(months && checkTime){
+                    [result appendFormat: @"IN %ld MONTHS", months];
+                    checkTime=FALSE;
+                }
+                
+                
+                if(days && checkTime){
+                    [result appendFormat: @"IN %ld DAYS", days];
+                    checkTime=FALSE;
+                }
+                
+                
+                if(hours && checkTime){
+                    [result appendFormat: @"IN %ld HOURS", hours];
+                    checkTime=FALSE;
+                }
+                
+                if(minutes && checkTime){
+                    
+                    if(hours==0){
+                        [result appendFormat: @"IN %ld MINUTES", minutes];
+                    }
+                    else
+                        [result appendFormat: @"IN %ld MINUTES", minutes];
+                    
+                    checkTime=FALSE;
+                    
+                }
+                
+                
+        
+        }
+            break;
+        case -1:
+        default:
+        {
             NSLog(@"Today");
+            if(year && checkTime){
+                [result appendFormat: @"%ld YEARS AGO", year];
+                checkTime=FALSE;
+            }
+
+            
+            if(months && checkTime){
+                [result appendFormat: @"%ld MONTHS AGO", months];
+                checkTime=FALSE;
+            }
+
+            
+            if(days && checkTime){
+                [result appendFormat: @"%ld DAYS AGO", days];
+                checkTime=FALSE;
+            }
+
             
             if(hours && checkTime){
-                [result appendFormat: @"IN %ld HOURS", hours];
+                [result appendFormat: @"%ld HOURS AGO", hours];
                 checkTime=FALSE;
             }
             
             if(minutes && checkTime){
                 
                 if(hours==0){
-                    [result appendFormat: @"IN %ld MINUTES", minutes];
+                    [result appendFormat: @"%ld MINUTES AGO", minutes];
                 }
                 else
-                    [result appendFormat: @"IN %ld MINUTES", minutes];
+                    [result appendFormat: @"%ld MINUTES AGO", minutes];
                 
                 checkTime=FALSE;
                 
@@ -1502,20 +1575,7 @@ if(timer%2==0){
             
         }
             break;
-        default:
-        {
-            NSLog(@"Tommorow");
-            
-            if(hours && checkTime){
-                [result appendFormat: @"IN %ld HOURS", hours];
-                checkTime=FALSE;
-            }
-
-            
-            
-        }
-            break;
-            
+        
     }
     
     return result;
