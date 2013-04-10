@@ -33,5 +33,5 @@
 @property (nonatomic,retain)NSString*profileImageUrl;
 @property (nonatomic,retain)NSString *channel;
 @property (nonatomic,assign)NSInteger badgeCount;
-
+@property (nonatomic,assign)BOOL calendarSync;
 @end

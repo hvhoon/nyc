@@ -15,6 +15,10 @@
 #import "JMC.h"
 #import "SoclivityManager.h"
 #import "GetPlayersClass.h"
+#import "MBProgressHUD.h"
+#import "MainServiceManager.h"
+#import "RegistrationDetailInvocation.h"
+#import "EventShareActivity.h"
 #define kSVCLeftAnchorX                 100.0f
 #define kSVCRightAnchorX                190.0f
 #define kSVCSwipeNavigationBarOnly      YES
@@ -36,7 +40,7 @@
 #define cellHeightLarge  65
 #define cellHeightSignOut 40
 
-@interface SlideViewController (private)<HomeScreenDelegate,ProfileScreenViewDelegate,NotificationsScreenViewDelegate,UpcomingCompletedEvnetsViewDelegate,InvitesViewDelegate,AboutViewDelegate>
+@interface SlideViewController (private)<HomeScreenDelegate,ProfileScreenViewDelegate,NotificationsScreenViewDelegate,UpcomingCompletedEvnetsViewDelegate,InvitesViewDelegate,AboutViewDelegate,MBProgressHUDDelegate,RegistrationDetailDelegate,GetUpcomingActivitiesInvocationDelegate>
 @end
 
 @interface SlideViewNavigationBar : UINavigationBar {
@@ -644,7 +648,9 @@
         UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectMake(185, 10, 50, 50)];
         switchView.transform = CGAffineTransformMakeScale(0.75, 0.75);
         [cell.contentView addSubview:switchView];
-        [switchView setOn:NO animated:NO];
+        SoclivityManager *SOC=[SoclivityManager SharedInstance];
+        GetPlayersClass *player=SOC.loggedInUser;
+        [switchView setOn:player.calendarSync animated:NO];
         [switchView addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
         [switchView release];
     }
@@ -709,11 +715,167 @@
     
 }
 
+- (void)startAnimation:(NSInteger)type{
+    // Setup animation settings
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
+    switch (type) {
+        case 1:
+        {
+            HUD.labelText = @"Sycning...";
+            
+        }
+            break;
+            
+        case 2:
+        {
+            HUD.labelText = @"Turning Off";
+            
+        }
+            break;
+            
+        case 3:
+        {
+            HUD.labelText = @"Removing";
+            
+        }
+            break;
+            
+    }
+    
+    [self.view addSubview:HUD];
+    HUD.delegate = self;
+    [HUD show:YES];
+}
+
+
 - (void) switchChanged:(id)sender {
     UISwitch* switchControl = sender;
     NSLog( @"The switch is %@", switchControl.on ? @"ON" : @"OFF" );
+    
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    GetPlayersClass *player=SOC.loggedInUser;
+    player.calendarSync=switchControl.on;
+    
+    devServer=[[MainServiceManager alloc]init];
+    if([SoclivityUtilities hasNetworkConnection]){
+        
+        if(player.calendarSync)
+            [self startAnimation:1];
+        else{
+            [self startAnimation:2];
+        }
+        [devServer registrationDetailInvocation:self isFBuser:NO isActivityUpdate:3];
+        
+        
+    }
+    else {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+													   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+		
+		[alert show];
+		[alert release];
+		return;
+		
+	}
+
 }
 
+-(void)RegistrationDetailInvocationDidFinish:(RegistrationDetailInvocation*)invocation
+                                  withResult:(NSArray*)result andUpdateType:(BOOL)andUpdateType
+                                   withError:(NSError*)error{
+    // Stop the animation
+    
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    GetPlayersClass *player=SOC.loggedInUser;
+    
+    if(player.calendarSync){
+        
+        [devServer getUpcomingActivitiesForUserInvocation:[SOC.loggedInUser.idSoc intValue] player2:[SOC.loggedInUser.idSoc intValue] delegate:self];
+
+    }
+    else{
+        [HUD hide:YES];
+        
+    }
+
+    
+
+}
+
+
+-(void)UpcomingActivitiesInvocationDidFinish:(GetUpcomingActivitiesInvocation*)invocation
+                                withResponse:(NSArray*)responses
+                                   withError:(NSError*)error{
+    
+    [HUD hide:YES];
+    
+    if([responses count]>0){
+        NSMutableArray *activitiesArray=[[NSMutableArray alloc]init];
+        for(int i=0;i<[responses count];i++){
+            NSNumber *activityType=[[responses objectAtIndex:i] objectForKey:@"activityType"];
+            switch ([activityType intValue]) {
+                case 1:
+                {
+                    NSLog(@"The user has got Organizing Activities");
+                    
+                    [activitiesArray addObjectsFromArray:[[responses objectAtIndex:i] objectForKey:@"Elements"]];
+                    
+                }
+                    break;
+                    
+                case 2:
+                {
+                    NSLog(@"The user has got invitedToArray Activities");
+                    [activitiesArray addObjectsFromArray:[[responses objectAtIndex:i] objectForKey:@"Elements"]];
+
+                    
+                }
+                    break;
+                case 3:
+                {
+                    NSLog(@"The user has got compeletedArray Activities");
+                    
+                }
+                    break;
+                case 4:
+                {
+                    NSLog(@"The user has got goingToArray Activities");
+                    [activitiesArray addObjectsFromArray:[[responses objectAtIndex:i] objectForKey:@"Elements"]];
+
+                    
+                }
+                    break;
+            }
+            
+            
+        }
+        if([activitiesArray count]!=0){
+        EventShareActivity *eventShare=[[EventShareActivity alloc]init];
+            [eventShare grantedAccess:activitiesArray];
+
+        // now Sync All Activities in the Calendar
+        }
+        else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Events To Sync" message:nil
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            
+            [alert show];
+            [alert release];
+            return;
+            
+        }
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Events To Sync" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+    }
+}
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     if (_slideNavigationControllerState == kSlideNavigationControllerStateSearching) {

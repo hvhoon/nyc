@@ -124,7 +124,6 @@
     [HUD hide:YES];
 
     NSLog(@"Successful Login");
-    NSLog(@"RegistrationDetailInvocationDidFinish called");
     GetPlayersClass *obj=[responses objectAtIndex:0];
     NSLog(@"SOC ID=%d",[obj.idSoc intValue]);
     NSLog(@"obj.password_status=%@",obj.password_status);

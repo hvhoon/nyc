@@ -32,7 +32,8 @@ typedef enum {
 
 @class SlideViewController;
 @class SlideViewNavigationBar;
-
+@class MBProgressHUD;
+@class MainServiceManager;
 @protocol SlideViewControllerDelegate <NSObject>
 @optional
 - (void)configureViewController:(UIViewController *)viewController userInfo:(id)userInfo;
@@ -65,6 +66,8 @@ typedef enum {
     UIView *_touchView;
     SlideNavigationControllerState _slideNavigationControllerState;
     UIView *_overlayView;
+    MBProgressHUD *HUD;
+    MainServiceManager *devServer;
 }
 
 @property (nonatomic, assign) id <SlideViewControllerDelegate> delegate;

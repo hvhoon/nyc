@@ -108,6 +108,12 @@
         if ([key isEqualToString:@"birth_date"]) {
                 mappedKey=key;
         }
+        else if ([key isEqualToString:@"calendar_status"]) {
+            mappedKey=key;
+        }
+
+        
+        
         else if ([key isEqualToString:@"created_at"]) {
 			mappedKey=key;
         }
@@ -195,6 +201,11 @@
             mappedKey=nil;
             responseStatus=TRUE;
         }
+        else if ([mappedKey isEqualToString:@"calendar_status"]) {
+                self.playerObject.calendarSync = x;
+            mappedKey=nil;
+        }
+
         
     }
 }
@@ -205,6 +216,11 @@
             self.playerObject.password_status = @"null";
             mappedKey=nil;
         }
+        else if ([mappedKey isEqualToString:@"calendar_status"]) {
+            self.playerObject.calendarSync = FALSE;
+            mappedKey=nil;
+        }
+
         
     }
 }
@@ -268,6 +284,8 @@
             
             mappedKey=nil;
         }
+        
+
         else if([mappedKey isEqualToString:@"photo_url"]){
             self.playerObject.profileImageUrl = [NSString stringWithFormat:@"http://dev.soclivity.com%@",string];
             

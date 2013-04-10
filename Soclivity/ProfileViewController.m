@@ -123,7 +123,7 @@
         
         
         [self startAnimation:show];
-        [devServer registrationDetailInvocation:self isFBuser:NO isActivityUpdate:YES];
+        [devServer registrationDetailInvocation:self isFBuser:NO isActivityUpdate:2];
         
         
     }
@@ -150,7 +150,7 @@
         
             //implememt different registration procedure for facebook.
         [self startAnimation:1];
-        [devServer registrationDetailInvocation:self isFBuser:YES isActivityUpdate:NO];
+        [devServer registrationDetailInvocation:self isFBuser:YES isActivityUpdate:1];
         
         
     }
@@ -209,39 +209,49 @@
     [HUD hide:YES];
     
     
-    if(andUpdateType){
-    NSLog(@"Activity Types Updated");        
+    switch (andUpdateType) {
+        case 1:
+        {
+            NSLog(@"RegistrationDetailInvocationDidFinish called");
+            GetPlayersClass *obj=[result objectAtIndex:0];
+            NSLog(@"SOC ID=%d",[obj.idSoc intValue]);
+            
+            if([obj.idSoc intValue]==0){
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Error"
+                                                                message:@"Sorry we couldn't register you."
+                                                               delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+                
+                [alert show];
+                [alert release];
+            }
+            else {
+                SOC.loggedInUser=obj;
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isLoggedIn"];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Successful"
+                                                                message:@"Welcome to Soclivity!"
+                                                               delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+                
+                alert.tag=kRegisterSucces;
+                [alert show];
+                [alert release];
+                
+            }
+            return;
+        }
+            break;
+            
+        case 2:
+        {
+            
+        }
+            break;
+
+            
+        default:
+            break;
     }
-    else{
-        
     
-    NSLog(@"RegistrationDetailInvocationDidFinish called");
-    GetPlayersClass *obj=[result objectAtIndex:0];
-    NSLog(@"SOC ID=%d",[obj.idSoc intValue]);
-    
-    if([obj.idSoc intValue]==0){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Error"
-                                                        message:@"Sorry we couldn't register you."
-                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-        
-        [alert show];
-        [alert release];
-    }
-    else {
-        SOC.loggedInUser=obj;
-        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isLoggedIn"];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Successful"
-                                                        message:@"Welcome to Soclivity!"
-                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-        
-        alert.tag=kRegisterSucces;
-        [alert show];
-        [alert release];
-        
-    }
-        
-    }
-    return;
+
     
 }
 

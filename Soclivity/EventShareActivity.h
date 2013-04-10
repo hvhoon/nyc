@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <EventKit/EventKit.h>
 @interface EventShareActivity : NSObject{
     
     NSString *localIdentifier;
 }
 -(void)sendEvent;
+-(void)grantedAccess:(NSMutableArray*)eventArray;
+-(void)performCalendarActivity:(EKEventStore*)eventStore andList:(NSMutableArray*)array;
 @end

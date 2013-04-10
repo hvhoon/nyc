@@ -20,6 +20,7 @@
 @interface RegistrationDetailInvocation (private)
 -(NSString*)body;
 -(NSString*)updateActivityBody;
+-(NSString*)updateCalendarSync:(BOOL)sync;
 @end
 
 @implementation RegistrationDetailInvocation
@@ -36,20 +37,50 @@
 -(void)invoke {
 
     NSString *a=nil;
-    if(activityTypeUpdate){
-        SoclivityManager *SOC=[SoclivityManager SharedInstance];
-        GetPlayersClass *player=SOC.loggedInUser;
-       a= [NSString stringWithFormat:@"dev.soclivity.com/players/%d.json",[player.idSoc intValue]];
-          [self put:a body:[self updateActivityBody]];
-    }
-    else{
-        a= [NSString stringWithFormat:@"dev.soclivity.com/players.json"];
-        [self post:a body:[self body]];//dev.soclivity.com/players/17.json
-
-    }
     
+    switch (activityTypeUpdate) {
+        case 1:
+        {
+            a= [NSString stringWithFormat:@"dev.soclivity.com/players.json"];
+            [self post:a body:[self body]];//dev.soclivity.com/players/17.json
+
+        }
+            break;
+            
+        case 2:
+        {
+            SoclivityManager *SOC=[SoclivityManager SharedInstance];
+            GetPlayersClass *player=SOC.loggedInUser;
+            a= [NSString stringWithFormat:@"dev.soclivity.com/players/%d.json",[player.idSoc intValue]];
+            [self put:a body:[self updateActivityBody]];
+            
+        }
+            break;
+
+            
+        case 3:
+        {
+            SoclivityManager *SOC=[SoclivityManager SharedInstance];
+            GetPlayersClass *player=SOC.loggedInUser;
+            a= [NSString stringWithFormat:@"dev.soclivity.com/players/%d.json",[player.idSoc intValue]];
+            [self put:a body:[self updateCalendarSync:player.calendarSync]];
+            
+        }
+            break;
+
+            
+    }
 
     //[self delete:a];
+}
+
+-(NSString*)updateCalendarSync:(BOOL)sync{
+    NSMutableDictionary* bodyD = [[[NSMutableDictionary alloc] init] autorelease];
+    
+    [bodyD setObject:[NSNumber numberWithBool:sync] forKey:@"calendar_status"];
+    
+    return [bodyD JSONRepresentation];
+
 }
 
 -(NSString*)updateActivityBody{
@@ -197,25 +228,45 @@
     NSLog(@"response=%@",response);
 
 
-    
-    if(activityTypeUpdate){
-        NSDictionary* resultsd = [[[NSString alloc] initWithData:data
-                                                        encoding:NSUTF8StringEncoding] JSONValue];
-        NSNumber*resetStatus= [resultsd objectForKey:@"id"];
-        NSLog(@"resetStatus=%@",resetStatus);
-        [self.delegate RegistrationDetailInvocationDidFinish:self withResult:nil  andUpdateType:activityTypeUpdate withError:nil];
-        
-    }
-    else{
-    
-     self.queue = [[NSOperationQueue alloc] init];
+    switch (activityTypeUpdate) {
+        case 1:
+        {
+            self.queue = [[NSOperationQueue alloc] init];
+            
+            ParseOperation *parser = [[ParseOperation alloc] initWithData:data delegate:self tagJsonService:kRegisterPlayer];
+            
+            [queue addOperation:parser]; // this will start the "ParseOperation"
+            
+            [parser release];
+            [queue release];
 
-    ParseOperation *parser = [[ParseOperation alloc] initWithData:data delegate:self tagJsonService:kRegisterPlayer];
-    
-    [queue addOperation:parser]; // this will start the "ParseOperation"
-    
-    [parser release];
-    [queue release];
+        }
+            break;
+            
+            case 2:
+        {
+            NSDictionary* resultsd = [[[NSString alloc] initWithData:data
+                                                            encoding:NSUTF8StringEncoding] JSONValue];
+            NSNumber*resetStatus= [resultsd objectForKey:@"id"];
+            NSLog(@"resetStatus=%@",resetStatus);
+            [self.delegate RegistrationDetailInvocationDidFinish:self withResult:nil  andUpdateType:activityTypeUpdate withError:nil];
+            
+        }
+            break;
+            
+            
+        case 3:
+        {
+            NSDictionary* resultsd = [[[NSString alloc] initWithData:data
+                                                            encoding:NSUTF8StringEncoding] JSONValue];
+            NSNumber*resetStatus= [resultsd objectForKey:@"status"];
+            NSLog(@"resetStatus=%@",resetStatus);
+            [self.delegate RegistrationDetailInvocationDidFinish:self withResult:nil  andUpdateType:activityTypeUpdate withError:nil];
+            
+        }
+            break;
+
+            
     }
 	return YES;
 }

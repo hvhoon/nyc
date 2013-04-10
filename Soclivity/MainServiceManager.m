@@ -18,7 +18,7 @@
 	[super dealloc];
 }
 
--(void)registrationDetailInvocation:(id<RegistrationDetailDelegate>)delegate isFBuser:(BOOL)isFBuser isActivityUpdate:(BOOL)isActivityUpdate{
+-(void)registrationDetailInvocation:(id<RegistrationDetailDelegate>)delegate isFBuser:(BOOL)isFBuser isActivityUpdate:(NSInteger)isActivityUpdate{
     
     RegistrationDetailInvocation *invocation = [[[RegistrationDetailInvocation alloc] init] autorelease];
     invocation.isFacebookUser=isFBuser;

@@ -7,17 +7,29 @@
 //
 
 #import "EventShareActivity.h"
-#import <EventKit/EventKit.h>
+#import "InfoActivityClass.h"
+#import "SoclivityUtilities.h"
 @implementation EventShareActivity
 
--(void)test{
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        // Initialization code
+    }
+    return self;
+}
+
+
+-(void)grantedAccess:(NSMutableArray*)eventArray{
     EKEventStore *eventStore =[[EKEventStore alloc] init];
     if([eventStore respondsToSelector:@selector(requestAccessToEntityType:completion:)]) {
         // iOS 6 and later
         [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
             if (granted){
                 //---- codes here when user allow your app to access theirs' calendar.
-                [self performCalendarActivity:eventStore];
+                [self performCalendarActivity:eventStore andList:eventArray];
             }else
             {
                 //----- codes here when user NOT allow your app to access the calendar.
@@ -26,22 +38,58 @@
     }
     else {
         //---- codes here for IOS < 6.0.
-        [self performCalendarActivity:eventStore];
+        [self performCalendarActivity:eventStore andList:eventArray];
     }
 
 }
 
--(void)performCalendarActivity:(EKEventStore*)eventStore{
+-(void)performCalendarActivity:(EKEventStore*)eventStore andList:(NSMutableArray*)array{
     // EKEventStore *eventStore = [[EKEventStore alloc] init];
     
+    for(InfoActivityClass *activity in array){
+        if([SoclivityUtilities ValidActivityDate:activity.when]){
+        
     EKEvent *event = [EKEvent eventWithEventStore:eventStore];
-    NSDate *date = [[NSDate alloc ]init];//today,s date
-    event.title = @"remainder";//title for your remainder
-    
-    event.startDate=date;//start time of your remainder
+    event.title = activity.activityName;//title for your remainder
+        
+        
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [dateFormatter setTimeZone:gmt];
+    event.startDate = [dateFormatter dateFromString:activity.when];
+            
+            
+            switch (activity.relationType) {
+                case 6:
+                {
+                    NSArray *hashCount=[activity.where_address componentsSeparatedByString:@"#"];
+                    NSLog(@"hashCount=%d",[hashCount count]);
+                    if([hashCount count]==1){
+                        event.location=[NSString stringWithFormat:@"%@,%@,%@",activity.where_address,activity.where_city,activity.where_state];
+                    }
+                    else{
+                        event.location=[NSString stringWithFormat:@"%@,%@,%@,%@",[hashCount objectAtIndex:0],[hashCount objectAtIndex:1],activity.where_city,activity.where_state];
+                    }
+
+                    
+                }
+                    break;
+                    
+                default:
+                {
+                   event.location=[NSString stringWithFormat:@"%@, %@",activity.where_city,activity.where_state];
+                }
+                    break;
+            }
+            
+            
+
+        
+    event.notes= activity.what;
     event.endDate = [[NSDate alloc] initWithTimeInterval:1800 sinceDate:event.startDate];//end time of your remainder
     
-    NSTimeInterval interval = (60 *60)* 3;
+    NSTimeInterval interval = -(60 *1)* 20;
     EKAlarm *alarm = [EKAlarm alarmWithRelativeOffset:interval]; //Create object of alarm
     
     [event addAlarm:alarm]; //Add alarm to your event
@@ -53,28 +101,9 @@
     if([eventStore saveEvent:event span:EKSpanThisEvent error:&err]){
         ical_event_id = event.eventIdentifier;
         NSLog(@"%@",ical_event_id);
-    }
-    
-}
-
-
--(void)sendEvent{
-    EKEventStore *eventStore = [[EKEventStore alloc] init];
-    
-    EKEvent *event  = [EKEvent eventWithEventStore:eventStore];
-    event.title     = @"EVENT Test TO Delete TITLE";
-    event.location  = @"Miami";
-    event.notes     = @"yaar please comes to my event";
-    event.URL=[NSURL URLWithString:@"htttp://www.google.com"];
-    event.startDate = [NSDate date];
-    event.endDate   = [[NSDate alloc] initWithTimeInterval:1600 sinceDate:event.startDate];
-    
-    
-    [event setCalendar:[eventStore defaultCalendarForNewEvents]];
-    NSError *err;
-    [eventStore saveEvent:event span:EKSpanThisEvent error:&err];
-    localIdentifier = [[NSString alloc] initWithFormat:@"%@", event.eventIdentifier];
-    NSLog(@"eventIdentifier=%@",localIdentifier);
+        }
+     }
+   }
 }
 
 -(void)deleteAnEvent:(NSString*)valueId{
@@ -83,6 +112,8 @@
     if (event2 != nil) {  
         NSError* error = nil;
         [store removeEvent:event2 span:EKSpanThisEvent error:&error];
-    } 
+    }
+    
+    
 }
 @end

@@ -16,7 +16,7 @@
 @protocol RegistrationDetailDelegate 
 
 -(void)RegistrationDetailInvocationDidFinish:(RegistrationDetailInvocation*)invocation 
-                                  withResult:(NSArray*)result andUpdateType:(BOOL)andUpdateType
+                                  withResult:(NSArray*)result andUpdateType:(NSInteger)andUpdateType
                                   withError:(NSError*)error;
 
 @end
@@ -25,9 +25,9 @@
 @interface RegistrationDetailInvocation : ProjectAsyncInvocation<ParseOperationDelegate>{
      NSOperationQueue*queue;
     BOOL isFacebookUser;
-    BOOL activityTypeUpdate;
+    NSInteger activityTypeUpdate;
 }
-@property (nonatomic,assign)BOOL activityTypeUpdate;
+@property (nonatomic,assign)NSInteger activityTypeUpdate;
 @property(nonatomic,retain) NSOperationQueue*queue;
 @property (nonatomic,assign)BOOL isFacebookUser;
 -(NSString*)returnActivityType;

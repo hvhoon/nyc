@@ -33,6 +33,7 @@
 @synthesize profileImageUrl;
 @synthesize channel;
 @synthesize badgeCount;
+@synthesize calendarSync;
 -(void)dealloc{
     [super dealloc];
     [birth_date release];
