@@ -328,8 +328,8 @@
         NSNumber *signOutTag=[NSNumber numberWithInt:9];
         [settingsViewControllerDictionary setObject:signOutTag forKey:kSlideViewControllerViewControllerTagKey];
         [settingsViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
+        [settingsViewControllerDictionary setObject:[UIImage imageNamed:@"S7_powerIcon.png"]  forKey:kSlideViewControllerViewControllerIconKey];
 
-        
         [sectionNine setObject:[NSArray arrayWithObject:settingsViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
         
         [datasource addObject:sectionNine];

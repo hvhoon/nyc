@@ -433,11 +433,13 @@
     switch ([tagNumber integerValue]) {
         case kSignOut:
             return cellHeightSignOut;
+        case kCalendarSync:
+            return cellHeightDefault+7;
         case kBlockedList:
             if([SoclivityUtilities deviceType] & iPhone5)
-                return 185.0f;
+                return 178.0f;
             else
-                return 97.0f;
+                return 90.0f;
         case kProfileView:
             return cellHeightLarge;
         default:
@@ -546,9 +548,9 @@
         {
             
             if([SoclivityUtilities deviceType] & iPhone5)
-                yCompLine=183;
+                yCompLine=176;
             else
-                yCompLine=95;
+                yCompLine=88;
             yTextLabel=15.0f;
             showLineOrSwitch=TRUE;
             yLeftImage=9.0f;
@@ -588,8 +590,8 @@
         {
             yCompLine=43;
             showLineOrSwitch=FALSE;
-            yLeftImage=16.0f;
-            yTextLabel=12.0f;
+            yLeftImage=8.0f;
+            yTextLabel=13.0f;
             
             UIImageView *signoutBarImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_signoutBar"]];
             signoutBarImage.frame=CGRectMake(0,0, 320, 40);
@@ -722,7 +724,7 @@
     switch (type) {
         case 1:
         {
-            HUD.labelText = @"Sycning...";
+            HUD.labelText = @"Syncing...";
             
         }
             break;
