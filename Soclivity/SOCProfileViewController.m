@@ -232,6 +232,7 @@
         
         
     }
+    // The user and you have no friends in common.  Do not show upcoming/completed activities or common friends
     else{
         profileUserNameLabel.frame=CGRectMake(70, 92, size.width, 16);
         
@@ -416,9 +417,9 @@
     eventLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     eventLabel.backgroundColor=[UIColor clearColor];
     if([SoclivityUtilities ValidActivityDate:playerObject.activityTime])
-        eventLabel.text=[NSString stringWithFormat:@"UPCOMING %@",[SoclivityUtilities upcomingTimeOfActivity:playerObject.activityTime]];
+        eventLabel.text=[NSString stringWithFormat:@"NEXT - %@",[SoclivityUtilities upcomingTimeOfActivity:playerObject.activityTime]];
     else{
-        eventLabel.text=[NSString stringWithFormat:@"LAST COMPLETED -%@",[SoclivityUtilities upcomingTimeOfActivity:playerObject.activityTime]];
+        eventLabel.text=[NSString stringWithFormat:@"LAST SEEN - %@",[SoclivityUtilities upcomingTimeOfActivity:playerObject.activityTime]];
     }
     [contactHeaderView addSubview:eventLabel];
     [eventLabel release];
@@ -1036,13 +1037,13 @@
 	if(mSetLoadMoreFooter){
         loadMoreFriendsLabel.text=[NSString stringWithFormat:@"Loading..."];
         friendSpinnerLoadMore = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        friendSpinnerLoadMore.frame = CGRectMake(30,25, 25, 25);
+        friendSpinnerLoadMore.frame = CGRectMake(30, 25, 25, 25);
         [friendSpinnerLoadMore startAnimating];
         [loadMoreFooterView addSubview:friendSpinnerLoadMore];
     }
     
 	if(mSetLoadNoMoreFriendsFooter)
-        loadMoreFriendsLabel.text=@"No More Friends";
+        loadMoreFriendsLabel.text=@"No More Common Friends";
 	
 	[loadMoreFooterView addSubview:loadMoreFriendsLabel];
     [commonFriendsTableView addSubview:loadMoreFooterView];

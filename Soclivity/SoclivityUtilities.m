@@ -1468,8 +1468,6 @@ if(timer%2==0){
     unsigned long year=months/12;
     if(year)
         year %=12;
-    
-
 
     BOOL checkTime=TRUE;
     NSMutableString * result = [[NSMutableString new] autorelease];
@@ -1490,94 +1488,107 @@ if(timer%2==0){
     int differenceInDays =
     [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:destinationDate]-
     [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:currentDateTime];
-    switch (differenceInDays) {
+    
+    // Check to see if the event was in the past or is in the future.
+    int sign = 0;
+    if(differenceInDays < 0) sign = -1;
+    
+    switch (sign) {
         case 0:
         {
                 NSLog(@"Today");
                 if(year && checkTime){
-                    [result appendFormat: @"IN %ld YEARS", year];
+                    if(year == 1)
+                        [result appendFormat: @"in %ld year", year];
+                    else
+                        [result appendFormat: @"in %ld years", year];
                     checkTime=FALSE;
                 }
                 
                 
                 if(months && checkTime){
-                    [result appendFormat: @"IN %ld MONTHS", months];
+                    if(months ==1)
+                        [result appendFormat: @"in %ld month", months];
+                    else
+                        [result appendFormat: @"in %ld months", months];
                     checkTime=FALSE;
                 }
                 
                 
                 if(days && checkTime){
-                    [result appendFormat: @"IN %ld DAYS", days];
+                    if(days==1)
+                        [result appendFormat: @"in %ld day", days];
+                    else
+                        [result appendFormat: @"in %ld days", days];
                     checkTime=FALSE;
                 }
                 
                 
                 if(hours && checkTime){
-                    [result appendFormat: @"IN %ld HOURS", hours];
+                    if(hours==1)
+                        [result appendFormat: @"in %ld hour", hours];
+                    else
+                        [result appendFormat: @"in %ld hours", hours];
                     checkTime=FALSE;
                 }
                 
                 if(minutes && checkTime){
-                    
-                    if(hours==0){
-                        [result appendFormat: @"IN %ld MINUTES", minutes];
-                    }
+                    if(minutes==1)
+                        [result appendFormat: @"in %ld minute", minutes];
                     else
-                        [result appendFormat: @"IN %ld MINUTES", minutes];
-                    
+                        [result appendFormat: @"in %ld minutes", minutes];
                     checkTime=FALSE;
-                    
                 }
-                
-                
-        
         }
             break;
-        case -1:
         default:
         {
             NSLog(@"Today");
             if(year && checkTime){
-                [result appendFormat: @"%ld YEARS AGO", year];
+                if(year==1)
+                    [result appendFormat: @"%ld year ago", year];
+                else
+                    [result appendFormat: @"%ld years ago", year];
                 checkTime=FALSE;
             }
 
             
             if(months && checkTime){
-                [result appendFormat: @"%ld MONTHS AGO", months];
+                if(months==1)
+                    [result appendFormat: @"%ld month ago", months];
+                else
+                    [result appendFormat: @"%ld months ago", months];
                 checkTime=FALSE;
             }
 
             
             if(days && checkTime){
-                [result appendFormat: @"%ld DAYS AGO", days];
+                if(days==1)
+                    [result appendFormat: @"%ld day ago", days];
+                else
+                    [result appendFormat: @"%ld days ago", days];
                 checkTime=FALSE;
             }
 
             
             if(hours && checkTime){
-                [result appendFormat: @"%ld HOURS AGO", hours];
+                if(hours==1)
+                    [result appendFormat: @"%ld hour ago", hours];
+                else
+                    [result appendFormat: @"%ld hours ago", hours];
                 checkTime=FALSE;
             }
             
             if(minutes && checkTime){
-                
-                if(hours==0){
-                    [result appendFormat: @"%ld MINUTES AGO", minutes];
-                }
+                if(minutes==1)
+                    [result appendFormat: @"%ld minute ago", minutes];
                 else
-                    [result appendFormat: @"%ld MINUTES AGO", minutes];
-                
+                    [result appendFormat: @"%ld minutes ago", minutes];
                 checkTime=FALSE;
-                
             }
-            
-            
         }
             break;
-        
     }
-    
     return result;
 }
 @end
