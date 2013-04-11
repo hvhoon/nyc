@@ -61,7 +61,9 @@
         
     play.organizerName=[ACTDict objectForKey:@"organizer"];
 
-    
+    NSNumber *dosOwner = [ACTDict objectForKey:@"dosRelation"];
+    play.DOS =[dosOwner intValue];
+
     DetailInfoActivityClass *quotation = [[[DetailInfoActivityClass alloc] init]autorelease];
     quotation.location = [NSString stringWithFormat:@"%@",play.where_address];
     play.goingCount=[NSString stringWithFormat:@"%d",play.DOS1+play.DOS2+play.DOS3];

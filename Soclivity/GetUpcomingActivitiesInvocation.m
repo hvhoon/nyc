@@ -32,6 +32,9 @@
 //    NSString*a= [NSString stringWithFormat:@"dev.soclivity.com/activitylist.json?pid=%d&p2id=%d&lat=\"\%@",player1Id,player2Id,test];
     
     NSString*a= [NSString stringWithFormat:@"dev.soclivity.com/activitylist.json?pid=%d&p2id=%d&lat=%f&lng=%f",player1Id,player2Id,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+    
+    //NSString*a= [NSString stringWithFormat:@"dev.soclivity.com/activitylist.json?pid=24&p2id=24&lat=%f&lng=%f",SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+
 
     
      [self get:a];

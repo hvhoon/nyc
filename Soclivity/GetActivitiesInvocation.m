@@ -29,7 +29,7 @@
 	NSArray* resultsd = [[[NSString alloc] initWithData:data 
                                                encoding:NSUTF8StringEncoding] JSONValue];
     
-    NSLog(@" resultsd;::%@", resultsd);
+    NSLog(@"resultsd=%@", resultsd);
     
     NSArray* response =[InfoActivityClass ActivitiesFromArray:resultsd];
     
