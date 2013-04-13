@@ -722,7 +722,7 @@
     switch (type) {
         case 1:
         {
-            HUD.labelText = @"Sycning...";
+            HUD.labelText = @"Syncing...";
             
         }
             break;
