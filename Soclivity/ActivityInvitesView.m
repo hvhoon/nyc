@@ -81,14 +81,12 @@ NSString * const kSearchTextKey = @"Search Text";
         
         searchSoclivityUsersButton=[UIButton buttonWithType:UIButtonTypeCustom];
         searchSoclivityUsersButton.frame=CGRectMake(28,250, 263, 38);
-        [searchSoclivityUsersButton setBackgroundImage:[UIImage imageNamed:@"S05.4_globalSearch.png"] forState:UIControlStateNormal];
-        [searchSoclivityUsersButton setBackgroundImage:[UIImage imageNamed:@"S05.4_globalSearch.png"] forState:UIControlStateHighlighted];
         [searchSoclivityUsersButton addTarget:self action:@selector(searchGlobalNetwork:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:searchSoclivityUsersButton];
         [searchSoclivityUsersButton setHidden:YES];
         
         searchingLabel=[[UILabel alloc]initWithFrame:CGRectMake(87,253, 230, 35)];
-        searchingLabel.text=@"Search all Soclivity users";
+        searchingLabel.text=@"Search across all Soclivity users...";
         searchingLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17.0];
         
         searchingLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -118,7 +116,7 @@ NSString * const kSearchTextKey = @"Search Text";
     
     [searchBarForInvites resignFirstResponder];
     searchingLabel.text=@"Searching....";
-    spinner.frame=CGRectMake(252, delta+75+8, 20, 20);
+    spinner.frame=CGRectMake(240, delta+75+4, 20, 20);
     [spinner setHidden:NO];
     [spinner startAnimating];
     [self setUserInteractionEnabled:NO];
@@ -708,7 +706,7 @@ NSString * const kSearchTextKey = @"Search Text";
     else{
 
         if([SoclivityUtilities deviceType] & iPhone5){
-            delta=[self.filteredListContent count]*50+27+88;
+            delta=[self.filteredListContent count]*50+27;
             activityTableRect=CGRectMake(0, 44, 320, [self.filteredListContent count]*50+27+88);
         }
         
@@ -719,10 +717,10 @@ NSString * const kSearchTextKey = @"Search Text";
 
     }
     
-        searchingLabel.text=@"Search all Soclivity users";
+        searchingLabel.text=@"Search across all Soclivity users...";
         searchSoclivityUsersButton.frame=CGRectMake(29,delta+75, 263.0f, 38.0f);
         searchSoclivityUsersButton.hidden=NO;
-        searchingLabel.frame=CGRectMake(29+20,delta+75+5, 230.0f, 25.0f);
+        searchingLabel.frame=CGRectMake(29,delta+75, 263.0f, 25.0f);
         searchingLabel.hidden=NO;
     
         inviteUserTableView.frame=activityTableRect;
