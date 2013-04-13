@@ -195,7 +195,8 @@
             [self.view addSubview:[self SetupHeaderView]];
         int delta=0;
         if(playerObject.DOS!=1){
-            delta=93;
+            [self.view addSubview:[self commonFriendsView:127]];
+             delta=93;
         }
         
         CGRect activityTableRect;
@@ -518,64 +519,70 @@
     [activityIndicator release];
         
         
-        UIView *sectionHeaderview=[[[UIView alloc]initWithFrame:CGRectMake(0,93,320,kSectionHeaderHeight)]autorelease];
-        sectionHeaderview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"pattern.png"]];
         
-        //second section don't draw the first line
-        
-        
-        UIButton *topDividerLineButton2 = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        topDividerLineButton2.frame = CGRectMake(0, 0, 320, 1);
-        [topDividerLineButton2 setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]]];
-        [sectionHeaderview addSubview:topDividerLineButton2];
-        
-        // Added the DOS image
-        UIImageView *DOSImageView=[[UIImageView alloc]initWithFrame:CGRectMake(12, 7.5, 19, 11)];
-        DOSImageView.image=[UIImage imageNamed:@"dos1.png"];
-        [sectionHeaderview addSubview:DOSImageView];
-        [DOSImageView release];
-        
-        // Add the count of common friends
-        CGRect commonFriendLabelRect=CGRectMake(38,7.5,19,12);
-        UILabel *commonCountLabel=[[UILabel alloc] initWithFrame:commonFriendLabelRect];
-        commonCountLabel.textAlignment=UITextAlignmentLeft;
-        
-        commonCountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
-        commonCountLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-        commonCountLabel.backgroundColor=[UIColor clearColor];
-        commonCountLabel.text=[NSString stringWithFormat:@"%d",[commonFriendsArray count]];
-        commonCountLabel.tag=567;
-        CGSize textSize = [[commonCountLabel text] sizeWithFont:[commonCountLabel font]];
-        CGFloat strikeWidth = textSize.width;
-        commonCountLabel.frame=CGRectMake(38, 7.5, strikeWidth, 12);
-        
-        [sectionHeaderview addSubview:commonCountLabel];
-        [commonCountLabel release];
-        
-        // Add the common friends text
-        CGRect DOSLabelRect=CGRectMake(strikeWidth+38,7.5,240,12);
-        UILabel *DOScountLabel=[[UILabel alloc] initWithFrame:DOSLabelRect];
-        DOScountLabel.textAlignment=UITextAlignmentLeft;
-        DOScountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
-        DOScountLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-        DOScountLabel.backgroundColor=[UIColor clearColor];
-        DOScountLabel.text=[NSString stringWithFormat:@" FRIENDS IN COMMON"];
-        
-        [sectionHeaderview addSubview:DOScountLabel];
-        [DOScountLabel release];
-        
-        
-        UIView *bottomDividerLineview2=[[[UIView alloc]initWithFrame:CGRectMake(0,kSectionHeaderHeight-1,320,1)]autorelease];
-        bottomDividerLineview2.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]];
-        [sectionHeaderview addSubview:bottomDividerLineview2];
-        
-        [contactHeaderView addSubview:sectionHeaderview];
-        
-    
+    [contactHeaderView addSubview:[self commonFriendsView:93]];
+
     
     
     return contactHeaderView;
     
+}
+
+-(UIView*)commonFriendsView:(int)height{
+    UIView *sectionHeaderview=[[[UIView alloc]initWithFrame:CGRectMake(0,height,320,kSectionHeaderHeight)]autorelease];
+    sectionHeaderview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"pattern.png"]];
+    
+    //second section don't draw the first line
+    
+    
+    UIButton *topDividerLineButton2 = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    topDividerLineButton2.frame = CGRectMake(0, 0, 320, 1);
+    [topDividerLineButton2 setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]]];
+    [sectionHeaderview addSubview:topDividerLineButton2];
+    
+    // Added the DOS image
+    UIImageView *DOSImageView=[[UIImageView alloc]initWithFrame:CGRectMake(12, 7.5, 19, 11)];
+    DOSImageView.image=[UIImage imageNamed:@"dos1.png"];
+    [sectionHeaderview addSubview:DOSImageView];
+    [DOSImageView release];
+    
+    // Add the count of common friends
+    CGRect commonFriendLabelRect=CGRectMake(38,7.5,19,12);
+    UILabel *commonCountLabel=[[UILabel alloc] initWithFrame:commonFriendLabelRect];
+    commonCountLabel.textAlignment=UITextAlignmentLeft;
+    
+    commonCountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
+    commonCountLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    commonCountLabel.backgroundColor=[UIColor clearColor];
+    commonCountLabel.text=[NSString stringWithFormat:@"%d",[commonFriendsArray count]];
+    commonCountLabel.tag=567;
+    CGSize textSize = [[commonCountLabel text] sizeWithFont:[commonCountLabel font]];
+    CGFloat strikeWidth = textSize.width;
+    commonCountLabel.frame=CGRectMake(38, 7.5, strikeWidth, 12);
+    
+    [sectionHeaderview addSubview:commonCountLabel];
+    [commonCountLabel release];
+    
+    // Add the common friends text
+    CGRect DOSLabelRect=CGRectMake(strikeWidth+38,7.5,240,12);
+    UILabel *DOScountLabel=[[UILabel alloc] initWithFrame:DOSLabelRect];
+    DOScountLabel.textAlignment=UITextAlignmentLeft;
+    DOScountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
+    DOScountLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    DOScountLabel.backgroundColor=[UIColor clearColor];
+    DOScountLabel.text=[NSString stringWithFormat:@" FRIENDS IN COMMON"];
+    
+    [sectionHeaderview addSubview:DOScountLabel];
+    [DOScountLabel release];
+    
+    
+    UIView *bottomDividerLineview2=[[[UIView alloc]initWithFrame:CGRectMake(0,kSectionHeaderHeight-1,320,1)]autorelease];
+    bottomDividerLineview2.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]];
+    [sectionHeaderview addSubview:bottomDividerLineview2];
+    
+    return sectionHeaderview;
+    
+
 }
 -(void)viewDetailActivity:(id)sender{
     
