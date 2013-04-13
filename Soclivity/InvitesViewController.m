@@ -430,7 +430,7 @@ if([SoclivityUtilities hasNetworkConnection]){
         case 16:
         {
             
-            if(inviteFriends && response){
+            if(response){
                 
                 HUD.labelText = @"Invited";
                 

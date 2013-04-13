@@ -83,7 +83,7 @@
             break;
     }
 }
-
+//{"activity_id":277,"player_id":26,"description":"test"}
 -(NSString*)body{
 	NSMutableDictionary* bodyD = [[[NSMutableDictionary alloc] init] autorelease];
     SoclivityManager *SOC=[SoclivityManager SharedInstance];

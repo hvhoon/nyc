@@ -402,10 +402,7 @@
                 
             {
                 SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
-                if([notIdObject.notificationType intValue]==8){
                     socProfileViewController.friendId=notIdObject.referredId;
-                }else
-                    socProfileViewController.friendId=notIdObject.referredId;//response.organizerId;
                 [[self navigationController] pushViewController:socProfileViewController animated:YES];
                 [socProfileViewController release];
 
