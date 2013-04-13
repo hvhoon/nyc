@@ -12,6 +12,7 @@
 #import "GetNotificationsInvocation.h"
 #import "PostActivityRequestInvocation.h"
 @class MainServiceManager;
+@class NotificationClass;
 @protocol NotificationsScreenViewDelegate <NSObject>
 
 @optional
@@ -32,7 +33,7 @@
     IBOutlet UIButton *btnnotify2;
 }
 @property (nonatomic,retain)id <NotificationsScreenViewDelegate>delegate;
-@property(copy, readwrite)NSString *notId;
+@property(nonatomic, retain)NotificationClass *notIdObject;
 @property (nonatomic,assign)BOOL isPushedFromStack;
 -(IBAction)profileSliderPressed:(id)sender;
 -(void)startAnimation:(int)tag;
