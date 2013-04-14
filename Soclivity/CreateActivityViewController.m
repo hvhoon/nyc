@@ -21,6 +21,7 @@
 #import "EditActivityEventInvocation.h"
 #import "SoclivitySqliteClass.h"
 #import "PostActivityRequestInvocation.h"
+#import "EventShareActivity.h"
 #define kActivityNameNot 10
 #define kDeleteActivityRequest 21
 #define kDeleteActivity 12
@@ -1005,6 +1006,8 @@
             SOC.localCacheUpdate=TRUE;
             [SoclivitySqliteClass deleteActivityRecords:activityObject.activityId];
             
+            EventShareActivity *deleteActivity=[[EventShareActivity alloc]init];
+            [deleteActivity deleteASingleEvent:activityObject.activityId];
             [delegate deleteActivityEventByOrganizer];
             
         }

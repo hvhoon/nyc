@@ -125,22 +125,6 @@
         [fileManager copyItemAtPath:bundle toPath: path error:&error]; //6
     }
     
-    
-    NSMutableDictionary *savedStock = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
-    
-    //load from savedStock example int value
-    
-    for(id object in savedStock){
-        NSLog(@"ActivityId=%@",[object objectForKey:@"EventIdentifier"]);
-        NSLog(@"ActivityId=%@",[object objectForKey:@"ActivityId"]);
-        
-    }
-    
-    
-    //NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
-    
-    
-    
     paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
     
     NSString *documentsPath = [paths objectAtIndex:0];
@@ -222,5 +206,65 @@
         NSLog(@"Some error");
     }
     
+}
+
+-(void)deleteASingleEvent:(NSInteger)activityId{
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+    NSString *documentsDirectory = [paths objectAtIndex:0]; //2
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Folder.plist"]; //3
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath: path]) //4
+    {
+        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"Folder" ofType:@"plist"]; //5
+        
+        [fileManager copyItemAtPath:bundle toPath: path error:&error]; //6
+    }
+    
+    paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    NSString *documentsPath = [paths objectAtIndex:0];
+    
+    NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"Folder.plist"];
+    
+    NSMutableArray *data = [NSMutableArray arrayWithContentsOfFile:plistPath];
+    
+    if (nil == data) {
+        data = [[NSMutableArray alloc] initWithCapacity:0];
+    }
+    else {
+        [data retain];
+    }
+
+    
+    if([data count]!=0){
+            EKEventStore* store = [[[EKEventStore alloc] init] autorelease];
+        int index=0;
+        BOOL found=FALSE;
+        for(id stock in data){
+            if([[stock objectForKey:@"ActivityId"]integerValue]==activityId){
+                
+                
+                    EKEvent* event2 = [store eventWithIdentifier:[stock objectForKey:@"EventIdentifier"]];
+                    if (event2 != nil) {
+                        NSError* error = nil;
+                        [store removeEvent:event2 span:EKSpanThisEvent error:&error];
+                    }
+                found=TRUE;
+                NSLog(@"found a match");
+                break;
+                }
+            index++;
+    }
+        if(found){
+            [data removeObjectAtIndex:index];
+            [data writeToFile:path atomically:YES];
+        }
+    }
+    else{
+        NSLog(@"Do'nt do Anything");
+    }
 }
 @end
