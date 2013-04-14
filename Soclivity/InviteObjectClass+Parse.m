@@ -151,7 +151,7 @@
         play.typeOfRelation= 2;
         play.profilePhotoUrl=[NSString stringWithFormat:@"https://graph.facebook.com/%ld/picture",[invId longValue]];
         play.status = [[obj objectForKey:@"invited"]boolValue];
-        
+        play.isOnFacebook=TRUE;
         [row setValue:[NSNumber numberWithInt:2] forKey:@"relation"];
         
         for(NSDictionary *dict in content) {
@@ -263,9 +263,9 @@
         play.typeOfRelation= 2;
         NSNumber * DOS = [obj objectForKey:@"dos"];
         play.DOS= [DOS intValue];
-        play.profilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[obj objectForKey:@"photo"]];
+        play.profilePhotoUrl=[NSString stringWithFormat:@"%@",[obj objectForKey:@"photo"]];
         play.status = [[obj objectForKey:@"invite"]boolValue];
-        
+        play.isOnFacebook=TRUE;
         
         [row setValue:[NSNumber numberWithInt:2] forKey:@"relation"];
         
