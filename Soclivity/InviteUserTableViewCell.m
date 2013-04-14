@@ -132,6 +132,7 @@ static UIFont *boldText = nil;
             break;
             
         case 3:
+        case 7:
         {
             
             CGSize  size = [userName sizeWithFont:firstTextFont];
@@ -160,6 +161,27 @@ static UIFont *boldText = nil;
             
         }
             break;
+            
+        case 8:
+        {
+            
+            CGSize  size = [userName sizeWithFont:firstTextFont];
+            NSLog(@"width=%f",size.width);
+            
+            CGRect DOSImageRect = CGRectMake(100+5+size.width, 17.5, 21, 12);
+            
+            
+            if(DOS==1){
+                [[UIImage imageNamed:@"dos1.png"] drawInRect:DOSImageRect];
+            }
+            else if(DOS==2){
+                [[UIImage imageNamed:@"dos2.png"] drawInRect:DOSImageRect];
+            }
+            
+            
+        }
+            break;
+
             
             
 

@@ -91,8 +91,8 @@
 
         play.userName = [obj objectForKey:@"name"];
         play.typeOfRelation= 1;
-        NSNumber * DOS = [obj objectForKey:@"dos"];
-        play.DOS= [DOS intValue];
+        //NSNumber * DOS = [obj objectForKey:@"dos"];
+        play.DOS= 1;
         play.profilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[obj objectForKey:@"photo"]];
         NSString * status = [obj objectForKey:@"going"];
         if([status isEqualToString:@"yes"]){
@@ -217,7 +217,7 @@
         play.inviteId=[invId intValue];
         
         play.userName = [obj objectForKey:@"name"];
-        play.typeOfRelation= 1;
+        play.typeOfRelation= 7;
         NSNumber * DOS = [obj objectForKey:@"dos"];
         play.DOS= [DOS intValue];
         play.profilePhotoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[obj objectForKey:@"photo"]];

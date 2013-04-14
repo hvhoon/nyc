@@ -51,7 +51,7 @@
 
         if(!inviteFriends){
             btnnotify.hidden=NO;
-     [self.view bringSubviewToFront:btnnotify];
+        [self.view bringSubviewToFront:btnnotify];
             [self UpdateBadgeNotification];
             
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
@@ -110,10 +110,10 @@
     
     CGRect activityRect;
             if([SoclivityUtilities deviceType] & iPhone5)
-    activityRect=CGRectMake(0, 44, 320, 377+88);
+    activityRect=CGRectMake(0, 44, 320, 396+88);
             
     else
-        activityRect=CGRectMake(0, 44, 320, 357);  //377
+        activityRect=CGRectMake(0, 44, 320, 396);  //377
         activityInvites=[[ActivityInvitesView alloc]initWithFrame:activityRect andInviteListArray:inviteArray isActivityUserList:YES];
     activityInvites.delegate=self;
     [self.view addSubview:activityInvites];
@@ -255,6 +255,8 @@
             activityInvites=[[ActivityInvitesView alloc]initWithFrame:activityRect andInviteListArray:responses isActivityUserList:NO];
             activityInvites.delegate=self;
             [self.view addSubview:activityInvites];
+            
+            [self.view bringSubviewToFront:btnnotify];
 
         }
             break;
@@ -383,7 +385,6 @@ if([SoclivityUtilities hasNetworkConnection]){
 
 -(void)searchSoclivityPlayers:(NSString*)searchText{
     if([SoclivityUtilities hasNetworkConnection]){
-        //[self startAnimation:1];
         
             if(inviteFriends)
         [devServer searchUsersByNameInvocation:[SOC.loggedInUser.idSoc intValue] searchText:searchText actId:activityId searchType:1 delegate:self];
@@ -411,7 +412,6 @@ if([SoclivityUtilities hasNetworkConnection]){
                          withResponse:(NSArray*)responses type:(NSInteger)type
                             withError:(NSError*)error{
 
-    //[HUD hide:YES];
         [activityInvites searchPlayersLoad:responses];
         
 
@@ -461,14 +461,10 @@ if([SoclivityUtilities hasNetworkConnection]){
 -(void)hideMBProgress{
     [HUD hide:YES];
     
-    if(inviteFriends){
-    
-    if(num_of_slots!=-1){
+    if(inviteFriends && num_of_slots!=-1){
     num_of_slots--;
     openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
-    }
-        
-    }
+     }
     [activityInvites activityInviteStatusUpdate];
 
 }

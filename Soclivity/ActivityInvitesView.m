@@ -417,6 +417,15 @@ NSString * const kSearchTextKey = @"Search Text";
     cell.userName=product.userName;
     cell.DOS=product.DOS;
     cell.cellIndexPath=indexPath;
+    if(searching){
+    if(slotBuffer && product.typeOfRelation){
+        product.typeOfRelation=7;
+    }
+    else{
+        product.typeOfRelation=8;
+    }
+        
+    }
     cell.typeOfRelation=product.typeOfRelation;
     
     // Only load cached images; defer new downloads until scrolling ends
@@ -668,17 +677,15 @@ NSString * const kSearchTextKey = @"Search Text";
         for (NSDictionary *dict in self.InviteEntriesArray)
         {
             NSMutableArray *oldEntries = [dict objectForKey:@"Elements"];
-            NSLog(@"oldEntries count=%d",[oldEntries count]);
             
             for(NSDictionary *dict2 in oldEntries){
                 
                 InviteObjectClass*product = [dict2 objectForKey:@"ActivityInvite"];
-                    NSLog(@"product Name=%@",product.userName);                
                 NSRange titleResultsRange = [product.userName rangeOfString:searchText options:NSCaseInsensitiveSearch];
                 
                 
                 if (titleResultsRange.length > 0){
-                    NSLog(@"product NaSelecetdme=%@",product.userName); 
+                    
                     [content addObject:product];
                     
                 }
@@ -832,7 +839,6 @@ NSString * const kSearchTextKey = @"Search Text";
 }
 
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
-    NSLog(@"searchBarTextDidEndEditing=%@",searchBar.text);
 }
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     
@@ -1020,7 +1026,6 @@ NSString * const kSearchTextKey = @"Search Text";
     
     UITouch *touch =[touches anyObject];
     CGPoint startPoint =[touch locationInView:self];
-    NSLog(@"Start Point_X=%f,Start Point_Y=%f",startPoint.x,startPoint.y);
         CGRect tapClearSearchRect =CGRectMake(260, 7, 57, 30);
         
         if(CGRectContainsPoint(tapClearSearchRect,startPoint)){
