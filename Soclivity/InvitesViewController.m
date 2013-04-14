@@ -106,14 +106,12 @@
     if(num_of_slots!=-1)
     openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
 
-
-    
     CGRect activityRect;
-            if([SoclivityUtilities deviceType] & iPhone5)
-    activityRect=CGRectMake(0, 44, 320, 396+88);
-            
-    else
-        activityRect=CGRectMake(0, 44, 320, 396);  //377
+        if([SoclivityUtilities deviceType] & iPhone5)
+             activityRect=CGRectMake(0, 44, 320, 377+88);
+        else
+             activityRect=CGRectMake(0, 44, 320, 357);  //377
+        
         activityInvites=[[ActivityInvitesView alloc]initWithFrame:activityRect andInviteListArray:inviteArray isActivityUserList:YES];
     activityInvites.delegate=self;
     [self.view addSubview:activityInvites];
@@ -255,7 +253,6 @@
             activityInvites=[[ActivityInvitesView alloc]initWithFrame:activityRect andInviteListArray:responses isActivityUserList:NO];
             activityInvites.delegate=self;
             [self.view addSubview:activityInvites];
-            
             [self.view bringSubviewToFront:btnnotify];
 
         }

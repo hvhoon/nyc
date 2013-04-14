@@ -375,7 +375,7 @@
         play.DOS= [DOS intValue];
         play.profilePhotoUrl=[NSString stringWithFormat:@"%@",[obj objectForKey:@"photo"]];
         play.status = [[obj objectForKey:@"invited"]boolValue];
-        
+        play.isOnFacebook=TRUE;
         
         [row setValue:[NSNumber numberWithInt:6] forKey:@"relation"];
         

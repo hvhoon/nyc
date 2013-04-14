@@ -417,16 +417,18 @@ NSString * const kSearchTextKey = @"Search Text";
     cell.userName=product.userName;
     cell.DOS=product.DOS;
     cell.cellIndexPath=indexPath;
+    cell.typeOfRelation=product.typeOfRelation;
+    
     if(searching){
-    if(slotBuffer && product.typeOfRelation){
-        product.typeOfRelation=7;
+        
+    if(slotBuffer && !product.isOnFacebook && (product.DOS==1 || product.DOS==2)){
+    cell.typeOfRelation=7;
     }
-    else{
-        product.typeOfRelation=8;
+    else if((product.DOS==1 || product.DOS==2)&& !product.isOnFacebook){
+    cell.typeOfRelation=8;
     }
         
     }
-    cell.typeOfRelation=product.typeOfRelation;
     
     // Only load cached images; defer new downloads until scrolling ends
     if (!product.profileImage)
