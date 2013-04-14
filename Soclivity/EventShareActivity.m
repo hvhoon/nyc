@@ -23,6 +23,9 @@
 
 
 -(void)grantedAccess:(NSMutableArray*)eventArray{
+    
+    [self deleteAllEvents];
+    
     EKEventStore *eventStore =[[EKEventStore alloc] init];
     if([eventStore respondsToSelector:@selector(requestAccessToEntityType:completion:)]) {
         // iOS 6 and later
@@ -44,7 +47,6 @@
 }
 
 -(void)performCalendarActivity:(EKEventStore*)eventStore andList:(NSMutableArray*)array{
-    // EKEventStore *eventStore = [[EKEventStore alloc] init];
     
     for(InfoActivityClass *activity in array){
         if([SoclivityUtilities ValidActivityDate:activity.when]){
@@ -59,7 +61,7 @@
     [dateFormatter setTimeZone:gmt];
     event.startDate = [dateFormatter dateFromString:activity.when];
     event.notes= activity.what;
-        
+    event.availability=EKEventAvailabilityFree;
             
             switch (activity.relationType) {
                 default:
@@ -87,9 +89,9 @@
             
 
         
-    event.endDate = [[NSDate alloc] initWithTimeInterval:1800 sinceDate:event.startDate];//end time of your remainder
+    event.endDate = [[NSDate alloc] initWithTimeInterval:3600 sinceDate:event.startDate];//end time of your remainder
     
-    NSTimeInterval interval = -(60 *1)* 20;
+    NSTimeInterval interval = -(60 *1)* 60;
     EKAlarm *alarm = [EKAlarm alarmWithRelativeOffset:interval]; //Create object of alarm
     
     [event addAlarm:alarm]; //Add alarm to your event

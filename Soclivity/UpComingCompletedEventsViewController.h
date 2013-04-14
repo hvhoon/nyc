@@ -13,7 +13,7 @@
 
 @class MainServiceManager;
 @class SoclivityManager;
-@protocol UpcomingCompletedEvnetsViewDelegate <NSObject>
+@protocol UpcomingCompletedEventsViewDelegate <NSObject>
 
 @optional
 - (void)showLeft:(id)sender;
@@ -21,7 +21,7 @@
 
 
 @interface UpComingCompletedEventsViewController : UIViewController<ActivityListViewDelegate,NotifyAnimationViewDelegate,MBProgressHUDDelegate>{
-    id <UpcomingCompletedEvnetsViewDelegate>delegate;
+    id <UpcomingCompletedEventsViewDelegate>delegate;
     IBOutlet UILabel *activititesLabel;
      UIButton *organizedButton;
      UIButton*invitedButton;
@@ -45,7 +45,7 @@
     NSInteger typeOfAct;
 
 }
-@property (nonatomic,retain)id <UpcomingCompletedEvnetsViewDelegate>delegate;
+@property (nonatomic,retain)id <UpcomingCompletedEventsViewDelegate>delegate;
 @property (nonatomic,retain) ActivityListView *activityListView;
 @property (nonatomic,assign)NSInteger player2Id;
 @property (nonatomic,assign) BOOL isNotLoggedInUser;

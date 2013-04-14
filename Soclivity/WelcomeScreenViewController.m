@@ -22,7 +22,8 @@
 #import "ProfileViewController.h"
 #import "RRAViewController.h"
 #import "GetPlayersClass.h"
-@interface WelcomeScreenViewController(Private)
+#import "GetUpcomingActivitiesInvocation.h"
+@interface WelcomeScreenViewController(Private)<GetUpcomingActivitiesInvocationDelegate>
 @end
 @implementation WelcomeScreenViewController
 
@@ -338,10 +339,21 @@
 
 -(void)pushToHomeViewController{
 
-    //EventShareActivity *eventShare=[[EventShareActivity alloc]init];
-    //[eventShare sendEvent];
-    
-   [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isLoggedIn"];
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    GetPlayersClass *player=SOC.loggedInUser;
+    devServer=[[MainServiceManager alloc]init];
+    if(player.calendarSync){
+        [devServer getUpcomingActivitiesForUserInvocation:[SOC.loggedInUser.idSoc intValue] player2:[SOC.loggedInUser.idSoc intValue] delegate:self];
+
+    }
+    else{
+
+        [self setupSlideDrawerUIController];
+    }
+}
+
+-(void)setupSlideDrawerUIController{
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isLoggedIn"];
     [spinner stopAnimating];
     [self.view setUserInteractionEnabled:YES];
     
@@ -370,7 +382,63 @@
 }
 
 
-#if 1
+-(void)UpcomingActivitiesInvocationDidFinish:(GetUpcomingActivitiesInvocation*)invocation
+                                withResponse:(NSArray*)responses
+                                   withError:(NSError*)error{
+    
+    
+    
+    if([responses count]>0){
+        NSMutableArray *activitiesArray=[[NSMutableArray alloc]init];
+        for(int i=0;i<[responses count];i++){
+            NSNumber *activityType=[[responses objectAtIndex:i] objectForKey:@"activityType"];
+            switch ([activityType intValue]) {
+                case 1:
+                {
+                    NSLog(@"The user has got Organizing Activities");
+                    
+                    [activitiesArray addObjectsFromArray:[[responses objectAtIndex:i] objectForKey:@"Elements"]];
+                    
+                }
+                    break;
+                    
+                case 2:
+                {
+                    NSLog(@"The user has got invitedToArray Activities");
+                    [activitiesArray addObjectsFromArray:[[responses objectAtIndex:i] objectForKey:@"Elements"]];
+                    
+                    
+                }
+                    break;
+                case 3:
+                {
+                    NSLog(@"The user has got compeletedArray Activities");
+                    
+                }
+                    break;
+                case 4:
+                {
+                    NSLog(@"The user has got goingToArray Activities");
+                    [activitiesArray addObjectsFromArray:[[responses objectAtIndex:i] objectForKey:@"Elements"]];
+                    
+                    
+                }
+                    break;
+            }
+            
+            
+        }
+        if([activitiesArray count]!=0){
+            EventShareActivity *eventShare=[[EventShareActivity alloc]init];
+            [eventShare grantedAccess:activitiesArray];
+            
+            // now Sync All Activities in the Calendar
+        }
+    }
+    
+            [self setupSlideDrawerUIController];
+}
+
 -(void)AlreadySignedUpButtonClicked{
      NSLog(@"AlreadySignedUpButtonClicked");
     LoginViewController *loginViewController=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
@@ -379,14 +447,6 @@
     [loginViewController release];
 
 }
-#else
--(void)AlreadySignedUpButtonClicked{
-    NSLog(@"AlreadySignedUpButtonClicked");
-    EventShareActivity *eventShare=[[EventShareActivity alloc]init];
-    [eventShare sendEvent];
-    //[eventShare deleteAnEvent:@"0311444F-3DCB-4019-8167-B701394C35BD:7A1655C3-CF17-45F6-BA4A-6DC6816AED00"];
-}
-#endif
 - (void)viewDidUnload
 {
     [super viewDidUnload];

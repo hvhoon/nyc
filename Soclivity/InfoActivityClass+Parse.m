@@ -33,6 +33,7 @@
     play.organizerId =[ownerId intValue];
     play.updated_at=[ACTDict objectForKey:@"updated_at"];
     play.when=[ACTDict objectForKey:@"when"];
+    play.what=[ACTDict objectForKey:@"what"];
     play.where_address=[ACTDict objectForKey:@"where_address"];
     play.where_lat=[ACTDict objectForKey:@"where_lat"];
     play.where_lng=[ACTDict objectForKey:@"where_lng"];

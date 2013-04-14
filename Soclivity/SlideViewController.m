@@ -40,7 +40,7 @@
 #define cellHeightLarge  65
 #define cellHeightSignOut 40
 
-@interface SlideViewController (private)<HomeScreenDelegate,ProfileScreenViewDelegate,NotificationsScreenViewDelegate,UpcomingCompletedEvnetsViewDelegate,InvitesViewDelegate,AboutViewDelegate,MBProgressHUDDelegate,RegistrationDetailDelegate,GetUpcomingActivitiesInvocationDelegate>
+@interface SlideViewController (private)<HomeScreenDelegate,ProfileScreenViewDelegate,NotificationsScreenViewDelegate,UpcomingCompletedEventsViewDelegate,InvitesViewDelegate,AboutViewDelegate,MBProgressHUDDelegate,RegistrationDetailDelegate,GetUpcomingActivitiesInvocationDelegate>
 @end
 
 @interface SlideViewNavigationBar : UINavigationBar {
