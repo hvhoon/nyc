@@ -70,10 +70,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chatInAppNotification:) name:@"ChatNotification" object:Nil];
     
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (getDeltaUpdateInbackground) name:@"ChatDeltaUpdate" object:nil];
-
-    
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (getDeltaUpdateInbackground) name:@"ChatDeltaUpdate" object:nil];
 
     [self.navigationController.navigationBar setHidden:YES];
 }
