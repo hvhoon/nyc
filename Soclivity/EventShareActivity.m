@@ -264,7 +264,68 @@
         }
     }
     else{
-        NSLog(@"Do'nt do Anything");
+        NSLog(@"Don't do Anything");
     }
+}
+
+-(void)deltaUpdateSyncCalendar:(InfoActivityClass*)activity{
+    [self deleteASingleEvent:activity.activityId];
+     EKEventStore *eventStore =[[EKEventStore alloc] init];
+      EKEvent *event = [EKEvent eventWithEventStore:eventStore];
+      event.title = activity.activityName;//title for your remainder
+        
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+        NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+        [dateFormatter setTimeZone:gmt];
+        event.startDate = [dateFormatter dateFromString:activity.when];
+        event.notes= activity.what;
+        event.availability=EKEventAvailabilityFree;
+        
+        switch (activity.relationType) {
+            default:
+            {
+                NSArray *hashCount=[activity.where_address componentsSeparatedByString:@"#"];
+                NSLog(@"hashCount=%d",[hashCount count]);
+                if([hashCount count]==1){
+                    event.location=[NSString stringWithFormat:@"%@,%@,%@",activity.where_address,activity.where_city,activity.where_state];
+                }
+                else{
+                    event.location=[NSString stringWithFormat:@"%@,%@,%@,%@",[hashCount objectAtIndex:0],[hashCount objectAtIndex:1],activity.where_city,activity.where_state];
+                }
+                
+                
+            }
+                break;
+                
+            case 4:
+            {
+                event.location=[NSString stringWithFormat:@"%@, %@",activity.where_city,activity.where_state];
+            }
+                break;
+        }
+        
+        
+        
+        
+        event.endDate = [[NSDate alloc] initWithTimeInterval:3600 sinceDate:event.startDate];//end time of your remainder
+        
+        NSTimeInterval interval = -(60 *1)* 60;
+        EKAlarm *alarm = [EKAlarm alarmWithRelativeOffset:interval]; //Create object of alarm
+        
+        [event addAlarm:alarm]; //Add alarm to your event
+        
+        [event setCalendar:[eventStore defaultCalendarForNewEvents]];
+        NSError *err;
+        NSString *ical_event_id;
+        //save your event
+        if([eventStore saveEvent:event span:EKSpanThisEvent error:&err]){
+            ical_event_id = event.eventIdentifier;
+            NSLog(@"%@",ical_event_id);
+            [self setupPlistReadAndWriting:ical_event_id activityid:activity.activityId];
+        }
+    
+    
 }
 @end

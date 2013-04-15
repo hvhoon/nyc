@@ -264,7 +264,7 @@
         NSNumber * DOS = [obj objectForKey:@"dos"];
         play.DOS= [DOS intValue];
         play.profilePhotoUrl=[NSString stringWithFormat:@"%@",[obj objectForKey:@"photo"]];
-        play.status = [[obj objectForKey:@"invite"]boolValue];
+        play.status = [[obj objectForKey:@"invited"]boolValue];
         play.isOnFacebook=TRUE;
         
         [row setValue:[NSNumber numberWithInt:2] forKey:@"relation"];

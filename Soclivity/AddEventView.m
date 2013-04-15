@@ -38,6 +38,8 @@
 #define kDetailLineMap 27
 #define kActivityAccessImageView 28
 #define kActivityPlotMapButton 29
+
+#define  FOURSQUARE 1
 @implementation AddEventView
 @synthesize activityObject,delegate,mapView,mapAnnotations,addressSearchBar,_geocodingResults,labelView,searching,editMode,firstALineddressLabel,secondLineAddressLabel,pinDrop,firstTime,activityInfoButton;
 
@@ -862,6 +864,12 @@ else {
             secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
             secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
             
+            phoneLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+            phoneLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+            ratingLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+            ratingLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+
+            
             
         }
             break;
@@ -899,7 +907,7 @@ else {
     CGRect clearTextRect=CGRectMake(580, 20, 57, 30);
     CGRect mapURlRect=CGRectMake(370, 10, 270, 60);
     
-    NSLog(@"Start Point_X=%f,Start Point_Y=%f",startPoint.x,startPoint.y);
+    //NSLog(@"Start Point_X=%f,Start Point_Y=%f",startPoint.x,startPoint.y);
     
     if((CGRectContainsPoint(profileImgView.frame,startPoint))||(CGRectContainsPoint(activityorganizerTextLabel.frame,startPoint))){
         [delegate pushUserProfileView];
@@ -1053,7 +1061,7 @@ else {
     }
 
     
-    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:firstLine address:secondLine coordinate:theCoordinate  firtsLine:@" " secondLine:@" " tagIndex:0 isDropped:NO]autorelease];
+    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:firstLine address:secondLine coordinate:theCoordinate  firtsLine:@" " secondLine:@" " tagIndex:0 isDropped:NO phone:@""]autorelease];
     [self.mapAnnotations insertObject:sfAnnotation atIndex:0];
     
     [self.mapView removeAnnotations:self.mapView.annotations];  // remove any annotations that exist
@@ -1291,6 +1299,27 @@ else {
             }
                 break;
                 
+            case 5:
+            {
+                firstALineddressLabel.text=[NSString stringWithFormat:@"%@",loc.infoActivity];
+                secondLineAddressLabel.hidden=YES;
+                
+                [self showFourSquareComponents:YES];
+                
+                if(loc.formattedPhNo!=nil && [loc.formattedPhNo class]!=[NSNull null]){
+                    phoneLabel.text=loc.formattedPhNo;
+                }
+                else{
+                    phoneLabel.text=@"Not Available";
+                }
+                
+                ratingLabel.text=@"Rating: N/A";
+                [delegate enableDisableTickOnTheTopRight:YES];
+                
+            }
+                break;
+
+                
 
         }
         
@@ -1326,6 +1355,31 @@ else {
     
 }
 
+-(void)showFourSquareComponents:(BOOL)show{
+    
+    if(show){
+        
+        firstALineddressLabel.frame=CGRectMake(24, 10, 228+30, 21);
+        phoneIconImageView.hidden=NO;
+        phoneLabel.hidden=NO;
+        ratingIconImageView.hidden=NO;
+        ratingLabel.hidden=NO;
+        activityInfoButton.hidden=NO;
+        leftPinImageView.hidden=YES;
+
+    }
+    else{
+        firstALineddressLabel.frame=CGRectMake(54, 10, 228, 21);
+        phoneIconImageView.hidden=YES;
+        phoneLabel.hidden=YES;
+        ratingIconImageView.hidden=YES;
+        ratingLabel.hidden=YES;
+        activityInfoButton.hidden=YES;
+        leftPinImageView.hidden=NO;
+
+    }
+}
+
 -(void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view{
     
     if ([view.annotation isKindOfClass:[MKUserLocation class]]){
@@ -1341,6 +1395,8 @@ else {
         pointTag=pointTag%777;
         
         firstALineddressLabel.text=@"Pick a Location";
+        secondLineAddressLabel.hidden=NO;
+         [self showFourSquareComponents:NO];
         secondLineAddressLabel.text=@"Select a pin above to see it's full address";
         [delegate enableDisableTickOnTheTopRight:NO];
         
@@ -1449,7 +1505,7 @@ else {
     searching=FALSE;
     pinDrop=TRUE;
 
-    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:@" " address:@" " coordinate:coord firtsLine:@" " secondLine:@" " tagIndex:7770 isDropped:YES]autorelease];
+    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:@" " address:@" " coordinate:coord firtsLine:@" " secondLine:@" " tagIndex:7770 isDropped:YES phone:@""]autorelease];
     
     [self.mapView addAnnotation:sfAnnotation];
 
@@ -1804,10 +1860,10 @@ else {
     NSDictionary* resultsd = [[[NSString alloc] initWithData:responseData
                                                     encoding:NSUTF8StringEncoding] JSONValue];
 
-     NSDictionary *dict = [resultsd objectForKey:@"results"];
+    
     
     if(selectionType==4){
-        
+         NSDictionary *dict = [resultsd objectForKey:@"results"];
         for(id object in dict){
             
     PlacemarkClass * placemark = [currentLocationArray objectAtIndex:pointTag];
@@ -1891,6 +1947,104 @@ else {
     searching=FALSE;
     
     [responseData release];
+    
+    
+#if FOURSQUARE
+    
+    
+        
+        NSDictionary *response=[resultsd objectForKey:@"response"];
+        NSArray*venues=[response objectForKey:@"venues"];
+        for(NSDictionary *pins in venues){
+            PlacemarkClass *placemark=[[[PlacemarkClass alloc]init]autorelease];
+            placemark.queryName=[pins objectForKey:@"name"];
+            if([[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"] class]!=[NSNull null]){
+                placemark.formattedPhNo=[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"];
+        }
+            
+            if([pins objectForKey:@"location"]!=nil && [[pins objectForKey:@"location"] class]!=[NSNull null]){
+                
+                placemark.latitude = [[[pins objectForKey:@"location"]objectForKey:@"lat"] floatValue];
+                placemark.longitude =[[[pins objectForKey:@"location"]objectForKey:@"lng"] floatValue];
+                placemark.whereZip=[[pins objectForKey:@"location"]objectForKey:@"postalCode"];
+                placemark.adminLevel2=[[pins objectForKey:@"location"]objectForKey:@"city"];
+                placemark.adminLevel1=[[pins objectForKey:@"location"]objectForKey:@"state"];
+
+                
+                if([[pins objectForKey:@"location"]objectForKey:@"address"]!=nil && [[[pins objectForKey:@"location"]objectForKey:@"address"] class]!=[NSNull null]){
+                    placemark.address=[[pins objectForKey:@"location"]objectForKey:@"address"];
+                    
+                    placemark.formattedAddress =[NSString stringWithFormat:@"%@",placemark.address];
+                    
+                    NSString *localString=nil;
+                    if(((placemark.adminLevel2==nil) || ([placemark.adminLevel2 isEqualToString:@""]))&&((placemark.adminLevel1==nil) || ([placemark.adminLevel1 isEqualToString:@""]))){
+                        
+                        localString=@"";
+                    }
+                    else if((placemark.adminLevel2==nil) || ([placemark.adminLevel2 isEqualToString:@""])){
+                        localString =[NSString stringWithFormat:@"%@",placemark.adminLevel1];
+                    }
+                    else if((placemark.adminLevel1==nil) || ([placemark.adminLevel1 isEqualToString:@""])){
+                        localString =[NSString stringWithFormat:@"%@",placemark.adminLevel2];
+                    }
+                    else{
+                        
+                        if([[placemark.adminLevel1 lowercaseString] isEqualToString:[placemark.adminLevel2 lowercaseString]]){
+                        localString =[NSString stringWithFormat:@"%@",placemark.adminLevel1];
+                        }
+                        else{
+                            localString =[NSString stringWithFormat:@"%@,%@",placemark.adminLevel1,placemark.adminLevel2];
+                            
+                        }
+                        
+                    }
+                    
+                    placemark.vicinityAddress=[NSString stringWithFormat:@"%@,%@",placemark.address,localString];
+                    
+                    [_geocodingResults addObject:placemark];
+
+                }
+
+                }
+
+            }
+
+        
+        if([_geocodingResults count]!=0){
+            searching=TRUE;
+           
+            [self addPinAnnotationForPlacemark:_geocodingResults droppedStatus:NO];
+            currentLocationArray =[NSMutableArray arrayWithCapacity:[_geocodingResults count]];
+            currentLocationArray=[_geocodingResults retain];
+            
+            //Zoom in all results.
+            
+            CLLocation* avgLoc = [self ZoomToAllResultPointsOnMap];
+            MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(avgLoc.coordinate.latitude, avgLoc.coordinate.longitude), [self maxDistanceBetweenAllResultPointsOnMap:avgLoc], [self maxDistanceBetweenAllResultPointsOnMap:avgLoc]);
+            adjustedRegion = [mapView regionThatFits:viewRegion];
+            [mapView setRegion:adjustedRegion animated:YES];
+            
+            [self setUpLabelViewElements:NO];
+            firstALineddressLabel.text=@"Pick a Location";
+            secondLineAddressLabel.text=@"Select a pin above to see it's full address";
+            
+            
+            
+        }
+        else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No results found "
+                                                            message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+            [alert show];
+            [alert release];
+            return;
+            
+            
+        
+    }
+    
+#else
+    
+ 
     
 
 if(selectionType==1){
@@ -2029,6 +2183,7 @@ if(selectionType==1){
     [locationResultsTableView reloadData];
 #endif
 
+#endif
 	
 	
 }
@@ -2094,11 +2249,25 @@ if(selectionType==1){
         CLLocationCoordinate2D theCoordinate;
         theCoordinate.latitude = placemark.latitude;
         theCoordinate.longitude =placemark.longitude;
+        
+        NSString *query=nil;
+        switch (selectionType) {
+            case 5:
+            {
+                query=placemark.queryName;
+            }
+                break;
+                
+            default:
+            {
+                query=formattedAddress;
+            }
+                break;
+        }
 
-
-#endif        
+#endif
         NSString*tryIndex=[NSString stringWithFormat:@"777%d",i];
-        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:formattedAddress address:zipAddress coordinate:theCoordinate firtsLine:@" " secondLine:@" " tagIndex:[tryIndex intValue] isDropped:droppedStatus]autorelease];
+        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:query address:zipAddress coordinate:theCoordinate firtsLine:@" " secondLine:@" " tagIndex:[tryIndex intValue] isDropped:droppedStatus phone:placemark.formattedPhNo]autorelease];
         
         [self.mapView addAnnotation:sfAnnotation];
         
@@ -2198,7 +2367,7 @@ if(selectionType==1){
     
     if([SoclivityUtilities deviceType] & iPhone5)
         mapView.frame=CGRectMake(320, 44, 320,360);//bug Fix
-else
+ else
     mapView.frame=CGRectMake(320, 44, 320,272);
 #if 0
 #if LISTVIEWREMOVE 
@@ -2307,6 +2476,14 @@ else
     [self.addressSearchBar resignFirstResponder];
     [searchBar setShowsCancelButton:YES animated:YES];
     
+    
+    
+#if FOURSQUARE
+    
+    [self getVenuesFromFourSquareApi];
+    
+#else
+    
     if([SoclivityUtilities hasLeadingNumberInString:self.addressSearchBar.text]){
         [self geocodeFromSearchBar:1];
         
@@ -2315,9 +2492,27 @@ else
         [self geocodeFromSearchBar:2];
         
     }
-
+#endif
+    
 }
 
+-(void)getVenuesFromFourSquareApi{
+    // in case of error use api key like
+    
+    responseData = [[NSMutableData data] retain];
+    NSString*urlString = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/search?client_id=5P1OVCFK0CCVCQ5GBBCWRFGUVNX5R4WGKHL2DGJGZ32FDFKT&client_secret=UPZJO0A0XL44IHCD1KQBMAYGCZ45Z03BORJZZJXELPWHPSAR&v=20130117&query=%@&locale=en&ll=%f,%f&radius=50000",addressSearchBar.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+        urlString= [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSLog(@"urlString=%@",urlString);
+    selectionType=5;
+    // Create NSURL string from formatted string
+	NSURL *url = [NSURL URLWithString:urlString];
+	
+	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
+	
+    [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+}
 -(void)customCancelButtonHit{
     
     

@@ -1035,7 +1035,7 @@
     loadMoreFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, loadMoreFooterHeight, 320, REFRESH_HEADER_HEIGHT)];
     loadMoreFooterView.backgroundColor = [UIColor whiteColor];
 	loadMoreFooterView.tag=TAG_COMMENT;
-    loadMoreFriendsLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 30, 120, 16)];
+    loadMoreFriendsLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 30, 180, 16)];
     
     loadMoreFriendsLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     loadMoreFriendsLabel.textColor=[SoclivityUtilities returnTextFontColor:5];

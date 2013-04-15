@@ -16,4 +16,5 @@
 -(void)grantedAccess:(NSMutableArray*)eventArray;
 -(void)performCalendarActivity:(EKEventStore*)eventStore andList:(NSMutableArray*)array;
 -(void)deleteASingleEvent:(NSInteger)activityId;
+-(void)deltaUpdateSyncCalendar:(InfoActivityClass*)activity;
 @end

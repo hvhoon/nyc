@@ -725,12 +725,17 @@
 }
 
 -(void)showDoneButton:(BOOL)show{
+    
+    if(footerActivated){
+    
     if(show){
         resignTextDoneButton.hidden=NO;
     }
     else{
         resignTextDoneButton.hidden=YES;
     }
+    }
+    
 }
 
 
@@ -750,16 +755,24 @@
 
 -(void)addAPost:(ActivityChatData*)responses{
     
+    
+    
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
 
-    
+    if([chatView.bubbleData count]==0)
+    {
+            [chatView updateChatScreen:[NSMutableArray arrayWithObject:responses]];
+    }
+    else{
     if([responses.description isEqualToString:@"IMG"]){
         
         [chatView postImagePressed:responses type:2];
     }
     else
         [chatView messageSentOrRecieved:responses type:2];
+        
+    }
 }
 
 

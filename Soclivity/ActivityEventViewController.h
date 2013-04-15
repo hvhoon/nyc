@@ -62,6 +62,8 @@
     MBProgressHUD *HUD;
     NSString *notId;
     
+
+    
     //chat
     
     IBOutlet UIButton *enterChatTextButton;

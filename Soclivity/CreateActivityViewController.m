@@ -1672,7 +1672,7 @@
         
     
         NSString*tryIndex=[NSString stringWithFormat:@"777%d",i];
-        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:formattedAddress address:zipAddress coordinate:theCoordinate firtsLine:@" " secondLine:@" " tagIndex:[tryIndex intValue] isDropped:droppedStatus]autorelease];
+        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:formattedAddress address:zipAddress coordinate:theCoordinate firtsLine:@" " secondLine:@" " tagIndex:[tryIndex intValue] isDropped:droppedStatus phone:placemark.formattedPhNo]autorelease];
         
         [self.mapView addAnnotation:sfAnnotation];
         
@@ -2464,7 +2464,7 @@
     searching=FALSE;
     pinDrop=TRUE;
     
-    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:@" " address:@" " coordinate:coord firtsLine:@" " secondLine:@" " tagIndex:7770 isDropped:YES]autorelease];
+    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:@" " address:@" " coordinate:coord firtsLine:@" " secondLine:@" " tagIndex:7770 isDropped:YES phone:@""]autorelease];
     
     [self.mapView addAnnotation:sfAnnotation];
     
@@ -2683,6 +2683,8 @@
     switch (requestType) {
         case kEditStep1Elements:
         {
+            EventShareActivity *editActivity=[[EventShareActivity alloc]init];
+            [editActivity deltaUpdateSyncCalendar:activityObject];
             [delegate updateDetailedActivityScreen:activityObject];
             
         }

@@ -580,6 +580,8 @@ NSString * const kSearchTextKey = @"Search Text";
         case 0:
         case 1:
         case 5:
+        case 7:
+        case 8:
         {
             [delegate PushUserToProfileScreen:product];
         }

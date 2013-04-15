@@ -80,6 +80,12 @@
     BOOL selectionType;
     int indexRE;
     int preSelectionIndex;
+    
+    IBOutlet UIImageView*phoneIconImageView;
+    IBOutlet UILabel*phoneLabel;
+    IBOutlet UIImageView*ratingIconImageView;
+    IBOutlet UILabel*ratingLabel;
+
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;
 @property (nonatomic,retain)id <AddEventViewDelegate>delegate;

@@ -13,14 +13,14 @@
 @synthesize latitude;
 @synthesize longitude;
 @synthesize businessAdress;
-
+@synthesize formattedPhNo;
 @synthesize infoActivity,annotTag,firstLineAddress,secondLineAddress,pinDrop;
 - (CLLocationCoordinate2D)coordinate;
 {
     return _coordinate; 
 }
 
-- (id)initWithName:(NSString*)name address:(NSString*)address coordinate:(CLLocationCoordinate2D)coordinate firtsLine:(NSString*)firtsLine secondLine: (NSString*)secondLine tagIndex:(NSInteger)tagIndex isDropped:(BOOL)isDropped{
+- (id)initWithName:(NSString*)name address:(NSString*)address coordinate:(CLLocationCoordinate2D)coordinate firtsLine:(NSString*)firtsLine secondLine: (NSString*)secondLine tagIndex:(NSInteger)tagIndex isDropped:(BOOL)isDropped phone:(NSString*)phone{
     if ((self = [super init])) {
 		
 		businessAdress = [name copy];
@@ -30,6 +30,7 @@
         firstLineAddress=[firtsLine copy];
         secondLineAddress=[secondLine copy];
         pinDrop=isDropped;
+        formattedPhNo=[phone retain];
         
     }
     return self;

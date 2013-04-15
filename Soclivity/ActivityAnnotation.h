@@ -19,6 +19,7 @@
     NSString *firstLineAddress;
     NSString *secondLineAddress;
     BOOL pinDrop;
+    NSString*formattedPhNo;
 }
 @property (nonatomic, retain) UIImage *image;
 @property (nonatomic, retain) NSNumber *latitude;
@@ -29,5 +30,6 @@
 @property   (nonatomic, retain) NSString *infoActivity;
 @property (nonatomic,assign)NSInteger annotTag;
 @property (nonatomic,assign)BOOL pinDrop;
-- (id)initWithName:(NSString*)name address:(NSString*)address coordinate:(CLLocationCoordinate2D)coordinate firtsLine:(NSString*)firtsLine secondLine: (NSString*)secondLine tagIndex:(NSInteger)tagIndex isDropped:(BOOL)isDropped;
+@property(nonatomic,retain)NSString*formattedPhNo;
+- (id)initWithName:(NSString*)name address:(NSString*)address coordinate:(CLLocationCoordinate2D)coordinate firtsLine:(NSString*)firtsLine secondLine: (NSString*)secondLine tagIndex:(NSInteger)tagIndex isDropped:(BOOL)isDropped phone:(NSString*)phone;
 @end

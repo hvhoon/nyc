@@ -168,6 +168,8 @@
     [HUD hide:YES];
     
     [self BadgeNotification];
+    
+    // sync your calendar too
     [notificationView toReloadTableWithNotifications:[NSMutableArray arrayWithArray:responses]];
     
     SoclivityManager *SOC=[SoclivityManager SharedInstance];

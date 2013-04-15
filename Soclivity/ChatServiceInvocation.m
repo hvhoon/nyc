@@ -174,10 +174,6 @@
                                                             encoding:NSUTF8StringEncoding] JSONValue];
             
             NSArray *response=[ActivityChatData PlayersDeltaPertainingToActivity:resultsd];
-            [self.delegate chatPostToDidFinish:self withResponse:response withError:Nil];
-
-            
-            
             [self.delegate deltaPostInBackground:response];
             
         }
