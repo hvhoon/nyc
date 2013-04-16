@@ -635,6 +635,7 @@ NSString * const kSearchTextKey = @"Search Text";
     switch (relationType) {
         case 0:
         case 1:
+        case 7:
         {
             [delegate inviteSoclivityUser:product.inviteId];
         }

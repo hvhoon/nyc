@@ -936,9 +936,9 @@ else {
             if (view.tag==1111)
             {
                 view.alpha=0;
-            }//END if (view.tag==1111)
+            }
         }
-    }//END for (UIView *view in prevController.view.subviews)
+    }
     
     if((activityObject.activityRelationType==6)||(activityObject.activityRelationType==5)){
             [self ActivityEventOnMap];
@@ -1279,7 +1279,7 @@ else {
         
         NSLog(@"pointTag=%d",pointTag);
         switch (preSelectionIndex) {
-            case 1:
+            
             case 4:
             {
                 firstALineddressLabel.text=loc.businessAdress;
@@ -1318,7 +1318,27 @@ else {
                 
             }
                 break;
+                
+                case 1:
+                
+            {
+                firstALineddressLabel.text=[NSString stringWithFormat:@"%@",loc.infoActivity];
+                secondLineAddressLabel.hidden=YES;
+                
+                [self showFourSquareComponents:YES];
+                
+                if(loc.formattedPhNo!=nil && [loc.formattedPhNo class]!=[NSNull null]){
+                    phoneLabel.text=loc.formattedPhNo;
+                }
+                else{
+                    phoneLabel.text=@"Not Available";
+                }
+                
+                ratingLabel.text=@"Rating: N/A";
+                [delegate enableDisableTickOnTheTopRight:YES];
 
+            }
+                break;
                 
 
         }
@@ -1951,8 +1971,106 @@ else {
     
 #if FOURSQUARE
     
-    
+    if(selectionType==1){
+         NSDictionary *dict = [resultsd objectForKey:@"results"];
+        indexRE=1;
+        for(id object in dict){
+            PlacemarkClass *placemark=[[[PlacemarkClass alloc]init]autorelease];
+            
+            NSArray *addressComponents=[object objectForKey:@"address_components"];
+            for(id comp in addressComponents){
+                
+                NSArray *geometryDict = [comp objectForKey:@"types"];
+                for(NSString *type in geometryDict){
+                    if([type isEqualToString:@"street_number"]){
+                        placemark.streetNumber=[comp valueForKey:@"long_name"];
+                        NSLog(@"street_number=%@",[comp valueForKey:@"long_name"]);
+                    }
+                    
+                    if([type isEqualToString:@"route"]){
+                        placemark.route=[comp valueForKey:@"long_name"];
+                        NSLog(@"route=%@",[comp valueForKey:@"long_name"]);
+                    }
+                    
+                    if([type isEqualToString:@"administrative_area_level_2"]){
+                        NSLog(@"administrative_area_level_2=%@",[comp valueForKey:@"long_name"]);
+                        placemark.adminLevel2=[comp valueForKey:@"long_name"];
+                    }
+                    
+                    if([type isEqualToString:@"administrative_area_level_1"]){
+                        
+                        placemark.adminLevel1=[comp valueForKey:@"short_name"];                        NSLog(@"administrative_area_level_1=%@",[comp valueForKey:@"short_name"]);
+                    }
+                    
+                    if([type isEqualToString:@"postal_code"]){
+                        
+                        placemark.whereZip=[comp valueForKey:@"long_name"];                        NSLog(@"postal_code=%@",[comp valueForKey:@"long_name"]);
+                    }
+                    
+                    
+                    
+                }
+                
+            }
+            NSDictionary *geometryLocDict = [object objectForKey:@"geometry"];
+            placemark.latitude = [[[geometryLocDict objectForKey:@"location"] objectForKey:@"lat"] floatValue];
+            placemark.longitude = [[[geometryLocDict objectForKey:@"location"] objectForKey:@"lng"] floatValue];
+            
+            
+            if(((placemark.streetNumber==nil) || ([placemark.streetNumber isEqualToString:@""]))&&((placemark.route==nil) || ([placemark.route isEqualToString:@""]))){
+                NSString *commaSeperated=[object objectForKey:@"formatted_address"];
+                NSArray *results=[commaSeperated componentsSeparatedByString:@","];
+                if([results count]>0){
+                    placemark.formattedAddress=[results objectAtIndex:0];
+                }
+            }
+            else{
+                
+                NSString *localString=nil;
+                if((placemark.route==nil) || ([placemark.route isEqualToString:@""])){
+                    localString =[NSString stringWithFormat:@"%@",placemark.streetNumber];
+                }
+                else if((placemark.streetNumber==nil) || ([placemark.streetNumber isEqualToString:@""])){
+                    localString =[NSString stringWithFormat:@"%@",placemark.route];
+                }
+
+                if([[placemark.streetNumber lowercaseString] isEqualToString:[placemark.route lowercaseString]]){
+                    localString =[NSString stringWithFormat:@"%@",placemark.streetNumber];
+                }
+                else{
+                    placemark.formattedAddress =[NSString stringWithFormat:@"%@ %@",placemark.streetNumber,placemark.route];
+                    
+                }
+
+            }
+            
+           if(((placemark.adminLevel1==nil) || ([placemark.adminLevel1 isEqualToString:@""]))&&((placemark.adminLevel2==nil) || ([placemark.adminLevel2 isEqualToString:@""]))){
+                
+                placemark.vicinityAddress =@"";
+            }
+            else if((placemark.adminLevel2==nil) || ([placemark.adminLevel2 isEqualToString:@""])){
+                placemark.vicinityAddress  =[NSString stringWithFormat:@"%@",placemark.adminLevel1];
+            }
+            else if((placemark.adminLevel1==nil) || ([placemark.adminLevel1 isEqualToString:@""])){
+                placemark.vicinityAddress  =[NSString stringWithFormat:@"%@",placemark.adminLevel2];
+            }
+            
+            
+            if([[placemark.adminLevel1 lowercaseString] isEqualToString:[placemark.adminLevel2 lowercaseString]]){
+                placemark.vicinityAddress =[NSString stringWithFormat:@"%@",placemark.adminLevel1];
+            }
+            else{
+                placemark.vicinityAddress =[NSString stringWithFormat:@"%@, %@",placemark.adminLevel2,placemark.adminLevel1];
+                
+            }
+            [_geocodingResults addObject:placemark];
+            
+        }
         
+    }
+    
+    else if(selectionType==5){
+        indexRE=5;
         NSDictionary *response=[resultsd objectForKey:@"response"];
         NSArray*venues=[response objectForKey:@"venues"];
         for(NSDictionary *pins in venues){
@@ -1993,7 +2111,7 @@ else {
                         localString =[NSString stringWithFormat:@"%@",placemark.adminLevel1];
                         }
                         else{
-                            localString =[NSString stringWithFormat:@"%@,%@",placemark.adminLevel1,placemark.adminLevel2];
+                            localString =[NSString stringWithFormat:@"%@,%@",placemark.adminLevel2,placemark.adminLevel1];
                             
                         }
                         
@@ -2009,7 +2127,7 @@ else {
 
             }
 
-        
+    }
         if([_geocodingResults count]!=0){
             searching=TRUE;
            
@@ -2032,15 +2150,19 @@ else {
             
         }
         else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No results found "
-                                                            message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-            [alert show];
-            [alert release];
-            return;
-            
-            
-        
-    }
+            //firstTime
+            if(indexRE==1)
+                [self getVenuesFromFourSquareApi];
+            else if(indexRE==5){
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Results Found "
+                                                                message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+                [alert show];
+                [alert release];
+                return;
+                
+            }
+        }
     
 #else
     
@@ -2245,7 +2367,7 @@ if(selectionType==1){
 #else
      PlacemarkClass * placemark = [placemarks objectAtIndex:i];
         NSString * formattedAddress = [NSString stringWithFormat:@"%@",placemark.formattedAddress];
-        NSString * zipAddress=[NSString stringWithFormat:@"%@",placemark.vicinityAddress];
+        NSString * vicinityAddress=[NSString stringWithFormat:@"%@",placemark.vicinityAddress];
         CLLocationCoordinate2D theCoordinate;
         theCoordinate.latitude = placemark.latitude;
         theCoordinate.longitude =placemark.longitude;
@@ -2267,7 +2389,7 @@ if(selectionType==1){
 
 #endif
         NSString*tryIndex=[NSString stringWithFormat:@"777%d",i];
-        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:query address:zipAddress coordinate:theCoordinate firtsLine:@" " secondLine:@" " tagIndex:[tryIndex intValue] isDropped:droppedStatus phone:placemark.formattedPhNo]autorelease];
+        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:query address:vicinityAddress coordinate:theCoordinate firtsLine:@" " secondLine:@" " tagIndex:[tryIndex intValue] isDropped:droppedStatus phone:placemark.formattedPhNo]autorelease];
         
         [self.mapView addAnnotation:sfAnnotation];
         
@@ -2480,6 +2602,12 @@ if(selectionType==1){
     
 #if FOURSQUARE
     
+    
+    if([SoclivityUtilities hasLeadingNumberInString:self.addressSearchBar.text]){
+        [self geocodeFromSearchBar:1];
+        
+    }
+ else
     [self getVenuesFromFourSquareApi];
     
 #else

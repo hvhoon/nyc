@@ -72,6 +72,9 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (getDeltaUpdateInbackground) name:@"ChatDeltaUpdate" object:nil];
 
+    
+
+
     [self.navigationController.navigationBar setHidden:YES];
 }
 
@@ -113,6 +116,9 @@
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [dateFormatter setTimeZone:gmt];
+
     NSString  *currentTime=[dateFormatter stringFromDate:[NSDate date]];
     
     [[NSUserDefaults standardUserDefaults] setValue:currentTime forKey:@"ChatTimeStamp"];
@@ -1728,6 +1734,9 @@
         [self startAnimation:kChatPostRequest];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+        NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+        [dateFormatter setTimeZone:gmt];
+
         NSString  *currentTime=[dateFormatter stringFromDate:[NSDate date]];
 
         [[NSUserDefaults standardUserDefaults] setValue:currentTime forKey:@"ChatTimeStamp"];
@@ -1786,7 +1795,8 @@
     if([SoclivityUtilities hasNetworkConnection]){
         
         [self startAnimation:kChatPostMessageRequest];
-        NSData *imageData=UIImageJPEGRepresentation(image, 1.0f);
+        NSData *imageData=UIImagePNGRepresentation(image);
+        NSLog(@"Bytes of the image=%d",[imageData length]);
         
         [devServer chatPostsOnActivity:activityInfo.activityId chatId:[SOC.loggedInUser.idSoc intValue] delegate:self message:nil chatRequest:3 imageToPost:imageData];
     }
@@ -1808,7 +1818,7 @@
 -(void)postDidFailed:(NSError*)error{
     
     [HUD hide:YES];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Something Went Wrong" message:nil
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Something went wrong" message:nil
                                                    delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     
     [alert show];
