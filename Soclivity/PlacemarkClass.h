@@ -28,6 +28,7 @@
     BOOL moreInfoAvailable;
     NSString *category;
     NSString *ratingValue;
+    NSString*foursquareId;
 }
 @property (nonatomic,retain) NSString *streetNumber;
 @property (nonatomic,retain)NSString *adminLevel1;
@@ -46,4 +47,5 @@
 @property (nonatomic,retain)NSString *category;
 @property(nonatomic,assign) BOOL moreInfoAvailable;
 @property (nonatomic,retain)NSString *ratingValue;
+@property (nonatomic,retain)NSString*foursquareId;
 @end

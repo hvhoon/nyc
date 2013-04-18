@@ -1050,10 +1050,20 @@ else {
         currentPlacemark.addType=3;
     }
     else if([hashCount count]==1){
-        currentPlacemark.addType=1;
+        
+        currentPlacemark.moreInfoAvailable=NO;
+        if([[hashCount objectAtIndex:0]isEqualToString:@"Address"]){
+            currentPlacemark.addType=1;
+            
+        }
+        else{
+            currentPlacemark.addType=2;
+
+        }
     }
     else{
         currentPlacemark.addType=2;
+        currentPlacemark.moreInfoAvailable=YES;
     }
     
     NSArray *hashCount2=[activityObject.where_address componentsSeparatedByString:@"#"];
@@ -1224,7 +1234,7 @@ else {
                 disclosureButton.frame = CGRectMake(0.0, 0.0, 29.0, 30.0);
                 [disclosureButton setImage:[UIImage imageNamed:@"S02.1_rightarrow.png"] forState:UIControlStateNormal];
                 disclosureButton.tag=location.annotTag;
-                [disclosureButton addTarget:self action:@selector(pushTodetailActivity:) forControlEvents:UIControlEventTouchUpInside];
+                //[disclosureButton addTarget:self action:@selector(pushTodetailActivity:) forControlEvents:UIControlEventTouchUpInside];
                 [rightView addSubview:disclosureButton];
                 
                 
@@ -1337,8 +1347,9 @@ else {
 
     switch (locObject.annotation.addType) {
         case 1:
+        case 2:
         {
-            CGRect categoryLabelRect=CGRectMake(8,18,size.width,12);
+            CGRect categoryLabelRect=CGRectMake(5,18,size.width,12);
             UILabel *categoryTextLabel=[[UILabel alloc] initWithFrame:categoryLabelRect];
             categoryTextLabel.textAlignment=UITextAlignmentLeft;
             categoryTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
@@ -1361,7 +1372,7 @@ else {
 	
     CGRect nameLabelRect=CGRectMake(5,0,size.width,14);
 	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
-	nameLabel.textAlignment=UITextAlignmentCenter;
+	nameLabel.textAlignment=UITextAlignmentLeft;
 	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:13];
 	nameLabel.textColor=[UIColor whiteColor];
 	nameLabel.backgroundColor=[UIColor clearColor];
@@ -1374,6 +1385,26 @@ else {
 	return mapLeftView;
 	
 	
+}
+
+-(void)getFourSquareRating:(PlacemarkClass*)pin{
+    
+    
+    selectionType=6;
+    responseData = [[NSMutableData data] retain];
+    NSString*urlString = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@?client_id=5P1OVCFK0CCVCQ5GBBCWRFGUVNX5R4WGKHL2DGJGZ32FDFKT&client_secret=UPZJO0A0XL44IHCD1KQBMAYGCZ45Z03BORJZZJXELPWHPSAR&v=20130117",pin.foursquareId];
+    
+    urlString= [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"urlstring=%@",urlString);
+    
+    // Create NSURL string from formatted string
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
+    
+    [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    
 }
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
@@ -1426,7 +1457,11 @@ else {
                 }
                 
                 ratingLabel.text=loc.annotation.ratingValue;
-                [delegate enableDisableTickOnTheTopRight:YES];
+
+                [self getFourSquareRating:loc.annotation];
+                
+                // dont enable yet
+                //[delegate enableDisableTickOnTheTopRight:YES];
                 
             }
                 break;
@@ -1999,6 +2034,27 @@ else {
 
     
     
+    if(selectionType==6){
+        NSDictionary *response=[resultsd objectForKey:@"response"];
+        NSDictionary*pins=[response objectForKey:@"venue"];
+        PlacemarkClass * placemark = [currentLocationArray objectAtIndex:pointTag];
+        placemark.addType=2;
+            
+            if([pins objectForKey:@"rating"]!=nil && [[pins objectForKey:@"rating"] class]!=[NSNull null]){
+                placemark.ratingValue=ratingLabel.text=[NSString stringWithFormat:@"Rating: %@",[[pins objectForKey:@"rating"]stringValue]];
+
+            }
+            else{
+                placemark.ratingValue=ratingLabel.text=[NSString stringWithFormat:@"Rating: N/A"];
+            }
+
+      
+    
+        [delegate enableDisableTickOnTheTopRight:YES];
+        
+        return;
+    }
+    
     if(selectionType==4){
          NSDictionary *dict = [resultsd objectForKey:@"results"];
         for(id object in dict){
@@ -2198,11 +2254,26 @@ else {
         NSArray*venues=[response objectForKey:@"venues"];
         for(NSDictionary *pins in venues){
             PlacemarkClass *placemark=[[[PlacemarkClass alloc]init]autorelease];
+            placemark.addType=2;
             placemark.queryName=[pins objectForKey:@"name"];
+            placemark.foursquareId=[pins objectForKey:@"id"];
             if([[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"] class]!=[NSNull null]){
                 placemark.formattedPhNo=[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"];
         }
             
+            
+            if([pins objectForKey:@"url"]!=nil && [[pins objectForKey:@"url"] class]!=[NSNull null]){
+                placemark.moreInfoAvailable=YES;
+                placemark.fsqrUrl=[pins objectForKey:@"url"];
+            }
+            
+            if([pins objectForKey:@"categories"]!=nil && [[pins objectForKey:@"categories"] class]!=[NSNull null]){
+                NSArray *category=[pins objectForKey:@"categories"];
+                for(NSDictionary *text in category)
+                    placemark.category=[text objectForKey:@"name"];
+            }
+
+
             if([pins objectForKey:@"location"]!=nil && [[pins objectForKey:@"location"] class]!=[NSNull null]){
                 
                 placemark.latitude = [[[pins objectForKey:@"location"]objectForKey:@"lat"] floatValue];
@@ -2215,7 +2286,7 @@ else {
                 if([[pins objectForKey:@"location"]objectForKey:@"address"]!=nil && [[[pins objectForKey:@"location"]objectForKey:@"address"] class]!=[NSNull null]){
                     placemark.address=[[pins objectForKey:@"location"]objectForKey:@"address"];
                     
-                    placemark.formattedAddress =[NSString stringWithFormat:@"%@",placemark.address];
+                    placemark.formattedAddress =[NSString stringWithFormat:@"%@",placemark.queryName];
                     
                     NSString *localString=nil;
                     if(((placemark.adminLevel2==nil) || ([placemark.adminLevel2 isEqualToString:@""]))&&((placemark.adminLevel1==nil) || ([placemark.adminLevel1 isEqualToString:@""]))){
