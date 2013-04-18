@@ -71,11 +71,10 @@
 	NSDictionary* resultsd = [[[NSString alloc] initWithData:data
                                                     encoding:NSUTF8StringEncoding] JSONValue];
     
-    NSLog(@"resultsd::%@",resultsd);
+    NSLog(@"resultsd=%@",resultsd);
     
     InfoActivityClass* response =[InfoActivityClass DetailInfoParse:resultsd];
     
-     //NSLog(@"response::%@",response);
     
 	[self.delegate PostNewActivityRequestInvocationDidFinish:self withResponse:response withError:Nil];
 	return YES;

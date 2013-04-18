@@ -1150,7 +1150,14 @@
     
 
         if(responses!=nil){
+            //kanav add a new calendar event
+            EventShareActivity *editActivity=[[EventShareActivity alloc]init];
+            [editActivity deltaUpdateSyncCalendar:responses];
+
             [delegate pushToNewActivity:responses];
+            
+            
+
             
         }
         else{
