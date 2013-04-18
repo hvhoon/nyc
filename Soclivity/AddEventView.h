@@ -85,9 +85,11 @@
     IBOutlet UILabel*phoneLabel;
     IBOutlet UIImageView*ratingIconImageView;
     IBOutlet UILabel*ratingLabel;
+    PlacemarkClass *currentPlacemark;
 
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;
+@property (nonatomic,retain)PlacemarkClass *currentPlacemark;
 @property (nonatomic,retain)id <AddEventViewDelegate>delegate;
 @property (nonatomic,retain)IBOutlet MKMapView *mapView;
 @property (nonatomic, retain) NSMutableArray *mapAnnotations;
@@ -119,7 +121,7 @@
 -(CLLocation*)ZoomToAllResultPointsOnMap;
 -(CGFloat) maxDistanceBetweenAllResultPointsOnMap:(CLLocation*)avgLocation;
 -(void)setNewLocation;
--(void)CurrentMapZoomUpdate;
+-(void)CurrentMapZoomUpdate:(PlacemarkClass*)mapAnnot;
 -(void)cancelClicked;
 -(void)openMapUrlApplication;
 - (void) reverseGeocodeCoordinate:(CLLocationCoordinate2D)coord;

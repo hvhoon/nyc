@@ -157,6 +157,10 @@
     
 }
 
+- (CGFloat) firstRowHeight{
+    return [self tableView:self heightForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+}
+
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     int delta=0;

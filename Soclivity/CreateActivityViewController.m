@@ -1664,15 +1664,10 @@
     for(int i=0;i<[placemarks count];i++){
         
         PlacemarkClass * placemark = [placemarks objectAtIndex:i];
-        NSString * formattedAddress = [NSString stringWithFormat:@"%@",placemark.formattedAddress];
-        NSString * zipAddress=[NSString stringWithFormat:@"%@",placemark.vicinityAddress];
-        CLLocationCoordinate2D theCoordinate;
-        theCoordinate.latitude = placemark.latitude;
-        theCoordinate.longitude =placemark.longitude;
-        
-    
         NSString*tryIndex=[NSString stringWithFormat:@"777%d",i];
-        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:formattedAddress address:zipAddress coordinate:theCoordinate firtsLine:@" " secondLine:@" " tagIndex:[tryIndex intValue] isDropped:droppedStatus phone:placemark.formattedPhNo]autorelease];
+        
+        
+        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithAnnotation:placemark  tag:[tryIndex intValue] pin:droppedStatus addressType:selectionType]autorelease];
         
         [self.mapView addAnnotation:sfAnnotation];
         
@@ -2299,7 +2294,7 @@
 
 -(UIView*)DrawAMapLeftAccessoryView:(ActivityAnnotation *)locObject{
 	
-    CGSize  size = [locObject.businessAdress sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15]];
+    CGSize  size = [locObject.annotation.formattedAddress sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15]];
     
     if(size.width>300){
         size.width=300;
@@ -2312,7 +2307,7 @@
 	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
 	nameLabel.textColor=[UIColor whiteColor];
 	nameLabel.backgroundColor=[UIColor clearColor];
-	nameLabel.text=locObject.businessAdress;
+	nameLabel.text=locObject.annotation.formattedAddress;
 	[mapLeftView addSubview:nameLabel];
 	[nameLabel release];
 	
@@ -2350,8 +2345,8 @@
             case 1:
             case 4:
             {
-                firstALineddressLabel.text=loc.businessAdress;
-                secondLineAddressLabel.text=loc.infoActivity;
+                firstALineddressLabel.text=loc.annotation.formattedAddress;
+                secondLineAddressLabel.text=loc.annotation.formattedAddress;
                 
             }
                 break;
@@ -2360,7 +2355,7 @@
             case 3:
             {
                 //reverse geo code
-                firstALineddressLabel.text=loc.businessAdress;
+                firstALineddressLabel.text=loc.annotation.formattedAddress;
                 CLLocationCoordinate2D coordinate=[loc coordinate];
                 [self getAddressDetailsFromLatLong:coordinate.latitude lng:coordinate. longitude];
             }
@@ -2383,8 +2378,8 @@
         pointTag=pointTag%777;
         
         view.image=[UIImage imageNamed:@"S05.1_pinSelected.png"];
-        firstALineddressLabel.text=loc.businessAdress;
-        secondLineAddressLabel.text=loc.infoActivity;
+        firstALineddressLabel.text=loc.annotation.formattedAddress;
+        secondLineAddressLabel.text=loc.annotation.vicinityAddress;
         
         createActivityButton.hidden=NO;
         locationTextLabel.hidden=YES;
@@ -2464,7 +2459,8 @@
     searching=FALSE;
     pinDrop=TRUE;
     
-    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithName:@" " address:@" " coordinate:coord firtsLine:@" " secondLine:@" " tagIndex:7770 isDropped:YES phone:@""]autorelease];
+    
+    ActivityAnnotation *sfAnnotation=[[[ActivityAnnotation alloc] initWithAnnotation:nil tag:7770 pin:YES addressType:-1]autorelease];
     
     [self.mapView addAnnotation:sfAnnotation];
     
@@ -2611,13 +2607,13 @@
                 theCoordinate.latitude = placemark.latitude;
                 theCoordinate.longitude =placemark.longitude;
                 
-                location.businessAdress=formattedAddress;
-                location.infoActivity=zipAddress;
+                location.annotation.formattedAddress=formattedAddress;
+                location.annotation.vicinityAddress=zipAddress;
                 
                 [self setUpLabelViewElements:NO];
                 
-                firstALineddressLabel.text=location.businessAdress;
-                secondLineAddressLabel.text=location.infoActivity;
+                firstALineddressLabel.text=location.annotation.formattedAddress;
+                secondLineAddressLabel.text=location.annotation.vicinityAddress;
                 
             }
         }

@@ -7,53 +7,45 @@
 //
 
 #import "ActivityAnnotation.h"
-
+#import "PlacemarkClass.h"
 @implementation ActivityAnnotation
-@synthesize image;
-@synthesize latitude;
-@synthesize longitude;
-@synthesize businessAdress;
-@synthesize formattedPhNo;
-@synthesize infoActivity,annotTag,firstLineAddress,secondLineAddress,pinDrop;
+@synthesize searchType;
+@synthesize annotTag,pinDrop,annotation,_coordinate;
 - (CLLocationCoordinate2D)coordinate;
 {
     return _coordinate; 
 }
-
-- (id)initWithName:(NSString*)name address:(NSString*)address coordinate:(CLLocationCoordinate2D)coordinate firtsLine:(NSString*)firtsLine secondLine: (NSString*)secondLine tagIndex:(NSInteger)tagIndex isDropped:(BOOL)isDropped phone:(NSString*)phone{
+- (id)initWithAnnotation:(PlacemarkClass*)mapPin tag:(NSInteger)tag pin:(BOOL)isDropped addressType:(NSInteger)addressType{
     if ((self = [super init])) {
 		
-		businessAdress = [name copy];
-        infoActivity = [address copy];
-		annotTag=tagIndex;
-		_coordinate = coordinate;
-        firstLineAddress=[firtsLine copy];
-        secondLineAddress=[secondLine copy];
+		annotTag=tag;
+        
+        CLLocationCoordinate2D theCoordinate;
+        theCoordinate.latitude = mapPin.latitude;
+        theCoordinate.longitude = mapPin.longitude;
+        annotation=[mapPin retain];
+		_coordinate = theCoordinate;
         pinDrop=isDropped;
-        formattedPhNo=[phone retain];
+        searchType=addressType;
         
     }
     return self;
+
 }
 - (void)dealloc
 {
-    [image release];
-    [firstLineAddress release];
-    [secondLineAddress release];
-    [businessAdress release];
-    [infoActivity release];
     [super dealloc];
 }
 
 - (NSString *)title
 {
-    return firstLineAddress;
+    return @" ";
 }
 
 // optional
 - (NSString *)subtitle
 {
-    return secondLineAddress;
+    return @" ";
 }
 
 @end

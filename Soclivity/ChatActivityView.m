@@ -477,11 +477,20 @@
 //stop the header spinner
 - (void) stopAnimatingHeader{
     //add the data
+    CGPoint offset = [[self bubbleTable] contentOffset];
     
     [self addItemsToStartOfTableView];
     
     [self.bubbleTable resetLazyLoaderArray];
+
     [self.bubbleTable reloadData];
+    
+    offset.y = kLoadingPrevMessage*[self firstRowHeight];
+    if (offset.y > [[self bubbleTable] contentSize].height) {
+        offset.y = 0;
+    }
+    [[self bubbleTable] setContentOffset:offset];
+
     
     if(isKeyboardInView){
         
@@ -496,7 +505,12 @@
 
 }
 
-
+- (CGFloat) firstRowHeight
+{
+    
+ return [bubbleTable firstRowHeight];
+    
+}
 -(void)addItemsToStartOfTableView{
     
     int total=0;
@@ -521,13 +535,12 @@
     }
     
     if([holdHistoryArray count]==0){
-            bubbleTable.contentInset = UIEdgeInsetsMake(7.0, 0, 0, 0);
+        self.bubbleTable.contentInset = UIEdgeInsetsMake(7.0, 0, 0, 0);
            [loadPrevMessagesView setHidden:YES];
 
 
     }
     else{
-        //self.bubbleTable.contentInset = UIEdgeInsetsMake(-52, 0, 0, 0);
         self.bubbleTable.contentInset = UIEdgeInsetsMake(7.0, 0, 0, 0);
         bubbleTable.isLoading=FALSE;
     }

@@ -353,6 +353,8 @@
 }
 
 -(void)setupSlideDrawerUIController{
+    
+    
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isLoggedIn"];
     [spinner stopAnimating];
     [self.view setUserInteractionEnabled:YES];

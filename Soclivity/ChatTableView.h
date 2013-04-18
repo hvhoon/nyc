@@ -32,4 +32,5 @@ typedef enum _NSBubbleTypingType
 @property (nonatomic) NSBubbleTypingType typingBubble;
 -(void)resetLazyLoaderArray;
 - (void)startAvatarDownload:(ActivityChatData*)appRecord forIndexPath:(NSIndexPath *)indexPath;
+- (CGFloat) firstRowHeight;
 @end

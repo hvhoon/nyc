@@ -24,6 +24,10 @@
     NSString *queryName;
     NSString *formattedPhNo;
     NSString *address;
+    NSString *fsqrUrl;
+    BOOL moreInfoAvailable;
+    NSString *category;
+    NSString *ratingValue;
 }
 @property (nonatomic,retain) NSString *streetNumber;
 @property (nonatomic,retain)NSString *adminLevel1;
@@ -38,4 +42,8 @@
 @property (nonatomic,retain)NSString *queryName;
 @property (nonatomic,retain)NSString *formattedPhNo;
 @property (nonatomic,retain)NSString *address;
+@property (nonatomic,retain)NSString *fsqrUrl;
+@property (nonatomic,retain)NSString *category;
+@property(nonatomic,assign) BOOL moreInfoAvailable;
+@property (nonatomic,retain)NSString *ratingValue;
 @end
