@@ -18,10 +18,9 @@
 }
 @property (nonatomic,assign)NSInteger annotTag;
 @property (nonatomic,assign)BOOL pinDrop;
-@property (nonatomic,assign)NSInteger searchType;
 @property (nonatomic,assign)BOOL IsMoreInfo;
 @property (nonatomic,assign)CLLocationCoordinate2D _coordinate;
 
 @property(nonatomic,retain)PlacemarkClass*annotation;
-- (id)initWithAnnotation:(PlacemarkClass*)mapPin tag:(NSInteger)tag pin:(BOOL)isDropped addressType:(NSInteger)addressType;
+- (id)initWithAnnotation:(PlacemarkClass*)mapPin tag:(NSInteger)tag pin:(BOOL)isDropped;
 @end

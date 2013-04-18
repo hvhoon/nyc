@@ -9,13 +9,12 @@
 #import "ActivityAnnotation.h"
 #import "PlacemarkClass.h"
 @implementation ActivityAnnotation
-@synthesize searchType;
 @synthesize annotTag,pinDrop,annotation,_coordinate;
 - (CLLocationCoordinate2D)coordinate;
 {
     return _coordinate; 
 }
-- (id)initWithAnnotation:(PlacemarkClass*)mapPin tag:(NSInteger)tag pin:(BOOL)isDropped addressType:(NSInteger)addressType{
+- (id)initWithAnnotation:(PlacemarkClass*)mapPin tag:(NSInteger)tag pin:(BOOL)isDropped{
     if ((self = [super init])) {
 		
 		annotTag=tag;
@@ -26,7 +25,6 @@
         annotation=[mapPin retain];
 		_coordinate = theCoordinate;
         pinDrop=isDropped;
-        searchType=addressType;
         
     }
     return self;

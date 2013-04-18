@@ -1996,14 +1996,9 @@
     [eventView setUpLabelViewElements:NO];
     
     NSArray *hashCount=[activityInfo.where_address componentsSeparatedByString:@"#"];
-    if([hashCount count]==1){
-        eventView.firstALineddressLabel.text=activityInfo.where_address;
-        eventView.secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@",activityInfo.where_city,activityInfo.where_state];
-    }
-    else{
-        eventView.firstALineddressLabel.text=[hashCount objectAtIndex:0];
-        eventView.secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@, %@",[hashCount objectAtIndex:1],activityInfo.where_city,activityInfo.where_state];
-        
+    if([hashCount count]==2){
+        eventView.firstALineddressLabel.text=[hashCount objectAtIndex:1];
+        [eventView.secondLineAddressLabel setHidden:YES];
     }
 
     eventView.activityInfoButton.hidden=NO;

@@ -814,9 +814,42 @@ else {
 }
 
 -(void)decideToShowMapView:(NSInteger)type{
-    currentPlacemark=[[PlacemarkClass alloc]init];
-  activityPlotOnMapButton.hidden=YES;
     
+    firstALineddressLabel.frame=CGRectMake(24, 10, 228+30, 21);
+    
+    currentPlacemark=[[PlacemarkClass alloc]init];
+
+    activityPlotOnMapButton.hidden=YES;
+    currentPlacemark.category=activityObject.where_zip;
+    phoneLabel.text=currentPlacemark.formattedPhNo=activityObject.where_state;
+    ratingLabel.text=currentPlacemark.ratingValue=activityObject.where_city;
+    currentPlacemark.latitude=[activityObject.where_lat floatValue];
+    currentPlacemark.longitude=[activityObject.where_lng floatValue];
+    firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
+    firstALineddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    
+    [secondLineAddressLabel setHidden:YES];
+
+    [self showFourSquareComponents:YES];
+    
+    phoneLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    phoneLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    ratingLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    ratingLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+
+    NSArray *hashCount=[activityObject.where_zip componentsSeparatedByString:@"#"];
+    if([hashCount count]==0){
+        currentPlacemark.addType=3;
+    }
+    else if([hashCount count]==1){
+        currentPlacemark.addType=1;
+    }
+    else{
+        currentPlacemark.addType=2;
+    }
+
     switch (type) {
         case 1:
         case 2:
@@ -830,15 +863,11 @@ else {
             currentPlacemark.formattedAddress=[hashCount objectAtIndex:0];
             currentPlacemark.vicinityAddress=[hashCount objectAtIndex:1];
             
-            currentPlacemark.category=activityObject.where_zip;
-            currentPlacemark.formattedPhNo=activityObject.where_state;
-            currentPlacemark.ratingValue=activityObject.where_city;
             
             NSLog(@"hashCount=%d",[hashCount count]);
             if([hashCount count]==2){
-                locationInfoLabel2.text=[hashCount objectAtIndex:1];
+                locationInfoLabel2.text=firstALineddressLabel.text=[hashCount objectAtIndex:1];
                 
-                [secondLineAddressLabel setHidden:YES];
             }
 
         }
@@ -861,28 +890,14 @@ else {
             
             NSArray *hashCount=[activityObject.where_address componentsSeparatedByString:@"#"];
             NSLog(@"hashCount=%d",[hashCount count]);
-            if([hashCount count]==1){
-                locationInfoLabel1.text=firstALineddressLabel.text=activityObject.where_address;
-                locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@",activityObject.where_city,activityObject.where_state];
-            }
-            else{
-                locationInfoLabel1.text=firstALineddressLabel.text=[hashCount objectAtIndex:0];
-                locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@, %@",[hashCount objectAtIndex:1],activityObject.where_city,activityObject.where_state];
-                
-            }
+            if([hashCount count]==2){
+                currentPlacemark.formattedAddress=locationInfoLabel1.text=[hashCount objectAtIndex:0];
+                currentPlacemark.vicinityAddress=locationInfoLabel2.text=firstALineddressLabel.text=[hashCount objectAtIndex:1];
 
+            }
             
             
             // Setting the variables for the map screen
-            firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
-            firstALineddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-            secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
-            secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-            
-            phoneLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
-            phoneLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-            ratingLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
-            ratingLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
 
             
             
@@ -944,16 +959,16 @@ else {
 #endif
 -(IBAction)activityMapPlotButtonClicked:(id)sender{
     
-    for (UIView *view in self.superview.superview.superview.subviews)
-    {
-        if ([view isKindOfClass:[UIButton class]])
-        {
-            if (view.tag==1111)
-            {
-                view.alpha=0;
-            }
-        }
-    }
+//    for (UIView *view in self.superview.superview.superview.subviews)
+//    {
+//        if ([view isKindOfClass:[UIButton class]])
+//        {
+//            if (view.tag==1111)
+//            {
+//                view.alpha=0;
+//            }
+//        }
+//    }
     
     if((activityObject.activityRelationType==6)||(activityObject.activityRelationType==5)){
             [self ActivityEventOnMap];
@@ -988,6 +1003,7 @@ else {
     if(show){
         
     [self.mapView removeAnnotations:self.mapView.annotations];
+    [self showFourSquareComponents:NO];
 
     firstALineddressLabel.hidden=YES;
     secondLineAddressLabel.hidden=YES;
@@ -1000,12 +1016,14 @@ else {
     verticalMiddleLine.hidden=NO;
     leftMagifyImageView.hidden=NO;
     rightPinImageView.hidden=NO;
+     firstALineddressLabel.frame=CGRectMake(54, 10, 228, 21);
     }
     else{
-        
+        [self showFourSquareComponents:YES];
+
         firstALineddressLabel.hidden=NO;
-        secondLineAddressLabel.hidden=NO;
-        leftPinImageView.hidden=NO;
+        secondLineAddressLabel.hidden=YES;
+        leftPinImageView.hidden=YES;
         searchTextLabel.hidden=YES;
         placeAndAddressLabel.hidden=YES;
         
@@ -1014,13 +1032,42 @@ else {
         verticalMiddleLine.hidden=YES;
         leftMagifyImageView.hidden=YES;
         rightPinImageView.hidden=YES;
+        firstALineddressLabel.frame=CGRectMake(24, 10, 228+30, 21);
         
     }
     
 }
 -(void)ActivityEventOnMap{
-    SOC=[SoclivityManager SharedInstance];
     
+    currentPlacemark.category=activityObject.where_zip;
+    phoneLabel.text=currentPlacemark.formattedPhNo=activityObject.where_state;
+    ratingLabel.text=currentPlacemark.ratingValue=activityObject.where_city;
+    currentPlacemark.latitude=[activityObject.where_lat floatValue];
+    currentPlacemark.longitude=[activityObject.where_lng floatValue];
+    
+    NSArray *hashCount=[activityObject.where_zip componentsSeparatedByString:@"#"];
+    if([hashCount count]==0){
+        currentPlacemark.addType=3;
+    }
+    else if([hashCount count]==1){
+        currentPlacemark.addType=1;
+    }
+    else{
+        currentPlacemark.addType=2;
+    }
+    
+    NSArray *hashCount2=[activityObject.where_address componentsSeparatedByString:@"#"];
+    NSLog(@"hashCount=%d",[hashCount2 count]);
+    if([hashCount2 count]==2){
+        currentPlacemark.formattedAddress=[hashCount2 objectAtIndex:0];
+        currentPlacemark.vicinityAddress=[hashCount2 objectAtIndex:1];
+        
+    }
+
+
+
+    SOC=[SoclivityManager SharedInstance];
+    leftPinImageView.hidden=YES;
     leftMagifyImageView.hidden=YES;
     firstTime=YES;
     searchTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
@@ -1076,7 +1123,7 @@ else {
     theCoordinate.latitude = [activityObject.where_lat doubleValue];
     theCoordinate.longitude = [activityObject.where_lng doubleValue];
     
-    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithAnnotation:mapAnnot  tag:0 pin:NO addressType:mapAnnot.addType]autorelease];
+    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithAnnotation:mapAnnot  tag:0 pin:NO]autorelease];
 
     
     [self.mapAnnotations insertObject:sfAnnotation atIndex:0];
@@ -1278,7 +1325,7 @@ else {
 
 -(UIView*)DrawAMapLeftAccessoryView:(ActivityAnnotation *)locObject{
 	
-    CGSize  size = [locObject.annotation.formattedAddress sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:13]];
+    CGSize  size = [locObject.annotation.formattedAddress sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14]];
     
     CGSize  size2 = [locObject.annotation.category sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:12]];
     
@@ -1288,12 +1335,12 @@ else {
 
     UIView *mapLeftView=[[UIView alloc] initWithFrame:CGRectMake(0,0, size.width, 30)];
 
-    switch (locObject.searchType) {
+    switch (locObject.annotation.addType) {
         case 1:
         {
-            CGRect categoryLabelRect=CGRectMake(5,19,size.width,12);
+            CGRect categoryLabelRect=CGRectMake(8,18,size.width,12);
             UILabel *categoryTextLabel=[[UILabel alloc] initWithFrame:categoryLabelRect];
-            categoryTextLabel.textAlignment=UITextAlignmentCenter;
+            categoryTextLabel.textAlignment=UITextAlignmentLeft;
             categoryTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
             categoryTextLabel.textColor=[UIColor whiteColor];
             categoryTextLabel.backgroundColor=[UIColor clearColor];
@@ -1312,7 +1359,7 @@ else {
         size.width=300;
     }
 	
-    CGRect nameLabelRect=CGRectMake(5,1,size.width,13);
+    CGRect nameLabelRect=CGRectMake(5,0,size.width,14);
 	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
 	nameLabel.textAlignment=UITextAlignmentCenter;
 	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:13];
@@ -1377,11 +1424,8 @@ else {
                 if(loc.annotation.formattedPhNo!=nil && [loc.annotation.formattedPhNo class]!=[NSNull null]){
                     phoneLabel.text=loc.annotation.formattedPhNo;
                 }
-                else{
-                    phoneLabel.text=@"Not Available";
-                }
                 
-                ratingLabel.text=@"Rating: N/A";
+                ratingLabel.text=loc.annotation.ratingValue;
                 [delegate enableDisableTickOnTheTopRight:YES];
                 
             }
@@ -1593,7 +1637,7 @@ else {
     searching=FALSE;
     pinDrop=TRUE;
     
-    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithAnnotation:nil  tag:7770 pin:YES addressType:6]autorelease];
+    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithAnnotation:nil  tag:7770 pin:YES]autorelease];
 
 
     [self.mapView addAnnotation:sfAnnotation];
@@ -1911,9 +1955,13 @@ else {
         MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(avgLoc.coordinate.latitude, avgLoc.coordinate.longitude), [self maxDistanceBetweenAllResultPointsOnMap:avgLoc], [self maxDistanceBetweenAllResultPointsOnMap:avgLoc]);
         adjustedRegion = [mapView regionThatFits:viewRegion];
         [mapView setRegion:adjustedRegion animated:YES];
-        
         [self setUpLabelViewElements:NO];
+        secondLineAddressLabel.hidden=NO;
+
         firstALineddressLabel.text=@"Pick a Location";
+        
+        [self showFourSquareComponents:NO];
+        
         secondLineAddressLabel.text=@"Select a pin above to see it's full address";
         
     }
@@ -2047,6 +2095,9 @@ else {
             PlacemarkClass *placemark=[[[PlacemarkClass alloc]init]autorelease];
             placemark.moreInfoAvailable=NO;
             placemark.category=@"Address";
+            placemark.ratingValue=@"Rating: N/A";
+            placemark.formattedPhNo=@"Not Available";
+            placemark.addType=1;
             NSArray *addressComponents=[object objectForKey:@"address_components"];
             for(id comp in addressComponents){
                 
@@ -2216,6 +2267,9 @@ else {
             
             [self setUpLabelViewElements:NO];
             firstALineddressLabel.text=@"Pick a Location";
+            
+            [secondLineAddressLabel setHidden:NO];
+            [self showFourSquareComponents:NO];
             secondLineAddressLabel.text=@"Select a pin above to see it's full address";
             
             
@@ -2442,7 +2496,7 @@ if(selectionType==1){
 #endif
         NSString*tryIndex=[NSString stringWithFormat:@"777%d",i];
         
-        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithAnnotation:placemark  tag:[tryIndex intValue] pin:droppedStatus addressType:selectionType]autorelease];
+        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithAnnotation:placemark  tag:[tryIndex intValue] pin:droppedStatus]autorelease];
 
         
         [self.mapView addAnnotation:sfAnnotation];
@@ -2831,45 +2885,6 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
 
 #endif
     
-    switch (selectedPlacemark.addType) {
-            
-        case 0:
-        {
-            activityObject.where_address=selectedPlacemark.formattedAddress;
-
-        }
-            
-            break;
-        case 1:
-        {
-            activityObject.where_address=[NSString stringWithFormat:@"%@",selectedPlacemark.formattedAddress];
-
-        }
-            break;
-            
-        case 2:
-        {
-            activityObject.where_address=[NSString stringWithFormat:@"%@#%@",selectedPlacemark.formattedAddress,selectedPlacemark.route];
-            
-        }
-            break;
-            
-        case 3:
-        {
-            activityObject.where_address=[NSString stringWithFormat:@"%@#%@",selectedPlacemark.formattedAddress,selectedPlacemark.streetNumber];
-            
-        }
-            break;
-            
-        case 4:
-        {
-            activityObject.where_address=[NSString stringWithFormat:@"%@ #%@ %@",selectedPlacemark.formattedAddress,selectedPlacemark.streetNumber,selectedPlacemark.route];
-            
-        }
-            break;
-
-
-    }
     
     activityObject.where_address=[NSString stringWithFormat:@"%@#%@",selectedPlacemark.formattedAddress,selectedPlacemark.vicinityAddress];
     
@@ -2879,12 +2894,13 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
     }
     else
         activityObject.where_zip=selectedPlacemark.category;
+    
     activityObject.where_state=selectedPlacemark.formattedPhNo;
     activityObject.where_city=selectedPlacemark.ratingValue;
     
     NSArray *hashCount=[activityObject.where_address componentsSeparatedByString:@"#"];
     NSLog(@"hashCount=%d",[hashCount count]);
-    if([hashCount count]==1){
+    if([hashCount count]==2){
     locationInfoLabel2.text=firstALineddressLabel.text=selectedPlacemark.vicinityAddress;
     locationInfoLabel1.text=selectedPlacemark.formattedAddress;
     [secondLineAddressLabel setHidden:YES];

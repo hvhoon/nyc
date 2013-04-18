@@ -1667,7 +1667,7 @@
         NSString*tryIndex=[NSString stringWithFormat:@"777%d",i];
         
         
-        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithAnnotation:placemark  tag:[tryIndex intValue] pin:droppedStatus addressType:selectionType]autorelease];
+        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithAnnotation:placemark  tag:[tryIndex intValue] pin:droppedStatus]autorelease];
         
         [self.mapView addAnnotation:sfAnnotation];
         
@@ -2460,7 +2460,7 @@
     pinDrop=TRUE;
     
     
-    ActivityAnnotation *sfAnnotation=[[[ActivityAnnotation alloc] initWithAnnotation:nil tag:7770 pin:YES addressType:-1]autorelease];
+    ActivityAnnotation *sfAnnotation=[[[ActivityAnnotation alloc] initWithAnnotation:nil tag:7770 pin:YES]autorelease];
     
     [self.mapView addAnnotation:sfAnnotation];
     
