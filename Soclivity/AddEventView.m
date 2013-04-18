@@ -1512,9 +1512,6 @@ else {
         pointTag=pointTag%777;
 
         view.image=[UIImage imageNamed:@"S05.1_pinSelected.png"];
-        firstALineddressLabel.text=loc.annotation.formattedAddress;
-        secondLineAddressLabel.text=loc.annotation.vicinityAddress;
-        [delegate enableDisableTickOnTheTopRight:YES];
 
         //pinDrop=FALSE;
     }
@@ -1672,7 +1669,16 @@ else {
     searching=FALSE;
     pinDrop=TRUE;
     
-    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithAnnotation:nil  tag:7770 pin:YES]autorelease];
+    PlacemarkClass *touchPin=[[PlacemarkClass alloc]init];
+    touchPin.longitude=coord.longitude;
+    touchPin.latitude=coord.latitude;
+    touchPin.moreInfoAvailable=NO;
+    touchPin.formattedPhNo=@"Not Available";
+    touchPin.ratingValue=@"Rating: N/A";
+    touchPin.addType=3;
+    touchPin.category=nil;
+    
+    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithAnnotation:touchPin  tag:7770 pin:YES]autorelease];
 
 
     [self.mapView addAnnotation:sfAnnotation];
@@ -1705,8 +1711,6 @@ else {
         placemark.adminLevel2=placemark1.locality;
         placemark.adminLevel1=[SoclivityUtilities getStateAbbreviation:placemark1.administrativeArea];
         
-        //remeember to copy this in createActivity also
-        //**********************************
 
         
         NSString *localString=nil;
@@ -1806,9 +1810,11 @@ else {
                     if ([currentAnnotation isKindOfClass:[ActivityAnnotation class]]) {
                         NSLog(@"annotation %@", currentAnnotation);
                         
-                                ActivityAnnotation *location = (ActivityAnnotation *) currentAnnotation;
+                        ActivityAnnotation *location = (ActivityAnnotation *) currentAnnotation;
                          PlacemarkClass * placemark = [_geocodingResults objectAtIndex:0];
+                         placemark.addType=3;
                         
+                        placemark.category=nil;
                         CLLocationCoordinate2D theCoordinate;
                         theCoordinate.latitude = placemark.latitude;
                         theCoordinate.longitude =placemark.longitude;
@@ -1818,8 +1824,16 @@ else {
                         
                         [self setUpLabelViewElements:NO];
                         
-                        firstALineddressLabel.text=location.annotation.formattedAddress;
-                        secondLineAddressLabel.text=location.annotation.vicinityAddress;
+                        firstALineddressLabel.text=[NSString stringWithFormat:@"%@,%@",location.annotation.formattedAddress,location.annotation.vicinityAddress];
+                        [secondLineAddressLabel setHidden:YES];
+                        
+                        [self showFourSquareComponents:YES];
+                        
+                        placemark.formattedPhNo=phoneLabel.text=@"Not Available";
+                        
+                        placemark.ratingValue=ratingLabel.text=@"Rating: N/A";
+
+
 
                 }
             }
@@ -1827,7 +1841,8 @@ else {
             //[self addPinAnnotationForPlacemark:_geocodingResults droppedStatus:YES];
             currentLocationArray =[NSMutableArray arrayWithCapacity:[_geocodingResults count]];
             currentLocationArray=[_geocodingResults retain];
-            
+            [delegate enableDisableTickOnTheTopRight:YES];
+
             //Zoom in all results.
 /*            
             CLLocation* avgLoc = [self ZoomToAllResultPointsOnMap];
@@ -2963,8 +2978,11 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
         activityObject.where_zip=[NSString stringWithFormat:@"%@#%@",selectedPlacemark.category,selectedPlacemark.fsqrUrl];
         
     }
-    else
+    else if(selectedPlacemark.category!=nil && [selectedPlacemark.category class]!=[NSNull null])
         activityObject.where_zip=selectedPlacemark.category;
+    else{
+        activityObject.where_zip=nil;
+    }
     
     activityObject.where_state=selectedPlacemark.formattedPhNo;
     activityObject.where_city=selectedPlacemark.ratingValue;

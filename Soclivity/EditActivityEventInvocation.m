@@ -34,8 +34,8 @@
     switch (changePutUrlMethod) {
         case 10:
         {
-                [bodyD setObject:activityObj.where_lat forKey:@"where_lat"];
-                [bodyD setObject:activityObj.where_lng forKey:@"where_lng"];
+            [bodyD setObject:activityObj.where_lat forKey:@"where_lat"];
+            [bodyD setObject:activityObj.where_lng forKey:@"where_lng"];
             if(activityObj.where_address!=nil)
                 [bodyD setObject:activityObj.where_address forKey:@"where_address"];
             if(activityObj.where_city!=nil)
@@ -64,7 +64,6 @@
             break;
     }
     
-    [bodyD setObject:activityObj.where_zip forKey:@"where_zip"];
 
     NSString *bodyData = [NSString stringWithFormat:@"%@",[bodyD JSONRepresentation]];
 
