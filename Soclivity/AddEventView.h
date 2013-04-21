@@ -86,6 +86,8 @@
     IBOutlet UIImageView*ratingIconImageView;
     IBOutlet UILabel*ratingLabel;
     PlacemarkClass *currentPlacemark;
+    UILabel *categoryTextLabel;
+    UIButton *disclosureButton;
 
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;

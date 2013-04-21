@@ -820,9 +820,29 @@ else {
     currentPlacemark=[[PlacemarkClass alloc]init];
 
     activityPlotOnMapButton.hidden=YES;
-    currentPlacemark.category=activityObject.where_zip;
-    phoneLabel.text=currentPlacemark.formattedPhNo=activityObject.where_state;
-    ratingLabel.text=currentPlacemark.ratingValue=activityObject.where_city;
+    
+    if(activityObject.where_zip!=nil && [activityObject.where_zip class]!=[NSNull class] && [activityObject.where_zip length]!=0 && ![activityObject.where_zip isEqualToString:@""]){
+        // 4 sqaure reference
+            currentPlacemark.addType=2;
+        //[self getFourSquareVenueDetailsWithRatingUrlPhoneCategory:activityObject.where_zip];
+    }
+    else{
+        
+        NSArray *hashCount=[activityObject.where_address componentsSeparatedByString:@"#"];
+        
+        if([SoclivityUtilities hasLeadingNumberInString:[hashCount objectAtIndex:0]]){
+            currentPlacemark.category=@"Address";
+             currentPlacemark.addType=1;
+        }
+        else{
+            currentPlacemark.category=nil;
+            currentPlacemark.addType=3;
+        }
+        phoneLabel.text=currentPlacemark.formattedPhNo=@"Not Available";
+        ratingLabel.text=currentPlacemark.ratingValue=@"Rating: N/A";
+
+        
+    }
     currentPlacemark.latitude=[activityObject.where_lat floatValue];
     currentPlacemark.longitude=[activityObject.where_lng floatValue];
     firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
@@ -839,16 +859,6 @@ else {
     ratingLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     ratingLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
 
-    NSArray *hashCount=[activityObject.where_zip componentsSeparatedByString:@"#"];
-    if([hashCount count]==0){
-        currentPlacemark.addType=3;
-    }
-    else if([hashCount count]==1){
-        currentPlacemark.addType=1;
-    }
-    else{
-        currentPlacemark.addType=2;
-    }
 
     switch (type) {
         case 1:
@@ -1039,32 +1049,41 @@ else {
 }
 -(void)ActivityEventOnMap{
     
-    currentPlacemark.category=activityObject.where_zip;
-    phoneLabel.text=currentPlacemark.formattedPhNo=activityObject.where_state;
-    ratingLabel.text=currentPlacemark.ratingValue=activityObject.where_city;
+    
+    currentPlacemark.category=activityObject.category;
+    phoneLabel.text=currentPlacemark.formattedPhNo=activityObject.phoneNumber;
+    ratingLabel.text=currentPlacemark.ratingValue=activityObject.ratingValue;
     currentPlacemark.latitude=[activityObject.where_lat floatValue];
     currentPlacemark.longitude=[activityObject.where_lng floatValue];
     
-    NSArray *hashCount=[activityObject.where_zip componentsSeparatedByString:@"#"];
-    if([hashCount count]==0){
-        currentPlacemark.addType=3;
-    }
-    else if([hashCount count]==1){
-        
-        currentPlacemark.moreInfoAvailable=NO;
-        if([[hashCount objectAtIndex:0]isEqualToString:@"Address"]){
-            currentPlacemark.addType=1;
-            
-        }
-        else{
-            currentPlacemark.addType=2;
-
-        }
-    }
-    else{
+    
+    
+    if(activityObject.where_zip!=nil && [activityObject.where_zip class]!=[NSNull class] && [activityObject.where_zip length]!=0 && ![activityObject.where_zip isEqualToString:@""]){
+        // 4 sqaure reference
         currentPlacemark.addType=2;
         currentPlacemark.moreInfoAvailable=YES;
+        [self getFourSquareVenueDetailsWithRatingUrlPhoneCategory:activityObject.where_zip];
     }
+    else{
+        
+        NSArray *hashCount=[activityObject.where_address componentsSeparatedByString:@"#"];
+        
+        if([SoclivityUtilities hasLeadingNumberInString:[hashCount objectAtIndex:0]]){
+            currentPlacemark.category=@"Address";
+            currentPlacemark.addType=1;
+            currentPlacemark.moreInfoAvailable=NO;
+        }
+        else{
+            currentPlacemark.category=nil;
+            currentPlacemark.addType=3;
+            currentPlacemark.moreInfoAvailable=NO;
+        }
+        phoneLabel.text=currentPlacemark.formattedPhNo=@"Not Available";
+        ratingLabel.text=currentPlacemark.ratingValue=@"Rating: N/A";
+        
+        
+    }
+
     
     NSArray *hashCount2=[activityObject.where_address componentsSeparatedByString:@"#"];
     NSLog(@"hashCount=%d",[hashCount2 count]);
@@ -1230,18 +1249,32 @@ else {
                 
                 UIView *rightView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
                 rightView.backgroundColor=[UIColor clearColor];
-                UIButton *disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+                disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
                 disclosureButton.frame = CGRectMake(0.0, 0.0, 29.0, 30.0);
                 [disclosureButton setImage:[UIImage imageNamed:@"S02.1_rightarrow.png"] forState:UIControlStateNormal];
                 disclosureButton.tag=location.annotTag;
                 //[disclosureButton addTarget:self action:@selector(pushTodetailActivity:) forControlEvents:UIControlEventTouchUpInside];
                 [rightView addSubview:disclosureButton];
-                
+                    switch (selectionType) {
+                        case 7:
+                        {
+                            [disclosureButton setHidden:YES];
+                            
+                        }
+                            break;
+                            
+                        default:
+                        {
+                            [disclosureButton setHidden:NO];
+
+                        }
+                            break;
+                    }
                 
                 UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
                                                               initWithFrame:CGRectMake(4.5, 5.0f, 20.0f, 20.0f)];
                 [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
-                activityIndicator.tag=location.annotTag;
+                activityIndicator.tag=657;
                 [activityIndicator setHidden:YES];
                 [rightView addSubview:activityIndicator];
                 // release it
@@ -1350,14 +1383,14 @@ else {
         case 2:
         {
             CGRect categoryLabelRect=CGRectMake(5,18,size.width,12);
-            UILabel *categoryTextLabel=[[UILabel alloc] initWithFrame:categoryLabelRect];
+            categoryTextLabel=[[UILabel alloc] initWithFrame:categoryLabelRect];
             categoryTextLabel.textAlignment=UITextAlignmentLeft;
             categoryTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
             categoryTextLabel.textColor=[UIColor whiteColor];
             categoryTextLabel.backgroundColor=[UIColor clearColor];
             categoryTextLabel.text=locObject.annotation.category;
+            categoryTextLabel.tag=345;
             [mapLeftView addSubview:categoryTextLabel];
-            [categoryTextLabel release];
 
         }
             break;
@@ -1385,6 +1418,26 @@ else {
 	return mapLeftView;
 	
 	
+}
+
+-(void)getFourSquareVenueDetailsWithRatingUrlPhoneCategory:(NSString*)venue{
+    
+    
+    selectionType=7;
+    responseData = [[NSMutableData data] retain];
+    NSString*urlString = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@?client_id=5P1OVCFK0CCVCQ5GBBCWRFGUVNX5R4WGKHL2DGJGZ32FDFKT&client_secret=UPZJO0A0XL44IHCD1KQBMAYGCZ45Z03BORJZZJXELPWHPSAR&v=20130117",venue];
+    
+    urlString= [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"urlstring=%@",urlString);
+    
+    // Create NSURL string from formatted string
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
+    
+    [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    
 }
 
 -(void)getFourSquareRating:(PlacemarkClass*)pin{
@@ -2048,6 +2101,77 @@ else {
                                                     encoding:NSUTF8StringEncoding] JSONValue];
 
     
+    
+    if(selectionType==7){
+        NSDictionary *response=[resultsd objectForKey:@"response"];
+        NSDictionary*pins=[response objectForKey:@"venue"];
+        
+        if([pins objectForKey:@"rating"]!=nil && [[pins objectForKey:@"rating"] class]!=[NSNull null]){
+            currentPlacemark.ratingValue=ratingLabel.text=[NSString stringWithFormat:@"Rating: %@",[[pins objectForKey:@"rating"]stringValue]];
+            
+        }
+        else{
+            currentPlacemark.ratingValue=ratingLabel.text=[NSString stringWithFormat:@"Rating: N/A"];
+        }
+        
+        if([[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"] class]!=[NSNull null]){
+                phoneLabel.text=currentPlacemark.formattedPhNo=[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"];
+        }
+        else{
+            phoneLabel.text=currentPlacemark.formattedPhNo=@"Not Available";
+        }
+        
+        
+        if([pins objectForKey:@"url"]!=nil && [[pins objectForKey:@"url"] class]!=[NSNull null]){
+            currentPlacemark.moreInfoAvailable=YES;
+            currentPlacemark.fsqrUrl=[pins objectForKey:@"url"];
+            [disclosureButton setHidden:NO];
+
+        }
+        else{
+            currentPlacemark.moreInfoAvailable=NO;
+            [disclosureButton setHidden:YES];
+        }
+        
+        if([pins objectForKey:@"categories"]!=nil && [[pins objectForKey:@"categories"] class]!=[NSNull null]){
+            NSArray *category=[pins objectForKey:@"categories"];
+            for(NSDictionary *text in category)
+                currentPlacemark.category=[text objectForKey:@"name"];
+            
+               categoryTextLabel.text=currentPlacemark.category;
+            
+            [(UILabel*)[self.mapView viewWithTag:345] setText:currentPlacemark.category];//343
+            
+        }
+
+#if 0
+        BOOL annFound = NO;
+        
+        //loop through the map view's annotations array to find annotation id# 42...
+        for (id<MKAnnotation> ann in mapView.annotations)
+        {
+            if ([ann isKindOfClass:[ActivityAnnotation class]])
+            {
+                ActivityAnnotation *myAnn = (ActivityAnnotation *)ann;
+                if ([myAnn.annotation.foursquareId  isEqualToString:currentPlacemark.foursquareId])
+                {
+                    annFound = YES;
+                    myAnn.annotation.category=currentPlacemark.category;
+                    break;
+                }
+            }
+        }
+        
+        if (!annFound)
+        {
+            //annotation id# 42 is not yet on the map.
+            //create it and add to map... 
+        }
+        
+#endif
+        
+        return;
+    }
     
     if(selectionType==6){
         NSDictionary *response=[resultsd objectForKey:@"response"];
@@ -2974,18 +3098,27 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
     
     activityObject.where_address=[NSString stringWithFormat:@"%@#%@",selectedPlacemark.formattedAddress,selectedPlacemark.vicinityAddress];
     
-    if(selectedPlacemark.fsqrUrl!=nil && [selectedPlacemark.fsqrUrl class]!=[NSNull null]){
-        activityObject.where_zip=[NSString stringWithFormat:@"%@#%@",selectedPlacemark.category,selectedPlacemark.fsqrUrl];
+    if(selectedPlacemark.foursquareId!=nil && [selectedPlacemark.foursquareId class]!=[NSNull null]){
+        activityObject.where_zip=[NSString stringWithFormat:@"%@",selectedPlacemark.foursquareId];
         
     }
-    else if(selectedPlacemark.category!=nil && [selectedPlacemark.category class]!=[NSNull null])
-        activityObject.where_zip=selectedPlacemark.category;
     else{
         activityObject.where_zip=nil;
     }
     
-    activityObject.where_state=selectedPlacemark.formattedPhNo;
-    activityObject.where_city=selectedPlacemark.ratingValue;
+    
+    if(selectedPlacemark.fsqrUrl!=nil && [selectedPlacemark.fsqrUrl class]!=[NSNull null]){
+        activityObject.fourSqaureUrl=[NSString stringWithFormat:@"%@",selectedPlacemark.fsqrUrl];
+        
+    }
+    else if(selectedPlacemark.category!=nil && [selectedPlacemark.category class]!=[NSNull null])
+        activityObject.category=selectedPlacemark.category;
+    else{
+        activityObject.category=nil;
+    }
+    
+    activityObject.phoneNumber=selectedPlacemark.formattedPhNo;
+    activityObject.ratingValue=selectedPlacemark.ratingValue;
     
     NSArray *hashCount=[activityObject.where_address componentsSeparatedByString:@"#"];
     NSLog(@"hashCount=%d",[hashCount count]);
@@ -3058,6 +3191,8 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
     [locationIcon release];
     [mapView release];
     [mapAnnotations release];
+    [categoryTextLabel release];
+ 
 
 }
 @end

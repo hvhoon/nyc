@@ -51,6 +51,13 @@
     NSDate *activityDate;
     NSDate *activityTime;
     
+    NSString *fourSqaureUrl;
+    NSString *phoneNumber;
+    NSString *ratingValue;
+    NSString *category;
+    
+    
+    
     
 }
 @property (nonatomic,assign)NSInteger type;
@@ -97,4 +104,10 @@
 @property (nonatomic, retain) NSMutableArray* pendingRequestArray;
 @property (nonatomic,retain) NSDate *activityDate;
 @property (nonatomic,retain) NSDate *activityTime;
+
+@property (nonatomic,retain)NSString *fourSqaureUrl;
+@property (nonatomic,retain)NSString *phoneNumber;
+@property (nonatomic,retain)NSString *ratingValue;
+@property (nonatomic,retain)NSString *category;
+
 @end
