@@ -2051,7 +2051,7 @@
             
         case kJoinRequest:
         {
-            HUD.labelText = @"Requesting To Join";
+            HUD.labelText = @"Sending Request...";
             
         }
             break;
@@ -2073,34 +2073,34 @@
             
         case kConfirmPresenceRequest:
         {
-            HUD.labelText = @"Confirming to the event...! ";
+            HUD.labelText = @"Confirming...";
             
         }
             break;
             
         case kLeavingActivityRequest:
         {
-            HUD.labelText = @"Leaving";
+            HUD.labelText = @"Leaving...";
             
         }
             break;
         case kPlayerConfirmedRequest:
         {
-            HUD.labelText = @"Confirming Player";
+            HUD.labelText = @"Confirming...";
             
         }
             break;
             
         case kDeclinePlayerRequest:
         {
-            HUD.labelText = @"Declining Request";
+            HUD.labelText = @"Declining...";
             
         }
             break;
             
         case kRemovePlayerRequest:
         {
-            HUD.labelText = @"Removing Player";
+            HUD.labelText = @"Removing...";
             
         }
             break;
@@ -2115,13 +2115,13 @@
         case kChatPostMessageRequest:
         {
                 HUD.yOffset = -70.0;
-            HUD.labelText = @"Posting";
+            HUD.labelText = @"Posting...";
         }
             break;
             
         case kChatPostDelete:
         {
-           HUD.labelText = @"Deleting";
+           HUD.labelText = @"Deleting...";
         }
             break;
         default:
