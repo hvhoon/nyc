@@ -2870,6 +2870,11 @@
                     phoneLabel.text=loc.annotation.formattedPhNo;
                     phoneButton.enabled=YES;
                 }
+                else{
+                    phoneLabel.text=@"Not Available";
+                    phoneButton.enabled=NO;
+                    
+                }
                 
                 
                 ratingLabel.text=@"Rating: N/A";
