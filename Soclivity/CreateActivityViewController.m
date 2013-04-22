@@ -560,6 +560,18 @@
     [locationInfoView addSubview:phoneIconImageView];
     [phoneIconImageView setHidden:YES];
     
+    
+    
+    
+    
+    phoneButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    phoneButton.frame = CGRectMake(24,33,164,21);
+    [phoneButton addTarget:self action:@selector(phoneButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [locationInfoView addSubview:phoneButton];
+    
+    
+    phoneButton.enabled=NO;
+
     CGRect phoneLabelRect=CGRectMake(45,30,142,21);
     phoneLabel=[[UILabel alloc] initWithFrame:phoneLabelRect];
     phoneLabel.textAlignment=UITextAlignmentLeft;
@@ -736,6 +748,11 @@
         }
             break;
         case 1:
+        {
+            firstALineddressLabel.text=[NSString stringWithFormat:@"%@,%@",selectedPlacemark.formattedAddress,selectedPlacemark.vicinityAddress];
+            
+        }
+            break;
         case 2:
         {
           firstALineddressLabel.text=[hashCount objectAtIndex:1];            
@@ -953,6 +970,22 @@
         
     }
 }
+#define kUrlRedirect 24
+-(void)moreInfoUrlToSafariBrowser:(UIButton*)sender{
+    urlIndex=sender.tag%777;
+    
+    // Setup an alert for the missing email address
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Do you want to quit the App"
+                                                    message:@"Open the link in safari"
+                                                   delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK",nil];
+    alert.tag=kUrlRedirect;
+    [alert show];
+    [alert release];
+    return;
+    
+    
+}
+
 
 #pragma mark -
 #pragma mark UIAlertView methods
@@ -960,8 +993,15 @@
     
     [alertView resignFirstResponder];
     
-    
-    
+    if(alertView.tag==kUrlRedirect){
+        if (buttonIndex == 1) {
+            PlacemarkClass *loc=[currentLocationArray objectAtIndex:urlIndex];
+            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:loc.fsqrUrl]];
+        }
+    }
+
+    else{
     if (buttonIndex == 0) {
         
         switch (alertView.tag) {
@@ -995,9 +1035,11 @@
                 break;
         }
     }
+
     else{
         NSLog(@"Clicked Cancel Button");
     }
+ }
 }
 
 
@@ -1540,6 +1582,7 @@
             placemark.ratingValue=@"Rating: N/A";
             placemark.formattedPhNo=@"Not Available";
             placemark.addType=1;
+            phoneButton.enabled=NO;
             NSArray *addressComponents=[object objectForKey:@"address_components"];
             for(id comp in addressComponents){
                 
@@ -1645,9 +1688,11 @@
             placemark.foursquareId=[pins objectForKey:@"id"];
             if([[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"] class]!=[NSNull null]){
                 placemark.formattedPhNo=[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"];
+                    phoneButton.enabled=YES;
             }
             else{
                 placemark.formattedPhNo=phoneLabel.text=@"Not Available";
+                    phoneButton.enabled=NO;
             }
             
             
@@ -2459,6 +2504,7 @@
         {
             MKAnnotationView *annotationView = [[[MKAnnotationView alloc] initWithAnnotation:annotation
                                                                              reuseIdentifier:ActivityAnnotationIdentifier] autorelease];
+#if 0
             UIImage *flagImage=[UIImage imageNamed:@"S05.1_pinUnselected.png"];
             
             
@@ -2479,8 +2525,8 @@
             [flagImage drawInRect:resizeRect];
             UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
             UIGraphicsEndImageContext();
-            
-            annotationView.image = resizedImage;
+#endif
+            annotationView.image = [UIImage imageNamed:@"S05.1_pinUnselected.png"];
             annotationView.opaque = NO;
             
             if(location.pinDrop){
@@ -2505,7 +2551,7 @@
                     disclosureButton.frame = CGRectMake(0.0, 0.0, 29.0, 30.0);
                     [disclosureButton setImage:[UIImage imageNamed:@"S02.1_rightarrow.png"] forState:UIControlStateNormal];
                     disclosureButton.tag=location.annotTag;
-                    //[disclosureButton addTarget:self action:@selector(pushTodetailActivity:) forControlEvents:UIControlEventTouchUpInside];
+                    [disclosureButton addTarget:self action:@selector(moreInfoUrlToSafariBrowser:) forControlEvents:UIControlEventTouchUpInside];
                     [rightView addSubview:disclosureButton];
                     switch (selectionType) {
                         case 7:
@@ -2526,7 +2572,7 @@
                     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
                                                                   initWithFrame:CGRectMake(4.5, 5.0f, 20.0f, 20.0f)];
                     [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
-                    activityIndicator.tag=657;
+                    activityIndicator.tag=location.annotTag;
                     [activityIndicator setHidden:YES];
                     [rightView addSubview:activityIndicator];
                     // release it
@@ -2550,6 +2596,9 @@
     
     return nil;
 }
+
+
+
 
 
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views{
@@ -2780,7 +2829,7 @@
             case 3:
             {
                 //reverse geo code
-                firstALineddressLabel.text=loc.annotation.formattedAddress;
+                firstALineddressLabel.text=[NSString stringWithFormat:@"%@,%@",loc.annotation.formattedAddress,loc.annotation.vicinityAddress];
                 CLLocationCoordinate2D coordinate=[loc coordinate];
             [self getAddressDetailsFromLatLong:coordinate.latitude lng:coordinate. longitude];
             }
@@ -2799,11 +2848,12 @@
                 }
                 else{
                     phoneLabel.text=@"Not Available";
+                    
                 }
                 
                 ratingLabel.text=@"Rating: N/A";
                 
-                 createActivityButton.hidden=NO;
+                createActivityButton.hidden=NO;
                 
                 
             }
@@ -2816,16 +2866,16 @@
                 
                 [self showFourSquareComponents:YES];
                 
-                if(loc.annotation.formattedPhNo!=nil && [loc.annotation.formattedPhNo class]!=[NSNull null]){
+                if(loc.annotation.formattedPhNo!=nil && [loc.annotation.formattedPhNo class]!=[NSNull null]&& ![loc.annotation.formattedPhNo isEqualToString:@"Not Available"]){
                     phoneLabel.text=loc.annotation.formattedPhNo;
+                    phoneButton.enabled=YES;
                 }
                 
-                ratingLabel.text=loc.annotation.ratingValue;
+                
+                ratingLabel.text=@"Rating: N/A";
                 
                 [self getFourSquareRating:loc.annotation];
                 
-                // dont enable yet
-                //[delegate enableDisableTickOnTheTopRight:YES];
                 
             }
                 break;
@@ -2860,6 +2910,25 @@
     
 }
 
+
+-(void)phoneButtonPressed:(id)sender{
+    
+    PlacemarkClass *loc=[currentLocationArray objectAtIndex:pointTag];
+    
+    NSString *str = [loc.formattedPhNo stringByReplacingOccurrencesOfString:@"("
+                                                                        withString:@""];
+    str= [str stringByReplacingOccurrencesOfString:@" "
+                                        withString:@""];
+    str= [str stringByReplacingOccurrencesOfString:@")"
+                                        withString:@""];
+
+    
+    str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSLog(@"URL=%@",[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",str]]);
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",str]]];
+
+}
 -(void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view{
     
     if ([view.annotation isKindOfClass:[MKUserLocation class]]){
@@ -2940,6 +3009,8 @@
     touchPin.ratingValue=@"Rating: N/A";
     touchPin.addType=3;
     touchPin.category=nil;
+    
+    phoneButton.enabled=NO;
     
     ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithAnnotation:touchPin  tag:7770 pin:YES]autorelease];
 
@@ -3111,7 +3182,7 @@
                 [self showFourSquareComponents:YES];
                 
                 placemark.formattedPhNo=phoneLabel.text=@"Not Available";
-                
+                phoneButton.enabled=NO;
                 placemark.ratingValue=ratingLabel.text=@"Rating: N/A";
                 
                 

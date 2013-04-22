@@ -1998,7 +1998,15 @@
     
     NSArray *hashCount=[activityInfo.where_address componentsSeparatedByString:@"#"];
     if([hashCount count]==2){
-        eventView.firstALineddressLabel.text=[hashCount objectAtIndex:1];
+        
+        if(activityInfo.venueId!=nil && [activityInfo.venueId class]!=[NSNull class] && [activityInfo.venueId length]!=0 && ![activityInfo.venueId isEqualToString:@""]){
+            
+            eventView.firstALineddressLabel.text=[hashCount objectAtIndex:1];
+        }
+        else{
+            eventView.firstALineddressLabel.text=[NSString stringWithFormat:@"%@,%@",[hashCount objectAtIndex:0],[hashCount objectAtIndex:1]];
+        }
+
         [eventView.secondLineAddressLabel setHidden:YES];
     }
 

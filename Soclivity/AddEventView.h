@@ -22,7 +22,7 @@
 @end
 
 
-@interface AddEventView : UIView<MKMapViewDelegate,UISearchBarDelegate,SoclivitySearchBarDelegate>{
+@interface AddEventView : UIView<MKMapViewDelegate,UISearchBarDelegate,SoclivitySearchBarDelegate,UIAlertViewDelegate>{
     InfoActivityClass *activityObject;
     IBOutlet UIImageView *activityBarImgView;
     IBOutlet UIImageView *activityAccessStatusImgView;
@@ -88,6 +88,7 @@
     PlacemarkClass *currentPlacemark;
     UILabel *categoryTextLabel;
     UIButton *disclosureButton;
+    NSInteger urlIndex;
 
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;

@@ -24,7 +24,7 @@
 @end
 
 
-@interface CreateActivityViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate,PickerDetailViewDelegate,SoclivitySearchBarDelegate,UISearchBarDelegate,MKMapViewDelegate,NotifyAnimationViewDelegate>{
+@interface CreateActivityViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate,PickerDetailViewDelegate,SoclivitySearchBarDelegate,UISearchBarDelegate,MKMapViewDelegate,NotifyAnimationViewDelegate,UIAlertViewDelegate>{
     id<NewActivityViewDelegate>delegate;
     IBOutlet UILabel *createActivtyStaticLabel;
     IBOutlet UILabel *step1_of2Label;
@@ -99,6 +99,8 @@
     UILabel*ratingLabel;
     UILabel *categoryTextLabel;
     UIButton *disclosureButton;
+    NSInteger urlIndex;
+    UIButton *phoneButton;
 
 
 }
