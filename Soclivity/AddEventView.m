@@ -3163,7 +3163,6 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
     if(selectedPlacemark.foursquareId!=nil && [selectedPlacemark.foursquareId class]!=[NSNull null]){
         activityObject.venueId=[NSString stringWithFormat:@"%@",selectedPlacemark.foursquareId];
         selectedPlacemark.addType=2;
-        selectedPlacemark.moreInfoAvailable=YES;
 
     }
     else{
@@ -3180,10 +3179,18 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
     
     if(selectedPlacemark.fsqrUrl!=nil && [selectedPlacemark.fsqrUrl class]!=[NSNull null]){
         activityObject.fourSqaureUrl=[NSString stringWithFormat:@"%@",selectedPlacemark.fsqrUrl];
+        selectedPlacemark.moreInfoAvailable=YES;
+
         
     }
-    else if(selectedPlacemark.category!=nil && [selectedPlacemark.category class]!=[NSNull null])
+    else{
+        selectedPlacemark.moreInfoAvailable=NO;
+
+    }
+    if(selectedPlacemark.category!=nil && [selectedPlacemark.category class]!=[NSNull null]){
         activityObject.category=selectedPlacemark.category;
+        currentPlacemark.addType=2;
+    }
     else{
         NSArray *hashCount=[activityObject.where_address componentsSeparatedByString:@"#"];
         
