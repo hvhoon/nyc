@@ -26,6 +26,7 @@
 #import "NotificationClass.h"
 #import "MessageInputView.h"
 #import "ActivityChatData.h"
+#import "EventShareActivity.h"
 #define kEditMapElements 10
 #define kJoinRequest 11
 #define kCancelPendingRequest 13
@@ -2147,6 +2148,13 @@
 
             eventView.activityInfoButton.hidden=NO;
             eventView.editMode=FALSE;
+            
+            
+            // change the location
+            
+            EventShareActivity *editLocationActivity=[[EventShareActivity alloc]init];
+            [editLocationActivity deltaUpdateSyncCalendar:activityInfo];
+
 
         }
             break;

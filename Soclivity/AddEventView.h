@@ -93,7 +93,7 @@
 @property (nonatomic,retain)InfoActivityClass *activityObject;
 @property (nonatomic,retain)PlacemarkClass *currentPlacemark;
 @property (nonatomic,retain)id <AddEventViewDelegate>delegate;
-@property (nonatomic,retain)IBOutlet MKMapView *mapView;
+@property (nonatomic,retain)MKMapView *mapView;
 @property (nonatomic, retain) NSMutableArray *mapAnnotations;
 @property (nonatomic, retain) CustomSearchbar *addressSearchBar;
 @property (nonatomic,retain)NSMutableArray *_geocodingResults;
