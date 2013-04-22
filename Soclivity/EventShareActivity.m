@@ -63,28 +63,23 @@
     event.notes= activity.what;
     event.availability=EKEventAvailabilityFree;
             
-            switch (activity.relationType) {
-                default:
-                {
-                    NSArray *hashCount=[activity.where_address componentsSeparatedByString:@"#"];
-                    NSLog(@"hashCount=%d",[hashCount count]);
-                    if([hashCount count]==1){
-                        event.location=[NSString stringWithFormat:@"%@,%@,%@",activity.where_address,activity.where_city,activity.where_state];
-                    }
-                    else{
-                        event.location=[NSString stringWithFormat:@"%@,%@,%@,%@",[hashCount objectAtIndex:0],[hashCount objectAtIndex:1],activity.where_city,activity.where_state];
-                    }
-
-                    
-                }
-                    break;
-                    
-                case 4:
-                {
-                   event.location=[NSString stringWithFormat:@"%@, %@",activity.where_city,activity.where_state];
-                }
-                    break;
+    switch (activity.relationType) {
+        default:
+        {
+            NSArray *hashCount=[activity.where_address componentsSeparatedByString:@"#"];
+            NSLog(@"hashCount=%d",[hashCount count]);
+            if([hashCount count]==1){
+                event.location=[NSString stringWithFormat:@"%@",[hashCount objectAtIndex:0]];
             }
+            else{
+                event.location=[NSString stringWithFormat:@"%@,%@",[hashCount objectAtIndex:0],[hashCount objectAtIndex:1]];
+            }
+
+            
+        }
+            break;
+            
+    }
             
             
 
@@ -283,28 +278,23 @@
         event.notes= activity.what;
         event.availability=EKEventAvailabilityFree;
         
-        switch (activity.relationType) {
-            default:
-            {
-                NSArray *hashCount=[activity.where_address componentsSeparatedByString:@"#"];
-                NSLog(@"hashCount=%d",[hashCount count]);
-                if([hashCount count]==1){
-                    event.location=[NSString stringWithFormat:@"%@,%@,%@",activity.where_address,activity.where_city,activity.where_state];
-                }
-                else{
-                    event.location=[NSString stringWithFormat:@"%@,%@,%@,%@",[hashCount objectAtIndex:0],[hashCount objectAtIndex:1],activity.where_city,activity.where_state];
-                }
-                
-                
+    switch (activity.relationType) {
+        default:
+        {
+            NSArray *hashCount=[activity.where_address componentsSeparatedByString:@"#"];
+            NSLog(@"hashCount=%d",[hashCount count]);
+            if([hashCount count]==1){
+                event.location=[NSString stringWithFormat:@"%@",[hashCount objectAtIndex:0]];
             }
-                break;
-                
-            case 4:
-            {
-                event.location=[NSString stringWithFormat:@"%@, %@",activity.where_city,activity.where_state];
+            else{
+                event.location=[NSString stringWithFormat:@"%@,%@",[hashCount objectAtIndex:0],[hashCount objectAtIndex:1]];
             }
-                break;
+            
+            
         }
+            break;
+            
+    }
         
         
         

@@ -46,6 +46,10 @@
             if(activityObj.where_zip!=nil)
               [bodyD setObject:activityObj.where_zip forKey:@"where_zip"];
             
+            if(activityObj.venueId!=nil)
+                [bodyD setObject:activityObj.where_zip forKey:@"venue_id"];
+
+            
         }
             break;
             

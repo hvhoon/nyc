@@ -33,7 +33,7 @@
     [bodyD setObject:fbuid forKey:@"fbuid"];
     [bodyD setObject:access_token forKey:@"access_token"];
     
-    if([[NSUserDefaults standardUserDefaults] valueForKey:@"device_token"]!=NULL)
+    if([[NSUserDefaults standardUserDefaults] valueForKey:@"device_token"]!=nil)
     {
         [bodyD setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"device_token"]  forKey:@"device_token"];
     }

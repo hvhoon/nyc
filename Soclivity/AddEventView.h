@@ -58,7 +58,7 @@
     IBOutlet UILabel *dropPinLabel;
     IBOutlet UILabel *touchAndHoldMapLabel;
     
-    IBOutlet UIButton *activityInfoButton;
+     UIButton *activityInfoButton;
 
     MKMapView *mapView;
     CGRect locationTapRect;
@@ -130,7 +130,7 @@
 - (void) processReverseGeocodingResults:(NSArray *)placemarks;
 -(UIView*)DrawAMapLeftAccessoryView:(ActivityAnnotation *)locObject;
 -(void)setUpLabelViewElements:(BOOL)show;
--(IBAction)activityInfoButtonClicked:(id)sender;
+-(void)activityInfoButtonClicked:(id)sender;
 -(IBAction)activityMapPlotButtonClicked:(id)sender;
 -(void)decideToShowMapView:(NSInteger)type;
 -(void)updateEditedActivityFields:(InfoActivityClass*)act;

@@ -56,6 +56,8 @@
     NSString *ratingValue;
     NSString *category;
     
+    NSString *venueId;
+    
     
     
     
@@ -109,5 +111,6 @@
 @property (nonatomic,retain)NSString *phoneNumber;
 @property (nonatomic,retain)NSString *ratingValue;
 @property (nonatomic,retain)NSString *category;
+@property (nonatomic,retain)NSString*venueId;
 
 @end

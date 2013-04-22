@@ -13,7 +13,7 @@
 
 @synthesize access,activityType,created_at,num_of_people,activityId,organizerId,updated_at,what,when,where_address,where_city,btnstate;
 @synthesize where_state,where_zip,isParticipant,ownerProfilePhotoUrl,organizerImage,relationType,pendingRequestCount,activityDate,activityTime;
-@synthesize fourSqaureUrl,phoneNumber,ratingValue,category;
+@synthesize fourSqaureUrl,phoneNumber,ratingValue,category,venueId;
 -(void)dealloc{
     [super dealloc];
     [btnstate release];
@@ -47,6 +47,7 @@
     [phoneNumber release];
     [ratingValue release];
     [category release];
+    [venueId release];
 }
 
 @end

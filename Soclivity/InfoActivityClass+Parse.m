@@ -33,6 +33,7 @@
     play.organizerId =[ownerId intValue];
     play.updated_at=[ACTDict objectForKey:@"updated_at"];
     play.when=[ACTDict objectForKey:@"when"];
+    play.venueId=[ACTDict objectForKey:@"venue_id"];
     play.what=[ACTDict objectForKey:@"what"];
     play.where_address=[ACTDict objectForKey:@"where_address"];
     play.where_lat=[ACTDict objectForKey:@"where_lat"];
@@ -102,7 +103,7 @@
 		return Nil;
 	}
     
-    NSLog(@"ACTDict::%@",ACTDict);
+    NSLog(@"ACTDict=%@",ACTDict);
 	
 	InfoActivityClass *play = [[[InfoActivityClass alloc] init] autorelease];   
     play.activityName = [ACTDict objectForKey:@"name"];
@@ -127,6 +128,7 @@
     play.when=[ACTDict objectForKey:@"when"];
     play.where_address=[ACTDict objectForKey:@"where_address"];
     play.where_state=[ACTDict objectForKey:@"where_state"];
+    play.venueId=[ACTDict objectForKey:@"venue_id"];
     play.where_zip=[ACTDict objectForKey:@"where_zip"];
     play.where_city=[ACTDict objectForKey:@"where_city"];
     play.where_lat=[ACTDict objectForKey:@"where_lat"];

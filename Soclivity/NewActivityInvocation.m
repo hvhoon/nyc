@@ -57,6 +57,10 @@
         if(activityObj.where_zip!=nil)
     [bodyD setObject:activityObj.where_zip forKey:@"where_zip"];
     
+    if(activityObj.venueId!=nil)
+        [bodyD setObject:activityObj.venueId forKey:@"venue_id"];
+
+    
     
     NSString *bodyData = [NSString stringWithFormat:@"%@",[bodyD JSONRepresentation]];
     NSLog(@"bodyData=%@",bodyData);
@@ -80,7 +84,7 @@
 	return YES;
 }
 
--(BOOL)handleHttpError:(NSInteger)code {
+-(BOOL)handleHttpError:(NSInteger)code{
 	[self.delegate PostNewActivityRequestInvocationDidFinish:self
                                              withResponse:nil
                                                 withError:[NSError errorWithDomain:@"UserId"

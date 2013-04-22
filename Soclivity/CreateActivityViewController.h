@@ -92,6 +92,13 @@
     BOOL selectionType;
     int indexRE;
     NSInteger preSelectionIndex;
+    
+    UIImageView*phoneIconImageView;
+    UILabel*phoneLabel;
+    UIImageView*ratingIconImageView;
+    UILabel*ratingLabel;
+    UILabel *categoryTextLabel;
+    UIButton *disclosureButton;
 
 
 }

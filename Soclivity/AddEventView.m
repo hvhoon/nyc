@@ -56,7 +56,7 @@
 
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info{
     
-
+    [self bringSubviewToFront:labelView];
     // Loading picture information
     NSOperationQueue *queue = [NSOperationQueue new];
     NSInvocationOperation *operation = [[NSInvocationOperation alloc]
@@ -716,22 +716,10 @@
     
     NSArray *hashCount=[activityObject.where_address componentsSeparatedByString:@"#"];
     NSLog(@"hashCount=%d",[hashCount count]);
-    if([hashCount count]==1){
-        locationInfoLabel1.text=firstALineddressLabel.text=activityObject.where_address;
-        locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@",activityObject.where_city,activityObject.where_state];
-    }
-    else{
         locationInfoLabel1.text=firstALineddressLabel.text=[hashCount objectAtIndex:0];
-        locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@, %@",[hashCount objectAtIndex:1],activityObject.where_city,activityObject.where_state];
+        locationInfoLabel2.text=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@",[hashCount objectAtIndex:1]];
         
-    }
 
-    
-
-    
-    
-    
-    
     activityPlotOnMapButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     activityPlotOnMapButton.frame = CGRectMake(249, 133, 37.0, 37.0);
     [activityPlotOnMapButton setImage:[UIImage imageNamed:@"S05_miniMap.png"] forState:UIControlStateNormal];
@@ -821,10 +809,10 @@ else {
 
     activityPlotOnMapButton.hidden=YES;
     
-    if(activityObject.where_zip!=nil && [activityObject.where_zip class]!=[NSNull class] && [activityObject.where_zip length]!=0 && ![activityObject.where_zip isEqualToString:@""]){
+    if(activityObject.venueId!=nil && [activityObject.venueId class]!=[NSNull class] && [activityObject.venueId length]!=0 && ![activityObject.venueId isEqualToString:@""]){
         // 4 sqaure reference
             currentPlacemark.addType=2;
-        //[self getFourSquareVenueDetailsWithRatingUrlPhoneCategory:activityObject.where_zip];
+        //[self getFourSquareVenueDetailsWithRatingUrlPhoneCategory:activityObject.venueId];
     }
     else{
         
@@ -1050,6 +1038,14 @@ else {
 -(void)ActivityEventOnMap{
     
     
+    activityInfoButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    activityInfoButton.frame = CGRectMake(285,15,28,27);
+    [activityInfoButton setImage:[UIImage imageNamed:@"S05.1_drivingDirectionsIcon.png"] forState:UIControlStateNormal];
+    
+    [activityInfoButton addTarget:self action:@selector(activityInfoButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [labelView addSubview:activityInfoButton];
+
+    
     currentPlacemark.category=activityObject.category;
     phoneLabel.text=currentPlacemark.formattedPhNo=activityObject.phoneNumber;
     ratingLabel.text=currentPlacemark.ratingValue=activityObject.ratingValue;
@@ -1058,11 +1054,11 @@ else {
     
     
     
-    if(activityObject.where_zip!=nil && [activityObject.where_zip class]!=[NSNull class] && [activityObject.where_zip length]!=0 && ![activityObject.where_zip isEqualToString:@""]){
+    if(activityObject.venueId!=nil && [activityObject.venueId class]!=[NSNull class] && [activityObject.venueId length]!=0 && ![activityObject.venueId isEqualToString:@""]){
         // 4 sqaure reference
         currentPlacemark.addType=2;
         currentPlacemark.moreInfoAvailable=YES;
-        [self getFourSquareVenueDetailsWithRatingUrlPhoneCategory:activityObject.where_zip];
+        [self getFourSquareVenueDetailsWithRatingUrlPhoneCategory:activityObject.venueId];
     }
     else{
         
@@ -1162,7 +1158,7 @@ else {
     [self.mapView addAnnotation:[self.mapAnnotations objectAtIndex:0]];
 
 }
--(IBAction)activityInfoButtonClicked:(id)sender{
+-(void)activityInfoButtonClicked:(id)sender{
     [self openMapUrlApplication];
 }
 - (void)gotoLocation
@@ -1616,6 +1612,7 @@ else {
          [self showFourSquareComponents:NO];
         secondLineAddressLabel.text=@"Select a pin above to see it's full address";
         [delegate enableDisableTickOnTheTopRight:NO];
+         activityInfoButton.hidden=YES;
         
 #if LISTVIEWREMOVE
         NSIndexPath *indexPath=[NSIndexPath indexPathForRow:pointTag inSection:0];
@@ -1635,6 +1632,7 @@ else {
         pinDrop=FALSE;
         [self setUpLabelViewElements:YES];
         [delegate enableDisableTickOnTheTopRight:NO];
+        activityInfoButton.hidden=YES;
     }
     
 }
@@ -1786,12 +1784,25 @@ else {
         }
         
         placemark.formattedAddress=[NSString stringWithFormat:@"%@",localString];
-        placemark.vicinityAddress=[NSString stringWithFormat:@"%@, %@",placemark.adminLevel2,placemark.adminLevel1];
+        
+        
+        if(((placemark.adminLevel1==nil) || ([placemark.adminLevel1 isEqualToString:@""]))&&((placemark.adminLevel2==nil) || ([placemark.adminLevel2 isEqualToString:@""]))){
+            placemark.vicinityAddress=@"";
+        }
+        else if((placemark.adminLevel1==nil) || ([placemark.adminLevel1 isEqualToString:@""])){
+            placemark.vicinityAddress =[NSString stringWithFormat:@"%@",placemark.adminLevel2];
+        }
+        else if((placemark.adminLevel2==nil) || ([placemark.adminLevel2 isEqualToString:@""])){
+            placemark.vicinityAddress =[NSString stringWithFormat:@"%@",placemark.adminLevel1];
+        }
+        else{
+            placemark.vicinityAddress =[NSString stringWithFormat:@"%@ %@",placemark.adminLevel2,placemark.adminLevel1];
+            
+        }
         
         placemark.formattedAddress = [placemark.formattedAddress stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
 
         
-        //**********************************
  
 
 
@@ -1877,7 +1888,13 @@ else {
                         
                         [self setUpLabelViewElements:NO];
                         
+                        if([location.annotation.vicinityAddress length]!=0)
                         firstALineddressLabel.text=[NSString stringWithFormat:@"%@,%@",location.annotation.formattedAddress,location.annotation.vicinityAddress];
+                        else{
+                            firstALineddressLabel.text=[NSString stringWithFormat:@"%@",location.annotation.formattedAddress];
+                        }
+                        
+                        
                         [secondLineAddressLabel setHidden:YES];
                         
                         [self showFourSquareComponents:YES];
@@ -2066,6 +2083,8 @@ else {
         [self showFourSquareComponents:NO];
         
         secondLineAddressLabel.text=@"Select a pin above to see it's full address";
+        
+         activityInfoButton.hidden=YES;
         
     }
     
@@ -2399,6 +2418,10 @@ else {
             if([[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"] class]!=[NSNull null]){
                 placemark.formattedPhNo=[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"];
         }
+            else{
+                placemark.formattedPhNo=phoneLabel.text=@"Not Available";
+            }
+
             
             
             if([pins objectForKey:@"url"]!=nil && [[pins objectForKey:@"url"] class]!=[NSNull null]){
@@ -2482,6 +2505,7 @@ else {
             [self showFourSquareComponents:NO];
             secondLineAddressLabel.text=@"Select a pin above to see it's full address";
             
+             activityInfoButton.hidden=YES;
             
             
         }
@@ -2970,6 +2994,7 @@ if(selectionType==1){
     [self.addressSearchBar resignFirstResponder];
     [self setUpLabelViewElements:YES];
     [delegate enableDisableTickOnTheTopRight:NO];
+    activityInfoButton.hidden=YES;
 
 }
 
@@ -3099,11 +3124,11 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
     activityObject.where_address=[NSString stringWithFormat:@"%@#%@",selectedPlacemark.formattedAddress,selectedPlacemark.vicinityAddress];
     
     if(selectedPlacemark.foursquareId!=nil && [selectedPlacemark.foursquareId class]!=[NSNull null]){
-        activityObject.where_zip=[NSString stringWithFormat:@"%@",selectedPlacemark.foursquareId];
+        activityObject.venueId=[NSString stringWithFormat:@"%@",selectedPlacemark.foursquareId];
         
     }
     else{
-        activityObject.where_zip=nil;
+        activityObject.venueId=nil;
     }
     
     

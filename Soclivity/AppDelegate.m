@@ -111,6 +111,8 @@ static NSString* kAppId = @"160726900680967";//kanav
     token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
     token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
     
+    NSLog(@"token: %@", token);
+    
     [[NSUserDefaults standardUserDefaults] setValue:token forKey:@"device_token"];
 }
 
