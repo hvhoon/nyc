@@ -3148,9 +3148,9 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
     NSArray *hashCount=[activityObject.where_address componentsSeparatedByString:@"#"];
     NSLog(@"hashCount=%d",[hashCount count]);
     if([hashCount count]==2){
-    locationInfoLabel2.text=firstALineddressLabel.text=selectedPlacemark.vicinityAddress;
-    locationInfoLabel1.text=selectedPlacemark.formattedAddress;
-    [secondLineAddressLabel setHidden:YES];
+        locationInfoLabel2.text=firstALineddressLabel.text=selectedPlacemark.vicinityAddress;
+        locationInfoLabel1.text=selectedPlacemark.formattedAddress;
+        [secondLineAddressLabel setHidden:YES];
     }
     
     
