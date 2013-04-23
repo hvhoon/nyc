@@ -173,6 +173,7 @@
     notificationListingArray=[[NSMutableArray arrayWithArray:responses]retain];
     calendarArray=[[NSMutableArray alloc]init];
     // sync your calendar too
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
     
     if([responses count]>0){
      
@@ -185,7 +186,8 @@
         if([calendarArray count]>0){
         NotificationClass *notify=[calendarArray objectAtIndex:calendarInc];
             isSyncing=TRUE;
-        [devServer getDetailedActivityInfoInvocation:notify.referredId    actId:notify.activityId  latitude:[notify.latitude floatValue] longitude:[notify.longitude floatValue] delegate:self];
+            
+        [devServer getDetailedActivityInfoInvocation:[SOC.loggedInUser.idSoc intValue]    actId:notify.activityId  latitude:[notify.latitude floatValue] longitude:[notify.longitude floatValue] delegate:self];
         }
         else{
           [notificationView toReloadTableWithNotifications:[NSMutableArray arrayWithArray:responses]];            
@@ -194,7 +196,6 @@
     else{
         [notificationView toReloadTableWithNotifications:[NSMutableArray arrayWithArray:responses]];
     }
-    SoclivityManager *SOC=[SoclivityManager SharedInstance];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
 }
@@ -370,10 +371,11 @@
     
     calendarInc++;
 
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    
     NotificationClass *notify=[calendarArray objectAtIndex:calendarInc];
     isSyncing=TRUE;
-    [devServer getDetailedActivityInfoInvocation:notify.referredId    actId:notify.activityId  latitude:[notify.latitude floatValue] longitude:[notify.longitude floatValue] delegate:self];
-
+    [devServer getDetailedActivityInfoInvocation:[SOC.loggedInUser.idSoc intValue]    actId:notify.activityId  latitude:[notify.latitude floatValue] longitude:[notify.longitude floatValue] delegate:self];
     
 }
 
@@ -390,8 +392,11 @@
         EventShareActivity *editActivity=[[EventShareActivity alloc]init];
         [editActivity deltaUpdateSyncCalendar:response];
         
+        EventShareActivity *editActivity=[[EventShareActivity alloc]init];
+        [editActivity deltaUpdateSyncCalendar:response];
+        
         if(calendarInc==[calendarArray count]-1){
-            [notificationView toReloadTableWithNotifications:notificationListingArray];
+            [notificationView toReloadTableWithNotifications:[NSMutableArray arrayWithArray:self.notificationListingArray]];
         }
         else{
 

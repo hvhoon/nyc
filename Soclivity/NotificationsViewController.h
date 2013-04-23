@@ -40,6 +40,7 @@
 @property(nonatomic, retain)NotificationClass *notIdObject;
 @property(nonatomic, retain)    NSArray*notificationListingArray;
 @property (nonatomic,assign)BOOL isPushedFromStack;
+@property(nonatomic, retain)NSArray*notificationListingArray;
 -(IBAction)profileSliderPressed:(id)sender;
 -(void)startAnimation:(int)tag;
 -(void)getUserNotifications;
