@@ -48,6 +48,9 @@
             
             if(activityObj.venueId!=nil&& [activityObj.venueId class]!=[NSNull class] && [activityObj.venueId length]!=0)
                 [bodyD setObject:activityObj.venueId forKey:@"venue_id"];
+            else{
+                [bodyD setObject:@"" forKey:@"venue_id"];
+            }
 
             
         }

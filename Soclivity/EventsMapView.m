@@ -340,7 +340,7 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
                 default:
                     break;
             }
-
+#if 0
             
             CGRect resizeRect;
             
@@ -359,8 +359,8 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
             [flagImage drawInRect:resizeRect];
             UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
             UIGraphicsEndImageContext();
-            
-            annotationView.image = resizedImage;
+#endif
+            annotationView.image = flagImage;
             annotationView.opaque = NO;
             annotationView.leftCalloutAccessoryView=[self DrawAMapLeftAccessoryView:location];
             

@@ -779,9 +779,23 @@
     BOOL canHandle = [[UIApplication sharedApplication] canOpenURL: [NSURL URLWithString:@"comgooglemaps://"]];
     
     if (canHandle) {
-        // Google maps installed
-        NSLog(@"iphone has google app");
-        [[UIApplication sharedApplication] openURL: [NSURL URLWithString:@"comgooglemaps://?center=40.765819,-73.975866&zoom=14&views=traffic"]];
+//        NSString *urlString=[NSString stringWithFormat:@"comgooglemaps://?center=%f,%f&zoom=14&views=traffic",[activityObject.where_lat floatValue],[activityObject.where_lng floatValue]];
+        
+        //NSString *urlString=[NSString stringWithFormat:@"comgooglemaps://?saddr=&daddr=%f,%f&directionsmode=driving&views=satellite&mapmode=standard",[activityObject.where_lat floatValue],[activityObject.where_lng floatValue]];
+        
+        
+        NSString *str = [activityObject.where_address stringByReplacingOccurrencesOfString:@"#"
+                                                                     withString:@"+"];
+        
+            str=[str stringByReplacingOccurrencesOfString:@" "
+                                           withString:@"+"];
+
+        NSString *urlString=[NSString stringWithFormat:@"comgooglemaps://?q=%@&center=%f,%f&views=traffic&zoom=15",str,[activityObject.where_lat floatValue],[activityObject.where_lng floatValue]];
+
+        
+        
+
+        [[UIApplication sharedApplication] openURL: [NSURL URLWithString:urlString]];
     } else {
         // Use Apple maps?
         NSLog(@"iphone has Apple app");
