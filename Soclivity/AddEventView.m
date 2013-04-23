@@ -2214,9 +2214,11 @@ else {
         
         if([[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"] class]!=[NSNull null]){
                 phoneLabel.text=currentPlacemark.formattedPhNo=[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"];
+            phoneButton.enabled=YES;
         }
         else{
             phoneLabel.text=currentPlacemark.formattedPhNo=@"Not Available";
+            phoneButton.enabled=NO;
         }
         
         

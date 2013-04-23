@@ -14,6 +14,7 @@
 #import "SOCProfileViewController.h"
 #import "SocPlayerClass.h"
 #import "GetPlayersClass.h"
+#import "EventShareActivity.h"
 @implementation NotificationsViewController
 @synthesize delegate,notIdObject,isPushedFromStack;
 
@@ -168,10 +169,31 @@
     [HUD hide:YES];
     
     [self BadgeNotification];
-    
+    calendarInc=0;
+    notificationListingArray=[NSMutableArray arrayWithArray:responses];
+    calendarArray=[[NSMutableArray alloc]init];
     // sync your calendar too
-    [notificationView toReloadTableWithNotifications:[NSMutableArray arrayWithArray:responses]];
     
+    if([responses count]>0){
+     
+        for(NotificationClass *obj in responses){
+            
+            if(([obj.notificationType integerValue]==1||[obj.notificationType integerValue]==2||[obj.notificationType integerValue]==3||[obj.notificationType integerValue]==4)&& !obj.isRead){
+                [calendarArray addObject:obj];
+            }
+        }
+        if([calendarArray count]>0){
+        NotificationClass *notify=[calendarArray objectAtIndex:calendarInc];
+            isSyncing=TRUE;
+        [devServer getDetailedActivityInfoInvocation:notify.referredId    actId:notify.activityId  latitude:[notify.latitude floatValue] longitude:[notify.longitude floatValue] delegate:self];
+        }
+        else{
+          [notificationView toReloadTableWithNotifications:[NSMutableArray arrayWithArray:responses]];            
+        }
+    }
+    else{
+        [notificationView toReloadTableWithNotifications:[NSMutableArray arrayWithArray:responses]];
+    }
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
@@ -344,7 +366,13 @@
     }
 }
 
+-(void)loadNextCalendarEvent{
+    NotificationClass *notify=[calendarArray objectAtIndex:calendarInc];
+    isSyncing=TRUE;
+    [devServer getDetailedActivityInfoInvocation:notify.referredId    actId:notify.activityId  latitude:[notify.latitude floatValue] longitude:[notify.longitude floatValue] delegate:self];
 
+    
+}
 
 
 #pragma mark DetailedActivityInfoInvocationDelegate Method
@@ -353,6 +381,22 @@
                                      withError:(NSError*)error{
     
     
+    
+    if(isSyncing){
+        isSyncing=FALSE;
+        calendarInc++;
+        
+        if(calendarInc==[calendarArray count]-1){
+            [notificationView toReloadTableWithNotifications:notificationListingArray];  
+        }
+        else{
+            EventShareActivity *editActivity=[[EventShareActivity alloc]init];
+            [editActivity deltaUpdateSyncCalendar:response];
+
+            [self loadNextCalendarEvent];
+        }
+    }
+    else{
     [HUD hide:YES];
     
     if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
@@ -414,7 +458,7 @@
         }
         
     [notificationView updateButtonAndAnimation];
-
+    }
     
 }
 -(void)userWantsToDeleteTheNofication:(NSInteger)notificationId{

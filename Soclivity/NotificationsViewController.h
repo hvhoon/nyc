@@ -31,6 +31,10 @@
     IBOutlet UIButton *backButton;
     BOOL isPushedFromStack;
     IBOutlet UIButton *btnnotify2;
+    int calendarInc;
+    NSMutableArray*calendarArray;
+    BOOL isSyncing;
+    NSMutableArray*notificationListingArray;
 }
 @property (nonatomic,retain)id <NotificationsScreenViewDelegate>delegate;
 @property(nonatomic, retain)NotificationClass *notIdObject;
