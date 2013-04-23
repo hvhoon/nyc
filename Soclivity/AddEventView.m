@@ -803,7 +803,7 @@ else {
 
 -(void)decideToShowMapView:(NSInteger)type{
     
-    firstALineddressLabel.frame=CGRectMake(24, 10, 228+30, 21);
+    firstALineddressLabel.frame=CGRectMake(16, 10, 228+30, 21);
     
     currentPlacemark=[[PlacemarkClass alloc]init];
 
@@ -1038,7 +1038,7 @@ else {
         verticalMiddleLine.hidden=YES;
         leftMagifyImageView.hidden=YES;
         rightPinImageView.hidden=YES;
-        firstALineddressLabel.frame=CGRectMake(24, 10, 228+30, 21);
+        firstALineddressLabel.frame=CGRectMake(16, 10, 228+30, 21);
         
     }
     
@@ -1614,7 +1614,7 @@ else {
     
     if(show){
         
-        firstALineddressLabel.frame=CGRectMake(24, 10, 228+30, 21);
+        firstALineddressLabel.frame=CGRectMake(16, 10, 228+30, 21);
         phoneIconImageView.hidden=NO;
         phoneLabel.hidden=NO;
         ratingIconImageView.hidden=NO;
