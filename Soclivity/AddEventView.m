@@ -1307,7 +1307,7 @@ else {
     
     // Setup an alert for the missing email address
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Exiting Soclivity"
-                                                    message:@"Open the link in Safari?"
+                                                    message:@"Open link in Safari?"
                                                    delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK",nil];
     alert.tag=kUrlRedirect;
     [alert show];

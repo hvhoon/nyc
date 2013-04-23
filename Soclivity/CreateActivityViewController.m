@@ -555,7 +555,7 @@
     secondLineAddressLabel.hidden=YES;
     
     
-    phoneIconImageView=[[UIImageView alloc]initWithFrame:CGRectMake(24, 33, 14, 14)];
+    phoneIconImageView=[[UIImageView alloc]initWithFrame:CGRectMake(16, 33, 14, 14)];
     phoneIconImageView.image=[UIImage imageNamed:@"S05.1_phoneIcon.png"];
     [locationInfoView addSubview:phoneIconImageView];
     [phoneIconImageView setHidden:YES];
@@ -565,14 +565,14 @@
     
     
     phoneButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    phoneButton.frame = CGRectMake(24,33,164,21);
+    phoneButton.frame = CGRectMake(16,33,164,21);
     [phoneButton addTarget:self action:@selector(phoneButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [locationInfoView addSubview:phoneButton];
     
     
     phoneButton.enabled=NO;
 
-    CGRect phoneLabelRect=CGRectMake(45,30,142,21);
+    CGRect phoneLabelRect=CGRectMake(37,30,142,21);
     phoneLabel=[[UILabel alloc] initWithFrame:phoneLabelRect];
     phoneLabel.textAlignment=UITextAlignmentLeft;
     phoneLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
@@ -581,12 +581,12 @@
     [locationInfoView addSubview:phoneLabel];
     [phoneLabel setHidden:YES];
     
-    ratingIconImageView=[[UIImageView alloc]initWithFrame:CGRectMake(185, 30, 18, 18)];
+    ratingIconImageView=[[UIImageView alloc]initWithFrame:CGRectMake(165, 30, 18, 18)];
     ratingIconImageView.image=[UIImage imageNamed:@"S05.1_4squareIcon.png"];
     [locationInfoView addSubview:ratingIconImageView];
     [ratingIconImageView setHidden:YES];
     
-    CGRect ratingLabelRect=CGRectMake(210,30,80,21);
+    CGRect ratingLabelRect=CGRectMake(190,30,80,21);
     ratingLabel=[[UILabel alloc] initWithFrame:ratingLabelRect];
     ratingLabel.textAlignment=UITextAlignmentLeft;
     ratingLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
@@ -744,12 +744,12 @@
     switch (selectedPlacemark.addType) {
          case 3:
         {
-            firstALineddressLabel.text=[NSString stringWithFormat:@"%@,%@",selectedPlacemark.formattedAddress,selectedPlacemark.vicinityAddress];
+            firstALineddressLabel.text=[NSString stringWithFormat:@"%@, %@",selectedPlacemark.formattedAddress,selectedPlacemark.vicinityAddress];
         }
             break;
         case 1:
         {
-            firstALineddressLabel.text=[NSString stringWithFormat:@"%@,%@",selectedPlacemark.formattedAddress,selectedPlacemark.vicinityAddress];
+            firstALineddressLabel.text=[NSString stringWithFormat:@"%@, %@",selectedPlacemark.formattedAddress,selectedPlacemark.vicinityAddress];
             
         }
             break;
@@ -975,8 +975,8 @@
     urlIndex=sender.tag%777;
     
     // Setup an alert for the missing email address
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Do you want to quit the App"
-                                                    message:@"Open the link in safari"
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Exiting Soclivity"
+                                                    message:@"Open link in Safari?"
                                                    delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK",nil];
     alert.tag=kUrlRedirect;
     [alert show];
@@ -1739,13 +1739,13 @@
                             localString =[NSString stringWithFormat:@"%@",placemark.adminLevel1];
                         }
                         else{
-                            localString =[NSString stringWithFormat:@"%@,%@",placemark.adminLevel2,placemark.adminLevel1];
+                            localString =[NSString stringWithFormat:@"%@, %@",placemark.adminLevel2,placemark.adminLevel1];
                             
                         }
                         
                     }
                     
-                    placemark.vicinityAddress=[NSString stringWithFormat:@"%@,%@",placemark.address,localString];
+                    placemark.vicinityAddress=[NSString stringWithFormat:@"%@, %@",placemark.address,localString];
                     
                     [_geocodingResults addObject:placemark];
                     
@@ -1934,7 +1934,7 @@
     
     if(show){
         
-        firstALineddressLabel.frame=CGRectMake(24, 10, 228+30, 21);
+        firstALineddressLabel.frame=CGRectMake(16, 7, 228+30, 21);
         phoneIconImageView.hidden=NO;
         phoneLabel.hidden=NO;
         ratingIconImageView.hidden=NO;
@@ -2736,10 +2736,10 @@
         size.width=300;
     }
 	
-    CGRect nameLabelRect=CGRectMake(5,0,size.width,14);
+    CGRect nameLabelRect=CGRectMake(5,0,size.width,16);
 	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
 	nameLabel.textAlignment=UITextAlignmentLeft;
-	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:13];
+	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
 	nameLabel.textColor=[UIColor whiteColor];
 	nameLabel.backgroundColor=[UIColor clearColor];
 	nameLabel.text=locObject.annotation.formattedAddress;
@@ -2829,7 +2829,7 @@
             case 3:
             {
                 //reverse geo code
-                firstALineddressLabel.text=[NSString stringWithFormat:@"%@,%@",loc.annotation.formattedAddress,loc.annotation.vicinityAddress];
+                firstALineddressLabel.text=[NSString stringWithFormat:@"%@, %@",loc.annotation.formattedAddress,loc.annotation.vicinityAddress];
                 CLLocationCoordinate2D coordinate=[loc coordinate];
             [self getAddressDetailsFromLatLong:coordinate.latitude lng:coordinate. longitude];
             }
@@ -3067,7 +3067,7 @@
             placemark.addType=0;
         }
         else{
-            localString =[NSString stringWithFormat:@"%@,%@",placemark.streetNumber,placemark.route];
+            localString =[NSString stringWithFormat:@"%@, %@",placemark.streetNumber,placemark.route];
             placemark.addType=0;
             
         }
@@ -3084,7 +3084,7 @@
             placemark.vicinityAddress =[NSString stringWithFormat:@"%@",placemark.adminLevel1];
         }
         else{
-            placemark.vicinityAddress =[NSString stringWithFormat:@"%@ %@",placemark.adminLevel2,placemark.adminLevel1];
+            placemark.vicinityAddress =[NSString stringWithFormat:@"%@, %@",placemark.adminLevel2,placemark.adminLevel1];
             
         }
 
@@ -3177,7 +3177,7 @@
                 
                 [self setUpLabelViewElements:NO];
                 if([location.annotation.vicinityAddress length]!=0)
-                    firstALineddressLabel.text=[NSString stringWithFormat:@"%@,%@",location.annotation.formattedAddress,location.annotation.vicinityAddress];
+                    firstALineddressLabel.text=[NSString stringWithFormat:@"%@, %@",location.annotation.formattedAddress,location.annotation.vicinityAddress];
                 else{
                     firstALineddressLabel.text=[NSString stringWithFormat:@"%@",location.annotation.formattedAddress];
                     
