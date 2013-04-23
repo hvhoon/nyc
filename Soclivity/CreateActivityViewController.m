@@ -739,6 +739,11 @@
     activityObject.where_lng=[NSString stringWithFormat:@"%f",selectedPlacemark.longitude];
     activityObject.where_address = [NSString stringWithFormat:@"%@#%@",selectedPlacemark.formattedAddress,selectedPlacemark.vicinityAddress];
     activityObject.venueId=selectedPlacemark.foursquareId;
+    
+    activityObject.where_state=selectedPlacemark.where_state;
+    activityObject.where_city=selectedPlacemark.where_city;
+    activityObject.where_zip=selectedPlacemark.where_zip;
+
     NSArray *hashCount=[activityObject.where_address componentsSeparatedByString:@"#"];
     NSLog(@"hashCount=%d",[hashCount count]);
     switch (selectedPlacemark.addType) {
@@ -1510,17 +1515,17 @@
                     
                     if([type isEqualToString:@"administrative_area_level_2"]){
                         NSLog(@"administrative_area_level_2=%@",[comp valueForKey:@"long_name"]);
-                        placemark.adminLevel2=[comp valueForKey:@"long_name"];
+                        placemark.where_city=[comp valueForKey:@"long_name"];
                     }
                     
                     if([type isEqualToString:@"administrative_area_level_1"]){
                         
-                        placemark.adminLevel1=[comp valueForKey:@"short_name"];                        NSLog(@"administrative_area_level_1=%@",[comp valueForKey:@"short_name"]);
+                        placemark.where_state=[comp valueForKey:@"short_name"];                        NSLog(@"administrative_area_level_1=%@",[comp valueForKey:@"short_name"]);
                     }
                     
                     if([type isEqualToString:@"postal_code"]){
                         
-                        placemark.whereZip=[comp valueForKey:@"long_name"];                NSLog(@"postal_code=%@",[comp valueForKey:@"long_name"]);
+                        placemark.where_zip=[comp valueForKey:@"long_name"];                NSLog(@"postal_code=%@",[comp valueForKey:@"long_name"]);
                     }
                     
                     
@@ -1554,7 +1559,7 @@
                 placemark.addType=4;
                 
             }
-            placemark.vicinityAddress=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@, %@",localString,placemark.adminLevel2,placemark.adminLevel1];
+            placemark.vicinityAddress=secondLineAddressLabel.text=[NSString stringWithFormat:@"%@, %@, %@",localString,placemark.where_city,placemark.where_state];
             
         }
         
@@ -1600,17 +1605,17 @@
                     
                     if([type isEqualToString:@"administrative_area_level_2"]){
                         NSLog(@"administrative_area_level_2=%@",[comp valueForKey:@"long_name"]);
-                        placemark.adminLevel2=[comp valueForKey:@"long_name"];
+                        placemark.where_city=[comp valueForKey:@"long_name"];
                     }
                     
                     if([type isEqualToString:@"administrative_area_level_1"]){
                         
-                        placemark.adminLevel1=[comp valueForKey:@"short_name"];                        NSLog(@"administrative_area_level_1=%@",[comp valueForKey:@"short_name"]);
+                        placemark.where_state=[comp valueForKey:@"short_name"];                        NSLog(@"administrative_area_level_1=%@",[comp valueForKey:@"short_name"]);
                     }
                     
                     if([type isEqualToString:@"postal_code"]){
                         
-                        placemark.whereZip=[comp valueForKey:@"long_name"];                        NSLog(@"postal_code=%@",[comp valueForKey:@"long_name"]);
+                        placemark.where_zip=[comp valueForKey:@"long_name"];                        NSLog(@"postal_code=%@",[comp valueForKey:@"long_name"]);
                     }
                     
                     
@@ -1650,25 +1655,25 @@
                 
             }
             
-            if(((placemark.adminLevel1==nil) || ([placemark.adminLevel1 isEqualToString:@""]))&&((placemark.adminLevel2==nil) || ([placemark.adminLevel2 isEqualToString:@""]))){
+            if(((placemark.where_state==nil) || ([placemark.where_state isEqualToString:@""]))&&((placemark.where_city==nil) || ([placemark.where_city isEqualToString:@""]))){
                 
                 placemark.vicinityAddress =@"";
             }
-            else if((placemark.adminLevel2==nil) || ([placemark.adminLevel2 isEqualToString:@""])){
-                placemark.vicinityAddress  =[NSString stringWithFormat:@"%@",placemark.adminLevel1];
+            else if((placemark.where_city==nil) || ([placemark.where_city isEqualToString:@""])){
+                placemark.vicinityAddress  =[NSString stringWithFormat:@"%@",placemark.where_state];
             }
-            else if((placemark.adminLevel1==nil) || ([placemark.adminLevel1 isEqualToString:@""])){
-                placemark.vicinityAddress  =[NSString stringWithFormat:@"%@",placemark.adminLevel2];
+            else if((placemark.where_state==nil) || ([placemark.where_state isEqualToString:@""])){
+                placemark.vicinityAddress  =[NSString stringWithFormat:@"%@",placemark.where_city];
             }
             
             
             else{
                 
-                if([[placemark.adminLevel1 lowercaseString] isEqualToString:[placemark.adminLevel2 lowercaseString]]){
-                    placemark.vicinityAddress =[NSString stringWithFormat:@"%@",placemark.adminLevel1];
+                if([[placemark.where_state lowercaseString] isEqualToString:[placemark.where_city lowercaseString]]){
+                    placemark.vicinityAddress =[NSString stringWithFormat:@"%@",placemark.where_state];
                 }else
                     
-                    placemark.vicinityAddress =[NSString stringWithFormat:@"%@, %@",placemark.adminLevel2,placemark.adminLevel1];
+                    placemark.vicinityAddress =[NSString stringWithFormat:@"%@, %@",placemark.where_city,placemark.where_state];
                 
             }
             [_geocodingResults addObject:placemark];
@@ -1712,9 +1717,9 @@
                 
                 placemark.latitude = [[[pins objectForKey:@"location"]objectForKey:@"lat"] floatValue];
                 placemark.longitude =[[[pins objectForKey:@"location"]objectForKey:@"lng"] floatValue];
-                placemark.whereZip=[[pins objectForKey:@"location"]objectForKey:@"postalCode"];
-                placemark.adminLevel2=[[pins objectForKey:@"location"]objectForKey:@"city"];
-                placemark.adminLevel1=[[pins objectForKey:@"location"]objectForKey:@"state"];
+                placemark.where_zip=[[pins objectForKey:@"location"]objectForKey:@"postalCode"];
+                placemark.where_city=[[pins objectForKey:@"location"]objectForKey:@"city"];
+                placemark.where_state=[[pins objectForKey:@"location"]objectForKey:@"state"];
                 
                 
                 if([[pins objectForKey:@"location"]objectForKey:@"address"]!=nil && [[[pins objectForKey:@"location"]objectForKey:@"address"] class]!=[NSNull null]){
@@ -1723,23 +1728,23 @@
                     placemark.formattedAddress =[NSString stringWithFormat:@"%@",placemark.queryName];
                     
                     NSString *localString=nil;
-                    if(((placemark.adminLevel2==nil) || ([placemark.adminLevel2 isEqualToString:@""]))&&((placemark.adminLevel1==nil) || ([placemark.adminLevel1 isEqualToString:@""]))){
+                    if(((placemark.where_city==nil) || ([placemark.where_city isEqualToString:@""]))&&((placemark.where_state==nil) || ([placemark.where_state isEqualToString:@""]))){
                         
                         localString=@"";
                     }
-                    else if((placemark.adminLevel2==nil) || ([placemark.adminLevel2 isEqualToString:@""])){
-                        localString =[NSString stringWithFormat:@"%@",placemark.adminLevel1];
+                    else if((placemark.where_city==nil) || ([placemark.where_city isEqualToString:@""])){
+                        localString =[NSString stringWithFormat:@"%@",placemark.where_state];
                     }
-                    else if((placemark.adminLevel1==nil) || ([placemark.adminLevel1 isEqualToString:@""])){
-                        localString =[NSString stringWithFormat:@"%@",placemark.adminLevel2];
+                    else if((placemark.where_state==nil) || ([placemark.where_state isEqualToString:@""])){
+                        localString =[NSString stringWithFormat:@"%@",placemark.where_city];
                     }
                     else{
                         
-                        if([[placemark.adminLevel1 lowercaseString] isEqualToString:[placemark.adminLevel2 lowercaseString]]){
-                            localString =[NSString stringWithFormat:@"%@",placemark.adminLevel1];
+                        if([[placemark.where_state lowercaseString] isEqualToString:[placemark.where_city lowercaseString]]){
+                            localString =[NSString stringWithFormat:@"%@",placemark.where_city];
                         }
                         else{
-                            localString =[NSString stringWithFormat:@"%@, %@",placemark.adminLevel2,placemark.adminLevel1];
+                            localString =[NSString stringWithFormat:@"%@, %@",placemark.where_city,placemark.where_state];
                             
                         }
                         
@@ -2739,7 +2744,7 @@
     CGRect nameLabelRect=CGRectMake(5,0,size.width,16);
 	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
 	nameLabel.textAlignment=UITextAlignmentLeft;
-	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
+	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
 	nameLabel.textColor=[UIColor whiteColor];
 	nameLabel.backgroundColor=[UIColor clearColor];
 	nameLabel.text=locObject.annotation.formattedAddress;
@@ -3047,9 +3052,9 @@
         
         placemark.streetNumber=placemark1.subThoroughfare;
         placemark.route=placemark1.thoroughfare;
-        placemark.whereZip=placemark1.postalCode;
-        placemark.adminLevel2=placemark1.locality;
-        placemark.adminLevel1=[SoclivityUtilities getStateAbbreviation:placemark1.administrativeArea];
+        placemark.where_zip=placemark1.postalCode;
+        placemark.where_city=placemark1.locality;
+        placemark.where_state=[SoclivityUtilities getStateAbbreviation:placemark1.administrativeArea];
         
         
         
@@ -3074,17 +3079,17 @@
         
         placemark.formattedAddress=[NSString stringWithFormat:@"%@",localString];
         
-        if(((placemark.adminLevel1==nil) || ([placemark.adminLevel1 isEqualToString:@""]))&&((placemark.adminLevel2==nil) || ([placemark.adminLevel2 isEqualToString:@""]))){
+        if(((placemark.where_state==nil) || ([placemark.where_state isEqualToString:@""]))&&((placemark.where_city==nil) || ([placemark.where_city isEqualToString:@""]))){
             placemark.vicinityAddress=@"";
         }
-        else if((placemark.adminLevel1==nil) || ([placemark.adminLevel1 isEqualToString:@""])){
-            placemark.vicinityAddress =[NSString stringWithFormat:@"%@",placemark.adminLevel2];
+        else if((placemark.where_state==nil) || ([placemark.where_state isEqualToString:@""])){
+            placemark.vicinityAddress =[NSString stringWithFormat:@"%@",placemark.where_city];
         }
-        else if((placemark.adminLevel2==nil) || ([placemark.adminLevel2 isEqualToString:@""])){
-            placemark.vicinityAddress =[NSString stringWithFormat:@"%@",placemark.adminLevel1];
+        else if((placemark.where_city==nil) || ([placemark.where_city isEqualToString:@""])){
+            placemark.vicinityAddress =[NSString stringWithFormat:@"%@",placemark.where_state];
         }
         else{
-            placemark.vicinityAddress =[NSString stringWithFormat:@"%@, %@",placemark.adminLevel2,placemark.adminLevel1];
+            placemark.vicinityAddress =[NSString stringWithFormat:@"%@, %@",placemark.where_city,placemark.where_state];
             
         }
 

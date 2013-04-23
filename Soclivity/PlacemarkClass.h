@@ -17,9 +17,9 @@
     NSString *vicinityAddress;
     NSString *streetNumber;
     NSString *route;
-    NSString *adminLevel1;
-    NSString *adminLevel2;
-    NSString *whereZip;
+    NSString *where_city;
+    NSString *where_state;
+    NSString *where_zip;
     int addType;
     NSString *queryName;
     NSString *formattedPhNo;
@@ -31,9 +31,9 @@
     NSString*foursquareId;
 }
 @property (nonatomic,retain) NSString *streetNumber;
-@property (nonatomic,retain)NSString *adminLevel1;
-@property (nonatomic,retain)NSString *adminLevel2;
-@property (nonatomic,retain)NSString *whereZip;
+@property (nonatomic,retain)NSString *where_city;
+@property (nonatomic,retain)NSString *where_state;
+@property (nonatomic,retain)NSString *where_zip;
 @property (nonatomic,retain) NSString *route;
 @property (nonatomic,retain) NSString*formattedAddress;
 @property (nonatomic,retain) NSString*vicinityAddress;
