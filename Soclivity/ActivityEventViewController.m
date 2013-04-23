@@ -2202,9 +2202,9 @@
     [eventView.addressSearchBar setHidden:NO];
     
     [eventView setUpLabelViewElements:YES];
-    eventView.activityInfoButton.hidden=YES;
 
     [eventView showSearchBarAndAnimateWithListViewInMiddle];
+    eventView.activityInfoButton.hidden=YES;
     
     
 }

@@ -2931,6 +2931,9 @@
                                         withString:@""];
     str= [str stringByReplacingOccurrencesOfString:@")"
                                         withString:@""];
+    str= [str stringByReplacingOccurrencesOfString:@"-"
+                                        withString:@""];
+
 
     
     str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];

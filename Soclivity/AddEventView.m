@@ -1049,9 +1049,22 @@ else {
     activityInfoButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     activityInfoButton.frame = CGRectMake(285,15,28,27);
     [activityInfoButton setImage:[UIImage imageNamed:@"S05.1_drivingDirectionsIcon.png"] forState:UIControlStateNormal];
+    [activityInfoButton setImage:[UIImage imageNamed:@"S05.1_drivingDirectionsIcon.png"] forState:UIControlStateHighlighted];
+
     
     [activityInfoButton addTarget:self action:@selector(activityInfoButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [labelView addSubview:activityInfoButton];
+    
+    
+    
+    phoneButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    phoneButton.frame = CGRectMake(16,33,164,21);
+    [phoneButton addTarget:self action:@selector(phoneButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [labelView addSubview:phoneButton];
+    
+    
+    phoneButton.enabled=NO;
+
 
     
     currentPlacemark.latitude=[activityObject.where_lat floatValue];
@@ -1545,8 +1558,14 @@ else {
                 
                 [self showFourSquareComponents:YES];
                 
-                if(loc.annotation.formattedPhNo!=nil && [loc.annotation.formattedPhNo class]!=[NSNull null]){
+                if(loc.annotation.formattedPhNo!=nil && [loc.annotation.formattedPhNo class]!=[NSNull null]&& ![loc.annotation.formattedPhNo isEqualToString:@"Not Available"]){
                     phoneLabel.text=loc.annotation.formattedPhNo;
+                    phoneButton.enabled=YES;
+                }
+                else{
+                    phoneLabel.text=@"Not Available";
+                    phoneButton.enabled=NO;
+                    
                 }
                 
                 ratingLabel.text=[NSString stringWithFormat:@"Rating: N/A"];
@@ -1609,6 +1628,29 @@ else {
 
     
 }
+
+-(void)phoneButtonPressed:(id)sender{
+    
+    PlacemarkClass *loc=[currentLocationArray objectAtIndex:pointTag];
+    
+    NSString *str = [loc.formattedPhNo stringByReplacingOccurrencesOfString:@"("
+                                                                 withString:@""];
+    str= [str stringByReplacingOccurrencesOfString:@" "
+                                        withString:@""];
+    str= [str stringByReplacingOccurrencesOfString:@")"
+                                        withString:@""];
+    str= [str stringByReplacingOccurrencesOfString:@"-"
+                                        withString:@""];
+
+    
+    
+    str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSLog(@"URL=%@",[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",str]]);
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",str]]];
+    
+}
+
 
 -(void)showFourSquareComponents:(BOOL)show{
     
@@ -1771,6 +1813,7 @@ else {
     touchPin.addType=3;
     touchPin.category=nil;
     
+    phoneButton.enabled=NO;
     ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithAnnotation:touchPin  tag:7770 pin:YES]autorelease];
 
 
@@ -1936,7 +1979,7 @@ else {
                         [self showFourSquareComponents:YES];
                         
                         placemark.formattedPhNo=phoneLabel.text=@"Not Available";
-                        
+                                        phoneButton.enabled=NO;
                         placemark.ratingValue=ratingLabel.text=@"Rating: N/A";
 
 
@@ -2348,6 +2391,7 @@ else {
             placemark.ratingValue=@"Rating: N/A";
             placemark.formattedPhNo=@"Not Available";
             placemark.addType=1;
+            phoneButton.enabled=NO;
             NSArray *addressComponents=[object objectForKey:@"address_components"];
             for(id comp in addressComponents){
                 
@@ -2365,12 +2409,12 @@ else {
                     
                     if([type isEqualToString:@"administrative_area_level_2"]){
                         NSLog(@"administrative_area_level_2=%@",[comp valueForKey:@"long_name"]);
-                        placemark.where_state=[comp valueForKey:@"long_name"];
+                        placemark.where_city=[comp valueForKey:@"long_name"];
                     }
                     
                     if([type isEqualToString:@"administrative_area_level_1"]){
                         
-                        placemark.where_city=[comp valueForKey:@"short_name"];                        NSLog(@"administrative_area_level_1=%@",[comp valueForKey:@"short_name"]);
+                        placemark.where_state=[comp valueForKey:@"short_name"];                        NSLog(@"administrative_area_level_1=%@",[comp valueForKey:@"short_name"]);
                     }
                     
                     if([type isEqualToString:@"postal_code"]){
@@ -2453,9 +2497,11 @@ else {
             placemark.foursquareId=[pins objectForKey:@"id"];
             if([[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"] class]!=[NSNull null]){
                 placemark.formattedPhNo=[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"];
+                                    phoneButton.enabled=YES;
         }
             else{
                 placemark.formattedPhNo=phoneLabel.text=@"Not Available";
+                                    phoneButton.enabled=NO;
             }
 
             

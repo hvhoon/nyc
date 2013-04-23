@@ -89,6 +89,7 @@
     UILabel *categoryTextLabel;
     UIButton *disclosureButton;
     NSInteger urlIndex;
+    UIButton *phoneButton;
 
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;

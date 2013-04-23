@@ -47,7 +47,7 @@
               [bodyD setObject:activityObj.where_zip forKey:@"where_zip"];
             
             if(activityObj.venueId!=nil&& [activityObj.venueId class]!=[NSNull class] && [activityObj.venueId length]!=0)
-                [bodyD setObject:activityObj.where_zip forKey:@"venue_id"];
+                [bodyD setObject:activityObj.venueId forKey:@"venue_id"];
 
             
         }
