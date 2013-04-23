@@ -56,8 +56,8 @@
 
 -(void)loadViewWithActivityDetails:(InfoActivityClass*)info{
     
-    [self bringSubviewToFront:labelView];
     // Loading picture information
+    
     NSOperationQueue *queue = [NSOperationQueue new];
     NSInvocationOperation *operation = [[NSInvocationOperation alloc]
                                     initWithTarget:self

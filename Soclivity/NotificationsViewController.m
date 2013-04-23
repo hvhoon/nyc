@@ -17,7 +17,7 @@
 #import "EventShareActivity.h"
 @implementation NotificationsViewController
 @synthesize delegate,notIdObject,isPushedFromStack;
-
+@synthesize notificationListingArray;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -170,7 +170,7 @@
     
     [self BadgeNotification];
     calendarInc=0;
-    notificationListingArray=[NSMutableArray arrayWithArray:responses];
+    notificationListingArray=[[NSMutableArray arrayWithArray:responses]retain];
     calendarArray=[[NSMutableArray alloc]init];
     // sync your calendar too
     
@@ -387,13 +387,13 @@
     
     if(isSyncing){
         isSyncing=FALSE;
+        EventShareActivity *editActivity=[[EventShareActivity alloc]init];
+        [editActivity deltaUpdateSyncCalendar:response];
         
         if(calendarInc==[calendarArray count]-1){
             [notificationView toReloadTableWithNotifications:notificationListingArray];
         }
         else{
-            EventShareActivity *editActivity=[[EventShareActivity alloc]init];
-            [editActivity deltaUpdateSyncCalendar:response];
 
             [self loadNextCalendarEvent];
         }
