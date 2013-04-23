@@ -367,6 +367,9 @@
 }
 
 -(void)loadNextCalendarEvent{
+    
+    calendarInc++;
+
     NotificationClass *notify=[calendarArray objectAtIndex:calendarInc];
     isSyncing=TRUE;
     [devServer getDetailedActivityInfoInvocation:notify.referredId    actId:notify.activityId  latitude:[notify.latitude floatValue] longitude:[notify.longitude floatValue] delegate:self];
@@ -384,10 +387,9 @@
     
     if(isSyncing){
         isSyncing=FALSE;
-        calendarInc++;
         
         if(calendarInc==[calendarArray count]-1){
-            [notificationView toReloadTableWithNotifications:notificationListingArray];  
+            [notificationView toReloadTableWithNotifications:notificationListingArray];
         }
         else{
             EventShareActivity *editActivity=[[EventShareActivity alloc]init];
