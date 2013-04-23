@@ -803,7 +803,7 @@ else {
 
 -(void)decideToShowMapView:(NSInteger)type{
     
-    firstALineddressLabel.frame=CGRectMake(24, 10, 228+30, 21);
+    firstALineddressLabel.frame=CGRectMake(16, 7, 228+30, 21);
     
     currentPlacemark=[[PlacemarkClass alloc]init];
 
@@ -897,7 +897,7 @@ else {
                     firstALineddressLabel.text=[hashCount objectAtIndex:1];
                 }
                 else{
-                    firstALineddressLabel.text=[NSString stringWithFormat:@"%@,%@",[hashCount objectAtIndex:0],[hashCount objectAtIndex:1]];
+                    firstALineddressLabel.text=[NSString stringWithFormat:@"%@, %@",[hashCount objectAtIndex:0],[hashCount objectAtIndex:1]];
                 }
 
             }
@@ -1038,7 +1038,7 @@ else {
         verticalMiddleLine.hidden=YES;
         leftMagifyImageView.hidden=YES;
         rightPinImageView.hidden=YES;
-        firstALineddressLabel.frame=CGRectMake(24, 10, 228+30, 21);
+        firstALineddressLabel.frame=CGRectMake(16, 7, 228+30, 21);
         
     }
     
@@ -1306,8 +1306,8 @@ else {
     urlIndex=sender.tag%777;
     
     // Setup an alert for the missing email address
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Do you want to quit the App"
-                                                    message:@"Open the link in safari"
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Exiting Soclivity"
+                                                    message:@"Open link in Safari?"
                                                    delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK",nil];
     alert.tag=kUrlRedirect;
     [alert show];
@@ -1408,7 +1408,7 @@ else {
 
 -(UIView*)DrawAMapLeftAccessoryView:(ActivityAnnotation *)locObject{
 	
-    CGSize  size = [locObject.annotation.formattedAddress sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14]];
+    CGSize  size = [locObject.annotation.formattedAddress sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15]];
     
     CGSize  size2 = [locObject.annotation.category sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:12]];
     
@@ -1443,10 +1443,10 @@ else {
         size.width=300;
     }
 	
-    CGRect nameLabelRect=CGRectMake(5,0,size.width,14);
+    CGRect nameLabelRect=CGRectMake(5,0,size.width,15);
 	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
 	nameLabel.textAlignment=UITextAlignmentLeft;
-	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:13];
+	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
 	nameLabel.textColor=[UIColor whiteColor];
 	nameLabel.backgroundColor=[UIColor clearColor];
 	nameLabel.text=locObject.annotation.formattedAddress;
@@ -1532,7 +1532,7 @@ else {
             case 3:
             {
                 //reverse geo code
-                firstALineddressLabel.text=[NSString stringWithFormat:@"%@,%@",loc.annotation.formattedAddress,loc.annotation.vicinityAddress];
+                firstALineddressLabel.text=[NSString stringWithFormat:@"%@, %@",loc.annotation.formattedAddress,loc.annotation.vicinityAddress];
                 CLLocationCoordinate2D coordinate=[loc coordinate];
                 [self getAddressDetailsFromLatLong:coordinate.latitude lng:coordinate. longitude];
             }
@@ -1560,7 +1560,7 @@ else {
                 case 1:
                 
             {
-                firstALineddressLabel.text=[NSString stringWithFormat:@"%@,%@",loc.annotation.formattedAddress,loc.annotation.vicinityAddress];
+                firstALineddressLabel.text=[NSString stringWithFormat:@"%@, %@",loc.annotation.formattedAddress,loc.annotation.vicinityAddress];
                 secondLineAddressLabel.hidden=YES;
                 
                 [self showFourSquareComponents:YES];
@@ -1614,7 +1614,7 @@ else {
     
     if(show){
         
-        firstALineddressLabel.frame=CGRectMake(24, 10, 228+30, 21);
+        firstALineddressLabel.frame=CGRectMake(16, 7, 228+30, 21);
         phoneIconImageView.hidden=NO;
         phoneLabel.hidden=NO;
         ratingIconImageView.hidden=NO;
@@ -1838,7 +1838,7 @@ else {
             placemark.vicinityAddress =[NSString stringWithFormat:@"%@",placemark.adminLevel1];
         }
         else{
-            placemark.vicinityAddress =[NSString stringWithFormat:@"%@ %@",placemark.adminLevel2,placemark.adminLevel1];
+            placemark.vicinityAddress =[NSString stringWithFormat:@"%@, %@",placemark.adminLevel2,placemark.adminLevel1];
             
         }
         
@@ -1930,7 +1930,7 @@ else {
                         
                         [self setUpLabelViewElements:NO];
                         
-                        firstALineddressLabel.text=[NSString stringWithFormat:@"%@,%@",location.annotation.formattedAddress,location.annotation.vicinityAddress];
+                        firstALineddressLabel.text=[NSString stringWithFormat:@"%@, %@",location.annotation.formattedAddress,location.annotation.vicinityAddress];
                         
                         [secondLineAddressLabel setHidden:YES];
                         
@@ -2504,13 +2504,13 @@ else {
                         localString =[NSString stringWithFormat:@"%@",placemark.adminLevel1];
                         }
                         else{
-                            localString =[NSString stringWithFormat:@"%@,%@",placemark.adminLevel2,placemark.adminLevel1];
+                            localString =[NSString stringWithFormat:@"%@, %@",placemark.adminLevel2,placemark.adminLevel1];
                             
                         }
                         
                     }
                     
-                    placemark.vicinityAddress=[NSString stringWithFormat:@"%@,%@",placemark.address,localString];
+                    placemark.vicinityAddress=[NSString stringWithFormat:@"%@, %@",placemark.address,localString];
                     
                     [_geocodingResults addObject:placemark];
 
@@ -3222,7 +3222,7 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
             firstALineddressLabel.text=[hashCount objectAtIndex:1];
         }
         else{
-            firstALineddressLabel.text=[NSString stringWithFormat:@"%@,%@",[hashCount objectAtIndex:0],[hashCount objectAtIndex:1]];
+            firstALineddressLabel.text=[NSString stringWithFormat:@"%@, %@",[hashCount objectAtIndex:0],[hashCount objectAtIndex:1]];
         }
 
     }
