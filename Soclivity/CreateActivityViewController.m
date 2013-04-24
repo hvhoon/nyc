@@ -1729,6 +1729,11 @@
             placemark.addType=2;
             placemark.queryName=[pins objectForKey:@"name"];
             placemark.foursquareId=[pins objectForKey:@"id"];
+            
+            if([[pins objectForKey:@"contact"]objectForKey:@"phone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"phone"] class]!=[NSNull null]){
+                placemark.phoneNumber=[[pins objectForKey:@"contact"]objectForKey:@"phone"];
+            }
+
             if([[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"] class]!=[NSNull null]){
                 placemark.formattedPhNo=[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"];
                     phoneButton.enabled=YES;
@@ -2976,8 +2981,8 @@
     
     str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSLog(@"URL=%@",[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",str]]);
-    
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",str]]];
+    NSLog(@"URL=%@",[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",loc.phoneNumber]]);    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",loc.phoneNumber]]];
 
 }
 -(void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view{

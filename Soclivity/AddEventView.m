@@ -1673,9 +1673,11 @@ else {
 -(void)phoneButtonPressed:(id)sender{
     
     PlacemarkClass *loc=[currentLocationArray objectAtIndex:pointTag];
-    
+
     NSString *str = [loc.formattedPhNo stringByReplacingOccurrencesOfString:@"("
                                                                  withString:@""];
+    str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
     str= [str stringByReplacingOccurrencesOfString:@" "
                                         withString:@""];
     str= [str stringByReplacingOccurrencesOfString:@")"
@@ -1685,10 +1687,10 @@ else {
 
     
     
-    str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSLog(@"URL=%@",[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",loc.formattedPhNo]]);
+    NSLog(@"URL=%@",[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",str]]);
+    NSLog(@"URL=%@",[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",loc.phoneNumber]]);
     
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:1234567890"]]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",loc.phoneNumber]]];
     
 }
 
@@ -2252,6 +2254,12 @@ else {
         else{
             currentPlacemark.ratingValue=ratingLabel.text=[NSString stringWithFormat:@"Rating: N/A"];
         }
+
+        if([[pins objectForKey:@"contact"]objectForKey:@"phone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"phone"] class]!=[NSNull null]){
+            currentPlacemark.phoneNumber=[[pins objectForKey:@"contact"]objectForKey:@"phone"];
+        }
+
+
         
         if([[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"] class]!=[NSNull null]){
                 phoneLabel.text=currentPlacemark.formattedPhNo=[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"];
@@ -2538,6 +2546,11 @@ else {
             placemark.addType=2;
             placemark.queryName=[pins objectForKey:@"name"];
             placemark.foursquareId=[pins objectForKey:@"id"];
+            
+            if([[pins objectForKey:@"contact"]objectForKey:@"phone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"phone"] class]!=[NSNull null]){
+                placemark.phoneNumber=[[pins objectForKey:@"contact"]objectForKey:@"phone"];
+            }
+
             if([[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"] class]!=[NSNull null]){
                 placemark.formattedPhNo=[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"];
                                     phoneButton.enabled=YES;
