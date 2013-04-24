@@ -800,8 +800,32 @@
         // Use Apple maps?
         NSLog(@"iphone has Apple app");
         
-        NSString *url=[NSString stringWithFormat:@"http://maps.google.com/maps?saddr=%f,%f&daddr=%f,%f",SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude, [activityObject.where_lat floatValue], [activityObject.where_lng floatValue]];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+        
+        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([activityObject.where_lat floatValue],[activityObject.where_lng floatValue]);
+        
+        //create MKMapItem out of coordinates
+        MKPlacemark* placeMark = [[MKPlacemark alloc] initWithCoordinate:coordinate addressDictionary:nil];
+        MKMapItem* destination =  [[MKMapItem alloc] initWithPlacemark:placeMark];
+        
+        if([destination respondsToSelector:@selector(openInMapsWithLaunchOptions:)])
+        {
+            //using iOS6 native maps app
+            [destination openInMapsWithLaunchOptions:@{MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving}];
+        }
+        else
+        {
+            //using iOS 5 which has the Google Maps application
+            //            NSString* url = [NSString stringWithFormat: @"http://maps.google.com/maps?saddr=Current+Location&daddr=%f,%f", latitude, longitude];
+            //            [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+            
+            NSString *url=[NSString stringWithFormat:@"http://maps.google.com/maps?saddr=%f,%f&daddr=%f,%f",SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude, [activityObject.where_lat floatValue], [activityObject.where_lng floatValue]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+            
+        }
+        
+        [placeMark release];
+        [destination release];
+        
         
     }
     
