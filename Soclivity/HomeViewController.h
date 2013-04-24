@@ -18,7 +18,7 @@
 @class MainServiceManager;
 @class SoclivityManager;
 @class MBProgressHUD;
-
+@class NotificationClass;
 @protocol HomeScreenDelegate <NSObject>
 
 @optional
@@ -52,14 +52,14 @@
     MBProgressHUD *HUD;
     int flipKeyViewTag;
     IBOutlet UIButton *notifCountButton;
-    NSString* notId;
+    NotificationClass* notIdObject;
     BOOL pushInAppNotif;
 }
 
 @property (nonatomic,retain)id <HomeScreenDelegate>delegate;
 @property (nonatomic,retain)EventsMapView *socEventMapView;
 @property (nonatomic,retain)ActivityListView *activityTableView;
-
+@property (nonatomic,retain)NotificationClass* notIdObject;
 
 -(IBAction)profileSlidingDrawerTapped:(id)sender;
 -(IBAction)FlipToListOrBackToMap:(id)sender;

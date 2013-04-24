@@ -392,9 +392,7 @@
         EventShareActivity *editActivity=[[EventShareActivity alloc]init];
         [editActivity deltaUpdateSyncCalendar:response];
         
-        EventShareActivity *editActivity=[[EventShareActivity alloc]init];
-        [editActivity deltaUpdateSyncCalendar:response];
-        
+
         if(calendarInc==[calendarArray count]-1){
             [notificationView toReloadTableWithNotifications:[NSMutableArray arrayWithArray:self.notificationListingArray]];
         }
