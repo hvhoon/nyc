@@ -2857,7 +2857,7 @@
             case 1:
                 
             {
-                firstALineddressLabel.text=[NSString stringWithFormat:@"%@",loc.annotation.vicinityAddress];
+                firstALineddressLabel.text=[NSString stringWithFormat:@"%@, %@",loc.annotation.formattedAddress,loc.annotation.vicinityAddress];
                 secondLineAddressLabel.hidden=YES;
                 
                 [self showFourSquareComponents:YES];
@@ -3089,7 +3089,7 @@
             placemark.addType=0;
         }
         else{
-            localString =[NSString stringWithFormat:@"%@, %@",placemark.streetNumber,placemark.route];
+            localString =[NSString stringWithFormat:@"%@ %@",placemark.streetNumber,placemark.route];
             placemark.addType=0;
             
         }

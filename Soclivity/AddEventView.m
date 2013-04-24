@@ -1875,7 +1875,7 @@ else {
             localString =[NSString stringWithFormat:@"%@",placemark.streetNumber];
                     }
         else{
-            localString =[NSString stringWithFormat:@"%@,%@",placemark.streetNumber,placemark.route];
+            localString =[NSString stringWithFormat:@"%@ %@",placemark.streetNumber,placemark.route];
            
             
         }
@@ -1985,7 +1985,7 @@ else {
                         
                         [self setUpLabelViewElements:NO];
                         
-                        firstALineddressLabel.text=[NSString stringWithFormat:@"%@,%@",location.annotation.formattedAddress,location.annotation.vicinityAddress];
+                        firstALineddressLabel.text=[NSString stringWithFormat:@"%@, %@",location.annotation.formattedAddress,location.annotation.vicinityAddress];
                         
                         [secondLineAddressLabel setHidden:YES];
                         
