@@ -1686,9 +1686,9 @@ else {
     
     
     str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSLog(@"URL=%@",[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",str]]);
+    NSLog(@"URL=%@",[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",loc.formattedPhNo]]);
     
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",str]]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:1234567890"]]];
     
 }
 
