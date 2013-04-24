@@ -19,6 +19,7 @@
 @class MainServiceManager;
 @class MBProgressHUD;
 @class ActivityChatData;
+@class NotificationClass;
 @interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate,ParticipantListDelegate,NotifyAnimationViewDelegate,DetailedActivityInfoInvocationDelegate,ChatActivityViewDelegate,UIActionSheetDelegate,CustomCameraUploadDelegate,ChatServiceInvocationDelegate>{
     IBOutlet UIScrollView* scrollView;
     IBOutlet AddEventView *eventView;
@@ -60,7 +61,7 @@
     BOOL inTransition;
     MainServiceManager *devServer;
     MBProgressHUD *HUD;
-    NSString *notId;
+    NotificationClass *notIdObject;
     
 
     
@@ -82,6 +83,7 @@
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property (nonatomic,retain)InfoActivityClass *activityInfo;
 @property (nonatomic,assign)BOOL footerActivated;
+@property(nonatomic,retain)    NotificationClass *notIdObject;
 -(IBAction)backButtonPressed:(id)sender;
 -(IBAction)addEventActivityPressed:(id)sender;
 -(IBAction)leaveEventActivityPressed:(id)sender;

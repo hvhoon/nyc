@@ -27,6 +27,7 @@
 #import "MessageInputView.h"
 #import "ActivityChatData.h"
 #import "EventShareActivity.h"
+
 #define kEditMapElements 10
 #define kJoinRequest 11
 #define kCancelPendingRequest 13
@@ -46,7 +47,7 @@
 @end
 
 @implementation ActivityEventViewController
-@synthesize activityInfo,scrollView,footerActivated;
+@synthesize activityInfo,scrollView,footerActivated,notIdObject;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -483,7 +484,7 @@
     if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
-    notId=notification.notificationType;
+    notIdObject=[notification retain];
     GetPlayersClass *obj=SOC.loggedInUser;
     
     if([SoclivityUtilities hasNetworkConnection]){
@@ -521,9 +522,9 @@
         
         
         
+    
         
-        
-        switch ([notId integerValue]) {
+        switch ([notIdObject.notificationType integerValue]) {
             case 1:
             case 2:
             case 3:
@@ -547,7 +548,7 @@
                 
                 ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
                 activityEventViewController.activityInfo=response;
-                if([notId integerValue]==17){
+                if([notIdObject.notificationType integerValue]==17){
                     activityEventViewController.footerActivated=YES;
                 }
                 [[self navigationController] pushViewController:activityEventViewController animated:YES];
@@ -566,7 +567,7 @@
                 
             {
                 SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
-                socProfileViewController.friendId=response.organizerId;
+                socProfileViewController.friendId=notIdObject.referredId;
                 [[self navigationController] pushViewController:socProfileViewController animated:YES];
                 [socProfileViewController release];
                 
