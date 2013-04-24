@@ -223,7 +223,7 @@
             case 0:
             {
             if([SoclivityUtilities deviceType] & iPhone5){
-                eventView.frame=CGRectMake(0, 0, 640, 416);
+                eventView.frame=CGRectMake(0, 0, 640, 329+88);
             }
             else{
                 eventView.frame=CGRectMake(0, 0, 640, 329);
@@ -1923,7 +1923,7 @@
     inviteUsersToActivityButton.hidden=YES;
     [eventView.addressSearchBar setHidden:YES];
         if([SoclivityUtilities deviceType] & iPhone5)
-    eventView.frame=CGRectMake(0, 0, 640, 416);
+    eventView.frame=CGRectMake(0, 0, 640, 376+88);
          else
     eventView.frame=CGRectMake(0, 0, 640, 376);
     

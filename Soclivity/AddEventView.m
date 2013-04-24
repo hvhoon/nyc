@@ -1060,6 +1060,9 @@ else {
 -(void)ActivityEventOnMap{
     
 
+    self.labelView=[[UIView alloc]initWithFrame:CGRectMake(320, 404, 320, 60)];
+    [self addSubview:self.labelView];
+    
     activityInfoButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     activityInfoButton.frame = CGRectMake(285,15,28,27);
     [activityInfoButton setImage:[UIImage imageNamed:@"S05.1_drivingDirectionsIcon.png"] forState:UIControlStateNormal];
@@ -1067,14 +1070,14 @@ else {
 
     
     [activityInfoButton addTarget:self action:@selector(activityInfoButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [labelView addSubview:activityInfoButton];
+    [self.labelView addSubview:activityInfoButton];
     
     
     
     phoneButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     phoneButton.frame = CGRectMake(16,33,164,21);
     [phoneButton addTarget:self action:@selector(phoneButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [labelView addSubview:phoneButton];
+    [self.labelView addSubview:phoneButton];
     
     
     phoneButton.enabled=NO;
