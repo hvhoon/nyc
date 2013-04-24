@@ -1672,6 +1672,7 @@ else {
 
 -(void)phoneButtonPressed:(id)sender{
     
+    /*
     PlacemarkClass *loc=[currentLocationArray objectAtIndex:pointTag];
 
     NSString *str = [loc.formattedPhNo stringByReplacingOccurrencesOfString:@"("
@@ -1691,6 +1692,10 @@ else {
     NSLog(@"URL=%@",[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",loc.phoneNumber]]);
     
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",loc.phoneNumber]]];
+    */
+    
+    NSLog(@"tel:%@",phoneLabel.text);
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",phoneLabel.text]]];
     
 }
 
@@ -2924,8 +2929,6 @@ if(selectionType==1){
             {
                 xAvg += [activityObject.where_lat doubleValue];
                 yAvg += [activityObject.where_lng doubleValue];
-                
-                
             }
                 break;
         }
