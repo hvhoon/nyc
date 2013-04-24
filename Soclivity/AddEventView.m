@@ -58,6 +58,7 @@
     
     // Loading picture information
     
+    
     NSOperationQueue *queue = [NSOperationQueue new];
     NSInvocationOperation *operation = [[NSInvocationOperation alloc]
                                     initWithTarget:self
