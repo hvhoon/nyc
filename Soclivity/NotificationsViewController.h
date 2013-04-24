@@ -38,9 +38,8 @@
 }
 @property (nonatomic,retain)id <NotificationsScreenViewDelegate>delegate;
 @property(nonatomic, retain)NotificationClass *notIdObject;
-@property(nonatomic, retain)    NSArray*notificationListingArray;
-@property (nonatomic,assign)BOOL isPushedFromStack;
 @property(nonatomic, retain)NSArray*notificationListingArray;
+@property (nonatomic,assign)BOOL isPushedFromStack;
 -(IBAction)profileSliderPressed:(id)sender;
 -(void)startAnimation:(int)tag;
 -(void)getUserNotifications;
