@@ -16,8 +16,8 @@
 #import "GetPlayersClass.h"
 #import "EventShareActivity.h"
 @implementation NotificationsViewController
-@synthesize delegate,notIdObject,isPushedFromStack;
-@synthesize notificationListingArray;
+@synthesize delegate,notIdObject,isPushedFromStack, notificationListingArray;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -170,7 +170,7 @@
     
     [self BadgeNotification];
     calendarInc=0;
-    notificationListingArray=[[NSMutableArray arrayWithArray:responses]retain];
+    self.notificationListingArray=[responses retain];
     calendarArray=[[NSMutableArray alloc]init];
     // sync your calendar too
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
