@@ -9,7 +9,6 @@
 #import "RegistrationViewControler.h"
 #import "MainServiceManager.h"
 #import "GetPlayersDetailInvocation.h"
-#import "SettingsViewController.h"
 #import "UpComingCompletedEventsViewController.h"
 #import "AppDelegate.h"
 #import "GetPlayersClass.h"
@@ -440,33 +439,7 @@
             NSLog(@"Clicked Cancel Button");
     
 }
-#if 0
--(void)PushHomeScreen{
-    HomeViewController *homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
-    
-    DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
-    homeViewController.delegate=rootController;
-    
-    SettingsViewController *leftController = [[SettingsViewController alloc] init];
-    rootController.leftViewController = leftController;
-    leftController.isFBlogged=facebookTag;
-    UpComingEventsViewController *rightController = [[UpComingEventsViewController alloc] init];
-    rootController.rightViewController = rightController;
-    
-    
-    
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    appDelegate.menuController=rootController;
-    [self.navigationController pushViewController:rootController animated:YES];
-    
-    //[leftController release];
-    //[rightController release];
-    //[rootController release];
-    //[navController release];
-    
-}
-#else
+
 -(void)PushHomeScreen{
     SlidingDrawerViewController *slideViewController = [[SlidingDrawerViewController alloc] initWithNibName:@"SlideViewController" bundle:nil];
     slideViewController.delegate = slideViewController;
@@ -475,7 +448,7 @@
     [slideViewController release];
 
 }
-#endif
+
 
 - (void)viewDidUnload
 {

@@ -14,7 +14,6 @@
 #import "AppDelegate.h"
 #import "MBProgressHUD.h"
 #import "HomeViewController.h"
-#import "SettingsViewController.h"
 #import "UpComingCompletedEventsViewController.h"
 #import "SlidingDrawerViewController.h"
 #import "EventShareActivity.h"

@@ -16,7 +16,6 @@
 #import "AlertPrompt.h"
 #import "SFHFKeychainUtils.h"
 #import "HomeViewController.h"
-#import "SettingsViewController.h"
 #import "UpComingCompletedEventsViewController.h"
 #import "MBProgressHUD.h"
 #import "AppDelegate.h"

@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "NotifyAnimationView.h"
+#import "DetailedActivityInfoInvocation.h"
+@class NotificationClass;
+@class MainServiceManager;
+@class SoclivityManager;
 @protocol AboutViewDelegate <NSObject>
 
 @optional
@@ -15,15 +19,19 @@
 @end
 
 
-@interface AboutViewController : UIViewController{
+@interface AboutViewController : UIViewController<NotifyAnimationViewDelegate,DetailedActivityInfoInvocationDelegate>{
     id <AboutViewDelegate>delegate;
     IBOutlet UIButton *btnnotify;
+    NotificationClass *notIdObject;
+    MainServiceManager *devServer;
+    SoclivityManager *SOC;
 }
 
 @property (nonatomic,retain)id <AboutViewDelegate>delegate;
 @property (retain, nonatomic) IBOutlet UIButton *viewAllBugs;
 @property (retain, nonatomic) IBOutlet UIButton *submitBug;
 @property (retain, nonatomic) IBOutlet UILabel *buildText;
+@property(nonatomic,retain)    NotificationClass *notIdObject;
 - (IBAction)profileSliderPressed:(id)sender;
 - (IBAction)submitBugPressed:(id)sender;
 - (IBAction)viewAllIssues:(id)sender;
