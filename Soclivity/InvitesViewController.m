@@ -19,12 +19,13 @@
 #import "GetActivityInvitesInvocation.h"
 #import "ActivityEventViewController.h"
 #import "GetUsersByFirstLastNameInvocation.h"
-
-@interface InvitesViewController(Private) <MBProgressHUDDelegate,PostActivityRequestInvocationDelegate,GetActivityInvitesInvocationDelegate,GetUsersByFirstLastNameInvocationDelegate>
+#import "NotificationClass.h"
+#import "DetailedActivityInfoInvocation.h"
+@interface InvitesViewController(Private) <MBProgressHUDDelegate,PostActivityRequestInvocationDelegate,GetActivityInvitesInvocationDelegate,GetUsersByFirstLastNameInvocationDelegate,DetailedActivityInfoInvocationDelegate>
 @end
 
 @implementation InvitesViewController
-@synthesize delegate,settingsButton,activityBackButton,inviteTitleLabel,openSlotsNoLabel,activityName,num_of_slots,inviteFriends,activityInvites,inviteArray,activityId;
+@synthesize delegate,settingsButton,activityBackButton,inviteTitleLabel,openSlotsNoLabel,activityName,num_of_slots,inviteFriends,activityInvites,inviteArray,activityId,notIdObject;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,15 +47,22 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chatInAppNotification:) name:@"ChatNotification" object:Nil];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
+
+
 
         if(!inviteFriends){
             btnnotify.hidden=NO;
         [self.view bringSubviewToFront:btnnotify];
             [self UpdateBadgeNotification];
             
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (UpdateBadgeNotification) name:@"WaitingOnYou_Count" object:nil];
 
         }
 
@@ -63,9 +71,21 @@
 
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"WaitingonyouNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"RemoteNotificationReceivedWhileRunning" object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"WaitingOnYou_Count" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ChatNotification" object:nil];
+    
+}
+
+-(void)chatInAppNotification:(NSNotification*)note{
+    NotificationClass *notifObject=[SoclivityUtilities getNotificationChatPost:note];
+    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 60) andNotif:notifObject];
+    notif.delegate=self;
+    [self.view addSubview:notif];
+    
+    
     
 }
 
@@ -139,7 +159,7 @@
    // Do any additional setup after loading the view from its nib.
 }
 
--(void)showInAppNotificationsUsingRocketSocket:(NSNotification*)object{
+-(void)didReceiveBackgroundNotification:(NSNotification*)object{
     
     NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:object];
     NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 58) andNotif:notifObject];
@@ -150,7 +170,103 @@
 
 -(void)backgroundTapToPush:(NotificationClass*)notification{
     
+    NSLog(@"Activity Selected");
+    
+    if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    
+    notIdObject=[notification retain];
+    GetPlayersClass *obj=SOC.loggedInUser;
+    
+    if([SoclivityUtilities hasNetworkConnection]){
+        
+        [devServer getDetailedActivityInfoInvocation:[obj.idSoc intValue]  actId:notification.activityId  latitude:[notification.latitude floatValue] longitude:[notification.longitude floatValue] delegate:self];
+        
+    }
+    else{
+        if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+        return;
+        
+        
+    }
 }
+
+#pragma mark DetailedActivityInfoInvocationDelegate Method
+-(void)DetailedActivityInfoInvocationDidFinish:(DetailedActivityInfoInvocation*)invocation
+                                  withResponse:(InfoActivityClass*)response
+                                     withError:(NSError*)error{
+    
+    
+    if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    
+    
+    
+    
+        
+        switch ([notIdObject.notificationType integerValue]) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 11:
+            case 17:
+            default:
+                
+                
+            {
+                NSString*nibNameBundle=nil;
+                
+                if([SoclivityUtilities deviceType] & iPhone5){
+                    nibNameBundle=@"ActivityEventViewController_iphone5";
+                }
+                else{
+                    nibNameBundle=@"ActivityEventViewController";
+                }
+                
+                ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+                activityEventViewController.activityInfo=response;
+                if([notIdObject.notificationType integerValue]==17){
+                    activityEventViewController.footerActivated=YES;
+                }
+                [[self navigationController] pushViewController:activityEventViewController animated:YES];
+                [activityEventViewController release];
+                
+            }
+                break;
+                
+                
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 13:
+            case 16:
+                
+            {
+                SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
+                socProfileViewController.friendId=notIdObject.referredId;
+                [[self navigationController] pushViewController:socProfileViewController animated:YES];
+                [socProfileViewController release];
+                
+            }
+                
+                break;
+        }
+    
+    
+}
+
 
 
 -(void)addressBookHelperError{

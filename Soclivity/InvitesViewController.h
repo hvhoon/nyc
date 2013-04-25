@@ -14,6 +14,7 @@
 @class MBProgressHUD;
 @class MainServiceManager;
 @class SoclivityManager;
+@class NotificationClass;
 @protocol InvitesViewDelegate <NSObject>
 
 @optional
@@ -36,6 +37,7 @@
     NSInteger activityId;
     SoclivityManager *SOC;
     IBOutlet UIButton*btnnotify;
+    NotificationClass *notIdObject;
 }
 @property (nonatomic,retain)id <InvitesViewDelegate>delegate;
 @property (nonatomic,retain)ActivityInvitesView *activityInvites;
@@ -48,7 +50,7 @@
 @property (nonatomic,assign)BOOL inviteFriends;
 @property (nonatomic,retain)NSArray *inviteArray;
 @property (nonatomic,assign)NSInteger activityId;
-
+@property (nonatomic,retain)NotificationClass*notIdObject;
 -(IBAction)profileSliderPressed:(id)sender;
 -(IBAction)popBackToActivityScreen:(id)sender;
 -(void)startAnimation:(int)type;

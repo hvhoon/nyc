@@ -36,7 +36,7 @@ static NSArray *playerActivityDetails;
     id obj=[object valueForKey:@"userInfo"];
     id obj1=[obj valueForKey:@"activity_chat"];
     NSLog(@"obj1=%@",obj1);
-    notification.notificationString=[[NSUserDefaults standardUserDefaults]valueForKey:@"message"];
+    notification.notificationString=[obj valueForKey:@"msg"];
     notification.notificationId=[[obj1 valueForKey:@"id"]integerValue];
     notification.activityId=[[obj1 valueForKey:@"activity_id"]integerValue];
     notification.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[obj1 valueForKey:@"player_photo_url"]];

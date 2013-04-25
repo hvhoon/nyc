@@ -13,6 +13,7 @@
 
 @class MainServiceManager;
 @class SoclivityManager;
+@class NotificationClass;
 @protocol UpcomingCompletedEventsViewDelegate <NSObject>
 
 @optional
@@ -43,9 +44,12 @@
     MBProgressHUD *HUD;
     BOOL firstTime;
     NSInteger typeOfAct;
+    NotificationClass *notIdObject;
+    BOOL isInAppNotif;
 
 }
 @property (nonatomic,retain)id <UpcomingCompletedEventsViewDelegate>delegate;
+@property (nonatomic,retain)NotificationClass*notIdObject;
 @property (nonatomic,retain) ActivityListView *activityListView;
 @property (nonatomic,assign)NSInteger player2Id;
 @property (nonatomic,assign) BOOL isNotLoggedInUser;

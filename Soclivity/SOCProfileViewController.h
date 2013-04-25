@@ -13,6 +13,7 @@
 #import "NotifyAnimationView.h"
 @class SocPlayerClass;
 @class SoclivityManager;
+@class NotificationClass;
 @interface SOCProfileViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,InviteTableViewCellDelegate,IconDownloaderDelegate,NotifyAnimationViewDelegate>{
     
     IBOutlet UILabel*profileNameLabel;
@@ -40,10 +41,12 @@
     MainServiceManager *devServer;
     SoclivityManager *SOC;
     NSInteger friendId;
-
+    NotificationClass *notIdObject;
+    BOOL isInAppNotif;
 
 }
 @property (nonatomic,retain)SocPlayerClass *playerObject;
+@property (nonatomic,retain)NotificationClass *notIdObject;
 @property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
 @property (nonatomic,retain)NSMutableArray *loadNFriendsAtTimeArray;
 @property (nonatomic,assign)NSInteger friendId;

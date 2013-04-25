@@ -65,9 +65,6 @@
     [self UpdateBadgeNotification];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotificationInBackground:) name:@"RemoteNotificationReceivedWhileBackground" object:Nil];
-    
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chatInAppNotification:) name:@"ChatNotification" object:Nil];
 
 
@@ -196,24 +193,6 @@
     
     // Do any additional setup after loading the view from its nib.
 }
-- (void)didReceiveNotificationInBackground:(NSNotification*) note{
-    NSString*nibNameBundle=nil;
-    
-    if([SoclivityUtilities deviceType] & iPhone5){
-        nibNameBundle=@"NotificationsViewController_iphone5";
-    }
-    else{
-        nibNameBundle=@"NotificationsViewController";
-    }
-
-    NotificationsViewController *notificationsViewController=[[NotificationsViewController alloc]initWithNibName:nibNameBundle bundle:[NSBundle mainBundle]];
-    notificationsViewController.isPushedFromStack=TRUE;
-    [self.navigationController pushViewController:notificationsViewController animated:YES];
-    
-}
-
-
-
 - (void)backgroundTapToPush:(NotificationClass*)notification{
     
     NSLog(@"Home Selected");

@@ -44,6 +44,7 @@
 
 
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
 
 }
@@ -62,6 +63,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startFetching) name:@"RandomFetch" object:Nil];
 
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (BadgeNotification) name:@"WaitingOnYou_Count" object:nil];
 
     
     
@@ -126,10 +129,7 @@
     devServer=[[MainServiceManager alloc]init];
     [self BadgeNotification];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
 
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (BadgeNotification) name:@"WaitingOnYou_Count" object:nil];
     
     
 

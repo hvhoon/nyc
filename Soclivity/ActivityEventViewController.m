@@ -67,6 +67,8 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
     
     
@@ -80,9 +82,18 @@
     [self.navigationController.navigationBar setHidden:YES];
 }
 
+
 -(void)viewDidDisappear:(BOOL)animated{
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"RemoteNotificationReceivedWhileRunning" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ChatNotification" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ChatDeltaUpdate" object:nil];
+    
+    
+    
 }
+
 
 -(void)getDeltaUpdateInbackground{
     if([chatView.bubbleData count]==0)

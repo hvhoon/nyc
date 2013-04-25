@@ -12,6 +12,7 @@
 @class MainServiceManager;
 @class MBProgressHUD;
 @class SoclivityManager;
+@class NotificationClass;
 @protocol ProfileScreenViewDelegate <NSObject>
 
 @optional
@@ -31,11 +32,12 @@
     MBProgressHUD *HUD;
     SoclivityManager *SOC;
     IBOutlet UIButton*btnnotify;
+    NotificationClass *notIdObject;
 }
 @property (nonatomic,retain)id <ProfileScreenViewDelegate>delegate;
 @property (nonatomic,retain)ActivityTypeSelectView *activityTypesView;
 @property (nonatomic,assign) BOOL isFirstTime;
-
+@property(nonatomic,retain)NotificationClass *notIdObject;
 -(IBAction)profileSliderPressed:(id)sender;
 -(IBAction)getStartedAction:(id)sender;
 - (void)startAnimation:(NSInteger)type;
