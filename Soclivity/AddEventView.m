@@ -1531,12 +1531,9 @@ else {
     
     [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
-    
 }
 
 -(void)getFourSquareRating:(PlacemarkClass*)pin{
-    
-    
     selectionType=6;
     responseData = [[NSMutableData data] retain];
     NSString*urlString = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@?client_id=5P1OVCFK0CCVCQ5GBBCWRFGUVNX5R4WGKHL2DGJGZ32FDFKT&client_secret=UPZJO0A0XL44IHCD1KQBMAYGCZ45Z03BORJZZJXELPWHPSAR&v=20130117",pin.foursquareId];
@@ -1550,9 +1547,8 @@ else {
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
     
     [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    
-    
 }
+
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
     
@@ -1609,11 +1605,9 @@ else {
                     
                 }
                 
+                // Showing rating information
                 ratingLabel.text=[NSString stringWithFormat:@"Rating: N/A"];
-
                 [self getFourSquareRating:loc.annotation];
-                
-                
             }
                 break;
                 
@@ -2323,17 +2317,14 @@ else {
         NSDictionary*pins=[response objectForKey:@"venue"];
         PlacemarkClass * placemark = [currentLocationArray objectAtIndex:pointTag];
         placemark.addType=2;
-            
-            if([pins objectForKey:@"rating"]!=nil && [[pins objectForKey:@"rating"] class]!=[NSNull null]){
-                placemark.ratingValue=ratingLabel.text=[NSString stringWithFormat:@"Rating: %@",[[pins objectForKey:@"rating"]stringValue]];
-
-            }
-            else{
-                placemark.ratingValue=ratingLabel.text=[NSString stringWithFormat:@"Rating: N/A"];
-            }
-
-      
-    
+        
+        if([pins objectForKey:@"rating"]!=nil && [[pins objectForKey:@"rating"] class]!=[NSNull null]){
+            placemark.ratingValue=ratingLabel.text=[NSString stringWithFormat:@"Rating: %@",[[pins objectForKey:@"rating"]stringValue]];
+        }
+        else{
+            placemark.ratingValue=ratingLabel.text=[NSString stringWithFormat:@"Rating: N/A"];
+        }
+        
         [delegate enableDisableTickOnTheTopRight:YES];
         
         return;
@@ -2536,13 +2527,29 @@ else {
     else if(selectionType==5){
         indexRE=5;
         NSDictionary *response=[resultsd objectForKey:@"response"];
-        NSArray*venues=[response objectForKey:@"venues"];
-        for(NSDictionary *pins in venues){
+        NSArray *groups=[response objectForKey:@"groups"];
+        NSDictionary *list = [groups objectAtIndex:0];
+        NSArray *items=[list objectForKey:@"items"];
+        
+        for(NSDictionary *item in items){
+            
+            NSDictionary *pins=[item objectForKey:@"venue"];
             PlacemarkClass *placemark=[[[PlacemarkClass alloc]init]autorelease];
             placemark.addType=2;
             placemark.queryName=[pins objectForKey:@"name"];
             placemark.foursquareId=[pins objectForKey:@"id"];
             
+            /*
+            // Pulling rating information
+            if([pins objectForKey:@"rating"]!=nil && [[pins objectForKey:@"rating"] class]!=[NSNull null]) {
+                placemark.ratingValue=[NSString stringWithFormat:@"Rating: %@",[[pins objectForKey:@"rating"]stringValue]];
+                placemark.ratingValue=[NSString stringWithFormat:@"Rating: N/A"];
+            }
+            else
+                placemark.ratingValue=[NSString stringWithFormat:@"Rating: N/A"];
+            
+            */
+             
             if([[pins objectForKey:@"contact"]objectForKey:@"phone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"phone"] class]!=[NSNull null]){
                 placemark.phoneNumber=[[pins objectForKey:@"contact"]objectForKey:@"phone"];
             }
@@ -2550,26 +2557,26 @@ else {
             if([[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"] class]!=[NSNull null]){
                 placemark.formattedPhNo=[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"];
                                     phoneButton.enabled=YES;
-        }
+            }
             else{
-                placemark.formattedPhNo=phoneLabel.text=@"Not Available";
+                placemark.formattedPhNo=@"Not Available";
                                     phoneButton.enabled=NO;
             }
-
             
-            
+            // Pulling the URL information
             if([pins objectForKey:@"url"]!=nil && [[pins objectForKey:@"url"] class]!=[NSNull null]){
                 placemark.moreInfoAvailable=YES;
                 placemark.fsqrUrl=[pins objectForKey:@"url"];
             }
             
+            // Pulling category information
             if([pins objectForKey:@"categories"]!=nil && [[pins objectForKey:@"categories"] class]!=[NSNull null]){
                 NSArray *category=[pins objectForKey:@"categories"];
                 for(NSDictionary *text in category)
                     placemark.category=[text objectForKey:@"name"];
             }
 
-
+            // Pulling all the location  information
             if([pins objectForKey:@"location"]!=nil && [[pins objectForKey:@"location"] class]!=[NSNull null]){
                 
                 placemark.latitude = [[[pins objectForKey:@"location"]objectForKey:@"lat"] floatValue];
@@ -2613,9 +2620,8 @@ else {
 
                 }
 
-                }
-
             }
+        }
 
     }
         if([_geocodingResults count]!=0){
@@ -2800,8 +2806,7 @@ if(selectionType==1){
 #endif
 
 #endif
-	
-	
+
 }
 
 -(CLLocation*)ZoomToAllResultPointsOnMap{
@@ -3081,8 +3086,8 @@ if(selectionType==1){
         [self geocodeFromSearchBar:1];
         
     }
- else
-    [self getVenuesFromFourSquareApi];
+    else
+        [self getVenuesFromFourSquareApi];
     
 #else
     
@@ -3102,7 +3107,7 @@ if(selectionType==1){
     // in case of error use api key like
     
     responseData = [[NSMutableData data] retain];
-    NSString*urlString = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/search?client_id=5P1OVCFK0CCVCQ5GBBCWRFGUVNX5R4WGKHL2DGJGZ32FDFKT&client_secret=UPZJO0A0XL44IHCD1KQBMAYGCZ45Z03BORJZZJXELPWHPSAR&v=20130117&query=%@&locale=en&ll=%f,%f&radius=50000",addressSearchBar.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+    NSString*urlString = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?client_id=5P1OVCFK0CCVCQ5GBBCWRFGUVNX5R4WGKHL2DGJGZ32FDFKT&client_secret=UPZJO0A0XL44IHCD1KQBMAYGCZ45Z03BORJZZJXELPWHPSAR&v=20130117&query=%@&ll=%f,%f",addressSearchBar.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
         urlString= [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSLog(@"urlString=%@",urlString);
