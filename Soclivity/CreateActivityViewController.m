@@ -1723,8 +1723,15 @@
     else if(selectionType==5){
         indexRE=5;
         NSDictionary *response=[resultsd objectForKey:@"response"];
-        NSArray*venues=[response objectForKey:@"venues"];
-        for(NSDictionary *pins in venues){
+        
+        NSArray *groups=[response objectForKey:@"groups"];
+        NSDictionary *list = [groups objectAtIndex:0];
+        NSArray *items=[list objectForKey:@"items"];
+        
+        for(NSDictionary *item in items){
+            
+            NSDictionary *pins=[item objectForKey:@"venue"];
+            
             PlacemarkClass *placemark=[[[PlacemarkClass alloc]init]autorelease];
             placemark.addType=2;
             placemark.queryName=[pins objectForKey:@"name"];
@@ -2486,7 +2493,7 @@
     // in case of error use api key like
     
     responseData = [[NSMutableData data] retain];
-    NSString*urlString = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/search?client_id=5P1OVCFK0CCVCQ5GBBCWRFGUVNX5R4WGKHL2DGJGZ32FDFKT&client_secret=UPZJO0A0XL44IHCD1KQBMAYGCZ45Z03BORJZZJXELPWHPSAR&v=20130117&query=%@&locale=en&ll=%f,%f&radius=50000",addressSearchBar.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+    NSString*urlString = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?client_id=5P1OVCFK0CCVCQ5GBBCWRFGUVNX5R4WGKHL2DGJGZ32FDFKT&client_secret=UPZJO0A0XL44IHCD1KQBMAYGCZ45Z03BORJZZJXELPWHPSAR&v=20130117&query=%@&ll=%f,%f",addressSearchBar.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
     urlString= [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSLog(@"urlString=%@",urlString);
