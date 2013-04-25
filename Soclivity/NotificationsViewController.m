@@ -46,11 +46,10 @@
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ChatNotification" object:nil];
 
-}
 
--(void)startFetching{
-    [self getUserNotifications];
 }
 
 
@@ -61,10 +60,13 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startFetching) name:@"RandomFetch" object:Nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUserNotifications) name:@"RandomFetch" object:Nil];
 
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (BadgeNotification) name:@"WaitingOnYou_Count" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUserNotifications) name:@"ChatNotification" object:Nil];
+
 
     
     
