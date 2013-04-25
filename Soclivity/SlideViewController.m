@@ -155,7 +155,18 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+ [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (WaitingOnYou_Count) name:@"WaitingOnYou_Count" object:nil];
+
 }
+
+-(void)viewDidDisappear:(BOOL)animated{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"WaitingOnYou_Count" object:nil];
+    
+    
+}
+
 - (void)viewDidLoad {
     
     self.view.backgroundColor= [SoclivityUtilities returnBackgroundColor:2];
@@ -194,7 +205,6 @@
     if ([self.delegate respondsToSelector:@selector(initialSelectedIndexPath)])
         [_tableView selectRowAtIndexPath:[self.delegate initialSelectedIndexPath] animated:NO scrollPosition:UITableViewScrollPositionTop];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (WaitingOnYou_Count) name:@"WaitingOnYou_Count" object:nil];
     
 }
 
