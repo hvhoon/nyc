@@ -1761,15 +1761,14 @@
                 for(NSDictionary *text in category)
                     placemark.category=[text objectForKey:@"name"];
             }
-            
+            /*
             // Pulling rating information
             if([pins objectForKey:@"rating"]!=nil && [[pins objectForKey:@"rating"] class]!=[NSNull null]) {
                 placemark.ratingValue=[NSString stringWithFormat:@"Rating: %@",[[pins objectForKey:@"rating"]stringValue]];
             }
             else
                 placemark.ratingValue=[NSString stringWithFormat:@"Rating: N/A"];
-
-            
+            */
             
             if([pins objectForKey:@"location"]!=nil && [[pins objectForKey:@"location"] class]!=[NSNull null]){
                 
@@ -2940,11 +2939,12 @@
                 }
                 
                 
-                ratingLabel.text=loc.annotation.ratingValue;
+                //ratingLabel.text=loc.annotation.ratingValue;
                 
-                //[self getFourSquareRating:loc.annotation];
+                ratingLabel.text=@"Rating: N/A";
+                [self getFourSquareRating:loc.annotation];
                 
-                createActivityButton.hidden=NO;
+                //createActivityButton.hidden=NO;
                 
                 
             }
