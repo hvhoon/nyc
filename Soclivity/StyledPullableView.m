@@ -385,7 +385,7 @@
         CGRect Am12_Am11_LabelRect=CGRectMake(12,355,100,15);
         UILabel *Am12_Am11Label=[[UILabel alloc] initWithFrame:Am12_Am11_LabelRect];
         Am12_Am11Label.textAlignment=UITextAlignmentCenter;
-        Am12_Am11Label.text=[NSString stringWithFormat:@"12am - 11am"];
+        Am12_Am11Label.text=[NSString stringWithFormat:@"Before 12pm"];
         Am12_Am11Label.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
         Am12_Am11Label.textColor=[SoclivityUtilities returnTextFontColor:5];
         Am12_Am11Label.tag=kAm12_Am11;
@@ -425,7 +425,7 @@
         CGRect Pm12_Pm6_LabelRect=CGRectMake(113,355,100,15);
         UILabel *Pm12_Pm6_Label=[[UILabel alloc] initWithFrame:Pm12_Pm6_LabelRect];
         Pm12_Pm6_Label.textAlignment=UITextAlignmentCenter;
-        Pm12_Pm6_Label.text=[NSString stringWithFormat:@"12pm - 6pm"];
+        Pm12_Pm6_Label.text=[NSString stringWithFormat:@"12pm - 5pm"];
         Pm12_Pm6_Label.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
         Pm12_Pm6_Label.textColor=[SoclivityUtilities returnTextFontColor:5];
         Pm12_Pm6_Label.tag=kPm12_Pm6;
@@ -464,7 +464,7 @@
         CGRect Pm7_Pm11_LabelRect=CGRectMake(214,355,100,15);
         UILabel *Pm7_Pm11_Label=[[UILabel alloc] initWithFrame:Pm7_Pm11_LabelRect];
         Pm7_Pm11_Label.textAlignment=UITextAlignmentCenter;
-        Pm7_Pm11_Label.text=[NSString stringWithFormat:@"7pm - 11pm"];
+        Pm7_Pm11_Label.text=[NSString stringWithFormat:@"After 5pm"];
         Pm7_Pm11_Label.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
         Pm7_Pm11_Label.textColor=[SoclivityUtilities returnTextFontColor:1];
         Pm7_Pm11_Label.tag=kPm7_Pm11;
