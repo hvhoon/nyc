@@ -1606,11 +1606,11 @@ else {
                 }
                 
                 // Showing rating information - Crashing the program
-                //ratingLabel.text=loc.annotation.ratingValue;
-                //[delegate enableDisableTickOnTheTopRight:YES];
+                ratingLabel.text=loc.annotation.ratingValue;
+                [delegate enableDisableTickOnTheTopRight:YES];
                 
-                ratingLabel.text=[NSString stringWithFormat:@"Rating: N/A"];
-                [self getFourSquareRating:loc.annotation];
+                //ratingLabel.text=[NSString stringWithFormat:@"Rating: N/A"];
+                //[self getFourSquareRating:loc.annotation];
             }
                 break;
                 
@@ -2542,14 +2542,13 @@ else {
             placemark.queryName=[pins objectForKey:@"name"];
             placemark.foursquareId=[pins objectForKey:@"id"];
             
-            /*
+            
             // Pulling rating information
             if([pins objectForKey:@"rating"]!=nil && [[pins objectForKey:@"rating"] class]!=[NSNull null]) {
                 placemark.ratingValue=[NSString stringWithFormat:@"Rating: %@",[[pins objectForKey:@"rating"]stringValue]];
             }
             else
                 placemark.ratingValue=[NSString stringWithFormat:@"Rating: N/A"];
-            */
             
              
             if([[pins objectForKey:@"contact"]objectForKey:@"phone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"phone"] class]!=[NSNull null]){
