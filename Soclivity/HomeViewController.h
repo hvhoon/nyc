@@ -54,6 +54,7 @@
     IBOutlet UIButton *notifCountButton;
     NotificationClass* notIdObject;
     BOOL pushInAppNotif;
+    IBOutlet UIButton *addButton;
 }
 
 @property (nonatomic,retain)id <HomeScreenDelegate>delegate;

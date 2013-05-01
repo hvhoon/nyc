@@ -344,7 +344,7 @@
     else{
         CGRect tapNewActivityRect =CGRectMake(275, 408, 39, 31);
         if(CGRectContainsPoint(tapNewActivityRect,startPoint)){
-         //[delegate newActivityButtonPressed];
+         [delegate newActivityButtonPressed];
         }
     }
 }
