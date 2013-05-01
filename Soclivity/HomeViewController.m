@@ -310,8 +310,9 @@
 - (void)didReceiveBackgroundNotification:(NSNotification*) note{
     
     NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:note];
-    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 60) andNotif:notifObject];
+    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0,2, 320, 60) andNotif:notifObject];
     notif.delegate=self;
+
     [self.view addSubview:notif];
 }
 

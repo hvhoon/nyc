@@ -21,7 +21,6 @@
 #import "EditActivityEventInvocation.h"
 #import "SoclivitySqliteClass.h"
 #import "PostActivityRequestInvocation.h"
-#import "EventShareActivity.h"
 #define kActivityNameNot 10
 #define kDeleteActivityRequest 21
 #define kDeleteActivity 12
@@ -1099,9 +1098,10 @@
         {
             SOC.localCacheUpdate=TRUE;
             [SoclivitySqliteClass deleteActivityRecords:activityObject.activityId];
+            [SOC deleteASingleEvent:activityObject.activityId];
+
             
-            EventShareActivity *deleteActivity=[[EventShareActivity alloc]init];
-            [deleteActivity deleteASingleEvent:activityObject.activityId];
+            
             [delegate deleteActivityEventByOrganizer];
             
         }
@@ -1244,9 +1244,8 @@
     
 
         if(responses!=nil){
-            //kanav add a new calendar event
-            EventShareActivity *newCalActivity=[[EventShareActivity alloc]init];
-            [newCalActivity deltaUpdateSyncCalendar:responses];
+            
+            [SOC deltaUpdateSyncCalendar:responses];
 
             [delegate pushToNewActivity:responses];
             
@@ -3324,8 +3323,9 @@
     switch (requestType) {
         case kEditStep1Elements:
         {
-            EventShareActivity *editActivity=[[EventShareActivity alloc]init];
-            [editActivity deltaUpdateSyncCalendar:activityObject];
+            [SOC deltaUpdateSyncCalendar:activityObject];
+            
+            
             [delegate updateDetailedActivityScreen:activityObject];
             
         }

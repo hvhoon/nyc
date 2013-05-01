@@ -14,7 +14,6 @@
 #import "SOCProfileViewController.h"
 #import "SocPlayerClass.h"
 #import "GetPlayersClass.h"
-#import "EventShareActivity.h"
 @implementation NotificationsViewController
 @synthesize delegate,notIdObject,isPushedFromStack, notificationListingArray;
 
@@ -391,9 +390,10 @@
     
     if(isSyncing){
         isSyncing=FALSE;
-        EventShareActivity *editActivity=[[EventShareActivity alloc]init];
-        [editActivity deltaUpdateSyncCalendar:response];
         
+        SoclivityManager *SOC=[SoclivityManager SharedInstance];
+        [SOC deltaUpdateSyncCalendar:response];
+
 
         if(calendarInc==[calendarArray count]-1){
             [notificationView toReloadTableWithNotifications:[NSMutableArray arrayWithArray:self.notificationListingArray]];

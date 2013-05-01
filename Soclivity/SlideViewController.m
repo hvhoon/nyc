@@ -18,7 +18,6 @@
 #import "MBProgressHUD.h"
 #import "MainServiceManager.h"
 #import "RegistrationDetailInvocation.h"
-#import "EventShareActivity.h"
 #define kSVCLeftAnchorX                 100.0f
 #define kSVCRightAnchorX                190.0f
 #define kSVCSwipeNavigationBarOnly      YES
@@ -808,11 +807,9 @@
     }
     else{
         [HUD hide:YES];
-        EventShareActivity *eventShare=[[EventShareActivity alloc]init];
-        [eventShare deleteAllEvents];
-
         
-        
+        SoclivityManager *SOC=[SoclivityManager SharedInstance];
+        [SOC deleteAllEvents];
     }
 
     
@@ -867,8 +864,9 @@
             
         }
         if([activitiesArray count]!=0){
-        EventShareActivity *eventShare=[[EventShareActivity alloc]init];
-            [eventShare grantedAccess:activitiesArray];
+            
+        SoclivityManager *SOC=[SoclivityManager SharedInstance];
+        [SOC grantedAccess:activitiesArray];
 
         // now Sync All Activities in the Calendar
         }
