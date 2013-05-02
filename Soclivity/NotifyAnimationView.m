@@ -242,6 +242,8 @@ static inline NSRegularExpression * NameRegularExpression() {
 
 #endif
     if (inAppNotif.backgroundTap) {
+        
+        [self HideNotification];
         [delegate backgroundTapToPush:inAppNotif];    
     }
 

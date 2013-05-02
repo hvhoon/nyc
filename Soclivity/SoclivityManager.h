@@ -1,5 +1,5 @@
 //
-//  SoclivityManager.h
+//  
 //  Soclivity
 //
 //  Created by Kanav Gupta on 5/5/12.
@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import <EventKit/EventKit.h>
 @class GetPlayersClass;
 @class FilterPreferenceClass;
 @protocol SoclivityManagerDelegate <NSObject>
@@ -26,7 +27,7 @@
     BOOL AllowTapAndDrag;
     BOOL localCacheUpdate;
     BOOL editOrNewActivity;
-   
+    EKEventStore *eventStore;
    
 }
 @property (nonatomic,retain)id <SoclivityManagerDelegate>delegate;
@@ -38,5 +39,11 @@
 @property (nonatomic,assign)BOOL AllowTapAndDrag;
 @property (nonatomic,assign)BOOL localCacheUpdate;
 @property (nonatomic,assign)BOOL editOrNewActivity;
+@property (nonatomic,retain)EKEventStore *eventStore;
 + (id)SharedInstance;
+-(void)deleteAllEvents;
+-(void)grantedAccess:(NSMutableArray*)eventArray;
+-(void)performCalendarActivity:(NSMutableArray*)array;
+-(void)deleteASingleEvent:(NSInteger)activityId;
+-(void)deltaUpdateSyncCalendar:(InfoActivityClass*)activity;
 @end

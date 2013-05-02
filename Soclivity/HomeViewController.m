@@ -61,6 +61,11 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
+    
+    [addButton setBackgroundImage:[UIImage imageNamed:@"addevent.png"] forState:UIControlStateNormal];
+    [addButton setBackgroundImage:[UIImage imageNamed:@"addevent.png"] forState:UIControlStateHighlighted];
+
+    
     [self.navigationController.navigationBar setHidden:YES];
     [self UpdateBadgeNotification];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
@@ -310,8 +315,9 @@
 - (void)didReceiveBackgroundNotification:(NSNotification*) note{
     
     NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:note];
-    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 60) andNotif:notifObject];
+    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0,2, 320, 60) andNotif:notifObject];
     notif.delegate=self;
+
     [self.view addSubview:notif];
 }
 
@@ -374,6 +380,10 @@
 #pragma mark Create New Activity methods
 
 -(void)newActivityButtonPressed{
+    
+    [addButton setBackgroundImage:[UIImage imageNamed:@"addeventPressed.png"] forState:UIControlStateNormal];
+    [addButton setBackgroundImage:[UIImage imageNamed:@"addeventPressed.png"] forState:UIControlStateHighlighted];
+
     NSString *nibNameBundle=nil;
     if([SoclivityUtilities deviceType] & iPhone5){
         nibNameBundle=@"CreateActivityViewController_iphone5";
@@ -390,6 +400,9 @@
 	
     
 	[self.navigationController presentModalViewController:addNavigationController animated:YES];
+    
+    
+
 
 }
 

@@ -16,7 +16,6 @@
 #import "HomeViewController.h"
 #import "UpComingCompletedEventsViewController.h"
 #import "SlidingDrawerViewController.h"
-#import "EventShareActivity.h"
 #import "SoclivityUtilities.h"
 #import "ProfileViewController.h"
 #import "RRAViewController.h"
@@ -430,10 +429,10 @@
             
         }
         if([activitiesArray count]!=0){
-            EventShareActivity *eventShare=[[EventShareActivity alloc]init];
-            [eventShare grantedAccess:activitiesArray];
             
-            // now Sync All Activities in the Calendar
+            SoclivityManager *SOC=[SoclivityManager SharedInstance];
+            [SOC grantedAccess:activitiesArray];
+
         }
     }
     
