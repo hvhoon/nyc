@@ -1606,11 +1606,11 @@ else {
                 }
                 
                 // Showing rating information - Crashing the program
-                //ratingLabel.text=loc.annotation.ratingValue;
-                //[delegate enableDisableTickOnTheTopRight:YES];
+                ratingLabel.text=loc.annotation.ratingValue;
+                [delegate enableDisableTickOnTheTopRight:YES];
                 
-                ratingLabel.text=[NSString stringWithFormat:@"Rating: N/A"];
-                [self getFourSquareRating:loc.annotation];
+                //ratingLabel.text=[NSString stringWithFormat:@"Rating: N/A"];
+                //[self getFourSquareRating:loc.annotation];
             }
                 break;
                 

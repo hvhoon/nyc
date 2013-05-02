@@ -1570,10 +1570,6 @@
                 }
                 
             }
-            //                NSDictionary *geometryLocDict = [object objectForKey:@"geometry"];
-            //                placemark.latitude = [[[geometryLocDict objectForKey:@"location"] objectForKey:@"lat"] floatValue];
-            //                placemark.longitude = [[[geometryLocDict objectForKey:@"location"] objectForKey:@"lng"] floatValue];
-            
             NSString *localString=nil;
             if(((placemark.streetNumber==nil) || ([placemark.streetNumber isEqualToString:@""]))&&((placemark.route==nil) || ([placemark.route isEqualToString:@""]))){
                 NSString *commaSeperated=[object objectForKey:@"formatted_address"];
@@ -1756,14 +1752,12 @@
                 for(NSDictionary *text in category)
                     placemark.category=[text objectForKey:@"name"];
             }
-            /*
             // Pulling rating information
             if([pins objectForKey:@"rating"]!=nil && [[pins objectForKey:@"rating"] class]!=[NSNull null]) {
                 placemark.ratingValue=[NSString stringWithFormat:@"Rating: %@",[[pins objectForKey:@"rating"]stringValue]];
             }
             else
                 placemark.ratingValue=[NSString stringWithFormat:@"Rating: N/A"];
-            */
             
             if([pins objectForKey:@"location"]!=nil && [[pins objectForKey:@"location"] class]!=[NSNull null]){
                 
@@ -2933,13 +2927,14 @@
                     
                 }
                 
+                //ratingLabel.text=@"Rating: N/A";
+                //[self getFourSquareRating:loc.annotation];
+
                 
-                //ratingLabel.text=loc.annotation.ratingValue;
+                ratingLabel.text=loc.annotation.ratingValue;
+                createActivityButton.hidden=NO;
                 
-                ratingLabel.text=@"Rating: N/A";
-                [self getFourSquareRating:loc.annotation];
                 
-                //createActivityButton.hidden=NO;
                 
                 
             }
