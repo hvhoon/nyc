@@ -2938,12 +2938,12 @@
                 }
                 
                 
-                ratingLabel.text=loc.annotation.ratingValue;
+                //ratingLabel.text=loc.annotation.ratingValue;
                 
-                //ratingLabel.text=@"Rating: N/A";
-                //[self getFourSquareRating:loc.annotation];
+                ratingLabel.text=@"Rating: N/A";
+                [self getFourSquareRating:loc.annotation];
                 
-                createActivityButton.hidden=NO;
+                //createActivityButton.hidden=NO;
                 
                 
             }
