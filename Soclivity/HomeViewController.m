@@ -64,7 +64,7 @@
     
     [addButton setBackgroundImage:[UIImage imageNamed:@"addevent.png"] forState:UIControlStateNormal];
     [addButton setBackgroundImage:[UIImage imageNamed:@"addevent.png"] forState:UIControlStateHighlighted];
-
+    
     
     [self.navigationController.navigationBar setHidden:YES];
     [self UpdateBadgeNotification];

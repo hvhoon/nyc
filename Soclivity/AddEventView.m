@@ -2248,9 +2248,6 @@ else {
             currentPlacemark.ratingValue=ratingLabel.text=[NSString stringWithFormat:@"Rating: N/A"];
         }
 
-        if([[pins objectForKey:@"contact"]objectForKey:@"phone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"phone"] class]!=[NSNull null]){
-            currentPlacemark.phoneNumber=[[pins objectForKey:@"contact"]objectForKey:@"phone"];
-        }
 
 
         
@@ -2550,11 +2547,6 @@ else {
             else
                 placemark.ratingValue=[NSString stringWithFormat:@"Rating: N/A"];
             
-             
-            if([[pins objectForKey:@"contact"]objectForKey:@"phone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"phone"] class]!=[NSNull null]){
-                placemark.phoneNumber=[[pins objectForKey:@"contact"]objectForKey:@"phone"];
-            }
-
             if([[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"] class]!=[NSNull null]){
                 placemark.formattedPhNo=[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"];
                                     phoneButton.enabled=YES;
@@ -2657,7 +2649,7 @@ else {
             else if(indexRE==5){
                 
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Results Found "
-                                                                message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+                                                                message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
                 [alert show];
                 [alert release];
                 return;

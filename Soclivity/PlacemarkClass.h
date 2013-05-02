@@ -29,7 +29,6 @@
     NSString *category;
     NSString *ratingValue;
     NSString*foursquareId;
-    NSString *phoneNumber;
 }
 @property (nonatomic,retain) NSString *streetNumber;
 @property (nonatomic,retain)NSString *where_city;
@@ -49,5 +48,4 @@
 @property(nonatomic,assign) BOOL moreInfoAvailable;
 @property (nonatomic,retain)NSString *ratingValue;
 @property (nonatomic,retain)NSString*foursquareId;
-@property (nonatomic,retain)NSString*phoneNumber;
 @end

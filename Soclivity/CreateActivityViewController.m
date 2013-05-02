@@ -1736,10 +1736,6 @@
             placemark.queryName=[pins objectForKey:@"name"];
             placemark.foursquareId=[pins objectForKey:@"id"];
             
-            if([[pins objectForKey:@"contact"]objectForKey:@"phone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"phone"] class]!=[NSNull null]){
-                placemark.phoneNumber=[[pins objectForKey:@"contact"]objectForKey:@"phone"];
-            }
-
             if([[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"]!=nil && [[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"] class]!=[NSNull null]){
                 placemark.formattedPhNo=[[pins objectForKey:@"contact"]objectForKey:@"formattedPhone"];
                     phoneButton.enabled=YES;
@@ -1847,8 +1843,8 @@
             [self getVenuesFromFourSquareApi];
         else if(indexRE==5){
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Results Found "
-                                                            message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Results Found"
+                                                            message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
             [alert show];
             [alert release];
             return;
@@ -2997,8 +2993,8 @@
     
     str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSLog(@"URL=%@",[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",str]]);
-    NSLog(@"URL=%@",[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",loc.phoneNumber]]);    
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",loc.phoneNumber]]];
+    NSLog(@"URL=%@",[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",loc.formattedPhNo]]);
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",loc.formattedPhNo]]];
 
 }
 -(void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view{
