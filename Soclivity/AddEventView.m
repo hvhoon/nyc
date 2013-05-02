@@ -2539,7 +2539,7 @@ else {
             placemark.queryName=[pins objectForKey:@"name"];
             placemark.foursquareId=[pins objectForKey:@"id"];
             
-            /*
+            
             // Pulling rating information
             if([pins objectForKey:@"rating"]!=nil && [[pins objectForKey:@"rating"] class]!=[NSNull null]) {
                 placemark.ratingValue=[NSString stringWithFormat:@"Rating: %@",[[pins objectForKey:@"rating"]stringValue]];
