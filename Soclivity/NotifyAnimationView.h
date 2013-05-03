@@ -14,6 +14,7 @@
 
 @optional
 -(void)backgroundTapToPush:(NotificationClass*)notification;
+-(void)notificationViewHide;
 @end
 
 @interface NotifyAnimationView : UIView{

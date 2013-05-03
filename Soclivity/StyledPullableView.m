@@ -10,12 +10,14 @@
 #import "SoclivityUtilities.h"
 #import "SoclivityManager.h"
 #import "FilterPreferenceClass.h"
-
+#import "NotificationClass.h"
+#import "NotifyAnimationView.h"
 @implementation StyledPullableView
 @synthesize homeSearchBar;
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
-        
+        //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
+
         self.backgroundColor=[UIColor clearColor];
         tracker=0;
         SOC=[SoclivityManager SharedInstance];                     
@@ -473,19 +475,12 @@
         [Pm7_Pm11_Label release];
         
         UIButton *searchHandleButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        searchHandleButton.frame = CGRectMake(5, 397, 58.0, 57.0);//5
+        searchHandleButton.frame = CGRectMake(5, 397, 58.0, 57.0);//397
         [searchHandleButton setImage:[UIImage imageNamed:@"S04_bookmark.png"] forState:UIControlStateNormal];
         [searchHandleButton addTarget:self action:@selector(pushTodetailActivity:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:searchHandleButton];
         
         
-#if 0
-        addButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        addButton.frame = CGRectMake(275, 409, 39.0, 31.0);//5
-        [addButton setImage:[UIImage imageNamed:@"S04_addevent.png"] forState:UIControlStateNormal];
-        [addButton addTarget:self action:@selector(addActivity:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:addButton];
-#endif
         
         
         
@@ -532,6 +527,12 @@
         [self addSubview:crossImageView];
         crossImageView.hidden=YES;
         
+        
+        
+        self.notificationView=[[UIView alloc]initWithFrame:CGRectMake(0, 400, 320, 60)];
+        [self addSubview:self.notificationView];
+        [notificationView setUserInteractionEnabled:NO];
+        
         [self addSubview:filterPaneView];
         [self insertSubview:filterPaneView atIndex:0];
         [self insertSubview:searchHandleButton atIndex:0];
@@ -539,6 +540,16 @@
         
         }
     return self;
+}
+
+
+- (void)didReceiveBackgroundNotification:(NSNotification*) note{
+    
+    NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:note];
+    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0,0, 320, 60) andNotif:notifObject];
+    //notif.delegate=self;
+    
+    [self.notificationView addSubview:notif];
 }
 
 - (void)sliderValueChanged:(FCRangeSlider *)sender {
@@ -834,9 +845,6 @@
     [self bringInFilterPane];
 }
 
--(void)addActivity:(id)sender{
-    [delegate newActivityButtonPressed];
-}
 -(void)pushTodetailActivity:(UIButton*)sender{
     NSLog(@"pushTodetailActivity=%f,%f,%f,%f",sender.frame.size.height,sender.frame.size.width,sender.frame.origin.x,sender.frame.origin.y);
 }

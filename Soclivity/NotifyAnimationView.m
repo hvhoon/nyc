@@ -176,6 +176,9 @@ static inline NSRegularExpression * NameRegularExpression() {
         self.frame = popupStartRect;
     } completion:^(BOOL finished) {
         self.alpha = 0.0f;
+        if ([self.delegate respondsToSelector:@selector(notificationViewHide)]){
+            [self.delegate notificationViewHide];
+        }
 
     }];
 

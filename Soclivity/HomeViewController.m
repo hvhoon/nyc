@@ -93,7 +93,15 @@
     NotificationClass *notifObject=[SoclivityUtilities getNotificationChatPost:note];
     NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0, 0, 320, 60) andNotif:notifObject];
     notif.delegate=self;
-    [self.view addSubview:notif];
+    [pullDownView.notificationView setUserInteractionEnabled:YES];
+    
+    if(bookmarkState){
+        [pullDownView.notificationView setFrame:CGRectMake(0, 40, 320, 60)];
+    }
+    else{
+        [pullDownView.notificationView setFrame:CGRectMake(0, 400, 320, 60)];
+    }
+    [pullDownView.notificationView addSubview:notif];
 
     
     
@@ -315,10 +323,22 @@
 - (void)didReceiveBackgroundNotification:(NSNotification*) note{
     
     NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:note];
-    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0,2, 320, 60) andNotif:notifObject];
+    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0,0, 320, 60) andNotif:notifObject];
     notif.delegate=self;
 
-    [self.view addSubview:notif];
+    [pullDownView.notificationView setUserInteractionEnabled:YES];
+    
+    if(bookmarkState){
+        [pullDownView.notificationView setFrame:CGRectMake(0, 40, 320, 60)];
+    }
+    else{
+        [pullDownView.notificationView setFrame:CGRectMake(0, 400, 320, 60)];
+    }
+    [pullDownView.notificationView addSubview:notif];
+}
+
+-(void)notificationViewHide{
+    [pullDownView.notificationView setUserInteractionEnabled:NO];
 }
 
 -(void)getUpdatedLocationWithActivities{
@@ -642,9 +662,11 @@
 - (void)pullableView:(PullableView *)pView didChangeState:(BOOL)opened {
     if (opened) {
         NSLog(@"Now I'm open!");
+        bookmarkState=TRUE;
         
     } else {
         NSLog(@"Now I'm closed, pull me up again!");
+        bookmarkState=FALSE;
         
         //time to update filters
         [activityTableView doFilteringByActivities];

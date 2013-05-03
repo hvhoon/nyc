@@ -55,6 +55,7 @@
     NotificationClass* notIdObject;
     BOOL pushInAppNotif;
     IBOutlet UIButton *addButton;
+    BOOL bookmarkState;
 }
 
 @property (nonatomic,retain)id <HomeScreenDelegate>delegate;

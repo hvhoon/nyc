@@ -43,7 +43,8 @@
     CGPoint translateNew;
     UIImageView *crossImageView;
     UIImageView *searchLensImageView;
-    UIButton *addButton;
+    
+    UIView *notificationView;
 }
 
 /**
@@ -51,7 +52,7 @@
  can style it, add subviews or set its frame at will.
  */
 @property (nonatomic,readonly) UIView *handleView;
-
+@property (nonatomic,retain) UIView *notificationView;
 /**
  The point that defines the center of the view when in its closed
  state. You must set this before using the PullableView.
