@@ -42,7 +42,7 @@
 
 #pragma mark - Text bubble
 
-const UIEdgeInsets textInsetsMine = {5, 10, 11, 17};
+const UIEdgeInsets textInsetsMine = {10, 10, 7, 17};//5//11
 const UIEdgeInsets textInsetsSomeone = {5, 15, 11, 10};
 
 
@@ -72,7 +72,7 @@ const UIEdgeInsets textInsetsSomeone = {5, 15, 11, 10};
 
 #pragma mark - Image bubble
 
-const UIEdgeInsets imageInsetsMine = {11, 13, 16, 22};
+const UIEdgeInsets imageInsetsMine = {16, 13, 12, 22};//11//16
 const UIEdgeInsets imageInsetsSomeone = {11, 18, 16, 14};
 
 + (id)dataWithImage:(UIImage *)image date:(NSDate *)date name:(NSString*)name type:(NSBubbleType)type 

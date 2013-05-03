@@ -66,7 +66,7 @@
 
 	[self addSubview:self.bubbleTable];
     
-    bubbleTable.contentInset = UIEdgeInsetsMake(7.0, 0, 0, 0);
+    bubbleTable.contentInset = UIEdgeInsetsMake(5.0, 0, 0, 0);
     
     CGRect inputFrame = CGRectMake(0.0f, size.height + INPUT_HEIGHT, size.width, INPUT_HEIGHT);
     self.inputView = [[MessageInputView alloc] initWithFrame:inputFrame];
@@ -301,7 +301,6 @@
 - (void)scrollToBottomAnimated:(BOOL)animated
 {
     if([bubbleData count]!=0){
-#if 1
     NSInteger rows = 0;
     
     ActivityChatData *data=[[bubbleTable.bubbleSection lastObject]objectAtIndex:0];
@@ -318,7 +317,7 @@
                                       animated:animated];
     }
 }
-#endif
+
 }
 
 #pragma mark - Text view delegate
@@ -427,14 +426,12 @@
     else{
         [inputView setHidden:NO];
     }
-#if 1
-    UIEdgeInsets insets = UIEdgeInsetsMake(7.0,
+    UIEdgeInsets insets = UIEdgeInsetsMake(5.0,
                                            0.0f,
                                            self.frame.size.height - keyboardY,
                                            0.0f);
 	self.bubbleTable.contentInset = insets;
 	self.bubbleTable.scrollIndicatorInsets = insets;
-#endif
     [UIView commitAnimations];
 }
 
@@ -444,7 +441,7 @@
 
 -(void)loadTableHeader{
     
-    loadPrevMessagesView = [[UIView alloc] initWithFrame:CGRectMake(0, -57.0f, 320, 57.0f)];
+    loadPrevMessagesView = [[UIView alloc] initWithFrame:CGRectMake(0, -55.0f, 320, 55.0f)];
     loadPrevMessagesView.backgroundColor = [SoclivityUtilities returnBackgroundColor:0];
 	loadPrevMessagesView.tag=145;
     UILabel *loadMoreChatLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 15, 200, 20)];
@@ -470,14 +467,14 @@
 
 
 -(void)userScrolledToLoadEarlierMessages{
-    self.bubbleTable.contentInset = UIEdgeInsetsMake(57, 0, 0, 0);
+    self.bubbleTable.contentInset = UIEdgeInsetsMake(55, 0, 0, 0);
     [self performSelector:@selector(stopAnimatingHeader) withObject:nil afterDelay:1.5];
 }
 
 //stop the header spinner
 - (void) stopAnimatingHeader{
     //add the data
-    CGPoint offset = [[self bubbleTable] contentOffset];
+    //CGPoint offset = [[self bubbleTable] contentOffset];
     
     [self addItemsToStartOfTableView];
     
@@ -485,12 +482,16 @@
 
     [self.bubbleTable reloadData];
     
+    
+    
+#if 0
     offset.y = kLoadingPrevMessage*[self firstRowHeight];
     if (offset.y > [[self bubbleTable] contentSize].height) {
         offset.y = 0;
     }
+    
     [[self bubbleTable] setContentOffset:offset];
-
+#endif
     
     if(isKeyboardInView){
         
@@ -534,16 +535,20 @@
         [holdHistoryArray removeLastObject];
     }
     
+    [self.bubbleTable beginUpdates];
+
+    
     if([holdHistoryArray count]==0){
-        self.bubbleTable.contentInset = UIEdgeInsetsMake(7.0, 0, 0, 0);
+        self.bubbleTable.contentInset = UIEdgeInsetsMake(5.0, 0, 0, 0);
            [loadPrevMessagesView setHidden:YES];
 
 
     }
     else{
-        self.bubbleTable.contentInset = UIEdgeInsetsMake(7.0, 0, 0, 0);
+        self.bubbleTable.contentInset = UIEdgeInsetsMake(5.0, 0, 0, 0);
         bubbleTable.isLoading=FALSE;
     }
+    [self.bubbleTable endUpdates];
 
 }
 

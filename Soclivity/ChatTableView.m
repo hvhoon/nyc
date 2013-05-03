@@ -161,6 +161,10 @@
     return [self tableView:self heightForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 }
 
+
+-(void)resetDeltaOffset{
+    deltaOffset=0.0f;
+}
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     int delta=0;
@@ -171,13 +175,12 @@
     // Header
     if (indexPath.row ==1)
     {
-        return [UIBubbleHeaderFooterTableViewCell height];
+        return [UIBubbleHeaderFooterTableViewCell height]+5;
     }
     ActivityChatData *data = [[self.bubbleSection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         if([data.view isKindOfClass:[UIImageView class]]){
             delta=5.0;
         }
-        
 
         return MAX(data.insets.top + data.view.frame.size.height + data.insets.bottom+delta, data.showAvatars ? 39 : 0);
     }else{

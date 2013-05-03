@@ -22,6 +22,8 @@ typedef enum _NSBubbleTypingType
     BOOL isLoading;
     NSMutableDictionary *imageDownloadsInProgress;
     NSMutableDictionary *imageDownloadsInProgress2;
+    CGFloat deltaOffset;
+    
 }
 @property (nonatomic,assign)BOOL isLoading;
 @property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;

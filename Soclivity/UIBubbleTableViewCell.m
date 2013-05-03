@@ -201,6 +201,8 @@
     else{
         //NSLog(@"Not Image View");
     }
+    
+    
 
     self.customView.frame = CGRectMake(x + self.data.insets.left, y + self.data.insets.top, width, height);
     [self.contentView addSubview:self.customView];
@@ -211,11 +213,11 @@
         
     }
     else {
+        y=y+5;
         self.bubbleImage.image = [[UIImage imageNamed:@"S05.3_chatBubbleBlue.png"] stretchableImageWithLeftCapWidth:15 topCapHeight:19];//8
     }
     
     self.bubbleImage.frame = CGRectMake(x, y, width + self.data.insets.left + self.data.insets.right, height + self.data.insets.top + self.data.insets.bottom);
-#if 1
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(handleLongPress:)];
     lpgr.minimumPressDuration = 1.0; //seconds
@@ -223,7 +225,6 @@
     [self.customView setUserInteractionEnabled:YES];
     [self.customView addGestureRecognizer:lpgr];
     [lpgr release];
-#endif
 
 }
 -(void)handleTapGesture:(id)sender{
