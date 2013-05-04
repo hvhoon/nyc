@@ -41,8 +41,7 @@
     }
     else{
 
-    
-        [delegate activityDateSelected:[[NSUserDefaults standardUserDefaults] valueForKey:@"ActivityDate"]];
+    [delegate activityDateSelected:[[NSUserDefaults standardUserDefaults] valueForKey:@"ActivityDate"]];
     }
 }
 

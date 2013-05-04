@@ -171,6 +171,8 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
     }
     else{
 
+    [[NSUserDefaults standardUserDefaults] setValue:self.initialDate forKey:@"ActivityDate"];
+        
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     NSLog(@"didSelectDate =%@",[date NSDate]);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
