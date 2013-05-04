@@ -450,6 +450,14 @@
     activityNameLabel.shadowColor = [UIColor blackColor];
     activityNameLabel.shadowOffset = CGSizeMake(0,-1);
     activityNameLabel.tag=kActivityLabel;
+    CGSize textSize = [[NSString stringWithFormat:@"%@",activityInfo.activityName] sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18]];
+    activityNameLabel.frame=CGRectMake(56, 7, 200, textSize.height);
+    
+    [activityNameLabel setAutoresizingMask:UIViewContentModeScaleAspectFill];
+    [activityNameLabel setLineBreakMode:UILineBreakModeClip];
+    activityNameLabel.adjustsFontSizeToFitWidth=NO;//This is main for shrinking font
+
+    
 
     [eventView loadViewWithActivityDetails:activityInfo];
     [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];

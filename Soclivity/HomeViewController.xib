@@ -260,7 +260,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrameSize">{39, 31}</string>
 								<reference key="NSSuperview" ref="206044588"/>
-								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>

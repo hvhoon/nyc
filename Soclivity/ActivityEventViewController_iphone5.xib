@@ -248,7 +248,7 @@
 					<object class="IBUILabel" id="185419930">
 						<reference key="NSNextResponder" ref="793447076"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{56, 7}, {209, 29}}</string>
+						<string key="NSFrame">{{56, 7}, {200, 29}}</string>
 						<reference key="NSSuperview" ref="793447076"/>
 						<reference key="NSNextKeyView" ref="180428222"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -304,6 +304,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{277, 514}, {38, 30}}</string>
 						<reference key="NSSuperview" ref="793447076"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -662,6 +663,7 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrameSize">{320, 470}</string>
 						<reference key="NSSuperview" ref="514461427"/>
+						<reference key="NSNextKeyView"/>
 						<reference key="IBUIBackgroundColor" ref="803590199"/>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -1156,6 +1158,7 @@
 								<int key="NSvFlags">-2147483356</int>
 								<string key="NSFrame">{{194, 25}, {131, 21}}</string>
 								<reference key="NSSuperview" ref="418255529"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>

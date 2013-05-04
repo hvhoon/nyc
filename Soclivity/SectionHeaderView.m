@@ -13,7 +13,7 @@
 @implementation SectionHeaderView
 
 
-@synthesize activitytitleLabel, delegate, section,playerId;
+@synthesize delegate, section,playerId;
 
 
 + (Class)layerClass {
@@ -86,7 +86,7 @@
         
         // Activity name
         CGRect activityLabelFrame = CGRectMake(45,20-2,210,22);
-        activitytitleLabel = [[UILabel alloc] initWithFrame:activityLabelFrame];
+        UILabel *activitytitleLabel = [[UILabel alloc] initWithFrame:activityLabelFrame];
         activitytitleLabel.text = detailSectionInfo.activityName;
         activitytitleLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:20];
         activitytitleLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -398,7 +398,6 @@
 
 - (void)dealloc {
     
-    [activitytitleLabel release];
     [super dealloc];
 }
 

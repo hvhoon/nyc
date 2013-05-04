@@ -10,7 +10,6 @@
     BOOL toggleAction;
 }
 
-@property (nonatomic, retain) UILabel *activitytitleLabel;
 @property (nonatomic, assign) NSInteger section;
 @property (nonatomic, assign) id <SectionHeaderViewDelegate> delegate;
 @property (nonatomic,assign) NSInteger playerId;
