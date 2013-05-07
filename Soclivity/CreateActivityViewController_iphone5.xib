@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1536</int>
+		<int key="IBDocument.SystemTarget">1552</int>
 		<string key="IBDocument.SystemVersion">12D78</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2840</string>
+		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.37</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1926</string>
+			<string key="NS.object.0">2083</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
@@ -57,7 +57,7 @@
 					<object class="IBUIButton" id="375188127">
 						<reference key="NSNextResponder" ref="920992318"/>
 						<int key="NSvFlags">-2147483356</int>
-						<string key="NSFrame">{{5, 7}, {37, 29}}</string>
+						<string key="NSFrame">{{5, 0}, {40, 40}}</string>
 						<reference key="NSSuperview" ref="920992318"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="248646546"/>
@@ -744,6 +744,7 @@
 						<string key="NSFrame">{{190, 513}, {121, 30}}</string>
 						<reference key="NSSuperview" ref="920992318"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -1798,12 +1799,12 @@
 			<string key="S06_createActivityButton.png">{115, 30}</string>
 			<string key="S06_fieldDivider.png">{275, 1}</string>
 			<string key="S06_pickLocationButton.png">{121, 30}</string>
-			<string key="back-button.png">{37, 29}</string>
+			<string key="back-button.png">{40, 40}</string>
 			<string key="bottom-bar.png">{320, 40}</string>
 			<string key="check.png">{20, 16}</string>
 			<string key="cross.png">{15, 16}</string>
 			<string key="topbar.png">{320, 44}</string>
 		</dictionary>
-		<string key="IBCocoaTouchPluginVersion">1926</string>
+		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>

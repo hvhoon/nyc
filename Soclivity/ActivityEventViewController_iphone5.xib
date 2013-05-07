@@ -291,7 +291,7 @@
 					<object class="IBUIButton" id="230978171">
 						<reference key="NSNextResponder" ref="793447076"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{102, 513}, {115, 31}}</string>
+						<string key="NSFrame">{{121, 509}, {79, 39}}</string>
 						<reference key="NSSuperview" ref="793447076"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="295741380"/>
@@ -3035,7 +3035,7 @@
 			<string key="S05_edit.png">{115, 30}</string>
 			<string key="S05_goingButton.png">{89, 30}</string>
 			<string key="S05_inviteButton.png">{38, 30}</string>
-			<string key="S05_joinButton.png">{115, 31}</string>
+			<string key="S05_joinButton.png">{79, 39}</string>
 			<string key="S05_leave.png">{115, 30}</string>
 			<string key="S05_locationIcon.png">{19, 18}</string>
 			<string key="S05_miniMap.png">{39, 39}</string>
