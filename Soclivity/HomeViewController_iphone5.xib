@@ -128,7 +128,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">S04_bottombar.png</string>
+							<string key="NSResourceName">bottom-bar.png</string>
 						</object>
 					</object>
 					<object class="IBUIView" id="615334802">
@@ -145,7 +145,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">S04_titlebar.png</string>
+									<string key="NSResourceName">topbar.png</string>
 								</object>
 							</object>
 							<object class="IBUIImageView" id="986134907">
@@ -164,13 +164,14 @@
 							<object class="IBUIButton" id="1019628206">
 								<reference key="NSNextResponder" ref="615334802"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{275, 7}, {39, 31}}</string>
+								<string key="NSFrame">{{275, 0}, {40, 40}}</string>
 								<reference key="NSSuperview" ref="615334802"/>
 								<reference key="NSNextKeyView" ref="888797119"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
+								<bool key="IBUIShowsTouchWhenHighlighted">YES</bool>
 								<reference key="IBUIHighlightedTitleColor" ref="1064327120"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
 									<int key="NSColorSpace">1</int>
@@ -182,7 +183,7 @@
 								</object>
 								<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">S04_addevent.png</string>
+									<string key="NSResourceName">addevent.png</string>
 								</object>
 								<object class="IBUIFontDescription" key="IBUIFontDescription" id="484778044">
 									<int key="type">2</int>
@@ -208,7 +209,7 @@
 					<object class="IBUIButton" id="182140662">
 						<reference key="NSNextResponder" ref="1059045188"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{5, 512}, {39, 31}}</string>
+						<string key="NSFrame">{{5, 508}, {40, 40}}</string>
 						<reference key="NSSuperview" ref="1059045188"/>
 						<reference key="NSNextKeyView" ref="391599176"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -223,7 +224,7 @@
 						<reference key="IBUINormalTitleShadowColor" ref="594709326"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">S04_profile.png</string>
+							<string key="NSResourceName">profilebtn.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="484778044"/>
 						<reference key="IBUIFont" ref="378321442"/>
@@ -235,7 +236,7 @@
 							<object class="IBUIButton" id="261421457">
 								<reference key="NSNextResponder" ref="229073774"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrameSize">{39, 31}</string>
+								<string key="NSFrameSize">{40, 40}</string>
 								<reference key="NSSuperview" ref="229073774"/>
 								<reference key="NSNextKeyView" ref="11609129"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -258,8 +259,9 @@
 							<object class="IBUIButton" id="11609129">
 								<reference key="NSNextResponder" ref="229073774"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrameSize">{39, 31}</string>
+								<string key="NSFrameSize">{40, 40}</string>
 								<reference key="NSSuperview" ref="229073774"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -278,7 +280,7 @@
 								<reference key="IBUIFont" ref="378321442"/>
 							</object>
 						</array>
-						<string key="NSFrame">{{276, 512}, {39, 31}}</string>
+						<string key="NSFrame">{{275, 508}, {40, 40}}</string>
 						<reference key="NSSuperview" ref="1059045188"/>
 						<reference key="NSNextKeyView" ref="261421457"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -908,19 +910,19 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="S04_addevent.png">{39, 31}</string>
-			<string key="S04_bottombar.png">{320, 40}</string>
 			<string key="S04_currentlocation.png">{25, 26}</string>
-			<string key="S04_listbtn.png">{39, 31}</string>
+			<string key="S04_listbtn.png">{40, 39}</string>
 			<string key="S04_logo.png">{111, 30}</string>
-			<string key="S04_mapbtn.png">{39, 31}</string>
-			<string key="S04_profile.png">{39, 31}</string>
+			<string key="S04_mapbtn.png">{40, 39}</string>
 			<string key="S04_refresh.png">{25, 25}</string>
 			<string key="S04_sortdistance.png">{25, 25}</string>
 			<string key="S04_sortdos.png">{32, 22}</string>
 			<string key="S04_sorttime.png">{24, 25}</string>
-			<string key="S04_titlebar.png">{320, 44}</string>
+			<string key="addevent.png">{40, 40}</string>
+			<string key="bottom-bar.png">{320, 40}</string>
 			<string key="notifyDigit1.png">{27, 27}</string>
+			<string key="profilebtn.png">{40, 39}</string>
+			<string key="topbar.png">{320, 44}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
