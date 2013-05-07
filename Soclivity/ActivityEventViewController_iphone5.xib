@@ -51,7 +51,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">S05_topbar.png</string>
+							<string key="NSResourceName">topbar.png</string>
 						</object>
 					</object>
 					<object class="IBUIView" id="355913637">
@@ -101,13 +101,13 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">S05_bottom-bar.png</string>
+							<string key="NSResourceName">bottom-bar.png</string>
 						</object>
 					</object>
 					<object class="IBUIButton" id="119741732">
 						<reference key="NSNextResponder" ref="793447076"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{6, 7}, {37, 29}}</string>
+						<string key="NSFrame">{{5, 0}, {40, 40}}</string>
 						<reference key="NSSuperview" ref="793447076"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="862169124"/>
@@ -141,7 +141,7 @@
 					<object class="IBUIButton" id="862169124">
 						<reference key="NSNextResponder" ref="793447076"/>
 						<int key="NSvFlags">-2147483356</int>
-						<string key="NSFrame">{{6, 7}, {37, 29}}</string>
+						<string key="NSFrame">{{5, 0}, {40, 40}}</string>
 						<reference key="NSSuperview" ref="793447076"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="345964284"/>
@@ -3029,7 +3029,6 @@
 			<string key="S05.3_addImage.png">{35, 19}</string>
 			<string key="S05.3_addPost.png">{30, 20}</string>
 			<string key="S05.3_doneButton.png">{56, 30}</string>
-			<string key="S05_bottom-bar.png">{320, 40}</string>
 			<string key="S05_calendarIcon.png">{19, 20}</string>
 			<string key="S05_cancelRequestButton.png">{141, 30}</string>
 			<string key="S05_clockIcon.png">{20, 20}</string>
@@ -3042,14 +3041,15 @@
 			<string key="S05_miniMap.png">{39, 39}</string>
 			<string key="S05_notGoingButton.png">{89, 30}</string>
 			<string key="S05_organizerPic.png">{52, 52}</string>
-			<string key="S05_topbar.png">{320, 43}</string>
 			<string key="S5_DOS-1.png">{16, 16}</string>
 			<string key="addevent.png">{40, 40}</string>
-			<string key="back-button.png">{37, 29}</string>
+			<string key="back-button.png">{40, 40}</string>
+			<string key="bottom-bar.png">{320, 40}</string>
 			<string key="button.png">{38, 30}</string>
 			<string key="chatButton.png">{38, 30}</string>
 			<string key="check.png">{20, 16}</string>
 			<string key="cross.png">{15, 16}</string>
+			<string key="topbar.png">{320, 44}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>

@@ -223,7 +223,6 @@
 						<string key="NSFrame">{{28, 499}, {27, 27}}</string>
 						<reference key="NSSuperview" ref="1043789732"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
