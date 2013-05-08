@@ -766,7 +766,7 @@
 					<object class="IBUIButton" id="751920678">
 						<reference key="NSNextResponder" ref="920992318"/>
 						<int key="NSvFlags">-2147483356</int>
-						<string key="NSFrame">{{88, 508}, {143, 40}}</string>
+						<string key="NSFrame">{{106, 508}, {108, 40}}</string>
 						<reference key="NSSuperview" ref="920992318"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="461274994"/>
@@ -1795,7 +1795,7 @@
 			<string key="S05_public5.png">{21, 20}</string>
 			<string key="S06_backdrop5.png">{279, 394}</string>
 			<string key="S06_capacity.png">{20, 17}</string>
-			<string key="S06_createActivityButton.png">{143, 40}</string>
+			<string key="S06_createActivityButton.png">{108, 40}</string>
 			<string key="S06_fieldDivider.png">{275, 1}</string>
 			<string key="S06_pickLocationButton.png">{143, 39}</string>
 			<string key="acceptButton.png">{65, 39}</string>
