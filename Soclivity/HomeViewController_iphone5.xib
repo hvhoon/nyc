@@ -261,7 +261,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrameSize">{40, 40}</string>
 								<reference key="NSSuperview" ref="229073774"/>
-								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -911,9 +910,9 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="S04_currentlocation.png">{25, 26}</string>
-			<string key="S04_listbtn.png">{40, 39}</string>
+			<string key="S04_listbtn.png">{40, 40}</string>
 			<string key="S04_logo.png">{111, 30}</string>
-			<string key="S04_mapbtn.png">{40, 39}</string>
+			<string key="S04_mapbtn.png">{40, 40}</string>
 			<string key="S04_refresh.png">{25, 25}</string>
 			<string key="S04_sortdistance.png">{25, 25}</string>
 			<string key="S04_sortdos.png">{32, 22}</string>
@@ -921,7 +920,7 @@
 			<string key="addevent.png">{40, 40}</string>
 			<string key="bottom-bar.png">{320, 40}</string>
 			<string key="notifyDigit1.png">{27, 27}</string>
-			<string key="profilebtn.png">{40, 39}</string>
+			<string key="profilebtn.png">{40, 40}</string>
 			<string key="topbar.png">{320, 44}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
