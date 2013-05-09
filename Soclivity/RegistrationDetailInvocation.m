@@ -92,7 +92,7 @@
 }
 
 -(NSString*)body {
-#if 1
+
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     GetPlayersClass *player=SOC.registrationObject;
     CLLocation *playerLoc=SOC.currentLocation;
@@ -144,7 +144,7 @@
     NSString *bodyData = [NSString stringWithFormat:@"{\"player\":%@}",[bodyD JSONRepresentation]];
      NSLog(@"bodyData=%@",bodyData);
 	return bodyData;
-#endif    
+
 }
 
 -(NSString*)returnActivityType{

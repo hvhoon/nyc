@@ -341,7 +341,22 @@
     GetPlayersClass *player=SOC.loggedInUser;
     devServer=[[MainServiceManager alloc]init];
     if(player.calendarSync){
-        [devServer getUpcomingActivitiesForUserInvocation:[SOC.loggedInUser.idSoc intValue] player2:[SOC.loggedInUser.idSoc intValue] delegate:self];
+        
+        if([SoclivityUtilities hasNetworkConnection]){
+            
+            [devServer getUpcomingActivitiesForUserInvocation:[SOC.loggedInUser.idSoc intValue] player2:[SOC.loggedInUser.idSoc intValue] delegate:self];
+
+        }
+        else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            
+            [alert show];
+            [alert release];
+            return;
+            
+        }
+
 
     }
     else{
@@ -436,7 +451,7 @@
         }
     }
     
-            [self setupSlideDrawerUIController];
+        [self setupSlideDrawerUIController];
 }
 
 -(void)AlreadySignedUpButtonClicked{
