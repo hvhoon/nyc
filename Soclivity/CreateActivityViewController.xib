@@ -664,6 +664,7 @@
 						<string key="NSFrame">{{128, 421}, {65, 39}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -758,7 +759,7 @@
 					<object class="IBUIButton" id="182231397">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">-2147483356</int>
-						<string key="NSFrame">{{88, 420}, {149, 40}}</string>
+						<string key="NSFrame">{{115, 420}, {90, 40}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="18318007"/>
@@ -1740,7 +1741,7 @@
 			<string key="S05_public5.png">{21, 20}</string>
 			<string key="S06_backdrop.png">{279, 326}</string>
 			<string key="S06_capacity.png">{20, 17}</string>
-			<string key="S06_createActivityButton.png">{143, 40}</string>
+			<string key="S06_createActivityButton.png">{90, 40}</string>
 			<string key="S06_fieldDivider.png">{275, 1}</string>
 			<string key="S06_pickLocationButton.png">{143, 39}</string>
 			<string key="acceptButton.png">{65, 39}</string>
