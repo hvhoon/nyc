@@ -777,6 +777,8 @@
     
     
      if([SoclivityUtilities hasNetworkConnection]){
+         
+         [self loadingActivityMonitor];
          [devServer getActivitiesInvocation:[SOC.loggedInUser.idSoc intValue] latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude delegate:self];
      }
      else{
@@ -811,6 +813,7 @@
 //    [[NSUserDefaults standardUserDefaults] setValue:currentTime forKey:@"SOCTimeStamp"];
 
 }
+
 #pragma mark -
 #pragma mark GetActivitiesInvocationDelegate Method
 
@@ -818,7 +821,7 @@
                         withResponse:(NSArray*)responses
                            withError:(NSError*)error{
     //now time to write in the Sqlite DataBase(Delete and Clean the activities Table)
-    
+    [HUD hide:YES];
     [SoclivitySqliteClass InsertNewActivities:responses];
     [activityTableView startPopulatingListView];
     socEventMapView.centerLocation=TRUE;
@@ -985,9 +988,9 @@
 -(void)loadingActivityMonitor{
     // Setup animation settings
     HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    //HUD.yOffset = -60.0;
+    HUD.yOffset = -40.0;
     HUD.labelFont = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0];
-    HUD.labelText = @"Loading Activity";
+    HUD.labelText = @"Loading...";
     
     [self.view addSubview:HUD];
     HUD.delegate = self;
