@@ -2532,7 +2532,7 @@
     searching=FALSE;
     self.addressSearchBar.text=@"";
     [self gotoLocation];
-    
+    [self showFourSquareComponents:NO];
     [self setUpLabelViewElements:YES];
 
 }
