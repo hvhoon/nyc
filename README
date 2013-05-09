@@ -12,8 +12,5 @@ Using the syntax below will ensure that the appropriate comments are added to th
 3. Send story/bug back to the queue
 <JIRA ID> #stop-build #comment Sending back to the build queue.
 
-4. Redesign an screen
-<JIRA ID> #redesign #comment After stopping the build, the developer can send something back to be redesigned.
-
-5. Just add comments to the story/bug
+4. Just add comments to the story/bug
 <JIRA ID> #comment Comments made here will be added to the story or bug.
