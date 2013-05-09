@@ -1084,17 +1084,26 @@ else {
 -(void)ActivityEventOnMap{
     
 
-    self.labelView=[[UIView alloc]initWithFrame:CGRectMake(320, 404, 320, 60)];
-    [self addSubview:self.labelView];
-    
+   // self.labelView=[[UIView alloc]initWithFrame:CGRectMake(320, 404, 320, 60)];
+   // [self addSubview:self.labelView];
+    if([SoclivityUtilities deviceType] & iPhone5){
+    self.labelView.frame=CGRectMake(320, 404, 320, 60);
+    }
+    else{
+    self.labelView.frame=CGRectMake(320, 316, 320, 60);
+    }
     activityInfoButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    activityInfoButton.frame = CGRectMake(285,15,28,27);
+    
+    if([SoclivityUtilities deviceType] & iPhone5){
+    activityInfoButton.frame = CGRectMake(320+285,404+15,28,27);
+      }else
+        activityInfoButton.frame = CGRectMake(320+285,316+15,28,27);
     [activityInfoButton setImage:[UIImage imageNamed:@"S05.1_drivingDirectionsIcon.png"] forState:UIControlStateNormal];
     [activityInfoButton setImage:[UIImage imageNamed:@"S05.1_drivingDirectionsIcon.png"] forState:UIControlStateHighlighted];
 
     
     [activityInfoButton addTarget:self action:@selector(activityInfoButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self.labelView addSubview:activityInfoButton];
+    [self addSubview:activityInfoButton];
     
     
     
@@ -2958,11 +2967,10 @@ if(selectionType==1){
 
 -(void)showSearchBarAndAnimateWithListViewInMiddle{
 
-    
     if([SoclivityUtilities deviceType] & iPhone5)
         mapView.frame=CGRectMake(320, 44, 320,360);//bug Fix
  else
-    mapView.frame=CGRectMake(320, 44, 320,272);
+        mapView.frame=CGRectMake(320, 44, 320,272);
 #if 0
 #if LISTVIEWREMOVE 
     [locationResultsTableView setHidden:NO];

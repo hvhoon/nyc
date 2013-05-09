@@ -1728,8 +1728,8 @@
 
         [UIView commitAnimations];
         
-        if(activityInfo.activityRelationType==6)
-            [editButtonForMapView setHidden:NO];
+       // if(activityInfo.activityRelationType==6)
+         //   [editButtonForMapView setHidden:NO];
         
         if(inTransition)
             currentLocationInMap.hidden=NO;
