@@ -984,7 +984,6 @@
         [socProfileViewController release];
     }
 }
-
 -(void)loadingActivityMonitor{
     // Setup animation settings
     HUD = [[MBProgressHUD alloc] initWithView:self.view];
