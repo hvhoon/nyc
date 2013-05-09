@@ -487,7 +487,7 @@
         UIView *dateCalendarView=[[UIView alloc]initWithFrame:CGRectMake(320, 0, 320, 402)];
         dateCalendarView.backgroundColor=[UIColor whiteColor];
         
-        UIImageView *titleImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1.1_topbar.png"]];
+        UIImageView *titleImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"topbar.png"]];
         titleImageView.frame=CGRectMake(0, 40, 320, 44);
         [dateCalendarView addSubview:titleImageView];
         [titleImageView release];
