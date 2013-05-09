@@ -81,9 +81,40 @@
         
         [datasource addObject:sectionOne];
         
-        
+        // Home Icon 
         NSMutableDictionary *sectionTwo = [NSMutableDictionary dictionary];
         [sectionTwo setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
+        
+        NSMutableDictionary *homeViewControllerDictionary = [NSMutableDictionary dictionary];
+        [homeViewControllerDictionary setObject:@"Home" forKey:kSlideViewControllerViewControllerTitleKey];
+        
+        if([SoclivityUtilities deviceType] & iPhone5){
+            nibNameBundle=@"HomeViewController_iphone5";
+        }
+        else{
+            nibNameBundle=@"HomeViewController";
+        }
+
+        [homeViewControllerDictionary setObject:nibNameBundle forKey:kSlideViewControllerViewControllerNibNameKey];
+        
+        [homeViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
+        
+        
+        NSNumber *activityTag=[NSNumber numberWithInt:2];
+        [homeViewControllerDictionary setObject:activityTag forKey:kSlideViewControllerViewControllerTagKey];
+        
+        [homeViewControllerDictionary setObject:[HomeViewController class] forKey:kSlideViewControllerViewControllerClassKey];
+        [homeViewControllerDictionary setObject:[UIImage imageNamed:@"S7_activity_icon.png"] forKey:kSlideViewControllerViewControllerIconKey];
+        
+        
+        [sectionTwo setObject:[NSArray arrayWithObject:homeViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
+        
+        [datasource addObject:sectionTwo];
+
+        
+        // Notification Icon
+        NSMutableDictionary *sectionThree = [NSMutableDictionary dictionary];
+        [sectionThree setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
         
         NSMutableDictionary *notificationsViewControllerDictionary = [NSMutableDictionary dictionary];
         [notificationsViewControllerDictionary setObject:@"Notifications" forKey:kSlideViewControllerViewControllerTitleKey];
@@ -97,48 +128,16 @@
 
         [notificationsViewControllerDictionary setObject:nibNameBundle forKey:kSlideViewControllerViewControllerNibNameKey];
         
-        [notificationsViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
-        
-        
-        NSNumber *notificationTag=[NSNumber numberWithInt:2];
+        NSNumber *notificationTag=[NSNumber numberWithInt:3];
         [notificationsViewControllerDictionary setObject:notificationTag forKey:kSlideViewControllerViewControllerTagKey];
+        
+        [notificationsViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
         
         [notificationsViewControllerDictionary setObject:[NotificationsViewController class] forKey:kSlideViewControllerViewControllerClassKey];
         [notificationsViewControllerDictionary setObject:[UIImage imageNamed:@"S7_waiting_icon.png"] forKey:kSlideViewControllerViewControllerIconKey];
         
         
-        [sectionTwo setObject:[NSArray arrayWithObject:notificationsViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
-        
-        [datasource addObject:sectionTwo];
-
-        
-        
-        NSMutableDictionary *sectionThree = [NSMutableDictionary dictionary];
-        [sectionThree setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
-        
-        NSMutableDictionary *homeViewControllerDictionary = [NSMutableDictionary dictionary];
-        [homeViewControllerDictionary setObject:@"Activities Around Me" forKey:kSlideViewControllerViewControllerTitleKey];
-        
-        if([SoclivityUtilities deviceType] & iPhone5){
-            nibNameBundle=@"HomeViewController_iphone5";
-        }
-        else{
-            nibNameBundle=@"HomeViewController";
-        }
-
-        [homeViewControllerDictionary setObject:nibNameBundle forKey:kSlideViewControllerViewControllerNibNameKey];
-        
-        NSNumber *activityTag=[NSNumber numberWithInt:3];
-        [homeViewControllerDictionary setObject:activityTag forKey:kSlideViewControllerViewControllerTagKey];
-        
-        [homeViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
-        
-        
-        [homeViewControllerDictionary setObject:[HomeViewController class] forKey:kSlideViewControllerViewControllerClassKey];
-        [homeViewControllerDictionary setObject:[UIImage imageNamed:@"S7_activity_icon.png"] forKey:kSlideViewControllerViewControllerIconKey];
-        
-        
-        [sectionThree setObject:[NSArray arrayWithObject:homeViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
+        [sectionThree setObject:[NSArray arrayWithObject:notificationsViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
         
         [datasource addObject:sectionThree];
         

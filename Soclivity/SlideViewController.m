@@ -24,8 +24,8 @@
 
 
 #define kProfileView 1
-#define kWaitingOnU 2
-#define kActivityFeed 3
+#define kActivityFeed 2
+#define kWaitingOnU 3
 #define kUpcoming_Completed 4
 #define kInvite 5
 #define kBlockedList 6
