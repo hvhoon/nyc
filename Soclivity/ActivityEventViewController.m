@@ -454,7 +454,7 @@
     activityNameLabel.frame=CGRectMake(56, 7, 200, textSize.height);
     
     [activityNameLabel setContentMode:UIViewContentModeScaleAspectFill];
-    [activityNameLabel setLineBreakMode:UILineBreakModeClip];
+    [activityNameLabel setLineBreakMode:NSLineBreakByTruncatingTail];
     activityNameLabel.adjustsFontSizeToFitWidth=NO;//This is main for shrinking font
 
     
