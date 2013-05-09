@@ -175,6 +175,7 @@
     if(isNotSettings){
         profileButton.hidden=YES;
         backActivityButton.hidden=NO;
+        btnnotify.hidden=YES;
     }
         //activityListView.tableView.contentOffset = CGPointMake(0, -90.0f);
         //[activityListView pullToRefreshMannually];
