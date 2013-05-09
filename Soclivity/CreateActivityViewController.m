@@ -2977,6 +2977,9 @@
     
     NSString *str = [loc.formattedPhNo stringByReplacingOccurrencesOfString:@"("
                                                                         withString:@""];
+    
+    str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
     str= [str stringByReplacingOccurrencesOfString:@" "
                                         withString:@""];
     str= [str stringByReplacingOccurrencesOfString:@")"
@@ -2986,10 +2989,8 @@
 
 
     
-    str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSLog(@"URL=%@",[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",str]]);
-    NSLog(@"URL=%@",[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",loc.formattedPhNo]]);
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",loc.formattedPhNo]]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",str]]];
 
 }
 -(void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view{
