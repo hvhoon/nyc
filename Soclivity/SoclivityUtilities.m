@@ -505,7 +505,15 @@ if(timer%2==0){
         // New setting page gray
         case 3:
             return [UIColor colorWithRed:55.0/255.0 green:55.0/255.0 blue:55.0/255.0 alpha:1.0];
-        
+            
+        // Border for images
+        case 4:
+            return [UIColor colorWithRed:65.0/255.0 green:65.0/255.0 blue:65.0/255.0 alpha:1.0];
+            
+        // Signout bar
+        case 5:
+            return [UIColor colorWithRed:41.0/255.0 green:41.0/255.0 blue:41.0/255.0 alpha:1.0];
+            
         // Light green (play)
         case 10:
             return [UIColor colorWithRed:240.0/255.0 green:243.0/255.0 blue:229.0/255 alpha:1.0];

@@ -34,10 +34,10 @@
 #define kSignOut 9
 #define kAbout 10
 
-#define cellHeightDefault 43
+#define cellHeightDefault 44
 #define cellHeightSmall 35
-#define cellHeightLarge  65
-#define cellHeightSignOut 40
+#define cellHeightLarge  64
+#define cellHeightSignOut 44
 
 @interface SlideViewController (private)<HomeScreenDelegate,ProfileScreenViewDelegate,NotificationsScreenViewDelegate,UpcomingCompletedEventsViewDelegate,InvitesViewDelegate,AboutViewDelegate,MBProgressHUDDelegate,RegistrationDetailDelegate,GetUpcomingActivitiesInvocationDelegate>
 @end
@@ -99,7 +99,6 @@
         
         self.textLabel.textColor = [SoclivityUtilities returnTextFontColor:0];
         self.textLabel.highlightedTextColor = self.textLabel.textColor;
-        self.textLabel.shadowColor = [SoclivityUtilities returnTextFontColor:9];
         self.textLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
         self.imageView.clipsToBounds = YES;
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -441,9 +440,9 @@
     
     switch ([tagNumber integerValue]) {
         case kSignOut:
-            return cellHeightSignOut;
+            return cellHeightDefault;
         case kCalendarSync:
-            return cellHeightDefault+7;
+            return cellHeightDefault;
         case kBlockedList:
             if([SoclivityUtilities deviceType] & iPhone5)
                 return 178.0f;
@@ -496,23 +495,17 @@
         {
             showLineOrSwitch=TRUE;
             yCompLine=43.0f;
-            yLeftImage=11.0f;
-            yTextLabel=15.0f;
-            cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
+            yLeftImage=7.0f;
+            yTextLabel=13.0f;
 
         }
             break;
             
         case kProfileView:
         {
-            yCompLine=66.0f;
+            yCompLine=63.0f;
             yTextLabel=27.0f;
             showLineOrSwitch=TRUE;
-            UIImageView *profilePicBorder=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_organizerPic.png"]];
-            profilePicBorder.frame=CGRectMake(15, 7, 52, 52);
-            [cell.contentView addSubview:profilePicBorder];
-            [profilePicBorder release];
-            cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
         }
             break;
             
@@ -520,35 +513,27 @@
         case kWaitingOnU:
         {
             yCompLine=43.0f;
-            yTextLabel=17.0f;
+            yTextLabel=13.0f;
             showLineOrSwitch=TRUE;
-            yLeftImage=12.0f;
-            cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
-
-
+            yLeftImage=9.0f;
             
         }
             break;
          case kUpcoming_Completed:
         {
             yCompLine=43.0f;
-            yTextLabel=17.0f;
+            yTextLabel=13.0f;
             showLineOrSwitch=TRUE;
-            yLeftImage=15.0f;
-            cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
-
-
+            yLeftImage=10.0f;
         }
             break;
             
         case kInvite:
         {
             yCompLine=43;
-            yTextLabel=15.0f;
+            yTextLabel=13.0f;
             showLineOrSwitch=TRUE;
-            yLeftImage=15.0f;
-            cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
-
+            yLeftImage=7.0f;
             
         }
             break;
@@ -563,26 +548,24 @@
             yTextLabel=15.0f;
             showLineOrSwitch=TRUE;
             yLeftImage=9.0f;
-
             
         }
             break;
         case kCalendarSync:
         {
             yCompLine=43;
-            yTextLabel=16.0f;
+            yTextLabel=13.0f;
             showLineOrSwitch=FALSE;
-            yLeftImage=8.0f;
+            yLeftImage=7.0f;
             
         }
             break;
         case kAbout:
         {
             yCompLine=43;
-            yTextLabel=16.0f;
+            yTextLabel=13.0f;
             showLineOrSwitch=TRUE;
-            yLeftImage=9.0f;
-            cell.accessoryView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_arrow.png"]];
+            yLeftImage=7.0f;
             
         }
             break;
@@ -598,64 +581,56 @@
         case kSignOut:
         {
             yCompLine=43;
-            showLineOrSwitch=FALSE;
-            yLeftImage=8.0f;
+            showLineOrSwitch=TRUE;
+            yLeftImage=7.0f;
             yTextLabel=13.0f;
             
-            UIImageView *signoutBarImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_signoutBar"]];
-            signoutBarImage.frame=CGRectMake(0,0, 320, 40);
-            [cell.contentView addSubview:signoutBarImage];
-            [signoutBarImage release];
-
+            [cell.contentView setBackgroundColor:[SoclivityUtilities returnBackgroundColor:5]];
             
         }
             break;
 
     }
     
+    // Setting the text for items in the settings menu
     CGRect textLabelRect=CGRectMake(65,yTextLabel,205,16);
     UILabel *descriptionLabel=[[UILabel alloc] initWithFrame:textLabelRect];
     descriptionLabel.textAlignment=UITextAlignmentLeft;
     descriptionLabel.text=[viewControllerDictionary objectForKey:kSlideViewControllerViewControllerTitleKey];
-    
-    descriptionLabel.shadowColor = [UIColor blackColor];
-    descriptionLabel.shadowOffset = CGSizeMake(0,-1);
-    descriptionLabel.textColor=[UIColor whiteColor];
     descriptionLabel.backgroundColor=[UIColor clearColor];
+    descriptionLabel.textColor=[UIColor whiteColor];
     
+    // For the profile name
     if([tagNumber intValue]==kProfileView){
-        descriptionLabel.frame=CGRectMake(75,yTextLabel,205,17);
+        descriptionLabel.frame=CGRectMake(85,yTextLabel,205,17);
+        descriptionLabel.textColor=[UIColor whiteColor];
         descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17];
     }
-    else if([tagNumber intValue]==kProfileView || ([tagNumber intValue]==kSignOut))
-        descriptionLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
-    
+    // For all the system settings elements
+    else if([tagNumber intValue]==kAbout || [tagNumber intValue]==kSignOut || [tagNumber intValue]==kCalendarSync) {
+        descriptionLabel.alpha = 0.5;
+        descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    }
+    // Everything else
     else
         descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
     
     [cell.contentView addSubview:descriptionLabel];
     [descriptionLabel release];
 
-    if([tagNumber intValue]!=kSignOut){
     if(showLineOrSwitch){
-    UIImageView *longLineImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_long-line.png"]];
-    
-    if(([tagNumber intValue]==kWaitingOnU) ||([tagNumber intValue]==kUpcoming_Completed)||([tagNumber intValue]==kInvite)||([tagNumber intValue]==kActivityFeed) || ([tagNumber intValue]==kAbout)){
-        
-        if([tagNumber intValue]==kInvite || [tagNumber intValue]==kAbout){
+        UIImageView *longLineImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_long-line.png"]];
+
+        if([tagNumber intValue]==kAbout || [tagNumber intValue]==kInvite || [tagNumber intValue]==kCalendarSync || [tagNumber intValue]==kSignOut){
             longLineImageView.image=Nil;
         }
-         else
-            longLineImageView.image=[UIImage imageNamed:@"S7_short-line.png"];
-            longLineImageView.frame=CGRectMake(25,yCompLine, longLineImageView.image.size.width, longLineImageView.image.size.height);
-    }
-    else
+        
         longLineImageView.frame=CGRectMake(0,yCompLine-2, longLineImageView.image.size.width, longLineImageView.image.size.height);
         [cell.contentView addSubview:longLineImageView];
         [longLineImageView release];
     }
     else{
-        //draw a custom switch control
+    //draw a custom switch control
         UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectMake(185, 10, 50, 50)];
         switchView.transform = CGAffineTransformMakeScale(0.75, 0.75);
         [cell.contentView addSubview:switchView];
@@ -665,38 +640,37 @@
         [switchView addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
         [switchView release];
     }
-    }
-    else{
-        UIImageView *longLineImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_long-line.png"]];
-        longLineImageView.frame=CGRectMake(0,0, longLineImageView.image.size.width, longLineImageView.image.size.height);
-
-        [cell.contentView addSubview:longLineImageView];
-        [longLineImageView release];
-
-
-    }
+    
+    
+    // Setting up all the images and icons on the settings screen.
     if ([[viewControllerDictionary objectForKey:kSlideViewControllerViewControllerIconKey] isKindOfClass:[UIImage class]]) {
 
         UIImage *imageProfile=[viewControllerDictionary objectForKey:kSlideViewControllerViewControllerIconKey];
         
-        UIImageView *slideImageView=[[UIImageView alloc]initWithImage:imageProfile];
+        UIImageView *slideImageView=[[UIImageView alloc] initWithImage:imageProfile];
+                                     
         slideImageView.tag=[tagNumber intValue];
+        
+        // If it's the profile screen
         if([tagNumber intValue]==kProfileView){
         
-        if(imageProfile.size.height != imageProfile.size.width)
-            imageProfile = [SoclivityUtilities autoCrop:imageProfile];
+            // First check to see if it's a square
+            if(imageProfile.size.height != imageProfile.size.width)
+                imageProfile = [SoclivityUtilities autoCrop:imageProfile];
         
-        // If the image needs to be compressed
-        if(imageProfile.size.height > 41 || imageProfile.size.width > 42)
-            slideImageView.image = [SoclivityUtilities compressImage:imageProfile size:CGSizeMake(42,41)];
+            // If the image needs to be compressed
+            if(imageProfile.size.height > 50 || imageProfile.size.width > 50)
+                slideImageView.image = [SoclivityUtilities compressImage:imageProfile size:CGSizeMake(50,50)];
             
-            slideImageView.frame=CGRectMake(19, 11, 42, 41);
+            slideImageView.layer.borderWidth = 1.0;
+            slideImageView.layer.borderColor = [SoclivityUtilities returnBackgroundColor:4].CGColor;
+            //slideImageView.layer.cornerRadius = 5.0;
+            slideImageView.frame=CGRectMake(19, 5, 50, 50);
+            
+            [cell.contentView addSubview:slideImageView];
         }
-        else
-         slideImageView.frame=CGRectMake(19, yLeftImage, slideImageView.image.size.width, slideImageView.image.size.height);
-        
-        
-        if([tagNumber intValue]==kWaitingOnU){
+        else if([tagNumber intValue]==kWaitingOnU){
+            slideImageView.frame=CGRectMake(19, yLeftImage, slideImageView.image.size.width, slideImageView.image.size.height);
             CGRect notificationNoLabelRect=CGRectMake(6,4,15,14);
             UILabel *notificationNoLabel=[[UILabel alloc] initWithFrame:notificationNoLabelRect];
             notificationNoLabel.textAlignment=UITextAlignmentCenter;
@@ -704,23 +678,21 @@
             notificationNoLabel.text=[NSString stringWithFormat:@"%d",SOC.loggedInUser.badgeCount];
             notificationNoLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
             notificationNoLabel.textColor=[UIColor whiteColor];
-            notificationNoLabel.shadowColor = [UIColor blackColor];
-            notificationNoLabel.shadowOffset = CGSizeMake(0,-1);
             notificationNoLabel.backgroundColor=[UIColor clearColor];
             [slideImageView addSubview:notificationNoLabel];
             [notificationNoLabel release];
             [cell.contentView addSubview:slideImageView];
         }
-        else
+        else {
+            slideImageView.frame=CGRectMake(19, yLeftImage, slideImageView.image.size.width, slideImageView.image.size.height);
            [cell.contentView addSubview:slideImageView];
+        }
         
         [slideImageView release];
         
-
-        
-    } else {
-        cell.imageView.image = nil;
     }
+    else
+        cell.imageView.image = nil;
     
     return cell;
     
@@ -944,8 +916,6 @@
     titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:12.0f];
     titleLabel.textAlignment = UITextAlignmentLeft;
     titleLabel.textColor = [UIColor colorWithRed:125.0f/255.0f green:129.0f/255.0f blue:146.0f/255.0f alpha:1.0f];
-    titleLabel.shadowColor = [UIColor colorWithRed:40.0f/255.0f green:45.0f/255.0f blue:57.0f/255.0f alpha:1.0f];
-    titleLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.text = titleString;
     [imageView addSubview:titleLabel];
