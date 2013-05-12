@@ -168,7 +168,7 @@
 
 - (void)viewDidLoad {
     
-    self.view.backgroundColor= [SoclivityUtilities returnBackgroundColor:2];
+    self.view.backgroundColor= [SoclivityUtilities returnBackgroundColor:3];
     //self.view.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S7_background.png"]];
     _tableView.scrollEnabled=NO;
     _tableView.bounces=NO;
