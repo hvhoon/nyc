@@ -503,8 +503,8 @@
             
         case kProfileView:
         {
-            yCompLine=63.0f;
-            yTextLabel=27.0f;
+            yCompLine=64.0f;
+            yTextLabel=29.0f;
             showLineOrSwitch=TRUE;
         }
             break;
@@ -512,7 +512,7 @@
             
         case kWaitingOnU:
         {
-            yCompLine=43.0f;
+            yCompLine=44.0f;
             yTextLabel=13.0f;
             showLineOrSwitch=TRUE;
             yLeftImage=9.0f;
@@ -521,19 +521,19 @@
             break;
          case kUpcoming_Completed:
         {
-            yCompLine=43.0f;
+            yCompLine=44.0f;
             yTextLabel=13.0f;
             showLineOrSwitch=TRUE;
-            yLeftImage=10.0f;
+            yLeftImage=12.0f;
         }
             break;
             
         case kInvite:
         {
-            yCompLine=43;
+            yCompLine=44;
             yTextLabel=13.0f;
             showLineOrSwitch=TRUE;
-            yLeftImage=7.0f;
+            yLeftImage=9.0f;
             
         }
             break;
@@ -553,7 +553,7 @@
             break;
         case kCalendarSync:
         {
-            yCompLine=43;
+            yCompLine=44;
             yTextLabel=13.0f;
             showLineOrSwitch=FALSE;
             yLeftImage=7.0f;
@@ -562,7 +562,7 @@
             break;
         case kAbout:
         {
-            yCompLine=43;
+            yCompLine=44;
             yTextLabel=13.0f;
             showLineOrSwitch=TRUE;
             yLeftImage=7.0f;
@@ -571,7 +571,7 @@
             break;
         case kEmailNotifications:
         {
-            yCompLine=43;
+            yCompLine=44;
             showLineOrSwitch=FALSE;
             yLeftImage=16.0f;
             yTextLabel=17.0f;
@@ -580,9 +580,9 @@
             break;
         case kSignOut:
         {
-            yCompLine=43;
+            yCompLine=44;
             showLineOrSwitch=TRUE;
-            yLeftImage=7.0f;
+            yLeftImage=8.0f;
             yTextLabel=13.0f;
             
             [cell.contentView setBackgroundColor:[SoclivityUtilities returnBackgroundColor:5]];
@@ -593,7 +593,7 @@
     }
     
     // Setting the text for items in the settings menu
-    CGRect textLabelRect=CGRectMake(65,yTextLabel,205,16);
+    CGRect textLabelRect=CGRectMake(64,yTextLabel,205,17);
     UILabel *descriptionLabel=[[UILabel alloc] initWithFrame:textLabelRect];
     descriptionLabel.textAlignment=UITextAlignmentLeft;
     descriptionLabel.text=[viewControllerDictionary objectForKey:kSlideViewControllerViewControllerTitleKey];
@@ -602,18 +602,18 @@
     
     // For the profile name
     if([tagNumber intValue]==kProfileView){
-        descriptionLabel.frame=CGRectMake(85,yTextLabel,205,17);
+        descriptionLabel.frame=CGRectMake(84,yTextLabel,205,17);
         descriptionLabel.textColor=[UIColor whiteColor];
-        descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17];
+        descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
     }
     // For all the system settings elements
     else if([tagNumber intValue]==kAbout || [tagNumber intValue]==kSignOut || [tagNumber intValue]==kCalendarSync) {
         descriptionLabel.alpha = 0.5;
-        descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
+        descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:16];
     }
     // Everything else
     else
-        descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
+        descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:16];
     
     [cell.contentView addSubview:descriptionLabel];
     [descriptionLabel release];
@@ -625,7 +625,7 @@
             longLineImageView.image=Nil;
         }
         
-        longLineImageView.frame=CGRectMake(0,yCompLine-2, longLineImageView.image.size.width, longLineImageView.image.size.height);
+        longLineImageView.frame=CGRectMake(0,yCompLine-1, longLineImageView.image.size.width, longLineImageView.image.size.height);
         [cell.contentView addSubview:longLineImageView];
         [longLineImageView release];
     }
@@ -669,17 +669,20 @@
                 slideImageView.image = [SoclivityUtilities compressImage:imageProfile size:CGSizeMake(50,50)];
 
             // Turning it into a round image
-            slideImageView.layer.cornerRadius = imageProfile.size.width/10;
+            slideImageView.layer.cornerRadius = imageProfile.size.width/2;
             slideImageView.layer.masksToBounds=YES;
-            slideImageView.layer.borderWidth = 1.0;
+            
+            /*
+            slideImageView.layer.borderWidth = 2.0;
             slideImageView.layer.borderColor = [SoclivityUtilities returnBackgroundColor:4].CGColor;
-
-            slideImageView.frame=CGRectMake(19, 5, 50, 50);
+            */
+            
+            slideImageView.frame=CGRectMake(16, 5, 50, 50);
             
             [cell.contentView addSubview:slideImageView];
         }
         else if([tagNumber intValue]==kWaitingOnU){
-            slideImageView.frame=CGRectMake(19, yLeftImage, slideImageView.image.size.width, slideImageView.image.size.height);
+            slideImageView.frame=CGRectMake(16, yLeftImage, slideImageView.image.size.width, slideImageView.image.size.height);
             CGRect notificationNoLabelRect=CGRectMake(6,4,15,14);
             UILabel *notificationNoLabel=[[UILabel alloc] initWithFrame:notificationNoLabelRect];
             notificationNoLabel.textAlignment=UITextAlignmentCenter;
@@ -693,7 +696,7 @@
             [cell.contentView addSubview:slideImageView];
         }
         else {
-            slideImageView.frame=CGRectMake(19, yLeftImage, slideImageView.image.size.width, slideImageView.image.size.height);
+            slideImageView.frame=CGRectMake(16, yLeftImage, slideImageView.image.size.width, slideImageView.image.size.height);
            [cell.contentView addSubview:slideImageView];
         }
         

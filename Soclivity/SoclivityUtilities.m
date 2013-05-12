@@ -508,7 +508,7 @@ if(timer%2==0){
             
         // Border for images
         case 4:
-            return [UIColor colorWithRed:65.0/255.0 green:65.0/255.0 blue:65.0/255.0 alpha:1.0];
+            return [UIColor colorWithRed:72.0/255.0 green:72.0/255.0 blue:72.0/255.0 alpha:1.0];
             
         // Signout bar
         case 5:
