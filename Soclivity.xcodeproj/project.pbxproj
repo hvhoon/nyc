@@ -178,6 +178,10 @@
 		68796885171761BB008D10CC /* S7_powerIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 68796883171761BB008D10CC /* S7_powerIcon.png */; };
 		687F3A781551349F00B694DA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 687F3A771551349F00B694DA /* CoreLocation.framework */; };
 		687F3A7A155134AE00B694DA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 687F3A79155134AE00B694DA /* QuartzCore.framework */; };
+		6880498717400A0E00072022 /* S7_bug_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6880498317400A0E00072022 /* S7_bug_icon.png */; };
+		6880498817400A0E00072022 /* S7_bug_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6880498417400A0E00072022 /* S7_bug_icon@2x.png */; };
+		6880498917400A0E00072022 /* S7_megaphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 6880498517400A0E00072022 /* S7_megaphone.png */; };
+		6880498A17400A0E00072022 /* S7_megaphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6880498617400A0E00072022 /* S7_megaphone@2x.png */; };
 		68958EF31714707B00B22A2D /* S07_infoIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68958EF11714707B00B22A2D /* S07_infoIcon@2x.png */; };
 		68958EF41714707B00B22A2D /* S07_infoIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 68958EF21714707B00B22A2D /* S07_infoIcon.png */; };
 		68A6723E158A99C6003F59F5 /* S04_detailDivider.png in Resources */ = {isa = PBXBuildFile; fileRef = 68A6722A158A99C6003F59F5 /* S04_detailDivider.png */; };
@@ -1177,6 +1181,10 @@
 		68796883171761BB008D10CC /* S7_powerIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S7_powerIcon.png; sourceTree = "<group>"; };
 		687F3A771551349F00B694DA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		687F3A79155134AE00B694DA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		6880498317400A0E00072022 /* S7_bug_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S7_bug_icon.png; sourceTree = "<group>"; };
+		6880498417400A0E00072022 /* S7_bug_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S7_bug_icon@2x.png"; sourceTree = "<group>"; };
+		6880498517400A0E00072022 /* S7_megaphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S7_megaphone.png; sourceTree = "<group>"; };
+		6880498617400A0E00072022 /* S7_megaphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S7_megaphone@2x.png"; sourceTree = "<group>"; };
 		68958EF11714707B00B22A2D /* S07_infoIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S07_infoIcon@2x.png"; sourceTree = "<group>"; };
 		68958EF21714707B00B22A2D /* S07_infoIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S07_infoIcon.png; sourceTree = "<group>"; };
 		68A6722A158A99C6003F59F5 /* S04_detailDivider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S04_detailDivider.png; sourceTree = "<group>"; };
@@ -3131,6 +3139,10 @@
 		EA85DBDE15AFDD6A00AAD964 /* S07 Settings */ = {
 			isa = PBXGroup;
 			children = (
+				6880498317400A0E00072022 /* S7_bug_icon.png */,
+				6880498417400A0E00072022 /* S7_bug_icon@2x.png */,
+				6880498517400A0E00072022 /* S7_megaphone.png */,
+				6880498617400A0E00072022 /* S7_megaphone@2x.png */,
 				68796882171761BB008D10CC /* S7_powerIcon@2x.png */,
 				68796883171761BB008D10CC /* S7_powerIcon.png */,
 				68958EF11714707B00B22A2D /* S07_infoIcon@2x.png */,
@@ -4988,6 +5000,10 @@
 				68CCEF79173A228900F85140 /* acceptButton@2x.png in Resources */,
 				68CCEF7F173B490100F85140 /* keyboardDown.png in Resources */,
 				68CCEF80173B490100F85140 /* keyboardDown@2x.png in Resources */,
+				6880498717400A0E00072022 /* S7_bug_icon.png in Resources */,
+				6880498817400A0E00072022 /* S7_bug_icon@2x.png in Resources */,
+				6880498917400A0E00072022 /* S7_megaphone.png in Resources */,
+				6880498A17400A0E00072022 /* S7_megaphone@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
