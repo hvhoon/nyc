@@ -669,7 +669,7 @@
                 slideImageView.image = [SoclivityUtilities compressImage:imageProfile size:CGSizeMake(50,50)];
 
             // Turning it into a round image
-            slideImageView.layer.cornerRadius = 25.0;
+            slideImageView.layer.cornerRadius = imageProfile.size.width/10;
             slideImageView.layer.masksToBounds=YES;
             slideImageView.layer.borderWidth = 1.0;
             slideImageView.layer.borderColor = [SoclivityUtilities returnBackgroundColor:4].CGColor;
