@@ -631,7 +631,7 @@
     }
     else{
     //draw a custom switch control
-        [[UISwitch appearance] setTintColor:[UIColor lightGrayColor]];
+        [[UISwitch appearance] setTintColor:[UIColor grayColor]];
         [[UISwitch appearance] setOnTintColor:[UIColor grayColor]];
     
         
@@ -667,10 +667,13 @@
             // If the image needs to be compressed
             if(imageProfile.size.height > 50 || imageProfile.size.width > 50)
                 slideImageView.image = [SoclivityUtilities compressImage:imageProfile size:CGSizeMake(50,50)];
-            
+
+            // Turning it into a round image
+            slideImageView.layer.cornerRadius = 25.0;
+            slideImageView.layer.masksToBounds=YES;
             slideImageView.layer.borderWidth = 1.0;
             slideImageView.layer.borderColor = [SoclivityUtilities returnBackgroundColor:4].CGColor;
-            //slideImageView.layer.cornerRadius = 5.0;
+
             slideImageView.frame=CGRectMake(19, 5, 50, 50);
             
             [cell.contentView addSubview:slideImageView];
