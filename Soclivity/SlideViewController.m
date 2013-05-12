@@ -631,8 +631,14 @@
     }
     else{
     //draw a custom switch control
-        UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectMake(185, 10, 50, 50)];
+        [[UISwitch appearance] setTintColor:[UIColor lightGrayColor]];
+        [[UISwitch appearance] setOnTintColor:[UIColor grayColor]];
+    
+        
+        UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectMake(185, 8, 50, 50)];
         switchView.transform = CGAffineTransformMakeScale(0.75, 0.75);
+
+        
         [cell.contentView addSubview:switchView];
         SoclivityManager *SOC=[SoclivityManager SharedInstance];
         GetPlayersClass *player=SOC.loggedInUser;
