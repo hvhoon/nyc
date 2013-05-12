@@ -181,7 +181,7 @@
         [sectionFive setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
         
         NSMutableDictionary *invitesViewControllerDictionary = [NSMutableDictionary dictionary];
-        [invitesViewControllerDictionary setObject:@"Invite People" forKey:kSlideViewControllerViewControllerTitleKey];
+        [invitesViewControllerDictionary setObject:@"Invite Friends" forKey:kSlideViewControllerViewControllerTitleKey];
         
         
         if([SoclivityUtilities deviceType] & iPhone5){
@@ -227,7 +227,7 @@
         [sectionTen setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
         
         NSMutableDictionary *AboutViewControllerDictionary = [NSMutableDictionary dictionary];
-        [AboutViewControllerDictionary setObject:@"Need Help?" forKey:kSlideViewControllerViewControllerTitleKey];
+        [AboutViewControllerDictionary setObject:@"About Us?" forKey:kSlideViewControllerViewControllerTitleKey];
         
         if([SoclivityUtilities deviceType] & iPhone5)
             nibNameBundle=@"AboutViewController_iphone5";

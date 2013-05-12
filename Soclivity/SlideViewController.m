@@ -602,7 +602,7 @@
     
     // For the profile name
     if([tagNumber intValue]==kProfileView){
-        descriptionLabel.frame=CGRectMake(84,yTextLabel,205,17);
+        descriptionLabel.frame=CGRectMake(82,yTextLabel,205,17);
         descriptionLabel.textColor=[UIColor whiteColor];
         descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
     }
@@ -677,7 +677,7 @@
             slideImageView.layer.borderColor = [SoclivityUtilities returnBackgroundColor:4].CGColor;
             */
             
-            slideImageView.frame=CGRectMake(16, 5, 50, 50);
+            slideImageView.frame=CGRectMake(14, 6, 50, 50);
             
             [cell.contentView addSubview:slideImageView];
         }
