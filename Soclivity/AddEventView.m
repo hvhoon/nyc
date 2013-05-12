@@ -929,10 +929,13 @@ else {
         image = [SoclivityUtilities autoCrop:image];
     
     // If the image needs to be compressed
-    if(image.size.height > 42 || image.size.width > 42)
-        profileImgView.image = [SoclivityUtilities compressImage:image size:CGSizeMake(42,42)];
+    if(image.size.height > 50 || image.size.width > 50)
+        profileImgView.image = [SoclivityUtilities compressImage:image size:CGSizeMake(50,50)];
     
-   [profileImgView setImage:image]; //UIImageView
+    profileImgView.layer.cornerRadius = profileImgView.image.size.height/2;
+    profileImgView.layer.masksToBounds = YES;
+    
+    [profileImgView setImage:image]; //UIImageView
 }
 #pragma mark -
 
