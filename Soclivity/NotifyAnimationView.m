@@ -111,16 +111,14 @@ static inline NSRegularExpression * NameRegularExpression() {
                 case 16:
                 case 17:
                 {
-                    UIImageView *imageViewFrame=[[UIImageView alloc] init];
-                    imageViewFrame.frame=CGRectMake(6.5, 6, 37, 37);
-                    imageViewFrame.image=[UIImage imageNamed:@"S11_frame.png"];
 
                     NSString *str=[NSString stringWithFormat:@"%@",andNotif.photoUrl];
-                    leftImageView.frame=CGRectMake(10, 10, 30, 29);
+                    leftImageView.frame=CGRectMake(14, 7.5, 37, 37);
+                    leftImageView.layer.cornerRadius = 5;
+                    leftImageView.layer.masksToBounds = YES;
                     NSData *bytes=[NSData dataWithContentsOfURL:[NSURL URLWithString:str]];
                     NSLog(@"Bytes Length=%d",[bytes length]);
                     leftImageView.image=[UIImage imageWithData:bytes];
-                    [notificationView addSubview:imageViewFrame];
                     
                 }
                     break;
