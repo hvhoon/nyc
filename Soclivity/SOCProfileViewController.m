@@ -211,19 +211,17 @@
     profileNameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
     profileNameLabel.textColor=[UIColor whiteColor];
     profileNameLabel.backgroundColor=[UIColor clearColor];
-    profileNameLabel.shadowColor = [UIColor blackColor];
-    profileNameLabel.shadowOffset = CGSizeMake(0,-1);
     
     profileUserNameLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     profileUserNameLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     profileUserNameLabel.text=[NSString stringWithFormat:@"%@",playerObject.playerName];
     CGSize  size = [playerObject.playerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15]];
     NSLog(@"width=%f",size.width);
-    profileUserNameLabel.frame=CGRectMake(70, 73, size.width, 16);
+    profileUserNameLabel.frame=CGRectMake(75, 73, size.width, 16);
     
     if(playerObject.DOS!=3){
         
-        dosConnectionImageview.frame=CGRectMake(70+6+size.width, 74, 21, 12);
+        dosConnectionImageview.frame=CGRectMake(75+6+size.width, 74, 21, 12);
         switch (playerObject.DOS){
             case 1:
                 dosConnectionImageview.image=[UIImage imageNamed:@"S05_dos1.png"];
@@ -297,7 +295,7 @@
     }
     // The user and you have no friends in common.  Do not show upcoming/completed activities or common friends
     else{
-        profileUserNameLabel.frame=CGRectMake(70, 92, size.width, 16);
+        profileUserNameLabel.frame=CGRectMake(75, 92, size.width, 16);
         
         CGRect topLabelRect=CGRectMake(60,140,280,15);
         UILabel *topLabel=[[UILabel alloc] initWithFrame:topLabelRect];
@@ -870,8 +868,12 @@
         image = [SoclivityUtilities autoCrop:image];
     
     // If the image needs to be compressed
-    if(image.size.height > 42 || image.size.width > 42)
-        profileImageview.image = [SoclivityUtilities compressImage:image size:CGSizeMake(42,42)];
+    if(image.size.height > 50 || image.size.width > 50)
+        profileImageview.image = [SoclivityUtilities compressImage:image size:CGSizeMake(50,50)];
+    
+    // Make circle
+    profileImageview.layer.cornerRadius = profileImageview.image.size.width/2;
+    profileImageview.layer.masksToBounds = YES;
     
     [profileImageview setImage:image]; //UIImageView
 }

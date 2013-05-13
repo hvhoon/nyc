@@ -498,10 +498,22 @@ if(timer%2==0){
         case 1:
             return [UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0];
             
-        // Dark Gray for the settings page
+        // Default font color
         case 2:
             return [UIColor colorWithRed:88.0/255.0 green:89.0/255.0 blue:91.0/255.0 alpha:1.0];
         
+        // New setting page gray
+        case 3:
+            return [UIColor colorWithRed:55.0/255.0 green:55.0/255.0 blue:55.0/255.0 alpha:1.0];
+            
+        // Border for images
+        case 4:
+            return [UIColor colorWithRed:72.0/255.0 green:72.0/255.0 blue:72.0/255.0 alpha:1.0];
+            
+        // Signout bar
+        case 5:
+            return [UIColor colorWithRed:41.0/255.0 green:41.0/255.0 blue:41.0/255.0 alpha:1.0];
+            
         // Light green (play)
         case 10:
             return [UIColor colorWithRed:240.0/255.0 green:243.0/255.0 blue:229.0/255 alpha:1.0];
@@ -1249,6 +1261,8 @@ if(timer%2==0){
     
     return image;
 }
+
+
 +(NSString*)getFirstAndLastName:(NSString*)firstName lastName:(NSString*)lastName{
     BOOL fName=TRUE;
     BOOL lName=TRUE;

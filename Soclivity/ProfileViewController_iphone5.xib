@@ -1169,7 +1169,7 @@
 			<string key="S02.1_tick.png">{37, 32}</string>
 			<string key="bottom-bar.png">{320, 40}</string>
 			<string key="notifyDigit1.png">{27, 27}</string>
-			<string key="profilebtn.png">{40, 39}</string>
+			<string key="profilebtn.png">{40, 40}</string>
 			<string key="topbar.png">{320, 44}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
