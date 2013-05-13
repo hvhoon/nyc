@@ -114,7 +114,7 @@ static inline NSRegularExpression * NameRegularExpression() {
 
                     NSString *str=[NSString stringWithFormat:@"%@",andNotif.photoUrl];
                     leftImageView.frame=CGRectMake(14, 7.5, 37, 37);
-                    leftImageView.layer.cornerRadius = 5;
+                    leftImageView.layer.cornerRadius = leftImageView.frame.size.width/10;
                     leftImageView.layer.masksToBounds = YES;
                     NSData *bytes=[NSData dataWithContentsOfURL:[NSURL URLWithString:str]];
                     NSLog(@"Bytes Length=%d",[bytes length]);

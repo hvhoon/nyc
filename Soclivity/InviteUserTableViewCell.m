@@ -55,7 +55,18 @@ static UIFont *boldText = nil;
     
     profileImageP = CGRectMake(42,6,37,37);
     
-    [profileImage drawInRect:profileImageP];
+    // Rouding the image :)
+    UIGraphicsBeginImageContextWithOptions(profileImageP.size, NO, 0);
+    
+    [[UIBezierPath bezierPathWithRoundedRect:(CGRect){CGPointZero, profileImageP.size} cornerRadius:profileImageP.size.height/10] addClip];
+    
+    [profileImage drawInRect:(CGRect){CGPointZero, profileImageP.size}];
+    UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    // End of the rounding
+    
+    [result drawInRect:profileImageP];
+    
     
     userNameLabelRectP = CGRectMake(100, 15, 180, 15);
     [userName drawInRect:userNameLabelRectP withFont:firstTextFont];

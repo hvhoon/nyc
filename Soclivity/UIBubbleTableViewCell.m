@@ -158,6 +158,8 @@
     if (self.showAvatar)
     {
         [self.avatarImage removeFromSuperview];
+        
+        /*
         UIImageView *profileFrameImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_participantPic.png"]];
         
         CGFloat avatarFrameX = (type == BubbleTypeSomeoneElse) ? 15 : self.frame.size.width - 52;
@@ -166,14 +168,16 @@
         profileFrameImageView.frame = CGRectMake(avatarFrameX, avatarFrameY, 37, 37);
         [self addSubview:profileFrameImageView];
         [profileFrameImageView release];
-        
+        */
 
         self.avatarImage = [[[UIImageView alloc] initWithImage:(self.data.avatar ? self.data.avatar : [UIImage imageNamed:@"picbox.png"])] autorelease];
         
-        CGFloat avatarX = (type == BubbleTypeSomeoneElse) ? 19 : self.frame.size.width - 43;
-        CGFloat avatarY = self.frame.size.height - 28;
-        avatarY=3.50f;
-        self.avatarImage.frame = CGRectMake(avatarX, avatarY, 28, 28);
+        CGFloat avatarX = (type == BubbleTypeSomeoneElse) ? 15 : self.frame.size.width - 52;
+        CGFloat avatarY = self.frame.size.height - 37;
+        avatarY=2.0f;
+        self.avatarImage.frame = CGRectMake(avatarX, avatarY, 37, 37);
+        self.avatarImage.layer.cornerRadius = self.avatarImage.frame.size.width/2;
+        self.avatarImage.layer.masksToBounds = YES;
         [self addSubview:self.avatarImage];
         
         CGFloat delta = self.frame.size.height - (self.data.insets.top + self.data.insets.bottom + self.data.view.frame.size.height);
