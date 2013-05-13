@@ -26,7 +26,6 @@ static UIFont *boldText = nil;
         
     }
 }
-
 - (void)dealloc
 {
     [super dealloc];
@@ -53,8 +52,6 @@ static UIFont *boldText = nil;
     
     CGContextFillRect(context, r);
     [textColor set];
-    
-    //[[UIImage imageNamed:@"S05_participantPic.png"] drawInRect:CGRectMake(42,6,37,37)];
     
     profileImageP = CGRectMake(42,6,37,37);
     
@@ -91,8 +88,8 @@ static UIFont *boldText = nil;
                 [[UIImage imageNamed:@"S05.4_added.png"] drawInRect:inviteRect];
             }
             else{
-                inviteRect=CGRectMake(280, 17.5, 22, 21);
-                [[UIImage imageNamed:@"S05.4_addParticipant.png"] drawInRect:CGRectMake(280, 17.5, 22, 21)];
+                inviteRect=CGRectMake(280, 13, 22, 21);
+                [[UIImage imageNamed:@"S05.4_addParticipant.png"] drawInRect:CGRectMake(280, 13, 22, 21)];
                 
             }
 
@@ -106,8 +103,8 @@ static UIFont *boldText = nil;
                 [[UIImage imageNamed:@"S05.4_added.png"] drawInRect:inviteRect];
             }
             else{
-                inviteRect=CGRectMake(280, 17.5, 22, 21);
-                [[UIImage imageNamed:@"S05.4_addParticipant.png"] drawInRect:CGRectMake(280, 17.5, 22, 21)];
+                inviteRect=CGRectMake(280, 13, 22, 21);
+                [[UIImage imageNamed:@"S05.4_addParticipant.png"] drawInRect:CGRectMake(280, 13, 22, 21)];
                 
             }
             
@@ -124,7 +121,7 @@ static UIFont *boldText = nil;
                 [[UIImage imageNamed:@"S05.4_added.png"] drawInRect:inviteRect];
             }
             else{
-                inviteRect=CGRectMake(270, 17.5, 40, 23);
+                inviteRect=CGRectMake(270, 12, 40, 23);
                 [[UIImage imageNamed:@"S05.4_invite.png"] drawInRect:inviteRect];
                 
             }
@@ -155,8 +152,8 @@ static UIFont *boldText = nil;
                 [[UIImage imageNamed:@"S05.4_added.png"] drawInRect:inviteRect];
             }
             else{
-                inviteRect=CGRectMake(280, 17.5, 22, 21);
-                [[UIImage imageNamed:@"S05.4_addParticipant.png"] drawInRect:CGRectMake(280, 17.5, 22, 21)];
+                inviteRect=CGRectMake(280, 13, 22, 21);
+                [[UIImage imageNamed:@"S05.4_addParticipant.png"] drawInRect:CGRectMake(280, 13, 22, 21)];
                 
             }
             

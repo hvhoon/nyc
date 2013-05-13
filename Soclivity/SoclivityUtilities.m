@@ -1261,6 +1261,8 @@ if(timer%2==0){
     
     return image;
 }
+
+
 +(NSString*)getFirstAndLastName:(NSString*)firstName lastName:(NSString*)lastName{
     BOOL fName=TRUE;
     BOOL lName=TRUE;
