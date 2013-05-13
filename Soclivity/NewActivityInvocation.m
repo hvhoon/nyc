@@ -46,8 +46,17 @@
     [bodyD setObject:player.idSoc forKey:@"ownnerid"];
     [bodyD setObject:activityObj.what forKey:@"what"];
     [bodyD setObject:activityObj.when forKey:@"when"];
-        if(activityObj.where_address!=nil && [activityObj.where_address class]!=[NSNull class] && [activityObj.where_address length]!=0)
-    [bodyD setObject:activityObj.where_address forKey:@"where_address"];
+    if(activityObj.where_address!=nil && [activityObj.where_address class]!=[NSNull class] && [activityObj.where_address length]!=0){
+        
+       // NSString *unfilteredString = @"!@#$%^&*()_+|abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        NSCharacterSet *notAllowedChars = [[NSCharacterSet characterSetWithCharactersInString:@", !@#$%^&*()_+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"] invertedSet];
+        NSString *resultString = [[activityObj.where_address componentsSeparatedByCharactersInSet:notAllowedChars] componentsJoinedByString:@""];
+        NSLog (@"Result=%@", resultString);
+        
+        NSString *unaccentedString = [activityObj.where_address stringByFoldingWithOptions:NSDiacriticInsensitiveSearch locale:[NSLocale currentLocale]];
+    [bodyD setObject:unaccentedString forKey:@"where_address"];
+        
+    }
         if(activityObj.where_city!=nil && [activityObj.where_city class]!=[NSNull class] && [activityObj.where_city length]!=0)
     [bodyD setObject:activityObj.where_city forKey:@"where_city"];
     [bodyD setObject:activityObj.where_lat forKey:@"where_lat"];

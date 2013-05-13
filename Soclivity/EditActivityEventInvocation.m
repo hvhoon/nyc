@@ -36,8 +36,14 @@
             [bodyD setObject:activityObj.where_lat forKey:@"where_lat"];
             [bodyD setObject:activityObj.where_lng forKey:@"where_lng"];
             
-            if(activityObj.where_address!=nil&& [activityObj.where_address class]!=[NSNull class] && [activityObj.where_address length]!=0)
-                [bodyD setObject:activityObj.where_address forKey:@"where_address"];
+            if(activityObj.where_address!=nil&& [activityObj.where_address class]!=[NSNull class] && [activityObj.where_address length]!=0){
+                
+                NSString *unaccentedString = [activityObj.where_address stringByFoldingWithOptions:NSDiacriticInsensitiveSearch locale:[NSLocale currentLocale]];
+                
+                [bodyD setObject:unaccentedString forKey:@"where_address"];
+
+                
+            }
             if(activityObj.where_city!=nil && [activityObj.where_city class]!=[NSNull class] && [activityObj.where_city length]!=0)
                 [bodyD setObject:activityObj.where_city forKey:@"where_city"];
             if(activityObj.where_state!=nil&& [activityObj.where_state class]!=[NSNull class] && [activityObj.where_state length]!=0)
