@@ -1082,7 +1082,7 @@ else {
         firstALineddressLabel.frame=CGRectMake(16, 7, 228+30, 21);
         
     }
-    
+    //40.75 ,-74
 }
 -(void)ActivityEventOnMap{
     
