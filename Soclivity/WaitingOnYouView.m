@@ -178,12 +178,6 @@
     
     CGSize imgSize;
     
-    UIImageView *borderImageView=[[UIImageView alloc] init];
-    borderImageView.frame=CGRectMake(15, 15, 37,37);
-    borderImageView.backgroundColor=[UIColor clearColor];
-    borderImageView.image=[UIImage imageNamed:@"S11_frame.png"];
-    [borderImageView setContentMode:UIViewContentModeScaleAspectFit];
-    
     UIImageView *imageView=[[UIImageView alloc] init];
     imageView.backgroundColor=[UIColor clearColor];
     [imageView setContentMode:UIViewContentModeScaleAspectFit];
@@ -263,10 +257,11 @@
             }
             
             imgSize=[imageView.image size];
-            imageView.frame=CGRectMake(3,3,30,29);
+            imageView.frame=CGRectMake(15,15,37,37);
+            imageView.layer.cornerRadius = 5;
+            imageView.layer.masksToBounds = YES;
             
-            [borderImageView addSubview:imageView];
-            [cell.contentView addSubview:borderImageView];
+            [cell.contentView addSubview:imageView];
             
             switch ([cellNotification.notificationType integerValue]) {
                 case 6:

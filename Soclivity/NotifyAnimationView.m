@@ -43,7 +43,7 @@ static inline NSRegularExpression * NameRegularExpression() {
             UIImageView *leftImageView=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 30, 29)];
             
             self.summaryLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
-            summaryLabel.frame=CGRectMake(50, 0, 200, 50);
+            summaryLabel.frame=CGRectMake(70, 0, 200, 50);
             summaryLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
             summaryLabel.font =[UIFont fontWithName:@"Helvetica-Condensed" size:12];
             summaryLabel.lineBreakMode = UILineBreakModeWordWrap;
