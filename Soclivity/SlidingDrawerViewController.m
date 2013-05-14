@@ -253,7 +253,7 @@
         [sectionNine setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
         
         NSMutableDictionary *AboutViewControllerDictionary = [NSMutableDictionary dictionary];
-        [AboutViewControllerDictionary setObject:@"About Us?" forKey:kSlideViewControllerViewControllerTitleKey];
+        [AboutViewControllerDictionary setObject:@"About Us" forKey:kSlideViewControllerViewControllerTitleKey];
         
         if([SoclivityUtilities deviceType] & iPhone5)
             nibNameBundle=@"AboutViewController_iphone5";
