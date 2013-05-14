@@ -545,7 +545,7 @@
             yCompLine=44;
             yTextLabel=13.0f;
             showLineOrSwitch=TRUE;
-            yLeftImage=9.0f;
+            yLeftImage=10.0f;
         }
           break;
             
