@@ -206,25 +206,65 @@
         
         [datasource addObject:sectionFive];
         
-    
+        
         NSMutableDictionary *sectionSix = [NSMutableDictionary dictionary];
         [sectionSix setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
+        
+        NSMutableDictionary *sendUsFeedbackControllerDictionary = [NSMutableDictionary dictionary];
+        [sendUsFeedbackControllerDictionary setObject:@"Send us Feedback" forKey:kSlideViewControllerViewControllerTitleKey];
+        
+        NSNumber *feedbackTag=[NSNumber numberWithInt:6];
+        [sendUsFeedbackControllerDictionary setObject:feedbackTag forKey:kSlideViewControllerViewControllerTagKey];
+        
+        [sendUsFeedbackControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
+        
+        
+        [sendUsFeedbackControllerDictionary setObject:[UIImage imageNamed:@"S7_megaphone.png"] forKey:kSlideViewControllerViewControllerIconKey];
+        
+        
+        [sectionSix setObject:[NSArray arrayWithObject:sendUsFeedbackControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
+        
+        [datasource addObject:sectionSix];
+        
+        
+        NSMutableDictionary *sectionSeven = [NSMutableDictionary dictionary];
+        [sectionSix setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
+        
+        NSMutableDictionary *bugAlertControllerDictionary = [NSMutableDictionary dictionary];
+        [bugAlertControllerDictionary setObject:@"Bug Alert" forKey:kSlideViewControllerViewControllerTitleKey];
+        
+        NSNumber *bugAlertTag=[NSNumber numberWithInt:7];
+        [bugAlertControllerDictionary setObject:bugAlertTag forKey:kSlideViewControllerViewControllerTagKey];
+        
+        [bugAlertControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
+        
+        
+        [bugAlertControllerDictionary setObject:[UIImage imageNamed:@"S7_bug_icon.png"] forKey:kSlideViewControllerViewControllerIconKey];
+        
+        
+        [sectionSeven setObject:[NSArray arrayWithObject:bugAlertControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
+        
+        [datasource addObject:sectionSeven];
+
+
+        NSMutableDictionary *sectionEight = [NSMutableDictionary dictionary];
+        [sectionEight setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
         
         NSMutableDictionary *blankNotifyControllerDictionary = [NSMutableDictionary dictionary];
         [blankNotifyControllerDictionary setObject:@" " forKey:kSlideViewControllerViewControllerTitleKey];
         
-        NSNumber *blankNotifyTag=[NSNumber numberWithInt:6];
+        NSNumber *blankNotifyTag=[NSNumber numberWithInt:8];
         [blankNotifyControllerDictionary setObject:blankNotifyTag forKey:kSlideViewControllerViewControllerTagKey];
         
         [blankNotifyControllerDictionary setObject:@"FALSE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
         
-        [sectionSix setObject:[NSArray arrayWithObject:blankNotifyControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
+        [sectionEight setObject:[NSArray arrayWithObject:blankNotifyControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
         
-        [datasource addObject:sectionSix];
+        [datasource addObject:sectionEight];
 
         // Button to the about page
-        NSMutableDictionary *sectionTen = [NSMutableDictionary dictionary];
-        [sectionTen setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
+        NSMutableDictionary *sectionNine = [NSMutableDictionary dictionary];
+        [sectionNine setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
         
         NSMutableDictionary *AboutViewControllerDictionary = [NSMutableDictionary dictionary];
         [AboutViewControllerDictionary setObject:@"About Us?" forKey:kSlideViewControllerViewControllerTitleKey];
@@ -235,22 +275,22 @@
             nibNameBundle=@"AboutViewController";
         
         [AboutViewControllerDictionary setObject:nibNameBundle forKey:kSlideViewControllerViewControllerNibNameKey];
-        NSNumber *AboutTag=[NSNumber numberWithInt:10];
+        NSNumber *AboutTag=[NSNumber numberWithInt:9];
         [AboutViewControllerDictionary setObject:AboutTag forKey:kSlideViewControllerViewControllerTagKey];
         [AboutViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
         [AboutViewControllerDictionary setObject:[AboutViewController class] forKey:kSlideViewControllerViewControllerClassKey];
         [AboutViewControllerDictionary setObject:[UIImage imageNamed:@"S07_infoIcon.png"] forKey:kSlideViewControllerViewControllerIconKey];
-        [sectionTen setObject:[NSArray arrayWithObject:AboutViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
-        [datasource addObject:sectionTen];
+        [sectionNine setObject:[NSArray arrayWithObject:AboutViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
+        [datasource addObject:sectionNine];
         
         
-        NSMutableDictionary *sectionSeven = [NSMutableDictionary dictionary];
-        [sectionSeven setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
+        NSMutableDictionary *sectionTen = [NSMutableDictionary dictionary];
+        [sectionTen setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
         
         NSMutableDictionary *calendarSyncControllerDictionary = [NSMutableDictionary dictionary];
         [calendarSyncControllerDictionary setObject:@"Calendar Sync" forKey:kSlideViewControllerViewControllerTitleKey];
         
-        NSNumber *calendarSyncTag=[NSNumber numberWithInt:7];
+        NSNumber *calendarSyncTag=[NSNumber numberWithInt:10];
         [calendarSyncControllerDictionary setObject:calendarSyncTag forKey:kSlideViewControllerViewControllerTagKey];
         
         [calendarSyncControllerDictionary setObject:@"FALSE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
@@ -259,56 +299,14 @@
         [calendarSyncControllerDictionary setObject:[UIImage imageNamed:@"S7_calendar_icon.png"] forKey:kSlideViewControllerViewControllerIconKey];
         
         
-        [sectionSeven setObject:[NSArray arrayWithObject:calendarSyncControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
+        [sectionTen setObject:[NSArray arrayWithObject:calendarSyncControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
         
-        [datasource addObject:sectionSeven];
-        
-        
-#if 0
-        NSMutableDictionary *sectionEight = [NSMutableDictionary dictionary];
-        [sectionEight setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
-        
-        NSMutableDictionary *linkToFacebookControllerDictionary = [NSMutableDictionary dictionary];
-        [linkToFacebookControllerDictionary setObject:@"Link to  facebook" forKey:kSlideViewControllerViewControllerTitleKey];
-        
-        NSNumber *facebookLinkTag=[NSNumber numberWithInt:8];
-        [linkToFacebookControllerDictionary setObject:facebookLinkTag forKey:kSlideViewControllerViewControllerTagKey];
-        
-        [linkToFacebookControllerDictionary setObject:@"FALSE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
+        [datasource addObject:sectionTen];
         
         
-        [linkToFacebookControllerDictionary setObject:[UIImage imageNamed:@"S7_fb_icon.png"] forKey:kSlideViewControllerViewControllerIconKey];
         
-        
-        [sectionEight setObject:[NSArray arrayWithObject:linkToFacebookControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
-        
-        [datasource addObject:sectionEight];
-#endif
-        
-        // Email switch
-        /*
-        NSMutableDictionary *sectionEight = [NSMutableDictionary dictionary];
-        [sectionEight setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
-        
-        NSMutableDictionary *emailNotifyControllerDictionary = [NSMutableDictionary dictionary];
-        [emailNotifyControllerDictionary setObject:@"Email Notifications" forKey:kSlideViewControllerViewControllerTitleKey];
-        
-        NSNumber *emailNotifyTag=[NSNumber numberWithInt:8];
-        [emailNotifyControllerDictionary setObject:emailNotifyTag forKey:kSlideViewControllerViewControllerTagKey];
-        
-        [emailNotifyControllerDictionary setObject:@"FALSE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
-        
-        
-        [emailNotifyControllerDictionary setObject:[UIImage imageNamed:@"S7_email_icon.png"] forKey:kSlideViewControllerViewControllerIconKey];
-        
-        
-        [sectionEight setObject:[NSArray arrayWithObject:emailNotifyControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
-        
-        [datasource addObject:sectionEight];
-         */
-         
-        NSMutableDictionary *sectionNine = [NSMutableDictionary dictionary];
-        [sectionNine setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
+        NSMutableDictionary *sectionEleven = [NSMutableDictionary dictionary];
+        [sectionEleven setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
         
         NSMutableDictionary *settingsViewControllerDictionary = [NSMutableDictionary  dictionary];
         [settingsViewControllerDictionary setObject:@"Signout" forKey:kSlideViewControllerViewControllerTitleKey];
@@ -324,14 +322,14 @@
 
         [settingsViewControllerDictionary setObject:[WelcomeScreenViewController class] forKey:kSlideViewControllerViewControllerClassKey];
         
-        NSNumber *signOutTag=[NSNumber numberWithInt:9];
+        NSNumber *signOutTag=[NSNumber numberWithInt:11];
         [settingsViewControllerDictionary setObject:signOutTag forKey:kSlideViewControllerViewControllerTagKey];
         [settingsViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
         [settingsViewControllerDictionary setObject:[UIImage imageNamed:@"S7_powerIcon.png"]  forKey:kSlideViewControllerViewControllerIconKey];
 
-        [sectionNine setObject:[NSArray arrayWithObject:settingsViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
+        [sectionEleven setObject:[NSArray arrayWithObject:settingsViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
         
-        [datasource addObject:sectionNine];
+        [datasource addObject:sectionEleven];
         
         
         _datasource = [datasource retain];

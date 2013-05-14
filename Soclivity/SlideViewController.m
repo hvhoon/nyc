@@ -18,6 +18,7 @@
 #import "MBProgressHUD.h"
 #import "MainServiceManager.h"
 #import "RegistrationDetailInvocation.h"
+#import "FeedbackBugReport.h"
 #define kSVCLeftAnchorX                 100.0f
 #define kSVCRightAnchorX                190.0f
 #define kSVCSwipeNavigationBarOnly      YES
@@ -28,11 +29,12 @@
 #define kWaitingOnU 3
 #define kUpcoming_Completed 4
 #define kInvite 5
-#define kBlockedList 6
-#define kCalendarSync 7
-#define kEmailNotifications 8
-#define kSignOut 9
-#define kAbout 10
+#define kSendUsFeedback 6
+#define kBugAlert 7
+#define kBlockedList 8
+#define kAbout 9
+#define kCalendarSync 10
+#define kSignOut 11
 
 #define cellHeightDefault 44
 #define cellHeightSmall 35
@@ -445,9 +447,9 @@
             return cellHeightDefault;
         case kBlockedList:
             if([SoclivityUtilities deviceType] & iPhone5)
-                return 178.0f;
+                return 88.0f;
             else
-                return 90.0f;
+                return 0.0f;
         case kProfileView:
             return cellHeightLarge;
         default:
@@ -538,13 +540,35 @@
         }
             break;
             
+        case kSendUsFeedback:
+        {
+            yCompLine=44;
+            yTextLabel=13.0f;
+            showLineOrSwitch=TRUE;
+            yLeftImage=9.0f;
+        }
+          break;
+            
+            
+        case kBugAlert:
+        {
+            yCompLine=44;
+            yTextLabel=13.0f;
+            showLineOrSwitch=TRUE;
+            yLeftImage=9.0f;
+        }
+            break;
+
+            
+            
         case kBlockedList:
         {
             
             if([SoclivityUtilities deviceType] & iPhone5)
-                yCompLine=176;
+                yCompLine=86;
             else
                 yCompLine=88;
+            
             yTextLabel=15.0f;
             showLineOrSwitch=TRUE;
             yLeftImage=9.0f;
@@ -566,15 +590,6 @@
             yTextLabel=13.0f;
             showLineOrSwitch=TRUE;
             yLeftImage=7.0f;
-            
-        }
-            break;
-        case kEmailNotifications:
-        {
-            yCompLine=44;
-            showLineOrSwitch=FALSE;
-            yLeftImage=16.0f;
-            yTextLabel=17.0f;
             
         }
             break;
@@ -621,8 +636,12 @@
     if(showLineOrSwitch){
         UIImageView *longLineImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S7_long-line.png"]];
 
-        if([tagNumber intValue]==kAbout || [tagNumber intValue]==kInvite || [tagNumber intValue]==kCalendarSync || [tagNumber intValue]==kSignOut){
+        if([tagNumber intValue]==kAbout || [tagNumber intValue]==kCalendarSync || [tagNumber intValue]==kSignOut){
             longLineImageView.image=Nil;
+        }
+        
+        if(([SoclivityUtilities deviceType] & iPhone5) && [tagNumber intValue]==kBugAlert){
+              longLineImageView.image=Nil;
         }
         
         longLineImageView.frame=CGRectMake(0,yCompLine-1, longLineImageView.image.size.width, longLineImageView.image.size.height);
@@ -959,6 +978,31 @@
     }
     
     NSString *tapAndDrawerEffect = [viewControllerDictionary objectForKey:kSlideViewControllerViewControllerTapAndDrawerKey];
+    
+    NSNumber *tagNumber = [viewControllerDictionary objectForKey:kSlideViewControllerViewControllerTagKey];
+
+    
+    if([tapAndDrawerEffect isEqualToString:@"TRUE"] && [tagNumber integerValue]==kSendUsFeedback){
+        if ([[FeedbackBugReport sharedInstance] canSendFeedback]) {
+            UINavigationController* tellAFriendController = [[FeedbackBugReport sharedInstance] sendFeedbackController];
+             [self presentModalViewController:tellAFriendController animated:YES];
+            
+            
+        }
+        return;
+    }
+    
+    
+    if([tapAndDrawerEffect isEqualToString:@"TRUE"] && [tagNumber integerValue]==kBugAlert){
+        if ([[FeedbackBugReport sharedInstance] canSendFeedback]) {
+            UINavigationController* tellAFriendController = [[FeedbackBugReport sharedInstance] sendBugAlertController];
+            [self presentModalViewController:tellAFriendController animated:YES];
+            
+            
+        }
+        return;
+    }
+
 
     if(![tapAndDrawerEffect isEqualToString:@"TRUE"])
         return;

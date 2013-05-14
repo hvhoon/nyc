@@ -16,6 +16,8 @@
 		18AF188D171C4CEC007894AB /* S05.1_drivingDirectionsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18AF1887171C4CEC007894AB /* S05.1_drivingDirectionsIcon@2x.png */; };
 		18AF188E171C4CEC007894AB /* S05.1_phoneIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 18AF1888171C4CEC007894AB /* S05.1_phoneIcon.png */; };
 		18AF188F171C4CEC007894AB /* S05.1_phoneIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18AF1889171C4CEC007894AB /* S05.1_phoneIcon@2x.png */; };
+		18B17D641742A6B800400571 /* FeedbackBugReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B17D631742A6B800400571 /* FeedbackBugReport.m */; };
+		18B17D661742B03200400571 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B17D651742B03200400571 /* MessageUI.framework */; };
 		18B74BCE16EA472000F28F3D /* ChatServiceInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B74BCD16EA472000F28F3D /* ChatServiceInvocation.m */; };
 		18B74BD116EA482200F28F3D /* ActivityChatData+Parse.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B74BD016EA482200F28F3D /* ActivityChatData+Parse.m */; };
 		18BAD03716D0BF9600EC199D /* GetNotificationsInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BAD03616D0BF9600EC199D /* GetNotificationsInvocation.m */; };
@@ -925,6 +927,9 @@
 		18AF1887171C4CEC007894AB /* S05.1_drivingDirectionsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05.1_drivingDirectionsIcon@2x.png"; sourceTree = "<group>"; };
 		18AF1888171C4CEC007894AB /* S05.1_phoneIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05.1_phoneIcon.png; sourceTree = "<group>"; };
 		18AF1889171C4CEC007894AB /* S05.1_phoneIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05.1_phoneIcon@2x.png"; sourceTree = "<group>"; };
+		18B17D621742A6B800400571 /* FeedbackBugReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackBugReport.h; sourceTree = "<group>"; };
+		18B17D631742A6B800400571 /* FeedbackBugReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackBugReport.m; sourceTree = "<group>"; };
+		18B17D651742B03200400571 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		18B74BCC16EA472000F28F3D /* ChatServiceInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatServiceInvocation.h; sourceTree = "<group>"; };
 		18B74BCD16EA472000F28F3D /* ChatServiceInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatServiceInvocation.m; sourceTree = "<group>"; };
 		18B74BCF16EA482200F28F3D /* ActivityChatData+Parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ActivityChatData+Parse.h"; sourceTree = "<group>"; };
@@ -2052,6 +2057,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18B17D661742B03200400571 /* MessageUI.framework in Frameworks */,
 				18C27CE216D9305F00754EA6 /* AudioToolbox.framework in Frameworks */,
 				684B5DE816B97FE3001DA695 /* AVFoundation.framework in Frameworks */,
 				684B5DE616B97FD6001DA695 /* MobileCoreServices.framework in Frameworks */,
@@ -2078,6 +2084,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18B17D601742A69D00400571 /* Feedback  */ = {
+			isa = PBXGroup;
+			children = (
+				18B17D621742A6B800400571 /* FeedbackBugReport.h */,
+				18B17D631742A6B800400571 /* FeedbackBugReport.m */,
+			);
+			name = "Feedback ";
+			sourceTree = "<group>";
+		};
 		18B74BCA16EA46C300F28F3D /* Chat Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -2278,6 +2293,7 @@
 		680CE3D31551258700B8E937 = {
 			isa = PBXGroup;
 			children = (
+				18B17D651742B03200400571 /* MessageUI.framework */,
 				18C27CE116D9305F00754EA6 /* AudioToolbox.framework */,
 				18C27CDF16D9303D00754EA6 /* CoreData.framework */,
 				EA3F79851603359600D231B1 /* Default-568h@2x.png */,
@@ -2325,6 +2341,7 @@
 		680CE3E81551258700B8E937 /* Soclivity */ = {
 			isa = PBXGroup;
 			children = (
+				18B17D601742A69D00400571 /* Feedback  */,
 				68B2695216B9F73100257303 /* JMCClasses */,
 				3C505477168ECECA001C1C5E /* Socket Rocket */,
 				EADC51D316253B2F00772D41 /* Popup Pickers */,
@@ -5010,6 +5027,7 @@
 				18EC4F5616E66C3400759D50 /* MessageInputView.m in Sources */,
 				18B74BCE16EA472000F28F3D /* ChatServiceInvocation.m in Sources */,
 				18B74BD116EA482200F28F3D /* ActivityChatData+Parse.m in Sources */,
+				18B17D641742A6B800400571 /* FeedbackBugReport.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
