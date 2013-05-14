@@ -258,7 +258,7 @@
             
             imgSize=[imageView.image size];
             imageView.frame=CGRectMake(15,15,37,37);
-            imageView.layer.cornerRadius = 5;
+            imageView.layer.cornerRadius = imageView.frame.size.width/10;
             imageView.layer.masksToBounds = YES;
             
             [cell.contentView addSubview:imageView];
