@@ -8,7 +8,6 @@
 
 #import "AboutViewController.h"
 #import "SoclivityUtilities.h"
-#import "JMC.h"
 #import "NotificationClass.h"
 #import "ActivityEventViewController.h"
 #import "SOCProfileViewController.h"

@@ -12,7 +12,6 @@
 #import "UpComingCompletedEventsViewController.h"
 #import "InvitesViewController.h"
 #import "AboutViewController.h"
-#import "JMC.h"
 #import "SoclivityManager.h"
 #import "GetPlayersClass.h"
 #import "MBProgressHUD.h"
