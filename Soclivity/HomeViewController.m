@@ -118,6 +118,8 @@
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
     
+    // Using TestFlight Checkpoint
+    [TestFlight passCheckpoint:@"Loading the Home Screen"];
     
     if(SOC.currentLocation.coordinate.latitude!=0.0f && SOC.currentLocation.coordinate.longitude!=0.0f){
         
