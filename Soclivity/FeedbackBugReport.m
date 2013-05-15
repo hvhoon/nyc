@@ -39,10 +39,6 @@ static FeedbackBugReport *sharedInstance = nil;
     
     
     NSArray *toRecipients = [NSArray arrayWithObject:@"help@soclivity.com"];
-    
-    
-
-    
     [picker setSubject:@"Report A Bug"];
     [picker setToRecipients:toRecipients];
 
