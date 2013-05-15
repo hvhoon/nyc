@@ -25,6 +25,8 @@
 #define kDeleteActivityRequest 21
 #define kDeleteActivity 12
 #define FOURSQUARE 1
+#define kActivityDatePick 14
+#define kActivityTimePick 15
 @interface CreateActivityViewController ()<NewActivityRequestInvocationDelegate,MBProgressHUDDelegate,DetailedActivityInfoInvocationDelegate,EditActivityEventInvocationDelegate,PostActivityRequestInvocationDelegate>
 
 @end
@@ -934,6 +936,8 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Date...!!!"
                                                         message:@"Please select a suitable date for your activity"
                                                        delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        
+        alert.tag=kActivityDatePick;
         [alert show];
         [alert release];
         return validate;
@@ -945,6 +949,8 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Time...!!!"
                                                         message:@"Please select a suitable time for your activity"
                                                        delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        
+        alert.tag=kActivityTimePick;
         [alert show];
         [alert release];
         return validate;
@@ -1053,6 +1059,20 @@
             }
                 break;
                 
+             case kActivityDatePick:
+            {
+                [self pickADateButtonPressed:nil];
+            }
+                
+                break;
+                
+            case kActivityTimePick:
+            {
+                [self pickATimeButtonPressed:nil];
+            }
+                
+                break;
+
             case kDeleteActivity:
             {
                 if([SoclivityUtilities hasNetworkConnection]){
