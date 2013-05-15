@@ -405,6 +405,8 @@
     
     [addButton setBackgroundImage:[UIImage imageNamed:@"addeventPressed.png"] forState:UIControlStateNormal];
     [addButton setBackgroundImage:[UIImage imageNamed:@"addeventPressed.png"] forState:UIControlStateHighlighted];
+    
+    [TestFlight passCheckpoint:@"Create New Activity"];
 
     NSString *nibNameBundle=nil;
     if([SoclivityUtilities deviceType] & iPhone5){
@@ -461,6 +463,7 @@
 
 -(IBAction)profileSlidingDrawerTapped:(id)sender{
     [delegate showLeft:sender];
+    [TestFlight passCheckpoint:@"View Settings"];
 }
 
 
@@ -665,6 +668,7 @@
     if (opened) {
         NSLog(@"Now I'm open!");
         bookmarkState=TRUE;
+        [TestFlight passCheckpoint:@"View Filter Pane"];
         
     } else {
         NSLog(@"Now I'm closed, pull me up again!");

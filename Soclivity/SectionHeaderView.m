@@ -352,6 +352,8 @@
     if ([delegate respondsToSelector:@selector(selectActivityView:)]) {
         NSString *arrowButtonValue=[NSString stringWithFormat:@"555%d",section];
         [(UIButton*)[self viewWithTag:[arrowButtonValue intValue]] setHidden:YES];
+        
+        [TestFlight passCheckpoint:@"Go to Activity Event page"];
 
         NSString *spinnerValue=[NSString stringWithFormat:@"666%d",section];
 
@@ -384,6 +386,7 @@
     if (userAction) {
         if (toggleAction) {
             if ([delegate respondsToSelector:@selector(sectionHeaderView:sectionOpened:)]) {
+                [TestFlight passCheckpoint:@"Open Activity Quick View"];
                 [delegate sectionHeaderView:self sectionOpened:section];
             }
         }
