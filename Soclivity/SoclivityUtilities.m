@@ -780,8 +780,8 @@ if(timer%2==0){
     NSString  *startFilterTime=[dateFormatter stringFromDate:startDateTime];
     NSString  *finishFilterTime=[dateFormatter stringFromDate:finishDateTime];
     
-    NSLog(@"activityTime 33333=%@",activityTime);
-    NSLog(@"startFilterTime 333333=%@",startFilterTime);
+    NSLog(@"activityTime=%@",activityTime);
+    NSLog(@"startFilterTime=%@",startFilterTime);
     NSLog(@"finishFilterTime=%@",finishFilterTime);
     
     int check=0;
@@ -799,8 +799,8 @@ if(timer%2==0){
     NSUInteger indexOfDay2 = [array indexOfObject:destinationDate];
     NSUInteger indexOfDay3 = [array indexOfObject:finishDateTime];
     
-    if (((indexOfDay1 < indexOfDay2 ) && (indexOfDay2 < indexOfDay3)) || 
-        ((indexOfDay1 > indexOfDay2 ) && (indexOfDay2 > indexOfDay3))) {
+    if (((indexOfDay1 <= indexOfDay2 ) && (indexOfDay2 < indexOfDay3)) ||
+        ((indexOfDay1 >= indexOfDay2 ) && (indexOfDay2 > indexOfDay3))) {
         NSLog(@"YES");
         check=1;
     } else {
@@ -820,6 +820,13 @@ if(timer%2==0){
         NSCalendar* myCalendar = [NSCalendar currentCalendar];
         NSDateComponents* components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit 
                                                      fromDate:activityDate];
+        [components setHour:00];
+        [components setMinute:00];
+        [components setSecond:00];
+        NSLog(@"weekdayComponentsStart=%@",[myCalendar dateFromComponents:components]);
+        setStartDate=[myCalendar dateFromComponents:components];
+        
+        
         [components setHour: 11];
         [components setMinute:59];
         [components setSecond:59];
@@ -827,12 +834,8 @@ if(timer%2==0){
         
         NSLog(@"weekdayComponentsEnd=%@",[myCalendar dateFromComponents:components]);
         
-        [components setHour:00];
-        [components setMinute:00];
-        [components setSecond:01];
-        NSLog(@"weekdayComponentsStart=%@",[myCalendar dateFromComponents:components]);
-        setStartDate=[myCalendar dateFromComponents:components];
-            
+
+        
 
     }
     
@@ -844,11 +847,11 @@ if(timer%2==0){
             
             [components setHour:12];
             [components setMinute:00];
-            [components setSecond:01];
+            [components setSecond:00];
             setStartDate=[myCalendar dateFromComponents:components];
             NSLog(@"setStartDate=%@",setStartDate);
             
-            [components setHour: 18];
+            [components setHour: 17];
             [components setMinute:59];
             [components setSecond:59];
             setFinishDate=[myCalendar dateFromComponents:components];
@@ -863,19 +866,23 @@ if(timer%2==0){
             NSCalendar* myCalendar = [NSCalendar currentCalendar];
             NSDateComponents* components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit 
                                                          fromDate:activityDate];
-            [components setHour: 23];
-            [components setMinute:59];
-            [components setSecond:59];
-            setFinishDate=[myCalendar dateFromComponents:components];
             
-            NSLog(@"weekdayComponentsEnd=%@",[myCalendar dateFromComponents:components]);
-            
-            [components setHour:19];
+            [components setHour:18];
             [components setMinute:00];
-            [components setSecond:01];
+            [components setSecond:00];
             NSLog(@"weekdayComponentsStart=%@",[myCalendar dateFromComponents:components]);
             setStartDate=[myCalendar dateFromComponents:components];
-            
+        
+        
+        
+        [components setHour: 23];
+        [components setMinute:59];
+        [components setSecond:59];
+        setFinishDate=[myCalendar dateFromComponents:components];
+        
+        NSLog(@"weekdayComponentsEnd=%@",[myCalendar dateFromComponents:components]);
+
+        
         
 }
     
@@ -888,11 +895,11 @@ if(timer%2==0){
         
         [components setHour:00];
         [components setMinute:00];
-        [components setSecond:01];
+        [components setSecond:00];
         NSLog(@"weekdayComponentsStart=%@",[myCalendar dateFromComponents:components]);
         setStartDate=[myCalendar dateFromComponents:components];
         
-        [components setHour: 18];
+        [components setHour: 17];
         [components setMinute:59];
         [components setSecond:59];
         setFinishDate=[myCalendar dateFromComponents:components];
@@ -916,7 +923,7 @@ if(timer%2==0){
         
         [components setHour:00];
         [components setMinute:00];
-        [components setSecond:01];
+        [components setSecond:00];
         NSLog(@"weekdayComponentsStart=%@",[myCalendar dateFromComponents:components]);
         setStartDate=[myCalendar dateFromComponents:components];
         
@@ -937,8 +944,8 @@ if(timer%2==0){
         NSUInteger indexOfDay2 = [array1 indexOfObject:activityDate];
         NSUInteger indexOfDay3 = [array1 indexOfObject:setFinishDate];
         
-        if (((indexOfDay1 < indexOfDay2 ) && (indexOfDay2 < indexOfDay3)) || 
-            ((indexOfDay1 > indexOfDay2 ) && (indexOfDay2 > indexOfDay3))) {
+        if (((indexOfDay1 <= indexOfDay2 ) && (indexOfDay2 < indexOfDay3)) ||
+            ((indexOfDay1 >= indexOfDay2 ) && (indexOfDay2 > indexOfDay3))) {
             NSLog(@"YES");
             localCheckMorning=1;
         } else {
@@ -948,9 +955,9 @@ if(timer%2==0){
         
         
         int localCheckEvening=0;
-        [components setHour:19];
+        [components setHour:18];
         [components setMinute:00];
-        [components setSecond:01];
+        [components setSecond:00];
         NSLog(@"weekdayComponentsStart=%@",[myCalendar dateFromComponents:components]);
         setStartDate=[myCalendar dateFromComponents:components];
         
@@ -971,8 +978,8 @@ if(timer%2==0){
         indexOfDay2 = [array indexOfObject:activityDate];
         indexOfDay3 = [array indexOfObject:setFinishDate];
         
-        if (((indexOfDay1 < indexOfDay2 ) && (indexOfDay2 < indexOfDay3)) || 
-            ((indexOfDay1 > indexOfDay2 ) && (indexOfDay2 > indexOfDay3))) {
+        if (((indexOfDay1 <= indexOfDay2 ) && (indexOfDay2 < indexOfDay3)) ||
+            ((indexOfDay1 >= indexOfDay2 ) && (indexOfDay2 > indexOfDay3))) {
             NSLog(@"YES");
             localCheckEvening=1;
         } else {
@@ -1001,7 +1008,7 @@ if(timer%2==0){
         
         [components setHour:12];
         [components setMinute:00];
-        [components setSecond:01];
+        [components setSecond:00];
         NSLog(@"weekdayComponentsStart=%@",[myCalendar dateFromComponents:components]);
         setStartDate=[myCalendar dateFromComponents:components];
         
@@ -1027,8 +1034,8 @@ if(timer%2==0){
     NSUInteger indexOfDay2 = [array indexOfObject:activityDate];
     NSUInteger indexOfDay3 = [array indexOfObject:setFinishDate];
     
-    if (((indexOfDay1 < indexOfDay2 ) && (indexOfDay2 < indexOfDay3)) || 
-        ((indexOfDay1 > indexOfDay2 ) && (indexOfDay2 > indexOfDay3))) {
+    if (((indexOfDay1 <= indexOfDay2 ) && (indexOfDay2 < indexOfDay3)) ||
+        ((indexOfDay1 >= indexOfDay2 ) && (indexOfDay2 > indexOfDay3))) {
         NSLog(@"YES");
         check=1;
     } else {

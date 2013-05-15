@@ -308,7 +308,7 @@
             SOC.filterObject.createAct=FALSE;
             SOC.filterObject.learnAct=FALSE;
 
-            SOC.filterObject.whenSearchType=1;
+            SOC.filterObject.whenSearchType=2;
             
             NSArray *timeArray = [string componentsSeparatedByString:@","];
             

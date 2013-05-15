@@ -10,13 +10,10 @@
 #import "SoclivityUtilities.h"
 #import "SoclivityManager.h"
 #import "FilterPreferenceClass.h"
-#import "NotificationClass.h"
-#import "NotifyAnimationView.h"
 @implementation StyledPullableView
 @synthesize homeSearchBar;
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
-        //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveBackgroundNotification:) name:@"RemoteNotificationReceivedWhileRunning" object:Nil];
 
         self.backgroundColor=[UIColor clearColor];
         tracker=0;
@@ -24,8 +21,7 @@
         filterPaneView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 640, 402)];
         filterPaneView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
         
-        SOC.filterObject.lastDateString=[NSString stringWithFormat:@"Pick A Date"];
-         
+
         
         self.homeSearchBar = [[[CustomSearchbar alloc] initWithFrame:CGRectMake(0, 40, 320, 44)] autorelease];
         self.homeSearchBar.delegate = self;
@@ -88,6 +84,9 @@
         [playButton addTarget:self action:@selector(activityButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [filterPaneView addSubview:playButton];
         
+
+        
+        
         UIImageView *playTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_activityTypeCheck.png"]];
         playTickImageView.frame=CGRectMake(45, 135, 16, 15);
         playTickImageView.tag=kPlayTickImage;
@@ -104,6 +103,7 @@
         playTypeLabel.tag=kPlayLabelText;
         playTypeLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:playTypeLabel];
+        
         
         
         if(!SOC.filterObject.playDD){
@@ -274,7 +274,6 @@
         next2DaysTickImageView.frame=CGRectMake(54, 228, 16, 15);
         next2DaysTickImageView.tag=kNextTwoDaysTickImage;
         [filterPaneView addSubview:next2DaysTickImageView];
-        [next2DaysTickImageView release];
         
         CGRect next2DaysLabelRect=CGRectMake(12,253-1,100,16);
         UILabel *next2DaysLabel=[[UILabel alloc] initWithFrame:next2DaysLabelRect];
@@ -285,7 +284,7 @@
         next2DaysLabel.tag=kNextTwoDaysText;
         next2DaysLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:next2DaysLabel];
-        [next2DaysLabel release];
+        
         
         
         UIImageView *datesVerticalDividerImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_datesVerticalDivider.png"]];
@@ -303,21 +302,17 @@
         UIImageView *next7DaysTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_datesCheck.png"]];
         next7DaysTickImageView.frame=CGRectMake(155, 228, 16, 15);
         next7DaysTickImageView.tag=kNextSevenDaysTickImage;
-        next7DaysTickImageView.alpha=0.3f;
         [filterPaneView addSubview:next7DaysTickImageView];
-        [next7DaysTickImageView release];
         
         CGRect next7DaysLabelRect=CGRectMake(113,253-1,100,16);
         UILabel *next7DaysLabel=[[UILabel alloc] initWithFrame:next7DaysLabelRect];
         next7DaysLabel.textAlignment=UITextAlignmentCenter;
         next7DaysLabel.text=[NSString stringWithFormat:@"Next 7 Days"];
-        next7DaysLabel.alpha=0.3f;
         next7DaysLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         next7DaysLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
         next7DaysLabel.tag=kNextSevenDaysText;
         next7DaysLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:next7DaysLabel];
-        [next7DaysLabel release];
         
         
         UIImageView *datesVerticalDividerImageView2=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_datesVerticalDivider.png"]];
@@ -334,21 +329,17 @@
         UIImageView *pickADayTickImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_pickADayIcon.png"]];
         pickADayTickImageView.frame=CGRectMake(257, 228, 14, 15);
         pickADayTickImageView.tag=kPickADayTickImage;
-        pickADayTickImageView.alpha=0.3f;
         [filterPaneView addSubview:pickADayTickImageView];
-        [pickADayTickImageView release];
         
         CGRect pickADayLabelRect=CGRectMake(220,253-1,90,16);
         UILabel *pickADayLabel=[[UILabel alloc] initWithFrame:pickADayLabelRect];
         pickADayLabel.textAlignment=UITextAlignmentCenter;
-        pickADayLabel.text=[NSString stringWithFormat:@"Pick A Day"];
+        pickADayLabel.text=SOC.filterObject.lastDateString;
         pickADayLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         pickADayLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
         pickADayLabel.tag=kPickADayText;
-        pickADayLabel.alpha=0.3f;
         pickADayLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:pickADayLabel];
-        [pickADayLabel release];
         
         // Time selection section
         UIImageView *clockIconImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_clock.png"]];
@@ -371,7 +362,7 @@
         sunriseImageView.frame=CGRectMake(55, 320, 15,9);
         sunriseImageView.tag=kSunriseImage;
         [filterPaneView addSubview:sunriseImageView];
-        [sunriseImageView release];
+
         
         CGRect morningLabelRect=CGRectMake(12,335-1,100,16);
         UILabel *morningLabel=[[UILabel alloc] initWithFrame:morningLabelRect];
@@ -382,7 +373,7 @@
         morningLabel.tag=kMorningText;
         morningLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:morningLabel];
-        [morningLabel release];
+
         
         CGRect Am12_Am11_LabelRect=CGRectMake(12,355,100,15);
         UILabel *Am12_Am11Label=[[UILabel alloc] initWithFrame:Am12_Am11_LabelRect];
@@ -393,8 +384,20 @@
         Am12_Am11Label.tag=kAm12_Am11;
         Am12_Am11Label.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:Am12_Am11Label];
-        [Am12_Am11Label release];
+
         
+        
+        if(!SOC.filterObject.morning){
+            
+            morningLabel.alpha=0.3f;
+            sunriseImageView.alpha=0.3f;
+            sunriseImageView.image=[UIImage imageNamed:@"S04.1_sunriseUnselected.png"];
+            Am12_Am11Label.alpha=0.3f;
+            
+        }
+            [sunriseImageView release];
+            [morningLabel release];
+            [Am12_Am11Label release];
         
         UIImageView *timeVerticalDividerImageView1=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_timeVerticalDivider.png"]];
         timeVerticalDividerImageView1.frame=CGRectMake(112, 323, 1, 41);
@@ -411,7 +414,6 @@
         sunSelectedImageView.frame=CGRectMake(155, 314, 16, 15);
         sunSelectedImageView.tag=kSunSelectedImage;
         [filterPaneView addSubview:sunSelectedImageView];
-        [sunSelectedImageView release];
         
         CGRect afternoonLabelRect=CGRectMake(113,335-1,100,16);
         UILabel *afternoonLabel=[[UILabel alloc] initWithFrame:afternoonLabelRect];
@@ -422,17 +424,28 @@
         afternoonLabel.tag=kAfternoonText;
         afternoonLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:afternoonLabel];
-        [afternoonLabel release];
         
         CGRect Pm12_Pm6_LabelRect=CGRectMake(113,355,100,15);
         UILabel *Pm12_Pm6_Label=[[UILabel alloc] initWithFrame:Pm12_Pm6_LabelRect];
         Pm12_Pm6_Label.textAlignment=UITextAlignmentCenter;
-        Pm12_Pm6_Label.text=[NSString stringWithFormat:@"12pm - 5pm"];
+        Pm12_Pm6_Label.text=[NSString stringWithFormat:@"12pm - 6pm"];
         Pm12_Pm6_Label.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
         Pm12_Pm6_Label.textColor=[SoclivityUtilities returnTextFontColor:5];
         Pm12_Pm6_Label.tag=kPm12_Pm6;
         Pm12_Pm6_Label.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:Pm12_Pm6_Label];
+        
+        
+        if(!SOC.filterObject.afternoon){
+            
+            afternoonLabel.alpha=0.3f;
+            sunSelectedImageView.alpha=0.3f;
+            sunSelectedImageView.image=[UIImage imageNamed:@"S04.1_sunUnselected.png"];
+            Pm12_Pm6_Label.alpha=0.3f;
+            
+        }
+        [afternoonLabel release];
+        [sunSelectedImageView release];
         [Pm12_Pm6_Label release];
         
         UIImageView *timeVerticalDividerImageView2=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04.1_timeVerticalDivider.png"]];
@@ -450,7 +463,7 @@
         moonSelectedImageView.frame=CGRectMake(255, 314, 13, 15);
         moonSelectedImageView.tag=kMoonSelectedImage;
         [filterPaneView addSubview:moonSelectedImageView];
-        [moonSelectedImageView release];
+
         
         CGRect eveningLabelRect=CGRectMake(214,335-1,100,16);
         UILabel *eveningLabel=[[UILabel alloc] initWithFrame:eveningLabelRect];
@@ -461,18 +474,88 @@
         eveningLabel.tag=kEveningText;
         eveningLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:eveningLabel];
-        [eveningLabel release];
+
         
         CGRect Pm7_Pm11_LabelRect=CGRectMake(214,355,100,15);
         UILabel *Pm7_Pm11_Label=[[UILabel alloc] initWithFrame:Pm7_Pm11_LabelRect];
         Pm7_Pm11_Label.textAlignment=UITextAlignmentCenter;
-        Pm7_Pm11_Label.text=[NSString stringWithFormat:@"After 5pm"];
+        Pm7_Pm11_Label.text=[NSString stringWithFormat:@"After 6pm"];
         Pm7_Pm11_Label.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
         Pm7_Pm11_Label.textColor=[SoclivityUtilities returnTextFontColor:1];
         Pm7_Pm11_Label.tag=kPm7_Pm11;
         Pm7_Pm11_Label.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:Pm7_Pm11_Label];
+        
+        
+        if(!SOC.filterObject.evening){
+        eveningLabel.alpha=0.3f;
+        moonSelectedImageView.image=[UIImage imageNamed:@"S04.1_moonUnselected.png"];
+        moonSelectedImageView.alpha=0.3f;
+        Pm7_Pm11_Label.alpha=0.3f;
+            
+        }
+
         [Pm7_Pm11_Label release];
+        [eveningLabel release];
+        [moonSelectedImageView release];
+        
+        
+        switch (SOC.filterObject.whenSearchType) {
+            case 1:
+            {
+                tracker=0;
+                next7DaysLabel.alpha=0.3f;
+                next7DaysTickImageView.alpha=0.3f;
+                pickADayLabel.alpha=0.3f;
+                pickADayTickImageView.alpha=0.3f;
+                pickADayLabel.text=@"Pick A Day";
+                SOC.filterObject.lastDateString=[NSString stringWithFormat:@"Pick A Date"];
+                
+                
+            }
+                break;
+            case 2:
+            {
+                tracker=1;
+                
+                next2DaysLabel.alpha=0.3f;
+                next2DaysTickImageView.alpha=0.3f;
+                pickADayLabel.alpha=0.3f;
+                pickADayTickImageView.alpha=0.3f;
+                pickADayLabel.text=@"Pick A Day";
+                SOC.filterObject.lastDateString=[NSString stringWithFormat:@"Pick A Date"];
+                
+            }
+                break;
+                
+                
+            case 3:
+                
+            {
+                NSString *firstLetter = [SOC.filterObject.lastDateString  substringToIndex:1];
+                if(![firstLetter isEqualToString:@"P"]){
+                    tracker=2;
+                }
+                next2DaysLabel.alpha=0.3f;
+                next2DaysTickImageView.alpha=0.3f;
+                next7DaysLabel.alpha=0.3f;
+                next7DaysTickImageView.alpha=0.3f;
+
+            }
+                break;
+                
+                
+        }
+        
+        
+        [next2DaysLabel release];
+        [next2DaysTickImageView release];
+        [pickADayLabel release];
+        [pickADayTickImageView release];
+        [next7DaysLabel release];
+        [next7DaysTickImageView release];
+
+
         
         UIButton *searchHandleButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         searchHandleButton.frame = CGRectMake(5, 397, 58.0, 57.0);//397
@@ -537,20 +620,11 @@
         [self insertSubview:filterPaneView atIndex:0];
         [self insertSubview:searchHandleButton atIndex:0];
         [self insertSubview:searchHandleButton aboveSubview:filterPaneView]; 
-        
+
         }
     return self;
 }
 
-
-- (void)didReceiveBackgroundNotification:(NSNotification*) note{
-    
-    NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:note];
-    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0,0, 320, 60) andNotif:notifObject];
-    //notif.delegate=self;
-    
-    [self.notificationView addSubview:notif];
-}
 
 - (void)sliderValueChanged:(FCRangeSlider *)sender {
     

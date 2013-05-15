@@ -31,7 +31,9 @@
         registrationObject=[[GetPlayersClass alloc]init];
         AllowTapAndDrag=TRUE;
         filterObject=[[FilterPreferenceClass alloc]init];
-        filterObject.whenSearchType=1;
+        filterObject.whenSearchType=2;
+        filterObject.lastDateString=[NSString stringWithFormat:@"Pick A Date"];
+
         filterObject.morning=YES;
         filterObject.afternoon=YES;
         filterObject.evening=YES;

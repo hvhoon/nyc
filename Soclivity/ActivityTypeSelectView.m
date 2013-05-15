@@ -33,7 +33,6 @@
     }
     return self;
 }
-
 -(void)updateActivityTypes{
     SOC=[SoclivityManager SharedInstance];
     idObj= SOC.filterObject;
@@ -113,9 +112,16 @@
 
 -(IBAction)ActivitySelectClicked:(UIButton*)sender{
     
+    
     SOC=[SoclivityManager SharedInstance];
     idObj= SOC.filterObject;
     int addRemove=0;
+    
+    SOC.filterObject.playDD=idObj.playAct;
+    SOC.filterObject.eatDD=idObj.eatAct;
+    SOC.filterObject.seeDD=idObj.seeAct;
+    SOC.filterObject.createDD=idObj.createAct;
+    SOC.filterObject.learnDD=idObj.learnAct;
     switch (sender.tag) {
         case 1:
         {
@@ -123,10 +129,14 @@
             checkType=1;
             
             if(idObj.playAct){
+                
+                SOC.filterObject.playDD=TRUE;
+
                 playImageView.alpha=SHOW;
                 addRemove=2;
             }
             else{
+                SOC.filterObject.playDD=FALSE;
                 playImageView.alpha=HIDDEN;
                 addRemove=3;
             }
@@ -140,10 +150,13 @@
             checkType=2;
             
             if(idObj.eatAct){
+                
+                SOC.filterObject.eatDD=TRUE;
                 eatImageView.alpha=SHOW;
                 addRemove=2;
             }
             else{
+                SOC.filterObject.eatDD=FALSE;
                 eatImageView.alpha=HIDDEN;
                 addRemove=3;
                 
@@ -157,10 +170,12 @@
             checkType=3;
             
             if(idObj.seeAct){
+                SOC.filterObject.seeDD=TRUE;
                 seeImageView.alpha=SHOW;
                 addRemove=2;
             }
             else{
+                SOC.filterObject.seeDD=FALSE;
                 seeImageView.alpha=HIDDEN;
                 addRemove=3;
                 
@@ -175,10 +190,13 @@
             checkType=4;
             
             if(idObj.createAct){
+                
+                SOC.filterObject.createDD=TRUE;
                 createImageView.alpha=SHOW;
                 addRemove=2;
             }
             else{
+                SOC.filterObject.createDD=FALSE;
                 createImageView.alpha=HIDDEN;
                 addRemove=3;
                 
@@ -192,10 +210,12 @@
             checkType=5;
             
             if(idObj.learnAct){
+                SOC.filterObject.learnDD=TRUE;
                 learnImageView.alpha=SHOW;
                 addRemove=2;
             }
             else{
+                SOC.filterObject.learnDD=FALSE;
                 learnImageView.alpha=HIDDEN;
                 addRemove=3;
                 
@@ -271,6 +291,7 @@
         case 1:
         {
             idObj.playAct=TRUE;
+            SOC.filterObject.playDD=TRUE;
             playImageView.alpha=SHOW;
         }
             break;
@@ -278,6 +299,7 @@
         case 2:
         {
             idObj.eatAct=TRUE;
+            SOC.filterObject.eatDD=TRUE;
             eatImageView.alpha=SHOW;
             
         }
@@ -285,6 +307,7 @@
         case 3:
         {
             idObj.seeAct=TRUE;
+            SOC.filterObject.seeDD=TRUE;
             seeImageView.alpha=SHOW;
             
             
@@ -293,6 +316,7 @@
         case 4:
         {
             createImageView.alpha=SHOW;
+            SOC.filterObject.createDD=TRUE;
             idObj.createAct=TRUE;
             
         }
@@ -300,6 +324,7 @@
         case 5:
         {
             idObj.learnAct=TRUE;
+            SOC.filterObject.learnDD=TRUE;
             learnImageView.alpha=SHOW;
             
         }
