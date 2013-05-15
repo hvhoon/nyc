@@ -16,6 +16,7 @@
 #import "GetPlayersClass.h"
 #import "ActivityEventViewController.h"
 #import "SlideViewController.h"
+#import "TestFlight.h"
 
 static NSString* kAppId = @"160726900680967";//kanav
 #define kShowAlertKey @"ShowAlert"
@@ -55,6 +56,10 @@ static NSString* kAppId = @"160726900680967";//kanav
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // TestingFlight SDK
+    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+    [TestFlight takeOff:@"fbb407ca-1c4b-46e7-b3a0-dd7f3ee323e6"];
+    
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isLoggedIn"];
     //[self setUpActivityDataList];
     [SoclivitySqliteClass copyDatabaseIfNeeded];

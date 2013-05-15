@@ -488,6 +488,8 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
 -(void)pushTodetailActivity:(UIButton*)sender{
     spinnerMapIndex=sender.tag;
     NSLog(@"tagIndex=%d",spinnerMapIndex);
+    
+    [TestFlight passCheckpoint:@"Go to Activity Event page"];
 
     SocAnnotation *detailAnnotation=[self.mapAnnotations objectAtIndex:spinnerMapIndex%555];
     [(UIButton*)[self viewWithTag:spinnerMapIndex] setHidden:YES];
