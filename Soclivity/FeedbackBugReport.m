@@ -40,33 +40,10 @@ static FeedbackBugReport *sharedInstance = nil;
     
     NSArray *toRecipients = [NSArray arrayWithObject:@"help@soclivity.com"];
     
-    
-
-    
-    [picker setSubject:@"Report A Bug"];
+    [picker setSubject:@"Bug Alert!"];
     [picker setToRecipients:toRecipients];
-
-    [picker setMessageBody:[self messageBody] isHTML:YES];
-    
-    
-    [[[[(MFMailComposeViewController*)picker  navigationBar] items] objectAtIndex:0] setTitle:@"Bug Alert!"];
-    
-    
+    [picker setMessageBody:[self messageBody] isHTML:NO];
     [[picker navigationBar] setTintColor:[UIColor clearColor]];
-    
-     //picker.navigationController.navigationItem.titleView =[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S01.2_blackbar.png"]];
-    
-    //[[picker navigationBar] setBackgroundImage:[UIImage imageNamed:@"S01.2_blackbar.png"] forBarMetrics:UIBarMetricsDefault];
-    //    UIImage *image = [UIImage imageNamed: @"S01.2_blackbar.png"];
-    //    UIImageView * iv = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,320,44)];
-    //    iv.image = image;
-    //    iv.contentMode = UIViewContentModeCenter;
-    //    [[[picker viewControllers] lastObject] navigationItem].titleView = iv;
-    //    [[picker navigationBar] sendSubviewToBack:iv];
-    //[iv release];
-    
-    //[picker release];
-    
     return picker;
 }
 
@@ -79,15 +56,8 @@ static FeedbackBugReport *sharedInstance = nil;
     
     [picker setSubject:@"Feedback"];
     [picker setToRecipients:toRecipients];
-
-    [picker setMessageBody:[self messageBody] isHTML:YES];
-    
-    
-    [[[[(MFMailComposeViewController*)picker  navigationBar] items] objectAtIndex:0] setTitle:@"Send us Feedback"];
-    
-    
+    [picker setMessageBody:[self messageBody] isHTML:NO];
     [[picker navigationBar] setTintColor:[UIColor clearColor]];
-    
     return picker;
 }
 
@@ -102,19 +72,24 @@ static FeedbackBugReport *sharedInstance = nil;
     {
         return messageTitle;
     }
-    return [NSString stringWithFormat:@"Check out %@", @"kanav"];
+    return [NSString stringWithFormat:@"Check out %@", @"Kanav"];
 }
 
 - (NSString *)messageBody
 {
     
+    // Getting the iOS environment settings
+    
+    NSDictionary *appMetaData = [[NSBundle mainBundle] infoDictionary];
+    NSString* appVersion = [appMetaData objectForKey:@"CFBundleShortVersionString"];
+    NSString* gitCommit = [appMetaData objectForKey:@"CFBundleVersion"];
+    NSString* osVersion = [[UIDevice currentDevice] systemVersion];
+    
+    NSLog(@"App Version: %@, (%@)", appVersion, gitCommit);
+    NSLog(@"iOS Version: %@", osVersion);
+    
     // Fill out the email body text
-    NSMutableString *emailBody = [NSMutableString stringWithFormat:@"<div> \n"
-                                  "<p style=\"font:10px Helvetica,Arial,sans-serif\">%@</p>"
-                                  "<p style=\"font:10px Helvetica,Arial,sans-serif\">%@</p>"
-                                  "</div>",
-                                  @"iOS version",
-                                  @"Soclivity Build ID"];
+    NSString *emailBody = [NSString stringWithFormat:@"\n\n\n\n--\nSoclivity %@ (%@)\niPhone iOS: %@", appVersion, gitCommit, osVersion];
     
     return emailBody;
 }

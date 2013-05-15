@@ -13,7 +13,6 @@
 #import "DetailInfoActivityClass.h"
 #import "SoclivityUtilities.h"
 #import "SoclivitySqliteClass.h"
-#import "JMC.h"
 #import "GetPlayersClass.h"
 #import "ActivityEventViewController.h"
 #import "SlideViewController.h"
@@ -93,10 +92,6 @@ static NSString* kAppId = @"160726900680967";//kanav
     [self.window makeKeyAndVisible];
     [self registerForNotifications];
     
-    // Adding JIRA monitoring
-    [[JMC sharedInstance] configureJiraConnect:@"https://soclivity.atlassian.net/"
-                                          projectKey:@"MIA"
-                                        apiKey:@"76935221-9c6b-4b40-9f4f-eba47fa7f24b"];
     return YES;
 }
 

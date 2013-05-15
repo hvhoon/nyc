@@ -28,13 +28,9 @@
 }
 
 @property (nonatomic,retain)id <AboutViewDelegate>delegate;
-@property (retain, nonatomic) IBOutlet UIButton *viewAllBugs;
-@property (retain, nonatomic) IBOutlet UIButton *submitBug;
 @property (retain, nonatomic) IBOutlet UILabel *buildText;
 @property(nonatomic,retain)    NotificationClass *notIdObject;
 - (IBAction)profileSliderPressed:(id)sender;
-- (IBAction)submitBugPressed:(id)sender;
-- (IBAction)viewAllIssues:(id)sender;
 
 
 

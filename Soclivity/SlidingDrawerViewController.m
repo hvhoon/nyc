@@ -192,38 +192,24 @@
         }
 
         [invitesViewControllerDictionary setObject:nibNameBundle forKey:kSlideViewControllerViewControllerNibNameKey];
-        
         NSNumber *invitesTag=[NSNumber numberWithInt:5];
         [invitesViewControllerDictionary setObject:invitesTag forKey:kSlideViewControllerViewControllerTagKey];
-        
         [invitesViewControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
-
         [invitesViewControllerDictionary setObject:[InvitesViewController class] forKey:kSlideViewControllerViewControllerClassKey];
         [invitesViewControllerDictionary setObject:[UIImage imageNamed:@"S7_invite_icon.png"] forKey:kSlideViewControllerViewControllerIconKey];
-        
-        
         [sectionFive setObject:[NSArray arrayWithObject:invitesViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
-        
         [datasource addObject:sectionFive];
         
         
         NSMutableDictionary *sectionSix = [NSMutableDictionary dictionary];
         [sectionSix setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
-        
         NSMutableDictionary *sendUsFeedbackControllerDictionary = [NSMutableDictionary dictionary];
-        [sendUsFeedbackControllerDictionary setObject:@"Send us Feedback" forKey:kSlideViewControllerViewControllerTitleKey];
-        
+        [sendUsFeedbackControllerDictionary setObject:@"Send Feedback" forKey:kSlideViewControllerViewControllerTitleKey];
         NSNumber *feedbackTag=[NSNumber numberWithInt:6];
         [sendUsFeedbackControllerDictionary setObject:feedbackTag forKey:kSlideViewControllerViewControllerTagKey];
-        
         [sendUsFeedbackControllerDictionary setObject:@"TRUE" forKey:kSlideViewControllerViewControllerTapAndDrawerKey];
-        
-        
         [sendUsFeedbackControllerDictionary setObject:[UIImage imageNamed:@"S7_megaphone.png"] forKey:kSlideViewControllerViewControllerIconKey];
-        
-        
         [sectionSix setObject:[NSArray arrayWithObject:sendUsFeedbackControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
-        
         [datasource addObject:sectionSix];
         
         
@@ -267,7 +253,7 @@
         [sectionNine setObject:kSlideViewControllerSectionTitleNoTitle forKey:kSlideViewControllerSectionTitleKey];
         
         NSMutableDictionary *AboutViewControllerDictionary = [NSMutableDictionary dictionary];
-        [AboutViewControllerDictionary setObject:@"About Us?" forKey:kSlideViewControllerViewControllerTitleKey];
+        [AboutViewControllerDictionary setObject:@"About Us" forKey:kSlideViewControllerViewControllerTitleKey];
         
         if([SoclivityUtilities deviceType] & iPhone5)
             nibNameBundle=@"AboutViewController_iphone5";
