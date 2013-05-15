@@ -1262,7 +1262,7 @@
     
     [activityNameTextField resignFirstResponder];
     [capacityTextField resignFirstResponder];
-    
+    [descriptionTextView resignFirstResponder];
     
     [self enableOrDisablePickerElements:YES];
 
