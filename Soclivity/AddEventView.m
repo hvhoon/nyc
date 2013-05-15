@@ -997,7 +997,28 @@ else {
        // NSString *urlString=[NSString stringWithFormat:@"comgooglemaps://?center=%f,%f&zoom=14&views=traffic",[activityObject.where_lat floatValue],[activityObject.where_lng floatValue]];
         
 //        NSString *urlString=[NSString stringWithFormat:@"comgooglemaps://?saddr=&daddr=%f,%f&directionsmode=driving&views=satellite&mapmode=standard",[activityObject.where_lat floatValue],[activityObject.where_lng floatValue]];
-        NSString *str = [activityObject.where_address stringByReplacingOccurrencesOfString:@"#"
+
+        if(searching){
+            PlacemarkClass *selectedPlacemark=[currentLocationArray objectAtIndex:pointTag];
+            
+            NSString *str=[NSString stringWithFormat:@"%@#%@",selectedPlacemark.formattedAddress,selectedPlacemark.vicinityAddress];
+             str=[str stringByReplacingOccurrencesOfString:@"#"
+                                               withString:@"+"];
+            
+            str=[str stringByReplacingOccurrencesOfString:@" "
+                                               withString:@"+"];
+            
+            
+            NSString *urlString=[NSString stringWithFormat:@"comgooglemaps://?q=%@&center=%f,%f&views=traffic&zoom=15",str,selectedPlacemark.latitude,selectedPlacemark.longitude];
+            
+            
+            
+            [[UIApplication sharedApplication] openURL: [NSURL URLWithString:urlString]];
+
+
+        }
+        else{
+            NSString *str = [activityObject.where_address stringByReplacingOccurrencesOfString:@"#"
                                                                                 withString:@"+"];
         str=[str stringByReplacingOccurrencesOfString:@" "
                                            withString:@"+"];
@@ -1008,12 +1029,18 @@ else {
         
         
         [[UIApplication sharedApplication] openURL: [NSURL URLWithString:urlString]];
+            
+        }
     } else {
         // Use Apple maps?
         NSLog(@"iphone has Apple app");
-        
-        
-        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([activityObject.where_lat floatValue],[activityObject.where_lng floatValue]);
+        CLLocationCoordinate2D coordinate;
+        if(searching){
+            PlacemarkClass *selectedPlacemark=[currentLocationArray objectAtIndex:pointTag];
+            coordinate=CLLocationCoordinate2DMake(selectedPlacemark.latitude,selectedPlacemark.longitude);
+        }
+        else
+           coordinate = CLLocationCoordinate2DMake([activityObject.where_lat floatValue],[activityObject.where_lng floatValue]);
         
         //create MKMapItem out of coordinates
         MKPlacemark* placeMark = [[MKPlacemark alloc] initWithCoordinate:coordinate addressDictionary:nil];
@@ -1030,8 +1057,19 @@ else {
 //            NSString* url = [NSString stringWithFormat: @"http://maps.google.com/maps?saddr=Current+Location&daddr=%f,%f", latitude, longitude];
 //            [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
             
+            
+            if(searching){
+                PlacemarkClass *selectedPlacemark=[currentLocationArray objectAtIndex:pointTag];
+                NSString *url=[NSString stringWithFormat:@"http://maps.google.com/maps?saddr=%f,%f&daddr=%f,%f",SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude, selectedPlacemark.latitude, selectedPlacemark.longitude];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+
+            }
+            else{
+
+            
             NSString *url=[NSString stringWithFormat:@"http://maps.google.com/maps?saddr=%f,%f&daddr=%f,%f",SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude, [activityObject.where_lat floatValue], [activityObject.where_lng floatValue]];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+            }
 
         }
         

@@ -22,7 +22,6 @@
     [route release];
     [queryName release];
     [formattedPhNo release];
-    [address release];
     [fsqrUrl release];
     [category release];
     [ratingValue release];
