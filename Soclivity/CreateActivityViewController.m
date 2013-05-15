@@ -866,6 +866,19 @@
 }
 
 -(IBAction)pickATimeButtonPressed:(id)sender{
+    
+    if(!dateSelected){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Date...!!!"
+                                                        message:@"Please select a suitable date for your activity"
+                                                       delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        
+        alert.tag=kActivityDatePick;
+        [alert show];
+        [alert release];
+        return;
+    }
+
+    
     MJDetailViewController *detailViewController = [[MJDetailViewController alloc] initWithNibName:@"MJDetailViewController" bundle:nil];
     detailViewController.delegate=self;
     if(newActivity){
