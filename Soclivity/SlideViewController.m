@@ -12,7 +12,6 @@
 #import "UpComingCompletedEventsViewController.h"
 #import "InvitesViewController.h"
 #import "AboutViewController.h"
-#import "JMC.h"
 #import "SoclivityManager.h"
 #import "GetPlayersClass.h"
 #import "MBProgressHUD.h"
@@ -545,7 +544,7 @@
             yCompLine=44;
             yTextLabel=13.0f;
             showLineOrSwitch=TRUE;
-            yLeftImage=9.0f;
+            yLeftImage=10.0f;
         }
           break;
             
