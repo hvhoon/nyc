@@ -126,6 +126,10 @@
 		684B5DE616B97FD6001DA695 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 684B5DE516B97FD6001DA695 /* MobileCoreServices.framework */; };
 		684B5DE816B97FE3001DA695 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 684B5DE716B97FE3001DA695 /* AVFoundation.framework */; };
 		685B3DF91742FC0200F9BCF0 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685B3DF81742FC0200F9BCF0 /* AboutViewController.xib */; };
+		685B3E0017443B9200F9BCF0 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 685B3DFD17443B9200F9BCF0 /* libTestFlight.a */; };
+		685B3E0117443B9200F9BCF0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 685B3DFE17443B9200F9BCF0 /* README.md */; };
+		685B3E0217443B9200F9BCF0 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 685B3DFF17443B9200F9BCF0 /* release_notes.md */; };
+		685B3E0617443BED00F9BCF0 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 685B3E0517443BED00F9BCF0 /* libz.dylib */; };
 		685FDBDC15E7E50C001C9549 /* S05_sectionHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 685FDBDA15E7E50C001C9549 /* S05_sectionHighlighted.png */; };
 		685FDBDD15E7E50C001C9549 /* S05_sectionHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 685FDBDB15E7E50C001C9549 /* S05_sectionHighlighted@2x.png */; };
 		686C797F15579545001358E0 /* S02.1_getstarted.png in Resources */ = {isa = PBXBuildFile; fileRef = 686C797E15579545001358E0 /* S02.1_getstarted.png */; };
@@ -984,6 +988,11 @@
 		684B5DE516B97FD6001DA695 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		684B5DE716B97FE3001DA695 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		685B3DF81742FC0200F9BCF0 /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
+		685B3DFC17443B9200F9BCF0 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		685B3DFD17443B9200F9BCF0 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		685B3DFE17443B9200F9BCF0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		685B3DFF17443B9200F9BCF0 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		685B3E0517443BED00F9BCF0 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		685FDBDA15E7E50C001C9549 /* S05_sectionHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_sectionHighlighted.png; sourceTree = "<group>"; };
 		685FDBDB15E7E50C001C9549 /* S05_sectionHighlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_sectionHighlighted@2x.png"; sourceTree = "<group>"; };
 		686C797E15579545001358E0 /* S02.1_getstarted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S02.1_getstarted.png; sourceTree = "<group>"; };
@@ -1817,6 +1826,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				685B3E0617443BED00F9BCF0 /* libz.dylib in Frameworks */,
 				18B17D661742B03200400571 /* MessageUI.framework in Frameworks */,
 				18C27CE216D9305F00754EA6 /* AudioToolbox.framework in Frameworks */,
 				684B5DE816B97FE3001DA695 /* AVFoundation.framework in Frameworks */,
@@ -1838,6 +1848,7 @@
 				680CE3E51551258700B8E937 /* Foundation.framework in Frameworks */,
 				680CE3E71551258700B8E937 /* CoreGraphics.framework in Frameworks */,
 				68B26A2D16B9F73100257303 /* CrashReporter.framework in Frameworks */,
+				685B3E0017443B9200F9BCF0 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2053,9 +2064,6 @@
 		680CE3D31551258700B8E937 = {
 			isa = PBXGroup;
 			children = (
-				18B17D651742B03200400571 /* MessageUI.framework */,
-				18C27CE116D9305F00754EA6 /* AudioToolbox.framework */,
-				18C27CDF16D9303D00754EA6 /* CoreData.framework */,
 				EA3F79851603359600D231B1 /* Default-568h@2x.png */,
 				680CE3E81551258700B8E937 /* Soclivity */,
 				680CE4271551286D00B8E937 /* Resources */,
@@ -2075,6 +2083,10 @@
 		680CE3E11551258700B8E937 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				685B3E0517443BED00F9BCF0 /* libz.dylib */,
+				18B17D651742B03200400571 /* MessageUI.framework */,
+				18C27CE116D9305F00754EA6 /* AudioToolbox.framework */,
+				18C27CDF16D9303D00754EA6 /* CoreData.framework */,
 				3C505475168ECDAF001C1C5E /* libicucore.dylib */,
 				EAB1364B1554681900C1607D /* libxml2.2.dylib */,
 				EAB1364D1554682500C1607D /* libsqlite3.0.dylib */,
@@ -2101,6 +2113,7 @@
 		680CE3E81551258700B8E937 /* Soclivity */ = {
 			isa = PBXGroup;
 			children = (
+				685B3E0417443B9A00F9BCF0 /* TestFlight */,
 				18B17D601742A69D00400571 /* Feedback  */,
 				3C505477168ECECA001C1C5E /* Socket Rocket */,
 				EADC51D316253B2F00772D41 /* Popup Pickers */,
@@ -2194,6 +2207,17 @@
 				6820EB66156E9342006DEDD3 /* MBProgressHUD.m */,
 			);
 			name = "Progress Animation";
+			sourceTree = "<group>";
+		};
+		685B3E0417443B9A00F9BCF0 /* TestFlight */ = {
+			isa = PBXGroup;
+			children = (
+				685B3DFC17443B9200F9BCF0 /* TestFlight.h */,
+				685B3DFD17443B9200F9BCF0 /* libTestFlight.a */,
+				685B3DFE17443B9200F9BCF0 /* README.md */,
+				685B3DFF17443B9200F9BCF0 /* release_notes.md */,
+			);
+			name = TestFlight;
 			sourceTree = "<group>";
 		};
 		686E79F615B5E3A800A05C7C /* S05 Activity Event */ = {
@@ -4245,6 +4269,8 @@
 				6880498917400A0E00072022 /* S7_megaphone.png in Resources */,
 				6880498A17400A0E00072022 /* S7_megaphone@2x.png in Resources */,
 				685B3DF91742FC0200F9BCF0 /* AboutViewController.xib in Resources */,
+				685B3E0117443B9200F9BCF0 /* README.md in Resources */,
+				685B3E0217443B9200F9BCF0 /* release_notes.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4526,6 +4552,10 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Soclivity\"",
+				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "42FCBD1A-2EF2-4E73-9567-60DCB4380996";
@@ -4552,6 +4582,10 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Soclivity/Soclivity-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Soclivity\"",
+				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "42FCBD1A-2EF2-4E73-9567-60DCB4380996";
