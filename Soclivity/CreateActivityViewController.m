@@ -1271,6 +1271,21 @@
     if(CGRectContainsPoint(clearTextRect,translate)&& isTransition){
         [self customCancelButtonHit];
     }
+    
+    if(([SoclivityUtilities deviceType] & iPhone5)){
+    
+    if(CGRectContainsPoint(CGRectMake(15, 430, 285, 60),translate)){
+         [capacityTextField becomeFirstResponder];
+    }
+        
+    }
+    else{
+        if(CGRectContainsPoint(CGRectMake(160, 360, 140, 60),translate)){
+            [capacityTextField becomeFirstResponder];
+        }
+        
+    }
+    
 
     
    NSLog(@"Start Point_X=%f,Start Point_Y=%f",translate.x,translate.y);
