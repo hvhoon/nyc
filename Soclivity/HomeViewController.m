@@ -760,7 +760,6 @@
     
     if([SoclivityUtilities hasNetworkConnection]){
         
-     //[self loadingActivityMonitor];   
      [devServer getDetailedActivityInfoInvocation:[SOC.loggedInUser.idSoc intValue]    actId:detailedInfo.activityId  latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude delegate:self];
     }
     else{
@@ -827,7 +826,9 @@
                         withResponse:(NSArray*)responses
                            withError:(NSError*)error{
     //now time to write in the Sqlite DataBase(Delete and Clean the activities Table)
-    [HUD hide:YES];
+    
+    [self hudWasHidden:HUD];
+//    [HUD hide:YES];
     [SoclivitySqliteClass InsertNewActivities:responses];
     [activityTableView startPopulatingListView];
     socEventMapView.centerLocation=TRUE;
@@ -835,7 +836,7 @@
 }
 
 -(void)currentLocation:(CLLocationCoordinate2D)theCoord{
-[self StartGettingActivities];
+        [self StartGettingActivities];
      
 }
 
@@ -939,7 +940,7 @@
             nibNameBundle=@"ActivityEventViewController";
         }
     
-        ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+        ActivityEventViewController *activityEventViewController=[[ActivityEventViewController alloc] initWithNibName:nibNameBundle bundle:[NSBundle mainBundle]];
         activityEventViewController.activityInfo=response;
         
         [[self navigationController] pushViewController:activityEventViewController animated:YES];
