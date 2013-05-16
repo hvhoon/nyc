@@ -9,7 +9,7 @@
 #import "PickADateView.h"
 #import "SoclivityUtilities.h"
 @implementation PickADateView
-@synthesize delegate,editActivity,activityDate,activityTime;
+@synthesize delegate,editActivity,activityDate;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -68,7 +68,6 @@
     calendarDate=[[CalendarDateView alloc]initWithFrame:CGRectMake(0, 40, 320,304)editActivityDate:activityDate];
     calendarDate.KALDelegate=self;
     calendarDate.pickADateForActivity=TRUE;
-    calendarDate.activityTime=activityTime;
     [self addSubview:calendarDate];
 
 

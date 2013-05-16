@@ -16,7 +16,6 @@
         case PickADateViewAnimationNew:
         {
             pickADateView.delegate=self;
-            pickADateView.activityTime=timeOfTheActivity;
             pickADateView.activityDate=dateOfTheActivity;
             self.view=pickADateView;
             
@@ -27,7 +26,6 @@
         {
             pickATimeView.delegate=self;
             pickATimeView.activityDate=dateOfTheActivity;
-            pickATimeView.activityTime=timeOfTheActivity;
             self.view=pickATimeView;
             
         }
@@ -52,7 +50,6 @@
         {
             pickADateView.delegate=self;
             pickADateView.editActivity=YES;
-            pickADateView.activityTime=timeOfTheActivity;
             pickADateView.activityDate=dateOfTheActivity;
             self.view=pickADateView;
             
@@ -64,7 +61,6 @@
             pickATimeView.delegate=self;
             pickATimeView.editActivity=YES;
             pickATimeView.activityDate=dateOfTheActivity;
-            pickATimeView.activityTime=timeOfTheActivity;
             self.view=pickATimeView;
             
             

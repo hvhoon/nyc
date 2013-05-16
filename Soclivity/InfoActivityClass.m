@@ -12,7 +12,7 @@
 @synthesize type,activityName,organizerName,DOS,DOS1,DOS2,DOS3,distance,goingCount,quotations,where_lat,where_lng,stamp,dateAndTime,friendsOfFriendsArray,friendsArray,activityRelationType,otherParticipantsArray,pendingRequestArray;
 
 @synthesize access,activityType,created_at,num_of_people,activityId,organizerId,updated_at,what,when,where_address,where_city,btnstate;
-@synthesize where_state,where_zip,isParticipant,ownerProfilePhotoUrl,organizerImage,relationType,pendingRequestCount,activityDate,activityTime;
+@synthesize where_state,where_zip,isParticipant,ownerProfilePhotoUrl,organizerImage,relationType,pendingRequestCount,activityDate;
 @synthesize fourSqaureUrl,phoneNumber,ratingValue,category,venueId;
 -(void)dealloc{
     [super dealloc];
@@ -42,7 +42,6 @@
     [otherParticipantsArray release];
     [pendingRequestArray release];
     [activityDate release];
-    [activityTime release];
     [fourSqaureUrl release];
     [phoneNumber release];
     [ratingValue release];

@@ -64,10 +64,8 @@
         crossEditButton.hidden=YES;
         tickEditButton.hidden=YES;
         deleteActivityButton.hidden=YES;
-        activityObject.activityTime=[NSDate date];
         activityObject.activityDate=[NSDate date];
         [[NSUserDefaults standardUserDefaults] setValue:Nil forKey:@"ActivityDate"];
-        [[NSUserDefaults standardUserDefaults] setValue:Nil forKey:@"ActivityTime"];
 
 
     }
@@ -86,7 +84,7 @@
         dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
         NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
         [dateFormatter setTimeZone:gmt];
-        activityObject.activityTime=activityObject.activityDate = [dateFormatter dateFromString:activityObject.when];
+        activityObject.activityDate = [dateFormatter dateFromString:activityObject.when];
 
     }
     _geocodingResults=[NSMutableArray new];
@@ -859,7 +857,6 @@
         detailViewController.type=PickADateViewAnimationEdit;
     }
     detailViewController.dateOfTheActivity=activityObject.activityDate;
-    detailViewController.timeOfTheActivity=activityObject.activityTime;
 
     [self presentPopupViewController:detailViewController animationType:MJPopupViewAnimationSlideBottomBottom];
 
@@ -888,8 +885,6 @@
         detailViewController.type=PickATimeViewAnimationEdit;
     }
     detailViewController.dateOfTheActivity=activityObject.activityDate;
-    detailViewController.timeOfTheActivity=activityObject.activityTime;
-
     [self presentPopupViewController:detailViewController animationType:MJPopupViewAnimationSlideBottomBottom];
     
 }
@@ -971,7 +966,7 @@
     }
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:activityObject.activityTime];
+    NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:activityObject.activityDate];
     NSInteger hour = [components hour];
     NSInteger minute = [components minute];
     
@@ -2388,11 +2383,27 @@
 -(void)pickATimeSelectionDone:(NSDate*)activityTime{
     
     timeSelected=TRUE;
-    activityObject.activityTime=activityTime;
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     [outputFormatter setDateFormat:@"h:mm a"]; //24hr time format
     NSString *timeString = [outputFormatter stringFromDate:activityTime];
     [outputFormatter release];
+    
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:activityTime];
+    NSInteger hour = [components hour];
+    NSInteger minute = [components minute];
+    
+    
+    
+    NSCalendar* myCalendar = [NSCalendar currentCalendar];
+    components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
+                               fromDate:activityObject.activityDate];
+    [components setHour: hour];
+    [components setMinute:minute];
+    [components setSecond:00];
+    activityObject.activityDate=[myCalendar dateFromComponents:components];
+
 
     
     int yOrigin;

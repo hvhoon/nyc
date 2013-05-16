@@ -44,7 +44,6 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 @implementation CalendarDateView
 @synthesize KALDelegate;
 @synthesize dataSource, delegate, initialDate, selectedDate,pickADateForActivity;
-@synthesize activityTime;
 - (id)initWithSelectedDate:(NSDate *)date
 {
     if ((self = [super init])) {
@@ -113,18 +112,12 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
         NSDate *dateToSet = [date NSDate];
         
         NSCalendar *calendar = [NSCalendar currentCalendar];
-        NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:activityTime];
+        NSDateComponents *components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
+                                                     fromDate:[NSDate date]];
         NSInteger hour = [components hour];
         NSInteger minute = [components minute];
+        NSDate* currentDateTime = [calendar dateFromComponents:components];
 
-        
-        
-        NSDate *activityDateResult=[[NSUserDefaults standardUserDefaults] valueForKey:@"ActivityTime"];
-        
-        if(activityDateResult==nil){
-
-            minute=minute+10;
-        }
         NSCalendar* myCalendar = [NSCalendar currentCalendar];
         components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
                                    fromDate:dateToSet];
@@ -133,21 +126,7 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
         [components setSecond:00];
         NSDate *setFinishDate=[myCalendar dateFromComponents:components];
         
-        NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
-        
-        NSInteger destinationGMTOffset1 = [destinationTimeZone secondsFromGMTForDate:dateToSet];
-        NSInteger destinationGMTOffset2 = [destinationTimeZone secondsFromGMTForDate:[NSDate date]];
-        
-        NSTimeInterval interval2 = destinationGMTOffset1;
-        NSTimeInterval interval3 = destinationGMTOffset2;
-        
-        NSDate* destinationDate = [[[NSDate alloc] initWithTimeInterval:interval2 sinceDate:setFinishDate] autorelease];
-        
-        NSDate* currentDateTime = [[[NSDate alloc] initWithTimeInterval:interval3 sinceDate:[NSDate date]] autorelease];
-
-
-        
-        if ([destinationDate compare:currentDateTime] == NSOrderedAscending){
+        if ([setFinishDate compare:currentDateTime] == NSOrderedAscending){
             
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Activity in the past?"
 															message:@"Sorry we can't go in the past yet!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
@@ -161,12 +140,6 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
             [[NSUserDefaults standardUserDefaults] setValue:dateToSet forKey:@"ActivityDate"];
 
         }
-
-        
-        
-        
-        
-
 
     }
     else{

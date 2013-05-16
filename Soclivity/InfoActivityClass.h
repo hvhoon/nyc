@@ -49,7 +49,6 @@
     NSInteger activityRelationType;
     NSInteger pendingRequestCount;
     NSDate *activityDate;
-    NSDate *activityTime;
     
     NSString *fourSqaureUrl;
     NSString *phoneNumber;
@@ -105,7 +104,6 @@
 @property(nonatomic,retain) NSMutableArray *otherParticipantsArray;
 @property (nonatomic, retain) NSMutableArray* pendingRequestArray;
 @property (nonatomic,retain) NSDate *activityDate;
-@property (nonatomic,retain) NSDate *activityTime;
 
 @property (nonatomic,retain)NSString *fourSqaureUrl;
 @property (nonatomic,retain)NSString *phoneNumber;

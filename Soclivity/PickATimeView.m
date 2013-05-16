@@ -9,7 +9,7 @@
 #import "PickATimeView.h"
 
 @implementation PickATimeView
-@synthesize delegate,editActivity,activityTime,activityDate;
+@synthesize delegate,editActivity,activityDate;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -27,11 +27,13 @@
     // Drawing code
     if(editActivity){
     pickATimeLabel.text=@"Change time";
-        [timePicker setDate:activityTime animated:YES];
     }
     else
         
     pickATimeLabel.text=@"Pick a time";
+    
+    [timePicker setDate:activityDate animated:YES];
+
     
     NSDate *setFinishDate=nil;
     

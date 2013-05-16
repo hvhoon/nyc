@@ -21,12 +21,10 @@
     IBOutlet UILabel *pickATimeLabel;
     id<PickTimeViewDelegate>delegate;
     BOOL editActivity;
-    NSDate*activityTime;
     NSDate *activityDate;
 }
 @property (nonatomic,assign)BOOL editActivity;
 @property (nonatomic,retain)id<PickTimeViewDelegate>delegate;
-@property (nonatomic,retain)NSDate*activityTime;
 @property (nonatomic,retain)NSDate*activityDate;
 -(IBAction)crossButtonClicked:(id)sender;
 -(IBAction)tickButtonPressed:(id)sender;
