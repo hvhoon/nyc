@@ -33,7 +33,7 @@
     pickATimeLabel.text=@"Pick a time";
     
     [timePicker setDate:activityDate animated:YES];
-
+#if 0
     
     NSDate *setFinishDate=nil;
     
@@ -86,7 +86,9 @@
     }
 
     [timePicker setMinimumDate:setFinishDate];
+#endif
     
+    [timePicker setMinimumDate:[NSDate date]];
     pickATimeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     pickATimeLabel.textColor=[UIColor whiteColor];
     pickATimeLabel.backgroundColor=[UIColor clearColor];
