@@ -231,6 +231,7 @@
 		68CCEF79173A228900F85140 /* acceptButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68CCEF77173A228900F85140 /* acceptButton@2x.png */; };
 		68CCEF7F173B490100F85140 /* keyboardDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 68CCEF7D173B490000F85140 /* keyboardDown.png */; };
 		68CCEF80173B490100F85140 /* keyboardDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68CCEF7E173B490000F85140 /* keyboardDown@2x.png */; };
+		68E0B763174E060300DBA246 /* version.sh in Resources */ = {isa = PBXBuildFile; fileRef = 68E0B762174E060300DBA246 /* version.sh */; };
 		68F23C591594BE93006F4637 /* S04.1.1_cross.png in Resources */ = {isa = PBXBuildFile; fileRef = 68F23C531594BE93006F4637 /* S04.1.1_cross.png */; };
 		68F23C5A1594BE93006F4637 /* S04.1.1_cross@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68F23C541594BE93006F4637 /* S04.1.1_cross@2x.png */; };
 		68F23C5B1594BE93006F4637 /* S04.1.1_tick.png in Resources */ = {isa = PBXBuildFile; fileRef = 68F23C551594BE93006F4637 /* S04.1.1_tick.png */; };
@@ -1097,6 +1098,7 @@
 		68CCEF77173A228900F85140 /* acceptButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "acceptButton@2x.png"; sourceTree = "<group>"; };
 		68CCEF7D173B490000F85140 /* keyboardDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = keyboardDown.png; sourceTree = "<group>"; };
 		68CCEF7E173B490000F85140 /* keyboardDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboardDown@2x.png"; sourceTree = "<group>"; };
+		68E0B762174E060300DBA246 /* version.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = version.sh; sourceTree = "<group>"; };
 		68F23C531594BE93006F4637 /* S04.1.1_cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S04.1.1_cross.png; sourceTree = "<group>"; };
 		68F23C541594BE93006F4637 /* S04.1.1_cross@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S04.1.1_cross@2x.png"; sourceTree = "<group>"; };
 		68F23C551594BE93006F4637 /* S04.1.1_tick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S04.1.1_tick.png; sourceTree = "<group>"; };
@@ -2175,6 +2177,7 @@
 		680CE4271551286D00B8E937 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				68E0B762174E060300DBA246 /* version.sh */,
 				681C889616410F99004659AE /* Icon.png */,
 				681C889716410F99004659AE /* Icon@2x.png */,
 				6802EC3515B6611E00FF0048 /* Common */,
@@ -3592,6 +3595,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 680CE3FC1551258700B8E937 /* Build configuration list for PBXNativeTarget "Soclivity" */;
 			buildPhases = (
+				68E0B765174E078A00DBA246 /* Set Version */,
 				680CE3DA1551258700B8E937 /* Sources */,
 				680CE3DB1551258700B8E937 /* Frameworks */,
 				680CE3DC1551258700B8E937 /* Resources */,
@@ -4271,10 +4275,29 @@
 				685B3DF91742FC0200F9BCF0 /* AboutViewController.xib in Resources */,
 				685B3E0117443B9200F9BCF0 /* README.md in Resources */,
 				685B3E0217443B9200F9BCF0 /* release_notes.md in Resources */,
+				68E0B763174E060300DBA246 /* version.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		68E0B765174E078A00DBA246 /* Set Version */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Set Version";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "version.sh --set --plist-path \\\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\" --quiet";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		680CE3DA1551258700B8E937 /* Sources */ = {
