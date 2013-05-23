@@ -80,10 +80,10 @@
     // Extract App Name
     NSDictionary *appMetaData = [[NSBundle mainBundle] infoDictionary];
     NSString* bundleName = [appMetaData objectForKey:@"CFBundleShortVersionString"];
-    NSString* gitCommit = [appMetaData objectForKey:@"CFBundleVersion"];
+    NSString* buildNumber = [appMetaData objectForKey:@"CFBundleVersion"];
     
     // Build text
-    self.buildText.text = [NSString stringWithFormat:@"Soclivity iOS %@ (%@)", bundleName, gitCommit];
+    self.buildText.text = [NSString stringWithFormat:@"Soclivity iOS v%@ (%@)", bundleName, buildNumber];
     self.buildText.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     self.buildText.textColor = [SoclivityUtilities returnTextFontColor:5];
     
