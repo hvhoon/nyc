@@ -83,7 +83,7 @@
     NSString* buildNumber = [appMetaData objectForKey:@"CFBundleVersion"];
     
     // Build text
-    self.buildText.text = [NSString stringWithFormat:@"Soclivity iOS v%@ (%@)", bundleName, buildNumber];
+    self.buildText.text = [NSString stringWithFormat:@"Soclivity iOS %@ (%@)", bundleName, buildNumber];
     self.buildText.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     self.buildText.textColor = [SoclivityUtilities returnTextFontColor:5];
     
