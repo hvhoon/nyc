@@ -72,7 +72,15 @@
             
         case 6:
         {
-            NSString*a=[NSString stringWithFormat:@"dev.soclivity.com/activity_chats/backgroundchat.json?pid=%d&aid=%d&time=%@",[SOC.loggedInUser.idSoc intValue],activityId,[[NSUserDefaults standardUserDefaults]valueForKey:@"ChatTimeStamp"]];
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+            NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+            [dateFormatter setTimeZone:gmt];
+            
+            NSString  *currentTime=[dateFormatter stringFromDate:[NSDate date]];
+
+            NSString*a=[NSString stringWithFormat:@"dev.soclivity.com/activity_chats/backgroundchat.json?pid=%d&aid=%d&start_time=%@&end_time=%@",[SOC.loggedInUser.idSoc intValue],activityId,[[NSUserDefaults standardUserDefaults]valueForKey:@"ChatTimeStamp"],currentTime];
             [self get:a];
             
         }

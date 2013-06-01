@@ -130,7 +130,7 @@
     }
 
    
-    gradient=0.94;
+    gradient=1.0;
     CGFloat xOffset = 0;
     animationDuration = 0.1;
   
@@ -657,8 +657,8 @@
 }
 -(void)alphaMore{
     gradient=gradient+0.011;
-    if(gradient>=0.94){
-        gradient=0.94;
+    if(gradient>=1.0){
+        gradient=1.0;
     }
     socEventMapView.alpha = gradient;
     activityTableView.alpha =gradient;

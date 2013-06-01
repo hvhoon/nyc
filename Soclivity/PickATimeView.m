@@ -26,69 +26,15 @@
 {
     // Drawing code
     if(editActivity){
-    pickATimeLabel.text=@"Change time";
+        pickATimeLabel.text=@"Change time";
     }
     else
-        
-    pickATimeLabel.text=@"Pick a time";
+        pickATimeLabel.text=@"Pick a time";
     
     [timePicker setDate:activityDate animated:YES];
-#if 0
-    
-    NSDate *setFinishDate=nil;
-    
-    NSLog(@"NSDate=%@",[NSDate date]);
-    
-    int type=0;
-    NSDate * today = [NSDate date];
-    NSComparisonResult result = [today compare:activityDate];
-    switch (result)
-    {
-        case NSOrderedAscending:
-            NSLog(@"Future Date");
-            break;
-        case NSOrderedDescending:{
-            type=1;
-            NSLog(@"Earlier Date");
-
-        }
-            break;
-        case NSOrderedSame:
-        {
-            type=1;
-            NSLog(@"Today/Null Date Passed");
-        }
-            break;
-        default:
-            NSLog(@"Error Comparing Dates");
-            break;
-    }
-    if(type==1){
-        NSDate *dateToSet = activityDate;
-
-    
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:[NSDate date]];
-    NSInteger hour = [components hour];
-    NSInteger minute = [components minute];
-    
-    
-    NSCalendar* myCalendar = [NSCalendar currentCalendar];
-    components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
-                               fromDate:dateToSet];
-    [components setHour: hour];
-    [components setMinute:minute];
-    [components setSecond:00];
-    setFinishDate=[myCalendar dateFromComponents:components];
-    }
-    else{
-        setFinishDate=activityDate;
-    }
-
-    [timePicker setMinimumDate:setFinishDate];
-#endif
     
     [timePicker setMinimumDate:[NSDate date]];
+    
     pickATimeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     pickATimeLabel.textColor=[UIColor whiteColor];
     pickATimeLabel.backgroundColor=[UIColor clearColor];
