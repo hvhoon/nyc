@@ -50,6 +50,10 @@
     NSNumber *dos3 = [ACTDict objectForKey:@"dos3"];
     play.DOS3 =[dos3 intValue];
     
+    NSNumber *totalCount = [ACTDict objectForKey:@"total_count"];
+    play.goingCount =[NSString stringWithFormat:@"%d",[totalCount intValue]];
+
+    
     if(isQuotation){
         
     NSNumber *distance = [ACTDict objectForKey:@"distance"];
@@ -68,7 +72,7 @@
 
     DetailInfoActivityClass *quotation = [[[DetailInfoActivityClass alloc] init]autorelease];
     quotation.location = [NSString stringWithFormat:@"%@",play.where_address];
-    play.goingCount=[NSString stringWithFormat:@"%d",play.DOS1+play.DOS2+play.DOS3];
+    //play.goingCount=[NSString stringWithFormat:@"%d",play.DOS1+play.DOS2+play.DOS3];
     
     NSMutableArray *quotations = [NSMutableArray arrayWithCapacity:1];
     quotation.DOS_1=play.DOS1;
@@ -274,7 +278,11 @@
     NSNumber *dos3 = [ACTDict objectForKey:@"dos3"];
     play.DOS3 =[dos3 intValue];
     
-    play.goingCount=[NSString stringWithFormat:@"%d",play.DOS1+play.DOS2+play.DOS3];
+    NSNumber *totalCount = [ACTDict objectForKey:@"total_count"];
+    play.goingCount =[NSString stringWithFormat:@"%d",[totalCount intValue]];
+
+    
+//    play.goingCount=[NSString stringWithFormat:@"%d",play.DOS1+play.DOS2+play.DOS3];
     
  
     return play;
