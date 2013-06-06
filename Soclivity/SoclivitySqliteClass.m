@@ -247,7 +247,7 @@ static sqlite3 *database = nil;
 
             play.distance =[NSString stringWithFormat:@"%.02f",[newCenter distanceFromLocation:tempLocObj] / 1000];
 #endif            
-            play.goingCount=[NSString stringWithFormat:@"%d",play.DOS1+play.DOS2+play.DOS3];
+            play.goingCount=[NSString stringWithFormat:@"%d",play.DOS1+play.DOS2+play.DOS3+1];
             NSLog(@"message=%@",message);
 
             NSMutableArray *quotations = [NSMutableArray arrayWithCapacity:1];

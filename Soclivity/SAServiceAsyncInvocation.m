@@ -169,7 +169,7 @@ NSDateFormatter* gJSONDateFormatter = nil;
 	[request setURL:[NSURL URLWithString:url]];
 	[request setHTTPMethod:method];
 	if (body) {
-		NSData *data = [body dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:NO];
+		NSData *data = [body dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:NO];
 		[request setHTTPBody:data];
 		[request setValue:[NSString stringWithFormat:@"%d", [data length]] forHTTPHeaderField:@"Content-Length"];
 		[request setValue:@"text/x-json" forHTTPHeaderField:@"Content-Type"];
@@ -241,7 +241,7 @@ NSDateFormatter* gJSONDateFormatter = nil;
 }
 
 - (void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error {
-    NSString *response=[[NSString alloc] initWithData:_receivedData encoding:NSASCIIStringEncoding];
+    NSString *response=[[NSString alloc] initWithData:_receivedData encoding:NSUTF8StringEncoding];
     NSLog(@"response=%@",response);
 
 	[self handleHttpError:[[self response] statusCode]];
@@ -250,7 +250,7 @@ NSDateFormatter* gJSONDateFormatter = nil;
 - (void)connectionDidFinishLoading:(NSURLConnection*)connection {
 	
     BOOL finalize = YES;
-    NSString *response=[[NSString alloc] initWithData:_receivedData encoding:NSASCIIStringEncoding];
+    NSString *response=[[NSString alloc] initWithData:_receivedData encoding:NSUTF8StringEncoding];
     NSLog(@"response=%@",response);
     
 	if ([[self response] isOK]) {

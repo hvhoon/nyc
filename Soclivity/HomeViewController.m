@@ -212,7 +212,7 @@
     
     NSLog(@"Home Selected");
 
-    
+    [pullDownView.notificationView setUserInteractionEnabled:NO];
     
     if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];

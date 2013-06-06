@@ -342,6 +342,16 @@ static NSString* kAppId = @"160726900680967";//kanav
 {
         NSLog(@"applicationDidEnterBackground");
     
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [dateFormatter setTimeZone:gmt];
+    
+    NSString  *currentTime=[dateFormatter stringFromDate:[NSDate date]];
+    
+    [[NSUserDefaults standardUserDefaults] setValue:currentTime forKey:@"ChatTimeStamp"];
+
+    
 
 #if 0
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"isLoggedIn"]){

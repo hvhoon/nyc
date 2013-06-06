@@ -126,16 +126,6 @@
 }
 -(void)chatInAppNotification:(NSNotification*)note{
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
-    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-    [dateFormatter setTimeZone:gmt];
-
-    NSString  *currentTime=[dateFormatter stringFromDate:[NSDate date]];
-    
-    [[NSUserDefaults standardUserDefaults] setValue:currentTime forKey:@"ChatTimeStamp"];
-
-    
     NotificationClass *notifObject=[SoclivityUtilities getNotificationChatPost:note];
     if(notifObject.activityId==activityInfo.activityId)
     
@@ -199,7 +189,7 @@
     scrollView.indicatorStyle=UIScrollViewIndicatorStyleBlack;
     scrollView.clipsToBounds = YES;
     
-    if([activityInfo.goingCount intValue]==0 && activityInfo.pendingRequestCount==0){
+    if([activityInfo.goingCount intValue]==1 && activityInfo.pendingRequestCount==0){
         scrollView.scrollEnabled=NO;
     }
     else{
@@ -783,8 +773,7 @@
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
 
-    if([chatView.bubbleData count]==0)
-    {
+    if([chatView.bubbleData count]==0){
             [chatView updateChatScreen:[NSMutableArray arrayWithObject:responses]];
     }
     else{
@@ -1023,7 +1012,7 @@
         
         if(activityInfo.activityRelationType==6){
             
-            if(activityInfo.pendingRequestCount==0 && [activityInfo.goingCount intValue]==0){
+            if(activityInfo.pendingRequestCount==0 && [activityInfo.goingCount intValue]==1){//0
                 
                 return;
             }
@@ -1032,8 +1021,8 @@
             }
         }
         else{
-        if([activityInfo.goingCount intValue]==0)
-            return;
+        if([activityInfo.goingCount intValue]==1)//0
+                return;
         else{
             [self scrollViewToTheTopOrBottom];
         }
@@ -1226,7 +1215,7 @@
         }
     }
     
-    if(activityInfo.pendingRequestCount==0 && [activityInfo.goingCount intValue]==0 && page==0){
+    if(activityInfo.pendingRequestCount==0 && [activityInfo.goingCount intValue]==1 && page==0){
         self.scrollView.scrollEnabled=NO;
     }
 }

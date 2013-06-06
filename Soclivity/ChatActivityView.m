@@ -128,7 +128,7 @@
             
         }
     else{
-
+        chatBackgroundView.hidden=YES;
         [self.bubbleTable reloadData];
         [self scrollToBottomAnimated:NO];
 
