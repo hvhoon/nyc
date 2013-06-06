@@ -192,6 +192,9 @@
     if([activityInfo.goingCount intValue]==1 && activityInfo.pendingRequestCount==0){
         scrollView.scrollEnabled=NO;
     }
+    else if([activityInfo.goingCount intValue]==2 && (activityInfo.activityRelationType==5)){
+        scrollView.scrollEnabled=NO;        
+    }
     else{
     scrollView.scrollEnabled = YES;
     }
@@ -1023,6 +1026,10 @@
         else{
         if([activityInfo.goingCount intValue]==1)//0
                 return;
+            
+        else if([activityInfo.goingCount intValue]==2 && (activityInfo.activityRelationType==5))//0
+                return;
+
         else{
             [self scrollViewToTheTopOrBottom];
         }
@@ -1216,6 +1223,10 @@
     }
     
     if(activityInfo.pendingRequestCount==0 && [activityInfo.goingCount intValue]==1 && page==0){
+        self.scrollView.scrollEnabled=NO;
+    }
+    
+    if([activityInfo.goingCount intValue]==2 && (activityInfo.activityRelationType==5)&& page==0){
         self.scrollView.scrollEnabled=NO;
     }
 }
