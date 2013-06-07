@@ -214,31 +214,58 @@
 
     [pullDownView.notificationView setUserInteractionEnabled:NO];
     
-    if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
-        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    
     notIdObject=[notification retain];
-    GetPlayersClass *obj=SOC.loggedInUser;
+
     
-    if([SoclivityUtilities hasNetworkConnection]){
-        pushInAppNotif=TRUE;
-        [devServer getDetailedActivityInfoInvocation:[obj.idSoc intValue]  actId:notification.activityId  latitude:[notification.latitude floatValue] longitude:[notification.longitude floatValue] delegate:self];
+        switch ([notIdObject.notificationType integerValue]) {
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 13:
+            case 16:
+    
+    {
+        SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
+        socProfileViewController.friendId=notIdObject.referredId;
+        [[self navigationController] pushViewController:socProfileViewController animated:YES];
+        [socProfileViewController release];
         
     }
-    else{
-        if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
-            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-        
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        
-        [alert show];
-        [alert release];
-        return;
-        
-        
-    }
+    
+    break;
+                
+    default:
+        {
+                if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
+                    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+            
+                GetPlayersClass *obj=SOC.loggedInUser;
+                
+                if([SoclivityUtilities hasNetworkConnection]){
+                    pushInAppNotif=TRUE;
+                    [devServer getDetailedActivityInfoInvocation:[obj.idSoc intValue]  actId:notification.activityId  latitude:[notification.latitude floatValue] longitude:[notification.longitude floatValue] delegate:self];
+                    
+                }
+                else{
+                    if([[UIApplication sharedApplication] isIgnoringInteractionEvents])
+                        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                    
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil
+                                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                    
+                    [alert show];
+                    [alert release];
+                    return;
+                    
+                    
+                }
+
+        }
+                break;
+        }
+    
 }
 
 
@@ -294,23 +321,6 @@
         }
             break;
             
-            
-        case 7:
-        case 8:
-        case 9:
-        case 10:
-        case 13:
-        case 16:
-            
-        {
-            SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
-            socProfileViewController.friendId=notIdObject.referredId;
-            [[self navigationController] pushViewController:socProfileViewController animated:YES];
-            [socProfileViewController release];
-            
-        }
-            
-            break;
             
         }
     

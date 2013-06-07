@@ -172,10 +172,33 @@
     
     NSLog(@"Activity Selected");
     
+    notIdObject=[notification retain];
+    switch ([notIdObject.notificationType integerValue]) {
+        case 7:
+        case 8:
+        case 9:
+        case 10:
+        case 13:
+        case 16:
+            
+        {
+            SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
+            socProfileViewController.friendId=notIdObject.referredId;
+            [[self navigationController] pushViewController:socProfileViewController animated:YES];
+            [socProfileViewController release];
+            
+        }
+            
+            break;
+            
+        default:
+        {
+
+    
     if(![[UIApplication sharedApplication] isIgnoringInteractionEvents])
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
-    notIdObject=[notification retain];
+
     GetPlayersClass *obj=SOC.loggedInUser;
     
     if([SoclivityUtilities hasNetworkConnection]){
@@ -195,7 +218,10 @@
         [alert release];
         return;
         
-        
+    }
+
+    }
+      break;
     }
 }
 
@@ -246,22 +272,6 @@
                 break;
                 
                 
-            case 7:
-            case 8:
-            case 9:
-            case 10:
-            case 13:
-            case 16:
-                
-            {
-                SOCProfileViewController*socProfileViewController=[[SOCProfileViewController alloc] initWithNibName:@"SOCProfileViewController" bundle:nil];
-                socProfileViewController.friendId=notIdObject.referredId;
-                [[self navigationController] pushViewController:socProfileViewController animated:YES];
-                [socProfileViewController release];
-                
-            }
-                
-                break;
         }
     
     

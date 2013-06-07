@@ -71,6 +71,7 @@ static NSArray *playerActivityDetails;
     notification.notificationString=[[object valueForKey:@"userInfo"] valueForKey:@"message"];
     notification.photoUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[[object valueForKey:@"userInfo"] valueForKey:@"photo_url"]];
     notification.timeOfNotification=[[object valueForKey:@"userInfo"] valueForKey:@"timing"];
+    notification.referredId=[[[object valueForKey:@"userInfo"] valueForKey:@"reffered_to"]integerValue];
     return notification;
 }
 +(void)returnNotificationButtonWithCountUpdate:(UIButton*)button{
