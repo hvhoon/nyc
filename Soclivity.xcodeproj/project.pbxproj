@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1835D789176DCF70009D8501 /* CreateActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1835D788176DCF70009D8501 /* CreateActivityViewController.xib */; };
 		189889F117319CF500E9DD6A /* addeventPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 189889EF17319CF500E9DD6A /* addeventPressed.png */; };
 		189889F217319CF500E9DD6A /* addeventPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189889F017319CF500E9DD6A /* addeventPressed@2x.png */; };
 		18AD11FD1715E9CB00CC9870 /* Folder.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18AD11FC1715E9CB00CC9870 /* Folder.plist */; };
@@ -539,7 +540,6 @@
 		EABEAA1F1644DDBD004C686C /* GetUserProfileInfoInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EABEAA1E1644DDBD004C686C /* GetUserProfileInfoInvocation.m */; };
 		EABEAA221644E9B4004C686C /* SocPlayerClass+Parse.m in Sources */ = {isa = PBXBuildFile; fileRef = EABEAA211644E9B4004C686C /* SocPlayerClass+Parse.m */; };
 		EABEC70E1622D9CA00DB179E /* CreateActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EABEC70C1622D9CA00DB179E /* CreateActivityViewController.m */; };
-		EABEC70F1622D9CA00DB179E /* CreateActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABEC70D1622D9CA00DB179E /* CreateActivityViewController.xib */; };
 		EABEC7111622DB1C00DB179E /* CreateActivityViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7101622DB1C00DB179E /* CreateActivityViewController_iphone5.xib */; };
 		EABEC7291622F4E200DB179E /* S06_backdrop.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7131622F4E200DB179E /* S06_backdrop.png */; };
 		EABEC72A1622F4E200DB179E /* S06_backdrop5.png in Resources */ = {isa = PBXBuildFile; fileRef = EABEC7141622F4E200DB179E /* S06_backdrop5.png */; };
@@ -828,6 +828,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1835D788176DCF70009D8501 /* CreateActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateActivityViewController.xib; sourceTree = "<group>"; };
 		189889EF17319CF500E9DD6A /* addeventPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addeventPressed.png; sourceTree = "<group>"; };
 		189889F017319CF500E9DD6A /* addeventPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addeventPressed@2x.png"; sourceTree = "<group>"; };
 		18AD11FC1715E9CB00CC9870 /* Folder.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Folder.plist; sourceTree = "<group>"; };
@@ -1518,7 +1519,6 @@
 		EABEAA211644E9B4004C686C /* SocPlayerClass+Parse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SocPlayerClass+Parse.m"; sourceTree = "<group>"; };
 		EABEC70B1622D9CA00DB179E /* CreateActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateActivityViewController.h; sourceTree = "<group>"; };
 		EABEC70C1622D9CA00DB179E /* CreateActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateActivityViewController.m; sourceTree = "<group>"; };
-		EABEC70D1622D9CA00DB179E /* CreateActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateActivityViewController.xib; sourceTree = "<group>"; };
 		EABEC7101622DB1C00DB179E /* CreateActivityViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateActivityViewController_iphone5.xib; sourceTree = "<group>"; };
 		EABEC7131622F4E200DB179E /* S06_backdrop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S06_backdrop.png; sourceTree = "<group>"; };
 		EABEC7141622F4E200DB179E /* S06_backdrop5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S06_backdrop5.png; sourceTree = "<group>"; };
@@ -3148,7 +3148,7 @@
 			children = (
 				EABEC70B1622D9CA00DB179E /* CreateActivityViewController.h */,
 				EABEC70C1622D9CA00DB179E /* CreateActivityViewController.m */,
-				EABEC70D1622D9CA00DB179E /* CreateActivityViewController.xib */,
+				1835D788176DCF70009D8501 /* CreateActivityViewController.xib */,
 				EABEC7101622DB1C00DB179E /* CreateActivityViewController_iphone5.xib */,
 			);
 			name = "Create Activity";
@@ -4108,7 +4108,6 @@
 				68A8F789161BE9E10031D669 /* S05_public5.png in Resources */,
 				68A8F78A161BE9E10031D669 /* S05_private5@2x.png in Resources */,
 				68A8F78B161BE9E10031D669 /* S05_public5@2x.png in Resources */,
-				EABEC70F1622D9CA00DB179E /* CreateActivityViewController.xib in Resources */,
 				EABEC7111622DB1C00DB179E /* CreateActivityViewController_iphone5.xib in Resources */,
 				EABEC7291622F4E200DB179E /* S06_backdrop.png in Resources */,
 				EABEC72A1622F4E200DB179E /* S06_backdrop5.png in Resources */,
@@ -4271,6 +4270,7 @@
 				685B3DF91742FC0200F9BCF0 /* AboutViewController.xib in Resources */,
 				685B3E0117443B9200F9BCF0 /* README.md in Resources */,
 				685B3E0217443B9200F9BCF0 /* release_notes.md in Resources */,
+				1835D789176DCF70009D8501 /* CreateActivityViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4477,8 +4477,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -4495,8 +4495,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				PROVISIONING_PROFILE = "BD2672BA-2A04-441E-B18B-C6FE6CAF8E7B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BD2672BA-2A04-441E-B18B-C6FE6CAF8E7B";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
@@ -4516,8 +4516,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_THUMB_SUPPORT = NO;
@@ -4528,8 +4528,8 @@
 				HEADER_SEARCH_PATHS = "../facebook-iphone-sdk/src";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "BD2672BA-2A04-441E-B18B-C6FE6CAF8E7B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BD2672BA-2A04-441E-B18B-C6FE6CAF8E7B";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Classes/facebook/**";
