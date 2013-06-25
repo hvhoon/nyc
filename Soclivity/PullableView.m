@@ -70,12 +70,13 @@
     }
     crossImageView.hidden=NO;
     searchLensImageView.hidden=YES;
+    
     filterPaneView.layer.shadowOpacity = 1 ? 0.8f : 0.0f;
     filterPaneView.layer.cornerRadius = 4.0f;
     filterPaneView.layer.shadowOffset = CGSizeZero;
     filterPaneView.layer.shadowRadius = 14.0f;
     filterPaneView.layer.shadowPath = [UIBezierPath bezierPathWithRect:filterPaneView.bounds].CGPath;
-
+    
     if ([sender state] == UIGestureRecognizerStateBegan) {
         
         
@@ -165,21 +166,22 @@
 
 - (void)handleTap:(UITapGestureRecognizer *)sender {
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    
+    [self showShadow];
     if(!opened){
+        
         filterPaneView.layer.shadowOpacity = 1 ? 0.8f : 0.0f;
         filterPaneView.layer.cornerRadius = 4.0f;
         filterPaneView.layer.shadowOffset = CGSizeZero;
         filterPaneView.layer.shadowRadius = 14.0f;
         filterPaneView.layer.shadowPath = [UIBezierPath bezierPathWithRect:filterPaneView.bounds].CGPath;
+        
         if(!SOC.AllowTapAndDrag){
         filterPaneView.transform = CGAffineTransformIdentity;
             SOC.AllowTapAndDrag=TRUE;
             [(UILabel*)[self viewWithTag:38] setText:SOC.filterObject.pickADateString];
             SOC.filterObject.lastDateString=SOC.filterObject.pickADateString;
          }
-        
-        
-        
     }
     
     
@@ -254,7 +256,9 @@
         
         if ([delegate respondsToSelector:@selector(pullableView:didChangeState:)]) {
             [delegate pullableView:self didChangeState:opened];
-            [self showShadow];
+            
+            if(!opened)
+                [self showShadow];
 
         }
     }
