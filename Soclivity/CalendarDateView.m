@@ -245,7 +245,7 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
             
             KalView *kalView = [[[KalView alloc] initWithFrame:CGRectMake(0, 0, 320, 304) delegate:self logic:logic] autorelease];
             kalView.tag=123;
-            [self  addSubview:kalView];
+            [self addSubview:kalView];
             
             [kalView selectDate:[KalDate dateFromNSDate:self.initialDate]];
              tableView.backgroundColor=[UIColor whiteColor];

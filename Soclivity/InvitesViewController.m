@@ -21,6 +21,7 @@
 #import "GetUsersByFirstLastNameInvocation.h"
 #import "NotificationClass.h"
 #import "DetailedActivityInfoInvocation.h"
+#define PRIVATE_BETA 1
 @interface InvitesViewController(Private) <MBProgressHUDDelegate,PostActivityRequestInvocationDelegate,GetActivityInvitesInvocationDelegate,GetUsersByFirstLastNameInvocationDelegate,DetailedActivityInfoInvocationDelegate>
 @end
 
@@ -426,6 +427,16 @@ if([SoclivityUtilities hasNetworkConnection]){
 
 -(void)sendInviteOnFacebookPrivateMessage:(int)fbUId{
  
+#if PRIVATE_BETA
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry, invites are closed during the private beta. Really want your friend to use the app? Send an email to help@soclivity.com" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    [alert show];
+    [alert release];
+    return;
+    
+#else
+
     if([SoclivityUtilities hasNetworkConnection]){
         [self startAnimation:0];
         [devServer postActivityRequestInvocation:12 playerId:fbUId actId:activityId delegate:self];
@@ -441,12 +452,21 @@ if([SoclivityUtilities hasNetworkConnection]){
         
         
     }
-
+#endif
 }
 
 -(void)askUserToJoinSoclivityOnFacebook:(NSInteger)facebookId{
     
     
+#if PRIVATE_BETA
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry, invites are closed during the private beta. Really want your friend to use the app? Send an email to help@soclivity.com" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    [alert show];
+    [alert release];
+    return;
+
+#else
     if([SoclivityUtilities hasNetworkConnection]){
         [self startAnimation:0];
         [devServer postActivityRequestInvocation:16 playerId:facebookId actId:0 delegate:self];
@@ -462,7 +482,11 @@ if([SoclivityUtilities hasNetworkConnection]){
         
         
     }
+    
+#endif
+    
 
+    
 }
 
 
