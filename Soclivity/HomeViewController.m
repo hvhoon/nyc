@@ -617,7 +617,6 @@
 #pragma mark PullDownView
 
 -(void)doTheTurn:(Boolean)open{
-    
     if(open){
         socEventMapView.alpha = gradient;
         activityTableView.alpha=gradient;
@@ -658,13 +657,13 @@
 }
 
 -(void)alphaLess{
-    gradient=gradient-0.011;
+   gradient=gradient-0.011;
     if(gradient<=0.3){
         gradient=0.3;
     }
     socEventMapView.alpha =gradient;
     activityTableView.alpha =gradient;
-}
+ }
 -(void)alphaMore{
     gradient=gradient+0.011;
     if(gradient>=1.0){
@@ -672,7 +671,7 @@
     }
     socEventMapView.alpha = gradient;
     activityTableView.alpha =gradient;
-}
+ }
 
 - (void)pullableView:(PullableView *)pView didChangeState:(BOOL)opened {
     if (opened) {
