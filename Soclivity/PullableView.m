@@ -318,9 +318,7 @@
 
         if(CGRectContainsPoint(tapClearSearchRect,startPoint)){
             
-            if((SOC.filterObject.searchText==(NSString*)[NSNull null])||([SOC.filterObject.searchText isEqualToString:@""]||SOC.filterObject.searchText==nil)||([SOC.filterObject.searchText isEqualToString:@"(null)"])){
-            }
-            else{
+            if(!((SOC.filterObject.searchText==(NSString*)[NSNull null])||([SOC.filterObject.searchText isEqualToString:@""]||SOC.filterObject.searchText==nil)||([SOC.filterObject.searchText isEqualToString:@"(null)"]))){
                 [self customCancelButtonHit];
             }
         }

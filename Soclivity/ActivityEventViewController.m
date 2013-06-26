@@ -464,6 +464,9 @@
     // Do any additional setup after loading the view from its nib.
     
     if(footerActivated){
+        
+        chatButton.hidden=YES;
+        activityButton.hidden=NO;
         [scrollView setHidden:YES];
         [chatView setHidden:NO];
         
@@ -483,6 +486,11 @@
         
         newActivityButton.hidden=YES;
         [editButtonForMapView setHidden:YES];
+
+    }
+    else{
+        chatButton.hidden=NO;
+        activityButton.hidden=YES;
 
     }
 }
@@ -1693,11 +1701,15 @@ switch ([notIdObject.notificationType integerValue]) {
         
         context = UIGraphicsGetCurrentContext();
         [UIView beginAnimations:nil context:context];
-        [UIView setAnimationTransition: UIViewAnimationTransitionFlipFromLeft forView:chatButton cache:YES];
+        [UIView setAnimationTransition: UIViewAnimationTransitionFlipFromLeft forView:staticToggleView cache:YES];
         [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
         [UIView setAnimationDuration:1.0];
         [UIView setAnimationDelegate:self];
-        
+       
+        chatButton.hidden=YES;
+        activityButton.hidden=NO;
+
+       
         [UIView commitAnimations];
        
        
@@ -1743,10 +1755,13 @@ switch ([notIdObject.notificationType integerValue]) {
         
         context = UIGraphicsGetCurrentContext();
         [UIView beginAnimations:nil context:context];
-        [UIView setAnimationTransition: UIViewAnimationTransitionFlipFromRight forView:chatButton cache:YES];
+        [UIView setAnimationTransition: UIViewAnimationTransitionFlipFromRight forView:staticToggleView cache:YES];
         [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
         [UIView setAnimationDuration:1.0];
         [UIView setAnimationDelegate:self];
+        chatButton.hidden=NO;
+        activityButton.hidden=YES;
+
         
         [UIView commitAnimations];
     }

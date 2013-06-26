@@ -25,6 +25,8 @@
     IBOutlet AddEventView *eventView;
     IBOutlet ParticipantListTableView *participantListTableView;
     InfoActivityClass *activityInfo;
+    IBOutlet UIView *staticToggleView;
+    IBOutlet UIButton *activityButton;
     IBOutlet UIButton *chatButton;
     IBOutlet UILabel *activityNameLabel;
     IBOutlet UIButton *addEventButton;
