@@ -72,6 +72,9 @@ static NSString* kAppId = @"160726900680967";//kanav
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
+    [self registerForNotifications];
+
+    
     NSString *nibNameBundle=nil;
     if([SoclivityUtilities deviceType] & iPhone5){
         nibNameBundle=@"WelcomeScreenViewControllerIphone5";
@@ -95,7 +98,6 @@ static NSString* kAppId = @"160726900680967";//kanav
     [self.window addSubview:navigationController.view];
 
     [self.window makeKeyAndVisible];
-    [self registerForNotifications];
     
     return YES;
 }

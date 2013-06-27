@@ -452,8 +452,6 @@
 
     
 
-    [eventView loadViewWithActivityDetails:activityInfo];
-    [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
 
     
     if([SoclivityUtilities deviceType] & iPhone5)
@@ -493,6 +491,10 @@
         activityButton.hidden=YES;
 
     }
+    
+    [eventView loadViewWithActivityDetails:activityInfo];
+    [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
+
 }
 
 - (void)backgroundTapToPush:(NotificationClass*)notification{
