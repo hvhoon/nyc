@@ -44,7 +44,12 @@
         
         SOC.loggedInUser.fullName=[SoclivityUtilities getFirstAndLastName:SOC.loggedInUser.first_name lastName:SOC.loggedInUser.last_name];
 
-        [profileViewControllerDictionary setObject:SOC.loggedInUser.fullName forKey:kSlideViewControllerViewControllerTitleKey];
+        //[profileViewControllerDictionary setObject:SOC.loggedInUser.fullName forKey:kSlideViewControllerViewControllerTitleKey];
+        
+        
+        [profileViewControllerDictionary setObject:@"Kanav" forKey:kSlideViewControllerViewControllerTitleKey];
+
+        
         
         
         if([SoclivityUtilities deviceType] & iPhone5){
@@ -376,6 +381,7 @@
 }
 - (void)FBlogout {
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"FacebookLogin"];
     [[delegate facebook] logout];
 }
 

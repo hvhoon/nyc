@@ -3578,9 +3578,9 @@
 				EAF2AEBD15875EA5008EAE27 /* SlideViewController.h */,
 				EAF2AEBE15875EA5008EAE27 /* SlideViewController.m */,
 				EAF2AEBF15875EA5008EAE27 /* SlideViewController.xib */,
+				EAC801B11611B97A00501765 /* SlideViewController_iphone5.xib */,
 				EAF2AEBA15875E36008EAE27 /* SlidingDrawerViewController.h */,
 				EAF2AEBB15875E36008EAE27 /* SlidingDrawerViewController.m */,
-				EAC801B11611B97A00501765 /* SlideViewController_iphone5.xib */,
 			);
 			name = "Sliding Drawer Effect";
 			sourceTree = "<group>";

@@ -368,6 +368,9 @@
 -(void)setupSlideDrawerUIController{
     
     
+    
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"FacebookLogin"];
+    
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isLoggedIn"];
     [spinner stopAnimating];
     [self.view setUserInteractionEnabled:YES];
@@ -382,10 +385,10 @@
     
     NSString *nibNameBundle=nil;
     if([SoclivityUtilities deviceType] & iPhone5){
-        nibNameBundle=@"SlideViewController";
+        nibNameBundle=@"SlideViewController_iphone5";
     }
     else{
-        nibNameBundle=@"SlideViewController_iphone5";
+        nibNameBundle=@"SlideViewController";
     }
     
     SlidingDrawerViewController *slideViewController = [[SlidingDrawerViewController alloc] initWithNibName:nibNameBundle bundle:nil];

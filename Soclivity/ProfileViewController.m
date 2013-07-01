@@ -421,7 +421,20 @@
 }
 
 -(void)PushHomeScreen{
-    SlidingDrawerViewController *slideViewController = [[SlidingDrawerViewController alloc] initWithNibName:@"SlideViewController" bundle:nil];
+    
+    
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"FacebookLogin"];
+    
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"SlideViewController_iphone5";
+    }
+    else{
+        
+        nibNameBundle=@"SlideViewController";
+    }
+
+    SlidingDrawerViewController *slideViewController = [[SlidingDrawerViewController alloc] initWithNibName:nibNameBundle bundle:[NSBundle mainBundle]];
     slideViewController.delegate = slideViewController;
     slideViewController.isFBlogged=YES;
     [self.navigationController pushViewController:slideViewController animated:YES];

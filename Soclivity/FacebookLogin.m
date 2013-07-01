@@ -267,6 +267,7 @@
     NSLog(@"SOC ID=%d",[obj.idSoc intValue]);
     if(!obj.registered)
         [FBdelegate pushToRegistration];
+    
     else{
         //redirect him to homeView Controller
         SoclivityManager *SOC=[SoclivityManager SharedInstance];
