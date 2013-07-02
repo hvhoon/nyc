@@ -77,27 +77,27 @@ static NSString* kAppId = @"160726900680967";//kanav
 
     
     
-    if([[NSUserDefaults standardUserDefaults]boolForKey:@"FacebookLogin"]){
-        
-        NSString *nibNameBundle=nil;
-        if([SoclivityUtilities deviceType] & iPhone5){
-            nibNameBundle=@"SlideViewController_iphone5";
-        }
-        
-        else{
-            nibNameBundle=@"SlideViewController";
-        }
-        
-        SlidingDrawerViewController *slideViewController = [[SlidingDrawerViewController alloc] initWithNibName:nibNameBundle bundle:nil];
-        slideViewController.delegate = slideViewController;
-        slideViewController.isFBlogged=TRUE;
-        navigationController=[[UINavigationController alloc]initWithRootViewController:slideViewController];
-        [slideViewController release];
-
-    }
-    else{
-            
-            
+//    if([[NSUserDefaults standardUserDefaults]boolForKey:@"FacebookLogin"]){
+//        
+//        NSString *nibNameBundle=nil;
+//        if([SoclivityUtilities deviceType] & iPhone5){
+//            nibNameBundle=@"SlideViewController_iphone5";
+//        }
+//        
+//        else{
+//            nibNameBundle=@"SlideViewController";
+//        }
+//        
+//        SlidingDrawerViewController *slideViewController = [[SlidingDrawerViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+//        slideViewController.delegate = slideViewController;
+//        slideViewController.isFBlogged=TRUE;
+//        navigationController=[[UINavigationController alloc]initWithRootViewController:slideViewController];
+//        [slideViewController release];
+//
+//    }
+//    else{
+//            
+    
     NSString *nibNameBundle=nil;
     if([SoclivityUtilities deviceType] & iPhone5){
         nibNameBundle=@"WelcomeScreenViewControllerIphone5";
@@ -108,7 +108,7 @@ static NSString* kAppId = @"160726900680967";//kanav
     WelcomeScreenViewController *welcomeScreenViewController=[[WelcomeScreenViewController alloc]initWithNibName:nibNameBundle bundle:nil];
     navigationController=[[UINavigationController alloc]initWithRootViewController:welcomeScreenViewController];
     [welcomeScreenViewController release];
- }
+// }
     UINavigationBar *NavBar = [navigationController navigationBar];
     
     if ([NavBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)])

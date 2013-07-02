@@ -461,10 +461,16 @@
 
     // Do any additional setup after loading the view from its nib.
     
+    [eventView loadViewWithActivityDetails:activityInfo];
+    [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
+
+    activityButton.hidden=YES;
+
     if(footerActivated){
         
         chatButton.hidden=YES;
-        activityButton.hidden=NO;
+        if(activityInfo.activityRelationType==5||activityInfo.activityRelationType==6)
+            activityButton.hidden=NO;
         [scrollView setHidden:YES];
         [chatView setHidden:NO];
         
@@ -486,14 +492,7 @@
         [editButtonForMapView setHidden:YES];
 
     }
-    else{
-        chatButton.hidden=NO;
-        activityButton.hidden=YES;
-
-    }
     
-    [eventView loadViewWithActivityDetails:activityInfo];
-    [self BottonBarButtonHideAndShow:activityInfo.activityRelationType];
 
 }
 
