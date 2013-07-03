@@ -372,6 +372,7 @@
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"FacebookLogin"];
     
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isLoggedIn"];
+    //[[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isLoggedOut"];
     [spinner stopAnimating];
     [self.view setUserInteractionEnabled:YES];
     

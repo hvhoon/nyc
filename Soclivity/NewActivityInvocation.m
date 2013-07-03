@@ -43,8 +43,7 @@
     [bodyD setObject:[NSNumber numberWithInt:activityObj.type] forKey:@"atype"];
     [bodyD setObject:activityObj.activityName forKey:@"name"];
     [bodyD setObject:[NSNumber numberWithInt:activityObj.num_of_people] forKey:@"num_of_people"];
-    NSNumber *idNumber=[NSNumber numberWithInt:26];
-    [bodyD setObject:idNumber forKey:@"ownnerid"];
+    [bodyD setObject:player.idSoc forKey:@"ownnerid"];
     [bodyD setObject:activityObj.what forKey:@"what"];
     [bodyD setObject:activityObj.when forKey:@"when"];
     if(activityObj.where_address!=nil && [activityObj.where_address class]!=[NSNull class] && [activityObj.where_address length]!=0){

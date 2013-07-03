@@ -43,15 +43,12 @@
         SoclivityManager *SOC=[SoclivityManager SharedInstance];
         
         SOC.loggedInUser.fullName=[SoclivityUtilities getFirstAndLastName:SOC.loggedInUser.first_name lastName:SOC.loggedInUser.last_name];
+        
+        
+        if(SOC.loggedInUser.fullName.length!=0)
+            [profileViewControllerDictionary setObject:SOC.loggedInUser.fullName forKey:kSlideViewControllerViewControllerTitleKey];
 
-        //[profileViewControllerDictionary setObject:SOC.loggedInUser.fullName forKey:kSlideViewControllerViewControllerTitleKey];
-        
-        
-        [profileViewControllerDictionary setObject:@"Kanav" forKey:kSlideViewControllerViewControllerTitleKey];
 
-        
-        
-        
         if([SoclivityUtilities deviceType] & iPhone5){
             nibNameBundle=@"ProfileViewController_iphone5";
         }
@@ -382,7 +379,11 @@
 - (void)FBlogout {
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"FacebookLogin"];
-    [[delegate facebook] logout];
+    
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isLoggedIn"];
+    
+    //if(![[NSUserDefaults standardUserDefaults]valueForKey:@"isLoggedOut"])
+          [[delegate facebook] logout];
 }
 
 - (void)configureSearchDatasourceWithString:(NSString *)string {

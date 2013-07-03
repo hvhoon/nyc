@@ -48,6 +48,9 @@
 #define kActivityAvatarData 61 
 
 
+#define kAutoLoginProperty 62
+
+
 #define kPlayActivity 12
 #define kEatActivity 13
 #define kSeeActivity 14

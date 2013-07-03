@@ -17,7 +17,7 @@
 @end
 
 @implementation FacebookLogin
-@synthesize permissions,FBdelegate;
+@synthesize permissions,FBdelegate,tagUniqKey;
 
 - (void)dealloc {
     [permissions release];
@@ -130,15 +130,16 @@
     [self showLoggedOut];
 }
 - (void)fbSessionInvalidated {
-    UIAlertView *alertView = [[UIAlertView alloc]
-                              initWithTitle:@"Auth Exception"
-                              message:@"Your session has expired."
-                              delegate:nil
-                              cancelButtonTitle:@"OK"
-                              otherButtonTitles:nil,
-                              nil];
-    [alertView show];
-    [alertView release];
+    
+//    UIAlertView *alertView = [[UIAlertView alloc]
+//                              initWithTitle:@"Auth Exception"
+//                              message:@"Your session has expired."
+//                              delegate:nil
+//                              cancelButtonTitle:@"OK"
+//                              otherButtonTitles:nil,
+//                              nil];
+//    [alertView show];
+//    [alertView release];
     [self fbDidLogout];
 }
 
@@ -202,6 +203,9 @@
              NSLog(@"uid=%@",[result objectForKey:@"uid"]);
         }
 
+        
+        SOC.registrationObject.fullName=[SoclivityUtilities getFirstAndLastName:SOC.registrationObject.first_name lastName:SOC.registrationObject.last_name];
+
         NSLog(@"firstName=%@",[result objectForKey:@"first_name"]);
         NSLog(@"email=%@",[result objectForKey:@"email"]);
         NSLog(@"sex=%@",[result objectForKey:@"sex"]);
@@ -213,14 +217,15 @@
         // Get the profile image
         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[result objectForKey:@"pic"]]]];
         SOC.registrationObject.FBProfileImage=image;
-        if(SOC.registrationObject.FBProfileImage.size.height != SOC.registrationObject.FBProfileImage.size.width)
-            SOC.registrationObject.FBProfileImage = [SoclivityUtilities autoCrop:SOC.registrationObject.FBProfileImage];
+        
+        if(image.size.height != image.size.width)
+            image = [SoclivityUtilities autoCrop:image];
         
         // If the image needs to be compressed
-        if(SOC.registrationObject.FBProfileImage.size.height > 100 || SOC.registrationObject.FBProfileImage.size.width > 100)
-            SOC.registrationObject.FBProfileImage = [SoclivityUtilities compressImage:SOC.registrationObject.FBProfileImage size:CGSizeMake(100,100)];
-        
-        SOC.registrationObject.profileImageData=UIImagePNGRepresentation(SOC.registrationObject.FBProfileImage);
+        if(image.size.height > 50 || image.size.width > 50)
+            image = [SoclivityUtilities compressImage:image size:CGSizeMake(50,50)];
+
+        SOC.registrationObject.profileImageData=UIImagePNGRepresentation(image);
 
         
         // Resize, crop the image to make sure it is square and renders
@@ -258,6 +263,22 @@
 - (void)request:(FBRequest *)request didFailWithError:(NSError *)error {
     NSLog(@"Err message: %@", [[error userInfo] objectForKey:@"error_msg"]);
     NSLog(@"Err code: %d", [error code]);
+    
+    if([error code]==190){
+        NSLog(@"Password Failure");
+        //[[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isLoggedOut"];
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Auth Exception"
+                                  message:@"Your session has expired."
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil,
+                                  nil];
+        [alertView show];
+        [alertView release];
+
+        [FBdelegate sessionLogout];
+    }
 }
 -(void)FBSignInInvocationDidFinish:(FBSignInInvocation*)invocation
                       withResponse:(NSArray*)responses

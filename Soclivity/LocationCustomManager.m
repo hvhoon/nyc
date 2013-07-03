@@ -25,25 +25,11 @@
     // This is the most important property to set for the manager. It ultimately determines how the manager will
     // attempt to acquire location and thus, the amount of power that will be consumed.
         locationManager.desiredAccuracy=kCLLocationAccuracyThreeKilometers; //kCLLocationAccuracyBest;
-    if(!CLLocationManager.locationServicesEnabled)
-	{
-		
-		
-		
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Switch On the Location Services on Your Device"
-														message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
-		[alert show];
-		[alert release];
-		
-	}
-    else{
-        
-    
-    // Once configured, the location manager must be "started".
+    if(CLLocationManager.locationServicesEnabled)
+        // Once configured, the location manager must be "started".
     [locationManager startUpdatingLocation];
     [self performSelector:@selector(stopUpdatingLocation:) withObject:@"Timed Out" afterDelay:30.0f];
     
-    }
     }
     return self;
 

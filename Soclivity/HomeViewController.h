@@ -14,7 +14,7 @@
 #import "LocationCustomManager.h"
 #import "DetailedActivityInfoInvocation.h"
 #import "NotifyAnimationView.h"
-
+#import "AutoSessionClass.h"
 @class MainServiceManager;
 @class SoclivityManager;
 @class MBProgressHUD;
@@ -23,9 +23,11 @@
 
 @optional
 - (void)showLeft:(id)sender;
+-(void)updateUserNameAndPhotoData;
+-(void)sessionAutoLogout;
 @end
 
-@interface HomeViewController : UIViewController<PullableViewDelegate,GetActivitiesInvocationDelegate,ActivityListViewDelegate,EventsMapViewDelegate,CoreLocationDelegate,DetailedActivityInfoInvocationDelegate,NotifyAnimationViewDelegate>{
+@interface HomeViewController : UIViewController<PullableViewDelegate,GetActivitiesInvocationDelegate,ActivityListViewDelegate,EventsMapViewDelegate,CoreLocationDelegate,DetailedActivityInfoInvocationDelegate,NotifyAnimationViewDelegate,AutoSessionClassDelegate>{
    
     IBOutlet UIButton *profileBtn;
     IBOutlet UIView *topNavBarView;

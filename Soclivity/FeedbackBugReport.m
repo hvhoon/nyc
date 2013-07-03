@@ -39,12 +39,7 @@ static FeedbackBugReport *sharedInstance = nil;
     
     
     NSArray *toRecipients = [NSArray arrayWithObject:@"help@soclivity.com"];
-//<<<<<<< HEAD
-//    [picker setSubject:@"Report A Bug"];
-//=======
-    
     [picker setSubject:@"Bug Alert!"];
-//>>>>>>> 377bff0fc3e9fec99936dac9ac71a89cb48d9312
     [picker setToRecipients:toRecipients];
     [picker setMessageBody:[self messageBody] isHTML:NO];
     [[picker navigationBar] setTintColor:[UIColor clearColor]];

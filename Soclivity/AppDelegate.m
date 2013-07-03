@@ -62,6 +62,7 @@ static NSString* kAppId = @"160726900680967";//kanav
     [TestFlight takeOff:@"fbb407ca-1c4b-46e7-b3a0-dd7f3ee323e6"];
     
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isLoggedIn"];
+    //[[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isLoggedOut"];
     //[self setUpActivityDataList];
     [SoclivitySqliteClass copyDatabaseIfNeeded];
     //UIImageWriteToSavedPhotosAlbum([UIImage imageNamed:@"red_create.png"], nil, nil, nil);
@@ -77,27 +78,27 @@ static NSString* kAppId = @"160726900680967";//kanav
 
     
     
-//    if([[NSUserDefaults standardUserDefaults]boolForKey:@"FacebookLogin"]){
-//        
-//        NSString *nibNameBundle=nil;
-//        if([SoclivityUtilities deviceType] & iPhone5){
-//            nibNameBundle=@"SlideViewController_iphone5";
-//        }
-//        
-//        else{
-//            nibNameBundle=@"SlideViewController";
-//        }
-//        
-//        SlidingDrawerViewController *slideViewController = [[SlidingDrawerViewController alloc] initWithNibName:nibNameBundle bundle:nil];
-//        slideViewController.delegate = slideViewController;
-//        slideViewController.isFBlogged=TRUE;
-//        navigationController=[[UINavigationController alloc]initWithRootViewController:slideViewController];
-//        [slideViewController release];
-//
-//    }
-//    else{
-//            
-    
+    if([[NSUserDefaults standardUserDefaults]boolForKey:@"FacebookLogin"]){
+        
+        NSString *nibNameBundle=nil;
+        if([SoclivityUtilities deviceType] & iPhone5){
+            nibNameBundle=@"SlideViewController_iphone5";
+        }
+        
+        else{
+            nibNameBundle=@"SlideViewController";
+        }
+        
+        SlidingDrawerViewController *slideViewController = [[SlidingDrawerViewController alloc] initWithNibName:nibNameBundle bundle:nil];
+        slideViewController.delegate = slideViewController;
+        slideViewController.isFBlogged=TRUE;
+        navigationController=[[UINavigationController alloc]initWithRootViewController:slideViewController];
+        [slideViewController release];
+
+    }
+    else{
+            
+            
     NSString *nibNameBundle=nil;
     if([SoclivityUtilities deviceType] & iPhone5){
         nibNameBundle=@"WelcomeScreenViewControllerIphone5";
@@ -108,7 +109,7 @@ static NSString* kAppId = @"160726900680967";//kanav
     WelcomeScreenViewController *welcomeScreenViewController=[[WelcomeScreenViewController alloc]initWithNibName:nibNameBundle bundle:nil];
     navigationController=[[UINavigationController alloc]initWithRootViewController:welcomeScreenViewController];
     [welcomeScreenViewController release];
-// }
+ }
     UINavigationBar *NavBar = [navigationController navigationBar];
     
     if ([NavBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)])

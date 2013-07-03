@@ -15,6 +15,7 @@
 -(void)pushToRegistration;
 -(void)pushToHomeViewController;
 -(void)userCancelFBRequest;
+-(void)sessionLogout;
 @end
 
 
@@ -24,8 +25,10 @@
     NSArray *permissions;
     id <FacebookLoginDelegate>FBdelegate;
     MainServiceManager *devServer;
+    NSInteger tagUniqKey;
 }
 @property (nonatomic, retain) NSArray *permissions;
+@property (nonatomic,assign)NSInteger tagUniqKey;
 @property (nonatomic,retain)id <FacebookLoginDelegate>FBdelegate;
 - (void)login;
 -(void)setUpPermissions;

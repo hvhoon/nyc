@@ -112,6 +112,17 @@
     [SoclivityUtilities returnNotificationButtonWithCountUpdate:notifCountButton];
     
 }
+
+-(void)pushSlidingViewController{
+    
+    [delegate updateUserNameAndPhotoData];
+    [self getUpdatedLocationWithActivities];
+
+}
+
+-(void)sessionLogout{
+    [delegate sessionAutoLogout];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -121,14 +132,11 @@
     // Using TestFlight Checkpoint
     [TestFlight passCheckpoint:@"Loading the Home Screen"];
     
-    if(SOC.currentLocation.coordinate.latitude!=0.0f && SOC.currentLocation.coordinate.longitude!=0.0f){
-        
-        [self StartGettingActivities];
-    }
-    else{
-        [self getUpdatedLocationWithActivities];
-    }
+    AutoSessionClass *session=[[AutoSessionClass alloc]init];
+    [session isFacebookTokenValid];
+    session.delegate=self;
 
+    
    
     gradient=1.0;
     CGFloat xOffset = 0;

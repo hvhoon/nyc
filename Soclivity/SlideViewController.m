@@ -416,7 +416,41 @@
 
 -(void)WaitingOnYou_Count
 {
+    
     [_tableView reloadData];
+
+
+}
+
+-(void)updateUserNameAndPhotoData{
+    NSMutableDictionary *viewControllerDictionary = [[[[self.delegate datasource] objectAtIndex:0] objectForKey:kSlideViewControllerSectionViewControllersKey] objectAtIndex:0];
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    
+    SOC.loggedInUser.fullName=[SoclivityUtilities getFirstAndLastName:SOC.loggedInUser.first_name lastName:SOC.loggedInUser.last_name];
+
+    
+    if(SOC.loggedInUser.fullName.length!=0)
+        [viewControllerDictionary setObject:SOC.loggedInUser.fullName forKey:kSlideViewControllerViewControllerTitleKey];
+    
+    SOC.loggedInUser.profileImageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:SOC.loggedInUser.profileImageUrl]];
+
+    if(SOC.registrationObject.profileImageData.length!=0){
+        UIImage* image = [[[UIImage alloc] initWithData:SOC.loggedInUser.profileImageData] autorelease];
+        if(image.size.height != image.size.width)
+            image = [SoclivityUtilities autoCrop:image];
+        
+        // If the image needs to be compressed
+        if(image.size.height > 50 || image.size.width > 50)
+            image = [SoclivityUtilities compressImage:image size:CGSizeMake(50,50)];
+
+
+        [viewControllerDictionary setObject:image forKey:kSlideViewControllerViewControllerIconKey];
+    }
+    
+    
+    
+    [_tableView reloadData];
+
 }
 
 #pragma mark UITableViewDelegate / UITableViewDatasource Methods
@@ -690,10 +724,10 @@
             slideImageView.layer.cornerRadius = imageProfile.size.width/2;
             slideImageView.layer.masksToBounds=YES;
             
-            /*
-            slideImageView.layer.borderWidth = 2.0;
-            slideImageView.layer.borderColor = [SoclivityUtilities returnBackgroundColor:4].CGColor;
-            */
+            
+            //slideImageView.layer.borderWidth = 2.0;
+            //slideImageView.layer.borderColor = [SoclivityUtilities returnBackgroundColor:4].CGColor;
+            
             
             slideImageView.frame=CGRectMake(14, 6, 50, 50);
             
@@ -965,6 +999,10 @@
     } else {
         return 0.0f;
     }
+}
+
+-(void)sessionAutoLogout{
+    [self tableView:_tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:10]];
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         
