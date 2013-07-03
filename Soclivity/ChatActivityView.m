@@ -228,9 +228,9 @@
         case 1:
         {
              [MessageSoundEffect playMessageSentSound];
-            [bubbleData addObject:chat];
-            
-            [self finishSend];
+             [bubbleData addObject:chat];
+             [self.bubbleTable reloadData];
+             [self finishSend];
 
         }
             break;

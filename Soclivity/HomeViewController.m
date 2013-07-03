@@ -109,6 +109,7 @@
 
 
 -(void)UpdateBadgeNotification{
+    
     [SoclivityUtilities returnNotificationButtonWithCountUpdate:notifCountButton];
     
 }
