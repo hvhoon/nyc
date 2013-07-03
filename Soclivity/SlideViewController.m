@@ -1026,6 +1026,14 @@
             
             
         }
+        else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please setup your email account" message:nil
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            
+            [alert show];
+            [alert release];
+
+        }
         return;
     }
     
@@ -1036,6 +1044,14 @@
             [self presentModalViewController:tellAFriendController animated:YES];
             
             
+        }
+        else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please setup your email account" message:nil
+                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            
+            [alert show];
+            [alert release];
+
         }
         return;
     }
