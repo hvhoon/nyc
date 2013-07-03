@@ -919,6 +919,61 @@
     [self bringInFilterPane];
 }
 
+-(void)updateActivityTypes{
+    
+    SOC=[SoclivityManager SharedInstance];
+    
+        if(SOC.filterObject.playDD){
+            [(UILabel*)[self viewWithTag:kPlayLabelText] setAlpha:1.0f];
+            [(UIImageView*)[self viewWithTag:kPlayTickImage]setAlpha:1.0f];
+            
+            
+        }
+        else{
+            [(UILabel*)[self viewWithTag:kPlayLabelText] setAlpha:0.3f];
+            [(UIImageView*)[self viewWithTag:kPlayTickImage]setAlpha:0.3f];
+        }
+        if(SOC.filterObject.eatDD){
+            [(UILabel*)[self viewWithTag:kEatLabelText] setAlpha:1.0f];
+            [(UIImageView*)[self viewWithTag:kEatTickImage]setAlpha:1.0f];
+        }
+        else{
+            [(UILabel*)[self viewWithTag:kEatLabelText] setAlpha:0.3f];
+            [(UIImageView*)[self viewWithTag:kEatTickImage]setAlpha:0.3f];
+            
+        }
+        if(SOC.filterObject.seeDD){
+            [(UILabel*)[self viewWithTag:kSeeLabelText] setAlpha:1.0f];
+            [(UIImageView*)[self viewWithTag:kSeeTickImage]setAlpha:1.0f];
+        }
+        else{
+            [(UILabel*)[self viewWithTag:kSeeLabelText] setAlpha:0.3f];
+            [(UIImageView*)[self viewWithTag:kSeeTickImage]setAlpha:0.3f];
+            
+        }
+        if(SOC.filterObject.createDD){
+            [(UILabel*)[self viewWithTag:kCreateLabelText] setAlpha:1.0f];
+            [(UIImageView*)[self viewWithTag:kCreateTickImage]setAlpha:1.0f];
+        }
+        else{
+            [(UILabel*)[self viewWithTag:kCreateLabelText] setAlpha:0.3f];
+            [(UIImageView*)[self viewWithTag:kCreateTickImage]setAlpha:0.3f];
+            
+        }
+        if(SOC.filterObject.learnDD){
+            [(UILabel*)[self viewWithTag:kLearnLabelText] setAlpha:1.0f];
+            [(UIImageView*)[self viewWithTag:kLearnTickImage]setAlpha:1.0f];
+        }
+        else{
+            [(UILabel*)[self viewWithTag:kLearnLabelText] setAlpha:0.3f];
+            [(UIImageView*)[self viewWithTag:kLearnTickImage]setAlpha:0.3f];
+            
+        }
+    
+    
+    
+}
+
 -(void)pushTodetailActivity:(UIButton*)sender{
     NSLog(@"pushTodetailActivity=%f,%f,%f,%f",sender.frame.size.height,sender.frame.size.width,sender.frame.origin.x,sender.frame.origin.y);
 }
@@ -929,7 +984,7 @@
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
 	
     [searchBar setShowsCancelButton:YES animated:YES];
-#if 0   
+#if 0
     
     for (UIView *subview in [self.homeSearchBar subviews]) {
         UIButton *cancelButton = nil;

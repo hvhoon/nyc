@@ -116,6 +116,8 @@
 -(void)pushSlidingViewController{
     
     [delegate updateUserNameAndPhotoData];
+    
+    [pullDownView updateActivityTypes];
     [self getUpdatedLocationWithActivities];
 
 }
