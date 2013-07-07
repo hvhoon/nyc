@@ -139,8 +139,6 @@
     
     signIn.textColor=[SoclivityUtilities returnTextFontColor:5];
     signIn.backgroundColor=[UIColor clearColor];
-    signIn.shadowColor = [UIColor whiteColor];
-    signIn.shadowOffset = CGSizeMake(0,0.5);
     
     [self.view addSubview:signIn];
     
