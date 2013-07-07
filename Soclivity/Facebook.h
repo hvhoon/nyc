@@ -59,8 +59,7 @@
 - (void)authorize:(NSArray *)permissions;
 
 - (void)extendAccessToken;
-
-- (void)extendAccessTokenIfNeeded;
+- (BOOL)extendAccessTokenIfNeeded;
 
 - (BOOL)shouldExtendAccessToken;
 

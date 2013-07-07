@@ -136,9 +136,16 @@
     [TestFlight passCheckpoint:@"Loading the Home Screen"];
     
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"FacebookLogin"]){
+        
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        if([[appDelegate facebook] extendAccessTokenIfNeeded]){
         AutoSessionClass *session=[[AutoSessionClass alloc]init];
         [session isFacebookTokenValid];
          session.delegate=self;
+        }
+        else{
+            [self getUpdatedLocationWithActivities];
+        }
         
     }
     else{

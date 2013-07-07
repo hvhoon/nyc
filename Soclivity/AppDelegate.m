@@ -63,7 +63,6 @@ static NSString* kAppId = @"160726900680967";//kanav
     
     //[self setUpActivityDataList];
     [SoclivitySqliteClass copyDatabaseIfNeeded];
-    //UIImageWriteToSavedPhotosAlbum([UIImage imageNamed:@"red_create.png"], nil, nil, nil);
 	BOOL openSuccessful=[SoclivitySqliteClass openDatabase:[SoclivitySqliteClass getDBPath]];
 	if(openSuccessful)
 		
