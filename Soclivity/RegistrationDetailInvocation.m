@@ -21,6 +21,7 @@
 -(NSString*)body;
 -(NSString*)updateActivityBody;
 -(NSString*)updateCalendarSync:(BOOL)sync;
+-(NSString*)updateAccessToken;
 @end
 
 @implementation RegistrationDetailInvocation
@@ -67,6 +68,19 @@
             
         }
             break;
+            
+        case 4:
+        {
+            SoclivityManager *SOC=[SoclivityManager SharedInstance];
+            GetPlayersClass *player=SOC.loggedInUser;
+            a= [NSString stringWithFormat:@"dev.soclivity.com/players/%d.json",[player.idSoc intValue]];
+            [self put:a body:[self updateAccessToken]];
+            
+        }
+            break;
+
+            
+            
 
             
     }
@@ -83,6 +97,14 @@
 
 }
 
+-(NSString*)updateAccessToken{
+    NSMutableDictionary* bodyD = [[[NSMutableDictionary alloc] init] autorelease];
+    
+    [bodyD setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"facebookId"] forKey:@"access_token"];
+    
+    return [bodyD JSONRepresentation];
+    
+}
 -(NSString*)updateActivityBody{
     
     NSString *bodyData = [NSString stringWithFormat:@"{\"player\":{\"activity_type_ids\":[%@]}}",[self returnActivityType]];

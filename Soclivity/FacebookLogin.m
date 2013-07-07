@@ -13,7 +13,8 @@
 #import "GetPlayersClass.h"
 #import "MainServiceManager.h"
 #import "SoclivityUtilities.h"
-@interface FacebookLogin(private)<FBSignInInvocationDelegate>
+#import "RegistrationDetailInvocation.h"
+@interface FacebookLogin(private)<FBSignInInvocationDelegate,RegistrationDetailDelegate>
 @end
 
 @implementation FacebookLogin
@@ -265,15 +266,15 @@
         // well on Retina display
         
         [self apiGraphUserPermissions];
+        if([SoclivityUtilities hasNetworkConnection]){
         
         if(tagUniqKey==kAutoLoginProperty){
             
-            [SOC userProfileDataUpdate];
-            [FBdelegate pushToHomeViewController];
+            [devServer registrationDetailInvocation:self isFBuser:YES isActivityUpdate:4];
             
         }else{
-        if([SoclivityUtilities hasNetworkConnection]){
         [devServer postFBSignInInvocation:SOC.registrationObject.email facebookUid:SOC.registrationObject.facebookUId fbAccessToken:[[NSUserDefaults standardUserDefaults] valueForKey:@"facebookId"] delegate:self];
+        }
         }
         else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Connect Your Device To Internet" message:nil 
@@ -287,7 +288,6 @@
 
     }
          
-    }
     
     else {
         // Processing permissions information
@@ -336,6 +336,16 @@
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:SOC.loggedInUser.badgeCount];
         [FBdelegate pushToHomeViewController];
     }
+}
+
+-(void)RegistrationDetailInvocationDidFinish:(RegistrationDetailInvocation*)invocation
+                                  withResult:(NSArray*)result andUpdateType:(BOOL)andUpdateType
+                                   withError:(NSError*)error{
+    
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    [SOC userProfileDataUpdate];
+    [FBdelegate pushToHomeViewController];
+
 }
 
 @end
