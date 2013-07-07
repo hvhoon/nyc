@@ -170,7 +170,6 @@
     pullDownView.center = pullDownView.closedCenter;
     
     
-    //kanav handle layout
     
     pullDownView.handleView.frame = CGRectMake(5, 402, 58, 58);
     pullDownView.delegate = self;
