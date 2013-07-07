@@ -432,10 +432,16 @@
     if(SOC.loggedInUser.fullName.length!=0)
         [viewControllerDictionary setObject:SOC.loggedInUser.fullName forKey:kSlideViewControllerViewControllerTitleKey];
     
-    SOC.loggedInUser.profileImageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:SOC.loggedInUser.profileImageUrl]];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *getImagePath = [documentsDirectory stringByAppendingPathComponent:@"savedImage.png"];
+    UIImage *image = [UIImage imageWithContentsOfFile:getImagePath];
 
-    if(SOC.registrationObject.profileImageData.length!=0){
-        UIImage* image = [[[UIImage alloc] initWithData:SOC.loggedInUser.profileImageData] autorelease];
+    
+//    SOC.loggedInUser.profileImageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:SOC.loggedInUser.profileImageUrl]];
+//
+//    if(SOC.registrationObject.profileImageData.length!=0){
+       // UIImage* image = [[[UIImage alloc] initWithData:SOC.loggedInUser.profileImageData] autorelease];
         if(image.size.height != image.size.width)
             image = [SoclivityUtilities autoCrop:image];
         
@@ -445,7 +451,7 @@
 
 
         [viewControllerDictionary setObject:image forKey:kSlideViewControllerViewControllerIconKey];
-    }
+//    }
     
     
     
@@ -835,7 +841,7 @@
     
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     GetPlayersClass *player=SOC.loggedInUser;
-    
+    [SOC userProfileDataUpdate];
     if(player.calendarSync){
         
         [devServer getUpcomingActivitiesForUserInvocation:[SOC.loggedInUser.idSoc intValue] player2:[SOC.loggedInUser.idSoc intValue] delegate:self];

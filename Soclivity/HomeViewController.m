@@ -116,8 +116,8 @@
 
 -(void)pushSlidingViewController{
     
+    [SOC getUserObjectInAutoSignInMode];
     [delegate updateUserNameAndPhotoData];
-    
     [pullDownView updateActivityTypes];
     [self getUpdatedLocationWithActivities];
 
@@ -135,9 +135,20 @@
     // Using TestFlight Checkpoint
     [TestFlight passCheckpoint:@"Loading the Home Screen"];
     
-    AutoSessionClass *session=[[AutoSessionClass alloc]init];
-    [session isFacebookTokenValid];
-    session.delegate=self;
+    if([[NSUserDefaults standardUserDefaults]boolForKey:@"FacebookLogin"]){
+        AutoSessionClass *session=[[AutoSessionClass alloc]init];
+        [session isFacebookTokenValid];
+         session.delegate=self;
+        
+    }
+    else{
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"FacebookLogin"];
+        [SOC userProfileDataUpdate];
+        [self getUpdatedLocationWithActivities];
+    }
+    
+
+    
 
     
    

@@ -26,7 +26,6 @@
 @synthesize statusMessage;
 @synthesize FBProfileImage;
 @synthesize fullName;
-@synthesize current_location;
 @synthesize facebookUId;
 @synthesize facebookAccessToken;
 @synthesize registered;
@@ -34,6 +33,8 @@
 @synthesize channel;
 @synthesize badgeCount;
 @synthesize calendarSync;
+@synthesize fbAccessToken;
+@synthesize DDActivityTypes;
 -(void)dealloc{
     [super dealloc];
     [birth_date release];
@@ -41,7 +42,6 @@
     [email release];
     [fullName release];
     [first_name release];
-    [current_location release];
     [idSoc release];
     [last_name release];
     [updated_at release];
@@ -57,5 +57,7 @@
     [facebookAccessToken release];
     [profileImageUrl release];
     [channel release];
+    [fbAccessToken release];
+    [DDActivityTypes release];
 }
 @end

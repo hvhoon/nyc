@@ -112,7 +112,20 @@
             mappedKey=key;
         }
 
-        
+        else if ([mappedKey isEqualToString:@"access_token"]) {
+            
+            mappedKey=key;
+        }
+        else if ([mappedKey isEqualToString:@"fbuid"]) {
+            
+            mappedKey=key;
+        }
+
+        else if ([mappedKey isEqualToString:@"gender"]) {
+            
+            mappedKey=key;
+        }
+
         
         else if ([key isEqualToString:@"created_at"]) {
 			mappedKey=key;
@@ -253,6 +266,27 @@
             
             mappedKey=nil;
             }
+        
+        else if ([mappedKey isEqualToString:@"access_token"]) {
+            self.playerObject.fbAccessToken = string;
+            
+            mappedKey=nil;
+        }
+        else if ([mappedKey isEqualToString:@"fbuid"]) {
+            self.playerObject.facebookUId = string;
+            
+            mappedKey=nil;
+        }
+        else if ([mappedKey isEqualToString:@"gender"]) {
+            self.playerObject.gender = string;
+            
+            mappedKey=nil;
+        }
+
+
+        
+        
+
         else if ([mappedKey isEqualToString:@"created_at"]) {
             self.playerObject.created_at = string;
             
@@ -295,6 +329,7 @@
         
         else if ([mappedKey isEqualToString:@"atypes"]) {
             self.playerObject.activityTypes = string;
+            self.playerObject.DDActivityTypes=string;
             SoclivityManager *SOC=[SoclivityManager SharedInstance];
             SOC.filterObject.playDD=FALSE;
             SOC.filterObject.eatDD=FALSE;

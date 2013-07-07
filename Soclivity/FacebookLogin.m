@@ -187,7 +187,29 @@
             SOC.registrationObject.gender=[result objectForKey:@"sex"];
         }
         if([result objectForKey:@"current_location"]){
-            SOC.registrationObject.current_location=[result objectForKey:@"current_location"];
+            NSLog(@"%@",[result objectForKey:@"current_location"]);
+            
+            id current_location = [result objectForKey:@"current_location"];
+            if (current_location != nil && [current_location class] != [NSNull class]) {
+                
+                id country = [current_location objectForKey:@"country"];
+                if (country != nil) {
+                    NSLog(@"country=%@",country);
+                } else {
+                    // current_location has no country
+                }
+                
+                id city = [current_location objectForKey:@"city"];
+                if (city != nil) {
+                    NSLog(@"country=%@",city);
+                } else {
+                    // current_location has no country
+                }
+                
+                
+            } else {
+                // fbResult has no current_location
+            }
         }
         if([result objectForKey:@"last_name"]){
             SOC.registrationObject.last_name=[result objectForKey:@"last_name"];
@@ -216,6 +238,17 @@
 
         // Get the profile image
         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[result objectForKey:@"pic"]]]];
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *savedImagePath = [documentsDirectory stringByAppendingPathComponent:@"savedImage.png"];
+        
+        
+        
+        
+        NSData *imageData = UIImagePNGRepresentation(image);
+        [imageData writeToFile:savedImagePath atomically:NO];
+
         SOC.registrationObject.FBProfileImage=image;
         
         if(image.size.height != image.size.width)
@@ -232,6 +265,13 @@
         // well on Retina display
         
         [self apiGraphUserPermissions];
+        
+        if(tagUniqKey==kAutoLoginProperty){
+            
+            [SOC userProfileDataUpdate];
+            [FBdelegate pushToHomeViewController];
+            
+        }else{
         if([SoclivityUtilities hasNetworkConnection]){
         [devServer postFBSignInInvocation:SOC.registrationObject.email facebookUid:SOC.registrationObject.facebookUId fbAccessToken:[[NSUserDefaults standardUserDefaults] valueForKey:@"facebookId"] delegate:self];
         }
@@ -245,7 +285,7 @@
             
         }
 
-        
+    }
          
     }
     

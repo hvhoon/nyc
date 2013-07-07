@@ -263,7 +263,7 @@ static sqlite3 *database = nil;
              }
     
       return listOfValidActivitiesArray;
-	}
+}
     
 	
 +(void)UpadateTheActivityEventTable:(InfoActivityClass*)ActObj{

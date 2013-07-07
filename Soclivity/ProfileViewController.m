@@ -267,6 +267,7 @@
         
         
         [self startAnimation:show];
+        [SOC userProfileDataUpdate];
         [devServer registrationDetailInvocation:self isFBuser:NO isActivityUpdate:2];
         
         
@@ -423,7 +424,6 @@
 -(void)PushHomeScreen{
     
     
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"FacebookLogin"];
     
     NSString *nibNameBundle=nil;
     if([SoclivityUtilities deviceType] & iPhone5){

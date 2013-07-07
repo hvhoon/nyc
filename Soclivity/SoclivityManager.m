@@ -29,6 +29,7 @@
     
     if(self=[super init]){
         registrationObject=[[GetPlayersClass alloc]init];
+        loggedInUser=[[GetPlayersClass alloc]init];
         AllowTapAndDrag=TRUE;
         filterObject=[[FilterPreferenceClass alloc]init];
         filterObject.whenSearchType=2;
@@ -355,4 +356,365 @@
     
 }
 
+
+-(NSString*)returnActivityType:(NSInteger)type{
+    FilterPreferenceClass*idObj=self.filterObject;
+    
+    NSString *activitySelect=nil;
+    
+    switch (type) {
+        case 1:
+        {
+            for(int i=0;i<5;i++){
+                switch (i) {
+                    case 0:
+                    {
+                        if(idObj.playDD){
+                            if(activitySelect==nil)
+                                activitySelect=[NSString stringWithFormat:@"1"];
+                        }
+                    }
+                        break;
+                        
+                    case 1:
+                    {
+                        if(idObj.eatDD){
+                            if(activitySelect==nil)
+                                activitySelect=[NSString stringWithFormat:@"2"];
+                            else{
+                                activitySelect=[NSString stringWithFormat:@"%@,2",activitySelect];
+                                
+                            }
+                        }
+                    }
+                        break;
+                    case 2:
+                    {
+                        if(idObj.seeDD){
+                            if(activitySelect==nil)
+                                activitySelect=[NSString stringWithFormat:@"3"];
+                            else{
+                                activitySelect=[NSString stringWithFormat:@"%@,3",activitySelect];
+                                
+                            }
+                        }
+                    }
+                        break;
+                    case 3:
+                    {
+                        if(idObj.createDD){
+                            if(activitySelect==nil)
+                                activitySelect=[NSString stringWithFormat:@"4"];
+                            else{
+                                activitySelect=[NSString stringWithFormat:@"%@,4",activitySelect];
+                                
+                            }
+                        }
+                    }
+                        break;
+                    case 4:
+                    {
+                        if(idObj.learnDD){
+                            if(activitySelect==nil)
+                                activitySelect=[NSString stringWithFormat:@"5"];
+                            else{
+                                activitySelect=[NSString stringWithFormat:@"%@,5",activitySelect];
+                                
+                            }
+                        }
+                    }
+                        break;
+                        
+                        
+                        
+                }
+                
+            }
+        }
+            break;
+            
+        case 2:
+        {
+            for(int i=0;i<5;i++){
+                switch (i) {
+                    case 0:
+                    {
+                        if(idObj.playAct){
+                            if(activitySelect==nil)
+                                activitySelect=[NSString stringWithFormat:@"1"];
+                        }
+                    }
+                        break;
+                        
+                    case 1:
+                    {
+                        if(idObj.eatAct){
+                            if(activitySelect==nil)
+                                activitySelect=[NSString stringWithFormat:@"2"];
+                            else{
+                                activitySelect=[NSString stringWithFormat:@"%@,2",activitySelect];
+                                
+                            }
+                        }
+                    }
+                        break;
+                    case 2:
+                    {
+                        if(idObj.seeAct){
+                            if(activitySelect==nil)
+                                activitySelect=[NSString stringWithFormat:@"3"];
+                            else{
+                                activitySelect=[NSString stringWithFormat:@"%@,3",activitySelect];
+                                
+                            }
+                        }
+                    }
+                        break;
+                    case 3:
+                    {
+                        if(idObj.createAct){
+                            if(activitySelect==nil)
+                                activitySelect=[NSString stringWithFormat:@"4"];
+                            else{
+                                activitySelect=[NSString stringWithFormat:@"%@,4",activitySelect];
+                                
+                            }
+                        }
+                    }
+                        break;
+                    case 4:
+                    {
+                        if(idObj.learnAct){
+                            if(activitySelect==nil)
+                                activitySelect=[NSString stringWithFormat:@"5"];
+                            else{
+                                activitySelect=[NSString stringWithFormat:@"%@,5",activitySelect];
+                                
+                            }
+                        }
+                    }
+                        break;
+                        
+                        
+                        
+                }
+                
+            }
+        }
+            break;
+    }
+
+    return activitySelect;
+}
+
+
+-(void)userProfileDataUpdate{
+        NSError *error;
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+        NSString *documentsDirectory = [paths objectAtIndex:0]; //2
+        NSString *path = [documentsDirectory stringByAppendingPathComponent:@"User.plist"]; //3
+        
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        
+        if (![fileManager fileExistsAtPath: path]) //4
+        {
+            NSString *bundle = [[NSBundle mainBundle] pathForResource:@"User" ofType:@"plist"]; //5
+            
+            [fileManager copyItemAtPath:bundle toPath: path error:&error]; //6
+        }
+    
+        
+        NSMutableDictionary *array = [NSMutableDictionary dictionaryWithContentsOfFile:path];
+        
+        if (nil == array) {
+            array = [[NSMutableDictionary alloc] initWithCapacity:0];
+        }
+        else {
+            [array retain];
+        }
+        
+        //here add elements to data file and write data to file
+    
+    self.loggedInUser.DDActivityTypes=[self returnActivityType:1];
+    self.loggedInUser.activityTypes=[self returnActivityType:2];
+        if(self.registrationObject.facebookAccessToken != nil && [self.registrationObject.facebookAccessToken class] != [NSNull class])
+        [array setObject:self.registrationObject.facebookAccessToken forKey:@"access_token"];
+    if(self.loggedInUser.activityTypes != nil && [self.loggedInUser.activityTypes class] != [NSNull class])
+
+        [array setObject:self.loggedInUser.activityTypes forKey:@"atypes"];
+    
+    if(self.loggedInUser.DDActivityTypes != nil && [self.loggedInUser.DDActivityTypes class] != [NSNull class])
+        
+        [array setObject:self.loggedInUser.DDActivityTypes forKey:@"DDAtypes"];
+
+        [array setObject:[NSNumber numberWithBool:self.loggedInUser.calendarSync] forKey:@"calendar_status"];
+    if(self.registrationObject.email != nil && [self.registrationObject.email class] != [NSNull class])
+
+        [array setObject:self.registrationObject.email forKey:@"email"];
+    if(self.registrationObject.facebookUId != nil && [self.registrationObject.facebookUId class] != [NSNull class])
+
+        [array setObject:self.registrationObject.facebookUId forKey:@"fbuid"];
+    if(self.registrationObject.first_name != nil && [self.registrationObject.first_name class] != [NSNull class])
+
+            [array setObject:self.registrationObject.first_name forKey:@"first_name"];
+    if(self.registrationObject.gender != nil && [self.registrationObject.gender class] != [NSNull class])
+
+            [array setObject:self.registrationObject.gender forKey:@"gender"];
+    
+    if(self.loggedInUser.idSoc != nil && [self.loggedInUser.idSoc class] != [NSNull class])
+
+    
+        [array setObject:self.loggedInUser.idSoc forKey:@"id"];
+    if(self.registrationObject.last_name != nil && [self.registrationObject.last_name class] != [NSNull class])
+
+        [array setObject:self.registrationObject.last_name forKey:@"last_name"];
+    if(self.currentLocation != nil && [self.currentLocation class] != [NSNull class]){
+
+        [array setObject:[NSNumber numberWithFloat:self.currentLocation.coordinate.latitude] forKey:@"location_lat"];
+        [array setObject:[NSNumber numberWithFloat:self.currentLocation.coordinate.longitude] forKey:@"location_lng"];
+    }
+    if(self.loggedInUser.profileImageUrl != nil && [self.loggedInUser.profileImageUrl class] != [NSNull class])
+    [array setObject:self.loggedInUser.profileImageUrl forKey:@"photo_url"];
+
+   [array writeToFile:path atomically:YES];
+        
+        
+        
+        
+        
+    
+}
+-(void)getUserObjectInAutoSignInMode{
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+    NSString *documentsDirectory = [paths objectAtIndex:0]; //2
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"User.plist"]; //3
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath: path]) //4
+    {
+        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"User" ofType:@"plist"]; //5
+        
+        [fileManager copyItemAtPath:bundle toPath: path error:&error]; //6
+    }
+    
+    
+    NSMutableDictionary *array = [NSMutableDictionary dictionaryWithContentsOfFile:path];
+    
+    if (nil == array) {
+        array = [[NSMutableDictionary alloc] initWithCapacity:0];
+    }
+    else {
+        [array retain];
+    }
+    
+    GetPlayersClass *player=[[GetPlayersClass alloc]init];
+    player.fbAccessToken=[array valueForKey:@"access_token"];
+    player.activityTypes=[array valueForKey:@"atypes"];
+    player.DDActivityTypes=[array valueForKey:@"DDAtypes"];
+    player.calendarSync=[[array valueForKey:@"calendar_status"]boolValue];
+    player.email=[array valueForKey:@"email"];
+    player.facebookUId=[array valueForKey:@"fbuid"];
+    player.first_name=[array valueForKey:@"first_name"];
+    player.last_name=[array valueForKey:@"last_name"];
+    player.gender=[array valueForKey:@"gender"];
+    player.idSoc=[array valueForKey:@"id"];
+    player.profileImageUrl=[array valueForKey:@"photo_url"];
+
+    self.filterObject.playDD=FALSE;
+    self.filterObject.eatDD=FALSE;
+    self.filterObject.seeDD=FALSE;
+    self.filterObject.createDD=FALSE;
+    self.filterObject.learnDD=FALSE;
+
+    self.filterObject.playAct=FALSE;
+    self.filterObject.eatAct=FALSE;
+    self.filterObject.seeAct=FALSE;
+    self.filterObject.createAct=FALSE;
+    self.filterObject.learnAct=FALSE;
+
+    self.filterObject.whenSearchType=2;
+
+
+    NSArray *timeArray = [player.activityTypes componentsSeparatedByString:@","];
+    
+    for(NSString *actType in timeArray){
+        
+        int activity=[actType intValue];
+        switch (activity) {
+            case 1:
+            {
+                self.filterObject.playAct=TRUE;
+            }
+                break;
+            case 2:
+            {
+                self.filterObject.eatAct=TRUE;
+                
+            }
+                break;
+            case 3:
+            {
+                self.filterObject.seeAct=TRUE;
+                
+            }
+                break;
+            case 4:
+            {
+                self.filterObject.createAct=TRUE;
+                
+            }
+                break;
+            case 5:
+            {
+                self.filterObject.learnAct=TRUE;
+                
+            }
+                break;
+                
+        }
+    }
+
+timeArray = [player.DDActivityTypes componentsSeparatedByString:@","];
+
+for(NSString *actType in timeArray){
+    
+    int activity=[actType intValue];
+    switch (activity) {
+        case 1:
+        {
+            self.filterObject.playDD=TRUE;
+        }
+            break;
+        case 2:
+        {
+            self.filterObject.eatDD=TRUE;
+            
+        }
+            break;
+        case 3:
+        {
+            self.filterObject.seeDD=TRUE;
+            
+        }
+            break;
+        case 4:
+        {
+            self.filterObject.createDD=TRUE;
+            
+        }
+            break;
+        case 5:
+        {
+            self.filterObject.learnDD=TRUE;
+            
+        }
+            break;
+            
+    }
+}
+
+   self.loggedInUser=player;
+}
 @end

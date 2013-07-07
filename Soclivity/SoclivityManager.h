@@ -46,4 +46,7 @@
 -(void)performCalendarActivity:(NSMutableArray*)array;
 -(void)deleteASingleEvent:(NSInteger)activityId;
 -(void)deltaUpdateSyncCalendar:(InfoActivityClass*)activity;
+-(void)userProfileDataUpdate;
+-(void)getUserObjectInAutoSignInMode;
+-(NSString*)returnActivityType:(NSInteger)type;
 @end

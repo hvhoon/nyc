@@ -239,7 +239,6 @@
         {
             [MessageSoundEffect playMessageReceivedSound];
             [bubbleData addObject:chat];
-            
             [self.bubbleTable reloadData];
             [self scrollToBottomAnimated:YES];
 
@@ -293,7 +292,6 @@
 {
     [self.inputView.textView setText:nil];
     [self textViewDidChange:self.inputView.textView];
-    [self.bubbleTable reloadData];
     [self scrollToBottomAnimated:YES];
 }
 

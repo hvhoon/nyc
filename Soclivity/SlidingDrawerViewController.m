@@ -66,8 +66,14 @@
 
         [profileViewControllerDictionary setObject:[ProfileViewController class] forKey:kSlideViewControllerViewControllerClassKey];
         
-        SOC.loggedInUser.profileImageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:SOC.loggedInUser.profileImageUrl]];
-        UIImage* image = [[[UIImage alloc] initWithData:SOC.loggedInUser.profileImageData ] autorelease];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *getImagePath = [documentsDirectory stringByAppendingPathComponent:@"savedImage.png"];
+        UIImage *image = [UIImage imageWithContentsOfFile:getImagePath];
+
+        
+//        SOC.loggedInUser.profileImageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:SOC.loggedInUser.profileImageUrl]];
+//        UIImage* image = [[[UIImage alloc] initWithData:SOC.loggedInUser.profileImageData ] autorelease];
         if(image.size.height != image.size.width)
             image = [SoclivityUtilities autoCrop:image];
         
@@ -75,8 +81,8 @@
         if(image.size.height > 50 || image.size.width > 50)
             image = [SoclivityUtilities compressImage:image size:CGSizeMake(50,50)];
     
-        if(SOC.loggedInUser.profileImageData.length!=0)
-        [profileViewControllerDictionary setObject:image forKey:kSlideViewControllerViewControllerIconKey];
+            if(image != nil && [image class] != [NSNull class])
+                [profileViewControllerDictionary setObject:image forKey:kSlideViewControllerViewControllerIconKey];
         
         
         [sectionOne setObject:[NSArray arrayWithObject:profileViewControllerDictionary] forKey:kSlideViewControllerSectionViewControllersKey];
@@ -379,11 +385,7 @@
 - (void)FBlogout {
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"FacebookLogin"];
-    
-        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isLoggedIn"];
-    
-    //if(![[NSUserDefaults standardUserDefaults]valueForKey:@"isLoggedOut"])
-          [[delegate facebook] logout];
+     [[delegate facebook] logout];
 }
 
 - (void)configureSearchDatasourceWithString:(NSString *)string {

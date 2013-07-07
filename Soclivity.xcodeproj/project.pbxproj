@@ -51,6 +51,8 @@
 		18C27CDB16D91F0E00754EA6 /* S05.3_sendInactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C27CC316D91F0E00754EA6 /* S05.3_sendInactive@2x.png */; };
 		18C27CE216D9305F00754EA6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C27CE116D9305F00754EA6 /* AudioToolbox.framework */; };
 		18C27CEA16D949D000754EA6 /* ChatBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C27CE916D949D000754EA6 /* ChatBar.png */; };
+		18C2BA281789B91C00B281B2 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C2BA271789B91C00B281B2 /* Icon.png */; };
+		18C2BA2A1789B93000B281B2 /* User.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18C2BA291789B93000B281B2 /* User.plist */; };
 		18C48364178329F70029FBAC /* AutoSessionClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C48363178329F70029FBAC /* AutoSessionClass.m */; };
 		18D5AD6716EF8BBA002C5430 /* notification.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D5AD6216EF8BBA002C5430 /* notification.png */; };
 		18D5AD6816EF8BBA002C5430 /* S05.3_inputTextBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D5AD6316EF8BBA002C5430 /* S05.3_inputTextBar.png */; };
@@ -114,7 +116,6 @@
 		680CE4241551284800B8E937 /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = 680CE4141551284700B8E937 /* UIImage+Tint.m */; };
 		680CE4251551284800B8E937 /* WelcomeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 680CE4161551284800B8E937 /* WelcomeScreenViewController.m */; };
 		680CE4261551284800B8E937 /* WelcomeScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 680CE4171551284800B8E937 /* WelcomeScreenViewController.xib */; };
-		681C889816410F99004659AE /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 681C889616410F99004659AE /* Icon.png */; };
 		681C889916410F99004659AE /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 681C889716410F99004659AE /* Icon@2x.png */; };
 		6820EB67156E9342006DEDD3 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6820EB66156E9342006DEDD3 /* MBProgressHUD.m */; };
 		6838EDF516A0D5B300C9AA64 /* notifyDigit1.png in Resources */ = {isa = PBXBuildFile; fileRef = 6838EDF116A0D5B300C9AA64 /* notifyDigit1.png */; };
@@ -881,6 +882,8 @@
 		18C27CDF16D9303D00754EA6 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		18C27CE116D9305F00754EA6 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		18C27CE916D949D000754EA6 /* ChatBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChatBar.png; sourceTree = "<group>"; };
+		18C2BA271789B91C00B281B2 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		18C2BA291789B93000B281B2 /* User.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = User.plist; sourceTree = "<group>"; };
 		18C48362178329F70029FBAC /* AutoSessionClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoSessionClass.h; sourceTree = "<group>"; };
 		18C48363178329F70029FBAC /* AutoSessionClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoSessionClass.m; sourceTree = "<group>"; };
 		18D5AD6216EF8BBA002C5430 /* notification.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notification.png; sourceTree = "<group>"; };
@@ -977,7 +980,6 @@
 		680CE4151551284800B8E937 /* WelcomeScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeScreenViewController.h; sourceTree = "<group>"; };
 		680CE4161551284800B8E937 /* WelcomeScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeScreenViewController.m; sourceTree = "<group>"; };
 		680CE4171551284800B8E937 /* WelcomeScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeScreenViewController.xib; sourceTree = "<group>"; };
-		681C889616410F99004659AE /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		681C889716410F99004659AE /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		6820EB65156E9342006DEDD3 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		6820EB66156E9342006DEDD3 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
@@ -2170,6 +2172,7 @@
 		680CE3E91551258700B8E937 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				18C2BA291789B93000B281B2 /* User.plist */,
 				18AD11FC1715E9CB00CC9870 /* Folder.plist */,
 				EACE5F62165B9A7C00D1B3D0 /* Notifications.plist */,
 				EAE094D11619A7C8005E69D0 /* Friends.plist */,
@@ -2188,7 +2191,7 @@
 		680CE4271551286D00B8E937 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				681C889616410F99004659AE /* Icon.png */,
+				18C2BA271789B91C00B281B2 /* Icon.png */,
 				681C889716410F99004659AE /* Icon@2x.png */,
 				6802EC3515B6611E00FF0048 /* Common */,
 				68BF4F6E155CAEF5005399B3 /* Fonts */,
@@ -4157,7 +4160,6 @@
 				680B19AF1628E71B00EF3423 /* privateBlack@2x.png in Resources */,
 				680B19B01628E71B00EF3423 /* publicBlack.png in Resources */,
 				680B19B11628E71B00EF3423 /* publicBlack@2x.png in Resources */,
-				681C889816410F99004659AE /* Icon.png in Resources */,
 				681C889916410F99004659AE /* Icon@2x.png in Resources */,
 				EAE55A6A164285440038B1F6 /* S10_completed.png in Resources */,
 				EAE55A6B164285440038B1F6 /* S10_completed@2x.png in Resources */,
@@ -4284,6 +4286,8 @@
 				685B3E0117443B9200F9BCF0 /* README.md in Resources */,
 				685B3E0217443B9200F9BCF0 /* release_notes.md in Resources */,
 				1835D789176DCF70009D8501 /* CreateActivityViewController.xib in Resources */,
+				18C2BA281789B91C00B281B2 /* Icon.png in Resources */,
+				18C2BA2A1789B93000B281B2 /* User.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

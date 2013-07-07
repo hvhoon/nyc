@@ -835,6 +835,8 @@
             
             
     }
+    
+    [SOC userProfileDataUpdate];
 
 }
 
