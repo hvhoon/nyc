@@ -371,7 +371,6 @@
             }
             else {
                 SOC.loggedInUser=obj;
-                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isLoggedIn"];
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Successful"
                                                                 message:@"Welcome to Soclivity!"
                                                                delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK",nil];

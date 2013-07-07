@@ -61,8 +61,6 @@ static NSString* kAppId = @"160726900680967";//kanav
     [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
     [TestFlight takeOff:@"fbb407ca-1c4b-46e7-b3a0-dd7f3ee323e6"];
     
-    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isLoggedIn"];
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isReading"];
     //[self setUpActivityDataList];
     [SoclivitySqliteClass copyDatabaseIfNeeded];
     //UIImageWriteToSavedPhotosAlbum([UIImage imageNamed:@"red_create.png"], nil, nil, nil);
@@ -381,7 +379,6 @@ static NSString* kAppId = @"160726900680967";//kanav
     
 
 #if 0
-    if([[NSUserDefaults standardUserDefaults]boolForKey:@"isLoggedIn"]){
     NSAssert(self->bgTask == UIBackgroundTaskInvalid, nil);
     
     currentBackgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
@@ -406,7 +403,7 @@ static NSString* kAppId = @"160726900680967";//kanav
     
     dispatch_release(currentBackgroundQueue);
         
-    }
+    
 #endif
 }
 
