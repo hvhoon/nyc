@@ -62,6 +62,34 @@
     [super viewWillAppear:animated];
     
     
+    if([[NSUserDefaults standardUserDefaults]boolForKey:@"FacebookLogin"]){
+        
+        //        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        //        if(![[appDelegate facebook] extendAccessTokenIfNeeded]){
+        AutoSessionClass *session=[[AutoSessionClass alloc]init];
+        [session isFacebookTokenValid];
+        session.delegate=self;
+        //        }
+        //        else{
+        //            [self pushSlidingViewController];
+        //        }
+        
+    }
+    else{
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"FacebookLogin"];
+        [SOC userProfileDataUpdate];
+        if(SOC.currentLocation.coordinate.latitude!=0.0f && SOC.currentLocation.coordinate.longitude!=0.0f){
+            [self StartGettingActivities];
+        }
+        else{
+            [self getUpdatedLocationWithActivities];
+            
+        }
+        
+    }
+
+    
+    
     [addButton setBackgroundImage:[UIImage imageNamed:@"addevent.png"] forState:UIControlStateNormal];
     [addButton setBackgroundImage:[UIImage imageNamed:@"addevent.png"] forState:UIControlStateHighlighted];
     
@@ -119,7 +147,14 @@
     [SOC getUserObjectInAutoSignInMode];
     [delegate updateUserNameAndPhotoData];
     [pullDownView updateActivityTypes];
-    [self getUpdatedLocationWithActivities];
+    
+    if(SOC.currentLocation.coordinate.latitude!=0.0f && SOC.currentLocation.coordinate.longitude!=0.0f){
+        [self StartGettingActivities];
+    }
+    else{
+        [self getUpdatedLocationWithActivities];
+        
+    }
 
 }
 
@@ -135,24 +170,6 @@
     // Using TestFlight Checkpoint
     [TestFlight passCheckpoint:@"Loading the Home Screen"];
     
-    if([[NSUserDefaults standardUserDefaults]boolForKey:@"FacebookLogin"]){
-        
-//        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-//        if(![[appDelegate facebook] extendAccessTokenIfNeeded]){
-            AutoSessionClass *session=[[AutoSessionClass alloc]init];
-            [session isFacebookTokenValid];
-             session.delegate=self;
-//        }
-//        else{
-//            [self pushSlidingViewController];
-//        }
-        
-    }
-    else{
-        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"FacebookLogin"];
-        [SOC userProfileDataUpdate];
-        [self getUpdatedLocationWithActivities];
-    }
     
 
     
@@ -382,6 +399,7 @@
 }
 
 -(void)getUpdatedLocationWithActivities{
+    
     LocationCustomManager *SocLocation=[[LocationCustomManager alloc]init];
     SocLocation.delegate=self;
     SocLocation.theTag=kLatLongAndActivities;

@@ -287,6 +287,15 @@
             
         }
             break;
+            
+        case 4:
+            
+        {
+            [self.delegate RegistrationDetailInvocationDidFinish:self withResult:nil  andUpdateType:activityTypeUpdate withError:nil];
+            
+        }
+            
+            break;
 
             
     }
