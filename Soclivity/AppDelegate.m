@@ -18,6 +18,7 @@
 #import "SlideViewController.h"
 #import "TestFlight.h"
 #import "SlidingDrawerViewController.h"
+#import "AutoSessionClass.h"
 
 static NSString* kAppId = @"160726900680967";//kanav
 #define kShowAlertKey @"ShowAlert"
@@ -263,7 +264,6 @@ static NSString* kAppId = @"160726900680967";//kanav
     
      NSLog(@"SetUpFacebook");
     
-     [self registerForNotifications];
     
     FacebookLogin *login=[[FacebookLogin alloc]init];
 
@@ -452,10 +452,31 @@ static NSString* kAppId = @"160726900680967";//kanav
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    [[self facebook] extendAccessTokenIfNeeded];
+    //[[self facebook] extendAccessTokenIfNeeded];
+    if([[NSUserDefaults standardUserDefaults]boolForKey:@"FacebookLogin"]){
+        
+        [self extendToken];
+//    [NSThread detachNewThreadSelector:@selector(extendToken) toTarget:self withObject:nil];
+    }
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
+}
+-(void)extendToken{
+    AutoSessionClass *session=[[AutoSessionClass alloc]init];
+    [session isFacebookTokenValid];
+    session.delegate=self;
+
+}
+
+-(void)pushSlidingViewController{
+    NSLog(@"Test in app Delegate");
+}
+-(void)sessionLogout{
+        NSLog(@"sessionLogout");
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"FacebookLogin"];
+    [[self facebook] logout];
+
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

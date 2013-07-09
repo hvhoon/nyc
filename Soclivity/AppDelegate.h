@@ -11,9 +11,10 @@
 #import "RRAViewController.h"
 #import "MainServiceManager.h"
 #import "SoclivityManager.h"
+#import "AutoSessionClass.h"
 @class FacebookLogin;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate>{
+@interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate,AutoSessionClassDelegate>{
     UINavigationController *navigationController;
     Facebook *facebook;
     NSMutableDictionary *userPermissions;

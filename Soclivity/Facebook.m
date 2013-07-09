@@ -360,12 +360,10 @@ static void *finishedContext = @"finishedContext";
 /**
  * Calls extendAccessToken if shouldExtendAccessToken returns YES.
  */
-- (BOOL)extendAccessTokenIfNeeded {
+- (void)extendAccessTokenIfNeeded {
     if ([self shouldExtendAccessToken]) {
         [self extendAccessToken];
-        return YES;
     }
-    return NO;
 }
 
 /**

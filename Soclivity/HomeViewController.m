@@ -62,31 +62,6 @@
     [super viewWillAppear:animated];
     
     
-    if([[NSUserDefaults standardUserDefaults]boolForKey:@"FacebookLogin"]){
-        
-        //        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        //        if(![[appDelegate facebook] extendAccessTokenIfNeeded]){
-        AutoSessionClass *session=[[AutoSessionClass alloc]init];
-        [session isFacebookTokenValid];
-        session.delegate=self;
-        //        }
-        //        else{
-        //            [self pushSlidingViewController];
-        //        }
-        
-    }
-    else{
-        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"FacebookLogin"];
-        [SOC userProfileDataUpdate];
-        if(SOC.currentLocation.coordinate.latitude!=0.0f && SOC.currentLocation.coordinate.longitude!=0.0f){
-            [self StartGettingActivities];
-        }
-        else{
-            [self getUpdatedLocationWithActivities];
-            
-        }
-        
-    }
 
     
     
@@ -247,6 +222,37 @@
     sortByTimeBtn.hidden=NO;
     refreshBtn.hidden=YES;
     currentLocationBtn.hidden=YES;
+    
+    
+    
+    if([[NSUserDefaults standardUserDefaults]boolForKey:@"FacebookLogin"]){
+        
+        //        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        //        if(![[appDelegate facebook] extendAccessTokenIfNeeded]){
+//        AutoSessionClass *session=[[AutoSessionClass alloc]init];
+//        [session isFacebookTokenValid];
+//        session.delegate=self;
+        //        }
+        //        else{
+        //            [self pushSlidingViewController];
+        //        }
+        
+        [self pushSlidingViewController];
+
+    }
+    else{
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"FacebookLogin"];
+        [SOC userProfileDataUpdate];
+        if(SOC.currentLocation.coordinate.latitude!=0.0f && SOC.currentLocation.coordinate.longitude!=0.0f){
+            [self StartGettingActivities];
+        }
+        else{
+            [self getUpdatedLocationWithActivities];
+            
+        }
+        
+    }
+
     
     
 
