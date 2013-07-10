@@ -277,7 +277,7 @@
         }
         
         
-        if(playerObject.DOS==1  && [playerObject.activityTime length]!=0)
+        if(playerObject.DOS==1  && [playerObject.latestActivityName length]!=0)
             [self.view addSubview:[self SetupHeaderView]];
         int delta=0;
         if(playerObject.DOS!=1){
