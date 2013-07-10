@@ -15,7 +15,7 @@
 @class FacebookLogin;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate,AutoSessionClassDelegate>{
-    UINavigationController *navigationController;
+    //UINavigationController *navigationController;
     Facebook *facebook;
     NSMutableDictionary *userPermissions;
     BOOL resetSuccess;
@@ -28,7 +28,7 @@
 }
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic, retain) UINavigationController *navigationController;
+//@property (nonatomic, retain) UINavigationController *navigationController;
 @property (nonatomic, retain) Facebook *facebook;
 @property (nonatomic, retain) NSMutableDictionary *userPermissions;
 @property (nonatomic, assign) BOOL resetSuccess;

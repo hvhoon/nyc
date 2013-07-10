@@ -37,7 +37,7 @@ static NSString* kAppId = @"160726900680967";//kanav
 
 @end
 @implementation AppDelegate
-@synthesize navigationController;
+//@synthesize navigationController;
 @synthesize window = _window;
 @synthesize facebook;
 @synthesize userPermissions;
@@ -74,7 +74,7 @@ static NSString* kAppId = @"160726900680967";//kanav
     
     [self registerForNotifications];
 
-    
+    UINavigationController *navigationController=nil;
     
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"FacebookLogin"]){
         
@@ -119,8 +119,11 @@ static NSString* kAppId = @"160726900680967";//kanav
     }
     [navigationController setNavigationBarHidden:YES];
     [self.window addSubview:navigationController.view];
+    [navigationController release];
+    [self.window center];
 
     [self.window makeKeyAndVisible];
+    [self.window becomeFirstResponder];
     
     return YES;
 }
@@ -141,13 +144,12 @@ static NSString* kAppId = @"160726900680967";//kanav
     [[NSUserDefaults standardUserDefaults] setValue:token forKey:@"device_token"];
 }
 
-- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
-{
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error{
 	NSLog(@"Failed to get token, error: %@", error);
 }
 
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
     
     NSLog(@"didReceiveRemoteNotification");
     SOC=[SoclivityManager SharedInstance];

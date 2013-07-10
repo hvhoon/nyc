@@ -245,7 +245,7 @@
     NSLog(@"width=%f",size.width);
     profileUserNameLabel.frame=CGRectMake(75, 73, size.width, 16);
     
-    if(playerObject.DOS!=3){
+  if(playerObject.DOS!=3){
         
         dosConnectionImageview.frame=CGRectMake(75+6+size.width, 74, 21, 12);
         switch (playerObject.DOS){
@@ -277,7 +277,7 @@
         }
         
         
-        if(playerObject.DOS==1)
+        if(playerObject.DOS==1  && [playerObject.activityTime length]!=0)
             [self.view addSubview:[self SetupHeaderView]];
         int delta=0;
         if(playerObject.DOS!=1){
