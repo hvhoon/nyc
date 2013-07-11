@@ -276,10 +276,16 @@
                 break;
         }
         
-        
+      int delta=0;
+  
         if(playerObject.DOS==1  && [playerObject.latestActivityName length]!=0)
             [self.view addSubview:[self SetupHeaderView]];
-        int delta=0;
+      
+        else if(playerObject.DOS==1){
+            [self.view addSubview:[self commonFriendsView:127]];
+            delta=93;
+            
+        }
         if(playerObject.DOS!=1){
             [self.view addSubview:[self commonFriendsView:127]];
              delta=93;
