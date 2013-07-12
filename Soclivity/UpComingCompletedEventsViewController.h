@@ -21,7 +21,7 @@
 @end
 
 
-@interface UpComingCompletedEventsViewController : UIViewController<ActivityListViewDelegate,NotifyAnimationViewDelegate,MBProgressHUDDelegate>{
+@interface UpComingCompletedEventsViewController : UIViewController<ActivityListViewDelegate,NotifyAnimationViewDelegate,MBProgressHUDDelegate,UIViewControllerRestoration>{
     id <UpcomingCompletedEventsViewDelegate>delegate;
     IBOutlet UILabel *activititesLabel;
      UIButton *organizedButton;

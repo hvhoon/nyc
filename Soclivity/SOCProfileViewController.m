@@ -82,6 +82,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.restorationIdentifier = @"SOCProfileViewController";
+    self.restorationClass = [self class];
+
     if([SoclivityUtilities deviceType] & iPhone5){
         bottomBarImageView.frame=CGRectMake(0, 508, 320, 40);
     }
@@ -96,6 +100,17 @@
     
 
 
+}
+
++(UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    
+    UIViewController * myViewController =
+    [[SOCProfileViewController alloc]
+     initWithNibName:@"SOCProfileViewController"
+     bundle:nil];
+    
+    return myViewController;
 }
 -(void)getUserProfile{
     if([SoclivityUtilities hasNetworkConnection]){

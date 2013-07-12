@@ -51,6 +51,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.restorationIdentifier = @"CreateActivityViewController";
+    self.restorationClass = [self class];
+
     devServer=[[MainServiceManager alloc]init];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
@@ -679,6 +682,26 @@
 
     // Do any additional setup after loading the view from its nib.
 }
+
++(UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"CreateActivityViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"CreateActivityViewController";
+    }
+    
+    UIViewController * myViewController =
+    [[CreateActivityViewController alloc]
+     initWithNibName:nibNameBundle
+     bundle:nil];
+    
+    return myViewController;
+}
+
 
 -(void)showInAppNotificationsUsingRocketSocket:(NSNotification*)object{
     

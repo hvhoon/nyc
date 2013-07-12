@@ -101,6 +101,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.restorationIdentifier = @"InvitesViewController";
+    self.restorationClass = [self class];
+
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
     
@@ -159,7 +163,24 @@
     }
    // Do any additional setup after loading the view from its nib.
 }
-
++(UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"InvitesViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"InvitesViewController";
+    }
+    
+    UIViewController * myViewController =
+    [[InvitesViewController alloc]
+     initWithNibName:nibNameBundle
+     bundle:nil];
+    
+    return myViewController;
+}
 -(void)didReceiveBackgroundNotification:(NSNotification*)object{
     
     NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:object];

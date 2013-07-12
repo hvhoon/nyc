@@ -56,6 +56,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.restorationIdentifier = @"WelcomeScreenViewController";
+    self.restorationClass = [self class];
+
     [self.navigationController.navigationBar setHidden:YES];
     rootView=[[UIView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.view addSubview:rootView];
@@ -464,6 +468,26 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
+
++(UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"WelcomeScreenViewControllerIphone5";
+    }
+    else{
+        nibNameBundle=@"WelcomeScreenViewController";
+    }
+
+    UIViewController * myViewController =
+    [[WelcomeScreenViewController alloc]
+     initWithNibName:nibNameBundle
+     bundle:nil];
+    
+    return myViewController;
+}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

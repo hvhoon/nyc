@@ -139,6 +139,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.restorationIdentifier = @"HomeViewController";
+    self.restorationClass = [self class];
+
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
     
@@ -258,6 +262,25 @@
 
     
     // Do any additional setup after loading the view from its nib.
+}
+
++(UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"HomeViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"HomeViewController";
+    }
+    
+    UIViewController * myViewController =
+    [[HomeViewController alloc]
+     initWithNibName:nibNameBundle
+     bundle:nil];
+    
+    return myViewController;
 }
 - (void)backgroundTapToPush:(NotificationClass*)notification{
     

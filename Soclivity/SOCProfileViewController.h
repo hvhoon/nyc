@@ -14,7 +14,7 @@
 @class SocPlayerClass;
 @class SoclivityManager;
 @class NotificationClass;
-@interface SOCProfileViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,InviteTableViewCellDelegate,IconDownloaderDelegate,NotifyAnimationViewDelegate>{
+@interface SOCProfileViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,InviteTableViewCellDelegate,IconDownloaderDelegate,NotifyAnimationViewDelegate,UIViewControllerRestoration>{
     
     IBOutlet UILabel*profileNameLabel;
     IBOutlet UIImageView *profileImageview;

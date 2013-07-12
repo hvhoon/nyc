@@ -168,6 +168,9 @@
 
 - (void)viewDidLoad {
     
+    self.restorationIdentifier = @"SlideViewController";
+    self.restorationClass = [self class];
+
     self.view.backgroundColor= [SoclivityUtilities returnBackgroundColor:3];
     //self.view.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S7_background.png"]];
     _tableView.scrollEnabled=NO;
@@ -206,6 +209,26 @@
     
     
 }
+
++(UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"SlideViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"SlideViewController";
+    }
+    
+    UIViewController * myViewController =
+    [[SlideViewController alloc]
+     initWithNibName:nibNameBundle
+     bundle:nil];
+    
+    return myViewController;
+}
+
 
 #pragma mark Instance Methods
 

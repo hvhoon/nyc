@@ -141,10 +141,11 @@
     
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
     
+    self.restorationIdentifier = @"ActivityEventViewController";
+    self.restorationClass = [self class];
 
 
     toggleFriends=TRUE;
@@ -495,6 +496,26 @@
     
 
 }
+
++(UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"ActivityEventViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"ActivityEventViewController";
+    }
+    
+    UIViewController * myViewController =
+    [[ActivityEventViewController alloc]
+     initWithNibName:nibNameBundle
+     bundle:nil];
+    
+    return myViewController;
+}
+
 
 - (void)backgroundTapToPush:(NotificationClass*)notification{
     

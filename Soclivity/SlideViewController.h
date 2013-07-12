@@ -56,7 +56,7 @@ typedef enum {
 - (void)slideViewNavigationBar:(SlideViewNavigationBar *)navigationBar touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
 @end
 
-@interface SlideViewController : UIViewController <SlideViewNavigationBarDelegate, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, UITextFieldDelegate> {
+@interface SlideViewController : UIViewController <SlideViewNavigationBarDelegate, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, UITextFieldDelegate,UIViewControllerRestoration> {
     
     IBOutlet UINavigationController *_slideNavigationController;
     IBOutlet UITableView *_tableView;

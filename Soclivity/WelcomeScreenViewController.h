@@ -10,7 +10,7 @@
 #import "FacebookLogin.h"
 @class MBProgressHUD;
 @class MainServiceManager;
-@interface WelcomeScreenViewController : UIViewController<FacebookLoginDelegate>{
+@interface WelcomeScreenViewController : UIViewController<FacebookLoginDelegate,UIViewControllerRestoration>{
     UIView *rootView;
     UIImageView *playImageView;
     UIImageView *eatImageView;

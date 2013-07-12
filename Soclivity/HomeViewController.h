@@ -27,7 +27,7 @@
 -(void)sessionAutoLogout;
 @end
 
-@interface HomeViewController : UIViewController<PullableViewDelegate,GetActivitiesInvocationDelegate,ActivityListViewDelegate,EventsMapViewDelegate,CoreLocationDelegate,DetailedActivityInfoInvocationDelegate,NotifyAnimationViewDelegate,AutoSessionClassDelegate>{
+@interface HomeViewController : UIViewController<PullableViewDelegate,GetActivitiesInvocationDelegate,ActivityListViewDelegate,EventsMapViewDelegate,CoreLocationDelegate,DetailedActivityInfoInvocationDelegate,NotifyAnimationViewDelegate,AutoSessionClassDelegate,UIViewControllerRestoration>{
    
     IBOutlet UIButton *profileBtn;
     IBOutlet UIView *topNavBarView;

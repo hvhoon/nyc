@@ -99,6 +99,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.restorationIdentifier = @"NotificationsViewController";
+    self.restorationClass = [self class];
+
     self.view.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
     backButton.hidden=YES;
     sliderButton.hidden=NO;
@@ -144,6 +147,26 @@
     waitingOnYouLabel.shadowOffset = CGSizeMake(0,-1);
 
 }
+
++(UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"NotificationsViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"NotificationsViewController";
+    }
+    
+    UIViewController * myViewController =
+    [[NotificationsViewController alloc]
+     initWithNibName:nibNameBundle
+     bundle:nil];
+    
+    return myViewController;
+}
+
 
 - (void)didReceiveBackgroundNotification:(NSNotification*) note{
 

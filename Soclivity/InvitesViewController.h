@@ -21,7 +21,7 @@
 - (void)showLeft:(id)sender;
 @end
 
-@interface InvitesViewController : UIViewController<ActivityInvitesViewDelegate,ContactsListViewDelegate,UserContactListDelegate,NotifyAnimationViewDelegate>{
+@interface InvitesViewController : UIViewController<ActivityInvitesViewDelegate,ContactsListViewDelegate,UserContactListDelegate,NotifyAnimationViewDelegate,UIViewControllerRestoration>{
     id <InvitesViewDelegate>delegate;
     IBOutlet UIButton*settingsButton;
     IBOutlet UIButton*activityBackButton;

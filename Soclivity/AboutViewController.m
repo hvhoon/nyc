@@ -71,6 +71,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.restorationIdentifier = @"AboutViewController";
+    self.restorationClass = [self class];
+
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
 
@@ -91,6 +94,26 @@
     [self UpdateBadgeNotification];
     
 }
+
++(UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"AboutViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"AboutViewController";
+    }
+    
+    UIViewController * myViewController =
+    [[AboutViewController alloc]
+     initWithNibName:nibNameBundle
+     bundle:nil];
+    
+    return myViewController;
+}
+
 -(IBAction)profileSliderPressed:(id)sender{
     [delegate showLeft:sender];
 }

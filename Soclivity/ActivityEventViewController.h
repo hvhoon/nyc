@@ -20,7 +20,7 @@
 @class MBProgressHUD;
 @class ActivityChatData;
 @class NotificationClass;
-@interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate,ParticipantListDelegate,NotifyAnimationViewDelegate,DetailedActivityInfoInvocationDelegate,ChatActivityViewDelegate,UIActionSheetDelegate,CustomCameraUploadDelegate,ChatServiceInvocationDelegate>{
+@interface ActivityEventViewController : UIViewController<AddEventViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate,ParticipantListDelegate,NotifyAnimationViewDelegate,DetailedActivityInfoInvocationDelegate,ChatActivityViewDelegate,UIActionSheetDelegate,CustomCameraUploadDelegate,ChatServiceInvocationDelegate,UIViewControllerRestoration>{
     IBOutlet UIScrollView* scrollView;
     IBOutlet AddEventView *eventView;
     IBOutlet ParticipantListTableView *participantListTableView;

@@ -20,7 +20,7 @@
 
 @end
 
-@interface NotificationsViewController : UIViewController<WaitingOnYouDelegate,MBProgressHUDDelegate,DetailedActivityInfoInvocationDelegate,GetNotificationsInvocationDelegate,PostActivityRequestInvocationDelegate>{
+@interface NotificationsViewController : UIViewController<WaitingOnYouDelegate,MBProgressHUDDelegate,DetailedActivityInfoInvocationDelegate,GetNotificationsInvocationDelegate,PostActivityRequestInvocationDelegate,UIViewControllerRestoration>{
     id <NotificationsScreenViewDelegate>delegate;
     IBOutlet UILabel *waitingOnYouLabel;
     MBProgressHUD *HUD;

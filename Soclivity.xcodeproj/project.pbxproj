@@ -2661,9 +2661,9 @@
 		EA85DC6715B01AC300AAD964 /* About */ = {
 			isa = PBXGroup;
 			children = (
-				685B3DF81742FC0200F9BCF0 /* AboutViewController.xib */,
 				68B2682F16B9D8F800257303 /* AboutViewController.h */,
 				68B2683016B9D8F800257303 /* AboutViewController.m */,
+				685B3DF81742FC0200F9BCF0 /* AboutViewController.xib */,
 				68B26A5916B9FB2C00257303 /* AboutViewController_iphone5.xib */,
 			);
 			name = About;

@@ -95,6 +95,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.restorationIdentifier = @"ProfileViewController";
+    self.restorationClass = [self class];
+
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
     updateActivityLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
@@ -127,6 +131,26 @@
 
     // Do any additional setup after loading the view from its nib.
 }
+
++(UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"ProfileViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"ProfileViewController";
+    }
+    
+    UIViewController * myViewController =
+    [[ProfileViewController alloc]
+     initWithNibName:nibNameBundle
+     bundle:nil];
+    
+    return myViewController;
+}
+
 
 
 -(void)backgroundTapToPush:(NotificationClass*)notification{

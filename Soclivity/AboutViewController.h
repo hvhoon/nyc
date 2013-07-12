@@ -19,7 +19,7 @@
 @end
 
 
-@interface AboutViewController : UIViewController<NotifyAnimationViewDelegate,DetailedActivityInfoInvocationDelegate>{
+@interface AboutViewController : UIViewController<NotifyAnimationViewDelegate,DetailedActivityInfoInvocationDelegate,UIViewControllerRestoration>{
     id <AboutViewDelegate>delegate;
     IBOutlet UIButton *btnnotify;
     NotificationClass *notIdObject;

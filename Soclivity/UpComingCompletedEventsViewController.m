@@ -86,6 +86,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.restorationIdentifier = @"UpComingCompletedEventsViewController";
+    self.restorationClass = [self class];
+
     typeOfAct=1;
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
@@ -182,6 +186,27 @@
 
         // Do any additional setup after loading the view from its nib.
 }
+
+
++(UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    
+    NSString *nibNameBundle=nil;
+    if([SoclivityUtilities deviceType] & iPhone5){
+        nibNameBundle=@"UpComingCompletedEventsViewController_iphone5";
+    }
+    else{
+        nibNameBundle=@"UpComingCompletedEventsViewController";
+    }
+    
+    UIViewController * myViewController =
+    [[UpComingCompletedEventsViewController alloc]
+     initWithNibName:nibNameBundle
+     bundle:nil];
+    
+    return myViewController;
+}
+
 -(void)didReceiveBackgroundNotification:(NSNotification*)object{
     
     NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:object];

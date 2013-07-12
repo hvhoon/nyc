@@ -20,7 +20,7 @@
 @end
 
 
-@interface ProfileViewController : UIViewController<ActivitySelectDelegate,NotifyAnimationViewDelegate>{
+@interface ProfileViewController : UIViewController<ActivitySelectDelegate,NotifyAnimationViewDelegate,UIViewControllerRestoration>{
     id <ProfileScreenViewDelegate>delegate;
     IBOutlet ActivityTypeSelectView *activityTypesView;
     IBOutlet UILabel *updateActivityLabel;
