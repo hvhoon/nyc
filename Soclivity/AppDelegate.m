@@ -37,7 +37,7 @@ static NSString* kAppId = @"160726900680967";//kanav
 
 @end
 @implementation AppDelegate
-//@synthesize navigationController;
+@synthesize navigationController;
 @synthesize window = _window;
 @synthesize facebook;
 @synthesize userPermissions;
@@ -74,7 +74,6 @@ static NSString* kAppId = @"160726900680967";//kanav
     
     [self registerForNotifications];
 
-    UINavigationController *navigationController=nil;
     
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"FacebookLogin"]){
         
@@ -90,7 +89,7 @@ static NSString* kAppId = @"160726900680967";//kanav
         SlidingDrawerViewController *slideViewController = [[SlidingDrawerViewController alloc] initWithNibName:nibNameBundle bundle:nil];
         slideViewController.delegate = slideViewController;
         slideViewController.isFBlogged=TRUE;
-        navigationController=[[UINavigationController alloc]initWithRootViewController:slideViewController];
+        self.navigationController=[[UINavigationController alloc]initWithRootViewController:slideViewController];
         [slideViewController release];
 
     }
@@ -105,10 +104,10 @@ static NSString* kAppId = @"160726900680967";//kanav
         nibNameBundle=@"WelcomeScreenViewController";
     }
     WelcomeScreenViewController *welcomeScreenViewController=[[WelcomeScreenViewController alloc]initWithNibName:nibNameBundle bundle:nil];
-    navigationController=[[UINavigationController alloc]initWithRootViewController:welcomeScreenViewController];
+    self.navigationController=[[UINavigationController alloc]initWithRootViewController:welcomeScreenViewController];
     [welcomeScreenViewController release];
  }
-    UINavigationBar *NavBar = [navigationController navigationBar];
+    UINavigationBar *NavBar = [self.navigationController navigationBar];
     
     if ([NavBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)])
     {
@@ -117,13 +116,9 @@ static NSString* kAppId = @"160726900680967";//kanav
         // could optionally set for just this navBar
         //[navBar setBackgroundImage:...
     }
-    [navigationController setNavigationBarHidden:YES];
+    [self.navigationController setNavigationBarHidden:YES];
     [self.window addSubview:navigationController.view];
-    [navigationController release];
-    [self.window center];
-
     [self.window makeKeyAndVisible];
-    [self.window becomeFirstResponder];
     
     return YES;
 }
