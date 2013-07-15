@@ -449,12 +449,12 @@ static NSString* kAppId = @"160726900680967";//kanav
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    //[[self facebook] extendAccessTokenIfNeeded];
-    if([[NSUserDefaults standardUserDefaults]boolForKey:@"FacebookLogin"]){
+    [[self facebook] extendAccessTokenIfNeeded];
+    //if([[NSUserDefaults standardUserDefaults]boolForKey:@"FacebookLogin"]){
         
-        [self extendToken];
+        //[self extendToken];
 //    [NSThread detachNewThreadSelector:@selector(extendToken) toTarget:self withObject:nil];
-    }
+    //}
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
