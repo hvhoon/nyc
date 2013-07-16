@@ -748,6 +748,8 @@
             // If the image needs to be compressed
             if(imageProfile.size.height > 50 || imageProfile.size.width > 50)
                 slideImageView.image = [SoclivityUtilities compressImage:imageProfile size:CGSizeMake(50,50)];
+            else
+                slideImageView.image = imageProfile;
 
             // Turning it into a round image
             slideImageView.layer.cornerRadius = imageProfile.size.width/2;

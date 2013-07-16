@@ -931,6 +931,8 @@ else {
     // If the image needs to be compressed
     if(image.size.height > 50 || image.size.width > 50)
         profileImgView.image = [SoclivityUtilities compressImage:image size:CGSizeMake(50,50)];
+    else
+        profileImgView.image = image;
     
     profileImgView.layer.cornerRadius = profileImgView.image.size.height/2;
     profileImgView.layer.masksToBounds = YES;

@@ -901,6 +901,8 @@
     // If the image needs to be compressed
     if(image.size.height > 50 || image.size.width > 50)
         profileImageview.image = [SoclivityUtilities compressImage:image size:CGSizeMake(50,50)];
+    else
+        profileImageview.image = image;
     
     // Make circle
     profileImageview.layer.cornerRadius = profileImageview.image.size.width/2;
