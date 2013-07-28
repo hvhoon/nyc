@@ -48,4 +48,5 @@
 -(void)stopAnimation;
 -(void)updateActivityTypes;
 -(void)updateUncheckActivity;
+-(void)SelectAllByDefault;
 @end

@@ -90,6 +90,36 @@
     
 }
 
+-(void)SelectAllByDefault{
+    SOC=[SoclivityManager SharedInstance];
+    idObj= SOC.filterObject;
+    idObj.playAct=TRUE;
+    idObj.seeAct=TRUE;
+    idObj.createAct=TRUE;
+    idObj.learnAct=TRUE;
+    idObj.eatAct=TRUE;
+    
+    SOC.filterObject.playDD=idObj.playAct;
+    SOC.filterObject.eatDD=idObj.eatAct;
+    SOC.filterObject.seeDD=idObj.seeAct;
+    SOC.filterObject.createDD=idObj.createAct;
+    SOC.filterObject.learnDD=idObj.learnAct;
+    
+    [self updateActivityTypes];
+    
+    if(isRegisteration){
+        if(!idObj.playAct && !idObj.eatAct && !idObj.createAct && !idObj.seeAct && !idObj.learnAct){
+            [delegate showgetStartedBtnOrNot:NO];
+        }
+        else{
+            [delegate showgetStartedBtnOrNot:YES];
+        }
+    }
+
+
+
+}
+
 -(IBAction)getStartedClicked:(id)sender{
     
     if([self MakeSureAtLeastOneActivitySelected]){

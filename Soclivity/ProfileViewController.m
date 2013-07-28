@@ -115,6 +115,7 @@
         profileButton.hidden=YES;
         updateActivityLabel.text=@"Pick stuff you like to do...";
         activityTypesView.isRegisteration=TRUE;
+        [activityTypesView SelectAllByDefault];
         btnnotify.hidden=TRUE;
     }
     else{
