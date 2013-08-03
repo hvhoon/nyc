@@ -101,10 +101,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
     self.restorationIdentifier = @"InvitesViewController";
     self.restorationClass = [self class];
-
+        }
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
     

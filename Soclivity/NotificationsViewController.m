@@ -99,9 +99,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
     self.restorationIdentifier = @"NotificationsViewController";
     self.restorationClass = [self class];
-
+        }
     self.view.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
     backButton.hidden=YES;
     sliderButton.hidden=NO;

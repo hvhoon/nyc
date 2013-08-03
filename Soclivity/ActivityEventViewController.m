@@ -143,10 +143,10 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
     self.restorationIdentifier = @"ActivityEventViewController";
     self.restorationClass = [self class];
-
+        }
 
     toggleFriends=TRUE;
     devServer=[[MainServiceManager alloc]init];

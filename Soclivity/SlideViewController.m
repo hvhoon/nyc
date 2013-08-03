@@ -167,10 +167,10 @@
 }
 
 - (void)viewDidLoad {
-    
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
     self.restorationIdentifier = @"SlideViewController";
     self.restorationClass = [self class];
-
+        }
     self.view.backgroundColor= [SoclivityUtilities returnBackgroundColor:3];
     //self.view.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S7_background.png"]];
     _tableView.scrollEnabled=NO;
@@ -712,9 +712,10 @@
     }
     else{
     //draw a custom switch control
+                if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
         [[UISwitch appearance] setTintColor:[UIColor grayColor]];
         [[UISwitch appearance] setOnTintColor:[UIColor grayColor]];
-    
+                }
         
         UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectMake(185, 8, 50, 50)];
         switchView.transform = CGAffineTransformMakeScale(0.75, 0.75);

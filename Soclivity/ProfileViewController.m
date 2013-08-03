@@ -95,10 +95,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
     self.restorationIdentifier = @"ProfileViewController";
     self.restorationClass = [self class];
-
+        }
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
     updateActivityLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];

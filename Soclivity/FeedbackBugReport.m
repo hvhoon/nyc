@@ -42,7 +42,9 @@ static FeedbackBugReport *sharedInstance = nil;
     [picker setSubject:@"Bug Alert!"];
     [picker setToRecipients:toRecipients];
     [picker setMessageBody:[self messageBody] isHTML:NO];
+            if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
     [[picker navigationBar] setTintColor:[UIColor clearColor]];
+                    }
     return picker;
 }
 
@@ -56,7 +58,9 @@ static FeedbackBugReport *sharedInstance = nil;
     [picker setSubject:@"Feedback"];
     [picker setToRecipients:toRecipients];
     [picker setMessageBody:[self messageBody] isHTML:NO];
+                    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
     [[picker navigationBar] setTintColor:[UIColor clearColor]];
+                    }
     return picker;
 }
 

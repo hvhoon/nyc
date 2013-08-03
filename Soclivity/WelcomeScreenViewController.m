@@ -57,8 +57,10 @@
 {
     [super viewDidLoad];
     
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
     self.restorationIdentifier = @"WelcomeScreenViewController";
     self.restorationClass = [self class];
+    }
 
     [self.navigationController.navigationBar setHidden:YES];
     rootView=[[UIView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -468,6 +470,7 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
+
 
 +(UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
 {

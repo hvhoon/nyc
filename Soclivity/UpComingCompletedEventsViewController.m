@@ -86,10 +86,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
     self.restorationIdentifier = @"UpComingCompletedEventsViewController";
     self.restorationClass = [self class];
-
+        }
     typeOfAct=1;
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];

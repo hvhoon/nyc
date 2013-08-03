@@ -82,10 +82,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
     self.restorationIdentifier = @"SOCProfileViewController";
     self.restorationClass = [self class];
-
+        }
     if([SoclivityUtilities deviceType] & iPhone5){
         bottomBarImageView.frame=CGRectMake(0, 508, 320, 40);
     }
