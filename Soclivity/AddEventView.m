@@ -810,7 +810,7 @@ else {
 
     activityPlotOnMapButton.hidden=YES;
     
-    if(activityObject.venueId!=nil && [activityObject.venueId class]!=[NSNull class] && [activityObject.venueId length]!=0 && ![activityObject.venueId isEqualToString:@""]){
+    if(activityObject.venueId!=nil && [activityObject.venueId class]!=[NSNull class] && [activityObject.venueId length]!=0){
         // 4 sqaure reference
             currentPlacemark.addType=2;
         //[self getFourSquareVenueDetailsWithRatingUrlPhoneCategory:activityObject.venueId];

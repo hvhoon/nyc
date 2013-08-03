@@ -241,7 +241,11 @@
         //            [self pushSlidingViewController];
         //        }
         
+        
+        //[self UpdateBadgeNotification];
         [self pushSlidingViewController];
+        SOC.loggedInUser.badgeCount=[[UIApplication sharedApplication]applicationIconBadgeNumber];
+        NSLog(@"SOC.loggedInUser.badgeCount=%d",SOC.loggedInUser.badgeCount);
 
     }
     else{
