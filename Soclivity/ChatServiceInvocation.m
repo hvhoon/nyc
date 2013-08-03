@@ -29,7 +29,7 @@
 
 -(void)invoke {
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
-
+    
     switch (requestType) {
         case 1:
         {
@@ -46,17 +46,17 @@
             NSString *a= [NSString stringWithFormat:@"dev.soclivity.com/activity_chats.json"];
             [self post:a
                   body:[self body]];
-
+            
             
         }
             break;
             
             
-            case 4:
+        case 4:
         {
             NSString*a=[NSString stringWithFormat:@"dev.soclivity.com/activity_chats/%d.json",chatId];
             [self delete:a];
-
+            
         }
             break;
             
@@ -79,14 +79,14 @@
             [dateFormatter setTimeZone:gmt];
             
             NSString  *currentTime=[dateFormatter stringFromDate:[NSDate date]];
-
+            
             NSString*a=[NSString stringWithFormat:@"dev.soclivity.com/activity_chats/backgroundchat.json?pid=%d&aid=%d&start_time=%@&end_time=%@",[SOC.loggedInUser.idSoc intValue],activityId,[[NSUserDefaults standardUserDefaults]valueForKey:@"ChatTimeStamp"],currentTime];
             [self get:a];
             
         }
             break;
-
-
+            
+            
         default:
             break;
     }
@@ -99,7 +99,8 @@
     [bodyD setObject:[NSNumber numberWithInt:[SOC.loggedInUser.idSoc intValue]] forKey:@"player_id"];
     
     if(requestType==2){
-        [bodyD setObject:textMessage forKey:@"description"];
+        NSData* descriptionData = [textMessage dataUsingEncoding:NSUTF8StringEncoding];
+        [bodyD setObject:[Base64 encode:descriptionData] forKey:@"description"];
         
     }
     if(requestType==3){
@@ -123,7 +124,7 @@
         {
             NSArray* resultsd = [[[NSString alloc] initWithData:data
                                                        encoding:NSUTF8StringEncoding] JSONValue];
-
+            
             NSArray *response=[ActivityChatData PlayersChatPertainingToActivity:resultsd];
             [self.delegate chatPostToDidFinish:self withResponse:response withError:Nil];
             
@@ -133,8 +134,8 @@
         case 2:
         {
             NSDictionary* resultsd = [[[NSString alloc] initWithData:data
-                                                       encoding:NSUTF8StringEncoding] JSONValue];
-
+                                                            encoding:NSUTF8StringEncoding] JSONValue];
+            
             ActivityChatData *response=[ActivityChatData postChatTextIntercept:resultsd];
             [self.delegate userPostedAText:response];
             
@@ -153,7 +154,7 @@
             
         }
             break;
-
+            
         case 4:
         {
             NSDictionary* resultsd = [[[NSString alloc] initWithData:data
@@ -161,19 +162,19 @@
             NSString*resetStatus= [resultsd objectForKey:@"status"];
             
             [self.delegate chatDeleted:resetStatus];
-
+            
             
         }
             break;
         case 5:
         {
             NSDictionary* resultsd = [[[NSString alloc] initWithData:data
-                                                       encoding:NSUTF8StringEncoding] JSONValue];
+                                                            encoding:NSUTF8StringEncoding] JSONValue];
             
             ActivityChatData *response=[ActivityChatData getChatInterceptFromUsers:resultsd];
             
             [self.delegate addAPost:response];
-
+            
         }
             break;
         case 6:
