@@ -376,6 +376,9 @@
 }
 
 -(void)pullToRefreshMannually{
+    autoRefresh=TRUE;
+    listRefresh=TRUE;
+
     refreshLabel.text = self.textRelease;
     [refreshArrow layer].transform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
     [self startLoading];
@@ -406,7 +409,11 @@
     
    
     // Refresh action!
-    [self refresh];
+    if(!autoRefresh){
+        [self refresh];
+    }
+    autoRefresh=FALSE;
+    
 }
 
 - (void)stopLoading {

@@ -219,6 +219,7 @@
     [socEventMapView setHidden:YES];
     [activityTableView LoadTable];
 
+
     listFlipBtn.hidden=YES;
     mapflipBtn.hidden=NO;
     sortDistanceBtn.hidden=NO;
@@ -865,13 +866,17 @@
         
     }
 }
-
+#define REFRESH_HEADER_HEIGHT 52.0f
 -(void)StartGettingActivities{
-    
-    
+    if(!doublePushStop){
+    activityTableView.tableView.contentOffset = CGPointMake(0, -REFRESH_HEADER_HEIGHT);
+    [activityTableView pullToRefreshMannually];
+        
+    }
+
      if([SoclivityUtilities hasNetworkConnection]){
          
-         [self loadingActivityMonitor];
+        // [self loadingActivityMonitor];
          [devServer getActivitiesInvocation:[SOC.loggedInUser.idSoc intValue] latitude:SOC.currentLocation.coordinate.latitude longitude:SOC.currentLocation.coordinate.longitude delegate:self];
      }
      else{
@@ -915,8 +920,10 @@
                            withError:(NSError*)error{
     //now time to write in the Sqlite DataBase(Delete and Clean the activities Table)
     
-    [self hudWasHidden:HUD];
+    //[self hudWasHidden:HUD];
 //    [HUD hide:YES];
+    
+    doublePushStop=FALSE;
     [SoclivitySqliteClass InsertNewActivities:responses];
     [activityTableView startPopulatingListView];
     socEventMapView.centerLocation=TRUE;
@@ -1106,7 +1113,7 @@
 }
 
 -(void)RefreshFromTheListView{
-    
+    doublePushStop=TRUE;
     [self getUpdatedLocationWithActivities];
 }
 

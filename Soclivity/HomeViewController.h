@@ -58,6 +58,8 @@
     BOOL pushInAppNotif;
     IBOutlet UIButton *addButton;
     BOOL bookmarkState;
+    BOOL doublePushStop;
+
 }
 
 @property (nonatomic,retain)id <HomeScreenDelegate>delegate;

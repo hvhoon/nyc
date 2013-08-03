@@ -40,6 +40,7 @@
     BOOL listRefresh;
     int spinnerIndex;
     BOOL isOrganizerList;
+    BOOL autoRefresh;
 }
 
 @property (nonatomic, retain) NSArray *plays;
