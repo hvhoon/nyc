@@ -982,7 +982,7 @@ else {
 //        }
 //    }
     
-    if((activityObject.activityRelationType==6)||(activityObject.activityRelationType==5)){
+    if((activityObject.activityRelationType==6)||(activityObject.activityRelationType==5)||((activityObject.activityRelationType==4) && ([activityObject.access caseInsensitiveCompare:@"private"] == NSOrderedSame))){
             [self ActivityEventOnMap];
         }
     

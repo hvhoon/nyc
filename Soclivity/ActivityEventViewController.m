@@ -983,7 +983,8 @@ switch ([notIdObject.notificationType integerValue]) {
             inviteUsersToActivityButton.hidden=YES;
             leaveActivityButton.hidden=YES;
 
-            [eventView decideToShowMapView:3];
+            
+                [eventView decideToShowMapView:3];
         }
             break;
             
@@ -999,7 +1000,11 @@ switch ([notIdObject.notificationType integerValue]) {
             leaveActivityButton.hidden=YES;
             inviteUsersToActivityButton.hidden=YES;
             
-            [eventView decideToShowMapView:4];
+            if([activityInfo.access caseInsensitiveCompare:@"private"] == NSOrderedSame)
+                [eventView decideToShowMapView:5];
+            else{
+                [eventView decideToShowMapView:4];
+            }
             
         }
             break;
@@ -1979,7 +1984,11 @@ switch ([notIdObject.notificationType integerValue]) {
     backButton.hidden=YES;
     [participantListTableView setHidden:YES];
     backToActivityFromMapButton.hidden=NO;
-    chatButton.hidden=NO;
+    
+    if(activityInfo.activityRelationType==4 && ([activityInfo.access caseInsensitiveCompare:@"private"] == NSOrderedSame))
+            chatButton.hidden=YES;
+    else
+        chatButton.hidden=NO;
     newActivityButton.hidden=YES;
     organizerEditButton.hidden=YES;
     inviteUsersToActivityButton.hidden=YES;
