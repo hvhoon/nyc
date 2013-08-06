@@ -871,7 +871,6 @@
     if(!doublePushStop){
     activityTableView.tableView.contentOffset = CGPointMake(0, -REFRESH_HEADER_HEIGHT);
     [activityTableView pullToRefreshMannually];
-        
     }
 
      if([SoclivityUtilities hasNetworkConnection]){

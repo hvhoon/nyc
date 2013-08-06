@@ -50,12 +50,13 @@
     // Drawing code
     sortType=1;
     self.tableView.sectionHeaderHeight = HEADER_HEIGHT;
-	self.tableView.scrollsToTop=YES;
+	//self.tableView.scrollsToTop=YES;
     //[self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
     self.tableView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
     rowHeight_ = DEFAULT_ROW_HEIGHT;
     openSectionIndex_ = NSNotFound;
-    //[self startPopulatingListView];
+    if(!isOrganizerList)
+    [self startPopulatingListView];
 }
 
 -(void)LoadTable{
