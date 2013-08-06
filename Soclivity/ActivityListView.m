@@ -56,7 +56,7 @@
     rowHeight_ = DEFAULT_ROW_HEIGHT;
     openSectionIndex_ = NSNotFound;
     if(!isOrganizerList)
-    [self startPopulatingListView];
+      [self startPopulatingListView];
 }
 
 -(void)LoadTable{

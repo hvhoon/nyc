@@ -18,6 +18,7 @@
 #import "MainServiceManager.h"
 #import "RegistrationDetailInvocation.h"
 #import "FeedbackBugReport.h"
+#import "AppDelegate.h"
 #define kSVCLeftAnchorX                 100.0f
 #define kSVCRightAnchorX                190.0f
 #define kSVCSwipeNavigationBarOnly      YES
@@ -189,8 +190,7 @@
     
     
     UIViewController *initalViewController = [self.delegate initialViewController];
-    
-    
+    [(AppDelegate*)[[UIApplication sharedApplication] delegate]setListViewController:initalViewController];
     if([initalViewController isKindOfClass:[HomeViewController class]]){
         
         HomeViewController *homeController=(HomeViewController*)initalViewController;
@@ -1100,8 +1100,19 @@
     
     if([viewController isKindOfClass:[HomeViewController class]]){
         
-        HomeViewController *homeController=(HomeViewController*)viewController;
-        homeController.delegate=self;
+        
+        if ([(AppDelegate*)[[UIApplication sharedApplication] delegate]listViewController] != nil && [[(AppDelegate*)[[UIApplication sharedApplication] delegate]listViewController] class] != [NSNull class]) {
+
+            HomeViewController *homeController=(HomeViewController*)[(AppDelegate*)[[UIApplication sharedApplication] delegate]listViewController];
+            viewController=homeController;
+            homeController.delegate=self;
+
+
+        }else{
+            HomeViewController *homeController=(HomeViewController*)viewController;
+            homeController.delegate=self;
+            
+        }
     }
     
     else if([viewController isKindOfClass:[ProfileViewController class]]){

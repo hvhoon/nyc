@@ -44,7 +44,7 @@ static NSString* kAppId = @"160726900680967";//kanav
 @synthesize resetSuccess;
 @synthesize dict_notification;
 @synthesize onlyOnce;
-
+@synthesize listViewController;
 
 
 - (void)dealloc
