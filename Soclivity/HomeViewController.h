@@ -78,5 +78,5 @@
 -(void)getUpdatedLocationWithActivities;
 -(void)loadingActivityMonitor;
 -(void)synchronousDownloadProfilePhotoBytes:(InfoActivityClass*)player;
-
+-(void)updateDropdownAndPlays;
 @end

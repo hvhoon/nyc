@@ -1099,9 +1099,10 @@
     if([viewController isKindOfClass:[HomeViewController class]]){
         
         
-        if ([(AppDelegate*)[[UIApplication sharedApplication] delegate]listViewController] != nil && [[(AppDelegate*)[[UIApplication sharedApplication] delegate]listViewController] class] != [NSNull class]) {
+        if ([(AppDelegate*)[[UIApplication sharedApplication] delegate]listViewController] != nil) {
 
             HomeViewController *homeController=(HomeViewController*)[(AppDelegate*)[[UIApplication sharedApplication] delegate]listViewController];
+            [homeController updateDropdownAndPlays];
             viewController=homeController;
             homeController.delegate=self;
 

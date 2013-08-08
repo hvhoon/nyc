@@ -62,7 +62,6 @@
     [super viewWillAppear:animated];
     
     
-
     
     
     [addButton setBackgroundImage:[UIImage imageNamed:@"addevent.png"] forState:UIControlStateNormal];
@@ -117,6 +116,12 @@
     
 }
 
+
+-(void)updateDropdownAndPlays{
+        [pullDownView updateActivityTypes];
+        [activityTableView sortingFilterRefresh];
+        [activityTableView stopDropdownChange];
+}
 -(void)pushSlidingViewController{
     
     [SOC getUserObjectInAutoSignInMode];

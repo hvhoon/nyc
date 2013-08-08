@@ -50,7 +50,7 @@
     // Drawing code
     sortType=1;
     self.tableView.sectionHeaderHeight = HEADER_HEIGHT;
-	//self.tableView.scrollsToTop=YES;
+	self.tableView.scrollsToTop=YES;
     //[self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
     self.tableView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
     rowHeight_ = DEFAULT_ROW_HEIGHT;
@@ -436,6 +436,7 @@
     refreshArrow.hidden = NO;
     [refreshSpinner stopAnimating];
     
+    [self stopDropdownChange];
 }
 
 - (void)refresh {
@@ -516,6 +517,34 @@
     [self sortingFilterRefresh];
 
 }
+
+-(void)stopDropdownChange{
+    
+    if([self.sectionInfoArray count]==0){
+        
+        if(!isOrganizerList){
+            
+            
+            
+            if([SoclivityUtilities deviceType] & iPhone5)
+                self.tableView.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_NoActivities5.png"]];
+            
+            else
+                self.tableView.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_NoActivities.png"]];
+            
+            self.tableView.scrollEnabled=NO;
+            self.tableView.bounces=NO;
+        }
+        
+    }
+    else{
+        self.tableView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
+        self.tableView.scrollEnabled=YES;
+        self.tableView.bounces=YES;
+        
+    }
+
+}
 -(void)sortingFilterRefresh{
     NSString *timeStamp=nil;
     if(isOrganizerList){
@@ -579,29 +608,29 @@
     self.sectionInfoArray = infoArray;
     [infoArray release];
     
-    if([self.sectionInfoArray count]==0){
-        
-        if(!isOrganizerList){
-            
-            
-            
-        if([SoclivityUtilities deviceType] & iPhone5)
-            self.tableView.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_NoActivities5.png"]];
-            
-        else
-            self.tableView.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_NoActivities.png"]];
-
-        self.tableView.scrollEnabled=NO;
-        self.tableView.bounces=NO;
-        }
-
-    }
-    else{
-        self.tableView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
-        self.tableView.scrollEnabled=YES;
-        self.tableView.bounces=YES;
-
-    }
+//    if([self.sectionInfoArray count]==0){
+//        
+//        if(!isOrganizerList){
+//            
+//            
+//            
+//        if([SoclivityUtilities deviceType] & iPhone5)
+//            self.tableView.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_NoActivities5.png"]];
+//            
+//        else
+//            self.tableView.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S04_NoActivities.png"]];
+//
+//        self.tableView.scrollEnabled=NO;
+//        self.tableView.bounces=NO;
+//        }
+//
+//    }
+//    else{
+//        self.tableView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
+//        self.tableView.scrollEnabled=YES;
+//        self.tableView.bounces=YES;
+//
+//    }
 
     [self.tableView reloadData];
     [self.tableView beginUpdates];
@@ -739,7 +768,8 @@
 }
 #pragma mark Filter Pane Activities
 -(void)doFilteringByActivities{
-    [self sortingFilterRefresh];    
+    [self sortingFilterRefresh];
+    [self stopDropdownChange];
 }
 
 @end
