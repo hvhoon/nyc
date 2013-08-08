@@ -446,6 +446,8 @@
 }
 
 -(void)updateUserNameAndPhotoData{
+    
+#if 1
     NSMutableDictionary *viewControllerDictionary = [[[[self.delegate datasource] objectAtIndex:0] objectForKey:kSlideViewControllerSectionViewControllersKey] objectAtIndex:0];
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     
@@ -476,7 +478,7 @@
         [viewControllerDictionary setObject:image forKey:kSlideViewControllerViewControllerIconKey];
 //    }
     
-    
+#endif
     
     [_tableView reloadData];
 
@@ -532,10 +534,6 @@
     
     }
 
-    for (UIView *view in cell.contentView.subviews)
-    {
-        [view removeFromSuperview];
-    }//END  for (UIView *view in cell.contentView.subviews)
     
     NSDictionary *viewControllerDictionary = nil;
     

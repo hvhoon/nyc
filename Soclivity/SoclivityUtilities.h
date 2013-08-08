@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class NotificationClass;
+@class InfoActivityClass;
 typedef enum
 {
     iPhone          = 1 << 1,

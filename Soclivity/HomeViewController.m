@@ -244,13 +244,19 @@
         
         
         //[self UpdateBadgeNotification];
-        [self pushSlidingViewController];
+        
+        
+        [self pushSlidingViewController];// Awesome the problem is in this method
+        
+        
+        
         SOC.loggedInUser.badgeCount=[[UIApplication sharedApplication]applicationIconBadgeNumber];
         NSLog(@"SOC.loggedInUser.badgeCount=%d",SOC.loggedInUser.badgeCount);
 
     }
     else{
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"FacebookLogin"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         [SOC userProfileDataUpdate];
         if(SOC.currentLocation.coordinate.latitude!=0.0f && SOC.currentLocation.coordinate.longitude!=0.0f){
             [self StartGettingActivities];

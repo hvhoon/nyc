@@ -74,7 +74,7 @@ static NSString* kAppId = @"160726900680967";//kanav
     
     [self registerForNotifications];
 
-    
+    [[NSUserDefaults standardUserDefaults] synchronize];
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"FacebookLogin"]){
         
         NSString *nibNameBundle=nil;

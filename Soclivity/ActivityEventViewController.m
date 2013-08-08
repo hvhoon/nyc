@@ -1805,7 +1805,7 @@ switch ([notIdObject.notificationType integerValue]) {
         NSString  *currentTime=[dateFormatter stringFromDate:[NSDate date]];
 
         [[NSUserDefaults standardUserDefaults] setValue:currentTime forKey:@"ChatTimeStamp"];
-
+        [[NSUserDefaults standardUserDefaults] synchronize];
         [devServer chatPostsOnActivity:activityInfo.activityId chatId:[SOC.loggedInUser.idSoc intValue] delegate:self message:nil chatRequest:1 imageToPost:nil];
     }
     else{

@@ -363,6 +363,7 @@
     
 }
 
+
 - (NSIndexPath *)initialSelectedIndexPath {
     
     return [NSIndexPath indexPathForRow:0 inSection:0];
@@ -385,6 +386,7 @@
 - (void)FBlogout {
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"FacebookLogin"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
      [[delegate facebook] logout];
 }
 

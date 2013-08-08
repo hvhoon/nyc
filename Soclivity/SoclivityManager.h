@@ -11,6 +11,7 @@
 #import <EventKit/EventKit.h>
 @class GetPlayersClass;
 @class FilterPreferenceClass;
+@class InfoActivityClass;
 @protocol SoclivityManagerDelegate <NSObject>
 
 @optional
