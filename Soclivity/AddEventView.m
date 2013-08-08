@@ -857,18 +857,7 @@ else {
 
         {
             locationInfoLabel1.text=[NSString stringWithFormat:@"%@ miles away",activityObject.distance];
-            
-            NSArray *hashCount=[activityObject.where_address componentsSeparatedByString:@"#"];
-            currentPlacemark.formattedAddress=[hashCount objectAtIndex:0];
-            currentPlacemark.vicinityAddress=[hashCount objectAtIndex:1];
-            
-            
-            NSLog(@"hashCount=%d",[hashCount count]);
-            if([hashCount count]==2){
-                locationInfoLabel2.text=firstALineddressLabel.text=[hashCount objectAtIndex:1];
-                
-            }
-
+            locationInfoLabel2.text=[NSString stringWithFormat:@"%@, %@", activityObject.where_city, activityObject.where_state];
         }
             break;
             
