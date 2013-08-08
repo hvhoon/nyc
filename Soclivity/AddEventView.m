@@ -888,6 +888,8 @@ else {
             locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
             
             NSArray *hashCount=[activityObject.where_address componentsSeparatedByString:@"#"];
+            
+            
             NSLog(@"hashCount=%d",[hashCount count]);
             if([hashCount count]==2){
                 currentPlacemark.formattedAddress=locationInfoLabel1.text=[hashCount objectAtIndex:0];

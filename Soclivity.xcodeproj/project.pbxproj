@@ -81,7 +81,7 @@
 		3C02DB79169E9F2A00213EDE /* InAppAlertBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C02DB75169E9F2A00213EDE /* InAppAlertBar@2x.png */; };
 		3C02DB7A169E9F2A00213EDE /* InAppRemove.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C02DB76169E9F2A00213EDE /* InAppRemove.png */; };
 		3C02DB7B169E9F2A00213EDE /* InAppRemove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C02DB77169E9F2A00213EDE /* InAppRemove@2x.png */; };
-		3C505476168ECDAF001C1C5E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C505475168ECDAF001C1C5E /* libicucore.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
+		3C505476168ECDAF001C1C5E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C505475168ECDAF001C1C5E /* libicucore.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
 		3C505488168ECF09001C1C5E /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C50547A168ECF09001C1C5E /* AFHTTPClient.m */; };
 		3C505489168ECF09001C1C5E /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C50547C168ECF09001C1C5E /* AFHTTPRequestOperation.m */; };
 		3C50548A168ECF0A001C1C5E /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C50547E168ECF09001C1C5E /* AFJSONRequestOperation.m */; };
