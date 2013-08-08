@@ -971,18 +971,8 @@ else {
 #endif
 -(IBAction)activityMapPlotButtonClicked:(id)sender{
     
-//    for (UIView *view in self.superview.superview.superview.subviews)
-//    {
-//        if ([view isKindOfClass:[UIButton class]])
-//        {
-//            if (view.tag==1111)
-//            {
-//                view.alpha=0;
-//            }
-//        }
-//    }
     
-    if((activityObject.activityRelationType==6)||(activityObject.activityRelationType==5)||((activityObject.activityRelationType==4) && ([activityObject.access caseInsensitiveCompare:@"private"] == NSOrderedSame))){
+    if((activityObject.activityRelationType==6)||(activityObject.activityRelationType==5)||(activityObject.activityRelationType==4)){
             [self ActivityEventOnMap];
         }
     
