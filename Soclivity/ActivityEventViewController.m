@@ -1470,9 +1470,9 @@ switch ([notIdObject.notificationType integerValue]) {
         case 5:
         {
             
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Are you  Sure"
-                                                            message:@"You want to leave the activity"
-                                                           delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancel",nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Leave Activity?"
+                                                            message:@"Are you sure you want to leave the activity?"
+                                                           delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No",nil];
             
             alert.tag=kLeaveActivity;
             [alert show];
