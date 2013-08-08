@@ -1103,8 +1103,8 @@
 
             HomeViewController *homeController=(HomeViewController*)[(AppDelegate*)[[UIApplication sharedApplication] delegate]listViewController];
             [homeController updateDropdownAndPlays];
-            viewController=homeController;
             homeController.delegate=self;
+            viewController=[homeController retain];
 
 
         }else{
