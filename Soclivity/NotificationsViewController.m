@@ -26,6 +26,13 @@
     return self;
 }
 
+-(IBAction)profileSliderPressed2:(id)sender{
+    
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    SOC.pushStateOn=TRUE;
+    [self profileSliderPressed:sender];
+}
+
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.

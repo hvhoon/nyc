@@ -13,7 +13,7 @@
 #import "SoclivityUtilities.h"
 
 @implementation SoclivityManager
-@synthesize delegate,registrationObject,basicInfoDone,currentLocation,loggedInUser,filterObject,AllowTapAndDrag,localCacheUpdate,eventStore;
+@synthesize delegate,registrationObject,basicInfoDone,currentLocation,loggedInUser,filterObject,AllowTapAndDrag,localCacheUpdate,eventStore,pushStateOn;
 @synthesize editOrNewActivity;
 
 + (id) SharedInstance {

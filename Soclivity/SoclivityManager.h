@@ -29,6 +29,7 @@
     BOOL localCacheUpdate;
     BOOL editOrNewActivity;
     EKEventStore *eventStore;
+    BOOL pushStateOn;
    
 }
 @property (nonatomic,retain)id <SoclivityManagerDelegate>delegate;
@@ -41,6 +42,7 @@
 @property (nonatomic,assign)BOOL localCacheUpdate;
 @property (nonatomic,assign)BOOL editOrNewActivity;
 @property (nonatomic,retain)EKEventStore *eventStore;
+@property (nonatomic,assign)BOOL pushStateOn;
 + (id)SharedInstance;
 -(void)deleteAllEvents;
 -(void)grantedAccess:(NSMutableArray*)eventArray;

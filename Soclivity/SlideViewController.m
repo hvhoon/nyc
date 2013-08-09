@@ -277,21 +277,87 @@
 - (void)slideOutSlideNavigationControllerView {
         
     _slideNavigationControllerState = kSlideNavigationControllerStatePeeking;
+    
+    
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    
+    if(!SOC.pushStateOn){
+
 
     [UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut  | UIViewAnimationOptionBeginFromCurrentState animations:^{
         
-        _slideNavigationController.view.transform = CGAffineTransformMakeTranslation(270.0f, 0.0f);//260
+        _slideNavigationController.view.transform = CGAffineTransformMakeTranslation(270.0f, 0.0f);
         
     } completion:^(BOOL finished) {
         
         [_slideNavigationController.view addSubview:_overlayView];
         
     }];
+}
+    else{
+        
+        
+        [UIView animateWithDuration:0.6 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut  | UIViewAnimationOptionBeginFromCurrentState animations:^{
+            
+            _slideNavigationController.view.transform = CGAffineTransformMakeTranslation(270.0f, 0.0f);
+            
+        } completion:^(BOOL finished) {
+            
+            [_slideNavigationController.view addSubview:_overlayView];
+            SOC.pushStateOn=FALSE;
+            
+            [self pushListViewAutoSlide];
+            
+
+
+            
+        }];
+    }
+    
     
 }
 
-- (void)slideInSlideNavigationControllerView {
+-(void)pushListViewAutoSlide{
+    NSDictionary *viewControllerDictionary = [[[[self.delegate datasource] objectAtIndex:1] objectForKey:kSlideViewControllerSectionViewControllersKey] objectAtIndex:0];
+    
+    
+    Class viewControllerClass = [viewControllerDictionary objectForKey:kSlideViewControllerViewControllerClassKey];
+    NSString *nibNameOrNil = [viewControllerDictionary objectForKey:kSlideViewControllerViewControllerNibNameKey];
+    UIViewController *viewController = [[viewControllerClass alloc] initWithNibName:nibNameOrNil bundle:nil];
+    
+    
+    if([viewController isKindOfClass:[HomeViewController class]]){
+        
+        
+        if ([(AppDelegate*)[[UIApplication sharedApplication] delegate]listViewController] != nil) {
             
+            HomeViewController *homeController=(HomeViewController*)[(AppDelegate*)[[UIApplication sharedApplication] delegate]listViewController];
+            [homeController updateDropdownAndPlays];
+            homeController.delegate=self;
+            viewController=[homeController retain];
+            
+            
+        }else{
+            HomeViewController *homeController=(HomeViewController*)viewController;
+            homeController.delegate=self;
+            
+        }
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(configureViewController:userInfo:)])
+        [self.delegate configureViewController:viewController userInfo:[viewControllerDictionary objectForKey:kSlideViewControllerViewControllerUserInfoKey]];
+    
+    [self configureViewController:viewController];
+    
+    [_slideNavigationController setViewControllers:[NSArray arrayWithObject:viewController] animated:NO];
+    [viewController release];
+    
+    [self slideInSlideNavigationControllerView];
+
+}
+
+- (void)slideInSlideNavigationControllerView {
+    
     [UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState animations:^{
         
         _slideNavigationController.view.transform = CGAffineTransformIdentity;
