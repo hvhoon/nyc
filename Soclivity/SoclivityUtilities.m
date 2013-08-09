@@ -275,7 +275,12 @@ if(timer%2==0){
         default:
         {
             NSLog(@"later");
-            NSString*timeUpdate=[NSString stringWithFormat:@"Last update: %@",activityTime];
+            NSString *timeUpdate;
+            if(lastDate)
+                timeUpdate=[NSString stringWithFormat:@"Last update: %@",activityTime];
+            else
+                timeUpdate=[NSString stringWithFormat:@"This may take a few minutes."];
+            
             [result appendFormat:@"%@",timeUpdate];
         }
             break;
