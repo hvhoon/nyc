@@ -91,6 +91,13 @@
 }
 
 
+-(IBAction)autoSlideToHome:(id)sender{
+    
+    SOC.pushStateOn=TRUE;
+    [self profileSliderPressed:sender];
+}
+
+
 -(void)UpdateBadgeNotification
 {
     [SoclivityUtilities returnNotificationButtonWithCountUpdate:btnnotify];
@@ -117,6 +124,7 @@
 
     
     if(inviteFriends){
+    homeButton.hidden=YES;
     btnnotify.hidden=YES;
     settingsButton.hidden=YES;
     activityBackButton.hidden=NO;
@@ -142,7 +150,7 @@
     [self.view addSubview:activityInvites];
 }
     else{
-        
+            homeButton.hidden=NO;
         inviteTitleLabel.text=@"Invites";
         if([SoclivityUtilities hasNetworkConnection]){
             

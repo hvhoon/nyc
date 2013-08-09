@@ -43,5 +43,5 @@
 -(IBAction)profileSliderPressed:(id)sender;
 -(void)startAnimation:(int)tag;
 -(void)getUserNotifications;
--(IBAction)profileSliderPressed2:(id)sender;
+-(IBAction)autoSlideToHome:(id)sender;
 @end

@@ -41,4 +41,5 @@
 -(IBAction)profileSliderPressed:(id)sender;
 -(IBAction)getStartedAction:(id)sender;
 - (void)startAnimation:(NSInteger)type;
+-(IBAction)autoSlideToHome:(id)sender;
 @end

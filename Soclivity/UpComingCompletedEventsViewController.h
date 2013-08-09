@@ -46,6 +46,7 @@
     NSInteger typeOfAct;
     NotificationClass *notIdObject;
     BOOL isInAppNotif;
+    IBOutlet UIButton *homeButton;
 
 }
 @property (nonatomic,retain)id <UpcomingCompletedEventsViewDelegate>delegate;
@@ -64,5 +65,5 @@
 -(void)goingButtonPressed:(id)sender;
 -(void)completedButtonPressed:(id)sender;
 -(IBAction)backButtonPressed:(id)sender;
-
+-(IBAction)autoSlideToHome:(id)sender;
 @end

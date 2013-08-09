@@ -38,6 +38,7 @@
     SoclivityManager *SOC;
     IBOutlet UIButton*btnnotify;
     NotificationClass *notIdObject;
+    IBOutlet UIButton *homeButton;
 }
 @property (nonatomic,retain)id <InvitesViewDelegate>delegate;
 @property (nonatomic,retain)ActivityInvitesView *activityInvites;
@@ -55,4 +56,5 @@
 -(IBAction)popBackToActivityScreen:(id)sender;
 -(void)startAnimation:(int)type;
 -(void)hideMBProgress;
+-(IBAction)autoSlideToHome:(id)sender;
 @end

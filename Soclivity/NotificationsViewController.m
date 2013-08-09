@@ -26,7 +26,7 @@
     return self;
 }
 
--(IBAction)profileSliderPressed2:(id)sender{
+-(IBAction)autoSlideToHome:(id)sender{
     
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     SOC.pushStateOn=TRUE;

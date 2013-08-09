@@ -83,6 +83,12 @@
     
 }
 
+-(IBAction)autoSlideToHome:(id)sender{
+    SOC.pushStateOn=TRUE;
+    [self profileSliderPressed:sender];
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -180,6 +186,10 @@
         profileButton.hidden=YES;
         backActivityButton.hidden=NO;
         btnnotify.hidden=YES;
+        homeButton.hidden=YES;
+    }
+    else{
+        homeButton.hidden=NO;
     }
         //activityListView.tableView.contentOffset = CGPointMake(0, -90.0f);
         //[activityListView pullToRefreshMannually];

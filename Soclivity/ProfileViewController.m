@@ -89,6 +89,11 @@
 }
 
 
+-(IBAction)autoSlideToHome:(id)sender{
+    SOC.pushStateOn=TRUE;
+    [self profileSliderPressed:sender];
+
+}
 
 #pragma mark - View lifecycle
 

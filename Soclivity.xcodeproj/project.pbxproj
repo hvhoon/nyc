@@ -19,6 +19,8 @@
 		18AF188F171C4CEC007894AB /* S05.1_phoneIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18AF1889171C4CEC007894AB /* S05.1_phoneIcon@2x.png */; };
 		18B17D641742A6B800400571 /* FeedbackBugReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B17D631742A6B800400571 /* FeedbackBugReport.m */; };
 		18B17D661742B03200400571 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B17D651742B03200400571 /* MessageUI.framework */; };
+		18B55EF017B557B8004077B3 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B55EEE17B557B8004077B3 /* home.png */; };
+		18B55EF117B557B8004077B3 /* home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B55EEF17B557B8004077B3 /* home@2x.png */; };
 		18B55F7117B4299800901623 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5BC9A1156CDD3D00AC8C0C /* SBJsonStreamParser.m */; };
 		18B55F7217B4299E00901623 /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5BC9A5156CDD3D00AC8C0C /* SBJsonStreamWriter.m */; };
 		18B55F7317B429A100901623 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5BC9A7156CDD3D00AC8C0C /* SBJsonWriter.m */; };
@@ -845,6 +847,8 @@
 		18B17D621742A6B800400571 /* FeedbackBugReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackBugReport.h; sourceTree = "<group>"; };
 		18B17D631742A6B800400571 /* FeedbackBugReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackBugReport.m; sourceTree = "<group>"; };
 		18B17D651742B03200400571 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		18B55EEE17B557B8004077B3 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
+		18B55EEF17B557B8004077B3 /* home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home@2x.png"; sourceTree = "<group>"; };
 		18B74BCC16EA472000F28F3D /* ChatServiceInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatServiceInvocation.h; sourceTree = "<group>"; };
 		18B74BCD16EA472000F28F3D /* ChatServiceInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatServiceInvocation.m; sourceTree = "<group>"; };
 		18B74BCF16EA482200F28F3D /* ActivityChatData+Parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ActivityChatData+Parse.h"; sourceTree = "<group>"; };
@@ -2023,6 +2027,8 @@
 		6802EC3515B6611E00FF0048 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				18B55EEE17B557B8004077B3 /* home.png */,
+				18B55EEF17B557B8004077B3 /* home@2x.png */,
 				689B37C617B050E200BF586D /* Default-568h@2x.png */,
 				689B37C417B04B7A00BF586D /* Default@2x.png */,
 				689B37C117B04B0D00BF586D /* Default.png */,
@@ -4296,6 +4302,8 @@
 				689B37C217B04B0D00BF586D /* Default.png in Resources */,
 				689B37C517B04B7A00BF586D /* Default@2x.png in Resources */,
 				689B37C717B050E200BF586D /* Default-568h@2x.png in Resources */,
+				18B55EF017B557B8004077B3 /* home.png in Resources */,
+				18B55EF117B557B8004077B3 /* home@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

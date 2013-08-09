@@ -297,7 +297,7 @@
     else{
         
         
-        [UIView animateWithDuration:0.6 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut  | UIViewAnimationOptionBeginFromCurrentState animations:^{
+        [UIView animateWithDuration:0.2 delay:0.0f options:UIViewAnimationOptionCurveEaseInOut  | UIViewAnimationOptionBeginFromCurrentState animations:^{
             
             _slideNavigationController.view.transform = CGAffineTransformMakeTranslation(270.0f, 0.0f);
             
