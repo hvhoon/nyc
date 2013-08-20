@@ -104,7 +104,7 @@
         
     }
     if(requestType==3){
-        [bodyD setObject:@"IMG" forKey:@"description"];
+        [bodyD setObject:[Base64 encode:[@"IMG" dataUsingEncoding:NSUTF8StringEncoding]] forKey:@"description"];
         [bodyD setObject:[Base64 encode:imageData] forKey:@"activity_photo_data"];
     }
     

@@ -1718,10 +1718,9 @@ switch ([notIdObject.notificationType integerValue]) {
         [UIView commitAnimations];
         [editButtonForMapView setHidden:YES];
         
-        if(inTransition)
+       if(inTransition)
             currentLocationInMap.hidden=YES;
-        
-        
+       
         context = UIGraphicsGetCurrentContext();
         [UIView beginAnimations:nil context:context];
         [UIView setAnimationTransition: UIViewAnimationTransitionFlipFromLeft forView:staticToggleView cache:YES];
@@ -1773,8 +1772,12 @@ switch ([notIdObject.notificationType integerValue]) {
        // if(activityInfo.activityRelationType==6)
          //   [editButtonForMapView setHidden:NO];
         
-        if(inTransition)
+        
+        if(inTransition){
             currentLocationInMap.hidden=NO;
+            inviteUsersToActivityButton.hidden=YES;
+
+        }
         
         context = UIGraphicsGetCurrentContext();
         [UIView beginAnimations:nil context:context];
@@ -2028,6 +2031,11 @@ switch ([notIdObject.notificationType integerValue]) {
         
         footerActivated=FALSE;
         chatView.hidden=YES;
+        enterChatTextButton.hidden=YES;
+        commentChatLabel.hidden=YES;
+        postChatImageButton.hidden=YES;
+        imagePostChatlabel.hidden=YES;
+
         scrollView.hidden=NO;
     }
     scrollView.scrollEnabled=YES;

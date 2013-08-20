@@ -167,7 +167,7 @@
     // how to get back time from current time in the same format
     NSDate *lastDate = [dateFormatter dateFromString:[friend objectForKey:@"created_at"]];//
     
-    if([[friend objectForKey:@"description"] isEqualToString:@"IMG"]){
+    if([[[NSString alloc] initWithData:[Base64 decode:[friend objectForKey:@"description"]]encoding:NSUTF8StringEncoding] isEqualToString:@"IMG"]){
         ActivityChatData *heyBubble = [ActivityChatData dataWithImage:[UIImage imageNamed:@"S05.3_chatImageFrame.png"] date:lastDate name:[friend objectForKey:@"player_name"] type:BubbleTypeSomeoneElse];
         heyBubble.postImageUrl=[NSString stringWithFormat:@"http://dev.soclivity.com%@",[friend objectForKey:@"activity_photo_url"]];
         

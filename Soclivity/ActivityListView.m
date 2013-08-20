@@ -51,7 +51,7 @@
     sortType=1;
     self.tableView.sectionHeaderHeight = HEADER_HEIGHT;
 	self.tableView.scrollsToTop=YES;
-    //[self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
+    [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
     self.tableView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
     rowHeight_ = DEFAULT_ROW_HEIGHT;
     openSectionIndex_ = NSNotFound;
@@ -643,7 +643,6 @@
     
     self.plays = [self.plays sortedArrayUsingComparator: ^(InfoActivityClass *a, InfoActivityClass *b) {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-		//dateFormatter.dateFormat = @"yyyy-MM-dd_HH:mm:ss";
         dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
 		NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
 		[dateFormatter setTimeZone:gmt];
@@ -662,10 +661,6 @@
             break;
             
         case 2:
-        {
-            sortType=3;
-        }
-            break;
         case 3:
         {
             sortType=3;
