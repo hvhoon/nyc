@@ -4576,8 +4576,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/Soclivity/JMCClasses/Libraries\"";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -4592,8 +4592,8 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "DE2E30AC-9E53-4AE2-8C05-4EDB289B8307";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DE2E30AC-9E53-4AE2-8C05-4EDB289B8307";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				USER_HEADER_SEARCH_PATHS = "../../src/**";
 				VALIDATE_PRODUCT = NO;
@@ -4606,8 +4606,8 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Harish Hoon (B99DQ79SBX)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/Soclivity/JMCClasses/Libraries\"";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -4622,8 +4622,8 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "DE2E30AC-9E53-4AE2-8C05-4EDB289B8307";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DE2E30AC-9E53-4AE2-8C05-4EDB289B8307";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				USER_HEADER_SEARCH_PATHS = "../../src/**";
 				VALIDATE_PRODUCT = YES;
