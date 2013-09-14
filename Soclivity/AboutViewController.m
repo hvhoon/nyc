@@ -89,7 +89,7 @@
     
     // Build text
     self.buildText.text = [NSString stringWithFormat:@"Soclivity iOS %@ (%@)", bundleName, buildNumber];
-    self.buildText.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    self.buildText.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     self.buildText.textColor = [SoclivityUtilities returnTextFontColor:5];
     
     // EULA text
