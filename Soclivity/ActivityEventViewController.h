@@ -38,6 +38,7 @@
     IBOutlet UIButton *inviteUsersToActivityButton;
     IBOutlet UIButton *blankInviteUsersAnimationButton;
     IBOutlet UIActivityIndicatorView *spinnerView;
+    IBOutlet UIButton *reportButton;
     IBOutlet UIButton *backButton;
     IBOutlet UIButton *newActivityButton;
     UIButton *goingButton;
