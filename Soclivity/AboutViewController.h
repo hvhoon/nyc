@@ -27,6 +27,7 @@
     SoclivityManager *SOC;
 }
 
+@property (retain, nonatomic) IBOutlet UITextView *eula;
 @property (nonatomic,retain)id <AboutViewDelegate>delegate;
 @property (retain, nonatomic) IBOutlet UILabel *buildText;
 @property(nonatomic,retain)    NotificationClass *notIdObject;
