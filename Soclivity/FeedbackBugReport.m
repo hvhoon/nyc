@@ -48,6 +48,21 @@ static FeedbackBugReport *sharedInstance = nil;
     return picker;
 }
 
+-(UINavigationController*)reportActivityController:(NSString *)flagMessage {
+    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+    picker.mailComposeDelegate = self;
+    
+    
+    NSArray *toRecipients = [NSArray arrayWithObject:@"flag@soclivity.com"];
+    [picker setSubject:@"Flag Activity"];
+    [picker setToRecipients:toRecipients];
+    [picker setMessageBody:flagMessage isHTML:NO];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
+        [[picker navigationBar] setTintColor:[UIColor clearColor]];
+    }
+    return picker;
+}
+
 - (UINavigationController *)sendFeedbackController
 {
     MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];

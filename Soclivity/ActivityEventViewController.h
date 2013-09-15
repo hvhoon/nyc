@@ -93,6 +93,7 @@
 -(IBAction)createANewActivityButtonPressed:(id)sender;
 -(IBAction)goingActivityButtonPressed:(id)sender;
 -(IBAction)notGoingActivityButtonPressed:(id)sender;
+-(IBAction)reportButtonPressed:(id)sender;
 -(IBAction)inviteUsersButton:(id)sender;
 -(IBAction)editButtonClicked:(id)sender;
 -(IBAction)chatButtonPressed:(id)sender;

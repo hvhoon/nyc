@@ -26,6 +26,7 @@
 #import "NotificationClass.h"
 #import "MessageInputView.h"
 #import "ActivityChatData.h"
+#import "FeedbackBugReport.h"
 
 #define kEditMapElements 10
 #define kJoinRequest 11
@@ -2302,6 +2303,25 @@ switch ([notIdObject.notificationType integerValue]) {
 
 -(IBAction)currentLocationBtnClicked:(id)sender{
     [eventView gotoLocation];
+}
+
+-(IBAction)reportButtonPressed:(id)sender{
+
+    NSString* flagMessage = [NSString stringWithFormat:@"Please tell us why you find this activity objectionable? (Enter below):\n\n\n\n--\nFlag Report:\nActivity: %@ (%ld)\nOrganizer: %@ (%ld)", activityInfo.activityName, (long)activityInfo.activityId, activityInfo.organizerName, (long)activityInfo.organizerId];
+    
+    if ([[FeedbackBugReport sharedInstance] canSendFeedback]) {
+        UINavigationController* tellAFriendController = [[FeedbackBugReport sharedInstance] reportActivityController:flagMessage];
+        [self presentModalViewController:tellAFriendController animated:YES];
+        
+        
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please setup your email account" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+    }
 }
 #pragma mark -
 #pragma mark UIAlertView methods
