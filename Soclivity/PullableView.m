@@ -341,7 +341,16 @@
     }
     }
     else{
-        CGRect tapNewActivityRect =CGRectMake(275, 408, 39, 31);
+        CGRect tapNewActivityRect;
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+         tapNewActivityRect =CGRectMake(275, 408+20, 39, 31);
+        
+        }
+    else
+    {
+         tapNewActivityRect =CGRectMake(275, 408, 39, 31);
+        
+    }
         if(CGRectContainsPoint(tapNewActivityRect,startPoint)){
          [delegate newActivityButtonPressed];
         }

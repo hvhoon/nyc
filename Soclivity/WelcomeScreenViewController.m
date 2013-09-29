@@ -101,9 +101,15 @@
     // Change the logo location based on device type
     float x=0;
     
+    
     if([SoclivityUtilities deviceType] & iPhone5){
         x = 44.0;
     }
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        x+=20.0f;
+    }
+
     
     socLogoImageView.frame=CGRectMake(51, x+110, 219, 58);
     playHighlightImage.frame=CGRectMake(33, x+180, 254, 14);

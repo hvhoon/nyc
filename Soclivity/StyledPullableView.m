@@ -558,14 +558,13 @@
 
         
         UIButton *searchHandleButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        
+
         searchHandleButton.frame = CGRectMake(5, 397, 58.0, 57.0);//397
         [searchHandleButton setImage:[UIImage imageNamed:@"S04_bookmark.png"] forState:UIControlStateNormal];
         [searchHandleButton addTarget:self action:@selector(pushTodetailActivity:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:searchHandleButton];
-        
-        
-        
-        
+        searchHandleButton.hidden=YES;
         
         UIView *dateCalendarView=[[UIView alloc]initWithFrame:CGRectMake(320, 0, 320, 402)];
         dateCalendarView.backgroundColor=[UIColor whiteColor];
@@ -600,16 +599,22 @@
         [filterPaneView addSubview:dateCalendarView];
 
         
-        searchLensImageView=[[UIImageView alloc]initWithFrame:CGRectMake(22, 415, 20, 21)];
-        searchLensImageView.image=[UIImage imageNamed:@"S04_search.png"];
-        [self addSubview:searchLensImageView];
-        searchLensImageView.hidden=NO;
-
-        crossImageView=[[UIImageView alloc]initWithFrame:CGRectMake(22, 415, 22, 18)];
-        crossImageView.image=[UIImage imageNamed:@"S04.1_cross.png"];
-        [self addSubview:crossImageView];
-        crossImageView.hidden=YES;
         
+        if (!SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+            searchLensImageView=[[UIImageView alloc]initWithFrame:CGRectMake(22, 415, 20, 21)];
+            searchLensImageView.image=[UIImage imageNamed:@"S04_search.png"];
+            [self addSubview:searchLensImageView];
+            
+            
+            crossImageView=[[UIImageView alloc]initWithFrame:CGRectMake(22, 415, 22, 18)];
+            crossImageView.image=[UIImage imageNamed:@"S04.1_cross.png"];
+            [self addSubview:crossImageView];
+            crossImageView.hidden=YES;
+
+            searchLensImageView.hidden=NO;
+            searchHandleButton.hidden=NO;
+
+        }
         
         
         self.notificationView=[[UIView alloc]initWithFrame:CGRectMake(0, 400, 320, 60)];

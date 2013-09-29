@@ -59,7 +59,10 @@
     IBOutlet UIButton *addButton;
     BOOL bookmarkState;
     BOOL doublePushStop;
-
+    IBOutlet UIImageView *soclivityLogoImageView;
+    IBOutlet UIImageView *topBarImageView;
+    IBOutlet UIImageView *bottomBarImageView;
+    IBOutlet UIButton *profileSliderButton;
 }
 
 @property (nonatomic,retain)id <HomeScreenDelegate>delegate;

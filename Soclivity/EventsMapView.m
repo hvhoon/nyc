@@ -409,23 +409,28 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
 	
 	CGRect nameLabelRect=CGRectMake(10,0,145,16);
 	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
-	nameLabel.textAlignment=UITextAlignmentLeft;
+	nameLabel.textAlignment=NSTextAlignmentLeft;
 	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
 	nameLabel.textColor=[UIColor whiteColor];
 	nameLabel.backgroundColor=[UIColor clearColor];
 	nameLabel.text=[locObject._socAnnotation activityName];
 	[mapLeftView addSubview:nameLabel];
-	[nameLabel release];
 	
 	CGRect timeLabelRect=CGRectMake(10,17,140,13);
 	UILabel *timeLabel=[[UILabel alloc] initWithFrame:timeLabelRect];
-	timeLabel.textAlignment=UITextAlignmentLeft;
+	timeLabel.textAlignment=NSTextAlignmentLeft;
 	timeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
 	timeLabel.textColor=[UIColor whiteColor];
 	timeLabel.backgroundColor=[UIColor clearColor];
     timeLabel.text=[locObject._socAnnotation dateAndTime];
     [mapLeftView addSubview:timeLabel];
-	[timeLabel release];
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        	nameLabel.textColor=[UIColor blackColor];
+        	timeLabel.textColor=[UIColor blackColor];
+    }
+	[nameLabel release];
+    [timeLabel release];
 	
 	
 	return mapLeftView;

@@ -776,9 +776,9 @@
     }
     else{
     //draw a custom switch control
-                if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
-        [[UISwitch appearance] setTintColor:[UIColor grayColor]];
-        [[UISwitch appearance] setOnTintColor:[UIColor grayColor]];
+  if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        //[[UISwitch appearance] setTintColor:[UIColor grayColor]];
+        //[[UISwitch appearance] setOnTintColor:[UIColor grayColor]];
                 }
         
         UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectMake(185, 8, 50, 50)];

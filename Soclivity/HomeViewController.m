@@ -61,8 +61,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    
-    
+
     
     [addButton setBackgroundImage:[UIImage imageNamed:@"addevent.png"] forState:UIControlStateNormal];
     [addButton setBackgroundImage:[UIImage imageNamed:@"addevent.png"] forState:UIControlStateHighlighted];
@@ -144,7 +143,44 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
+    
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        topBarImageView.frame=CGRectMake(0, 0, 320, 64);
+        soclivityLogoImageView.frame=CGRectMake(105, 25, 111, 29);
+        addButton.frame=CGRectMake(275, 20, 40, 40);
+
+        if([SoclivityUtilities deviceType] & iPhone5){
+            
+            profileSliderButton.frame=CGRectMake(5, 420+88+20, 40, 40);
+            staticView.frame=CGRectMake(0, 64, 320, 464);
+            bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
+            sortDistanceBtn.frame=CGRectMake(88,447+88, 25, 25);
+            sortDOSBtn.frame=CGRectMake(148,447+88, 25, 25);
+            sortByTimeBtn.frame=CGRectMake(208,447+88, 25, 25);
+            staticButtonView.frame=CGRectMake(275,440+88, 40, 40);
+            currentLocationBtn.frame=CGRectMake(118,447+88, 25, 25);
+            refreshBtn.frame=CGRectMake(178,447+88, 25, 25);
+        }
+        else{
+            profileSliderButton.frame=CGRectMake(5, 420+20, 40, 40);
+            staticView.frame=CGRectMake(0, 64, 320, 464-88);
+            bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
+            sortDistanceBtn.frame=CGRectMake(88,447, 25, 25);
+            sortDOSBtn.frame=CGRectMake(148,447, 25, 25);
+            sortByTimeBtn.frame=CGRectMake(208,447, 25, 25);
+            staticButtonView.frame=CGRectMake(275, 440, 40, 40);
+            currentLocationBtn.frame=CGRectMake(118,447, 25, 25);
+            refreshBtn.frame=CGRectMake(178,447+88, 25, 25);
+        }
+        
+        UIButton *searchButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        searchButton.frame = CGRectMake(15, 32, 20.0, 21.0);
+        [searchButton setImage:[UIImage imageNamed:@"S04_search.png"] forState:UIControlStateNormal];
+        [self.view addSubview:searchButton];
+ }
+
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
     self.restorationIdentifier = @"HomeViewController";
     self.restorationClass = [self class];
         }
@@ -278,6 +314,10 @@
 
     
     // Do any additional setup after loading the view from its nib.
+}
+
+-(void)searchTapHandle:(id)sender{
+    
 }
 
 +(UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder

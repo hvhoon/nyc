@@ -114,4 +114,5 @@
 -(void)showHideCross:(BOOL)op;
 - (void)slideOutFilterPane;
 - (void)bringInFilterPane;
+- (void)handleTap:(UITapGestureRecognizer *)sender;
 @end

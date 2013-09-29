@@ -53,9 +53,6 @@
 
 +(BOOL) isOk:(NSNumber*)statusCode;
 +(NSDictionary*) responseFromJSONDictionary:(NSDictionary*)resultsd error:(NSError**)error;
-
--(NSString*)udid;
-
 -(BOOL)isReady;
 -(void)invoke;
 

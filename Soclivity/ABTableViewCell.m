@@ -7,13 +7,13 @@
 //
 
 #import "ABTableViewCell.h"
-
+#define _IPHONE_7_0     7
 @interface ABTableViewCellView : UIView
 @end
 
 @implementation ABTableViewCellView
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < _IPHONE_7_0
 - (void)drawRect:(CGRect)r
 {
 	[(ABTableViewCell *)[self superview] drawContentView:r];
@@ -23,7 +23,6 @@
 - (void)drawRect:(CGRect)r {
     UIView *view = self;
     while (view && ![view isKindOfClass:[ABTableViewCell class]]) view = view.superview;
-    
     [(ABTableViewCell *)view drawContentView:r];
 }
 #endif
