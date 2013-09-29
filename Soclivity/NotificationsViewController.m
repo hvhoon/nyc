@@ -211,7 +211,7 @@
      
         for(NotificationClass *obj in responses){
             
-            if(([obj.notificationType integerValue]==1||[obj.notificationType integerValue]==2||[obj.notificationType integerValue]==3||[obj.notificationType integerValue]==4)&& !obj.isRead){
+            if(([obj.notificationType integerValue]==1||[obj.notificationType integerValue]==2||[obj.notificationType integerValue]==3||[obj.notificationType integerValue]==4||[obj.notificationType integerValue]==15)&& !obj.isRead){
                 [calendarArray addObject:obj];
             }
         }
@@ -421,7 +421,6 @@
     
     if(isSyncing){
         isSyncing=FALSE;
-        
         SoclivityManager *SOC=[SoclivityManager SharedInstance];
         [SOC deltaUpdateSyncCalendar:response];
 
