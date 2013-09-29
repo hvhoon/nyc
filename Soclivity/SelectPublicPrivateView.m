@@ -96,10 +96,10 @@
     CGRect privacyTextRect=CGRectMake(110,7.5,200, 22);
     
     UILabel *privacyLabel=[[UILabel alloc] initWithFrame:privacyLabelRect];
-    privacyLabel.textAlignment=UITextAlignmentLeft;
+    privacyLabel.textAlignment=NSTextAlignmentLeft;
     
     UILabel *privacyText=[[UILabel alloc] initWithFrame:privacyTextRect];
-    privacyText.textAlignment=UITextAlignmentLeft;
+    privacyText.textAlignment=NSTextAlignmentLeft;
     
     privacyLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:16];
     privacyLabel.textColor=[UIColor blackColor];

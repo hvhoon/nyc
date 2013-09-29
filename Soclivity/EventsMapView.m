@@ -75,6 +75,11 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+    if([SoclivityUtilities deviceType] & iPhone5){
+        mapView.frame=CGRectMake(0,0, 320, 376+88);
+    }else{
+        mapView.frame=CGRectMake(0,0, 320, 376);
+    }
 
     self.mapView.mapType = MKMapTypeStandard;
     //[self.mapView setShowsUserLocation:YES];

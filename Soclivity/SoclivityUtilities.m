@@ -485,7 +485,7 @@ if(timer%2==0){
 	label.backgroundColor = [UIColor clearColor];
     label.textColor=[SoclivityUtilities returnTextFontColor:1];
     label.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
-    label.textAlignment = UITextAlignmentCenter;
+    label.textAlignment = NSTextAlignmentCenter;
 	
 	return label;
 	

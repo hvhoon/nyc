@@ -446,7 +446,7 @@
     loadMoreChatLabel.backgroundColor=[UIColor clearColor];
     loadMoreChatLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     loadMoreChatLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-    loadMoreChatLabel.textAlignment = UITextAlignmentLeft;
+    loadMoreChatLabel.textAlignment = NSTextAlignmentLeft;
     
     UIActivityIndicatorView*friendSpinnerLoadMore = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     friendSpinnerLoadMore.frame = CGRectMake(10,15, 25, 25);

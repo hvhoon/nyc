@@ -115,7 +115,7 @@
             OrganizerName=detailSectionInfo.organizerName;
         
         [ogButton setTitle:OrganizerName forState:UIControlStateNormal];
-        ogButton.titleLabel.textAlignment=UITextAlignmentLeft;
+        ogButton.titleLabel.textAlignment=NSTextAlignmentLeft;
         [ogButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateHighlighted];
         ogButton.tag=((section & 0xFFFF) << 16) |
         (sortingPattern & 0xFFFF);
@@ -188,7 +188,7 @@
         // People going 
         CGRect countLabelRect=CGRectMake(15,72,180,15);
         UILabel *label=[[UILabel alloc] initWithFrame:countLabelRect];
-        label.textAlignment=UITextAlignmentLeft;
+        label.textAlignment=NSTextAlignmentLeft;
         
         // Add plural logic here
         if ([detailSectionInfo.goingCount isEqualToString:@"1"])
@@ -208,7 +208,7 @@
                 
                 CGRect distanceLabelRect=CGRectMake(160,72,143,15);
                 UILabel *mileslabel=[[UILabel alloc] initWithFrame:distanceLabelRect];
-                mileslabel.textAlignment=UITextAlignmentRight;
+                mileslabel.textAlignment=NSTextAlignmentRight;
                 mileslabel.text=[NSString stringWithFormat:@"%@ miles away",detailSectionInfo.distance];
                 mileslabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
                 mileslabel.textColor=[SoclivityUtilities returnTextFontColor:1];
@@ -223,7 +223,7 @@
             {
                 CGRect goingLabelRect=CGRectMake(160,72,143,15);
                 UILabel *goingLabel=[[UILabel alloc] initWithFrame:goingLabelRect];
-                goingLabel.textAlignment=UITextAlignmentRight;
+                goingLabel.textAlignment=NSTextAlignmentRight;
                 
                 // Add plural logic here
                 if(detailSectionInfo.DOS1==1)
@@ -245,7 +245,7 @@
             {
                 CGRect timeLabelRect=CGRectMake(160,72,143,15);
                 UILabel *timelabel=[[UILabel alloc] initWithFrame:timeLabelRect];
-                timelabel.textAlignment=UITextAlignmentRight;
+                timelabel.textAlignment=NSTextAlignmentRight;
                 timelabel.text=[NSString stringWithFormat:@"%@",[SoclivityUtilities NetworkTime:detailSectionInfo]];
                 timelabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
                 timelabel.textColor=[SoclivityUtilities returnTextFontColor:1];

@@ -306,7 +306,7 @@
     
     CGRect DOSLabelRect=CGRectMake(38,7.5,140,12);
     UILabel *DOScountLabel=[[UILabel alloc] initWithFrame:DOSLabelRect];
-    DOScountLabel.textAlignment=UITextAlignmentLeft;
+    DOScountLabel.textAlignment=NSTextAlignmentLeft;
     
     DOScountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
     DOScountLabel.textColor=[SoclivityUtilities returnTextFontColor:5];

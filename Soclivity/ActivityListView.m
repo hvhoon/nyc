@@ -46,7 +46,11 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    
+            if([SoclivityUtilities deviceType] & iPhone5){
+    tableView.frame=CGRectMake(0,0, 320, 376+88);
+            }else{
+    tableView.frame=CGRectMake(0,0, 320, 376);
+            }
     // Drawing code
     sortType=1;
     self.tableView.sectionHeaderHeight = HEADER_HEIGHT;
@@ -298,7 +302,7 @@
     refreshLabel.shadowOffset = CGSizeMake(0,-1);
     refreshLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     refreshLabel.textColor = [SoclivityUtilities returnTextFontColor:1];
-    refreshLabel.textAlignment = UITextAlignmentCenter;
+    refreshLabel.textAlignment = NSTextAlignmentCenter;
     
     
     lastUpdateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 50, 320, 15)];//REFRESH_HEADER_HEIGHT
@@ -307,7 +311,7 @@
     lastUpdateLabel.shadowOffset = CGSizeMake(0,-1);
     lastUpdateLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:14];
     lastUpdateLabel.textColor = [SoclivityUtilities returnTextFontColor:1];
-    lastUpdateLabel.textAlignment = UITextAlignmentCenter;
+    lastUpdateLabel.textAlignment = NSTextAlignmentCenter;
     
     
     NSString *timeStamp=nil;

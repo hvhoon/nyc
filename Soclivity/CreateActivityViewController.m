@@ -145,11 +145,11 @@
     
     CGRect playTypeLabelRect=CGRectMake(0,28,64,16);
     UILabel *playTypeLabel=[[UILabel alloc] initWithFrame:playTypeLabelRect];
-    playTypeLabel.textAlignment=UITextAlignmentCenter;
+    playTypeLabel.textAlignment=NSTextAlignmentCenter;
     playTypeLabel.text=[NSString stringWithFormat:@"Play"];
     playTypeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     playTypeLabel.textColor=[UIColor whiteColor];
-    playTypeLabel.textAlignment = UITextAlignmentCenter;
+    playTypeLabel.textAlignment = NSTextAlignmentCenter;
     playTypeLabel.tag=kPlayLabelText;
     playTypeLabel.backgroundColor=[UIColor clearColor];
     [createActivityView addSubview:playTypeLabel];
@@ -174,11 +174,11 @@
     
     CGRect eatTypeLabelRect=CGRectMake(64,28,64,15);
     UILabel *eatTypeLabel=[[UILabel alloc] initWithFrame:eatTypeLabelRect];
-    eatTypeLabel.textAlignment=UITextAlignmentCenter;
+    eatTypeLabel.textAlignment=NSTextAlignmentCenter;
     eatTypeLabel.text=[NSString stringWithFormat:@"Eat"];
     eatTypeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     eatTypeLabel.textColor=[UIColor whiteColor];
-    eatTypeLabel.textAlignment = UITextAlignmentCenter;
+    eatTypeLabel.textAlignment = NSTextAlignmentCenter;
     eatTypeLabel.tag=kEatLabelText;
     eatTypeLabel.backgroundColor=[UIColor clearColor];
     [createActivityView addSubview:eatTypeLabel];
@@ -204,11 +204,11 @@
     
     CGRect seeTypeLabelRect=CGRectMake(128,28,64,15);
     UILabel *seeTypeLabel=[[UILabel alloc] initWithFrame:seeTypeLabelRect];
-    seeTypeLabel.textAlignment=UITextAlignmentCenter;
+    seeTypeLabel.textAlignment=NSTextAlignmentCenter;
     seeTypeLabel.text=[NSString stringWithFormat:@"See"];
     seeTypeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     seeTypeLabel.textColor=[UIColor whiteColor];
-    seeTypeLabel.textAlignment = UITextAlignmentCenter;
+    seeTypeLabel.textAlignment = NSTextAlignmentCenter;
     seeTypeLabel.tag=kSeeLabelText;
     seeTypeLabel.backgroundColor=[UIColor clearColor];
     [createActivityView addSubview:seeTypeLabel];
@@ -234,11 +234,11 @@
     
     CGRect createTypeLabelRect=CGRectMake(192,28,64,15);
     UILabel *createTypeLabel=[[UILabel alloc] initWithFrame:createTypeLabelRect];
-    createTypeLabel.textAlignment=UITextAlignmentCenter;
+    createTypeLabel.textAlignment=NSTextAlignmentCenter;
     createTypeLabel.text=[NSString stringWithFormat:@"Create"];
     createTypeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     createTypeLabel.textColor=[UIColor whiteColor];
-    createTypeLabel.textAlignment = UITextAlignmentCenter;
+    createTypeLabel.textAlignment = NSTextAlignmentCenter;
     createTypeLabel.tag=kCreateLabelText;
     createTypeLabel.backgroundColor=[UIColor clearColor];
     [createActivityView addSubview:createTypeLabel];
@@ -264,11 +264,11 @@
     
     CGRect learnTypeLabelRect=CGRectMake(256,28,64,15);
     UILabel *learnTypeLabel=[[UILabel alloc] initWithFrame:learnTypeLabelRect];
-    learnTypeLabel.textAlignment=UITextAlignmentCenter;
+    learnTypeLabel.textAlignment=NSTextAlignmentCenter;
     learnTypeLabel.text=[NSString stringWithFormat:@"Learn"];
     learnTypeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     learnTypeLabel.textColor=[UIColor whiteColor];
-    learnTypeLabel.textAlignment = UITextAlignmentCenter;
+    learnTypeLabel.textAlignment = NSTextAlignmentCenter;
     learnTypeLabel.tag=kLearnLabelText;
     learnTypeLabel.backgroundColor=[UIColor clearColor];
     [createActivityView addSubview:learnTypeLabel];
@@ -319,7 +319,7 @@
     descriptionTextView.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     descriptionTextView.textColor=[SoclivityUtilities returnTextFontColor:5];
     descriptionTextView.backgroundColor=[UIColor clearColor];
-    descriptionTextView.textAlignment=UITextAlignmentLeft;
+    descriptionTextView.textAlignment=NSTextAlignmentLeft;
     descriptionTextView.editable = YES;
     descriptionTextView.delegate = self;
     descriptionTextView.contentSize = descriptionTextView.frame.size;
@@ -371,7 +371,7 @@
     countTextLabel.backgroundColor=[UIColor clearColor];
     
     
-    pickADayButton.titleLabel.textAlignment=UITextAlignmentLeft;
+    pickADayButton.titleLabel.textAlignment=NSTextAlignmentLeft;
     pickADayButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:14];
     pickADayButton.titleLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     [pickADayButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateNormal];
@@ -380,7 +380,7 @@
     
 
     
-    pickATimeButton.titleLabel.textAlignment=UITextAlignmentLeft;
+    pickATimeButton.titleLabel.textAlignment=NSTextAlignmentLeft;
     pickATimeButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:14];
     pickATimeButton.titleLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     [pickATimeButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateNormal];
@@ -436,7 +436,7 @@
 
 
     
-    publicPrivateButton.titleLabel.textAlignment=UITextAlignmentLeft;
+    publicPrivateButton.titleLabel.textAlignment=NSTextAlignmentLeft;
     publicPrivateButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:14];
     publicPrivateButton.titleLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     [publicPrivateButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateNormal];
@@ -540,7 +540,7 @@
     
     CGRect firstLineLabelRect=CGRectMake(54,10,228,21);
     firstALineddressLabel=[[UILabel alloc] initWithFrame:firstLineLabelRect];
-    firstALineddressLabel.textAlignment=UITextAlignmentLeft;
+    firstALineddressLabel.textAlignment=NSTextAlignmentLeft;
     firstALineddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
     firstALineddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     firstALineddressLabel.backgroundColor=[UIColor clearColor];
@@ -550,7 +550,7 @@
     
     CGRect secondLineLabelRect=CGRectMake(54,28,228,21);
     secondLineAddressLabel=[[UILabel alloc] initWithFrame:secondLineLabelRect];
-    secondLineAddressLabel.textAlignment=UITextAlignmentLeft;
+    secondLineAddressLabel.textAlignment=NSTextAlignmentLeft;
     secondLineAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     secondLineAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     secondLineAddressLabel.backgroundColor=[UIColor clearColor];
@@ -577,7 +577,7 @@
 
     CGRect phoneLabelRect=CGRectMake(37,30,142,21);
     phoneLabel=[[UILabel alloc] initWithFrame:phoneLabelRect];
-    phoneLabel.textAlignment=UITextAlignmentLeft;
+    phoneLabel.textAlignment=NSTextAlignmentLeft;
     phoneLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     phoneLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     phoneLabel.backgroundColor=[UIColor clearColor];
@@ -591,7 +591,7 @@
     
     CGRect ratingLabelRect=CGRectMake(190,30,80,21);
     ratingLabel=[[UILabel alloc] initWithFrame:ratingLabelRect];
-    ratingLabel.textAlignment=UITextAlignmentLeft;
+    ratingLabel.textAlignment=NSTextAlignmentLeft;
     ratingLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     ratingLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     ratingLabel.backgroundColor=[UIColor clearColor];
@@ -617,7 +617,7 @@
     
     CGRect searchLabelRect=CGRectMake(44,10,72,21);
     searchTextLabel=[[UILabel alloc] initWithFrame:searchLabelRect];
-    searchTextLabel.textAlignment=UITextAlignmentLeft;
+    searchTextLabel.textAlignment=NSTextAlignmentLeft;
     searchTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     searchTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     searchTextLabel.backgroundColor=[UIColor clearColor];
@@ -627,7 +627,7 @@
     
     CGRect placeAddressLabelRect=CGRectMake(44,25,148,21);
     placeAndAddressLabel=[[UILabel alloc] initWithFrame:placeAddressLabelRect];
-    placeAndAddressLabel.textAlignment=UITextAlignmentLeft;
+    placeAndAddressLabel.textAlignment=NSTextAlignmentLeft;
     placeAndAddressLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
     placeAndAddressLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     placeAndAddressLabel.backgroundColor=[UIColor clearColor];
@@ -649,7 +649,7 @@
     
     CGRect dropPinLabelRect=CGRectMake(194,10,91,21);
     dropPinLabel=[[UILabel alloc] initWithFrame:dropPinLabelRect];
-    dropPinLabel.textAlignment=UITextAlignmentLeft;
+    dropPinLabel.textAlignment=NSTextAlignmentLeft;
     dropPinLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     dropPinLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     dropPinLabel.backgroundColor=[UIColor clearColor];
@@ -661,7 +661,7 @@
     
     CGRect touchandHoldLabelRect=CGRectMake(194,25,131,21);
     touchAndHoldMapLabel=[[UILabel alloc] initWithFrame:touchandHoldLabelRect];
-    touchAndHoldMapLabel.textAlignment=UITextAlignmentLeft;
+    touchAndHoldMapLabel.textAlignment=NSTextAlignmentLeft;
     touchAndHoldMapLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
     touchAndHoldMapLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     touchAndHoldMapLabel.backgroundColor=[UIColor clearColor];
@@ -2666,7 +2666,7 @@
             if(location.pinDrop){
                 CGRect pinDropLabelRect=CGRectMake(10,0,80,16);
                 UILabel *pinDropLabel=[[UILabel alloc] initWithFrame:pinDropLabelRect];
-                pinDropLabel.textAlignment=UITextAlignmentCenter;
+                pinDropLabel.textAlignment=NSTextAlignmentCenter;
                 pinDropLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
                 pinDropLabel.textColor=[UIColor whiteColor];
                 pinDropLabel.backgroundColor=[UIColor clearColor];
@@ -2851,7 +2851,7 @@
         {
             CGRect categoryLabelRect=CGRectMake(5,18,size.width,12);
             categoryTextLabel=[[UILabel alloc] initWithFrame:categoryLabelRect];
-            categoryTextLabel.textAlignment=UITextAlignmentLeft;
+            categoryTextLabel.textAlignment=NSTextAlignmentLeft;
             categoryTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
             categoryTextLabel.textColor=[UIColor whiteColor];
             categoryTextLabel.backgroundColor=[UIColor clearColor];
@@ -2872,7 +2872,7 @@
 	
     CGRect nameLabelRect=CGRectMake(5,0,size.width,16);
 	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
-	nameLabel.textAlignment=UITextAlignmentLeft;
+	nameLabel.textAlignment=NSTextAlignmentLeft;
 	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
 	nameLabel.textColor=[UIColor whiteColor];
 	nameLabel.backgroundColor=[UIColor clearColor];

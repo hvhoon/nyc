@@ -39,7 +39,7 @@
 #define cellHeightDefault 44
 #define cellHeightSmall 35
 #define cellHeightLarge  64
-#define cellHeightSignOut 44
+#define cellHeightSignOut 45
 
 @interface SlideViewController (private)<HomeScreenDelegate,ProfileScreenViewDelegate,NotificationsScreenViewDelegate,UpcomingCompletedEventsViewDelegate,InvitesViewDelegate,AboutViewDelegate,MBProgressHUDDelegate,RegistrationDetailDelegate,GetUpcomingActivitiesInvocationDelegate>
 @end
@@ -173,7 +173,6 @@
     self.restorationClass = [self class];
         }
     self.view.backgroundColor= [SoclivityUtilities returnBackgroundColor:3];
-    //self.view.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S7_background.png"]];
     _tableView.scrollEnabled=NO;
     _tableView.bounces=NO;
     if (![self.delegate respondsToSelector:@selector(configureSearchDatasourceWithString:)] || ![self.delegate respondsToSelector:@selector(searchDatasource)]) {
@@ -599,8 +598,8 @@
         cell = [[[SlideViewTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:resuseIdentifier] autorelease];
     
     }
-
-    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0))
+        cell.backgroundColor = [SoclivityUtilities returnBackgroundColor:3];
     NSDictionary *viewControllerDictionary = nil;
     
     if (_slideNavigationControllerState == kSlideNavigationControllerStateSearching) {
@@ -736,7 +735,7 @@
     // Setting the text for items in the settings menu
     CGRect textLabelRect=CGRectMake(64,yTextLabel,205,17);
     UILabel *descriptionLabel=[[UILabel alloc] initWithFrame:textLabelRect];
-    descriptionLabel.textAlignment=UITextAlignmentLeft;
+    descriptionLabel.textAlignment=NSTextAlignmentLeft;
     descriptionLabel.text=[viewControllerDictionary objectForKey:kSlideViewControllerViewControllerTitleKey];
     descriptionLabel.backgroundColor=[UIColor clearColor];
     descriptionLabel.textColor=[UIColor whiteColor];
@@ -775,15 +774,10 @@
         [longLineImageView release];
     }
     else{
-    //draw a custom switch control
-  if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-        //[[UISwitch appearance] setTintColor:[UIColor grayColor]];
-        //[[UISwitch appearance] setOnTintColor:[UIColor grayColor]];
-                }
-        
         UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectMake(185, 8, 50, 50)];
         switchView.transform = CGAffineTransformMakeScale(0.75, 0.75);
-
+        [switchView setTintColor:[UIColor grayColor]];
+        [switchView setOnTintColor:[UIColor grayColor]];
         
         [cell.contentView addSubview:switchView];
         SoclivityManager *SOC=[SoclivityManager SharedInstance];
@@ -833,7 +827,7 @@
             slideImageView.frame=CGRectMake(16, yLeftImage, slideImageView.image.size.width, slideImageView.image.size.height);
             CGRect notificationNoLabelRect=CGRectMake(6,4,15,14);
             UILabel *notificationNoLabel=[[UILabel alloc] initWithFrame:notificationNoLabelRect];
-            notificationNoLabel.textAlignment=UITextAlignmentCenter;
+            notificationNoLabel.textAlignment=NSTextAlignmentCenter;
             SoclivityManager *SOC=[SoclivityManager SharedInstance];
             notificationNoLabel.text=[NSString stringWithFormat:@"%d",SOC.loggedInUser.badgeCount];
             notificationNoLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
@@ -1074,7 +1068,7 @@
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectInset(imageView.frame, 10.0f, 0.0f)];
     titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:12.0f];
-    titleLabel.textAlignment = UITextAlignmentLeft;
+    titleLabel.textAlignment = NSTextAlignmentLeft;
     titleLabel.textColor = [UIColor colorWithRed:125.0f/255.0f green:129.0f/255.0f blue:146.0f/255.0f alpha:1.0f];
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.text = titleString;

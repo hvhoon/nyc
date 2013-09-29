@@ -97,7 +97,7 @@
     
     CGRect organizerLabelRect=CGRectMake(70,230,170,15);
     UILabel *oglabel=[[UILabel alloc] initWithFrame:organizerLabelRect];
-    oglabel.textAlignment=UITextAlignmentLeft;
+    oglabel.textAlignment=NSTextAlignmentLeft;
     oglabel.text=[NSString stringWithFormat:@"%@",info.organizerName];
     oglabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
     oglabel.textColor=[SoclivityUtilities returnTextFontColor:5];

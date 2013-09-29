@@ -135,7 +135,7 @@ NSString * const kSearchTextKey = @"Search Text";
     
     CGRect conatactsLabelRect=CGRectMake(50,17.5,140,12);
     UILabel *contactsLabel=[[UILabel alloc] initWithFrame:conatactsLabelRect];
-    contactsLabel.textAlignment=UITextAlignmentLeft;
+    contactsLabel.textAlignment=NSTextAlignmentLeft;
     
     contactsLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
     contactsLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -147,7 +147,7 @@ NSString * const kSearchTextKey = @"Search Text";
     
     CGRect invitePeopleTextLabelRect=CGRectMake(50,32.5,200,12);
     UILabel *inviteLabel=[[UILabel alloc] initWithFrame:invitePeopleTextLabelRect];
-    inviteLabel.textAlignment=UITextAlignmentLeft;
+    inviteLabel.textAlignment=NSTextAlignmentLeft;
     
     inviteLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
     inviteLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -490,7 +490,7 @@ NSString * const kSearchTextKey = @"Search Text";
     
     CGRect DOSLabelRect=CGRectMake(38,7.5,240,12);
     UILabel *DOScountLabel=[[UILabel alloc] initWithFrame:DOSLabelRect];
-    DOScountLabel.textAlignment=UITextAlignmentLeft;
+    DOScountLabel.textAlignment=NSTextAlignmentLeft;
     
     DOScountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
     DOScountLabel.textColor=[SoclivityUtilities returnTextFontColor:5];

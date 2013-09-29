@@ -63,10 +63,17 @@ static NSString* kAppId = @"160726900680967";//kanav
     
     //[self setUpActivityDataList];
     [SoclivitySqliteClass copyDatabaseIfNeeded];
-	BOOL openSuccessful=[SoclivitySqliteClass openDatabase:[SoclivitySqliteClass getDBPath]];
-	if(openSuccessful)
-		
-     [application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+	[SoclivitySqliteClass openDatabase:[SoclivitySqliteClass getDBPath]];
+
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        [application setStatusBarStyle:UIStatusBarStyleLightContent];
+        
+    }else{
+        [application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+        
+    }
+    
+    
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];

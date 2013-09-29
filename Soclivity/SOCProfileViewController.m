@@ -346,7 +346,7 @@
         
         CGRect topLabelRect=CGRectMake(60,140,280,15);
         UILabel *topLabel=[[UILabel alloc] initWithFrame:topLabelRect];
-        topLabel.textAlignment=UITextAlignmentLeft;
+        topLabel.textAlignment=NSTextAlignmentLeft;
         
         topLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
         topLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -359,7 +359,7 @@
         
         CGRect bottomLabelRect=CGRectMake(75,160,280,15);
         UILabel *bottomLabel=[[UILabel alloc] initWithFrame:bottomLabelRect];
-        bottomLabel.textAlignment=UITextAlignmentLeft;
+        bottomLabel.textAlignment=NSTextAlignmentLeft;
         
         bottomLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
         bottomLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -393,7 +393,7 @@
     
     CGRect DOSLabelRect=CGRectMake(38,7.5,240,12);
     UILabel *DOScountLabel=[[UILabel alloc] initWithFrame:DOSLabelRect];
-    DOScountLabel.textAlignment=UITextAlignmentLeft;
+    DOScountLabel.textAlignment=NSTextAlignmentLeft;
     
     DOScountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
     DOScountLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -519,7 +519,7 @@
     
     CGRect eventLabelRect=CGRectMake(12,7.5,180,12);
     UILabel *eventLabel=[[UILabel alloc] initWithFrame:eventLabelRect];
-    eventLabel.textAlignment=UITextAlignmentLeft;
+    eventLabel.textAlignment=NSTextAlignmentLeft;
     
     eventLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
     eventLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -600,7 +600,7 @@
     
     CGRect distanceLabelRect=CGRectMake(35,65,143,15);
     UILabel *mileslabel=[[UILabel alloc] initWithFrame:distanceLabelRect];
-    mileslabel.textAlignment=UITextAlignmentLeft;
+    mileslabel.textAlignment=NSTextAlignmentLeft;
     mileslabel.text=[NSString stringWithFormat:@"%.02f miles away",playerObject.distance];
     mileslabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:14];
     mileslabel.textColor=[SoclivityUtilities returnTextFontColor:1];
@@ -657,7 +657,7 @@
     // Add the count of common friends
     CGRect commonFriendLabelRect=CGRectMake(38,7.5,19,12);
     UILabel *commonCountLabel=[[UILabel alloc] initWithFrame:commonFriendLabelRect];
-    commonCountLabel.textAlignment=UITextAlignmentLeft;
+    commonCountLabel.textAlignment=NSTextAlignmentLeft;
     
     commonCountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
     commonCountLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -674,7 +674,7 @@
     // Add the common friends text
     CGRect DOSLabelRect=CGRectMake(strikeWidth+38,7.5,240,12);
     UILabel *DOScountLabel=[[UILabel alloc] initWithFrame:DOSLabelRect];
-    DOScountLabel.textAlignment=UITextAlignmentLeft;
+    DOScountLabel.textAlignment=NSTextAlignmentLeft;
     DOScountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
     DOScountLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     DOScountLabel.backgroundColor=[UIColor clearColor];
@@ -1203,7 +1203,7 @@
     
     loadMoreFriendsLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     loadMoreFriendsLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-    loadMoreFriendsLabel.textAlignment = UITextAlignmentLeft;
+    loadMoreFriendsLabel.textAlignment = NSTextAlignmentLeft;
     
 	if(mSetLoadMoreFooter){
         loadMoreFriendsLabel.text=[NSString stringWithFormat:@"Loading..."];

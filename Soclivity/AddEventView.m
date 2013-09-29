@@ -1324,7 +1324,7 @@ else {
             if(location.pinDrop){
                 CGRect pinDropLabelRect=CGRectMake(10,0,80,16);
                 UILabel *pinDropLabel=[[UILabel alloc] initWithFrame:pinDropLabelRect];
-                pinDropLabel.textAlignment=UITextAlignmentCenter;
+                pinDropLabel.textAlignment=NSTextAlignmentCenter;
                 pinDropLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
                 pinDropLabel.textColor=[UIColor whiteColor];
                 pinDropLabel.backgroundColor=[UIColor clearColor];
@@ -1511,7 +1511,7 @@ else {
         {
             CGRect categoryLabelRect=CGRectMake(5,18,size.width,12);
             categoryTextLabel=[[UILabel alloc] initWithFrame:categoryLabelRect];
-            categoryTextLabel.textAlignment=UITextAlignmentLeft;
+            categoryTextLabel.textAlignment=NSTextAlignmentLeft;
             categoryTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
             categoryTextLabel.textColor=[UIColor whiteColor];
             categoryTextLabel.backgroundColor=[UIColor clearColor];
@@ -1532,7 +1532,7 @@ else {
 	
     CGRect nameLabelRect=CGRectMake(5,0,size.width,15);
 	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
-	nameLabel.textAlignment=UITextAlignmentLeft;
+	nameLabel.textAlignment=NSTextAlignmentLeft;
 	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
 	nameLabel.textColor=[UIColor whiteColor];
 	nameLabel.backgroundColor=[UIColor clearColor];

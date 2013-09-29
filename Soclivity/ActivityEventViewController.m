@@ -267,7 +267,7 @@
                 
                 CGRect goingCountLabelRect=CGRectMake(35,delta+11,55,12);
                 UILabel *goingCountLabel=[[UILabel alloc] initWithFrame:goingCountLabelRect];
-                goingCountLabel.textAlignment=UITextAlignmentCenter;
+                goingCountLabel.textAlignment=NSTextAlignmentCenter;
                 goingCountLabel.text=[NSString stringWithFormat:@"%@",activityInfo.goingCount];
                 goingCountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
                 goingCountLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -277,7 +277,7 @@
                 
                 CGRect goingLabelTextRect=CGRectMake(35,delta+26,55,12);
                 UILabel *goingTextLabel=[[UILabel alloc] initWithFrame:goingLabelTextRect];
-                goingTextLabel.textAlignment=UITextAlignmentCenter;
+                goingTextLabel.textAlignment=NSTextAlignmentCenter;
                 goingTextLabel.text=[NSString stringWithFormat:@"GOING"];
                 goingTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
                 goingTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -315,7 +315,7 @@
                 
                 CGRect DOS_1LabelRect=CGRectMake(100,delta+11,25,12);
                 UILabel *DOS_1countLabel=[[UILabel alloc] initWithFrame:DOS_1LabelRect];
-                DOS_1countLabel.textAlignment=UITextAlignmentRight;
+                DOS_1countLabel.textAlignment=NSTextAlignmentRight;
                 DOS_1countLabel.text=[NSString stringWithFormat:@"%d",activityInfo.DOS1];
                 DOS_1countLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
                 DOS_1countLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -332,7 +332,7 @@
                 
                 CGRect friendsLabelTextRect=CGRectMake(106,delta+26,55,12);
                 UILabel *friendsTextLabel=[[UILabel alloc] initWithFrame:friendsLabelTextRect];
-                friendsTextLabel.textAlignment=UITextAlignmentCenter;
+                friendsTextLabel.textAlignment=NSTextAlignmentCenter;
                 friendsTextLabel.text=[NSString stringWithFormat:@"FRIENDS"];
                 friendsTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
                 friendsTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -358,7 +358,7 @@
                 
                 CGRect DOS_2LabelRect=CGRectMake(178,delta+11,25,12);
                 UILabel *DOS_2countLabel=[[UILabel alloc] initWithFrame:DOS_2LabelRect];
-                DOS_2countLabel.textAlignment=UITextAlignmentRight;
+                DOS_2countLabel.textAlignment=NSTextAlignmentRight;
                 DOS_2countLabel.text=[NSString stringWithFormat:@"%d",activityInfo.DOS2];
                 DOS_2countLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
                 DOS_2countLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -375,7 +375,7 @@
                 
                 CGRect mayknowLabelTextRect=CGRectMake(179,delta+26,65,12);
                 UILabel *mayknowTextLabel=[[UILabel alloc] initWithFrame:mayknowLabelTextRect];
-                mayknowTextLabel.textAlignment=UITextAlignmentCenter;
+                mayknowTextLabel.textAlignment=NSTextAlignmentCenter;
                 mayknowTextLabel.text=[NSString stringWithFormat:@"MAY KNOW"];
                 mayknowTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
                 mayknowTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -403,7 +403,7 @@
                 
                 CGRect DOS_3LabelRect=CGRectMake(256,delta+11,55,12);
                 UILabel *DOS_3countLabel=[[UILabel alloc] initWithFrame:DOS_3LabelRect];
-                DOS_3countLabel.textAlignment=UITextAlignmentCenter;
+                DOS_3countLabel.textAlignment=NSTextAlignmentCenter;
                 DOS_3countLabel.text=[NSString stringWithFormat:@"%d",activityInfo.DOS3];
                 DOS_3countLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
                 DOS_3countLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
