@@ -58,10 +58,7 @@ This SDK can be run from both the iPhone Simulator and Device and has been teste
 
             -(BOOL)application:(UIApplication *)application 
                 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-            // start of your application:didFinishLaunchingWithOptions 
-
-            // !!!: Use the next line only during beta
-            // [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+            // start of your application:didFinishLaunchingWithOptions
             
             [TestFlight takeOff:@"Insert your Application Token here"];
             // The rest of your application:didFinishLaunchingWithOptions method
@@ -75,7 +72,6 @@ This SDK can be run from both the iPhone Simulator and Device and has been teste
 
 In order to provide more information about your testers while beta testing you will need to provide the device's unique identifier. This identifier is not something that the SDK will collect from the device and we do not recommend using this in production. To send the device identifier to us put the following code **before your call to takeOff**.
 
-    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
     [TestFlight takeOff:@"Insert your Application Token here"];
 
 This will allow you to have the best possible information during testing. **When it is time to submit to the App Store comment this line out**. Apple may reject your app if you leave this line in. If you decide to not include the device's unique identifier during your testing phase TestFlight will still collect all of the information that you send but it may be anonymized.

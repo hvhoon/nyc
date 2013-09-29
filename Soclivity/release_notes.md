@@ -69,8 +69,6 @@
 ###1.0 BETA 1 - March 23, 2012
 
 * Privacy Updates
-* UDID is no longer collected by the SDK. During testing please use `[TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];` to send the UDID so you can identify your testers. For release do not set `+setDeviceIdentifier`. See Beta Testing and Release Differentiation in the README or online at [https://testflightapp.com/sdk/doc/1.0beta1/](http://testflightapp.com/sdk/doc/1.0beta1/)
-
 ###0.8.3 - February 14, 2012
 
 * Rolled previous beta code into release builds

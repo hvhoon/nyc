@@ -137,10 +137,6 @@ NSDateFormatter* gJSONDateFormatter = nil;
 	[super dealloc];
 }
 
--(NSString*)udid {
-	return [[[UIDevice currentDevice] uniqueIdentifier] lowercaseString];
-}
-
 -(BOOL)isReady {
 	return YES;
 }

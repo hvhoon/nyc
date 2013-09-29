@@ -90,7 +90,6 @@ extern "C" {
  *
  * Use:
  * Only use this with the Apple device UDID. DO NOT use Open ID or your own identifier.
- * [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
  *
  * @param deviceIdentifer The current devices device identifier
  */

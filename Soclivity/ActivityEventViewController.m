@@ -26,6 +26,7 @@
 #import "NotificationClass.h"
 #import "MessageInputView.h"
 #import "ActivityChatData.h"
+#import "FeedbackBugReport.h"
 
 #define kEditMapElements 10
 #define kJoinRequest 11
@@ -478,6 +479,7 @@
         if(activityInfo.activityRelationType==5)
         {
             leaveActivityButton.hidden=YES;
+            reportButton.hidden=YES;
         }
         enterChatTextButton.hidden=NO;
         commentChatLabel.hidden=NO;
@@ -951,6 +953,7 @@ switch ([notIdObject.notificationType integerValue]) {
             inviteUsersToActivityButton.hidden=YES;
             leaveActivityButton.hidden=YES;
             chatButton.hidden=YES;
+            reportButton.hidden=NO;
             
             [eventView decideToShowMapView:1];
         }
@@ -966,6 +969,7 @@ switch ([notIdObject.notificationType integerValue]) {
             notGoingActivityButton.hidden=YES;
             leaveActivityButton.hidden=YES;
             chatButton.hidden=YES;
+            reportButton.hidden=NO;
 
             [eventView decideToShowMapView:2];
         }
@@ -982,6 +986,7 @@ switch ([notIdObject.notificationType integerValue]) {
             chatButton.hidden=NO;
             inviteUsersToActivityButton.hidden=YES;
             leaveActivityButton.hidden=YES;
+            reportButton.hidden=NO;
 
             
                 [eventView decideToShowMapView:3];
@@ -999,6 +1004,7 @@ switch ([notIdObject.notificationType integerValue]) {
             notGoingActivityButton.hidden=NO;
             leaveActivityButton.hidden=YES;
             inviteUsersToActivityButton.hidden=YES;
+            reportButton.hidden=NO;
             
             [eventView decideToShowMapView:5];
             
@@ -1016,6 +1022,7 @@ switch ([notIdObject.notificationType integerValue]) {
             notGoingActivityButton.hidden=YES;
             leaveActivityButton.hidden=NO;
             inviteUsersToActivityButton.hidden=YES;
+            reportButton.hidden=NO;
             
             [eventView decideToShowMapView:5];
             
@@ -1034,6 +1041,7 @@ switch ([notIdObject.notificationType integerValue]) {
             goingActivityButton.hidden=YES;
             inviteUsersToActivityButton.hidden=NO;
             leaveActivityButton.hidden=YES;
+            reportButton.hidden=YES;
             
            [eventView decideToShowMapView:6];
 
@@ -1699,13 +1707,14 @@ switch ([notIdObject.notificationType integerValue]) {
         [chatView setHidden:NO];
        
        if(activityInfo.activityRelationType==5)
-       {
            leaveActivityButton.hidden=YES;
-       }
+       
        enterChatTextButton.hidden=NO;
        commentChatLabel.hidden=NO;
        postChatImageButton.hidden=NO;
        imagePostChatlabel.hidden=NO;
+       reportButton.hidden=YES;
+
        if(activityInfo.activityRelationType==6){
            organizerEditButton.hidden=YES;
            inviteUsersToActivityButton.hidden=YES;
@@ -1752,18 +1761,17 @@ switch ([notIdObject.notificationType integerValue]) {
         postChatImageButton.hidden=YES;
         imagePostChatlabel.hidden=YES;
         
-       newActivityButton.hidden=NO;
-       resignTextDoneButton.hidden=YES;
+        newActivityButton.hidden=NO;
+        resignTextDoneButton.hidden=YES;
+        reportButton.hidden=NO;
         
         if(activityInfo.activityRelationType==5)
-        {
             leaveActivityButton.hidden=NO;
-        }
-
         
         if(activityInfo.activityRelationType==6){
             organizerEditButton.hidden=NO;
             inviteUsersToActivityButton.hidden=NO;
+            reportButton.hidden=YES;
         }
 
 
@@ -1775,6 +1783,7 @@ switch ([notIdObject.notificationType integerValue]) {
         
         if(inTransition){
             currentLocationInMap.hidden=NO;
+            reportButton.hidden=YES;
             inviteUsersToActivityButton.hidden=YES;
 
         }
@@ -1927,11 +1936,14 @@ switch ([notIdObject.notificationType integerValue]) {
 }
 - (void)viewDidUnload
 {
+    [reportButton release];
+    reportButton = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 -(void)dealloc{
+    [reportButton release];
     [super dealloc];
     [eventView release];
 }
@@ -1977,6 +1989,7 @@ switch ([notIdObject.notificationType integerValue]) {
     
     if(activityInfo.activityRelationType==5)
         leaveActivityButton.hidden=YES;
+    
     currentLocationInMap.hidden=NO;
     
     scrollView.scrollEnabled=NO;
@@ -1992,6 +2005,7 @@ switch ([notIdObject.notificationType integerValue]) {
     
     newActivityButton.hidden=YES;
     organizerEditButton.hidden=YES;
+    reportButton.hidden=YES;
     inviteUsersToActivityButton.hidden=YES;
     [eventView.addressSearchBar setHidden:YES];
         if([SoclivityUtilities deviceType] & iPhone5)
@@ -2013,18 +2027,12 @@ switch ([notIdObject.notificationType integerValue]) {
    
     inviteUsersToActivityButton.hidden=YES;
     inTransition=FALSE;
-    if(activityInfo.activityRelationType==6){
-      editButtonForMapView.hidden=YES;//check for organizer
-      organizerEditButton.hidden=NO;
-      inviteUsersToActivityButton.hidden=NO;   
-    }
-    
-    
-    
     
     if(activityInfo.activityRelationType==5)
+    {
         leaveActivityButton.hidden=NO;
-    
+        chatButton.hidden=NO;
+    }
         currentLocationInMap.hidden=YES;
     
     if(footerActivated){
@@ -2042,7 +2050,16 @@ switch ([notIdObject.notificationType integerValue]) {
     backButton.hidden=NO;
     backToActivityFromMapButton.hidden=YES;
     newActivityButton.hidden=NO;
-
+    activityButton.hidden=YES;
+    reportButton.hidden=NO;
+    
+    if(activityInfo.activityRelationType==6){
+        editButtonForMapView.hidden=YES;//check for organizer
+        organizerEditButton.hidden=NO;
+        inviteUsersToActivityButton.hidden=NO;
+        chatButton.hidden=NO;
+        reportButton.hidden=YES;
+    }
 
     locationEditLeftCrossButton.hidden=YES;
     locationEditRightCheckButton.hidden=YES;
@@ -2286,6 +2303,25 @@ switch ([notIdObject.notificationType integerValue]) {
 
 -(IBAction)currentLocationBtnClicked:(id)sender{
     [eventView gotoLocation];
+}
+
+-(IBAction)reportButtonPressed:(id)sender{
+
+    NSString* flagMessage = [NSString stringWithFormat:@"Please tell us why you find this activity objectionable? (Enter below):\n\n\n\n--\nFlag Report:\nActivity: %@ (%ld)\nOrganizer: %@ (%ld)", activityInfo.activityName, (long)activityInfo.activityId, activityInfo.organizerName, (long)activityInfo.organizerId];
+    
+    if ([[FeedbackBugReport sharedInstance] canSendFeedback]) {
+        UINavigationController* tellAFriendController = [[FeedbackBugReport sharedInstance] reportActivityController:flagMessage];
+        [self presentModalViewController:tellAFriendController animated:YES];
+        
+        
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please setup your email account" message:nil
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        [alert release];
+    }
 }
 #pragma mark -
 #pragma mark UIAlertView methods

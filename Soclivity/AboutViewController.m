@@ -80,6 +80,7 @@
 
     // Color background
     self.view.backgroundColor = [SoclivityUtilities returnBackgroundColor:0];
+    self.eula.backgroundColor = [UIColor clearColor];
     
     // Extract App Name
     NSDictionary *appMetaData = [[NSBundle mainBundle] infoDictionary];
@@ -88,8 +89,12 @@
     
     // Build text
     self.buildText.text = [NSString stringWithFormat:@"Soclivity iOS %@ (%@)", bundleName, buildNumber];
-    self.buildText.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    self.buildText.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
     self.buildText.textColor = [SoclivityUtilities returnTextFontColor:5];
+    
+    // EULA text
+    self.eula.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    self.eula.textColor = [SoclivityUtilities returnTextFontColor:5];
     
     // Badge logic
     [self UpdateBadgeNotification];
@@ -122,6 +127,7 @@
 - (void)viewDidUnload
 {
     [self setBuildText:nil];
+    [self setEula:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -255,6 +261,7 @@
 
 - (void)dealloc {
     [_buildText release];
+    [_eula release];
     [super dealloc];
 }
 @end

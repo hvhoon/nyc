@@ -38,6 +38,7 @@
     IBOutlet UIButton *inviteUsersToActivityButton;
     IBOutlet UIButton *blankInviteUsersAnimationButton;
     IBOutlet UIActivityIndicatorView *spinnerView;
+    IBOutlet UIButton *reportButton;
     IBOutlet UIButton *backButton;
     IBOutlet UIButton *newActivityButton;
     UIButton *goingButton;
@@ -92,6 +93,7 @@
 -(IBAction)createANewActivityButtonPressed:(id)sender;
 -(IBAction)goingActivityButtonPressed:(id)sender;
 -(IBAction)notGoingActivityButtonPressed:(id)sender;
+-(IBAction)reportButtonPressed:(id)sender;
 -(IBAction)inviteUsersButton:(id)sender;
 -(IBAction)editButtonClicked:(id)sender;
 -(IBAction)chatButtonPressed:(id)sender;

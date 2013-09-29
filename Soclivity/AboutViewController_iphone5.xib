@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">12D78</string>
+		<string key="IBDocument.SystemVersion">12E55</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.AppKitVersion">1187.39</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -15,6 +15,7 @@
 			<string>IBUIButton</string>
 			<string>IBUIImageView</string>
 			<string>IBUILabel</string>
+			<string>IBUITextView</string>
 			<string>IBUIView</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
@@ -104,7 +105,7 @@
 						<double key="IBUITitleEdgeInsets.left">0.0</double>
 						<double key="IBUITitleEdgeInsets.right">0.0</double>
 						<reference key="IBUIHighlightedTitleColor" ref="281792405"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
+						<object class="NSColor" key="IBUINormalTitleColor" id="741298076">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MSAxIDEAA</bytes>
 						</object>
@@ -142,6 +143,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 80}, {320, 35}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSNextKeyView" ref="845241361"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -163,6 +165,243 @@
 							<int key="NSfFlags">16</int>
 						</object>
 						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
+					</object>
+					<object class="IBUITextView" id="845241361">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{20, 123}, {280, 368}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSNextKeyView" ref="609857653"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<reference key="IBUIBackgroundColor" ref="741298076"/>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<bool key="IBUIMultipleTouchEnabled">YES</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<bool key="IBUIEditable">NO</bool>
+						<string type="base64-UTF8" key="IBUIText">TElDRU5TRUQgQVBQTElDQVRJT04gRU5EIFVTRVIgTElDRU5TRSBBR1JFRU1FTlQKClRoZSBQcm9kdWN0
+cyB0cmFuc2FjdGVkIHRocm91Z2ggdGhlIFNlcnZpY2UgYXJlIGxpY2Vuc2VkLCBub3Qgc29sZCwgdG8g
+WW91IGZvciB1c2Ugb25seSB1bmRlciB0aGUgdGVybXMgb2YgdGhpcyBsaWNlbnNlLCB1bmxlc3MgYSBQ
+cm9kdWN0IGlzIGFjY29tcGFuaWVkIGJ5IGEgc2VwYXJhdGUgbGljZW5zZSBhZ3JlZW1lbnQsIGluIHdo
+aWNoIGNhc2UgdGhlIHRlcm1zIG9mIHRoYXQgc2VwYXJhdGUgbGljZW5zZSBhZ3JlZW1lbnQgd2lsbCBn
+b3Zlcm4sIHN1YmplY3QgdG8gWW91ciBwcmlvciBhY2NlcHRhbmNlIG9mIHRoYXQgc2VwYXJhdGUgbGlj
+ZW5zZSBhZ3JlZW1lbnQuIFRoZSBsaWNlbnNvciAo4oCcQXBwbGljYXRpb24gUHJvdmlkZXLigJ0pIHJl
+c2VydmVzIGFsbCByaWdodHMgbm90IGV4cHJlc3NseSBncmFudGVkIHRvIFlvdS4gVGhlIFByb2R1Y3Qg
+dGhhdCBpcyBzdWJqZWN0IHRvIHRoaXMgbGljZW5zZSBpcyByZWZlcnJlZCB0byBpbiB0aGlzIGxpY2Vu
+c2UgYXMgdGhlIOKAnExpY2Vuc2VkIEFwcGxpY2F0aW9uLuKAnQoKYS4gU2NvcGUgb2YgTGljZW5zZTog
+VGhpcyBsaWNlbnNlIGdyYW50ZWQgdG8gWW91IGZvciB0aGUgTGljZW5zZWQgQXBwbGljYXRpb24gYnkg
+QXBwbGljYXRpb24gUHJvdmlkZXIgaXMgbGltaXRlZCB0byBhIG5vbi10cmFuc2ZlcmFibGUgbGljZW5z
+ZSB0byB1c2UgdGhlIExpY2Vuc2VkIEFwcGxpY2F0aW9uIG9uIGFueSBpUGhvbmUgb3IgaVBvZCB0b3Vj
+aCB0aGF0IFlvdSBvd24gb3IgY29udHJvbCBhbmQgYXMgcGVybWl0dGVkIGJ5IHRoZSBVc2FnZSBSdWxl
+cyBzZXQgZm9ydGggaW4gU2VjdGlvbiA5LmIuIG9mIHRoZSBBcHAgU3RvcmUgVGVybXMgYW5kIENvbmRp
+dGlvbnMgKHRoZSDigJxVc2FnZSBSdWxlc+KAnSkuIFRoaXMgbGljZW5zZSBkb2VzIG5vdCBhbGxvdyBZ
+b3UgdG8gdXNlIHRoZSBMaWNlbnNlZCBBcHBsaWNhdGlvbiBvbiBhbnkgaVBvZCB0b3VjaCBvciBpUGhv
+bmUgdGhhdCBZb3UgZG8gbm90IG93biBvciBjb250cm9sLCBhbmQgWW91IG1heSBub3QgZGlzdHJpYnV0
+ZSBvciBtYWtlIHRoZSBMaWNlbnNlZCBBcHBsaWNhdGlvbiBhdmFpbGFibGUgb3ZlciBhIG5ldHdvcmsg
+d2hlcmUgaXQgY291bGQgYmUgdXNlZCBieSBtdWx0aXBsZSBkZXZpY2VzIGF0IHRoZSBzYW1lIHRpbWUu
+IFlvdSBtYXkgbm90IHJlbnQsIGxlYXNlLCBsZW5kLCBzZWxsLCByZWRpc3RyaWJ1dGUgb3Igc3VibGlj
+ZW5zZSB0aGUgTGljZW5zZWQgQXBwbGljYXRpb24uIFlvdSBtYXkgbm90IGNvcHkgKGV4Y2VwdCBhcyBl
+eHByZXNzbHkgcGVybWl0dGVkIGJ5IHRoaXMgbGljZW5zZSBhbmQgdGhlIFVzYWdlIFJ1bGVzKSwgZGVj
+b21waWxlLCByZXZlcnNlIGVuZ2luZWVyLCBkaXNhc3NlbWJsZSwgYXR0ZW1wdCB0byBkZXJpdmUgdGhl
+IHNvdXJjZSBjb2RlIG9mLCBtb2RpZnksIG9yIGNyZWF0ZSBkZXJpdmF0aXZlIHdvcmtzIG9mIHRoZSBM
+aWNlbnNlZCBBcHBsaWNhdGlvbiwgYW55IHVwZGF0ZXMsIG9yIGFueSBwYXJ0IHRoZXJlb2YgKGV4Y2Vw
+dCBhcyBhbmQgb25seSB0byB0aGUgZXh0ZW50IGFueSBmb3JlZ29pbmcgcmVzdHJpY3Rpb24gaXMgcHJv
+aGliaXRlZCBieSBhcHBsaWNhYmxlIGxhdyBvciB0byB0aGUgZXh0ZW50IGFzIG1heSBiZSBwZXJtaXR0
+ZWQgYnkgdGhlIGxpY2Vuc2luZyB0ZXJtcyBnb3Zlcm5pbmcgdXNlIG9mIGFueSBvcGVuIHNvdXJjZWQg
+Y29tcG9uZW50cyBpbmNsdWRlZCB3aXRoIHRoZSBMaWNlbnNlZCBBcHBsaWNhdGlvbikuIEFueSBhdHRl
+bXB0IHRvIGRvIHNvIGlzIGEgdmlvbGF0aW9uIG9mIHRoZSByaWdodHMgb2YgdGhlIEFwcGxpY2F0aW9u
+IFByb3ZpZGVyIGFuZCBpdHMgbGljZW5zb3JzLiBJZiBZb3UgYnJlYWNoIHRoaXMgcmVzdHJpY3Rpb24s
+IFlvdSBtYXkgYmUgc3ViamVjdCB0byBwcm9zZWN1dGlvbiBhbmQgZGFtYWdlcy4gVGhlIHRlcm1zIG9m
+IHRoZSBsaWNlbnNlIHdpbGwgZ292ZXJuIGFueSB1cGdyYWRlcyBwcm92aWRlZCBieSBBcHBsaWNhdGlv
+biBQcm92aWRlciB0aGF0IHJlcGxhY2UgYW5kL29yIHN1cHBsZW1lbnQgdGhlIG9yaWdpbmFsIFByb2R1
+Y3QsIHVubGVzcyBzdWNoIHVwZ3JhZGUgaXMgYWNjb21wYW5pZWQgYnkgYSBzZXBhcmF0ZSBsaWNlbnNl
+IGluIHdoaWNoIGNhc2UgdGhlIHRlcm1zIG9mIHRoYXQgbGljZW5zZSB3aWxsIGdvdmVybi4KCmIuIENv
+bnNlbnQgdG8gVXNlIG9mIERhdGE6IFlvdSBhZ3JlZSB0aGF0IEFwcGxpY2F0aW9uIFByb3ZpZGVyIG1h
+eSBjb2xsZWN0IGFuZCB1c2UgdGVjaG5pY2FsIGRhdGEgYW5kIHJlbGF0ZWQgaW5mb3JtYXRpb24sIGlu
+Y2x1ZGluZyBidXQgbm90IGxpbWl0ZWQgdG8gdGVjaG5pY2FsIGluZm9ybWF0aW9uIGFib3V0IFlvdXIg
+ZGV2aWNlLCBzeXN0ZW0gYW5kIGFwcGxpY2F0aW9uIHNvZnR3YXJlLCBhbmQgcGVyaXBoZXJhbHMsIHRo
+YXQgaXMgZ2F0aGVyZWQgcGVyaW9kaWNhbGx5IHRvIGZhY2lsaXRhdGUgdGhlIHByb3Zpc2lvbiBvZiBz
+b2Z0d2FyZSB1cGRhdGVzLCBwcm9kdWN0IHN1cHBvcnQgYW5kIG90aGVyIHNlcnZpY2VzIHRvIFlvdSAo
+aWYgYW55KSByZWxhdGVkIHRvIHRoZSBMaWNlbnNlZCBBcHBsaWNhdGlvbi4gQXBwbGljYXRpb24gUHJv
+dmlkZXIgbWF5IHVzZSB0aGlzIGluZm9ybWF0aW9uLCBhcyBsb25nIGFzIGl0IGlzIGluIGEgZm9ybSB0
+aGF0IGRvZXMgbm90IHBlcnNvbmFsbHkgaWRlbnRpZnkgWW91LCB0byBpbXByb3ZlIGl0cyBwcm9kdWN0
+cyBvciB0byBwcm92aWRlIHNlcnZpY2VzIG9yIHRlY2hub2xvZ2llcyB0byBZb3UuCgpjLiBUZXJtaW5h
+dGlvbi4gVGhlIGxpY2Vuc2UgaXMgZWZmZWN0aXZlIHVudGlsIHRlcm1pbmF0ZWQgYnkgWW91IG9yIEFw
+cGxpY2F0aW9uIFByb3ZpZGVyLiBZb3VyIHJpZ2h0cyB1bmRlciB0aGlzIGxpY2Vuc2Ugd2lsbCB0ZXJt
+aW5hdGUgYXV0b21hdGljYWxseSB3aXRob3V0IG5vdGljZSBmcm9tIHRoZSBBcHBsaWNhdGlvbiBQcm92
+aWRlciBpZiBZb3UgZmFpbCB0byBjb21wbHkgd2l0aCBhbnkgdGVybShzKSBvZiB0aGlzIGxpY2Vuc2Uu
+IFVwb24gdGVybWluYXRpb24gb2YgdGhlIGxpY2Vuc2UsIFlvdSBzaGFsbCBjZWFzZSBhbGwgdXNlIG9m
+IHRoZSBMaWNlbnNlZCBBcHBsaWNhdGlvbiwgYW5kIGRlc3Ryb3kgYWxsIGNvcGllcywgZnVsbCBvciBw
+YXJ0aWFsLCBvZiB0aGUgTGljZW5zZWQgQXBwbGljYXRpb24uCgpkLiBTZXJ2aWNlczsgVGhpcmQgUGFy
+dHkgTWF0ZXJpYWxzLiBUaGUgTGljZW5zZWQgQXBwbGljYXRpb24gbWF5IGVuYWJsZSBhY2Nlc3MgdG8g
+QXBwbGljYXRpb24gUHJvdmlkZXLigJlzIGFuZCB0aGlyZCBwYXJ0eSBzZXJ2aWNlcyBhbmQgd2ViIHNp
+dGVzIChjb2xsZWN0aXZlbHkgYW5kIGluZGl2aWR1YWxseSwgIlNlcnZpY2VzIikuIFVzZSBvZiB0aGUg
+U2VydmljZXMgbWF5IHJlcXVpcmUgSW50ZXJuZXQgYWNjZXNzIGFuZCB0aGF0IFlvdSBhY2NlcHQgYWRk
+aXRpb25hbCB0ZXJtcyBvZiBzZXJ2aWNlLgoKWW91IHVuZGVyc3RhbmQgdGhhdCBieSB1c2luZyBhbnkg
+b2YgdGhlIFNlcnZpY2VzLCBZb3UgbWF5IGVuY291bnRlciBjb250ZW50IHRoYXQgbWF5IGJlIGRlZW1l
+ZCBvZmZlbnNpdmUsIGluZGVjZW50LCBvciBvYmplY3Rpb25hYmxlLCB3aGljaCBjb250ZW50IG1heSBv
+ciBtYXkgbm90IGJlIGlkZW50aWZpZWQgYXMgaGF2aW5nIGV4cGxpY2l0IGxhbmd1YWdlLCBhbmQgdGhh
+dCB0aGUgcmVzdWx0cyBvZiBhbnkgc2VhcmNoIG9yIGVudGVyaW5nIG9mIGEgcGFydGljdWxhciBVUkwg
+bWF5IGF1dG9tYXRpY2FsbHkgYW5kIHVuaW50ZW50aW9uYWxseSBnZW5lcmF0ZSBsaW5rcyBvciByZWZl
+cmVuY2VzIHRvIG9iamVjdGlvbmFibGUgbWF0ZXJpYWwuIE5ldmVydGhlbGVzcywgWW91IGFncmVlIHRv
+IHVzZSB0aGUgU2VydmljZXMgYXQgWW91ciBzb2xlIHJpc2sgYW5kIHRoYXQgdGhlIEFwcGxpY2F0aW9u
+IFByb3ZpZGVyIHNoYWxsIG5vdCBoYXZlIGFueSBsaWFiaWxpdHkgdG8gWW91IGZvciBjb250ZW50IHRo
+YXQgbWF5IGJlIGZvdW5kIHRvIGJlIG9mZmVuc2l2ZSwgaW5kZWNlbnQsIG9yIG9iamVjdGlvbmFibGUu
+CgpDZXJ0YWluIFNlcnZpY2VzIG1heSBkaXNwbGF5LCBpbmNsdWRlIG9yIG1ha2UgYXZhaWxhYmxlIGNv
+bnRlbnQsIGRhdGEsIGluZm9ybWF0aW9uLCBhcHBsaWNhdGlvbnMgb3IgbWF0ZXJpYWxzIGZyb20gdGhp
+cmQgcGFydGllcyAo4oCcVGhpcmQgUGFydHkgTWF0ZXJpYWxz4oCdKSBvciBwcm92aWRlIGxpbmtzIHRv
+IGNlcnRhaW4gdGhpcmQgcGFydHkgd2ViIHNpdGVzLiBCeSB1c2luZyB0aGUgU2VydmljZXMsIFlvdSBh
+Y2tub3dsZWRnZSBhbmQgYWdyZWUgdGhhdCB0aGUgQXBwbGljYXRpb24gUHJvdmlkZXIgaXMgbm90IHJl
+c3BvbnNpYmxlIGZvciBleGFtaW5pbmcgb3IgZXZhbHVhdGluZyB0aGUgY29udGVudCwgYWNjdXJhY3ks
+IGNvbXBsZXRlbmVzcywgdGltZWxpbmVzcywgdmFsaWRpdHksIGNvcHlyaWdodCBjb21wbGlhbmNlLCBs
+ZWdhbGl0eSwgZGVjZW5jeSwgcXVhbGl0eSBvciBhbnkgb3RoZXIgYXNwZWN0IG9mIHN1Y2ggVGhpcmQg
+UGFydHkgTWF0ZXJpYWxzIG9yIHdlYiBzaXRlcy4gVGhlIEFwcGxpY2F0aW9uIFByb3ZpZGVyIGRvZXMg
+bm90IHdhcnJhbnQgb3IgZW5kb3JzZSBhbmQgZG9lcyBub3QgYXNzdW1lIGFuZCB3aWxsIG5vdCBoYXZl
+IGFueSBsaWFiaWxpdHkgb3IgcmVzcG9uc2liaWxpdHkgdG8gWW91IG9yIGFueSBvdGhlciBwZXJzb24g
+Zm9yIGFueSB0aGlyZC1wYXJ0eSBTZXJ2aWNlcywgVGhpcmQgUGFydHkgTWF0ZXJpYWxzIG9yIHdlYiBz
+aXRlcywgb3IgZm9yIGFueSBvdGhlciBtYXRlcmlhbHMsIHByb2R1Y3RzLCBvciBzZXJ2aWNlcyBvZiB0
+aGlyZCBwYXJ0aWVzLiBUaGlyZCBQYXJ0eSBNYXRlcmlhbHMgYW5kIGxpbmtzIHRvIG90aGVyIHdlYiBz
+aXRlcyBhcmUgcHJvdmlkZWQgc29sZWx5IGFzIGEgY29udmVuaWVuY2UgdG8gWW91LiBGaW5hbmNpYWwg
+aW5mb3JtYXRpb24gZGlzcGxheWVkIGJ5IGFueSBTZXJ2aWNlcyBpcyBmb3IgZ2VuZXJhbCBpbmZvcm1h
+dGlvbmFsIHB1cnBvc2VzIG9ubHkgYW5kIGlzIG5vdCBpbnRlbmRlZCB0byBiZSByZWxpZWQgdXBvbiBh
+cyBpbnZlc3RtZW50IGFkdmljZS4gQmVmb3JlIGV4ZWN1dGluZyBhbnkgc2VjdXJpdGllcyB0cmFuc2Fj
+dGlvbiBiYXNlZCB1cG9uIGluZm9ybWF0aW9uIG9idGFpbmVkIHRocm91Z2ggdGhlIFNlcnZpY2VzLCBZ
+b3Ugc2hvdWxkIGNvbnN1bHQgd2l0aCBhIGZpbmFuY2lhbCBwcm9mZXNzaW9uYWwuIExvY2F0aW9uIGRh
+dGEgcHJvdmlkZWQgYnkgYW55IFNlcnZpY2VzIGlzIGZvciBiYXNpYyBuYXZpZ2F0aW9uYWwgcHVycG9z
+ZXMgb25seSBhbmQgaXMgbm90IGludGVuZGVkIHRvIGJlIHJlbGllZCB1cG9uIGluIHNpdHVhdGlvbnMg
+d2hlcmUgcHJlY2lzZSBsb2NhdGlvbiBpbmZvcm1hdGlvbiBpcyBuZWVkZWQgb3Igd2hlcmUgZXJyb25l
+b3VzLCBpbmFjY3VyYXRlIG9yIGluY29tcGxldGUgbG9jYXRpb24gZGF0YSBtYXkgbGVhZCB0byBkZWF0
+aCwgcGVyc29uYWwgaW5qdXJ5LCBwcm9wZXJ0eSBvciBlbnZpcm9ubWVudGFsIGRhbWFnZS4gTmVpdGhl
+ciB0aGUgQXBwbGljYXRpb24gUHJvdmlkZXIsIG5vciBhbnkgb2YgaXRzIGNvbnRlbnQgcHJvdmlkZXJz
+LCBndWFyYW50ZWVzIHRoZSBhdmFpbGFiaWxpdHksIGFjY3VyYWN5LCBjb21wbGV0ZW5lc3MsIHJlbGlh
+YmlsaXR5LCBvciB0aW1lbGluZXNzIG9mIHN0b2NrIGluZm9ybWF0aW9uIG9yIGxvY2F0aW9uIGRhdGEg
+ZGlzcGxheWVkIGJ5IGFueSBTZXJ2aWNlcy4KCllvdSBhZ3JlZSB0aGF0IGFueSBTZXJ2aWNlcyBjb250
+YWluIHByb3ByaWV0YXJ5IGNvbnRlbnQsIGluZm9ybWF0aW9uIGFuZCBtYXRlcmlhbCB0aGF0IGlzIHBy
+b3RlY3RlZCBieSBhcHBsaWNhYmxlIGludGVsbGVjdHVhbCBwcm9wZXJ0eSBhbmQgb3RoZXIgbGF3cywg
+aW5jbHVkaW5nIGJ1dCBub3QgbGltaXRlZCB0byBjb3B5cmlnaHQsIGFuZCB0aGF0IFlvdSB3aWxsIG5v
+dCB1c2Ugc3VjaCBwcm9wcmlldGFyeSBjb250ZW50LCBpbmZvcm1hdGlvbiBvciBtYXRlcmlhbHMgaW4g
+YW55IHdheSB3aGF0c29ldmVyIGV4Y2VwdCBmb3IgcGVybWl0dGVkIHVzZSBvZiB0aGUgU2VydmljZXMu
+IE5vIHBvcnRpb24gb2YgdGhlIFNlcnZpY2VzIG1heSBiZSByZXByb2R1Y2VkIGluIGFueSBmb3JtIG9y
+IGJ5IGFueSBtZWFucy4gWW91IGFncmVlIG5vdCB0byBtb2RpZnksIHJlbnQsIGxlYXNlLCBsb2FuLCBz
+ZWxsLCBkaXN0cmlidXRlLCBvciBjcmVhdGUgZGVyaXZhdGl2ZSB3b3JrcyBiYXNlZCBvbiB0aGUgU2Vy
+dmljZXMsIGluIGFueSBtYW5uZXIsIGFuZCBZb3Ugc2hhbGwgbm90IGV4cGxvaXQgdGhlIFNlcnZpY2Vz
+IGluIGFueSB1bmF1dGhvcml6ZWQgd2F5IHdoYXRzb2V2ZXIsIGluY2x1ZGluZyBidXQgbm90IGxpbWl0
+ZWQgdG8sIGJ5IHRyZXNwYXNzIG9yIGJ1cmRlbmluZyBuZXR3b3JrIGNhcGFjaXR5LiBZb3UgZnVydGhl
+ciBhZ3JlZSBub3QgdG8gdXNlIHRoZSBTZXJ2aWNlcyBpbiBhbnkgbWFubmVyIHRvIGhhcmFzcywgYWJ1
+c2UsIHN0YWxrLCB0aHJlYXRlbiwgZGVmYW1lIG9yIG90aGVyd2lzZSBpbmZyaW5nZSBvciB2aW9sYXRl
+IHRoZSByaWdodHMgb2YgYW55IG90aGVyIHBhcnR5LCBhbmQgdGhhdCB0aGUgQXBwbGljYXRpb24gUHJv
+dmlkZXIgaXMgbm90IGluIGFueSB3YXkgcmVzcG9uc2libGUgZm9yIGFueSBzdWNoIHVzZSBieSBZb3Us
+IG5vciBmb3IgYW55IGhhcmFzc2luZywgdGhyZWF0ZW5pbmcsIGRlZmFtYXRvcnksIG9mZmVuc2l2ZSBv
+ciBpbGxlZ2FsIG1lc3NhZ2VzIG9yIHRyYW5zbWlzc2lvbnMgdGhhdCBZb3UgbWF5IHJlY2VpdmUgYXMg
+YSByZXN1bHQgb2YgdXNpbmcgYW55IG9mIHRoZSBTZXJ2aWNlcy4KCkluIGFkZGl0aW9uLCB0aGlyZCBw
+YXJ0eSBTZXJ2aWNlcyBhbmQgVGhpcmQgUGFydHkgTWF0ZXJpYWxzIHRoYXQgbWF5IGJlIGFjY2Vzc2Vk
+IGZyb20sIGRpc3BsYXllZCBvbiBvciBsaW5rZWQgdG8gZnJvbSB0aGUgaVBob25lIG9yIGlQb2QgdG91
+Y2ggYXJlIG5vdCBhdmFpbGFibGUgaW4gYWxsIGxhbmd1YWdlcyBvciBpbiBhbGwgY291bnRyaWVzLiBU
+aGUgQXBwbGljYXRpb24gUHJvdmlkZXIgbWFrZXMgbm8gcmVwcmVzZW50YXRpb24gdGhhdCBzdWNoIFNl
+cnZpY2VzIGFuZCBNYXRlcmlhbHMgYXJlIGFwcHJvcHJpYXRlIG9yIGF2YWlsYWJsZSBmb3IgdXNlIGlu
+IGFueSBwYXJ0aWN1bGFyIGxvY2F0aW9uLiBUbyB0aGUgZXh0ZW50IFlvdSBjaG9vc2UgdG8gYWNjZXNz
+IHN1Y2ggU2VydmljZXMgb3IgTWF0ZXJpYWxzLCBZb3UgZG8gc28gYXQgWW91ciBvd24gaW5pdGlhdGl2
+ZSBhbmQgYXJlIHJlc3BvbnNpYmxlIGZvciBjb21wbGlhbmNlIHdpdGggYW55IGFwcGxpY2FibGUgbGF3
+cywgaW5jbHVkaW5nIGJ1dCBub3QgbGltaXRlZCB0byBhcHBsaWNhYmxlIGxvY2FsIGxhd3MuIFRoZSBB
+cHBsaWNhdGlvbiBQcm92aWRlciwgYW5kIGl0cyBsaWNlbnNvcnMsIHJlc2VydmUgdGhlIHJpZ2h0IHRv
+IGNoYW5nZSwgc3VzcGVuZCwgcmVtb3ZlLCBvciBkaXNhYmxlIGFjY2VzcyB0byBhbnkgU2VydmljZXMg
+YXQgYW55IHRpbWUgd2l0aG91dCBub3RpY2UuIEluIG5vIGV2ZW50IHdpbGwgdGhlIEFwcGxpY2F0aW9u
+IFByb3ZpZGVyIGJlIGxpYWJsZSBmb3IgdGhlIHJlbW92YWwgb2Ygb3IgZGlzYWJsaW5nIG9mIGFjY2Vz
+cyB0byBhbnkgc3VjaCBTZXJ2aWNlcy4gVGhlIEFwcGxpY2F0aW9uIFByb3ZpZGVyIG1heSBhbHNvIGlt
+cG9zZSBsaW1pdHMgb24gdGhlIHVzZSBvZiBvciBhY2Nlc3MgdG8gY2VydGFpbiBTZXJ2aWNlcywgaW4g
+YW55IGNhc2UgYW5kIHdpdGhvdXQgbm90aWNlIG9yIGxpYWJpbGl0eS4KCmUuIE5PIFdBUlJBTlRZOiBZ
+T1UgRVhQUkVTU0xZIEFDS05PV0xFREdFIEFORCBBR1JFRSBUSEFUIFVTRSBPRiBUSEUgTElDRU5TRUQg
+QVBQTElDQVRJT04gSVMgQVQgWU9VUiBTT0xFIFJJU0sgQU5EIFRIQVQgVEhFIEVOVElSRSBSSVNLIEFT
+IFRPIFNBVElTRkFDVE9SWSBRVUFMSVRZLCBQRVJGT1JNQU5DRSwgQUNDVVJBQ1kgQU5EIEVGRk9SVCBJ
+UyBXSVRIIFlPVS4gVE8gVEhFIE1BWElNVU0gRVhURU5UIFBFUk1JVFRFRCBCWSBBUFBMSUNBQkxFIExB
+VywgVEhFIExJQ0VOU0VEIEFQUExJQ0FUSU9OIEFORCBBTlkgU0VSVklDRVMgUEVSRk9STUVEIE9SIFBS
+T1ZJREVEIEJZIFRIRSBMSUNFTlNFRCBBUFBMSUNBVElPTiAoIlNFUlZJQ0VTIikgQVJFIFBST1ZJREVE
+ICJBUyBJUyIgQU5EIOKAnEFTIEFWQUlMQUJMReKAnSwgV0lUSCBBTEwgRkFVTFRTIEFORCBXSVRIT1VU
+IFdBUlJBTlRZIE9GIEFOWSBLSU5ELCBBTkQgQVBQTElDQVRJT04gUFJPVklERVIgSEVSRUJZIERJU0NM
+QUlNUyBBTEwgV0FSUkFOVElFUyBBTkQgQ09ORElUSU9OUyBXSVRIIFJFU1BFQ1QgVE8gVEhFIExJQ0VO
+U0VEIEFQUExJQ0FUSU9OIEFORCBBTlkgU0VSVklDRVMsIEVJVEhFUiBFWFBSRVNTLCBJTVBMSUVEIE9S
+IFNUQVRVVE9SWSwgSU5DTFVESU5HLCBCVVQgTk9UIExJTUlURUQgVE8sIFRIRSBJTVBMSUVEIFdBUlJB
+TlRJRVMgQU5EL09SIENPTkRJVElPTlMgT0YgTUVSQ0hBTlRBQklMSVRZLCBPRiBTQVRJU0ZBQ1RPUlkg
+UVVBTElUWSwgT0YgRklUTkVTUyBGT1IgQSBQQVJUSUNVTEFSIFBVUlBPU0UsIE9GIEFDQ1VSQUNZLCBP
+RiBRVUlFVCBFTkpPWU1FTlQsIEFORCBOT04tSU5GUklOR0VNRU5UIE9GIFRISVJEIFBBUlRZIFJJR0hU
+Uy4gQVBQTElDQVRJT04gUFJPVklERVIgRE9FUyBOT1QgV0FSUkFOVCBBR0FJTlNUIElOVEVSRkVSRU5D
+RSBXSVRIIFlPVVIgRU5KT1lNRU5UIE9GIFRIRSBMSUNFTlNFRCBBUFBMSUNBVElPTiwgVEhBVCBUSEUg
+RlVOQ1RJT05TIENPTlRBSU5FRCBJTiwgT1IgU0VSVklDRVMgUEVSRk9STUVEIE9SIFBST1ZJREVEIEJZ
+LCBUSEUgTElDRU5TRUQgQVBQTElDQVRJT04gV0lMTCBNRUVUIFlPVVIgUkVRVUlSRU1FTlRTLCBUSEFU
+IFRIRSBPUEVSQVRJT04gT0YgVEhFIExJQ0VOU0VEIEFQUExJQ0FUSU9OIE9SIFNFUlZJQ0VTIFdJTEwg
+QkUgVU5JTlRFUlJVUFRFRCBPUiBFUlJPUi1GUkVFLCBPUiBUSEFUIERFRkVDVFMgSU4gVEhFIExJQ0VO
+U0VEIEFQUExJQ0FUSU9OIE9SIFNFUlZJQ0VTIFdJTEwgQkUgQ09SUkVDVEVELiBOTyBPUkFMIE9SIFdS
+SVRURU4gSU5GT1JNQVRJT04gT1IgQURWSUNFIEdJVkVOIEJZIEFQUExJQ0FUSU9OIFBST1ZJREVSIE9S
+IElUUyBBVVRIT1JJWkVEIFJFUFJFU0VOVEFUSVZFIFNIQUxMIENSRUFURSBBIFdBUlJBTlRZLiBTSE9V
+TEQgVEhFIExJQ0VOU0VEIEFQUExJQ0FUSU9OIE9SIFNFUlZJQ0VTIFBST1ZFIERFRkVDVElWRSwgWU9V
+IEFTU1VNRSBUSEUgRU5USVJFIENPU1QgT0YgQUxMIE5FQ0VTU0FSWSBTRVJWSUNJTkcsIFJFUEFJUiBP
+UiBDT1JSRUNUSU9OLiBTT01FIEpVUklTRElDVElPTlMgRE8gTk9UIEFMTE9XIFRIRSBFWENMVVNJT04g
+T0YgSU1QTElFRCBXQVJSQU5USUVTIE9SIExJTUlUQVRJT05TIE9OIEFQUExJQ0FCTEUgU1RBVFVUT1JZ
+IFJJR0hUUyBPRiBBIENPTlNVTUVSLCBTTyBUSEUgQUJPVkUgRVhDTFVTSU9OIEFORCBMSU1JVEFUSU9O
+UyBNQVkgTk9UIEFQUExZIFRPIFlPVS4KCmYuIExpbWl0YXRpb24gb2YgTGlhYmlsaXR5LiBUTyBUSEUg
+RVhURU5UIE5PVCBQUk9ISUJJVEVEIEJZIExBVywgSU4gTk8gRVZFTlQgU0hBTEwgQVBQTElDQVRJT04g
+UFJPVklERVIgQkUgTElBQkxFIEZPUiBQRVJTT05BTCBJTkpVUlksIE9SIEFOWSBJTkNJREVOVEFMLCBT
+UEVDSUFMLCBJTkRJUkVDVCBPUiBDT05TRVFVRU5USUFMIERBTUFHRVMgV0hBVFNPRVZFUiwgSU5DTFVE
+SU5HLCBXSVRIT1VUIExJTUlUQVRJT04sIERBTUFHRVMgRk9SIExPU1MgT0YgUFJPRklUUywgTE9TUyBP
+RiBEQVRBLCBCVVNJTkVTUyBJTlRFUlJVUFRJT04gT1IgQU5ZIE9USEVSIENPTU1FUkNJQUwgREFNQUdF
+UyBPUiBMT1NTRVMsIEFSSVNJTkcgT1VUIE9GIE9SIFJFTEFURUQgVE8gWU9VUiBVU0UgT1IgSU5BQklM
+SVRZIFRPIFVTRSBUSEUgTElDRU5TRUQgQVBQTElDQVRJT04sIEhPV0VWRVIgQ0FVU0VELCBSRUdBUkRM
+RVNTIE9GIFRIRSBUSEVPUlkgT0YgTElBQklMSVRZIChDT05UUkFDVCwgVE9SVCBPUiBPVEhFUldJU0Up
+IEFORCBFVkVOIElGIEFQUExJQ0FUSU9OIFBST1ZJREVSIEhBUyBCRUVOIEFEVklTRUQgT0YgVEhFIFBP
+U1NJQklMSVRZIE9GIFNVQ0ggREFNQUdFUy4gU09NRSBKVVJJU0RJQ1RJT05TIERPIE5PVCBBTExPVyBU
+SEUgTElNSVRBVElPTiBPRiBMSUFCSUxJVFkgRk9SIFBFUlNPTkFMIElOSlVSWSwgT1IgT0YgSU5DSURF
+TlRBTCBPUiBDT05TRVFVRU5USUFMIERBTUFHRVMsIFNPIFRISVMgTElNSVRBVElPTiBNQVkgTk9UIEFQ
+UExZIFRPIFlPVS4gSW4gbm8gZXZlbnQgc2hhbGwgQXBwbGljYXRpb24gUHJvdmlkZXLigJlzIHRvdGFs
+IGxpYWJpbGl0eSB0byB5b3UgZm9yIGFsbCBkYW1hZ2VzIChvdGhlciB0aGFuIGFzIG1heSBiZSByZXF1
+aXJlZCBieSBhcHBsaWNhYmxlIGxhdyBpbiBjYXNlcyBpbnZvbHZpbmcgcGVyc29uYWwgaW5qdXJ5KSBl
+eGNlZWQgdGhlIGFtb3VudCBvZiBmaWZ0eSBkb2xsYXJzICgkNTAuMDApLiBUaGUgZm9yZWdvaW5nIGxp
+bWl0YXRpb25zIHdpbGwgYXBwbHkgZXZlbiBpZiB0aGUgYWJvdmUgc3RhdGVkIHJlbWVkeSBmYWlscyBv
+ZiBpdHMgZXNzZW50aWFsIHB1cnBvc2UuCgpnLiBZb3UgbWF5IG5vdCB1c2Ugb3Igb3RoZXJ3aXNlIGV4
+cG9ydCBvciByZS1leHBvcnQgdGhlIExpY2Vuc2VkIEFwcGxpY2F0aW9uIGV4Y2VwdCBhcyBhdXRob3Jp
+emVkIGJ5IFVuaXRlZCBTdGF0ZXMgbGF3IGFuZCB0aGUgbGF3cyBvZiB0aGUganVyaXNkaWN0aW9uIGlu
+IHdoaWNoIHRoZSBMaWNlbnNlZCBBcHBsaWNhdGlvbiB3YXMgb2J0YWluZWQuIEluIHBhcnRpY3VsYXIs
+IGJ1dCB3aXRob3V0IGxpbWl0YXRpb24sIHRoZSBMaWNlbnNlZCBBcHBsaWNhdGlvbiBtYXkgbm90IGJl
+IGV4cG9ydGVkIG9yIHJlLWV4cG9ydGVkIChhKSBpbnRvIGFueSBVLlMuIGVtYmFyZ29lZCBjb3VudHJp
+ZXMgb3IgKGIpIHRvIGFueW9uZSBvbiB0aGUgVS5TLiBUcmVhc3VyeSBEZXBhcnRtZW50J3MgbGlzdCBv
+ZiBTcGVjaWFsbHkgRGVzaWduYXRlZCBOYXRpb25hbHMgb3IgdGhlIFUuUy4gRGVwYXJ0bWVudCBvZiBD
+b21tZXJjZSBEZW5pZWQgUGVyc29u4oCZcyBMaXN0IG9yIEVudGl0eSBMaXN0LiBCeSB1c2luZyB0aGUg
+TGljZW5zZWQgQXBwbGljYXRpb24sIHlvdSByZXByZXNlbnQgYW5kIHdhcnJhbnQgdGhhdCB5b3UgYXJl
+IG5vdCBsb2NhdGVkIGluIGFueSBzdWNoIGNvdW50cnkgb3Igb24gYW55IHN1Y2ggbGlzdC4gWW91IGFs
+c28gYWdyZWUgdGhhdCB5b3Ugd2lsbCBub3QgdXNlIHRoZXNlIHByb2R1Y3RzIGZvciBhbnkgcHVycG9z
+ZXMgcHJvaGliaXRlZCBieSBVbml0ZWQgU3RhdGVzIGxhdywgaW5jbHVkaW5nLCB3aXRob3V0IGxpbWl0
+YXRpb24sIHRoZSBkZXZlbG9wbWVudCwgZGVzaWduLCBtYW51ZmFjdHVyZSBvciBwcm9kdWN0aW9uIG9m
+IG51Y2xlYXIsIG1pc3NpbGVzLCBvciBjaGVtaWNhbCBvciBiaW9sb2dpY2FsIHdlYXBvbnMuCgpoLiBU
+aGUgTGljZW5zZWQgQXBwbGljYXRpb24gYW5kIHJlbGF0ZWQgZG9jdW1lbnRhdGlvbiBhcmUgIkNvbW1l
+cmNpYWwgSXRlbXMiLCBhcyB0aGF0IHRlcm0gaXMgZGVmaW5lZCBhdCA0OCBDLkYuUi4gwqcyLjEwMSwg
+Y29uc2lzdGluZyBvZiAiQ29tbWVyY2lhbCBDb21wdXRlciBTb2Z0d2FyZSIgYW5kICJDb21tZXJjaWFs
+IENvbXB1dGVyIFNvZnR3YXJlIERvY3VtZW50YXRpb24iLCBhcyBzdWNoIHRlcm1zIGFyZSB1c2VkIGlu
+IDQ4IEMuRi5SLiDCpzEyLjIxMiBvciA0OCBDLkYuUi4gwqcyMjcuNzIwMiwgYXMgYXBwbGljYWJsZS4g
+Q29uc2lzdGVudCB3aXRoIDQ4IEMuRi5SLiDCpzEyLjIxMiBvciA0OCBDLkYuUi4gwqcyMjcuNzIwMi0x
+IHRocm91Z2ggMjI3LjcyMDItNCwgYXMgYXBwbGljYWJsZSwgdGhlIENvbW1lcmNpYWwgQ29tcHV0ZXIg
+U29mdHdhcmUgYW5kIENvbW1lcmNpYWwgQ29tcHV0ZXIgU29mdHdhcmUgRG9jdW1lbnRhdGlvbiBhcmUg
+YmVpbmcgbGljZW5zZWQgdG8gVS5TLiBHb3Zlcm5tZW50IGVuZCB1c2VycyAoYSkgb25seSBhcyBDb21t
+ZXJjaWFsIEl0ZW1zIGFuZCAoYikgd2l0aCBvbmx5IHRob3NlIHJpZ2h0cyBhcyBhcmUgZ3JhbnRlZCB0
+byBhbGwgb3RoZXIgZW5kIHVzZXJzIHB1cnN1YW50IHRvIHRoZSB0ZXJtcyBhbmQgY29uZGl0aW9ucyBo
+ZXJlaW4uIFVucHVibGlzaGVkLXJpZ2h0cyByZXNlcnZlZCB1bmRlciB0aGUgY29weXJpZ2h0IGxhd3Mg
+b2YgdGhlIFVuaXRlZCBTdGF0ZXMuCgppLiBUaGUgbGF3cyBvZiB0aGUgU3RhdGUgb2YgQ2FsaWZvcm5p
+YSwgZXhjbHVkaW5nIGl0cyBjb25mbGljdHMgb2YgbGF3IHJ1bGVzLCBnb3Zlcm4gdGhpcyBsaWNlbnNl
+IGFuZCB5b3VyIHVzZSBvZiB0aGUgTGljZW5zZWQgQXBwbGljYXRpb24uIFlvdXIgdXNlIG9mIHRoZSBM
+aWNlbnNlZCBBcHBsaWNhdGlvbiBtYXkgYWxzbyBiZSBzdWJqZWN0IHRvIG90aGVyIGxvY2FsLCBzdGF0
+ZSwgbmF0aW9uYWwsIG9yIGludGVybmF0aW9uYWwgbGF3cy4</string>
+						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+							<int key="IBUIAutocapitalizationType">2</int>
+							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						</object>
+						<object class="IBUIFontDescription" key="IBUIFontDescription">
+							<string key="name">Helvetica</string>
+							<string key="family">Helvetica</string>
+							<int key="traits">0</int>
+							<double key="pointSize">14</double>
+						</object>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">Helvetica</string>
+							<double key="NSSize">14</double>
+							<int key="NSfFlags">16</int>
+						</object>
 					</object>
 				</array>
 				<string key="NSFrame">{{0, 20}, {320, 548}}</string>
@@ -223,6 +462,14 @@
 					<int key="connectionID">25</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">eula</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="845241361"/>
+					</object>
+					<int key="connectionID">32</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">profileSliderPressed:</string>
 						<reference key="source" ref="275917894"/>
@@ -249,6 +496,7 @@
 							<reference ref="58899257"/>
 							<reference ref="1026684911"/>
 							<reference ref="335419529"/>
+							<reference ref="845241361"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -291,6 +539,11 @@
 						<reference key="object" ref="335419529"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">30</int>
+						<reference key="object" ref="845241361"/>
+						<reference key="parent" ref="191373211"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -300,6 +553,7 @@
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="12.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="30.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -310,7 +564,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">27</int>
+			<int key="maxID">32</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
