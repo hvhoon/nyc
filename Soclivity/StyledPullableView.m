@@ -17,12 +17,29 @@
 
         self.backgroundColor=[UIColor clearColor];
         tracker=0;
-        SOC=[SoclivityManager SharedInstance];                     
+        SOC=[SoclivityManager SharedInstance];
+                if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        filterPaneView=[[UIView alloc]initWithFrame:CGRectMake(0, 20, 640, 402)];
+                }else{
         filterPaneView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 640, 402)];
+                }
         filterPaneView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
         
 
-        
+                if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+                    UISearchBar *searchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(0, 40, 320, 44)];
+                    searchBar.delegate=self;
+                    if(searchBar.text!=nil){
+                        searchBar.showsCancelButton = YES;
+                    }
+                    
+                    searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+                    searchBar.placeholder=@"Search for activities or people";
+                    [filterPaneView addSubview:searchBar];
+
+
+                }
+                else{
         self.homeSearchBar = [[[CustomSearchbar alloc] initWithFrame:CGRectMake(0, 40, 320, 44)] autorelease];
         self.homeSearchBar.delegate = self;
         self.homeSearchBar.CSDelegate=self;
@@ -34,6 +51,8 @@
         self.homeSearchBar.placeholder=@"Search for activities or people";
         self.homeSearchBar.backgroundImage=[UIImage imageNamed: @"S4.1_search-background.png"];
         [filterPaneView addSubview:self.homeSearchBar];
+                    
+                }
         
         
 #if 0        
@@ -66,7 +85,7 @@
         // Block of code for the activity types
         CGRect actTypesLabelRect=CGRectMake(10,95,165,15);
         UILabel *actTypesLabel=[[UILabel alloc] initWithFrame:actTypesLabelRect];
-        actTypesLabel.textAlignment=UITextAlignmentLeft;
+        actTypesLabel.textAlignment=NSTextAlignmentLeft;
         actTypesLabel.text=[NSString stringWithFormat:@"ACTIVITY TYPES"];
         actTypesLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         actTypesLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -95,11 +114,11 @@
         
         CGRect playTypeLabelRect=CGRectMake(25,155-1,55,16);
         UILabel *playTypeLabel=[[UILabel alloc] initWithFrame:playTypeLabelRect];
-        playTypeLabel.textAlignment=UITextAlignmentLeft;
+        playTypeLabel.textAlignment=NSTextAlignmentLeft;
         playTypeLabel.text=[NSString stringWithFormat:@"Play"];
         playTypeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         playTypeLabel.textColor=[UIColor whiteColor];
-        playTypeLabel.textAlignment = UITextAlignmentCenter;
+        playTypeLabel.textAlignment = NSTextAlignmentCenter;
         playTypeLabel.tag=kPlayLabelText;
         playTypeLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:playTypeLabel];
@@ -129,11 +148,11 @@
         
         CGRect eatTypeLabelRect=CGRectMake(80,155,55,15);
         UILabel *eatTypeLabel=[[UILabel alloc] initWithFrame:eatTypeLabelRect];
-        eatTypeLabel.textAlignment=UITextAlignmentLeft;
+        eatTypeLabel.textAlignment=NSTextAlignmentLeft;
         eatTypeLabel.text=[NSString stringWithFormat:@"Eat"];
         eatTypeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         eatTypeLabel.textColor=[UIColor whiteColor];
-        eatTypeLabel.textAlignment = UITextAlignmentCenter;
+        eatTypeLabel.textAlignment = NSTextAlignmentCenter;
         eatTypeLabel.tag=kEatLabelText;
         eatTypeLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:eatTypeLabel];
@@ -163,11 +182,11 @@
         
         CGRect seeTypeLabelRect=CGRectMake(135,155,55,15);
         UILabel *seeTypeLabel=[[UILabel alloc] initWithFrame:seeTypeLabelRect];
-        seeTypeLabel.textAlignment=UITextAlignmentLeft;
+        seeTypeLabel.textAlignment=NSTextAlignmentLeft;
         seeTypeLabel.text=[NSString stringWithFormat:@"See"];
         seeTypeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         seeTypeLabel.textColor=[UIColor whiteColor];
-        seeTypeLabel.textAlignment = UITextAlignmentCenter;
+        seeTypeLabel.textAlignment = NSTextAlignmentCenter;
         seeTypeLabel.tag=kSeeLabelText;
         seeTypeLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:seeTypeLabel];
@@ -198,11 +217,11 @@
         
         CGRect createTypeLabelRect=CGRectMake(190,155,55,15);
         UILabel *createTypeLabel=[[UILabel alloc] initWithFrame:createTypeLabelRect];
-        createTypeLabel.textAlignment=UITextAlignmentLeft;
+        createTypeLabel.textAlignment=NSTextAlignmentLeft;
         createTypeLabel.text=[NSString stringWithFormat:@"Create"];
         createTypeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         createTypeLabel.textColor=[UIColor whiteColor];
-        createTypeLabel.textAlignment = UITextAlignmentCenter;
+        createTypeLabel.textAlignment = NSTextAlignmentCenter;
         createTypeLabel.tag=kCreateLabelText;
         createTypeLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:createTypeLabel];
@@ -233,11 +252,11 @@
         
         CGRect learnTypeLabelRect=CGRectMake(245,155,55,15);
         UILabel *learnTypeLabel=[[UILabel alloc] initWithFrame:learnTypeLabelRect];
-        learnTypeLabel.textAlignment=UITextAlignmentLeft;
+        learnTypeLabel.textAlignment=NSTextAlignmentLeft;
         learnTypeLabel.text=[NSString stringWithFormat:@"Learn"];
         learnTypeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         learnTypeLabel.textColor=[UIColor whiteColor];
-        learnTypeLabel.textAlignment = UITextAlignmentCenter;
+        learnTypeLabel.textAlignment = NSTextAlignmentCenter;
         learnTypeLabel.tag=kLearnLabelText;
         learnTypeLabel.backgroundColor=[UIColor clearColor];
         [filterPaneView addSubview:learnTypeLabel];
@@ -277,7 +296,7 @@
         
         CGRect next2DaysLabelRect=CGRectMake(12,253-1,100,16);
         UILabel *next2DaysLabel=[[UILabel alloc] initWithFrame:next2DaysLabelRect];
-        next2DaysLabel.textAlignment=UITextAlignmentCenter;
+        next2DaysLabel.textAlignment=NSTextAlignmentCenter;
         next2DaysLabel.text=[NSString stringWithFormat:@"Next 2 Days"];
         next2DaysLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         next2DaysLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -306,7 +325,7 @@
         
         CGRect next7DaysLabelRect=CGRectMake(113,253-1,100,16);
         UILabel *next7DaysLabel=[[UILabel alloc] initWithFrame:next7DaysLabelRect];
-        next7DaysLabel.textAlignment=UITextAlignmentCenter;
+        next7DaysLabel.textAlignment=NSTextAlignmentCenter;
         next7DaysLabel.text=[NSString stringWithFormat:@"Next 7 Days"];
         next7DaysLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         next7DaysLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -333,7 +352,7 @@
         
         CGRect pickADayLabelRect=CGRectMake(220,253-1,90,16);
         UILabel *pickADayLabel=[[UILabel alloc] initWithFrame:pickADayLabelRect];
-        pickADayLabel.textAlignment=UITextAlignmentCenter;
+        pickADayLabel.textAlignment=NSTextAlignmentCenter;
         pickADayLabel.text=SOC.filterObject.lastDateString;
         pickADayLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         pickADayLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -366,7 +385,7 @@
         
         CGRect morningLabelRect=CGRectMake(12,335-1,100,16);
         UILabel *morningLabel=[[UILabel alloc] initWithFrame:morningLabelRect];
-        morningLabel.textAlignment=UITextAlignmentCenter;
+        morningLabel.textAlignment=NSTextAlignmentCenter;
         morningLabel.text=[NSString stringWithFormat:@"Morning"];
         morningLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         morningLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -377,7 +396,7 @@
         
         CGRect Am12_Am11_LabelRect=CGRectMake(12,355,100,15);
         UILabel *Am12_Am11Label=[[UILabel alloc] initWithFrame:Am12_Am11_LabelRect];
-        Am12_Am11Label.textAlignment=UITextAlignmentCenter;
+        Am12_Am11Label.textAlignment=NSTextAlignmentCenter;
         Am12_Am11Label.text=[NSString stringWithFormat:@"Before 12pm"];
         Am12_Am11Label.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
         Am12_Am11Label.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -417,7 +436,7 @@
         
         CGRect afternoonLabelRect=CGRectMake(113,335-1,100,16);
         UILabel *afternoonLabel=[[UILabel alloc] initWithFrame:afternoonLabelRect];
-        afternoonLabel.textAlignment=UITextAlignmentCenter;
+        afternoonLabel.textAlignment=NSTextAlignmentCenter;
         afternoonLabel.text=[NSString stringWithFormat:@"Afternoon"];
         afternoonLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         afternoonLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -427,7 +446,7 @@
         
         CGRect Pm12_Pm6_LabelRect=CGRectMake(113,355,100,15);
         UILabel *Pm12_Pm6_Label=[[UILabel alloc] initWithFrame:Pm12_Pm6_LabelRect];
-        Pm12_Pm6_Label.textAlignment=UITextAlignmentCenter;
+        Pm12_Pm6_Label.textAlignment=NSTextAlignmentCenter;
         Pm12_Pm6_Label.text=[NSString stringWithFormat:@"12pm - 6pm"];
         Pm12_Pm6_Label.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
         Pm12_Pm6_Label.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -467,7 +486,7 @@
         
         CGRect eveningLabelRect=CGRectMake(214,335-1,100,16);
         UILabel *eveningLabel=[[UILabel alloc] initWithFrame:eveningLabelRect];
-        eveningLabel.textAlignment=UITextAlignmentCenter;
+        eveningLabel.textAlignment=NSTextAlignmentCenter;
         eveningLabel.text=[NSString stringWithFormat:@"Evening"];
         eveningLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
         eveningLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -478,7 +497,7 @@
         
         CGRect Pm7_Pm11_LabelRect=CGRectMake(214,355,100,15);
         UILabel *Pm7_Pm11_Label=[[UILabel alloc] initWithFrame:Pm7_Pm11_LabelRect];
-        Pm7_Pm11_Label.textAlignment=UITextAlignmentCenter;
+        Pm7_Pm11_Label.textAlignment=NSTextAlignmentCenter;
         Pm7_Pm11_Label.text=[NSString stringWithFormat:@"After 6pm"];
         Pm7_Pm11_Label.font=[UIFont fontWithName:@"Helvetica-Condensed" size:15];
         Pm7_Pm11_Label.textColor=[SoclivityUtilities returnTextFontColor:1];
@@ -1040,11 +1059,13 @@
     [searchBar setShowsCancelButton:NO animated:YES];
      
      [self.homeSearchBar resignFirstResponder];
+     [searchBar resignFirstResponder];
 }
 // called when keyboard search button pressed
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
      
      [self.homeSearchBar resignFirstResponder];
+    [searchBar resignFirstResponder];
     [searchBar setShowsCancelButton:YES animated:YES];
 }
 -(void)customCancelButtonHit{
