@@ -156,8 +156,7 @@
         resetPasswordViewController.oldPassword=password.text;
         UINavigationController *addNavigationController = [[UINavigationController alloc] initWithRootViewController:resetPasswordViewController];
         
-        
-        [self.navigationController presentModalViewController:addNavigationController animated:YES];
+        [self.navigationController presentViewController:addNavigationController animated:YES completion:Nil];
         [resetPasswordViewController release];
         [addNavigationController release];
         return;

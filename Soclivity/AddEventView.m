@@ -133,14 +133,14 @@
         activityTextLabel.text = info.what;
     
     activityTextLabel.numberOfLines = 0;
-    activityTextLabel.lineBreakMode = UILineBreakModeWordWrap;
+    activityTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
 
 	activityTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     activityTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     activityTextLabel.backgroundColor=[UIColor clearColor];
     
     CGSize labelSize = [activityTextLabel.text sizeWithFont:activityTextLabel.font constrainedToSize:activityTextLabel.frame.size
-            lineBreakMode:UILineBreakModeWordWrap];
+            lineBreakMode:NSLineBreakByWordWrapping];
     
     // Cap the description at 160 characters or 4 lines
     if(labelSize.height>72){
@@ -518,14 +518,14 @@
         activityTextLabel.text = act.what;
     
     activityTextLabel.numberOfLines = 0;
-    activityTextLabel.lineBreakMode = UILineBreakModeWordWrap;
+    activityTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
     
 	activityTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     activityTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     activityTextLabel.backgroundColor=[UIColor clearColor];
     
     CGSize labelSize = [activityTextLabel.text sizeWithFont:activityTextLabel.font constrainedToSize:activityTextLabel.frame.size
-                                              lineBreakMode:UILineBreakModeWordWrap];
+                                              lineBreakMode:NSLineBreakByWordWrapping];
     
     // Cap the description at 160 characters or 4 lines
     if(labelSize.height>72){

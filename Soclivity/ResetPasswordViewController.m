@@ -248,7 +248,7 @@
                 AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                     appDelegate.resetSuccess=TRUE;
 
-                [self.navigationController dismissModalViewControllerAnimated:YES];
+                [self.navigationController dismissViewControllerAnimated:YES completion:Nil];
             }
                 break;
                 

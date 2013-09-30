@@ -603,7 +603,7 @@
     UINavigationController *addNavigationController = [[UINavigationController alloc] initWithRootViewController:avEditController];
 	
     
-	[self.navigationController presentModalViewController:addNavigationController animated:YES];
+	[self.navigationController presentViewController:addNavigationController animated:YES completion:Nil];
     
     
 
@@ -611,11 +611,11 @@
 }
 
 -(void)cancelCreateActivityEventScreen{
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:Nil];
 }
 -(void)pushToNewActivity:(InfoActivityClass *)activity{
     
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:Nil];
     
     SOC.editOrNewActivity=TRUE;
     

@@ -415,7 +415,7 @@
                 
                 CGRect othersLabelTextRect=CGRectMake(256,delta+26,55,12);
                 UILabel *othersTextLabel=[[UILabel alloc] initWithFrame:othersLabelTextRect];
-                othersTextLabel.textAlignment=UITextAlignmentCenter;
+                othersTextLabel.textAlignment=NSTextAlignmentCenter;
                 othersTextLabel.text=[NSString stringWithFormat:@"OTHERS"];
                 othersTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
                 othersTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
@@ -883,7 +883,7 @@ switch ([notIdObject.notificationType integerValue]) {
 	if([UIImagePickerController isSourceTypeAvailable:sourceType]){
         cameraUpload.galleryImage=TRUE;
 		cameraUpload.m_picker.sourceType = sourceType;
-        [self presentModalViewController:cameraUpload.m_picker animated:YES];
+        [self presentViewController:cameraUpload.m_picker animated:YES completion:nil];
     }
     
 }
@@ -894,7 +894,7 @@ switch ([notIdObject.notificationType integerValue]) {
 	if([UIImagePickerController isSourceTypeAvailable:sourceType]){
         cameraUpload.galleryImage=FALSE;
 		cameraUpload.m_picker.sourceType = sourceType;
-        [self presentModalViewController:cameraUpload.m_picker animated:YES];
+        [self presentViewController:cameraUpload.m_picker animated:YES completion:nil];
         
 	}
     
@@ -903,7 +903,7 @@ switch ([notIdObject.notificationType integerValue]) {
 
 -(void)imageCapture:(UIImage*)Img{
     
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:Nil];
     
     
     [self postAImageOnTheServer:Img];
@@ -927,7 +927,7 @@ switch ([notIdObject.notificationType integerValue]) {
 
 -(void)dismissPickerModalController{
     
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:Nil];
 }
 
 
@@ -1467,7 +1467,7 @@ switch ([notIdObject.notificationType integerValue]) {
 
 -(void)deleteActivityEventByOrganizer{
     
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:Nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -1508,8 +1508,8 @@ switch ([notIdObject.notificationType integerValue]) {
     avEditController.newActivity=YES;
     UINavigationController *addNavigationController = [[UINavigationController alloc] initWithRootViewController:avEditController];
 	
-    
-	[self.navigationController presentModalViewController:addNavigationController animated:YES];
+    [self.navigationController presentViewController:addNavigationController animated:YES completion:nil];
+
 
     
 }
@@ -1519,11 +1519,11 @@ switch ([notIdObject.notificationType integerValue]) {
 
 
 -(void)cancelCreateActivityEventScreen{
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:Nil];
 }
 -(void)pushToNewActivity:(InfoActivityClass *)activity{
     
-[self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:Nil];
     SOC.editOrNewActivity=TRUE;
     
     NSString*nibNameBundle=nil;
@@ -1687,8 +1687,7 @@ switch ([notIdObject.notificationType integerValue]) {
     avEditController.activityObject=activityInfo;
     UINavigationController *addNavigationController = [[UINavigationController alloc] initWithRootViewController:avEditController];
 	
-    
-	[self.navigationController presentModalViewController:addNavigationController animated:YES];
+    [self.navigationController presentViewController:addNavigationController animated:YES completion:nil];
 
 }
 
@@ -2265,8 +2264,7 @@ switch ([notIdObject.notificationType integerValue]) {
 
 }
 -(void)updateDetailedActivityScreen:(InfoActivityClass*)activityObj{
-    
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:Nil];
     SOC.editOrNewActivity=TRUE;
     activityNameLabel.text=activityObj.activityName;
     [eventView updateEditedActivityFields:activityObj];
@@ -2311,7 +2309,9 @@ switch ([notIdObject.notificationType integerValue]) {
     
     if ([[FeedbackBugReport sharedInstance] canSendFeedback]) {
         UINavigationController* tellAFriendController = [[FeedbackBugReport sharedInstance] reportActivityController:flagMessage];
-        [self presentModalViewController:tellAFriendController animated:YES];
+        
+        [self presentViewController:tellAFriendController animated:YES completion:nil];
+
         
         
     }

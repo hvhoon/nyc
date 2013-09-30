@@ -46,7 +46,7 @@ static inline NSRegularExpression * NameRegularExpression() {
             summaryLabel.frame=CGRectMake(60, 0, 200, 50);
             summaryLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
             summaryLabel.font =[UIFont fontWithName:@"Helvetica-Condensed" size:12];
-            summaryLabel.lineBreakMode = UILineBreakModeWordWrap;
+            summaryLabel.lineBreakMode = NSLineBreakByWordWrapping;
             summaryLabel.numberOfLines = 0;
             summaryLabel.highlightedTextColor = [UIColor whiteColor];
             summaryLabel.backgroundColor=[UIColor clearColor];

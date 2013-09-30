@@ -285,13 +285,13 @@
 
 
 -(void)presentModal:(UIImagePickerController*)picker{
-    [self presentModalViewController:picker animated:YES];
+    [self presentModal:picker];
     
 }
 
 -(void)dismissPickerModalController{
     
-    [self dismissModalViewControllerAnimated:YES];
+[self dismissViewControllerAnimated:YES completion:Nil];
     
 }
 

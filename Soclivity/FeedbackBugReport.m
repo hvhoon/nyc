@@ -96,7 +96,7 @@ static FeedbackBugReport *sharedInstance = nil;
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
-    [controller dismissModalViewControllerAnimated:YES];
+    [controller dismissViewControllerAnimated:YES completion:Nil];
 }
 
 
