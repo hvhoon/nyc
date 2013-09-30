@@ -55,6 +55,49 @@
     self.restorationIdentifier = @"CreateActivityViewController";
     self.restorationClass = [self class];
         }
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        topBarImageView.frame=CGRectMake(0, 0, 320, 64);
+        createActivtyStaticLabel.frame=CGRectMake(87, 31, 146, 21);
+        deleteActivityButton.frame=CGRectMake(275, 20, 40, 40);
+        backButton.frame=CGRectMake(5, 20, 40, 40);
+        crossButton.frame=CGRectMake(5, 20, 40, 40);
+        crossEditButton.frame=CGRectMake(5, 20, 40, 40);
+        locationCrossButton.frame=CGRectMake(5, 20, 40, 40);
+        step1_of2Label.frame=CGRectMake(230, 31, 80, 21);
+        if([SoclivityUtilities deviceType] & iPhone5){
+            
+            tickEditButton.frame=CGRectMake(128, 421+88+20, 65, 39);
+            createActivityView.frame=CGRectMake(0, 64, 640, 464);
+            bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
+            pickALocationButton.frame=CGRectMake(88,441+88, 149, 39);
+            centerLocationButton.frame=CGRectMake(5,440+88, 40, 40);
+            createActivityButton.frame=CGRectMake(115,440+88, 90, 40);
+            locationTextLabel.frame=CGRectMake(39,450+88, 252, 21);
+        }
+        else{
+            tickEditButton.frame=CGRectMake(128, 421+20, 65, 39);
+            createActivityView.frame=CGRectMake(0, 64, 640, 376);
+            bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
+            pickALocationButton.frame=CGRectMake(88,441, 149, 39);
+            centerLocationButton.frame=CGRectMake(5,440, 40, 40);
+            createActivityButton.frame=CGRectMake(115,440, 90, 40);
+            locationTextLabel.frame=CGRectMake(39,450, 252, 21);
+        }
+        
+    }
+    else{
+        topBarImageView.autoresizesSubviews = YES;
+        topBarImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        topBarImageView.frame=CGRectMake(0, 0, 320, 44);
+        if([SoclivityUtilities deviceType] & iPhone5){
+            
+            
+        }
+        else{
+        }
+        
+    }
     devServer=[[MainServiceManager alloc]init];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (showInAppNotificationsUsingRocketSocket:) name:@"WaitingonyouNotification" object:nil];
@@ -480,6 +523,20 @@
     }
     //map Section
     
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        ios7SearchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(320,0, 320, 44)];
+        ios7SearchBar.delegate=self;
+        if(ios7SearchBar.text!=nil){
+            ios7SearchBar.showsCancelButton = YES;
+        }
+        
+        ios7SearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+        ios7SearchBar.placeholder=@"Place or Address";
+        [createActivityView addSubview:ios7SearchBar];
+        
+        
+    }
+    else{
     self.addressSearchBar = [[[CustomSearchbar alloc] initWithFrame:CGRectMake(320,0, 320, 44)] autorelease];
     self.addressSearchBar.delegate = self;
     self.addressSearchBar.CSDelegate=self;
@@ -491,12 +548,16 @@
     self.addressSearchBar.placeholder=@"Place or Address";
     self.addressSearchBar.backgroundImage=[UIImage imageNamed: @"S4.1_search-background.png"];
     [createActivityView addSubview:self.addressSearchBar];
-
-    CGRect rect=CGRectMake(320, 44, 320, 272);
-    if([SoclivityUtilities deviceType] & iPhone5)
         
-        rect = CGRectMake(320, 44, 320, 272+88);
- 
+    }
+
+    CGRect rect;
+        if([SoclivityUtilities deviceType] & iPhone5)
+            rect=CGRectMake(320, 44, 320, 272+88);
+        
+        else
+            rect=CGRectMake(320, 44, 320, 272);
+    
     
     _mapView = [[MKMapView alloc] initWithFrame:rect];
     _mapView.delegate = self;
@@ -504,6 +565,7 @@
     
     self.mapView.mapType = MKMapTypeStandard;
     searching=FALSE;
+    ios7SearchBar.text=@"";
     self.addressSearchBar.text=@"";
     
     [self gotoLocation];
@@ -516,16 +578,14 @@
 
 
 
-    if([SoclivityUtilities deviceType] & iPhone5){
-        rect = CGRectMake(320, 316+88, 320, 60);
-        
-        
-    }
+    
+    
+    if([SoclivityUtilities deviceType] & iPhone5)
+        rect=CGRectMake(320, 316+88, 320, 60);
+    
     else
-    {
-        rect = CGRectMake(320, 316, 320, 60);
-        
-    }
+        rect=CGRectMake(320, 316, 320, 60);
+    
 
     
     UIView *locationInfoView=[[UIView alloc]initWithFrame:rect];
@@ -1509,12 +1569,19 @@
     responseData = [[NSMutableData data] retain];
     selectionType=type;
     NSString*urlString=nil;
+    NSString *queryString=nil;
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        queryString=[NSString stringWithFormat:@"%@",ios7SearchBar.text];
+    }
+    else{
+        queryString=[NSString stringWithFormat:@"%@",self.addressSearchBar.text];
+    }
     switch (selectionType) {
             
             
         case 1:
         {
-            urlString = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/geocode/json?address=%@&bounds=%f,%f|%f,%f&sensor=false",addressSearchBar.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+            urlString = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/geocode/json?address=%@&bounds=%f,%f|%f,%f&sensor=false",queryString,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
             
             urlString= [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             
@@ -1523,7 +1590,7 @@
             
         case 2:
         {
-            urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?location=%f,%f&radius=80000&name=%@&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk",SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude,[addressSearchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?location=%f,%f&radius=80000&name=%@&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk",SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude,[queryString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             
         }
             break;
@@ -1531,7 +1598,7 @@
             
         case 3:
         {
-            urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?keyword=%@&location=%f,%f&rankby=distance&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk",[addressSearchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+            urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?keyword=%@&location=%f,%f&rankby=distance&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk",[queryString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
             
         }
             break;
@@ -2514,6 +2581,19 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     
     
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        if([ios7SearchBar.text isEqualToString:@""]){
+            
+            [searchBar setShowsCancelButton:NO animated:YES];
+            
+        }
+        else{
+            [searchBar setShowsCancelButton:NO animated:NO];
+            
+        }
+        [searchBar setShowsCancelButton:YES animated:NO];
+    }
+    else{
     if([self.addressSearchBar.text isEqualToString:@""]){
         
         [searchBar setShowsCancelButton:NO animated:YES];
@@ -2526,25 +2606,35 @@
         
     }
     [searchBar setShowsCancelButton:YES animated:NO];
+    }
+    
     
 }
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar{
     
+if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+    ios7SearchBar.text=@"";
+}else{
     self.addressSearchBar.text=@"";
+}
     [searchBar setShowsCancelButton:NO animated:YES];
     
-    [self.addressSearchBar resignFirstResponder];
+    [searchBar resignFirstResponder];
 }
 // called when keyboard search button pressed
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     
-    
-    [self.addressSearchBar resignFirstResponder];
+    [searchBar resignFirstResponder];
     [searchBar setShowsCancelButton:YES animated:YES];
     
 #if FOURSQUARE
-
-    if([SoclivityUtilities hasLeadingNumberInString:self.addressSearchBar.text]){
+    NSString *query=nil;
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        query=ios7SearchBar.text;
+    }else{
+        query=self.addressSearchBar.text;
+    }
+    if([SoclivityUtilities hasLeadingNumberInString:query]){
         [self geocodeFromSearchBar:1];
         
     }
@@ -2570,9 +2660,16 @@
 
 -(void)getVenuesFromFourSquareApi{
     // in case of error use api key like
-    
+    NSString*urlString=nil;
+     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+         urlString = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?client_id=5P1OVCFK0CCVCQ5GBBCWRFGUVNX5R4WGKHL2DGJGZ32FDFKT&client_secret=UPZJO0A0XL44IHCD1KQBMAYGCZ45Z03BORJZZJXELPWHPSAR&v=20130117&query=%@&ll=%f,%f",ios7SearchBar.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+         
+     }
+     else{
+         urlString = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?client_id=5P1OVCFK0CCVCQ5GBBCWRFGUVNX5R4WGKHL2DGJGZ32FDFKT&client_secret=UPZJO0A0XL44IHCD1KQBMAYGCZ45Z03BORJZZJXELPWHPSAR&v=20130117&query=%@&ll=%f,%f",addressSearchBar.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+
+     }
     responseData = [[NSMutableData data] retain];
-    NSString*urlString = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?client_id=5P1OVCFK0CCVCQ5GBBCWRFGUVNX5R4WGKHL2DGJGZ32FDFKT&client_secret=UPZJO0A0XL44IHCD1KQBMAYGCZ45Z03BORJZZJXELPWHPSAR&v=20130117&query=%@&ll=%f,%f",addressSearchBar.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
     urlString= [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSLog(@"urlString=%@",urlString);
@@ -2590,10 +2687,18 @@
     
     
     searching=FALSE;
-    self.addressSearchBar.text=@"";
-    self.addressSearchBar.showClearButton=NO;
-    [addressSearchBar setShowsCancelButton:NO animated:YES];
-    [self.addressSearchBar resignFirstResponder];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+    ios7SearchBar.text=@"";
+    [ios7SearchBar setShowsCancelButton:NO animated:YES];
+    [ios7SearchBar resignFirstResponder];
+    }
+    else{
+        self.addressSearchBar.text=@"";
+        self.addressSearchBar.showClearButton=NO;
+        [addressSearchBar setShowsCancelButton:NO animated:YES];
+        [self.addressSearchBar resignFirstResponder];
+        
+    }
     [self showFourSquareComponents:NO];
     [self setUpLabelViewElements:YES];
     
@@ -2609,11 +2714,19 @@
     locationCrossButton.hidden=YES;
     
     backButton.hidden=NO;
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+    [ios7SearchBar resignFirstResponder];
+        ios7SearchBar.text=@"";
+
+    }
+     else{
     [self.addressSearchBar resignFirstResponder];
+         self.addressSearchBar.text=@"";
+
+     }
     
     self.mapView.showsUserLocation=YES;
     searching=FALSE;
-    self.addressSearchBar.text=@"";
     [self gotoLocation];
     [self showFourSquareComponents:NO];
     [self setUpLabelViewElements:YES];
@@ -2668,6 +2781,9 @@
                 UILabel *pinDropLabel=[[UILabel alloc] initWithFrame:pinDropLabelRect];
                 pinDropLabel.textAlignment=NSTextAlignmentCenter;
                 pinDropLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
+                if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+                    pinDropLabel.textColor=[UIColor blackColor];
+                }else
                 pinDropLabel.textColor=[UIColor whiteColor];
                 pinDropLabel.backgroundColor=[UIColor clearColor];
                 pinDropLabel.text=@"Dropped Pin";
@@ -2857,6 +2973,9 @@
             categoryTextLabel.backgroundColor=[UIColor clearColor];
             categoryTextLabel.text=locObject.annotation.category;
             categoryTextLabel.tag=345;
+            if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+                categoryTextLabel.textColor=[UIColor blackColor];
+            }
             [mapLeftView addSubview:categoryTextLabel];
             
         }
@@ -2877,6 +2996,10 @@
 	nameLabel.textColor=[UIColor whiteColor];
 	nameLabel.backgroundColor=[UIColor clearColor];
 	nameLabel.text=locObject.annotation.formattedAddress;
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        nameLabel.textColor=[UIColor blackColor];
+    }
+
 	[mapLeftView addSubview:nameLabel];
 	[nameLabel release];
 	
@@ -3175,8 +3298,12 @@
 
 - (void) processReverseGeocodingResults:(NSArray *)placemarks {
     
-    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+    ios7SearchBar.text=@"";
+    }
+    else{
     self.addressSearchBar.text=@"";
+    }
     [_geocodingResults removeAllObjects];
     //[self.mapView removeAnnotations:self.mapView.annotations];
     searching=FALSE;

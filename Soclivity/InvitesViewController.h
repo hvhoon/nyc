@@ -39,6 +39,8 @@
     IBOutlet UIButton*btnnotify;
     NotificationClass *notIdObject;
     IBOutlet UIButton *homeButton;
+    IBOutlet UIImageView *topBarImageView;
+    IBOutlet UIImageView *bottomBarImageView;
 }
 @property (nonatomic,retain)id <InvitesViewDelegate>delegate;
 @property (nonatomic,retain)ActivityInvitesView *activityInvites;

@@ -47,6 +47,9 @@
     NotificationClass *notIdObject;
     BOOL isInAppNotif;
     IBOutlet UIButton *homeButton;
+    IBOutlet UIImageView*segmentedBarImageView;
+    IBOutlet UIImageView *topBarImageView;
+    IBOutlet UIImageView *bottomBarImageView;
 
 }
 @property (nonatomic,retain)id <UpcomingCompletedEventsViewDelegate>delegate;

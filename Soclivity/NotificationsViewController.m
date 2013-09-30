@@ -110,6 +110,44 @@
     self.restorationIdentifier = @"NotificationsViewController";
     self.restorationClass = [self class];
         }
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        topBarImageView.frame=CGRectMake(0, 0, 320, 64);
+        waitingOnYouLabel.frame=CGRectMake(50, 33, 220, 21);
+        homeButton.frame=CGRectMake(280,20, 40, 40);
+        backButton.frame=CGRectMake(5,20, 40, 40);
+        btnnotify2.frame=CGRectMake(30,20, 27, 27);
+        if([SoclivityUtilities deviceType] & iPhone5){
+            
+            
+            bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
+            sliderButton.frame=CGRectMake(5, 420+20+88, 40, 40);
+            btnnotify.frame=CGRectMake(28, 412+20+88, 27, 27);
+            
+        }
+        else{
+            
+            bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
+            sliderButton.frame=CGRectMake(5, 420+20, 40, 40);
+            btnnotify.frame=CGRectMake(28, 412+20, 27, 27);
+        }
+        
+    }
+    else{
+        topBarImageView.autoresizesSubviews = YES;
+        topBarImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        topBarImageView.frame=CGRectMake(0, 0, 320, 44);
+        if([SoclivityUtilities deviceType] & iPhone5){
+            
+            bottomBarImageView.frame=CGRectMake(0, 548-40, 320, 40);
+            
+        }
+        else{
+            bottomBarImageView.frame=CGRectMake(0, 548-40-88, 320, 40);
+        }
+        
+    }
+
     self.view.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
     backButton.hidden=YES;
     sliderButton.hidden=NO;
@@ -127,12 +165,26 @@
     
     
     CGRect waitingOnYouRect;
-    if([SoclivityUtilities deviceType] & iPhone5)
-        waitingOnYouRect=CGRectMake(0, 44, 320,375+85);
     
-    else
-        waitingOnYouRect=CGRectMake(0, 44, 320, 377);
     
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        
+        if([SoclivityUtilities deviceType] & iPhone5){
+             waitingOnYouRect=CGRectMake(0, 64, 320,375+85);
+        }
+        else{
+            waitingOnYouRect=CGRectMake(0, 64, 320, 377);
+        }
+        
+    }
+    else{
+        if([SoclivityUtilities deviceType] & iPhone5)
+            waitingOnYouRect=CGRectMake(0, 44, 320,375+85);
+        
+        else
+            waitingOnYouRect=CGRectMake(0, 44, 320, 377);
+    }
     notificationView=[[WaitingOnYouView alloc]initWithFrame:waitingOnYouRect];
     notificationView.delegate=self;
     [self.view addSubview:notificationView];

@@ -104,6 +104,44 @@
     self.restorationIdentifier = @"ProfileViewController";
     self.restorationClass = [self class];
         }
+    
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        topBarImageView.frame=CGRectMake(0, 0, 320, 64);
+        updateActivityLabel.frame=CGRectMake(50, 32, 220, 21);
+         homeButton.frame=CGRectMake(280,20, 40, 40);
+        if([SoclivityUtilities deviceType] & iPhone5){
+            
+            activityTypesView.frame=CGRectMake(0, 64, 320, 464);
+            bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
+            getStartedButton.frame=CGRectMake(102, 425+20+88, 115, 30);
+            profileButton.frame=CGRectMake(5, 420+20+88, 40, 40);
+            btnnotify.frame=CGRectMake(28, 412+20+88, 27, 27);
+            
+        }
+        else{
+            activityTypesView.frame=CGRectMake(0, 64, 320, 464-88);
+            bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
+            getStartedButton.frame=CGRectMake(102, 425+20, 115, 30);
+            profileButton.frame=CGRectMake(5, 420+20, 40, 40);
+            btnnotify.frame=CGRectMake(28, 412+20, 27, 27);
+        }
+        
+    }
+    else{
+        topBarImageView.autoresizesSubviews = YES;
+        topBarImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        topBarImageView.frame=CGRectMake(0, 0, 320, 44);
+        if([SoclivityUtilities deviceType] & iPhone5){
+            
+            bottomBarImageView.frame=CGRectMake(0, 548-40, 320, 40);
+            
+        }
+        else{
+            bottomBarImageView.frame=CGRectMake(0, 548-40-88, 320, 40);
+        }
+        
+    }
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
     updateActivityLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
@@ -114,8 +152,9 @@
     btnnotify.hidden=FALSE;
 
     activityTypesView.delegate=self;
-    
+    homeButton.hidden=YES;
     if(isFirstTime){
+        
         getStartedButton.hidden=YES;
         profileButton.hidden=YES;
         updateActivityLabel.text=@"Pick stuff you like to do...";
@@ -126,7 +165,7 @@
     else{
         
         [self UpdateBadgeNotification];
-        
+         homeButton.hidden=NO;
 
         activityTypesView.isRegisteration=FALSE;
         getStartedButton.hidden=YES;

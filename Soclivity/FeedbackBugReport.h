@@ -9,11 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <MessageUI/MessageUI.h>
 @interface FeedbackBugReport : NSObject<MFMailComposeViewControllerDelegate>{
-    NSString *messageTitle;
     NSString *message;
 
 }
-@property (nonatomic, copy) NSString *messageTitle;
 @property (nonatomic, copy) NSString *message;
 
 + (FeedbackBugReport *)sharedInstance;

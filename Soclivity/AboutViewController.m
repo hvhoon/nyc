@@ -75,6 +75,34 @@
     self.restorationIdentifier = @"AboutViewController";
     self.restorationClass = [self class];
         }
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        
+        if([SoclivityUtilities deviceType] & iPhone5){
+            
+            bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
+            profileButton.frame=CGRectMake(5, 420+20+88, 40, 40);
+            btnnotify.frame=CGRectMake(28, 412+20+88, 27, 27);
+            
+        }
+        else{
+            bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
+            profileButton.frame=CGRectMake(5, 420+20, 40, 40);
+            btnnotify.frame=CGRectMake(28, 412+20, 27, 27);
+        }
+        
+    }
+    else{
+        if([SoclivityUtilities deviceType] & iPhone5){
+            
+            bottomBarImageView.frame=CGRectMake(0, 548-40, 320, 40);
+            
+        }
+        else{
+            bottomBarImageView.frame=CGRectMake(0, 548-40-88, 320, 40);
+        }
+        
+    }
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
 

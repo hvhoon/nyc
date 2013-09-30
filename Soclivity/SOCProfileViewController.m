@@ -86,12 +86,40 @@
     self.restorationIdentifier = @"SOCProfileViewController";
     self.restorationClass = [self class];
         }
-    if([SoclivityUtilities deviceType] & iPhone5){
-        bottomBarImageView.frame=CGRectMake(0, 508, 320, 40);
+    
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        topBarImageView.frame=CGRectMake(0, 0, 320, 64);
+        profileNameLabel.frame=CGRectMake(50, 31, 220, 21);
+        backButton.frame=CGRectMake(5,20, 40, 40);
+        profileTextLinkLabel.frame=CGRectMake(75,20+92, 179, 15);
+        profileImageview.frame=CGRectMake(14,20+60, 50,50);
+        dosConnectionImageview.frame=CGRectMake(174, 74+20, 20, 12);
+        if([SoclivityUtilities deviceType] & iPhone5){
+            
+            bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
+            
+        }
+        else{
+            bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
+        }
+        
     }
     else{
-        bottomBarImageView.frame=CGRectMake(0, 420, 320, 40);
+        topBarImageView.autoresizesSubviews = YES;
+        topBarImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        topBarImageView.frame=CGRectMake(0, 0, 320, 44);
+        if([SoclivityUtilities deviceType] & iPhone5){
+            
+            bottomBarImageView.frame=CGRectMake(0, 548-40, 320, 40);
+            
+        }
+        else{
+            bottomBarImageView.frame=CGRectMake(0, 548-40-88, 320, 40);
+        }
+        
     }
+
 
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
@@ -226,7 +254,7 @@
     
     [self hideMBProgress];
     playerObject=[response retain];
-           commonFriendsArray=[[NSArray arrayWithArray:playerObject.commonFriends]retain];
+    commonFriendsArray=[[NSArray arrayWithArray:playerObject.commonFriends]retain];
     loadNFriendsAtTimeArray=[[NSMutableArray alloc]init];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     NSOperationQueue *queue = [NSOperationQueue new];
@@ -258,11 +286,19 @@
     profileUserNameLabel.text=[NSString stringWithFormat:@"%@",playerObject.playerName];
     CGSize  size = [playerObject.playerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15]];
     NSLog(@"width=%f",size.width);
-    profileUserNameLabel.frame=CGRectMake(75, 73, size.width, 16);
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        
+    profileUserNameLabel.frame=CGRectMake(75, 93, size.width, 16);
+    }else{
+      profileUserNameLabel.frame=CGRectMake(75, 73, size.width, 16);
+    }
     
   if(playerObject.DOS!=3){
-        
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        dosConnectionImageview.frame=CGRectMake(75+6+size.width, 74+20, 21, 12);
+        }else{
         dosConnectionImageview.frame=CGRectMake(75+6+size.width, 74, 21, 12);
+        }
         switch (playerObject.DOS){
             case 1:
                 dosConnectionImageview.image=[UIImage imageNamed:@"S05_dos1.png"];
@@ -293,27 +329,64 @@
         
       int delta=0;
   
-        if(playerObject.DOS==1  && [playerObject.latestActivityName length]!=0)
-            [self.view addSubview:[self SetupHeaderView]];
+      if(playerObject.DOS==1  && [playerObject.latestActivityName length]!=0){
+           if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+               [self.view addSubview:[self SetupHeaderView:147.0f]];
+
+           }
+           else{
+               [self.view addSubview:[self SetupHeaderView:127.0f]];
+
+           }
+      }
       
         else if(playerObject.DOS==1){
-            [self.view addSubview:[self commonFriendsView:127]];
-            delta=93;
+            if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+                [self.view addSubview:[self commonFriendsView:147]];
+
+                delta=93+20;
+            }
+            else{
+                [self.view addSubview:[self commonFriendsView:127]];
+                delta=93;
+                
+            }
+            
             
         }
         if(playerObject.DOS!=1){
-            [self.view addSubview:[self commonFriendsView:127]];
-             delta=93;
+            if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+                [self.view addSubview:[self commonFriendsView:147]];
+                
+                delta=93+20;
+            }
+            else{
+                [self.view addSubview:[self commonFriendsView:127]];
+                delta=93;
+                
+            }
         }
         
         CGRect activityTableRect;
-        if([SoclivityUtilities deviceType] & iPhone5)
-            
-            activityTableRect=CGRectMake(0, 220-delta+kSectionHeaderHeight, 320, 200+88+delta-kSectionHeaderHeight);
-        
-        else
-            activityTableRect=CGRectMake(0, 220-delta+kSectionHeaderHeight, 320, 200+delta-kSectionHeaderHeight);
-        
+      if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+          
+          if([SoclivityUtilities deviceType] & iPhone5){
+              activityTableRect=CGRectMake(0, 240-delta+kSectionHeaderHeight, 320, 200+88+delta-kSectionHeaderHeight);
+          }
+          else{
+              activityTableRect=CGRectMake(0, 240-delta+kSectionHeaderHeight, 320, 200+delta-kSectionHeaderHeight);
+          }
+          
+      }
+      else{
+          if([SoclivityUtilities deviceType] & iPhone5)
+              activityTableRect=CGRectMake(0, 220-delta+kSectionHeaderHeight, 320, 200+88+delta-kSectionHeaderHeight);
+          
+          else
+              activityTableRect=CGRectMake(0, 220-delta+kSectionHeaderHeight, 320, 200+delta-kSectionHeaderHeight);
+      }
+
+      
         commonFriendsTableView=[[UITableView alloc]initWithFrame:activityTableRect];
         [commonFriendsTableView setDelegate:self];
         [commonFriendsTableView setDataSource:self];
@@ -342,8 +415,14 @@
     }
     // The user and you have no friends in common.  Do not show upcoming/completed activities or common friends
     else{
-        profileUserNameLabel.frame=CGRectMake(75, 92, size.width, 16);
         
+            if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        profileUserNameLabel.frame=CGRectMake(75, 92+20, size.width, 16);
+                
+            }
+            else{
+        profileUserNameLabel.frame=CGRectMake(75, 92, size.width, 16);
+            }
         CGRect topLabelRect=CGRectMake(60,140,280,15);
         UILabel *topLabel=[[UILabel alloc] initWithFrame:topLabelRect];
         topLabel.textAlignment=NSTextAlignmentLeft;
@@ -504,8 +583,8 @@
 
 
 
--(UIView*)SetupHeaderView{
-    UIView *contactHeaderView=[[UIView alloc]initWithFrame:CGRectMake(0, 127, 320,93+kSectionHeaderHeight)];
+-(UIView*)SetupHeaderView:(CGFloat)ht{
+    UIView *contactHeaderView=[[UIView alloc]initWithFrame:CGRectMake(0, ht, 320,93+kSectionHeaderHeight)];
     
     UIButton *topDividerLineButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     topDividerLineButton.frame = CGRectMake(0, 0, 320, 1);

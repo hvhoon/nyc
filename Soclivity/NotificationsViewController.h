@@ -35,6 +35,9 @@
     NSMutableArray*calendarArray;
     BOOL isSyncing;
     NSArray*notificationListingArray;
+    IBOutlet UIImageView *topBarImageView;
+    IBOutlet UIImageView *bottomBarImageView;
+    IBOutlet UIButton *homeButton;
 }
 @property (nonatomic,retain)id <NotificationsScreenViewDelegate>delegate;
 @property(nonatomic, retain)NotificationClass *notIdObject;

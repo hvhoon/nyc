@@ -109,9 +109,49 @@
 {
     [super viewDidLoad];
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
-    self.restorationIdentifier = @"InvitesViewController";
-    self.restorationClass = [self class];
+            
+            self.restorationIdentifier = @"InvitesViewController";
+            self.restorationClass = [self class];
         }
+    
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        topBarImageView.frame=CGRectMake(0, 0, 320, 64);
+        inviteTitleLabel.frame=CGRectMake(57, 33, 206, 21);
+        homeButton.frame=CGRectMake(280,20, 40, 40);
+        activityBackButton.frame=CGRectMake(5,20, 40, 40);
+        
+        if([SoclivityUtilities deviceType] & iPhone5){
+            
+            bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
+            openSlotsNoLabel.frame=CGRectMake(58, 450+88, 202, 21);
+            settingsButton.frame=CGRectMake(5, 420+20+88, 40, 40);
+            btnnotify.frame=CGRectMake(28, 412+20+88, 27, 27);
+            
+        }
+        else{
+            bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
+            openSlotsNoLabel.frame=CGRectMake(58, 450, 202, 21);
+            settingsButton.frame=CGRectMake(5, 420+20, 40, 40);
+            btnnotify.frame=CGRectMake(28, 412+20, 27, 27);
+        }
+        
+    }
+    else{
+        topBarImageView.autoresizesSubviews = YES;
+        topBarImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        topBarImageView.frame=CGRectMake(0, 0, 320, 44);
+        if([SoclivityUtilities deviceType] & iPhone5){
+            
+            bottomBarImageView.frame=CGRectMake(0, 548-40, 320, 40);
+            
+        }
+        else{
+            bottomBarImageView.frame=CGRectMake(0, 548-40-88, 320, 40);
+        }
+        
+    }
+
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
     
@@ -139,11 +179,25 @@
     if(num_of_slots!=-1)
     openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
 
-    CGRect activityRect;
-        if([SoclivityUtilities deviceType] & iPhone5)
-             activityRect=CGRectMake(0, 44, 320, 377+88);
-        else
-             activityRect=CGRectMake(0, 44, 320, 357);  //377
+        CGRect activityRect;
+
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+            
+            if([SoclivityUtilities deviceType] & iPhone5){
+                activityRect=CGRectMake(0, 64, 320,377+88);
+            }
+            else{
+                activityRect=CGRectMake(0, 64, 320, 357);
+            }
+            
+        }
+        else{
+            if([SoclivityUtilities deviceType] & iPhone5)
+                activityRect=CGRectMake(0, 44, 320, 377+88);
+            
+            else
+                activityRect=CGRectMake(0, 44, 320, 357);
+        }
         
         activityInvites=[[ActivityInvitesView alloc]initWithFrame:activityRect andInviteListArray:inviteArray isActivityUserList:YES];
     activityInvites.delegate=self;
@@ -400,12 +454,27 @@
         case 3:
         {
             [HUD hide:YES];
-            CGRect activityRect;
-            if([SoclivityUtilities deviceType] & iPhone5)
-                activityRect=CGRectMake(0, 44, 320, 377+88);
             
-            else
-                activityRect=CGRectMake(0, 44, 320, 357);  //377
+            CGRect activityRect;
+            
+            if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+                
+                if([SoclivityUtilities deviceType] & iPhone5){
+                    activityRect=CGRectMake(0, 64, 320,377+88);
+                }
+                else{
+                    activityRect=CGRectMake(0, 64, 320, 357);
+                }
+                
+            }
+            else{
+                if([SoclivityUtilities deviceType] & iPhone5)
+                    activityRect=CGRectMake(0, 44, 320, 377+88);
+                
+                else
+                    activityRect=CGRectMake(0, 44, 320, 357);
+            }
+            
             activityInvites=[[ActivityInvitesView alloc]initWithFrame:activityRect andInviteListArray:responses isActivityUserList:NO];
             activityInvites.delegate=self;
             [self.view addSubview:activityInvites];

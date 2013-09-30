@@ -43,6 +43,8 @@
     NSInteger friendId;
     NotificationClass *notIdObject;
     BOOL isInAppNotif;
+    IBOutlet UIImageView *topBarImageView;
+    IBOutlet UIButton *backButton;
 
 }
 @property (nonatomic,retain)SocPlayerClass *playerObject;
@@ -52,7 +54,7 @@
 @property (nonatomic,assign)NSInteger friendId;
 @property (nonatomic,retain)NSArray *commonFriendsArray;
 -(IBAction)profileBackButtonClicked:(id)sender;
--(UIView*)SetupHeaderView;
+-(UIView*)SetupHeaderView:(CGFloat)ht;
 -(void)tapViewAll:(UITapGestureRecognizer*)sender;
 - (NSInteger)tableViewHeight;
 -(void)addLoadingMoreFooter:(NSInteger)loadMoreFooterHeight;

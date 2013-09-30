@@ -9,7 +9,6 @@
 #import "FeedbackBugReport.h"
 static FeedbackBugReport *sharedInstance = nil;
 @implementation FeedbackBugReport
-@synthesize messageTitle;
 @synthesize message;
 
 
@@ -57,6 +56,9 @@ static FeedbackBugReport *sharedInstance = nil;
     [picker setSubject:@"Flag Activity"];
     [picker setToRecipients:toRecipients];
     [picker setMessageBody:flagMessage isHTML:NO];
+    if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+    picker.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    }
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
         [[picker navigationBar] setTintColor:[UIColor clearColor]];
     }
@@ -70,6 +72,19 @@ static FeedbackBugReport *sharedInstance = nil;
     
     NSArray *toRecipients = [NSArray arrayWithObject:@"ideas@soclivity.com"];
     
+    if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+   // [picker.navigationBar setBackgroundImage:[UIImage imageNamed:@"topbar.png"] forBarMetrics:UIBarMetricsDefault];
+    //picker.navigationBar.tintColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
+    
+    [[picker navigationBar] setTintColor:[UIColor greenColor]];
+    UIImage *image = [UIImage imageNamed:@"topbar.png"];
+    UIImageView * iv = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,320,64)];
+    iv.image = image;
+    iv.contentMode = UIViewContentModeCenter;
+    [[[picker viewControllers] lastObject] navigationItem].titleView = iv;
+    [[picker navigationBar] sendSubviewToBack:iv];
+    [iv release];
+    }
     [picker setSubject:@"Feedback"];
     [picker setToRecipients:toRecipients];
     [picker setMessageBody:[self messageBody] isHTML:NO];
@@ -84,14 +99,6 @@ static FeedbackBugReport *sharedInstance = nil;
     [controller dismissModalViewControllerAnimated:YES];
 }
 
-- (NSString *)messageTitle
-{
-    if (messageTitle)
-    {
-        return messageTitle;
-    }
-    return [NSString stringWithFormat:@"Check out %@", @"Kanav"];
-}
 
 - (NSString *)messageBody
 {

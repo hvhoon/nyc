@@ -140,12 +140,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
-    
-    AttributedTableViewCell *cell = (AttributedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    //if (cell == nil) {
-        cell = [[AttributedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    //}
-    
     CGFloat rowheight=0.0f;
     
     NotificationClass *cellNotification=[self.notificationsArray objectAtIndex:indexPath.row];
@@ -156,9 +150,15 @@
     }
     else
         rowheight=60.0f;
+
+    AttributedTableViewCell *cell = (AttributedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    //if (cell == nil) {
+        cell = [[AttributedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    //}
+    
     
     cell.notificationType=cellNotification.notificationType;
-
+# if 0
     for (UIView *view in cell.contentView.subviews)
     {
         if (![view isKindOfClass:[UILabel class]])
@@ -166,7 +166,7 @@
              [view removeFromSuperview];
         }
     }
-    
+#endif
     cell.summaryText =cellNotification.notificationString;
     cell.summaryLabel.delegate = self;
     cell.summaryLabel.userInteractionEnabled = YES;

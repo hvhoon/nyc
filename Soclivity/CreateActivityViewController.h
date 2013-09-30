@@ -85,7 +85,7 @@
     BOOL timeSelected;
     MainServiceManager *devServer;
     MBProgressHUD *HUD;
-    
+    UISearchBar *ios7SearchBar;
     IBOutlet UIButton *crossEditButton;
     IBOutlet UIButton *tickEditButton;
     IBOutlet UIButton *deleteActivityButton;
@@ -101,6 +101,9 @@
     UIButton *disclosureButton;
     NSInteger urlIndex;
     UIButton *phoneButton;
+    
+    IBOutlet UIImageView *topBarImageView;
+    IBOutlet UIImageView *bottomBarImageView;
 
 
 }

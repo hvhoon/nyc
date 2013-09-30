@@ -33,6 +33,8 @@
     SoclivityManager *SOC;
     IBOutlet UIButton*btnnotify;
     NotificationClass *notIdObject;
+    IBOutlet UIImageView *topBarImageView;
+    IBOutlet UIButton *homeButton;
 }
 @property (nonatomic,retain)id <ProfileScreenViewDelegate>delegate;
 @property (nonatomic,retain)ActivityTypeSelectView *activityTypesView;

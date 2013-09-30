@@ -96,6 +96,45 @@
     self.restorationIdentifier = @"UpComingCompletedEventsViewController";
     self.restorationClass = [self class];
         }
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        topBarImageView.frame=CGRectMake(0, 0, 320, 64);
+        activititesLabel.frame=CGRectMake(50, 33, 220, 21);
+        homeButton.frame=CGRectMake(280,20, 40, 40);
+        backActivityButton.frame=CGRectMake(5,20, 40, 40);
+        segmentedBarImageView.frame=CGRectMake(0, 64, 320, 40);
+
+        if([SoclivityUtilities deviceType] & iPhone5){
+            
+            activityListView.frame=CGRectMake(0, 104, 320, 426);
+            bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
+            profileButton.frame=CGRectMake(5, 420+20+88, 40, 40);
+            btnnotify.frame=CGRectMake(28, 412+20+88, 27, 27);
+            
+        }
+        else{
+            activityListView.frame=CGRectMake(0, 104, 320, 338);
+            bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
+            profileButton.frame=CGRectMake(5, 420+20, 40, 40);
+            btnnotify.frame=CGRectMake(28, 412+20, 27, 27);
+        }
+        
+    }
+    else{
+        topBarImageView.autoresizesSubviews = YES;
+        topBarImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        topBarImageView.frame=CGRectMake(0, 0, 320, 44);
+        if([SoclivityUtilities deviceType] & iPhone5){
+            
+            bottomBarImageView.frame=CGRectMake(0, 548-40, 320, 40);
+            
+        }
+        else{
+            bottomBarImageView.frame=CGRectMake(0, 548-40-88, 320, 40);
+        }
+        
+    }
+
     typeOfAct=1;
     devServer=[[MainServiceManager alloc]init];
     SOC=[SoclivityManager SharedInstance];
@@ -115,7 +154,12 @@
     
     
     organizedButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+    organizedButton.frame = CGRectMake(9.6, 70, 71, 27);
+    }
+    else{
     organizedButton.frame = CGRectMake(9.6, 50, 71, 27);
+    }
     [organizedButton setBackgroundImage:[UIImage imageNamed:
                                          @"S10_organizedHighlighted.png"] forState:UIControlStateNormal];
     [organizedButton setBackgroundImage:[UIImage imageNamed:
@@ -134,7 +178,11 @@
     if(!isNotLoggedInUser){
         
     invitedButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+            if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+    invitedButton.frame = CGRectMake(90.2, 70, 68, 27);
+            }else{
     invitedButton.frame = CGRectMake(90.2, 50, 68, 27);
+            }
     [invitedButton setTitle:@"Invited" forState:UIControlStateNormal];
     [invitedButton setTitle:@"Invited" forState:UIControlStateHighlighted];
     [invitedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
@@ -147,7 +195,12 @@
 
     
     goingButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+    goingButton.frame = CGRectMake(167.8, 70, 58, 27);
+     }
+         else{
     goingButton.frame = CGRectMake(167.8, 50, 58, 27);
+         }
     [goingButton setTitle:@"Going" forState:UIControlStateNormal];
     [goingButton setTitle:@"Going" forState:UIControlStateHighlighted];
     [goingButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
@@ -159,7 +212,12 @@
     
     
     completedButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+    completedButton.frame = CGRectMake(235.4, 70, 75, 27);
+    }
+    else{
     completedButton.frame = CGRectMake(235.4, 50, 75, 27);
+    }
     [completedButton setTitle:@"Completed" forState:UIControlStateNormal];
     [completedButton setTitle:@"Completed" forState:UIControlStateHighlighted];
     [completedButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
@@ -170,9 +228,17 @@
     [self.view addSubview:completedButton];
 
     if(isNotLoggedInUser){
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+            organizedButton.frame = CGRectMake(29, 70, 71, 27);
+            goingButton.frame = CGRectMake(129, 70, 58, 27);
+            completedButton.frame = CGRectMake(216, 70, 75, 27);
+        }
+        else{
             organizedButton.frame = CGRectMake(29, 50, 71, 27);
             goingButton.frame = CGRectMake(129, 50, 58, 27);
             completedButton.frame = CGRectMake(216, 50, 75, 27);
+            
+        }
     }
 
     activityListView.delegate=self;

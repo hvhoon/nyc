@@ -35,6 +35,23 @@ NSString * const kSearchTextKey = @"Search Text";
         self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
         searching=FALSE;
         filteredListContent=[NSMutableArray new];
+        
+        
+        
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+            UISearchBar *searchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(0,0, 320, 44)];
+            searchBar.delegate=self;
+            if(searchBar.text!=nil){
+                searchBar.showsCancelButton = YES;
+            }
+            
+            searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+            searchBar.placeholder=@"Search for people on Soclivity";
+            [self addSubview:searchBar];
+            
+            
+        }
+        else{
         self.searchBarForInvites = [[[CustomSearchbar alloc] initWithFrame:CGRectMake(0,0, 320, 44)] autorelease];
         self.searchBarForInvites.delegate = self;
         self.searchBarForInvites.CSDelegate=self;
@@ -46,7 +63,7 @@ NSString * const kSearchTextKey = @"Search Text";
         self.searchBarForInvites.placeholder=@"Search for people on Soclivity";
         self.searchBarForInvites.backgroundImage=[UIImage imageNamed: @"S4.1_search-background.png"];
         [self addSubview:self.searchBarForInvites];
-        
+    }
         
         
         
@@ -882,6 +899,7 @@ NSString * const kSearchTextKey = @"Search Text";
     [searchBar setShowsCancelButton:NO animated:YES];
     
     [self.searchBarForInvites resignFirstResponder];
+    [searchBar resignFirstResponder];
 }
 // called when keyboard search button pressed
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
@@ -911,6 +929,7 @@ NSString * const kSearchTextKey = @"Search Text";
 
     */
     [self.searchBarForInvites resignFirstResponder];
+    [searchBar resignFirstResponder];
     [searchBar setShowsCancelButton:YES animated:YES];
     
 }

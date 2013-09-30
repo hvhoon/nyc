@@ -1112,7 +1112,7 @@
     if([tapAndDrawerEffect isEqualToString:@"TRUE"] && [tagNumber integerValue]==kSendUsFeedback){
         if ([[FeedbackBugReport sharedInstance] canSendFeedback]) {
             UINavigationController* tellAFriendController = [[FeedbackBugReport sharedInstance] sendFeedbackController];
-             [self presentModalViewController:tellAFriendController animated:YES];
+             [self presentViewController:tellAFriendController animated:YES completion:Nil];
             
             
         }
@@ -1131,7 +1131,8 @@
     if([tapAndDrawerEffect isEqualToString:@"TRUE"] && [tagNumber integerValue]==kBugAlert){
         if ([[FeedbackBugReport sharedInstance] canSendFeedback]) {
             UINavigationController* tellAFriendController = [[FeedbackBugReport sharedInstance] sendBugAlertController];
-            [self presentModalViewController:tellAFriendController animated:YES];
+            tellAFriendController.navigationBarHidden=YES;
+            [self presentViewController:tellAFriendController animated:YES completion:Nil];
             
             
         }

@@ -25,6 +25,8 @@
     NotificationClass *notIdObject;
     MainServiceManager *devServer;
     SoclivityManager *SOC;
+    IBOutlet UIImageView *bottomBarImageView;
+    IBOutlet UIButton *profileButton;
 }
 
 @property (retain, nonatomic) IBOutlet UITextView *eula;
