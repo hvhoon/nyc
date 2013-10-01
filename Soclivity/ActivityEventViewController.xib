@@ -12,6 +12,7 @@
                 <outlet property="addEventButton" destination="13" id="74"/>
                 <outlet property="backButton" destination="8" id="147"/>
                 <outlet property="backToActivityFromMapButton" destination="176" id="177"/>
+                <outlet property="bottomBarImageView" destination="12" id="4pl-ik-qdi"/>
                 <outlet property="cancelRequestActivityButton" destination="127" id="128"/>
                 <outlet property="chatButton" destination="14" id="19"/>
                 <outlet property="chatView" destination="164" id="165"/>
@@ -34,6 +35,7 @@
                 <outlet property="spinnerView" destination="227" id="228"/>
                 <outlet property="staticToggleView" destination="258" id="260"/>
                 <outlet property="staticView" destination="162" id="163"/>
+                <outlet property="topBarImageView" destination="10" id="lcm-Ts-aQP"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -640,7 +642,6 @@
         <image name="S05_chatButton.png" width="40" height="40"/>
         <image name="S05_clockIcon.png" width="20" height="20"/>
         <image name="S05_edit.png" width="40" height="40"/>
-        <image name="S05_edit.png" width="40" height="40"/>
         <image name="S05_goingButton.png" width="90" height="40"/>
         <image name="S05_inviteButton.png" width="40" height="40"/>
         <image name="S05_joinButton.png" width="79" height="39"/>
@@ -651,9 +652,7 @@
         <image name="S5_DOS-1.png" width="16" height="16"/>
         <image name="acceptButton.png" width="65" height="39"/>
         <image name="back-button.png" width="40" height="40"/>
-        <image name="back-button.png" width="40" height="40"/>
         <image name="bottom-bar.png" width="320" height="40"/>
-        <image name="cross.png" width="40" height="40"/>
         <image name="cross.png" width="40" height="40"/>
         <image name="currentButton.png" width="40" height="39"/>
         <image name="keyboardDown.png" width="40" height="40"/>

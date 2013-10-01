@@ -148,6 +148,67 @@
     self.restorationIdentifier = @"ActivityEventViewController";
     self.restorationClass = [self class];
         }
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        topBarImageView.frame=CGRectMake(0, 0, 320, 64);
+        activityNameLabel.frame=CGRectMake(56, 27, 209, 29);
+        resignTextDoneButton.frame=CGRectMake(275, 20, 40, 40);
+        leaveActivityButton.frame=CGRectMake(275, 20, 40, 40);
+        organizerEditButton.frame=CGRectMake(275, 20, 40, 40);
+        editButtonForMapView.frame=CGRectMake(275, 20, 40, 40);
+        backButton.frame=CGRectMake(5, 20, 40, 40);
+        backToActivityFromMapButton.frame=CGRectMake(5, 20, 40, 40);
+        locationEditLeftCrossButton.frame=CGRectMake(5, 20, 40, 40);
+        if([SoclivityUtilities deviceType] & iPhone5){
+            
+            locationEditRightCheckButton.frame=CGRectMake(128, 421+88+20, 65, 39);
+            staticView.frame=CGRectMake(0, 64, 320, 436);
+            bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
+            addEventButton.frame=CGRectMake(121,441+88, 79, 39);
+            staticToggleView.frame=CGRectMake(275,440+88, 40, 40);
+            cancelRequestActivityButton.frame=CGRectMake(89,441+88, 143, 39);
+            goingActivityButton.frame=CGRectMake(73,440+88, 90, 40);
+            notGoingActivityButton.frame=CGRectMake(160,440+88, 90, 40);
+            inviteUsersToActivityButton.frame=CGRectMake(5,440+88, 40, 40);
+            currentLocationInMap.frame=CGRectMake(5,440+88, 40, 40);
+            spinnerView.frame=CGRectMake(15,450+88, 20, 20);
+            enterChatTextButton.frame=CGRectMake(108,441+88, 104, 39);
+            postChatImageButton.frame=CGRectMake(5,440+88, 40, 40);
+            reportButton.frame=CGRectMake(5,440+88, 40, 40);
+        }
+        else{
+             locationEditRightCheckButton.frame=CGRectMake(128, 421+20, 65, 39);
+            staticView.frame=CGRectMake(0, 64, 320, 396);
+            bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
+            addEventButton.frame=CGRectMake(121,441, 79, 39);
+            staticToggleView.frame=CGRectMake(275,440, 40, 40);
+            cancelRequestActivityButton.frame=CGRectMake(89,441, 143, 39);
+             goingActivityButton.frame=CGRectMake(73,440, 90, 40);
+            notGoingActivityButton.frame=CGRectMake(160,440+88, 90, 40);
+            inviteUsersToActivityButton.frame=CGRectMake(5,440, 40, 40);
+            currentLocationInMap.frame=CGRectMake(5,440, 40, 40);
+            spinnerView.frame=CGRectMake(15,430, 20, 20);
+            enterChatTextButton.frame=CGRectMake(108,441, 104, 39);
+            postChatImageButton.frame=CGRectMake(5,440, 40, 40);
+            reportButton.frame=CGRectMake(5,440, 40, 40);
+
+        }
+        
+    }
+    else{
+        topBarImageView.autoresizesSubviews = YES;
+        topBarImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        topBarImageView.frame=CGRectMake(0, 0, 320, 44);
+        if([SoclivityUtilities deviceType] & iPhone5){
+            
+            bottomBarImageView.frame=CGRectMake(0, 548-40, 320, 40);
+            
+        }
+        else{
+            bottomBarImageView.frame=CGRectMake(0, 548-40-88, 320, 40);
+        }
+        
+    }
 
     toggleFriends=TRUE;
     devServer=[[MainServiceManager alloc]init];
@@ -446,7 +507,11 @@
     activityNameLabel.shadowOffset = CGSizeMake(0,-1);
     activityNameLabel.tag=kActivityLabel;
     CGSize textSize = [[NSString stringWithFormat:@"%@",activityInfo.activityName] sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18]];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+    activityNameLabel.frame=CGRectMake(56, 27, 200, textSize.height);
+    }else{
     activityNameLabel.frame=CGRectMake(56, 7, 200, textSize.height);
+    }
     
     [activityNameLabel setContentMode:UIViewContentModeScaleAspectFill];
     [activityNameLabel setLineBreakMode:NSLineBreakByTruncatingTail];

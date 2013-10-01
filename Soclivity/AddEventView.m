@@ -1327,6 +1327,9 @@ else {
                 pinDropLabel.textAlignment=NSTextAlignmentCenter;
                 pinDropLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
                 pinDropLabel.textColor=[UIColor whiteColor];
+                if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+                    pinDropLabel.textColor=[UIColor blackColor];
+                }
                 pinDropLabel.backgroundColor=[UIColor clearColor];
                 pinDropLabel.text=@"Dropped Pin";
                 annotationView.leftCalloutAccessoryView=pinDropLabel;
@@ -1514,6 +1517,9 @@ else {
             categoryTextLabel.textAlignment=NSTextAlignmentLeft;
             categoryTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
             categoryTextLabel.textColor=[UIColor whiteColor];
+            if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+                 categoryTextLabel.textColor=[UIColor blackColor];
+            }
             categoryTextLabel.backgroundColor=[UIColor clearColor];
             categoryTextLabel.text=locObject.annotation.category;
             categoryTextLabel.tag=345;
@@ -1535,6 +1541,9 @@ else {
 	nameLabel.textAlignment=NSTextAlignmentLeft;
 	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
 	nameLabel.textColor=[UIColor whiteColor];
+    if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        nameLabel.textColor=[UIColor blackColor];
+    }
 	nameLabel.backgroundColor=[UIColor clearColor];
 	nameLabel.text=locObject.annotation.formattedAddress;
 	[mapLeftView addSubview:nameLabel];

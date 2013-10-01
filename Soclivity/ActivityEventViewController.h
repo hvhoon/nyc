@@ -82,6 +82,8 @@
     int menuSection;
     ActivityChatData *menuChat;
     int removeChatIndex;
+    IBOutlet UIImageView *topBarImageView;
+    IBOutlet UIImageView *bottomBarImageView;
 }
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property (nonatomic,retain)InfoActivityClass *activityInfo;
