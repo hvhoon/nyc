@@ -9,7 +9,7 @@
 #import "ChatTableView.h"
 #import "UIBubbleHeaderFooterTableViewCell.h"
 #import "ActivityChatData.h"
-
+#import "SoclivityUtilities.h"
 @implementation ChatTableView
 @synthesize bubbleDataSource = _bubbleDataSource;
 @synthesize snapInterval = _snapInterval;
@@ -181,7 +181,9 @@
         if([data.view isKindOfClass:[UIImageView class]]){
             delta=5.0;
         }
-
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+            delta+=5.0f;
+        }
         return MAX(data.insets.top + data.view.frame.size.height + data.insets.bottom+delta, data.showAvatars ? 39 : 0);
     }else{
         
@@ -219,6 +221,9 @@
             ActivityChatData *data = [[self.bubbleSection objectAtIndex:indexPath.section] objectAtIndex:0];
             
             if (cell == nil) cell = [[UIBubbleHeaderFooterTableViewCell alloc] init];
+            if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0))
+                cell.backgroundColor = [SoclivityUtilities returnBackgroundColor:0];
+
             cell.bubbleType=data.type;
             cell.date = data.date;
             
@@ -231,7 +236,8 @@
         ActivityChatData *data = [[self.bubbleSection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         
         if (cell == nil) cell = [[UIBubbleTableViewCell alloc] init];
-        
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0))
+            cell.backgroundColor = [SoclivityUtilities returnBackgroundColor:0];
         if([data.view isKindOfClass:[UIImageView class]]){
             
             UIImageView *test=(UIImageView*)data.view;
@@ -268,6 +274,8 @@
             
             if (cell == nil) cell = [[UIBubbleHeaderFooterTableViewCell alloc] init];
             
+            if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0))
+                cell.backgroundColor = [SoclivityUtilities returnBackgroundColor:0];
             if(indexPath.row==0)
                 cell.name = data.name;
             else{
@@ -284,8 +292,9 @@
         ActivityChatData *data = [[self.bubbleSection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row-1];
         if (cell == nil) cell = [[UIBubbleTableViewCell alloc] init];
         
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0))
+            cell.backgroundColor = [SoclivityUtilities returnBackgroundColor:0];
         
-            
         
         if([data.view isKindOfClass:[UIImageView class]]){
             

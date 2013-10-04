@@ -41,7 +41,7 @@
 
 #define  FOURSQUARE 1
 @implementation AddEventView
-@synthesize activityObject,delegate,mapView,mapAnnotations,addressSearchBar,_geocodingResults,labelView,searching,editMode,firstALineddressLabel,secondLineAddressLabel,pinDrop,firstTime,activityInfoButton,currentPlacemark;
+@synthesize activityObject,delegate,mapView,mapAnnotations,addressSearchBar,_geocodingResults,labelView,searching,editMode,firstALineddressLabel,secondLineAddressLabel,pinDrop,firstTime,activityInfoButton,currentPlacemark,searchBarIOS7;
 
 
 #pragma mark -
@@ -356,6 +356,23 @@
         [description addSubview:activityAccessStatusImgView];
     }
 
+    
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        self.searchBarIOS7=[[UISearchBar alloc]initWithFrame:CGRectMake(320,0, 320, 44)];
+        self.searchBarIOS7.delegate=self;
+        if(self.searchBarIOS7.text!=nil){
+            self.searchBarIOS7.showsCancelButton = YES;
+        }
+        
+        self.searchBarIOS7.autocorrectionType = UITextAutocorrectionTypeNo;
+        self.searchBarIOS7.placeholder=@"Place or Address";
+        [self addSubview:self.searchBarIOS7];
+        //[self.searchBarIOS7 setHidden:YES];
+        
+        
+    }
+    else{
  
     self.addressSearchBar = [[[CustomSearchbar alloc] initWithFrame:CGRectMake(320,0, 320, 44)] autorelease];
     self.addressSearchBar.delegate = self;
@@ -369,7 +386,7 @@
     self.addressSearchBar.backgroundImage=[UIImage imageNamed: @"S4.1_search-background.png"];
     [self addSubview:self.addressSearchBar];
     [self.addressSearchBar setHidden:YES];
-    
+    }
     
     CGRect rect;
     if([SoclivityUtilities deviceType] & iPhone5){
@@ -1205,7 +1222,14 @@ else {
     self.mapView.mapType = MKMapTypeStandard;
     self.mapView.showsUserLocation=YES;
     searching=FALSE;
-    self.addressSearchBar.text=@"";
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        self.searchBarIOS7.text=@"";
+        
+    }
+    else{
+        self.addressSearchBar.text=@"";
+        
+    }
     
     [self CurrentMapZoomUpdate:currentPlacemark];
     
@@ -1907,8 +1931,11 @@ else {
 
 - (void) processReverseGeocodingResults:(NSArray *)placemarks {
     
-    
+     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+             self.searchBarIOS7.text=@"";
+     }else{
     self.addressSearchBar.text=@"";
+     }
     [_geocodingResults removeAllObjects];
     //[self.mapView removeAnnotations:self.mapView.annotations];
           searching=FALSE;
@@ -2120,8 +2147,12 @@ else {
             
         case 1:
         {
-            urlString = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/geocode/json?address=%@&bounds=%f,%f|%f,%f&sensor=false",addressSearchBar.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
             
+             if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+                 urlString = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/geocode/json?address=%@&bounds=%f,%f|%f,%f&sensor=false",self.searchBarIOS7.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+             }else{
+            urlString = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/geocode/json?address=%@&bounds=%f,%f|%f,%f&sensor=false",addressSearchBar.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+             }
             urlString= [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             
         }
@@ -2130,7 +2161,11 @@ else {
             
         case 2:
         {
-            urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?location=%f,%f&radius=80000&name=%@&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk",SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude,[addressSearchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+            urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?location=%f,%f&radius=80000&name=%@&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk",SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude,[self.searchBarIOS7.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            }else{
+                urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?location=%f,%f&radius=80000&name=%@&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk",SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude,[self.addressSearchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            }
 #if 0
             urlString=@"https://maps.googleapis.com/maps/api/place/search/json?location=40.75,-74&radius=80000&name=christopher%20street&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk";
 #endif
@@ -2141,7 +2176,12 @@ else {
 
         case 3:
         {
-            urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?keyword=%@&location=%f,%f&rankby=distance&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk",[addressSearchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+            
+            if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+            urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?keyword=%@&location=%f,%f&rankby=distance&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk",[self.searchBarIOS7.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+            }else{
+                urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?keyword=%@&location=%f,%f&rankby=distance&sensor=false&key=AIzaSyDYk5wlP6Pg6uA7PGJn853bnIj5Y8bmNnk",[self.addressSearchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+            }
             
         }
             break;
@@ -3026,8 +3066,11 @@ if(selectionType==1){
 		[locationResultsTableView setFrame:tableViewFrame];
 #endif
         
-        [self.addressSearchBar setHidden:NO];
-        
+         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+             [self.searchBarIOS7 setHidden:NO];
+         }else{
+             [self.addressSearchBar setHidden:NO];
+         }
 		[UIView commitAnimations];
 		footerActivated = YES;
 	}
@@ -3061,7 +3104,12 @@ if(selectionType==1){
         [locationResultsTableView setHidden:YES];
 #endif
         
+         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        [self.searchBarIOS7 setHidden:YES];
+         }
+         else{
         [self.addressSearchBar setHidden:YES];
+         }
 
 		[UIView commitAnimations];
 		footerActivated = NO;
@@ -3083,6 +3131,17 @@ if(selectionType==1){
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     
     
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        if([self.searchBarIOS7.text isEqualToString:@""]){
+            
+            [searchBar setShowsCancelButton:NO animated:YES];
+            
+        }
+        else{
+            [searchBar setShowsCancelButton:NO animated:NO];
+            
+        }
+    }else{
     if([self.addressSearchBar.text isEqualToString:@""]){
         
         [searchBar setShowsCancelButton:NO animated:YES];
@@ -3094,21 +3153,27 @@ if(selectionType==1){
         self.addressSearchBar.showClearButton=YES;
         
     }
+    }
     [searchBar setShowsCancelButton:YES animated:NO];
     
 }
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar{
     
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+    self.searchBarIOS7.text=@"";
+    }
+    else{
     self.addressSearchBar.text=@"";
+    }
     [searchBar setShowsCancelButton:NO animated:YES];
     
-    [self.addressSearchBar resignFirstResponder];
+    [searchBar resignFirstResponder];
 }
 // called when keyboard search button pressed
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     
     
-    [self.addressSearchBar resignFirstResponder];
+    [searchBar resignFirstResponder];
     [searchBar setShowsCancelButton:YES animated:YES];
     
     
@@ -3116,7 +3181,7 @@ if(selectionType==1){
 #if FOURSQUARE
     
     
-    if([SoclivityUtilities hasLeadingNumberInString:self.addressSearchBar.text]){
+    if([SoclivityUtilities hasLeadingNumberInString:searchBar.text]){
         [self geocodeFromSearchBar:1];
         
     }
@@ -3141,7 +3206,15 @@ if(selectionType==1){
     // in case of error use api key like
     
     responseData = [[NSMutableData data] retain];
-    NSString*urlString = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?client_id=5P1OVCFK0CCVCQ5GBBCWRFGUVNX5R4WGKHL2DGJGZ32FDFKT&client_secret=UPZJO0A0XL44IHCD1KQBMAYGCZ45Z03BORJZZJXELPWHPSAR&v=20130117&query=%@&ll=%f,%f",addressSearchBar.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+    NSString*urlString=nil;
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        urlString = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?client_id=5P1OVCFK0CCVCQ5GBBCWRFGUVNX5R4WGKHL2DGJGZ32FDFKT&client_secret=UPZJO0A0XL44IHCD1KQBMAYGCZ45Z03BORJZZJXELPWHPSAR&v=20130117&query=%@&ll=%f,%f",self.searchBarIOS7.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+        urlString= [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    }
+    else{
+ urlString = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?client_id=5P1OVCFK0CCVCQ5GBBCWRFGUVNX5R4WGKHL2DGJGZ32FDFKT&client_secret=UPZJO0A0XL44IHCD1KQBMAYGCZ45Z03BORJZZJXELPWHPSAR&v=20130117&query=%@&ll=%f,%f",self.addressSearchBar.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+        
+    }
         urlString= [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSLog(@"urlString=%@",urlString);
@@ -3159,10 +3232,19 @@ if(selectionType==1){
     
     //[self cancelClicked];
     searching=FALSE;
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        self.searchBarIOS7.text=@"";
+        [self.searchBarIOS7 setShowsCancelButton:NO animated:YES];
+        [self.searchBarIOS7 resignFirstResponder];
+
+    }else{
+        
     self.addressSearchBar.text=@"";
     self.addressSearchBar.showClearButton=NO;
     [addressSearchBar setShowsCancelButton:NO animated:YES];
     [self.addressSearchBar resignFirstResponder];
+}
     [self setUpLabelViewElements:YES];
     [delegate enableDisableTickOnTheTopRight:NO];
     activityInfoButton.hidden=YES;
@@ -3411,7 +3493,11 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
 	}
     self.mapView.showsUserLocation=YES;
     searching=FALSE;
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+    self.searchBarIOS7.text=@"";
+    }else{
     self.addressSearchBar.text=@"";
+    }
     
     [self CurrentMapZoomUpdate:currentPlacemark];
 

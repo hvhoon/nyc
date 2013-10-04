@@ -90,6 +90,7 @@
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
         topBarImageView.frame=CGRectMake(0, 0, 320, 64);
+        topBarImageView.image=[UIImage imageNamed:@"topBarIOS7.png"];
         profileNameLabel.frame=CGRectMake(50, 31, 220, 21);
         backButton.frame=CGRectMake(5,20, 40, 40);
         profileTextLinkLabel.frame=CGRectMake(75,20+92, 179, 15);
@@ -344,7 +345,7 @@
             if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
                 [self.view addSubview:[self commonFriendsView:147]];
 
-                delta=93+20;
+                delta=93;//+20
             }
             else{
                 [self.view addSubview:[self commonFriendsView:127]];

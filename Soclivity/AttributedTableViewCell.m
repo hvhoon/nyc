@@ -114,7 +114,7 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
 
 + (CGFloat)heightForCellWithText:(NSString *)text {
     CGFloat height = 10.0f;
-    height += ceilf([text sizeWithFont:[UIFont systemFontOfSize:kEspressoDescriptionTextFontSize] constrainedToSize:CGSizeMake(270.0f, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap].height);
+    height += ceilf([text sizeWithFont:[UIFont systemFontOfSize:kEspressoDescriptionTextFontSize] constrainedToSize:CGSizeMake(270.0f, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping].height);
     height += kAttributedTableViewCellVerticalMargin;
     return height;
 }
@@ -126,20 +126,11 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
     self.textLabel.hidden = YES;
     self.detailTextLabel.hidden = YES;
     
-    CGSize img_Size;
-    
-    for (UIImageView *imageView in self.subviews)
-    {
-        if ([imageView isKindOfClass:[UIImageView class]])
-        {
-            img_Size = [imageView.image size];
-        }
-    }
-    
     CGRect rect1=CGRectMake(0, 10, 345, [AttributedTableViewCell heightForCellWithText:self.summaryText]-10);
+    self.summaryLabel.frame =  CGRectOffset(CGRectInset(rect1, 60, 5.0f), 0.0f, 0.0f);
+
     CGRect rect2=CGRectMake(0, self.summaryLabel.frame.size.height+5, 345, 35);
     
-    self.summaryLabel.frame =  CGRectOffset(CGRectInset(rect1, 60, 5.0f), 0.0f, 0.0f);
     self.lbltime.frame=CGRectOffset(CGRectInset(rect2, 60, 5.0f), 0.0f, 0.0f);
     
 }

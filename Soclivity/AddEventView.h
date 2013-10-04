@@ -88,6 +88,7 @@
     UIButton *disclosureButton;
     NSInteger urlIndex;
     UIButton *phoneButton;
+    UISearchBar *searchBarIOS7;
 
 }
 @property (nonatomic,retain)InfoActivityClass *activityObject;
@@ -96,6 +97,7 @@
 @property (nonatomic,retain)MKMapView *mapView;
 @property (nonatomic, retain) NSMutableArray *mapAnnotations;
 @property (nonatomic, retain) CustomSearchbar *addressSearchBar;
+@property (nonatomic, retain) UISearchBar *searchBarIOS7;
 @property (nonatomic,retain)NSMutableArray *_geocodingResults;
 @property (nonatomic,retain)UIView*labelView;
 @property (nonatomic,assign)BOOL searching;

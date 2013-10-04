@@ -18,11 +18,7 @@
         self.backgroundColor=[UIColor clearColor];
         tracker=0;
         SOC=[SoclivityManager SharedInstance];
-                if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-        filterPaneView=[[UIView alloc]initWithFrame:CGRectMake(0, 20, 640, 402)];
-                }else{
         filterPaneView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 640, 402)];
-                }
         filterPaneView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
         
 
@@ -573,6 +569,17 @@
         [pickADayTickImageView release];
         [next7DaysLabel release];
         [next7DaysTickImageView release];
+        
+        
+         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        handleCheckButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        handleCheckButton.tag=6569;
+        handleCheckButton.frame = CGRectMake(128, 388, 64.0, 33.0);//397
+        [handleCheckButton setImage:[UIImage imageNamed:@"applyFilter.png"] forState:UIControlStateNormal];
+        [handleCheckButton addTarget:self action:@selector(handleCheckMarkClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [filterPaneView addSubview:handleCheckButton];
+        [handleCheckButton setHidden:YES];
+         }
 
 
         
@@ -650,6 +657,9 @@
 }
 
 
+-(void)handleCheckMarkClicked:(id)sender{
+     [self setOpened:NO animated:YES];
+}
 - (void)sliderValueChanged:(FCRangeSlider *)sender {
     
 
@@ -1055,7 +1065,7 @@
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar{
     
      self.homeSearchBar.text=@"";
-     SOC.filterObject.searchText=self.homeSearchBar.text;
+     SOC.filterObject.searchText=searchBar.text;
     [searchBar setShowsCancelButton:NO animated:YES];
      
      [self.homeSearchBar resignFirstResponder];

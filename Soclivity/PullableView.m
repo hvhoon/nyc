@@ -31,11 +31,12 @@
         
         toggleOnTap = YES;
         
+        
         // Creates the handle view. Subclasses should resize, reposition and style this view
         handleView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height-40, 320, 40)];
         [self addSubview:handleView];
         [handleView release];
-        
+
         dragRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDrag:)];
         dragRecognizer.minimumNumberOfTouches = 1;
         dragRecognizer.maximumNumberOfTouches = 1;
@@ -201,6 +202,17 @@
 
 - (void)setOpened:(BOOL)op animated:(BOOL)anim {
     opened = op;
+    
+    if(opened){
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+            filterPaneView.frame=CGRectMake(0, 20, 640, 402+20);
+            handleCheckButton.hidden=NO;
+        }
+    }
+    else{
+        handleCheckButton.hidden=YES;
+        filterPaneView.frame=CGRectMake(0, 0, 640, 402);
+    }
     [self showHideCross:opened];
     
     if (anim) {
@@ -259,6 +271,7 @@
             
             if(!opened)
                 [self showShadow];
+            
 
         }
     }
@@ -272,6 +285,8 @@
         filterPaneView.layer.shadowRadius = 14.0f;
         filterPaneView.layer.shadowPath = [UIBezierPath bezierPathWithRect:filterPaneView.bounds].CGPath;
         
+       
+        
     }
     else{
         filterPaneView.layer.shadowOpacity = 1 ? 0.0f : 0.0f;
@@ -279,6 +294,7 @@
         filterPaneView.layer.shadowOffset = CGSizeZero;
         filterPaneView.layer.shadowRadius = 14.0f;
         filterPaneView.layer.shadowPath = [UIBezierPath bezierPathWithRect:filterPaneView.bounds].CGPath;
+        
 
         
     }
@@ -309,7 +325,16 @@
     CGPoint startPoint =[touch locationInView:self];
      NSLog(@"Start Point_X=%f,Start Point_Y=%f",startPoint.x,startPoint.y);
     if(opened){
-    CGRect tapLowerPaneRect =CGRectMake(70, 402, 320, 58);
+        
+    CGRect tapLowerPaneRect;
+         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+              tapLowerPaneRect =CGRectMake(70, 402+20, 320, 58);
+
+         }
+         else{
+              tapLowerPaneRect =CGRectMake(70, 402, 320, 58);
+             
+         }
     CGRect tapClearSearchRect =CGRectMake(270, 44, 57, 30);
         
         SoclivityManager *SOC=[SoclivityManager SharedInstance];

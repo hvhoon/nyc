@@ -45,6 +45,7 @@
     UIImageView *searchLensImageView;
     
     UIView *notificationView;
+    UIButton *handleCheckButton;
 }
 
 /**

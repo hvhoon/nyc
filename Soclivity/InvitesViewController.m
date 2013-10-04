@@ -117,6 +117,7 @@
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
         topBarImageView.frame=CGRectMake(0, 0, 320, 64);
+        topBarImageView.image=[UIImage imageNamed:@"topBarIOS7.png"];
         inviteTitleLabel.frame=CGRectMake(57, 33, 206, 21);
         homeButton.frame=CGRectMake(280,20, 40, 40);
         activityBackButton.frame=CGRectMake(5,20, 40, 40);
@@ -236,9 +237,7 @@
         nibNameBundle=@"InvitesViewController";
     }
     
-    UIViewController * myViewController =
-    [[InvitesViewController alloc]
-     initWithNibName:nibNameBundle
+    UIViewController * myViewController =[[InvitesViewController alloc] initWithNibName:nibNameBundle
      bundle:nil];
     
     return myViewController;

@@ -108,6 +108,7 @@
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
         topBarImageView.frame=CGRectMake(0, 0, 320, 64);
+         topBarImageView.image=[UIImage imageNamed:@"topBarIOS7.png"];
         updateActivityLabel.frame=CGRectMake(50, 32, 220, 21);
          homeButton.frame=CGRectMake(280,20, 40, 40);
         if([SoclivityUtilities deviceType] & iPhone5){
