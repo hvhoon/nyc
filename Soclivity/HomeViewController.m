@@ -148,7 +148,7 @@
 
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
         topBarImageView.frame=CGRectMake(0, 0, 320, 64);
-        topBarImageView.image=[UIImage imageNamed:@"topBarIOS7.png"];
+        topBarImageView.image=[UIImage imageNamed:@"topbarIOS7.png"];
         soclivityLogoImageView.frame=CGRectMake(105, 25, 111, 29);
         addButton.frame=CGRectMake(275, 20, 40, 40);
 

@@ -151,7 +151,7 @@
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
         topBarImageView.frame=CGRectMake(0, 0, 320, 64);
-        topBarImageView.image=[UIImage imageNamed:@"topBarIOS7.png"];
+        topBarImageView.image=[UIImage imageNamed:@"topbarIOS7.png"];
         activityNameLabel.frame=CGRectMake(56, 27, 209, 29);
         resignTextDoneButton.frame=CGRectMake(275, 20, 40, 40);
         leaveActivityButton.frame=CGRectMake(275, 20, 40, 40);
