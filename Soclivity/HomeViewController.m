@@ -140,11 +140,14 @@
 -(void)sessionLogout{
     [delegate sessionAutoLogout];
 }
+#if 0
+- (UIStatusBarStyle)preferredStatusBarStyle{return UIStatusBarStyleLightContent;}
+#endif
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    
+   // [self setNeedsStatusBarAppearanceUpdate];
 
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
         topBarImageView.frame=CGRectMake(0, 0, 320, 64);

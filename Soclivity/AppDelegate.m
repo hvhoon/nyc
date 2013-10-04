@@ -64,6 +64,8 @@ static NSString* kAppId = @"160726900680967";//kanav
     //[self setUpActivityDataList];
     [SoclivitySqliteClass copyDatabaseIfNeeded];
 	[SoclivitySqliteClass openDatabase:[SoclivitySqliteClass getDBPath]];
+    
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
         [application setStatusBarStyle:UIStatusBarStyleLightContent];
