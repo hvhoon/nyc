@@ -85,7 +85,7 @@
         [self addSubview:activityTypeImageView];
         
         // Activity name
-        CGRect activityLabelFrame = CGRectMake(45,20-2,210,22);
+        CGRect activityLabelFrame = CGRectMake(45,20-2,210,23);
         UILabel *activitytitleLabel = [[UILabel alloc] initWithFrame:activityLabelFrame];
         activitytitleLabel.text = detailSectionInfo.activityName;
         activitytitleLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:20];
@@ -96,7 +96,7 @@
         // Organizer name
 #if 1
         UIButton *ogButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        ogButton.frame = CGRectMake(45,45-1,210,16);
+        ogButton.frame = CGRectMake(45,45-1,210,17);
         [ogButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateNormal];
         ogButton.tag=[[NSString stringWithFormat:@"222%d",section]intValue];
         
@@ -127,7 +127,7 @@
         
         CGSize  size = [OrganizerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed" size:15]];
         NSLog(@"width=%f",size.width);
-        ogButton.frame=CGRectMake(45, 45-1, size.width, 16);
+        ogButton.frame=CGRectMake(45, 45-1, size.width, 17);
 
         [self addSubview:ogButton];
         

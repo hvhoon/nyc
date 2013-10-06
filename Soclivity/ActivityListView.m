@@ -296,7 +296,7 @@
     refreshHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 - REFRESH_HEADER_HEIGHT, 320, REFRESH_HEADER_HEIGHT)];
     refreshHeaderView.backgroundColor = [SoclivityUtilities returnTextFontColor:7];
     
-    refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 30-1, 320, 16)];//REFRESH_HEADER_HEIGHT
+    refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 30-1, 320, 17)];//REFRESH_HEADER_HEIGHT
     refreshLabel.backgroundColor = [UIColor clearColor];
     refreshLabel.shadowColor = [SoclivityUtilities returnTextFontColor:7];
     refreshLabel.shadowOffset = CGSizeMake(0,-1);
@@ -305,7 +305,7 @@
     refreshLabel.textAlignment = NSTextAlignmentCenter;
     
     
-    lastUpdateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 50, 320, 15)];//REFRESH_HEADER_HEIGHT
+    lastUpdateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 50, 320, 16)];//REFRESH_HEADER_HEIGHT
     lastUpdateLabel.backgroundColor = [UIColor clearColor];
     lastUpdateLabel.shadowColor = [SoclivityUtilities returnTextFontColor:7];
     lastUpdateLabel.shadowOffset = CGSizeMake(0,-1);
