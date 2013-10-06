@@ -164,12 +164,12 @@
         // Use the appropriate degree of seperation icon
         if(detailSectionInfo.DOS==1) {
             UIImageView *DOSImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_dos1.png"]];
-            DOSImgView.frame=CGRectMake(55+size.width-3, 45, 21, 12);
+            DOSImgView.frame=CGRectMake(55+size.width-3, 45+1, 21, 12);
             [self addSubview:DOSImgView];
         }
         else if(detailSectionInfo.DOS==2) {
             UIImageView *DOSImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S04_dos2.png"]];
-            DOSImgView.frame=CGRectMake(55+size.width-3, 45, 21, 12);
+            DOSImgView.frame=CGRectMake(55+size.width-3, 45+1, 21, 12);
             [self addSubview:DOSImgView];
         }
         

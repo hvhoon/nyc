@@ -114,7 +114,7 @@
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
         topBarImageView.frame=CGRectMake(0, 0, 320, 64);
         topBarImageView.image=[UIImage imageNamed:@"topbarIOS7.png"];
-        waitingOnYouLabel.frame=CGRectMake(50, 33, 220, 21);
+        waitingOnYouLabel.frame=CGRectMake(50, 20, 220, 44);
         homeButton.frame=CGRectMake(280,20, 40, 40);
         backButton.frame=CGRectMake(5,20, 40, 40);
         btnnotify2.frame=CGRectMake(30,20, 27, 27);
@@ -194,18 +194,9 @@
     devServer=[[MainServiceManager alloc]init];
     [self BadgeNotification];
     
-
-    
-    
-
-    
-    
-    
     waitingOnYouLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
     waitingOnYouLabel.textColor=[UIColor whiteColor];
     waitingOnYouLabel.backgroundColor=[UIColor clearColor];
-    waitingOnYouLabel.shadowColor = [UIColor blackColor];
-    waitingOnYouLabel.shadowOffset = CGSizeMake(0,-1);
 
 }
 
