@@ -325,7 +325,7 @@
     
     UIButton *buttonArrow=[UIButton buttonWithType:UIButtonTypeCustom];
     buttonArrow.frame=CGRectMake(276, 20, 38, 38);
-    [buttonArrow setBackgroundImage:[UIImage imageNamed:@"rightArrow.png"] forState:UIControlStateNormal];
+    [buttonArrow setBackgroundImage:[UIImage imageNamed:@"S04_moreinfoarrow.png"] forState:UIControlStateNormal];
     [buttonArrow addTarget:self action:@selector(rightArrowPressed:) forControlEvents:UIControlEventTouchUpInside];
     [buttonArrow setBackgroundColor:[UIColor clearColor]];
     buttonArrow.tag=[[NSString stringWithFormat:@"222%i",indexPath.row] intValue];

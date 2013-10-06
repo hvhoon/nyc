@@ -118,7 +118,7 @@
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
         topBarImageView.frame=CGRectMake(0, 0, 320, 64);
         topBarImageView.image=[UIImage imageNamed:@"topbarIOS7.png"];
-        inviteTitleLabel.frame=CGRectMake(57, 33, 206, 21);
+        inviteTitleLabel.frame=CGRectMake(57, 20, 206, 44);
         homeButton.frame=CGRectMake(280,20, 40, 40);
         activityBackButton.frame=CGRectMake(5,20, 40, 40);
         
@@ -159,10 +159,6 @@
     inviteTitleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
     inviteTitleLabel.textColor=[UIColor whiteColor];
     inviteTitleLabel.backgroundColor=[UIColor clearColor];
-    inviteTitleLabel.shadowColor = [UIColor blackColor];
-    inviteTitleLabel.shadowOffset = CGSizeMake(0,-1);
-
-
     
     if(inviteFriends){
     homeButton.hidden=YES;

@@ -494,7 +494,7 @@ NSString * const kSearchTextKey = @"Search Text";
         
     }
     UIView *sectionHeaderview=[[[UIView alloc]initWithFrame:CGRectMake(0,0,320,kSectionHeaderHeight)]autorelease];
-    sectionHeaderview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"pattern.png"]];
+    sectionHeaderview.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
     
     //second section don't draw the first line
     UIButton *topDividerLineButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];

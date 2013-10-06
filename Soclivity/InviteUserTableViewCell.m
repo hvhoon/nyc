@@ -132,7 +132,7 @@ static UIFont *boldText = nil;
                 [[UIImage imageNamed:@"S05.4_added.png"] drawInRect:inviteRect];
             }
             else{
-                inviteRect=CGRectMake(270, 12, 40, 23);
+                inviteRect=CGRectMake(258, 12, 40, 23);
                 [[UIImage imageNamed:@"S05.4_invite.png"] drawInRect:inviteRect];
                 
             }
