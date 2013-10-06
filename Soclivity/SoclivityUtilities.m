@@ -79,7 +79,7 @@ static NSArray *playerActivityDetails;
     GetPlayersClass*player=SOC.loggedInUser;
 
     NSLog(@"badge=%d",player.badgeCount);
-        button.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
+        button.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
         button.alpha=1;
 
         if (player.badgeCount==0)
