@@ -82,22 +82,11 @@ static NSArray *playerActivityDetails;
         button.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:12];
         button.alpha=1;
 
-        
-        
         if (player.badgeCount==0)
                 button.alpha=0;
-        else if(player.badgeCount==1){
-            [button setBackgroundImage:[UIImage imageNamed:@"notifyDigit1.png"] forState:UIControlStateNormal];
-            button.frame = CGRectMake(button.frame.origin.x,button.frame.origin.y,27,27);
-            [button setTitle:[NSString stringWithFormat:@"%d",player.badgeCount] forState:UIControlStateNormal];
-            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-
-          }
         else{
-            [button setBackgroundImage:[UIImage imageNamed:@"notifyDigit2.png"] forState:UIControlStateNormal];
-            button.frame = CGRectMake(button.frame.origin.x,button.frame.origin.y,33,28);
-            
-            
+            [button setBackgroundImage:[UIImage imageNamed:@"notificationBadge.png"] forState:UIControlStateNormal];
+            button.frame = CGRectMake(button.frame.origin.x,button.frame.origin.y,32,21);
             [button setTitle:[NSString stringWithFormat:@"%d",player.badgeCount] forState:UIControlStateNormal];
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }
