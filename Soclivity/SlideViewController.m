@@ -172,7 +172,8 @@
     self.restorationIdentifier = @"SlideViewController";
     self.restorationClass = [self class];
         }
-    self.view.backgroundColor= [SoclivityUtilities returnBackgroundColor:3];
+    
+    self.view.backgroundColor= [SoclivityUtilities returnBackgroundColor:5];
     _tableView.scrollEnabled=NO;
     _tableView.bounces=NO;
     if (![self.delegate respondsToSelector:@selector(configureSearchDatasourceWithString:)] || ![self.delegate respondsToSelector:@selector(searchDatasource)]) {
@@ -180,7 +181,7 @@
     }
     _slideNavigationController.view.layer.shadowColor = [[UIColor blackColor] CGColor];
     _slideNavigationController.view.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
-    _slideNavigationController.view.layer.shadowRadius = 4.0f;
+    _slideNavigationController.view.layer.shadowRadius = 2.0f;
     _slideNavigationController.view.layer.shadowOpacity = 0.75f;
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:_slideNavigationController.view.bounds cornerRadius:4.0];
     _slideNavigationController.view.layer.shadowPath = path.CGPath;
@@ -599,7 +600,7 @@
     
     }
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0))
-        cell.backgroundColor = [SoclivityUtilities returnBackgroundColor:3];
+        cell.backgroundColor = [SoclivityUtilities returnBackgroundColor:5];
     NSDictionary *viewControllerDictionary = nil;
     
     if (_slideNavigationControllerState == kSlideNavigationControllerStateSearching) {
@@ -725,15 +726,13 @@
             yLeftImage=8.0f;
             yTextLabel=13.0f;
             
-            [cell.contentView setBackgroundColor:[SoclivityUtilities returnBackgroundColor:5]];
-            
         }
             break;
 
     }
     
     // Setting the text for items in the settings menu
-    CGRect textLabelRect=CGRectMake(64,yTextLabel,205,17);
+    CGRect textLabelRect=CGRectMake(64,yTextLabel,205,18);
     UILabel *descriptionLabel=[[UILabel alloc] initWithFrame:textLabelRect];
     descriptionLabel.textAlignment=NSTextAlignmentLeft;
     descriptionLabel.text=[viewControllerDictionary objectForKey:kSlideViewControllerViewControllerTitleKey];
@@ -742,14 +741,9 @@
     
     // For the profile name
     if([tagNumber intValue]==kProfileView){
-        descriptionLabel.frame=CGRectMake(82,yTextLabel,205,17);
+        descriptionLabel.frame=CGRectMake(82,yTextLabel,205,20);
         descriptionLabel.textColor=[UIColor whiteColor];
         descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
-    }
-    // For all the system settings elements
-    else if([tagNumber intValue]==kAbout || [tagNumber intValue]==kSignOut || [tagNumber intValue]==kCalendarSync) {
-        descriptionLabel.alpha = 0.5;
-        descriptionLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:16];
     }
     // Everything else
     else
@@ -770,11 +764,12 @@
         }
         
         longLineImageView.frame=CGRectMake(0,yCompLine-1, longLineImageView.image.size.width, longLineImageView.image.size.height);
+        longLineImageView.alpha = 0.2f;
         [cell.contentView addSubview:longLineImageView];
         [longLineImageView release];
     }
     else{
-        UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectMake(185, 8, 50, 50)];
+        UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectMake(189, 8, 50, 50)];
         switchView.transform = CGAffineTransformMakeScale(0.75, 0.75);
         [switchView setTintColor:[UIColor grayColor]];
         [switchView setOnTintColor:[UIColor grayColor]];

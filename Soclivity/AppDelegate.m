@@ -66,7 +66,6 @@ static NSString* kAppId = @"160726900680967";//kanav
 	[SoclivitySqliteClass openDatabase:[SoclivitySqliteClass getDBPath]];
     
 //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
         [application setStatusBarStyle:UIStatusBarStyleLightContent];
         
@@ -74,7 +73,6 @@ static NSString* kAppId = @"160726900680967";//kanav
         [application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
         
     }
-    
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
