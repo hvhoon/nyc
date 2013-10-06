@@ -92,10 +92,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
-    self.restorationIdentifier = @"UpComingCompletedEventsViewController";
-    self.restorationClass = [self class];
-        }
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
+    
+        self.restorationIdentifier = @"UpComingCompletedEventsViewController";
+        self.restorationClass = [self class];
+        
+    }
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
         topBarImageView.frame=CGRectMake(0, 0, 320, 64);

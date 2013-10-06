@@ -588,8 +588,6 @@
 		EAC801AE161182C400501765 /* HomeViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC801AD161182C400501765 /* HomeViewController_iphone5.xib */; };
 		EAC801B016119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC801AF16119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib */; };
 		EAC801B21611B97A00501765 /* SlideViewController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAC801B11611B97A00501765 /* SlideViewController_iphone5.xib */; };
-		EAC801B81611C61C00501765 /* S10_sectionHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = EAC801B41611C61C00501765 /* S10_sectionHighlighted.png */; };
-		EAC801B91611C61C00501765 /* S10_sectionHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAC801B51611C61C00501765 /* S10_sectionHighlighted@2x.png */; };
 		EAC801BA1611C61C00501765 /* S10_segmentedBar.png in Resources */ = {isa = PBXBuildFile; fileRef = EAC801B61611C61C00501765 /* S10_segmentedBar.png */; };
 		EAC801BB1611C61C00501765 /* S10_segmentedBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAC801B71611C61C00501765 /* S10_segmentedBar@2x.png */; };
 		EAC94D041566C11800400404 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC94D021566C11800400404 /* SFHFKeychainUtils.m */; };
@@ -1573,8 +1571,6 @@
 		EAC801AD161182C400501765 /* HomeViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController_iphone5.xib; sourceTree = "<group>"; };
 		EAC801AF16119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpComingCompletedEventsViewController_iphone5.xib; sourceTree = "<group>"; };
 		EAC801B11611B97A00501765 /* SlideViewController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlideViewController_iphone5.xib; sourceTree = "<group>"; };
-		EAC801B41611C61C00501765 /* S10_sectionHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S10_sectionHighlighted.png; sourceTree = "<group>"; };
-		EAC801B51611C61C00501765 /* S10_sectionHighlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S10_sectionHighlighted@2x.png"; sourceTree = "<group>"; };
 		EAC801B61611C61C00501765 /* S10_segmentedBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S10_segmentedBar.png; sourceTree = "<group>"; };
 		EAC801B71611C61C00501765 /* S10_segmentedBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S10_segmentedBar@2x.png"; sourceTree = "<group>"; };
 		EAC94D021566C11800400404 /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
@@ -3232,8 +3228,6 @@
 				EAE55A65164285440038B1F6 /* S10_invitedHighlighted@2x.png */,
 				EAE55A68164285440038B1F6 /* S10_organizedHighlighted.png */,
 				EAE55A69164285440038B1F6 /* S10_organizedHighlighted@2x.png */,
-				EAC801B41611C61C00501765 /* S10_sectionHighlighted.png */,
-				EAC801B51611C61C00501765 /* S10_sectionHighlighted@2x.png */,
 				EAC801B61611C61C00501765 /* S10_segmentedBar.png */,
 				EAC801B71611C61C00501765 /* S10_segmentedBar@2x.png */,
 			);
@@ -4097,8 +4091,6 @@
 				EAC801AE161182C400501765 /* HomeViewController_iphone5.xib in Resources */,
 				EAC801B016119E3F00501765 /* UpComingCompletedEventsViewController_iphone5.xib in Resources */,
 				EAC801B21611B97A00501765 /* SlideViewController_iphone5.xib in Resources */,
-				EAC801B81611C61C00501765 /* S10_sectionHighlighted.png in Resources */,
-				EAC801B91611C61C00501765 /* S10_sectionHighlighted@2x.png in Resources */,
 				EAC801BA1611C61C00501765 /* S10_segmentedBar.png in Resources */,
 				1835D4E717FC930C0049E0D1 /* applyFilter.png in Resources */,
 				EAC801BB1611C61C00501765 /* S10_segmentedBar@2x.png in Resources */,
