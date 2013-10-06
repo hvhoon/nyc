@@ -207,11 +207,13 @@
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
             filterPaneView.frame=CGRectMake(0, 0, 640, 402+20);//20
             handleCheckButton.hidden=NO;
+            [[UIApplication sharedApplication] setStatusBarHidden:YES];
         }
     }
     else{
         handleCheckButton.hidden=YES;
         filterPaneView.frame=CGRectMake(0, 0, 640, 402);
+        [[UIApplication sharedApplication] setStatusBarHidden:NO];
     }
     [self showHideCross:opened];
     

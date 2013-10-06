@@ -832,7 +832,7 @@
 
                          }
                          completion:^(BOOL finished){
-                             [[UIApplication sharedApplication] setStatusBarHidden:YES];
+                            // [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
                          }];
         
@@ -852,7 +852,7 @@
 //                             socEventMapView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
                          }
                          completion:^(BOOL finished){
-                             [[UIApplication sharedApplication] setStatusBarHidden:NO];
+                            // [[UIApplication sharedApplication] setStatusBarHidden:NO];
 
                          }];
     }

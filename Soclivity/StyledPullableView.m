@@ -22,20 +22,16 @@
         filterPaneView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
         
 
-                if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-                    UISearchBar *searchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(0, 40, 320, 44)];
-                    searchBar.delegate=self;
-                    if(searchBar.text!=nil){
-                        searchBar.showsCancelButton = YES;
-                    }
+//                    UISearchBar *searchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(0, 40, 320, 44)];
+//                    searchBar.delegate=self;
+//                    if(searchBar.text!=nil){
+//                        searchBar.showsCancelButton = YES;
+//                    }
+//                    
+//                    searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+//                    searchBar.placeholder=@"Search for activities or people";
+//                    [filterPaneView addSubview:searchBar];
                     
-                    searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-                    searchBar.placeholder=@"Search for activities or people";
-                    [filterPaneView addSubview:searchBar];
-
-
-                }
-                else{
         self.homeSearchBar = [[[CustomSearchbar alloc] initWithFrame:CGRectMake(0, 40, 320, 44)] autorelease];
         self.homeSearchBar.delegate = self;
         self.homeSearchBar.CSDelegate=self;
@@ -48,7 +44,6 @@
         self.homeSearchBar.backgroundImage=[UIImage imageNamed: @"S4.1_search-background.png"];
         [filterPaneView addSubview:self.homeSearchBar];
                     
-                }
         
         
 #if 0        
@@ -1056,7 +1051,7 @@
     }
     else{
         [searchBar setShowsCancelButton:NO animated:NO];
-         self.homeSearchBar.showClearButton=YES;
+         self.homeSearchBar.showClearButton=NO;
         
     }
     [searchBar setShowsCancelButton:YES animated:NO];
@@ -1066,15 +1061,14 @@
     
      self.homeSearchBar.text=@"";
      SOC.filterObject.searchText=searchBar.text;
-    [searchBar setShowsCancelButton:NO animated:YES];
-     
+     [searchBar setShowsCancelButton:NO animated:YES];
      [self.homeSearchBar resignFirstResponder];
      [searchBar resignFirstResponder];
 }
 // called when keyboard search button pressed
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
      
-     [self.homeSearchBar resignFirstResponder];
+    [self.homeSearchBar resignFirstResponder];
     [searchBar resignFirstResponder];
     [searchBar setShowsCancelButton:YES animated:YES];
 }
