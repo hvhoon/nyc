@@ -205,7 +205,7 @@
     
     if(opened){
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-            filterPaneView.frame=CGRectMake(0, 20, 640, 402+20);
+            filterPaneView.frame=CGRectMake(0, 0, 640, 402+20);//20
             handleCheckButton.hidden=NO;
         }
     }

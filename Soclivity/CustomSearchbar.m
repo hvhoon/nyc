@@ -36,7 +36,7 @@
     for(UIView *subview in self.subviews) {
         if ([subview isKindOfClass:[UIButton class]]) {
             
-            
+            UIImageView
             
              //[(UIButton*)subview setTitle:@"Done" forState:UIControlStateNormal];
             customBackButtom = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 57, 30)];

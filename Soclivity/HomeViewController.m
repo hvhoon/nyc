@@ -140,12 +140,30 @@
 -(void)sessionLogout{
     [delegate sessionAutoLogout];
 }
+
+// Add this method
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 #if 0
 - (UIStatusBarStyle)preferredStatusBarStyle{return UIStatusBarStyleLightContent;}
 #endif
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+        if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
+        {
+            [self prefersStatusBarHidden];
+            [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+        }
+        else
+        {
+            // iOS 6
+            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+        }
+    
     
    // [self setNeedsStatusBarAppearanceUpdate];
 
@@ -791,6 +809,7 @@
 #pragma mark PullDownView
 
 -(void)doTheTurn:(Boolean)open{
+    
     if(open){
         socEventMapView.alpha = gradient;
         activityTableView.alpha=gradient;
@@ -806,7 +825,8 @@
 
                          }
                          completion:^(BOOL finished){
-                             
+                             [[UIApplication sharedApplication] setStatusBarHidden:YES];
+
                          }];
         
         
@@ -825,7 +845,8 @@
 //                             socEventMapView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
                          }
                          completion:^(BOOL finished){
-                             
+                             [[UIApplication sharedApplication] setStatusBarHidden:NO];
+
                          }];
     }
 }
