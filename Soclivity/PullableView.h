@@ -111,7 +111,6 @@
  @param anim Flag indicating if the transition should be animated
  */
 - (void)setOpened:(BOOL)op animated:(BOOL)anim;
--(void)showShadow;
 -(void)showHideCross:(BOOL)op;
 - (void)slideOutFilterPane;
 - (void)bringInFilterPane;

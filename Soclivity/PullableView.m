@@ -71,13 +71,7 @@
     }
     crossImageView.hidden=NO;
     searchLensImageView.hidden=YES;
-    
-    filterPaneView.layer.shadowOpacity = 1 ? 0.8f : 0.0f;
-    filterPaneView.layer.cornerRadius = 4.0f;
-    filterPaneView.layer.shadowOffset = CGSizeZero;
-    filterPaneView.layer.shadowRadius = 14.0f;
-    filterPaneView.layer.shadowPath = [UIBezierPath bezierPathWithRect:filterPaneView.bounds].CGPath;
-    
+
     if ([sender state] == UIGestureRecognizerStateBegan) {
         
         
@@ -168,15 +162,7 @@
 - (void)handleTap:(UITapGestureRecognizer *)sender {
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
     
-    [self showShadow];
     if(!opened){
-        
-        filterPaneView.layer.shadowOpacity = 1 ? 0.8f : 0.0f;
-        filterPaneView.layer.cornerRadius = 4.0f;
-        filterPaneView.layer.shadowOffset = CGSizeZero;
-        filterPaneView.layer.shadowRadius = 14.0f;
-        filterPaneView.layer.shadowPath = [UIBezierPath bezierPathWithRect:filterPaneView.bounds].CGPath;
-        
         if(!SOC.AllowTapAndDrag){
         filterPaneView.transform = CGAffineTransformIdentity;
             SOC.AllowTapAndDrag=TRUE;
@@ -225,10 +211,6 @@
         [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
     }
     
-    
-    //handleView.transform = CGAffineTransformMakeScale(0.01, 0.01);
-
-    
     self.center = opened ? openedCenter : closedCenter;
     
     
@@ -247,8 +229,6 @@
         
         if ([delegate respondsToSelector:@selector(pullableView:didChangeState:)]) {
             [delegate pullableView:self didChangeState:opened];
-            
-
         }
     }
 }
@@ -270,58 +250,11 @@
         
         if ([delegate respondsToSelector:@selector(pullableView:didChangeState:)]) {
             [delegate pullableView:self didChangeState:opened];
-            
-            if(!opened)
-                [self showShadow];
-            
 
         }
     }
 }
-#if 1
--(void)showShadow{
-    if(opened){
-        filterPaneView.layer.shadowOpacity = opened ? 0.0f : 0.0f;
-        filterPaneView.layer.cornerRadius = 4.0f;
-        filterPaneView.layer.shadowOffset = CGSizeZero;
-        filterPaneView.layer.shadowRadius = 14.0f;
-        filterPaneView.layer.shadowPath = [UIBezierPath bezierPathWithRect:filterPaneView.bounds].CGPath;
-        
-       
-        
-    }
-    else{
-        filterPaneView.layer.shadowOpacity = 1 ? 0.0f : 0.0f;
-        filterPaneView.layer.cornerRadius = 4.0f;
-        filterPaneView.layer.shadowOffset = CGSizeZero;
-        filterPaneView.layer.shadowRadius = 14.0f;
-        filterPaneView.layer.shadowPath = [UIBezierPath bezierPathWithRect:filterPaneView.bounds].CGPath;
-        
 
-        
-    }
-}
-#else
--(void)showShadow{
-    if(opened){
-        self.layer.shadowOpacity = opened ? 0.8f : 0.0f;
-        
-        self.layer.cornerRadius = 4.0f;
-        self.layer.shadowOffset = CGSizeZero;
-        self.layer.shadowRadius = 4.0f;
-        self.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.bounds].CGPath;
-        
-    }
-    else{
-        self.layer.shadowOpacity = opened ? 0.8f : 0.0f;
-        self.layer.cornerRadius = 0.0f;
-        self.layer.shadowOffset = CGSizeZero;
-        self.layer.shadowRadius = 0.0f;
-        self.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.bounds].CGPath;
-        
-    }
-}
-#endif
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch =[touches anyObject]; 
     CGPoint startPoint =[touch locationInView:self];

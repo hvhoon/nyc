@@ -258,12 +258,6 @@
     // Using TestFlight Checkpoint
     [TestFlight passCheckpoint:@"Loading the Home Screen"];
     
-    
-
-    
-
-    
-   
     gradient=1.0;
     CGFloat xOffset = 0;
     animationDuration = 0.1;
@@ -274,9 +268,7 @@
     pullDownView.closedCenter = CGPointMake(320 + xOffset, -172);//-200
     pullDownView.center = pullDownView.closedCenter;
     
-    
-    
-    pullDownView.handleView.frame = CGRectMake(5, 402, 58, 58);
+    pullDownView.handleView.frame = CGRectMake(0, 402, 58, 58);
     pullDownView.delegate = self;
     
     CGFloat height=[UIScreen mainScreen].bounds.size.height;
@@ -318,11 +310,6 @@
     
     [self.view insertSubview:pullDownView aboveSubview:socEventMapView];
     [self.view insertSubview:pullDownView aboveSubview:activityTableView];
-
-    
-//    [self.view addSubview:pullDownView];
-//    [pullDownView release];
-
     
     [activityTableView setHidden:NO];
     [socEventMapView setHidden:YES];
@@ -819,16 +806,14 @@
     
     if(open){
         socEventMapView.alpha = gradient;
-        activityTableView.alpha=gradient;
+        activityTableView.alpha = gradient;
         [UIView animateWithDuration:animationDuration
                               delay: 0.0
                             options: UIViewAnimationOptionCurveEaseOut
                          animations:^{
-                             socEventMapView.alpha = 0.3;
-                             activityTableView.alpha = 0.3;
-                             gradient=0.3;
-//                             socEventMapView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
-//                             activityTableView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+                             socEventMapView.alpha = 0.5;
+                             activityTableView.alpha = 0.5;
+                             gradient=0.5;
 
                          }
                          completion:^(BOOL finished){
@@ -840,7 +825,7 @@
     }
     else{
         socEventMapView.alpha =gradient;
-        activityTableView.alpha=gradient;
+        activityTableView.alpha = gradient;
 
         [UIView animateWithDuration: animationDuration
                               delay: 0.0
@@ -849,7 +834,6 @@
                              socEventMapView.alpha = 1.0;
                              activityTableView.alpha = 1.0;
                              gradient=1.0;
-//                             socEventMapView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
                          }
                          completion:^(BOOL finished){
                             // [[UIApplication sharedApplication] setStatusBarHidden:NO];
@@ -860,8 +844,8 @@
 
 -(void)alphaLess{
    gradient=gradient-0.011;
-    if(gradient<=0.3){
-        gradient=0.3;
+    if(gradient<=0.5){
+        gradient=0.5;
     }
     socEventMapView.alpha =gradient;
     activityTableView.alpha =gradient;

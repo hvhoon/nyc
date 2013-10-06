@@ -91,9 +91,9 @@
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
         topBarImageView.frame=CGRectMake(0, 0, 320, 64);
         topBarImageView.image=[UIImage imageNamed:@"topbarIOS7.png"];
-        profileNameLabel.frame=CGRectMake(50, 31, 220, 21);
-        backButton.frame=CGRectMake(5,20, 40, 40);
-        profileTextLinkLabel.frame=CGRectMake(75,20+92, 179, 15);
+        profileNameLabel.frame=CGRectMake(50, 20, 220, 44);
+        backButton.frame=CGRectMake(0,20, 40, 40);
+        profileTextLinkLabel.frame=CGRectMake(75,20+92, 179, 16);
         profileImageview.frame=CGRectMake(14,20+60, 50,50);
         dosConnectionImageview.frame=CGRectMake(174, 74+20, 20, 12);
         if([SoclivityUtilities deviceType] & iPhone5){
@@ -289,9 +289,9 @@
     NSLog(@"width=%f",size.width);
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
         
-    profileUserNameLabel.frame=CGRectMake(75, 93, size.width, 16);
+    profileUserNameLabel.frame=CGRectMake(75, 93, size.width, 17);
     }else{
-      profileUserNameLabel.frame=CGRectMake(75, 73, size.width, 16);
+      profileUserNameLabel.frame=CGRectMake(75, 73, size.width, 17);
     }
     
   if(playerObject.DOS!=3){
@@ -418,11 +418,11 @@
     else{
         
             if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-        profileUserNameLabel.frame=CGRectMake(75, 92+20, size.width, 16);
+        profileUserNameLabel.frame=CGRectMake(75, 92+20, size.width, 17);
                 
             }
             else{
-        profileUserNameLabel.frame=CGRectMake(75, 92, size.width, 16);
+        profileUserNameLabel.frame=CGRectMake(75, 92, size.width, 17);
             }
         CGRect topLabelRect=CGRectMake(60,140,280,15);
         UILabel *topLabel=[[UILabel alloc] initWithFrame:topLabelRect];
@@ -437,7 +437,7 @@
         
         
         
-        CGRect bottomLabelRect=CGRectMake(75,160,280,15);
+        CGRect bottomLabelRect=CGRectMake(75,160,280,17);
         UILabel *bottomLabel=[[UILabel alloc] initWithFrame:bottomLabelRect];
         bottomLabel.textAlignment=NSTextAlignmentLeft;
         
@@ -458,10 +458,9 @@
     
     
     UIView *sectionHeaderview=[[[UIView alloc]initWithFrame:CGRectMake(0,0,320,kSectionHeaderHeight)]autorelease];
-    sectionHeaderview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"pattern.png"]];
+    sectionHeaderview.backgroundColor = [SoclivityUtilities returnBackgroundColor:0];
     
     //second section don't draw the first line
-    
     
     UIButton *topDividerLineButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     topDividerLineButton.frame = CGRectMake(0, 0, 320, 1);
@@ -469,9 +468,9 @@
     topDividerLineButton.tag=7770;
     [sectionHeaderview addSubview:topDividerLineButton];
     
-    UIImageView *DOSImageView=[[UIImageView alloc]initWithFrame:CGRectMake(12, 7.5, 19, 11)];
+    UIImageView *DOSImageView=[[UIImageView alloc]initWithFrame:CGRectMake(12, 8.5, 19, 11)];
     
-    CGRect DOSLabelRect=CGRectMake(38,7.5,240,12);
+    CGRect DOSLabelRect=CGRectMake(38,7,240,14);
     UILabel *DOScountLabel=[[UILabel alloc] initWithFrame:DOSLabelRect];
     DOScountLabel.textAlignment=NSTextAlignmentLeft;
     
@@ -594,10 +593,10 @@
 
     
     UIImageView*patternImage=[[UIImageView alloc]initWithFrame:CGRectMake(0, 1, 320, 25)];
-    patternImage.image=[UIImage imageNamed:@"pattern.png"];
+    patternImage.backgroundColor = [SoclivityUtilities returnBackgroundColor:0];
     [contactHeaderView addSubview:patternImage];
     
-    CGRect eventLabelRect=CGRectMake(12,7.5,180,12);
+    CGRect eventLabelRect=CGRectMake(12,7,180,14);
     UILabel *eventLabel=[[UILabel alloc] initWithFrame:eventLabelRect];
     eventLabel.textAlignment=NSTextAlignmentLeft;
     
@@ -615,7 +614,7 @@
     
     
     UIButton *viewAllButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    viewAllButton.frame = CGRectMake(258,7.5,50,12);
+    viewAllButton.frame = CGRectMake(258,7,50,14);
     [viewAllButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateNormal];
     [viewAllButton setTitle:@"VIEW ALL" forState:UIControlStateNormal];
     [viewAllButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateHighlighted];
@@ -669,7 +668,7 @@
     [contactGraphicImgView release];
     
     
-    CGRect latestActivityLabelFrame = CGRectMake(35,40,210,22);
+    CGRect latestActivityLabelFrame = CGRectMake(35,40,210,23);
     UILabel *latestActivitytitleLabel = [[UILabel alloc] initWithFrame:latestActivityLabelFrame];
     latestActivitytitleLabel.text = playerObject.latestActivityName;
     latestActivitytitleLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:20];
@@ -678,7 +677,7 @@
     [contactHeaderView addSubview:latestActivitytitleLabel];
     [latestActivitytitleLabel release];
     
-    CGRect distanceLabelRect=CGRectMake(35,65,143,15);
+    CGRect distanceLabelRect=CGRectMake(35,65,143,16);
     UILabel *mileslabel=[[UILabel alloc] initWithFrame:distanceLabelRect];
     mileslabel.textAlignment=NSTextAlignmentLeft;
     mileslabel.text=[NSString stringWithFormat:@"%.02f miles away",playerObject.distance];
@@ -690,15 +689,15 @@
 
     if([SoclivityUtilities ValidActivityDate:playerObject.activityTime]){
     UIButton *disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    disclosureButton.frame = CGRectMake(296, 51.5, 9, 14);
-    [disclosureButton setBackgroundImage:[UIImage imageNamed:@"smallNextArrow.png"] forState:UIControlStateNormal];
+    disclosureButton.frame = CGRectMake(276, 46, 38, 38);
+    [disclosureButton setBackgroundImage:[UIImage imageNamed:@"S04_moreinfoarrow"] forState:UIControlStateNormal];
     disclosureButton.tag=555;
     [disclosureButton addTarget:self action:@selector(viewDetailActivity:) forControlEvents:UIControlEventTouchUpInside];
     [contactHeaderView addSubview:disclosureButton];
     }
     
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
-                                                  initWithFrame:CGRectMake(290.0f, 47.0f, 20.0f, 20.0f)];
+                                                  initWithFrame:CGRectMake(285.0f, 55.0f, 20.0f, 20.0f)];
     [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.tag=[[NSString stringWithFormat:@"666"]intValue];
     [activityIndicator setHidden:YES];
@@ -718,24 +717,22 @@
 
 -(UIView*)commonFriendsView:(int)height{
     UIView *sectionHeaderview=[[[UIView alloc]initWithFrame:CGRectMake(0,height,320,kSectionHeaderHeight)]autorelease];
-    sectionHeaderview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"pattern.png"]];
+    sectionHeaderview.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
     
     //second section don't draw the first line
-    
-    
     UIButton *topDividerLineButton2 = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     topDividerLineButton2.frame = CGRectMake(0, 0, 320, 1);
     [topDividerLineButton2 setBackgroundColor:[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"S05_sectionLine.png"]]];
     [sectionHeaderview addSubview:topDividerLineButton2];
     
     // Added the DOS image
-    UIImageView *DOSImageView=[[UIImageView alloc]initWithFrame:CGRectMake(12, 7.5, 19, 11)];
+    UIImageView *DOSImageView=[[UIImageView alloc]initWithFrame:CGRectMake(12, 8.5, 19, 11)];
     DOSImageView.image=[UIImage imageNamed:@"dos1.png"];
     [sectionHeaderview addSubview:DOSImageView];
     [DOSImageView release];
     
     // Add the count of common friends
-    CGRect commonFriendLabelRect=CGRectMake(38,7.5,19,12);
+    CGRect commonFriendLabelRect=CGRectMake(38,7,19,14);
     UILabel *commonCountLabel=[[UILabel alloc] initWithFrame:commonFriendLabelRect];
     commonCountLabel.textAlignment=NSTextAlignmentLeft;
     
@@ -746,13 +743,13 @@
     commonCountLabel.tag=567;
     CGSize textSize = [[commonCountLabel text] sizeWithFont:[commonCountLabel font]];
     CGFloat strikeWidth = textSize.width;
-    commonCountLabel.frame=CGRectMake(38, 7.5, strikeWidth, 12);
+    commonCountLabel.frame=CGRectMake(38, 7, strikeWidth, 14);
     
     [sectionHeaderview addSubview:commonCountLabel];
     [commonCountLabel release];
     
     // Add the common friends text
-    CGRect DOSLabelRect=CGRectMake(strikeWidth+38,7.5,240,12);
+    CGRect DOSLabelRect=CGRectMake(strikeWidth+38,7,240,14);
     UILabel *DOScountLabel=[[UILabel alloc] initWithFrame:DOSLabelRect];
     DOScountLabel.textAlignment=NSTextAlignmentLeft;
     DOScountLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
@@ -1085,7 +1082,7 @@
     
     
     UIView *sectionHeaderview=[[[UIView alloc]initWithFrame:CGRectMake(0,0,320,kSectionHeaderHeight)]autorelease];
-    sectionHeaderview.backgroundColor=[[UIColor alloc]initWithPatternImage:[UIImage imageNamed:@"pattern.png"]];
+    sectionHeaderview.backgroundColor=[SoclivityUtilities returnBackgroundColor:0];
     
     //second section don't draw the first line
     
@@ -1279,7 +1276,7 @@
     loadMoreFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, loadMoreFooterHeight, 320, REFRESH_HEADER_HEIGHT)];
     loadMoreFooterView.backgroundColor = [UIColor whiteColor];
 	loadMoreFooterView.tag=TAG_COMMENT;
-    loadMoreFriendsLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 30, 180, 16)];
+    loadMoreFriendsLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 30, 180, 17)];
     
     loadMoreFriendsLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     loadMoreFriendsLabel.textColor=[SoclivityUtilities returnTextFontColor:5];

@@ -569,7 +569,7 @@
          if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
         handleCheckButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         handleCheckButton.tag=6569;
-        handleCheckButton.frame = CGRectMake(128, 388, 64.0, 33.0);//397
+        handleCheckButton.frame = CGRectMake(128, 389, 64.0, 33.0);//397
         [handleCheckButton setImage:[UIImage imageNamed:@"applyFilter.png"] forState:UIControlStateNormal];
         [handleCheckButton addTarget:self action:@selector(handleCheckMarkClicked:) forControlEvents:UIControlEventTouchUpInside];
         [filterPaneView addSubview:handleCheckButton];

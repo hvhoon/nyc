@@ -109,7 +109,7 @@
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
         topBarImageView.frame=CGRectMake(0, 0, 320, 64);
          topBarImageView.image=[UIImage imageNamed:@"topbarIOS7.png"];
-        updateActivityLabel.frame=CGRectMake(50, 32, 220, 21);
+        updateActivityLabel.frame=CGRectMake(50, 20, 220, 44);
          homeButton.frame=CGRectMake(280,20, 40, 40);
         if([SoclivityUtilities deviceType] & iPhone5){
             
@@ -148,8 +148,7 @@
     updateActivityLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
     updateActivityLabel.textColor=[UIColor whiteColor];
     updateActivityLabel.backgroundColor=[UIColor clearColor];
-    updateActivityLabel.shadowColor = [UIColor blackColor];
-    updateActivityLabel.shadowOffset = CGSizeMake(0,-1);
+    updateActivityLabel.textAlignment = NSTextAlignmentCenter;
     btnnotify.hidden=FALSE;
 
     activityTypesView.delegate=self;
