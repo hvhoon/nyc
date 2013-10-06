@@ -71,10 +71,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
-    self.restorationIdentifier = @"AboutViewController";
-    self.restorationClass = [self class];
-        }
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
+    
+        self.restorationIdentifier = @"AboutViewController";
+        self.restorationClass = [self class];
+        
+    }
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
         
@@ -286,7 +288,6 @@
     
     
 }
-
 - (void)dealloc {
     [_buildText release];
     [_eula release];

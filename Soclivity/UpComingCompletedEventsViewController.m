@@ -92,10 +92,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
-    self.restorationIdentifier = @"UpComingCompletedEventsViewController";
-    self.restorationClass = [self class];
-        }
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_6_0)){
+    
+        self.restorationIdentifier = @"UpComingCompletedEventsViewController";
+        self.restorationClass = [self class];
+        
+    }
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
         topBarImageView.frame=CGRectMake(0, 0, 320, 64);
@@ -146,8 +149,6 @@
     activititesLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
     activititesLabel.textColor=[UIColor whiteColor];
     activititesLabel.backgroundColor=[UIColor clearColor];
-    activititesLabel.shadowColor = [UIColor blackColor];
-    activititesLabel.shadowOffset = CGSizeMake(0,-1);
     
     if(isNotLoggedInUser){
         activititesLabel.text=[NSString stringWithFormat:@"%@'s Activities",playersName];

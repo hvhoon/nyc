@@ -58,9 +58,7 @@ static UIFont *boldText = nil;
     [textColor set];
     
     // Graphics in the details table cell
-    
-    [[UIImage imageNamed:@"S04_detailShadow.png"] drawInRect:CGRectMake(0,0,320,10)];
-    
+        
     // Time info.
     [[UIImage imageNamed:@"S04_smallClock.png"] drawInRect:CGRectMake(50,15,12,12)];
     [playActivity.dateAndTime drawInRect:CGRectMake(50+25, 12, 200, 15) withFont:firstTextFont];

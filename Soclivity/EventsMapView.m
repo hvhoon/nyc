@@ -290,7 +290,7 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
 			calloutMapAnnotationView = [[[CalloutMapAnnotationView alloc] initWithAnnotation:annotation 
                 reuseIdentifier:@"CalloutAnnotation"] autorelease];
 			calloutMapAnnotationView.contentHeight = 58.0f;
-			UIImage *asynchronyLogo = [UIImage imageNamed:@"S02.1_rightarrow.png"];
+			UIImage *asynchronyLogo = [UIImage imageNamed:@"S04_moreinfoarrow.png"];
 			UIImageView *asynchronyLogoView = [[[UIImageView alloc] initWithImage:asynchronyLogo] autorelease];
 			asynchronyLogoView.frame = CGRectMake(50, 20, asynchronyLogoView.frame.size.width, asynchronyLogoView.frame.size.height);
 			[calloutMapAnnotationView.contentView addSubview:asynchronyLogoView];
@@ -369,19 +369,19 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
             annotationView.opaque = NO;
             annotationView.leftCalloutAccessoryView=[self DrawAMapLeftAccessoryView:location];
             
-            UIView *rightView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+            UIView *rightView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 38, 38)];
             rightView.backgroundColor=[UIColor clearColor];
             UIButton *disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-            disclosureButton.frame = CGRectMake(0.0, 0.0, 29.0, 30.0);
-            [disclosureButton setImage:[UIImage imageNamed:@"S02.1_rightarrow.png"] forState:UIControlStateNormal];
+            disclosureButton.frame = CGRectMake(0.0, 0.0, 38.0, 38.0);
+            [disclosureButton setImage:[UIImage imageNamed:@"S04_moreinfoarrow.png"] forState:UIControlStateNormal];
             disclosureButton.tag=[[NSString stringWithFormat:@"555%d",location._socAnnotation.stamp]intValue];
             [disclosureButton addTarget:self action:@selector(pushTodetailActivity:) forControlEvents:UIControlEventTouchUpInside];
             [rightView addSubview:disclosureButton];
             
             
             UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] 
-                        initWithFrame:CGRectMake(4.5, 5.0f, 20.0f, 20.0f)];
-            [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
+                        initWithFrame:CGRectMake(6.5, 9.5f, 20.0f, 20.0f)];
+            [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
             activityIndicator.tag=[[NSString stringWithFormat:@"666%d",location._socAnnotation.stamp]intValue];
             [activityIndicator setHidden:YES];
             [rightView addSubview:activityIndicator];
@@ -412,7 +412,7 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
 	
 	UIView *mapLeftView=[[UIView alloc] initWithFrame:CGRectMake(0,0, 155, 30)];
 	
-	CGRect nameLabelRect=CGRectMake(10,0,145,16);
+	CGRect nameLabelRect=CGRectMake(10,0,145,17);
 	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
 	nameLabel.textAlignment=NSTextAlignmentLeft;
 	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
@@ -421,7 +421,7 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
 	nameLabel.text=[locObject._socAnnotation activityName];
 	[mapLeftView addSubview:nameLabel];
 	
-	CGRect timeLabelRect=CGRectMake(10,17,140,13);
+	CGRect timeLabelRect=CGRectMake(10,17,140,14);
 	UILabel *timeLabel=[[UILabel alloc] initWithFrame:timeLabelRect];
 	timeLabel.textAlignment=NSTextAlignmentLeft;
 	timeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
@@ -431,8 +431,8 @@ if([SoclivityUtilities ValidActivityDate:play.when]){
     [mapLeftView addSubview:timeLabel];
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-        	nameLabel.textColor=[UIColor blackColor];
-        	timeLabel.textColor=[UIColor blackColor];
+        	nameLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+        	timeLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     }
 	[nameLabel release];
     [timeLabel release];

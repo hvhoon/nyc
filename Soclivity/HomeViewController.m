@@ -172,53 +172,59 @@
         topBarImageView.image=[UIImage imageNamed:@"topbarIOS7.png"];
         soclivityLogoImageView.frame=CGRectMake(105, 25, 111, 29);
         addButton.frame=CGRectMake(275, 20, 40, 40);
+        
+        UIButton *searchButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        searchButton.frame = CGRectMake(0, 20, 40.0, 40.0);
+        [searchButton setImage:[UIImage imageNamed:@"S04_search.png"] forState:UIControlStateNormal];
 
         if([SoclivityUtilities deviceType] & iPhone5){
             
             profileSliderButton.frame=CGRectMake(5, 420+88+20, 40, 40);
             staticView.frame=CGRectMake(0, 64, 320, 464);
             bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
-            sortDistanceBtn.frame=CGRectMake(88,447+88, 25, 25);
-            sortDOSBtn.frame=CGRectMake(148,447+88, 25, 25);
-            sortByTimeBtn.frame=CGRectMake(208,447+88, 25, 25);
+            sortDistanceBtn.frame=CGRectMake(88,449+88, 23, 24);
+            sortDOSBtn.frame=CGRectMake(148,449+88, 32, 21);
+            sortByTimeBtn.frame=CGRectMake(208,449+88, 24, 24);
             staticButtonView.frame=CGRectMake(275,440+88, 40, 40);
-            currentLocationBtn.frame=CGRectMake(118,447+88, 25, 25);
-            refreshBtn.frame=CGRectMake(178,447+88, 25, 25);
+            currentLocationBtn.frame=CGRectMake(118,449+88, 24, 24);
+            refreshBtn.frame=CGRectMake(178,449+88, 23, 23);
         }
         else{
             profileSliderButton.frame=CGRectMake(5, 420+20, 40, 40);
             staticView.frame=CGRectMake(0, 64, 320, 464-88);
             bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
-            sortDistanceBtn.frame=CGRectMake(88,447, 25, 25);
-            sortDOSBtn.frame=CGRectMake(148,447, 25, 25);
-            sortByTimeBtn.frame=CGRectMake(208,447, 25, 25);
+            sortDistanceBtn.frame=CGRectMake(88,449, 23, 24);
+            sortDOSBtn.frame=CGRectMake(148,449, 32, 21);
+            sortByTimeBtn.frame=CGRectMake(208,449, 24, 24);
             staticButtonView.frame=CGRectMake(275, 440, 40, 40);
-            currentLocationBtn.frame=CGRectMake(118,447, 25, 25);
-            refreshBtn.frame=CGRectMake(178,447, 25, 25);
+            currentLocationBtn.frame=CGRectMake(118,449, 24, 24);
+            refreshBtn.frame=CGRectMake(178,449, 23, 23);
         }
-        
-        UIButton *searchButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-        searchButton.frame = CGRectMake(15, 32, 20.0, 21.0);
-        [searchButton setImage:[UIImage imageNamed:@"S04_search.png"] forState:UIControlStateNormal];
+
         [self.view addSubview:searchButton];
- }
+    }
     else{
         topBarImageView.autoresizesSubviews = YES;
         topBarImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         topBarImageView.frame=CGRectMake(0, 0, 320, 44);
         soclivityLogoImageView.frame=CGRectMake(105, 5, 111, 29);
         addButton.frame=CGRectMake(275, 0, 40, 40);
+        
+        UIButton *searchButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+        searchButton.frame = CGRectMake(0, 0, 40.0, 40.0);
+        [searchButton setImage:[UIImage imageNamed:@"S04_search.png"] forState:UIControlStateNormal];
+        
         if([SoclivityUtilities deviceType] & iPhone5){
             
             profileSliderButton.frame=CGRectMake(5, 420+88, 40, 40);
             staticView.frame=CGRectMake(0, 44, 320, 464);
             bottomBarImageView.frame=CGRectMake(0, 548-40, 320, 40);
-            sortDistanceBtn.frame=CGRectMake(88,427+88, 25, 25);
-            sortDOSBtn.frame=CGRectMake(148,427+88, 25, 25);
-            sortByTimeBtn.frame=CGRectMake(208,427+88, 25, 25);
+            sortDistanceBtn.frame=CGRectMake(88,429+88, 23, 24);
+            sortDOSBtn.frame=CGRectMake(148,429+88, 32, 21);
+            sortByTimeBtn.frame=CGRectMake(208,429+88, 24, 24);
             staticButtonView.frame=CGRectMake(275,420+88, 40, 40);
-            currentLocationBtn.frame=CGRectMake(118,427+88, 25, 25);
-            refreshBtn.frame=CGRectMake(178,427+88, 25, 25);
+            currentLocationBtn.frame=CGRectMake(118,429+88, 24, 24);
+            refreshBtn.frame=CGRectMake(178,429+88, 23, 23);
             activityTableView.frame=CGRectMake(0,0, 320, 376+88);
             socEventMapView.frame=CGRectMake(0,0, 320, 376+88);
             
@@ -227,17 +233,18 @@
             profileSliderButton.frame=CGRectMake(5, 400+20, 40, 40);
             staticView.frame=CGRectMake(0, 44, 320, 464-88);
             bottomBarImageView.frame=CGRectMake(0, 548-40-88, 320, 40);
-            sortDistanceBtn.frame=CGRectMake(88,427, 25, 25);
-            sortDOSBtn.frame=CGRectMake(148,427, 25, 25);
-            sortByTimeBtn.frame=CGRectMake(208,427, 25, 25);
+            sortDistanceBtn.frame=CGRectMake(88,429, 23, 24);
+            sortDOSBtn.frame=CGRectMake(148,429, 32, 21);
+            sortByTimeBtn.frame=CGRectMake(208,429, 24, 24);
             staticButtonView.frame=CGRectMake(275, 420, 40, 40);
-            currentLocationBtn.frame=CGRectMake(118,427, 25, 25);
-            refreshBtn.frame=CGRectMake(178,427, 25, 25);
+            currentLocationBtn.frame=CGRectMake(118,429, 24, 24);
+            refreshBtn.frame=CGRectMake(178,429, 23, 23);
             activityTableView.frame=CGRectMake(0,0, 320, 376);
             socEventMapView.frame=CGRectMake(0,0, 320, 376);
         }
-            mapflipBtn.frame=CGRectMake(0,0, 40, 40);
-            listFlipBtn.frame=CGRectMake(0,0, 40, 40);
+        mapflipBtn.frame=CGRectMake(0,0, 40, 40);
+        listFlipBtn.frame=CGRectMake(0,0, 40, 40);
+        [self.view addSubview:searchButton];
 
     }
 
