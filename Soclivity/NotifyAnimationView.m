@@ -43,7 +43,7 @@ static inline NSRegularExpression * NameRegularExpression() {
             UIImageView *leftImageView=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 30, 29)];
             
             self.summaryLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
-            summaryLabel.frame=CGRectMake(60, 0, 200, 50);
+            summaryLabel.frame=CGRectMake(60, 0, 200, 64);
             summaryLabel.textColor=[UIColor whiteColor];
             summaryLabel.font =[UIFont fontWithName:@"Helvetica-Condensed" size:12];
             summaryLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -54,7 +54,7 @@ static inline NSRegularExpression * NameRegularExpression() {
             [self setSummaryText:andNotif.notificationString];
             
             UIButton *btnclose=[UIButton buttonWithType:UIButtonTypeCustom];
-            btnclose.frame=CGRectMake(280, 7, 38, 38);
+            btnclose.frame=CGRectMake(280, 13.5, 38, 38);
             [btnclose setContentMode:UIViewContentModeCenter];
             [btnclose setImage:[UIImage imageNamed:@"InAppRemove.png"] forState:UIControlStateNormal];
             [btnclose addTarget:self action:@selector(HideNotification) forControlEvents:UIControlEventTouchUpInside];
@@ -113,7 +113,7 @@ static inline NSRegularExpression * NameRegularExpression() {
                 {
 
                     NSString *str=[NSString stringWithFormat:@"%@",andNotif.photoUrl];
-                    leftImageView.frame=CGRectMake(14, 7.5, 37, 37);
+                    leftImageView.frame=CGRectMake(14, 13.5, 37, 37);
                     leftImageView.layer.cornerRadius = leftImageView.frame.size.width/10;
                     leftImageView.layer.masksToBounds = YES;
                     NSData *bytes=[NSData dataWithContentsOfURL:[NSURL URLWithString:str]];
@@ -127,7 +127,7 @@ static inline NSRegularExpression * NameRegularExpression() {
             
             [notificationView addSubview:leftImageView];
             UIButton *btnaction=[UIButton buttonWithType:UIButtonTypeCustom];
-            btnaction.frame=CGRectMake(0, 0, 275, 60);
+            btnaction.frame=CGRectMake(0, 0, 275, 64);
             btnaction.backgroundColor=[UIColor clearColor];
             [btnaction setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
             [btnaction addTarget:self action:@selector(backgroundtap:) forControlEvents:UIControlEventTouchUpInside];
@@ -161,7 +161,7 @@ static inline NSRegularExpression * NameRegularExpression() {
 
 - (void)countdownTracker:(NSTimer *)theTimer {
     counter++;
-    if (counter ==5){
+    if (counter == 8){
         [timer invalidate];
         timer = nil;
         counter = 0;
