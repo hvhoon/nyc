@@ -150,8 +150,8 @@ static inline NSRegularExpression * NameRegularExpression() {
             
             [UIView animateWithDuration:0.35 delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self.frame = popupEndRect;
-            } completion:^(BOOL finished) {
                 [[UIApplication sharedApplication] setStatusBarHidden:YES];
+            } completion:^(BOOL finished) {
             }];
             
             
@@ -176,7 +176,7 @@ static inline NSRegularExpression * NameRegularExpression() {
     [UIView animateWithDuration:0.7 delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.frame = popupStartRect;
     } completion:^(BOOL finished) {
-        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+        [[UIApplication sharedApplication] setStatusBarHidden:NO];
         self.alpha = 0.0f;
     }];
 

@@ -84,7 +84,7 @@
             
             bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
             profileButton.frame=CGRectMake(5, 420+20+88, 40, 40);
-            btnnotify.frame=CGRectMake(35, 539, 32, 21);
+            btnnotify.frame=CGRectMake(35, 537, 32, 21);
             
         }
         else{
