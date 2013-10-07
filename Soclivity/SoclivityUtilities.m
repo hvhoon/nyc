@@ -86,7 +86,7 @@ static NSArray *playerActivityDetails;
                 button.alpha=0;
         else{
             [button setBackgroundImage:[UIImage imageNamed:@"notificationBadge.png"] forState:UIControlStateNormal];
-            button.frame = CGRectMake(button.frame.origin.x+2,button.frame.origin.y,32,21); // +2 on the x coordinate to center text
+            button.frame = CGRectMake(button.frame.origin.x,button.frame.origin.y,32,21);
             [button setTitle:[NSString stringWithFormat:@"%d",player.badgeCount] forState:UIControlStateNormal];
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }
