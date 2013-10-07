@@ -821,7 +821,6 @@
 
                          }
                          completion:^(BOOL finished){
-                            // [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
                          }];
         
@@ -840,7 +839,6 @@
                              gradient=1.0;
                          }
                          completion:^(BOOL finished){
-                            // [[UIApplication sharedApplication] setStatusBarHidden:NO];
 
                          }];
     }
