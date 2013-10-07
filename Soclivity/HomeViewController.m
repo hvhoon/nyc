@@ -182,8 +182,8 @@
             profileSliderButton.frame=CGRectMake(5, 420+88+20, 40, 40);
             staticView.frame=CGRectMake(0, 64, 320, 464);
             bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
-            sortDistanceBtn.frame=CGRectMake(88,449+88, 23, 24);
-            sortDOSBtn.frame=CGRectMake(148,449+88, 32, 21);
+            sortDistanceBtn.frame=CGRectMake(89,449+88, 23, 24);
+            sortDOSBtn.frame=CGRectMake(144,449+88, 32, 21);
             sortByTimeBtn.frame=CGRectMake(208,449+88, 24, 24);
             staticButtonView.frame=CGRectMake(275,440+88, 40, 40);
             currentLocationBtn.frame=CGRectMake(118,449+88, 24, 24);
@@ -194,8 +194,8 @@
             profileSliderButton.frame=CGRectMake(5, 420+20, 40, 40);
             staticView.frame=CGRectMake(0, 64, 320, 464-88);
             bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
-            sortDistanceBtn.frame=CGRectMake(88,449, 23, 24);
-            sortDOSBtn.frame=CGRectMake(148,449, 32, 21);
+            sortDistanceBtn.frame=CGRectMake(89,449, 23, 24);
+            sortDOSBtn.frame=CGRectMake(144,449, 32, 21);
             sortByTimeBtn.frame=CGRectMake(208,449, 24, 24);
             staticButtonView.frame=CGRectMake(275, 440, 40, 40);
             currentLocationBtn.frame=CGRectMake(118,449, 24, 24);
@@ -221,12 +221,13 @@
             profileSliderButton.frame=CGRectMake(5, 420+88, 40, 40);
             staticView.frame=CGRectMake(0, 44, 320, 464);
             bottomBarImageView.frame=CGRectMake(0, 548-40, 320, 40);
-            sortDistanceBtn.frame=CGRectMake(88,429+88, 23, 24);
-            sortDOSBtn.frame=CGRectMake(148,429+88, 32, 21);
+            sortDistanceBtn.frame=CGRectMake(89,429+88, 23, 24);
+            sortDOSBtn.frame=CGRectMake(144,429+88, 32, 21);
             sortByTimeBtn.frame=CGRectMake(208,429+88, 24, 24);
             staticButtonView.frame=CGRectMake(275,420+88, 40, 40);
             currentLocationBtn.frame=CGRectMake(118,429+88, 24, 24);
             refreshBtn.frame=CGRectMake(178,429+88, 23, 23);
+            notifCountButton.frame=CGRectMake(35, 517, 32, 21);
             activityTableView.frame=CGRectMake(0,0, 320, 376+88);
             socEventMapView.frame=CGRectMake(0,0, 320, 376+88);
             
@@ -240,6 +241,7 @@
             sortByTimeBtn.frame=CGRectMake(208,429, 24, 24);
             staticButtonView.frame=CGRectMake(275, 420, 40, 40);
             currentLocationBtn.frame=CGRectMake(118,429, 24, 24);
+            refreshBtn.frame=CGRectMake(178,429, 23, 23);
             refreshBtn.frame=CGRectMake(178,429, 23, 23);
             activityTableView.frame=CGRectMake(0,0, 320, 376);
             socEventMapView.frame=CGRectMake(0,0, 320, 376);
@@ -522,16 +524,16 @@
 - (void)didReceiveBackgroundNotification:(NSNotification*) note{
     
     NotificationClass *notifObject=[SoclivityUtilities getNotificationObject:note];
-    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0,0, 320, 60) andNotif:notifObject];
+    NotifyAnimationView *notif=[[NotifyAnimationView alloc]initWithFrame:CGRectMake(0,0, 320, 64) andNotif:notifObject];
     notif.delegate=self;
 
     [pullDownView.notificationView setUserInteractionEnabled:YES];
     
     if(bookmarkState){
-        [pullDownView.notificationView setFrame:CGRectMake(0, 40, 320, 60)];
+        [pullDownView.notificationView setFrame:CGRectMake(0, 40, 320, 64)];
     }
     else{
-        [pullDownView.notificationView setFrame:CGRectMake(0, 400, 320, 60)];
+        [pullDownView.notificationView setFrame:CGRectMake(0, 400, 320, 64)];
     }
     [pullDownView.notificationView addSubview:notif];
 }

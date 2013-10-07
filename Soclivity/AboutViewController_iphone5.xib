@@ -40,12 +40,12 @@
                     </connections>
                 </button>
                 <button autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7" userLabel="notificationBadge">
-                    <rect key="frame" x="28" y="499" width="27" height="27"/>
+                    <rect key="frame" x="35" y="517" width="32" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                     <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="1"/>
-                    <state key="normal" backgroundImage="notifyDigit1.png">
+                    <state key="normal" backgroundImage="notificationBadge.png">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -108,7 +108,7 @@ i. The laws of the State of California, excluding its conflicts of law rules, go
     <resources>
         <image name="Icon.png" width="57" height="57"/>
         <image name="bottom-bar.png" width="320" height="40"/>
-        <image name="notifyDigit1.png" width="27" height="27"/>
+        <image name="notificationBadge.png" width="32" height="21"/>
         <image name="profilebtn.png" width="39" height="39"/>
     </resources>
 </document>

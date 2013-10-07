@@ -36,7 +36,7 @@ static inline NSRegularExpression * NameRegularExpression() {
             self.opaque = NO;
             
             inAppNotif=[andNotif retain];
-            UIView *notificationView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+            UIView *notificationView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
             notificationView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"InAppAlertBar.png"]];
             
             
@@ -44,7 +44,7 @@ static inline NSRegularExpression * NameRegularExpression() {
             
             self.summaryLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
             summaryLabel.frame=CGRectMake(60, 0, 200, 50);
-            summaryLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+            summaryLabel.textColor=[UIColor whiteColor];
             summaryLabel.font =[UIFont fontWithName:@"Helvetica-Condensed" size:12];
             summaryLabel.lineBreakMode = NSLineBreakByWordWrapping;
             summaryLabel.numberOfLines = 0;
@@ -142,13 +142,16 @@ static inline NSRegularExpression * NameRegularExpression() {
             counter=0;
             timer =[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countdownTracker:) userInfo:nil repeats:YES];
 
-            CGRect popupStartRect=CGRectMake(0, -60, 320, 60);
-            CGRect popupEndRect=CGRectMake(0,0, 320, 60);
+            CGRect popupStartRect=CGRectMake(0, -64, 320, 64);
+            CGRect popupEndRect=CGRectMake(0,0, 320, 64);
             self.frame = popupStartRect;
             self.alpha = 1.0f;
+            
+            
             [UIView animateWithDuration:0.35 delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self.frame = popupEndRect;
             } completion:^(BOOL finished) {
+                [[UIApplication sharedApplication] setStatusBarHidden:YES];
             }];
             
             
@@ -169,15 +172,12 @@ static inline NSRegularExpression * NameRegularExpression() {
 
 -(void)HideNotification{
     
-    CGRect popupStartRect=CGRectMake(0, -60, 320, 60);
+    CGRect popupStartRect=CGRectMake(0, -64, 320, 64);
     [UIView animateWithDuration:0.7 delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.frame = popupStartRect;
     } completion:^(BOOL finished) {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
         self.alpha = 0.0f;
-//        if ([self.delegate respondsToSelector:@selector(notificationViewHide)]){
-//            [self.delegate notificationViewHide];
-//        }
-
     }];
 
 }

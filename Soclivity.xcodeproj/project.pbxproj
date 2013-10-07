@@ -143,10 +143,6 @@
 		682219F9180235CA00196F98 /* notificationBadge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 682219F7180235CA00196F98 /* notificationBadge@2x.png */; };
 		6838A96917E5159400508D6D /* S05_warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 6838A96717E5159400508D6D /* S05_warning.png */; };
 		6838A96A17E5159400508D6D /* S05_warning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6838A96817E5159400508D6D /* S05_warning@2x.png */; };
-		6838EDF516A0D5B300C9AA64 /* notifyDigit1.png in Resources */ = {isa = PBXBuildFile; fileRef = 6838EDF116A0D5B300C9AA64 /* notifyDigit1.png */; };
-		6838EDF616A0D5B300C9AA64 /* notifyDigit2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6838EDF216A0D5B300C9AA64 /* notifyDigit2.png */; };
-		6838EDF716A0D5B300C9AA64 /* notifyDigit2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6838EDF316A0D5B300C9AA64 /* notifyDigit2@2x.png */; };
-		6838EDF816A0D5B300C9AA64 /* notifyDigit1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6838EDF416A0D5B300C9AA64 /* notifyDigit1@2x.png */; };
 		684750251595B98B00EBB05C /* S04.1_cross.png in Resources */ = {isa = PBXBuildFile; fileRef = 684750231595B98B00EBB05C /* S04.1_cross.png */; };
 		684750261595B98B00EBB05C /* S04.1_cross@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 684750241595B98B00EBB05C /* S04.1_cross@2x.png */; };
 		684B5C7216B0C82A001DA695 /* S01_signIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 684B5C7016B0C82A001DA695 /* S01_signIn.png */; };
@@ -1000,10 +996,6 @@
 		682219F7180235CA00196F98 /* notificationBadge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notificationBadge@2x.png"; sourceTree = "<group>"; };
 		6838A96717E5159400508D6D /* S05_warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_warning.png; sourceTree = "<group>"; };
 		6838A96817E5159400508D6D /* S05_warning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_warning@2x.png"; sourceTree = "<group>"; };
-		6838EDF116A0D5B300C9AA64 /* notifyDigit1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notifyDigit1.png; sourceTree = "<group>"; };
-		6838EDF216A0D5B300C9AA64 /* notifyDigit2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notifyDigit2.png; sourceTree = "<group>"; };
-		6838EDF316A0D5B300C9AA64 /* notifyDigit2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notifyDigit2@2x.png"; sourceTree = "<group>"; };
-		6838EDF416A0D5B300C9AA64 /* notifyDigit1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notifyDigit1@2x.png"; sourceTree = "<group>"; };
 		684750231595B98B00EBB05C /* S04.1_cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S04.1_cross.png; sourceTree = "<group>"; };
 		684750241595B98B00EBB05C /* S04.1_cross@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S04.1_cross@2x.png"; sourceTree = "<group>"; };
 		684B5C7016B0C82A001DA695 /* S01_signIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S01_signIn.png; sourceTree = "<group>"; };
@@ -3250,10 +3242,6 @@
 				682219F7180235CA00196F98 /* notificationBadge@2x.png */,
 				682219E818021EA900196F98 /* S11_noNotifications.png */,
 				682219E918021EAA00196F98 /* S11_noNotifications@2x.png */,
-				6838EDF116A0D5B300C9AA64 /* notifyDigit1.png */,
-				6838EDF216A0D5B300C9AA64 /* notifyDigit2.png */,
-				6838EDF316A0D5B300C9AA64 /* notifyDigit2@2x.png */,
-				6838EDF416A0D5B300C9AA64 /* notifyDigit1@2x.png */,
 				3C02DB74169E9F2A00213EDE /* InAppAlertBar.png */,
 				3C02DB75169E9F2A00213EDE /* InAppAlertBar@2x.png */,
 				3C02DB76169E9F2A00213EDE /* InAppRemove.png */,
@@ -4185,10 +4173,6 @@
 				3C02DB79169E9F2A00213EDE /* InAppAlertBar@2x.png in Resources */,
 				3C02DB7A169E9F2A00213EDE /* InAppRemove.png in Resources */,
 				3C02DB7B169E9F2A00213EDE /* InAppRemove@2x.png in Resources */,
-				6838EDF516A0D5B300C9AA64 /* notifyDigit1.png in Resources */,
-				6838EDF616A0D5B300C9AA64 /* notifyDigit2.png in Resources */,
-				6838EDF716A0D5B300C9AA64 /* notifyDigit2@2x.png in Resources */,
-				6838EDF816A0D5B300C9AA64 /* notifyDigit1@2x.png in Resources */,
 				684B5C7216B0C82A001DA695 /* S01_signIn.png in Resources */,
 				684B5C7316B0C82A001DA695 /* S01_signIn@2x.png in Resources */,
 				68B26A5A16B9FB2C00257303 /* AboutViewController_iphone5.xib in Resources */,

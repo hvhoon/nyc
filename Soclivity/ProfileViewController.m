@@ -117,7 +117,7 @@
             bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
             getStartedButton.frame=CGRectMake(102, 425+20+88, 115, 30);
             profileButton.frame=CGRectMake(5, 420+20+88, 40, 40);
-            btnnotify.frame=CGRectMake(28, 412+20+88, 27, 27);
+            btnnotify.frame=CGRectMake(35, 537, 32, 21);
             
         }
         else{
@@ -125,7 +125,7 @@
             bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
             getStartedButton.frame=CGRectMake(102, 425+20, 115, 30);
             profileButton.frame=CGRectMake(5, 420+20, 40, 40);
-            btnnotify.frame=CGRectMake(28, 412+20, 27, 27);
+            btnnotify.frame=CGRectMake(35, 449, 32, 21);
         }
         
     }

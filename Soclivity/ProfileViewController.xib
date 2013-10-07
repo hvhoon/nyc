@@ -217,9 +217,9 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="75">
-                    <rect key="frame" x="28" y="412" width="27" height="27"/>
+                    <rect key="frame" x="35" y="429" width="32" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" backgroundImage="notifyDigit1.png">
+                    <state key="normal" backgroundImage="notificationBadge.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -242,7 +242,7 @@
         <image name="S02.1_tick.png" width="37" height="32"/>
         <image name="bottom-bar.png" width="320" height="40"/>
         <image name="home.png" width="40" height="40"/>
-        <image name="notifyDigit1.png" width="27" height="27"/>
+        <image name="notificationBadge.png" width="32" height="21"/>
         <image name="profilebtn.png" width="39" height="39"/>
         <image name="topbar.png" width="320" height="44"/>
     </resources>

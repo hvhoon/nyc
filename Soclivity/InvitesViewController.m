@@ -127,14 +127,14 @@
             bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
             openSlotsNoLabel.frame=CGRectMake(58, 450+88, 202, 21);
             settingsButton.frame=CGRectMake(5, 420+20+88, 40, 40);
-            btnnotify.frame=CGRectMake(28, 412+20+88, 27, 27);
+            btnnotify.frame=CGRectMake(35, 539, 32, 21);
             
         }
         else{
             bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
             openSlotsNoLabel.frame=CGRectMake(58, 450, 202, 21);
             settingsButton.frame=CGRectMake(5, 420+20, 40, 40);
-            btnnotify.frame=CGRectMake(28, 412+20, 27, 27);
+            btnnotify.frame=CGRectMake(35, 449, 32, 21);
         }
         
     }
@@ -171,8 +171,7 @@
     openSlotsNoLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     openSlotsNoLabel.textColor=[UIColor whiteColor];
     openSlotsNoLabel.backgroundColor=[UIColor clearColor];
-    openSlotsNoLabel.shadowColor=[UIColor blackColor];
-    openSlotsNoLabel.shadowOffset=CGSizeMake(0,-1);
+
     if(num_of_slots!=-1)
     openSlotsNoLabel.text=[NSString stringWithFormat:@"%d Open Slots",num_of_slots];
 

@@ -117,20 +117,20 @@
         waitingOnYouLabel.frame=CGRectMake(50, 20, 220, 44);
         homeButton.frame=CGRectMake(280,20, 40, 40);
         backButton.frame=CGRectMake(5,20, 40, 40);
-        btnnotify2.frame=CGRectMake(30,20, 27, 27);
+        btnnotify2.frame=CGRectMake(35,30, 32, 21);
         if([SoclivityUtilities deviceType] & iPhone5){
             
             
             bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
             sliderButton.frame=CGRectMake(5, 420+20+88, 40, 40);
-            btnnotify.frame=CGRectMake(28, 412+20+88, 27, 27);
+            btnnotify.frame=CGRectMake(35, 539, 32, 21);
             
         }
         else{
             
             bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
             sliderButton.frame=CGRectMake(5, 420+20, 40, 40);
-            btnnotify.frame=CGRectMake(28, 412+20, 27, 27);
+            btnnotify.frame=CGRectMake(35, 449, 32, 21);
         }
         
     }

@@ -113,14 +113,14 @@
             activityListView.frame=CGRectMake(0, 104, 320, 426);
             bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
             profileButton.frame=CGRectMake(5, 420+20+88, 40, 40);
-            btnnotify.frame=CGRectMake(28, 412+20+88, 27, 27);
+            btnnotify.frame=CGRectMake(35, 539, 32, 21);
             
         }
         else{
             activityListView.frame=CGRectMake(0, 104, 320, 338);
             bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
             profileButton.frame=CGRectMake(5, 420+20, 40, 40);
-            btnnotify.frame=CGRectMake(28, 412+20, 27, 27);
+            btnnotify.frame=CGRectMake(35, 449, 32, 21);
         }
         
     }
