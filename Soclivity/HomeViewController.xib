@@ -236,12 +236,12 @@
                     </connections>
                 </button>
                 <button autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="78">
-                    <rect key="frame" x="40" y="429" width="29" height="22"/>
+                    <rect key="frame" x="35" y="429" width="32" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                     <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="1"/>
-                    <state key="normal" backgroundImage="S7_waiting_icon.png">
+                    <state key="normal" backgroundImage="notificationBadge.png">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -263,9 +263,9 @@
         <image name="S04_sortdistance.png" width="23" height="24"/>
         <image name="S04_sortdos.png" width="32" height="21"/>
         <image name="S04_sorttime.png" width="24" height="24"/>
-        <image name="S7_waiting_icon.png" width="29" height="22"/>
         <image name="addevent.png" width="40" height="40"/>
         <image name="bottom-bar.png" width="320" height="40"/>
+        <image name="notificationBadge.png" width="32" height="21"/>
         <image name="profilebtn.png" width="39" height="39"/>
         <image name="topbar.png" width="320" height="44"/>
     </resources>

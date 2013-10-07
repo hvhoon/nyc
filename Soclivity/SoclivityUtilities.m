@@ -85,9 +85,9 @@ static NSArray *playerActivityDetails;
         if (player.badgeCount==0)
                 button.alpha=0;
         else{
-            [button setBackgroundImage:[UIImage imageNamed:@"S7_waiting_icon.png"] forState:UIControlStateNormal];
+            [button setBackgroundImage:[UIImage imageNamed:@"notificationBadge"] forState:UIControlStateNormal];
             button.frame = CGRectMake(button.frame.origin.x,button.frame.origin.y,32,21);
-            [button setTitle:[NSString stringWithFormat:@"%d",player.badgeCount] forState:UIControlStateNormal];
+            [button setTitle:[NSString stringWithFormat:@" %d",player.badgeCount] forState:UIControlStateNormal];
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }
 }

@@ -188,7 +188,7 @@
             staticButtonView.frame=CGRectMake(275,440+88, 40, 40);
             currentLocationBtn.frame=CGRectMake(118,449+88, 24, 24);
             refreshBtn.frame=CGRectMake(178,449+88, 23, 23);
-            notifCountButton.frame=CGRectMake(40, 537, 29, 22);
+            notifCountButton.frame=CGRectMake(35, 537, 32, 21);
         }
         else{
             profileSliderButton.frame=CGRectMake(5, 420+20, 40, 40);
@@ -200,7 +200,7 @@
             staticButtonView.frame=CGRectMake(275, 440, 40, 40);
             currentLocationBtn.frame=CGRectMake(118,449, 24, 24);
             refreshBtn.frame=CGRectMake(178,449, 23, 23);
-            notifCountButton.frame=CGRectMake(40, 449, 29, 22);
+            notifCountButton.frame=CGRectMake(35, 449, 32, 21);
         }
 
         [self.view addSubview:searchButton];
