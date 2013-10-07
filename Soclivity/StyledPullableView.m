@@ -908,7 +908,7 @@
                     [(UILabel*)[self viewWithTag:kPickADayText] setText:@"Pick A Day"];
 
                     
-                }
+            }
                     break;
                     
                 case 2:
@@ -1051,21 +1051,20 @@
     else{
         [searchBar setShowsCancelButton:NO animated:NO];
          self.homeSearchBar.showClearButton=NO;
-        
-    }
+ }
     [searchBar setShowsCancelButton:YES animated:NO];
 
 }
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar{
     
      self.homeSearchBar.text=@"";
-     SOC.filterObject.searchText=searchBar.text;
      [searchBar setShowsCancelButton:NO animated:YES];
      [self.homeSearchBar resignFirstResponder];
      [searchBar resignFirstResponder];
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
         searchBar.text=@"";
     }
+    SOC.filterObject.searchText=searchBar.text;
 }
 // called when keyboard search button pressed
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
