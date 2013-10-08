@@ -1950,9 +1950,7 @@ else {
         placemark.route=placemark1.thoroughfare;
         placemark.where_zip=placemark1.postalCode;
         placemark.where_city=placemark1.locality;
-        placemark.where_state=[SoclivityUtilities getStateAbbreviation:placemark1.administrativeArea];
-        
-
+        placemark.where_state=placemark1.administrativeArea;
         
         NSString *localString=nil;
         if(((placemark.streetNumber==nil) || ([placemark.streetNumber isEqualToString:@""]))&&((placemark.route==nil) || ([placemark.route isEqualToString:@""]))){
