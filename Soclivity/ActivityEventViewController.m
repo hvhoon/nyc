@@ -2072,7 +2072,12 @@ switch ([notIdObject.notificationType integerValue]) {
     organizerEditButton.hidden=YES;
     reportButton.hidden=YES;
     inviteUsersToActivityButton.hidden=YES;
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+    [eventView.searchBarIOS7 setHidden:YES];
+    }else{
     [eventView.addressSearchBar setHidden:YES];
+    }
         if([SoclivityUtilities deviceType] & iPhone5)
     eventView.frame=CGRectMake(0, 0, 640, 376+88);
          else
@@ -2149,8 +2154,14 @@ switch ([notIdObject.notificationType integerValue]) {
     locationEditRightCheckButton.hidden=YES;
     backToActivityFromMapButton.hidden=NO;
     chatButton.hidden=NO;
-    [eventView.addressSearchBar resignFirstResponder];
-    [eventView.addressSearchBar setHidden:YES];
+     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+    [eventView.searchBarIOS7 resignFirstResponder];
+    [eventView.searchBarIOS7 setHidden:YES];
+     }else{
+         [eventView.addressSearchBar resignFirstResponder];
+         [eventView.addressSearchBar setHidden:YES];
+         
+     }
     [eventView hideSearchBarAndAnimateWithListViewInMiddle];
     [eventView cancelClicked];
     eventView.editMode=FALSE;
@@ -2310,8 +2321,14 @@ switch ([notIdObject.notificationType integerValue]) {
             locationEditRightCheckButton.hidden=YES;
             backToActivityFromMapButton.hidden=NO;
             chatButton.hidden=NO;
-            [eventView.addressSearchBar resignFirstResponder];
-            [eventView.addressSearchBar setHidden:YES];
+            if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+            [eventView.searchBarIOS7 resignFirstResponder];
+            [eventView.searchBarIOS7 setHidden:YES];
+            }else{
+                [eventView.addressSearchBar resignFirstResponder];
+                [eventView.addressSearchBar setHidden:YES];
+                
+            }
             [eventView hideSearchBarAndAnimateWithListViewInMiddle];
 
             eventView.activityInfoButton.hidden=NO;
@@ -2354,8 +2371,15 @@ switch ([notIdObject.notificationType integerValue]) {
     editButtonForMapView.hidden=YES;
     
     eventView.editMode=TRUE;
-    eventView.addressSearchBar.text=@"";
-    [eventView.addressSearchBar setHidden:NO];
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+    eventView.searchBarIOS7.text=@"";
+    [eventView.searchBarIOS7 setHidden:NO];
+    }else{
+        eventView.addressSearchBar.text=@"";
+        [eventView.addressSearchBar setHidden:NO];
+        
+    }
     
     [eventView setUpLabelViewElements:YES];
 

@@ -1106,7 +1106,7 @@
     
     if([tapAndDrawerEffect isEqualToString:@"TRUE"] && [tagNumber integerValue]==kSendUsFeedback){
         if ([[FeedbackBugReport sharedInstance] canSendFeedback]) {
-            UINavigationController* tellAFriendController = [[FeedbackBugReport sharedInstance] sendFeedbackController];
+            MFMailComposeViewController* tellAFriendController = [[FeedbackBugReport sharedInstance] sendFeedbackController];
              [self presentViewController:tellAFriendController animated:YES completion:Nil];
             
             

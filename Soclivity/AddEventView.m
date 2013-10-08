@@ -358,20 +358,18 @@
 
     
     
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-        self.searchBarIOS7=[[UISearchBar alloc]initWithFrame:CGRectMake(320,0, 320, 44)];
-        self.searchBarIOS7.delegate=self;
-        if(self.searchBarIOS7.text!=nil){
-            self.searchBarIOS7.showsCancelButton = YES;
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+            self.searchBarIOS7=[[UISearchBar alloc]initWithFrame:CGRectMake(320,0, 320, 44)];
+            self.searchBarIOS7.delegate=self;
+            [self.searchBarIOS7 setShowsCancelButton:NO animated:YES];
+            self.searchBarIOS7.autocorrectionType = UITextAutocorrectionTypeNo;
+            [self.searchBarIOS7 setTintColor:[SoclivityUtilities returnTextFontColor:5]];
+            [self.searchBarIOS7 setBarTintColor:[SoclivityUtilities returnBackgroundColor:6]];
+            self.searchBarIOS7.placeholder=@"Place or Address";
+            [self addSubview:self.searchBarIOS7];
+            [self.searchBarIOS7 setHidden:YES];
+            
         }
-        
-        self.searchBarIOS7.autocorrectionType = UITextAutocorrectionTypeNo;
-        self.searchBarIOS7.placeholder=@"Place or Address";
-        [self addSubview:self.searchBarIOS7];
-        //[self.searchBarIOS7 setHidden:YES];
-        
-        
-    }
     else{
  
     self.addressSearchBar = [[[CustomSearchbar alloc] initWithFrame:CGRectMake(320,0, 320, 44)] autorelease];
@@ -1950,9 +1948,7 @@ else {
         placemark.route=placemark1.thoroughfare;
         placemark.where_zip=placemark1.postalCode;
         placemark.where_city=placemark1.locality;
-        placemark.where_state=[SoclivityUtilities getStateAbbreviation:placemark1.administrativeArea];
-        
-
+        placemark.where_state=placemark1.administrativeArea;
         
         NSString *localString=nil;
         if(((placemark.streetNumber==nil) || ([placemark.streetNumber isEqualToString:@""]))&&((placemark.route==nil) || ([placemark.route isEqualToString:@""]))){
@@ -3160,7 +3156,12 @@ if(selectionType==1){
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar{
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-    self.searchBarIOS7.text=@"";
+        self.searchBarIOS7.text=@"";
+        searching=FALSE;
+        [self setUpLabelViewElements:YES];
+        [delegate enableDisableTickOnTheTopRight:NO];
+        activityInfoButton.hidden=YES;
+
     }
     else{
     self.addressSearchBar.text=@"";
@@ -3199,7 +3200,17 @@ if(selectionType==1){
         
     }
 #endif
-    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        for (UIView *possibleButton in [[searchBar.subviews objectAtIndex:0]subviews])
+        {
+            if ([possibleButton isKindOfClass:[UIButton class]])
+            {
+                UIButton *cancelButton = (UIButton*)possibleButton;
+                cancelButton.enabled = YES;
+                break;
+            }
+        }
+    }
 }
 
 -(void)getVenuesFromFourSquareApi{
@@ -3233,18 +3244,12 @@ if(selectionType==1){
     //[self cancelClicked];
     searching=FALSE;
     
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-        self.searchBarIOS7.text=@"";
-        [self.searchBarIOS7 setShowsCancelButton:NO animated:YES];
-        [self.searchBarIOS7 resignFirstResponder];
-
-    }else{
-        
+    
     self.addressSearchBar.text=@"";
     self.addressSearchBar.showClearButton=NO;
     [addressSearchBar setShowsCancelButton:NO animated:YES];
     [self.addressSearchBar resignFirstResponder];
-}
+
     [self setUpLabelViewElements:YES];
     [delegate enableDisableTickOnTheTopRight:NO];
     activityInfoButton.hidden=YES;

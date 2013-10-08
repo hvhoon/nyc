@@ -111,6 +111,7 @@
 @property (nonatomic,retain)NSMutableArray *_geocodingResults;
 @property (nonatomic,retain)id<NewActivityViewDelegate>delegate;
 @property (nonatomic,retain)CustomSearchbar *addressSearchBar;
+@property(nonatomic,retain)UISearchBar*ios7SearchBar;
 @property (nonatomic,retain)InfoActivityClass *activityObject;
 @property (nonatomic,assign) BOOL newActivity;
 -(IBAction)crossClicked:(id)sender;

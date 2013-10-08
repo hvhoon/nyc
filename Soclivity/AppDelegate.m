@@ -118,6 +118,7 @@ static NSString* kAppId = @"160726900680967";//kanav
     if ([NavBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)])
     {
         // set globablly for all UINavBars
+        if (!SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0))
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed: @"S01.2_blackbar.png"] forBarMetrics:UIBarMetricsDefault];
         // could optionally set for just this navBar
         //[navBar setBackgroundImage:...

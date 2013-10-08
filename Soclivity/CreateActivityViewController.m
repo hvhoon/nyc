@@ -33,7 +33,7 @@
 
 @implementation CreateActivityViewController
 @synthesize delegate,addressSearchBar;
-@synthesize mapView = _mapView,_geocodingResults,activityObject,newActivity;
+@synthesize mapView = _mapView,_geocodingResults,activityObject,newActivity,ios7SearchBar;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -525,15 +525,14 @@
     //map Section
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-        ios7SearchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(320,0, 320, 44)];
-        ios7SearchBar.delegate=self;
-        if(ios7SearchBar.text!=nil){
-            ios7SearchBar.showsCancelButton = YES;
-        }
-        
-        ios7SearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-        ios7SearchBar.placeholder=@"Place or Address";
-        [createActivityView addSubview:ios7SearchBar];
+        self.ios7SearchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(320,0, 320, 44)];
+        self.ios7SearchBar.delegate=self;
+        [self.ios7SearchBar setShowsCancelButton:NO animated:YES];
+        self.ios7SearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+        [self.ios7SearchBar setTintColor:[SoclivityUtilities returnTextFontColor:5]];
+        [self.ios7SearchBar setBarTintColor:[SoclivityUtilities returnBackgroundColor:6]];
+        self.ios7SearchBar.placeholder=@"Place or Address";
+        [createActivityView addSubview:self.ios7SearchBar];
         
         
     }
@@ -566,7 +565,7 @@
     
     self.mapView.mapType = MKMapTypeStandard;
     searching=FALSE;
-    ios7SearchBar.text=@"";
+    self.ios7SearchBar.text=@"";
     self.addressSearchBar.text=@"";
     
     [self gotoLocation];
@@ -1572,7 +1571,7 @@
     NSString*urlString=nil;
     NSString *queryString=nil;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-        queryString=[NSString stringWithFormat:@"%@",ios7SearchBar.text];
+        queryString=[NSString stringWithFormat:@"%@",self.ios7SearchBar.text];
     }
     else{
         queryString=[NSString stringWithFormat:@"%@",self.addressSearchBar.text];
@@ -2583,7 +2582,7 @@
     
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-        if([ios7SearchBar.text isEqualToString:@""]){
+        if([self.ios7SearchBar.text isEqualToString:@""]){
             
             [searchBar setShowsCancelButton:NO animated:YES];
             
@@ -2614,7 +2613,11 @@
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar{
     
 if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-    ios7SearchBar.text=@"";
+    self.ios7SearchBar.text=@"";
+    searching=FALSE;
+    [self showFourSquareComponents:NO];
+    [self setUpLabelViewElements:YES];
+    createActivityButton.hidden=YES;
 }else{
     self.addressSearchBar.text=@"";
 }
@@ -2631,7 +2634,7 @@ if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
 #if FOURSQUARE
     NSString *query=nil;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-        query=ios7SearchBar.text;
+        query=self.ios7SearchBar.text;
     }else{
         query=self.addressSearchBar.text;
     }
@@ -2656,6 +2659,18 @@ if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
     
     
 #endif
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        for (UIView *possibleButton in [[searchBar.subviews objectAtIndex:0]subviews])
+        {
+            if ([possibleButton isKindOfClass:[UIButton class]])
+            {
+                UIButton *cancelButton = (UIButton*)possibleButton;
+                cancelButton.enabled = YES;
+                break;
+            }
+        }
+    }
 }
 
 
@@ -2663,7 +2678,7 @@ if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
     // in case of error use api key like
     NSString*urlString=nil;
      if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-         urlString = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?client_id=5P1OVCFK0CCVCQ5GBBCWRFGUVNX5R4WGKHL2DGJGZ32FDFKT&client_secret=UPZJO0A0XL44IHCD1KQBMAYGCZ45Z03BORJZZJXELPWHPSAR&v=20130117&query=%@&ll=%f,%f",ios7SearchBar.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
+         urlString = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?client_id=5P1OVCFK0CCVCQ5GBBCWRFGUVNX5R4WGKHL2DGJGZ32FDFKT&client_secret=UPZJO0A0XL44IHCD1KQBMAYGCZ45Z03BORJZZJXELPWHPSAR&v=20130117&query=%@&ll=%f,%f",self.ios7SearchBar.text,SOC.currentLocation.coordinate.latitude,SOC.currentLocation.coordinate.longitude];
          
      }
      else{
@@ -2689,9 +2704,9 @@ if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
     
     searching=FALSE;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-    ios7SearchBar.text=@"";
-    [ios7SearchBar setShowsCancelButton:NO animated:YES];
-    [ios7SearchBar resignFirstResponder];
+    self.ios7SearchBar.text=@"";
+    [self.ios7SearchBar setShowsCancelButton:NO animated:YES];
+    [self.ios7SearchBar resignFirstResponder];
     }
     else{
         self.addressSearchBar.text=@"";
@@ -2716,8 +2731,8 @@ if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
     
     backButton.hidden=NO;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-    [ios7SearchBar resignFirstResponder];
-        ios7SearchBar.text=@"";
+    [self.ios7SearchBar resignFirstResponder];
+        self.ios7SearchBar.text=@"";
 
     }
      else{
@@ -3300,7 +3315,7 @@ if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
 - (void) processReverseGeocodingResults:(NSArray *)placemarks {
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-    ios7SearchBar.text=@"";
+    self.ios7SearchBar.text=@"";
     }
     else{
     self.addressSearchBar.text=@"";
