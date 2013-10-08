@@ -21,29 +21,31 @@
         filterPaneView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 640, 402)];
         filterPaneView.backgroundColor=[SoclivityUtilities returnTextFontColor:7];
         
-
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-        UISearchBar *searchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(0, 40, 320, 44)];
-        searchBar.delegate=self;
-        [searchBar setShowsCancelButton:NO animated:YES];
-        searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-        searchBar.placeholder=@"Search for activities or people";
-        [filterPaneView addSubview:searchBar];
+
+            UISearchBar *searchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(0, 40, 320, 44)];
+            searchBar.delegate=self;
+            [searchBar setShowsCancelButton:NO animated:YES];
+            searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+            [searchBar setTintColor:[SoclivityUtilities returnTextFontColor:5]];
+            [searchBar setBarTintColor:[SoclivityUtilities returnBackgroundColor:6]];
+            searchBar.placeholder=@"Search for activities or people";
+            [filterPaneView addSubview:searchBar];
+
         }
         else{
-        self.homeSearchBar = [[[CustomSearchbar alloc] initWithFrame:CGRectMake(0, 40, 320, 44)] autorelease];
-        self.homeSearchBar.delegate = self;
-        self.homeSearchBar.CSDelegate=self;
-        if(self.homeSearchBar.text!=nil){
-            self.homeSearchBar.showsCancelButton = YES;
-        }
+            self.homeSearchBar = [[[CustomSearchbar alloc] initWithFrame:CGRectMake(0, 40, 320, 44)] autorelease];
+            self.homeSearchBar.delegate = self;
+            self.homeSearchBar.CSDelegate=self;
+            if(self.homeSearchBar.text!=nil){
+                self.homeSearchBar.showsCancelButton = YES;
+            }
         
-        self.homeSearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-        self.homeSearchBar.placeholder=@"Search for activities or people";
-        self.homeSearchBar.backgroundImage=[UIImage imageNamed: @"S4.1_search-background.png"];
-        [filterPaneView addSubview:self.homeSearchBar];
+            self.homeSearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+            self.homeSearchBar.placeholder=@"Search for activities or people";
+            self.homeSearchBar.backgroundImage=[UIImage imageNamed: @"S4.1_search-background.png"];
+            [filterPaneView addSubview:self.homeSearchBar];
         }
-        
         
 #if 0        
         for (UIView *subview in [self.homeSearchBar subviews]) {

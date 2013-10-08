@@ -508,6 +508,10 @@ if(timer%2==0){
         // Signout bar
         case 5:
             return [UIColor colorWithRed:41.0/255.0 green:41.0/255.0 blue:41.0/255.0 alpha:1.0];
+        
+        // Search bar
+        case 6:
+            return [UIColor colorWithRed:220.0/255.0 green:220.0/255.0 blue:220.0/255.0 alpha:1.0];
             
         // Light green (play)
         case 10:
