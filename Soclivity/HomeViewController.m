@@ -297,11 +297,12 @@
 
     self.view.backgroundColor=[UIColor blackColor];
     [self.navigationController.navigationBar setHidden:YES];
-    UITapGestureRecognizer *navSingleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navSingleTap)];
-    navSingleTap.numberOfTapsRequired = 1;
-    [topNavBarView setUserInteractionEnabled:YES];
-    [topNavBarView addGestureRecognizer:navSingleTap];
-    [navSingleTap release];
+    
+//    UITapGestureRecognizer *navSingleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navSingleTap)];
+//    navSingleTap.numberOfTapsRequired = 1;
+//    [topNavBarView setUserInteractionEnabled:YES];
+//    [topNavBarView addGestureRecognizer:navSingleTap];
+//    [navSingleTap release];
 
     activityTableView.delegate=self;
     socEventMapView.delegate=self;
@@ -346,10 +347,7 @@
         //[self UpdateBadgeNotification];
         
         
-        [self pushSlidingViewController];// Awesome the problem is in this method
-        
-        
-        
+        [self pushSlidingViewController];
         SOC.loggedInUser.badgeCount=[[UIApplication sharedApplication]applicationIconBadgeNumber];
         NSLog(@"SOC.loggedInUser.badgeCount=%d",SOC.loggedInUser.badgeCount);
 
