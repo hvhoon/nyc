@@ -43,6 +43,7 @@ NSString * const kSearchTextKey = @"Search Text";
             
                 UISearchBar *searchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(0,0, 320, 44)];
                 searchBar.delegate=self;
+                searchBar.tag=1234;
                 [searchBar setShowsCancelButton:NO animated:YES];
                 searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
                 [searchBar setTintColor:[SoclivityUtilities returnTextFontColor:5]];
@@ -138,7 +139,13 @@ NSString * const kSearchTextKey = @"Search Text";
     [spinner startAnimating];
     [self setUserInteractionEnabled:NO];
     
-    [self searchSoclivityNetwork:searchBarForInvites.text];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+               UISearchBar *searchBar=(UISearchBar*)[self viewWithTag:1234];
+        [self searchSoclivityNetwork:searchBar.text];
+    }
+            else{
+    [self searchSoclivityNetwork:searchBarForInvites.text];                
+            }
 }
 
 -(UIView*)SetupHeaderView{
