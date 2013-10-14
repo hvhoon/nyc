@@ -14,6 +14,7 @@
 #import "NotificationClass.h"
 #import "SoclivityManager.h"
 #import "GetPlayersClass.h"
+#include <objc/runtime.h>
 @interface PrivatePubWebSocketDelegate()
   @property (nonatomic) int messageId;
   @property (nonatomic, retain) SRWebSocket *webSocket;
@@ -93,8 +94,7 @@
     [NSArray arrayWithObjects:@"websocket", nil], @"supportedConnectionTypes",
     [NSNumber numberWithInt:self.messageId++], @"id",
     nil];
-
-  isa = [AwaitingHandshakeState class];
+    object_setClass(self, [AwaitingHandshakeState class]);
 
   [webSocket send:[handshake JSONRepresentation]];
 }
@@ -120,8 +120,8 @@
         NSLog(@"handhshake received: set client id to %@", self.clientId);
 
         self.webSocket = webSocket;
-
-        isa = [SubscriptionState class];
+         object_setClass(self, [SubscriptionState class]);
+        //isa = [SubscriptionState class];
 
         [(SubscriptionState *)self sendSubscriptions];
       }
@@ -157,7 +157,8 @@
     if (subscriptionWasSuccessful) {
      // NSLog(@"Now subscribed to %@", self.channel);
 
-      isa = [KeepAliveState class];
+      //isa = [KeepAliveState class];
+        object_setClass(self, [KeepAliveState class]);
 
       [(KeepAliveState *)self setupKeepAlive];
     }

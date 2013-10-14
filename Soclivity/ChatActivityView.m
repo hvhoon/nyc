@@ -374,6 +374,7 @@
         }];
         
         self.previousTextViewContentHeight = MIN(textViewContentHeight, maxHeight);
+        NSLog(@"self.previousTextViewContentHeight=%f",self.previousTextViewContentHeight);
     }
     
     self.inputView.sendButton.enabled = ([textView.text trimWhitespace].length > 0);

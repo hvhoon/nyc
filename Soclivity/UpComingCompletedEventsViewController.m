@@ -110,14 +110,14 @@
 
         if([SoclivityUtilities deviceType] & iPhone5){
             
-            activityListView.frame=CGRectMake(0, 104, 320, 426);
+            activityListView.frame=CGRectMake(0, 104, 320, 424);
             bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
             profileButton.frame=CGRectMake(5, 420+20+88, 40, 40);
             btnnotify.frame=CGRectMake(35, 537, 32, 21);
             
         }
         else{
-            activityListView.frame=CGRectMake(0, 104, 320, 338);
+            activityListView.frame=CGRectMake(0, 104, 320, 424-88);
             bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
             profileButton.frame=CGRectMake(5, 420+20, 40, 40);
             btnnotify.frame=CGRectMake(35, 449, 32, 21);

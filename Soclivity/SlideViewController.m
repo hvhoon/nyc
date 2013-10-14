@@ -771,7 +771,7 @@
     else{
         UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectMake(189, 8, 50, 50)];
         switchView.transform = CGAffineTransformMakeScale(0.75, 0.75);
-        [switchView setTintColor:[UIColor grayColor]];
+        [switchView setTintColor:[UIColor clearColor]];
         [switchView setOnTintColor:[UIColor grayColor]];
         
         [cell.contentView addSubview:switchView];
