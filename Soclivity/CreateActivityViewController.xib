@@ -145,7 +145,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="S06_fieldDivider.png" id="32">
-                            <rect key="frame" x="22" y="209" width="275" height="2"/>
+                            <rect key="frame" x="22" y="208" width="275" height="2"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="S06_fieldDivider.png" id="38">
