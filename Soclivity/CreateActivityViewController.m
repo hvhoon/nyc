@@ -151,27 +151,17 @@
     createActivtyStaticLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
     createActivtyStaticLabel.textColor=[UIColor whiteColor];
     createActivtyStaticLabel.backgroundColor=[UIColor clearColor];
-    createActivtyStaticLabel.shadowColor = [UIColor blackColor];
-    createActivtyStaticLabel.shadowOffset = CGSizeMake(0,-1);
-    
-    
     
     step1_of2Label.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
     step1_of2Label.textColor=[UIColor whiteColor];
     step1_of2Label.backgroundColor=[UIColor clearColor];
-    step1_of2Label.shadowColor = [UIColor blackColor];
-    step1_of2Label.shadowOffset = CGSizeMake(0,-1);
     step1_of2Label.text=@"Step 1 of 2";
-    
     
     locationTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
     locationTextLabel.textColor=[UIColor whiteColor];
     locationTextLabel.backgroundColor=[UIColor clearColor];
-    locationTextLabel.shadowColor=[UIColor blackColor];
-    locationTextLabel.shadowOffset=CGSizeMake(0,-1);
     locationTextLabel.text=[NSString stringWithFormat:@"Exact location will only be visible to participants"];
 
-    
     
     // Play button
     UIButton *playButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
@@ -422,14 +412,11 @@
     [pickADayButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateHighlighted];
     
     
-
-    
     pickATimeButton.titleLabel.textAlignment=NSTextAlignmentLeft;
     pickATimeButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:14];
     pickATimeButton.titleLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     [pickATimeButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateNormal];
     [pickATimeButton setTitleColor:[SoclivityUtilities returnTextFontColor:5] forState:UIControlStateHighlighted];
-    
     
     
     if(!newActivity){
@@ -694,8 +681,6 @@
     placeAndAddressLabel.text=@"For place or address";
     [locationInfoView addSubview:placeAndAddressLabel];
 
-    
-    
 
     verticalMiddleLine=[[UIImageView alloc]initWithFrame:CGRectMake(159, 5, 2, 49)];
     verticalMiddleLine.image=[UIImage imageNamed:@"S05.1_verticalLine.png"];
@@ -717,8 +702,6 @@
     [locationInfoView addSubview:dropPinLabel];
     
     
-    
-    
     CGRect touchandHoldLabelRect=CGRectMake(194,25,131,21);
     touchAndHoldMapLabel=[[UILabel alloc] initWithFrame:touchandHoldLabelRect];
     touchAndHoldMapLabel.textAlignment=NSTextAlignmentLeft;
@@ -727,10 +710,6 @@
     touchAndHoldMapLabel.backgroundColor=[UIColor clearColor];
     touchAndHoldMapLabel.text=@"Touch and hold map";
     [locationInfoView addSubview:touchAndHoldMapLabel];
-
-    
-    
-
 
     
     [createActivityView addSubview:locationInfoView];

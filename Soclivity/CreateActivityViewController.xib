@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateActivityViewController">
@@ -410,7 +410,7 @@
         <image name="S06_fieldDivider.png" width="275" height="1"/>
         <image name="S06_pickLocationButton.png" width="143" height="39"/>
         <image name="acceptButton.png" width="65" height="39"/>
-        <image name="back-button.png" width="40" height="40"/>
+        <image name="back-button.png" width="39" height="40"/>
         <image name="bottom-bar.png" width="320" height="40"/>
         <image name="cross.png" width="40" height="40"/>
         <image name="currentButton.png" width="40" height="39"/>
