@@ -58,12 +58,9 @@
 
     pickADateLabel.text=@"Pick a date";
     
-    pickADateLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
+    pickADateLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17];
     pickADateLabel.textColor=[UIColor whiteColor];
     pickADateLabel.backgroundColor=[UIColor clearColor];
-    pickADateLabel.shadowColor = [UIColor blackColor];
-    pickADateLabel.shadowOffset = CGSizeMake(0,-1);
-
     
     calendarDate=[[CalendarDateView alloc]initWithFrame:CGRectMake(0, 40, 320,304)editActivityDate:activityDate];
     calendarDate.KALDelegate=self;

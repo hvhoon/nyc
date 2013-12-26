@@ -41,11 +41,9 @@
     else
     privacyTextLabel.text=@"Pick visibility";
     
-    privacyTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
+    privacyTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17];
     privacyTextLabel.textColor=[UIColor whiteColor];
     privacyTextLabel.backgroundColor=[UIColor clearColor];
-    privacyTextLabel.shadowColor = [UIColor blackColor];
-    privacyTextLabel.shadowOffset = CGSizeMake(0,-1);
     
     switch (rowSelected) {
         case 0:
@@ -102,13 +100,11 @@
     privacyText.textAlignment=NSTextAlignmentLeft;
     
     privacyLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:16];
-    privacyLabel.textColor=[UIColor blackColor];
+    privacyLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     privacyLabel.backgroundColor=[UIColor clearColor];
-    privacyLabel.shadowColor=[UIColor whiteColor];
-    privacyLabel.shadowOffset=CGSizeMake(0,1);
     
     privacyText.font=[UIFont fontWithName:@"Helvetica-Condensed" size:14];
-    privacyText.textColor=[UIColor blackColor];
+    privacyText.textColor=[SoclivityUtilities returnTextFontColor:5];
     privacyText.backgroundColor=[UIColor clearColor];
     
     
@@ -118,7 +114,7 @@
         {
             privacyLabel.text=[NSString stringWithFormat:@"Public"];
             privacyText.text=[NSString stringWithFormat:@"(Anybody can view this event)"];
-            myImageView.image=[UIImage imageNamed:@"publicBlack.png"];
+            myImageView.image=[UIImage imageNamed:@"S05_public5.png"];
             
         }
             break;
@@ -127,7 +123,7 @@
         {
             privacyLabel.text=[NSString stringWithFormat:@"Private"];
             privacyText.text=[NSString stringWithFormat:@"(Only invitees can view this event)"];
-            myImageView.image=[UIImage imageNamed:@"privateBlack.png"];
+            myImageView.image=[UIImage imageNamed:@"S05_private5.png"];
             
         }
             break;
