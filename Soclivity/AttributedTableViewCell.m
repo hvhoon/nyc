@@ -88,7 +88,7 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
                 CFRelease(boldFont);
                 
                 [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:result.range];
-                [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor whiteColor] CGColor] range:result.range];
+                [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor darkGrayColor] CGColor] range:result.range];
             }
             
             
@@ -127,11 +127,11 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
     self.detailTextLabel.hidden = YES;
     
     CGRect rect1=CGRectMake(0, 10, 345, [AttributedTableViewCell heightForCellWithText:self.summaryText]-10);
-    self.summaryLabel.frame =  CGRectOffset(CGRectInset(rect1, 60, 5.0f), 0.0f, 0.0f);
+    self.summaryLabel.frame =  CGRectOffset(CGRectInset(rect1, 60, 0), 0.0f, 0.0f);
 
-    CGRect rect2=CGRectMake(0, self.summaryLabel.frame.size.height+5, 345, 35);
+    CGRect rect2=CGRectMake(0, self.summaryLabel.frame.size.height, 345, 35);
     
-    self.lbltime.frame=CGRectOffset(CGRectInset(rect2, 60, 5.0f), 0.0f, 0.0f);
+    self.lbltime.frame=CGRectOffset(CGRectInset(rect2, 60, 0), 0.0f, 0.0f);
     
 }
 
