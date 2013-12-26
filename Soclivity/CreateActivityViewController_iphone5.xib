@@ -355,7 +355,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="71">
-                    <rect key="frame" x="88" y="509" width="143" height="39"/>
+                    <rect key="frame" x="89" y="508" width="142" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" backgroundImage="S06_pickLocationButton.png">
@@ -417,11 +417,11 @@
         <image name="S05_clockIcon.png" width="20" height="20"/>
         <image name="S05_deleteButton.png" width="40" height="40"/>
         <image name="S05_public5.png" width="21" height="20"/>
-        <image name="S06_backdrop5.png" width="279" height="394"/>
+        <image name="S06_backdrop5.png" width="278" height="506"/>
         <image name="S06_capacity.png" width="20" height="17"/>
         <image name="S06_createActivityButton.png" width="90" height="40"/>
         <image name="S06_fieldDivider.png" width="275" height="1"/>
-        <image name="S06_pickLocationButton.png" width="143" height="39"/>
+        <image name="S06_pickLocationButton.png" width="142" height="40"/>
         <image name="acceptButton.png" width="65" height="39"/>
         <image name="back-button.png" width="39" height="40"/>
         <image name="bottom-bar.png" width="320" height="40"/>

@@ -327,7 +327,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="61">
-                    <rect key="frame" x="88" y="421" width="149" height="39"/>
+                    <rect key="frame" x="89" y="420" width="142" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" backgroundImage="S06_pickLocationButton.png">
@@ -408,11 +408,11 @@
         <image name="S06_capacity.png" width="20" height="17"/>
         <image name="S06_createActivityButton.png" width="90" height="40"/>
         <image name="S06_fieldDivider.png" width="275" height="1"/>
-        <image name="S06_pickLocationButton.png" width="143" height="39"/>
+        <image name="S06_pickLocationButton.png" width="142" height="40"/>
         <image name="acceptButton.png" width="65" height="39"/>
         <image name="back-button.png" width="39" height="40"/>
         <image name="bottom-bar.png" width="320" height="40"/>
-        <image name="cross.png" width="40" height="40"/>
+        <image name="cross.png" width="15" height="15"/>
         <image name="currentButton.png" width="40" height="39"/>
         <image name="topbar.png" width="320" height="44"/>
     </resources>
