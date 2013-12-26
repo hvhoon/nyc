@@ -301,9 +301,6 @@
 
                 UIView *headerView=[[UIView alloc]initWithFrame:CGRectMake(0, delta, 320, 48)];
                 headerView.backgroundColor=[SoclivityUtilities returnBackgroundColor:6];
-                //UIImageView *participantBarImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_participantBar.png"]];
-                //participantBarImgView.frame=CGRectMake(0, delta, 320, 47);
-                //[headerView addSubview:participantBarImgView];
                 
                 UIButton *pArrowButton=[UIButton buttonWithType:UIButtonTypeCustom];
                 pArrowButton.frame=CGRectMake(2,delta+4,33,40);
