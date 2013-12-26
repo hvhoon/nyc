@@ -46,10 +46,10 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
     self.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     
     self.summaryLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
-    self.summaryLabel.textColor= [UIColor whiteColor];
+    self.summaryLabel.textColor= [SoclivityUtilities returnTextFontColor:5];
     self.summaryLabel.numberOfLines = 0;
     
-    self.summaryLabel.highlightedTextColor = [UIColor whiteColor];
+    self.summaryLabel.highlightedTextColor = [SoclivityUtilities returnTextFontColor:5];
     self.summaryLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
     
     self.lbltime=[[UILabel alloc] init];
@@ -57,7 +57,7 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
     self.lbltime.font =[UIFont fontWithName:@"Helvetica-Condensed" size:12];
     self.lbltime.lineBreakMode = UILineBreakModeWordWrap;
     self.lbltime.numberOfLines = 0;
-    self.lbltime.highlightedTextColor = [UIColor whiteColor];
+    self.lbltime.highlightedTextColor = [SoclivityUtilities returnTextFontColor:5];
 
     [self.contentView addSubview:self.lbltime];
     [self.contentView addSubview:self.summaryLabel];

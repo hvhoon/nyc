@@ -39,7 +39,6 @@ static inline NSRegularExpression * NameRegularExpression() {
             UIView *notificationView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
             notificationView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"InAppAlertBar.png"]];
             
-            
             UIImageView *leftImageView=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 30, 29)];
             
             self.summaryLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
