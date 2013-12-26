@@ -9,7 +9,7 @@
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 static CGFloat const kEspressoDescriptionTextFontSize = 14;
-static CGFloat const kAttributedTableViewCellVerticalMargin = 20.0f;
+static CGFloat const kAttributedTableViewCellVerticalMargin = 17.0f;
 
 static NSRegularExpression *__nameRegularExpression;
 static inline NSRegularExpression * NameRegularExpression() {
@@ -46,7 +46,7 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
     self.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     
     self.summaryLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
-     self.summaryLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    self.summaryLabel.textColor= [UIColor whiteColor];
     self.summaryLabel.numberOfLines = 0;
     
     self.summaryLabel.highlightedTextColor = [UIColor whiteColor];
@@ -88,7 +88,7 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
                 CFRelease(boldFont);
                 
                 [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorAttributeName range:result.range];
-                [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor darkGrayColor] CGColor] range:result.range];
+                [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor whiteColor] CGColor] range:result.range];
             }
             
             
