@@ -495,19 +495,15 @@
     activityNameLabel.textColor=[UIColor whiteColor];
     activityNameLabel.backgroundColor=[UIColor clearColor];
     activityNameLabel.tag=kActivityLabel;
-    CGSize textSize = [[NSString stringWithFormat:@"%@",activityInfo.activityName] sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18]];
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-    activityNameLabel.frame=CGRectMake(56, 27, 200, textSize.height);
+    activityNameLabel.frame=CGRectMake(40, 20, 240, 44);
     }else{
-    activityNameLabel.frame=CGRectMake(56, 7, 200, textSize.height);
+    activityNameLabel.frame=CGRectMake(40, 0, 240, 44);
     }
     
     [activityNameLabel setContentMode:UIViewContentModeScaleAspectFill];
     [activityNameLabel setLineBreakMode:NSLineBreakByTruncatingTail];
     activityNameLabel.adjustsFontSizeToFitWidth=NO;//This is main for shrinking font
-
-    
-
 
     
     if([SoclivityUtilities deviceType] & iPhone5)
