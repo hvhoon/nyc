@@ -177,7 +177,7 @@
     playTickImageView.tag=kPlayTickImage;
     [createActivityView addSubview:playTickImageView];
     
-    CGRect playTypeLabelRect=CGRectMake(0,28,64,16);
+    CGRect playTypeLabelRect=CGRectMake(0,28,64,17);
     UILabel *playTypeLabel=[[UILabel alloc] initWithFrame:playTypeLabelRect];
     playTypeLabel.textAlignment=NSTextAlignmentCenter;
     playTypeLabel.text=[NSString stringWithFormat:@"Play"];
@@ -206,7 +206,7 @@
     [createActivityView addSubview:eatTickImageView];
     
     
-    CGRect eatTypeLabelRect=CGRectMake(64,28,64,15);
+    CGRect eatTypeLabelRect=CGRectMake(64,28,64,17);
     UILabel *eatTypeLabel=[[UILabel alloc] initWithFrame:eatTypeLabelRect];
     eatTypeLabel.textAlignment=NSTextAlignmentCenter;
     eatTypeLabel.text=[NSString stringWithFormat:@"Eat"];
@@ -236,7 +236,7 @@
     [createActivityView addSubview:seeTickImageView];
     
     
-    CGRect seeTypeLabelRect=CGRectMake(128,28,64,15);
+    CGRect seeTypeLabelRect=CGRectMake(128,28,64,17);
     UILabel *seeTypeLabel=[[UILabel alloc] initWithFrame:seeTypeLabelRect];
     seeTypeLabel.textAlignment=NSTextAlignmentCenter;
     seeTypeLabel.text=[NSString stringWithFormat:@"See"];
@@ -266,7 +266,7 @@
     [createActivityView addSubview:createTickImageView];
     
     
-    CGRect createTypeLabelRect=CGRectMake(192,28,64,15);
+    CGRect createTypeLabelRect=CGRectMake(192,28,64,17);
     UILabel *createTypeLabel=[[UILabel alloc] initWithFrame:createTypeLabelRect];
     createTypeLabel.textAlignment=NSTextAlignmentCenter;
     createTypeLabel.text=[NSString stringWithFormat:@"Create"];
@@ -296,7 +296,7 @@
     [createActivityView addSubview:learnTickImageView];
     
     
-    CGRect learnTypeLabelRect=CGRectMake(256,28,64,15);
+    CGRect learnTypeLabelRect=CGRectMake(256,28,64,17);
     UILabel *learnTypeLabel=[[UILabel alloc] initWithFrame:learnTypeLabelRect];
     learnTypeLabel.textAlignment=NSTextAlignmentCenter;
     learnTypeLabel.text=[NSString stringWithFormat:@"Learn"];
@@ -611,9 +611,6 @@
     [phoneIconImageView setHidden:YES];
     
     
-    
-    
-    
     phoneButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     phoneButton.frame = CGRectMake(16,33,164,21);
     [phoneButton addTarget:self action:@selector(phoneButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -645,9 +642,6 @@
     [locationInfoView addSubview:ratingLabel];
     [ratingLabel setHidden:YES];
 
-
-
-    
     
     activityInfoButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     activityInfoButton.frame = CGRectMake(285,15,28,27);

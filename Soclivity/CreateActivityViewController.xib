@@ -127,7 +127,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="S06_backdrop.png" id="15">
-                            <rect key="frame" x="20" y="50" width="279" height="326"/>
+                            <rect key="frame" x="21" y="50" width="278" height="326"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                         </imageView>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a name for your activity" adjustsFontSizeToFit="NO" minimumFontSize="15" clearButtonMode="whileEditing" id="17">
@@ -141,19 +141,19 @@
                             </connections>
                         </textField>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="S06_fieldDivider.png" id="22">
-                            <rect key="frame" x="22" y="102" width="275" height="1"/>
+                            <rect key="frame" x="22" y="102" width="275" height="2"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="S06_fieldDivider.png" id="32">
-                            <rect key="frame" x="22" y="209" width="275" height="1"/>
+                            <rect key="frame" x="22" y="209" width="275" height="2"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="S06_fieldDivider.png" id="38">
-                            <rect key="frame" x="22" y="259" width="275" height="1"/>
+                            <rect key="frame" x="22" y="259" width="275" height="2"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="S06_fieldDivider.png" id="43">
-                            <rect key="frame" x="22" y="310" width="275" height="1"/>
+                            <rect key="frame" x="22" y="310" width="275" height="2"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <view contentMode="scaleToFill" id="23">
@@ -282,7 +282,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="No Limit" minimumFontSize="17" id="56">
-                            <rect key="frame" x="227" y="326" width="58" height="15"/>
+                            <rect key="frame" x="227" y="327" width="58" height="16"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -298,7 +298,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Capacity" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="83">
-                            <rect key="frame" x="174" y="326" width="62" height="15"/>
+                            <rect key="frame" x="174" y="326" width="62" height="16"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -404,7 +404,7 @@
         <image name="S05_clockIcon.png" width="20" height="20"/>
         <image name="S05_deleteButton.png" width="40" height="40"/>
         <image name="S05_public5.png" width="21" height="20"/>
-        <image name="S06_backdrop.png" width="279" height="326"/>
+        <image name="S06_backdrop.png" width="278" height="305"/>
         <image name="S06_capacity.png" width="20" height="17"/>
         <image name="S06_createActivityButton.png" width="90" height="40"/>
         <image name="S06_fieldDivider.png" width="275" height="1"/>
@@ -412,7 +412,7 @@
         <image name="acceptButton.png" width="65" height="39"/>
         <image name="back-button.png" width="39" height="40"/>
         <image name="bottom-bar.png" width="320" height="40"/>
-        <image name="cross.png" width="15" height="15"/>
+        <image name="cross.png" width="40" height="40"/>
         <image name="currentButton.png" width="40" height="39"/>
         <image name="topbar.png" width="320" height="44"/>
     </resources>
