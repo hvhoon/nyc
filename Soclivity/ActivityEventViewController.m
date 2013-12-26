@@ -222,15 +222,11 @@
     commentChatLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     commentChatLabel.textColor=[UIColor whiteColor];
     commentChatLabel.backgroundColor=[UIColor clearColor];
-    commentChatLabel.shadowColor=[UIColor blackColor];
-    commentChatLabel.shadowOffset=CGSizeMake(0,-1);
     commentChatLabel.text=@"Comment";
     
     imagePostChatlabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     imagePostChatlabel.textColor=[UIColor whiteColor];
     imagePostChatlabel.backgroundColor=[UIColor clearColor];
-    imagePostChatlabel.shadowColor=[UIColor blackColor];
-    imagePostChatlabel.shadowOffset=CGSizeMake(0,-1);
     imagePostChatlabel.text=@"Image";
     
     chatView.delegate=self;
@@ -303,11 +299,11 @@
             {
                 int delta=0;
 
-                UIView *headerView=[[UIView alloc]initWithFrame:CGRectMake(0, delta, 320, 47)];
-                headerView.backgroundColor=[UIColor clearColor];
-                UIImageView *participantBarImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_participantBar.png"]];
-                participantBarImgView.frame=CGRectMake(0, delta, 320, 47);
-                [headerView addSubview:participantBarImgView];
+                UIView *headerView=[[UIView alloc]initWithFrame:CGRectMake(0, delta, 320, 48)];
+                headerView.backgroundColor=[SoclivityUtilities returnBackgroundColor:6];
+                //UIImageView *participantBarImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_participantBar.png"]];
+                //participantBarImgView.frame=CGRectMake(0, delta, 320, 47);
+                //[headerView addSubview:participantBarImgView];
                 
                 UIButton *pArrowButton=[UIButton buttonWithType:UIButtonTypeCustom];
                 pArrowButton.frame=CGRectMake(2,delta+4,33,40);
@@ -315,9 +311,6 @@
                 [pArrowButton addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 pArrowButton.tag=103;
                 [headerView addSubview:pArrowButton];
-                
-                
-                
                 
                 // People going section in the participant bar
                 goingButton=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -504,8 +497,6 @@
     activityNameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
     activityNameLabel.textColor=[UIColor whiteColor];
     activityNameLabel.backgroundColor=[UIColor clearColor];
-    activityNameLabel.shadowColor = [UIColor blackColor];
-    activityNameLabel.shadowOffset = CGSizeMake(0,-1);
     activityNameLabel.tag=kActivityLabel;
     CGSize textSize = [[NSString stringWithFormat:@"%@",activityInfo.activityName] sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18]];
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){

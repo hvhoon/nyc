@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActivityEventViewController">
@@ -639,7 +639,7 @@
         </view>
     </objects>
     <resources>
-        <image name="S04_listbtn.png" width="40" height="40"/>
+        <image name="S04_listbtn.png" width="40" height="39"/>
         <image name="S05.1_4squareIcon.png" width="18" height="18"/>
         <image name="S05.1_magnify.png" width="18" height="19"/>
         <image name="S05.1_phoneIcon.png" width="14" height="14"/>
@@ -662,7 +662,7 @@
         <image name="S05_warning.png" width="40" height="40"/>
         <image name="S5_DOS-1.png" width="16" height="16"/>
         <image name="acceptButton.png" width="65" height="39"/>
-        <image name="back-button.png" width="40" height="40"/>
+        <image name="back-button.png" width="39" height="40"/>
         <image name="bottom-bar.png" width="320" height="40"/>
         <image name="cross.png" width="40" height="40"/>
         <image name="currentButton.png" width="40" height="39"/>

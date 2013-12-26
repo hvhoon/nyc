@@ -361,7 +361,7 @@
     if(!newActivity){
         if((activityObject.what==(NSString*)[NSNull null])||([activityObject.what isEqualToString:@""]||activityObject.what==nil)||([activityObject.what isEqualToString:@"(null)"])){
             
-            placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0.0, descriptionTextView.frame.size.width - 20.0, 34.0)];
+            placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(3, 0, descriptionTextView.frame.size.width - 20.0, 34.0)];
             [placeholderLabel setText:@"Tell us more..."];
             // placeholderLabel is instance variable retained by view controller
             [placeholderLabel setBackgroundColor:[UIColor clearColor]];
@@ -375,14 +375,11 @@
         else
             descriptionTextView.text=activityObject.what;
         
-        
         countTextLabel.text= [[NSString alloc] initWithFormat:@"%i/",[descriptionTextView.text length]];
-
-
     }
     else{
     
-    placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0.0, descriptionTextView.frame.size.width - 20.0, 34.0)];
+    placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(3, 0, descriptionTextView.frame.size.width - 20.0, 34.0)];
     [placeholderLabel setText:@"Tell us more..."];
     // placeholderLabel is instance variable retained by view controller
     [placeholderLabel setBackgroundColor:[UIColor clearColor]];

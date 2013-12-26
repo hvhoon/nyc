@@ -132,7 +132,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                         </imageView>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a name for your activity" adjustsFontSizeToFit="NO" minimumFontSize="15" clearButtonMode="whileEditing" id="41">
-                            <rect key="frame" x="35" y="78" width="249" height="20"/>
+                            <rect key="frame" x="35" y="78" width="250" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -165,12 +165,14 @@
                             <rect key="frame" x="22" y="114" width="276" height="106"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="43">
-                                    <rect key="frame" x="4" y="0.0" width="268" height="86"/>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" id="43">
+                                    <rect key="frame" x="8" y="0.0" width="255" height="86"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" returnKeyType="done"/>
+                                    <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                     <connections>
                                         <outlet property="delegate" destination="-1" id="50"/>
                                     </connections>
