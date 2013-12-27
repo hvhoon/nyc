@@ -532,6 +532,9 @@ if(timer%2==0){
         // Light blue (learn)
         case 14:
             return [UIColor colorWithRed:229.0/255.0 green:248.0/255.0 blue:246.0/255 alpha:1.0];
+        // Dark Gray (for the buttons)
+        case 15:
+            return [UIColor colorWithRed:50.0/255.0 green:50.0/255.0 blue:50.0/255 alpha:1.0];
         
         // If nothing else matches
         default:

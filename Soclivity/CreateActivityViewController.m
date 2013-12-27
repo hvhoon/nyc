@@ -60,15 +60,14 @@
         topBarImageView.frame=CGRectMake(0, 0, 320, 64);
         topBarImageView.image=[UIImage imageNamed:@"topbarIOS7.png"];
         createActivtyStaticLabel.frame=CGRectMake(87, 31, 146, 21);
-        deleteActivityButton.frame=CGRectMake(275, 20, 40, 40);
+        deleteActivityButton.frame=CGRectMake(262, 20, 50, 44);
         backButton.frame=CGRectMake(5, 20, 40, 40);
-        crossButton.frame=CGRectMake(5, 20, 40, 40);
-        crossEditButton.frame=CGRectMake(5, 20, 40, 40);
-        locationCrossButton.frame=CGRectMake(5, 20, 40, 40);
-        step1_of2Label.frame=CGRectMake(230, 31, 80, 21);
+        crossButton.frame=CGRectMake(8, 20, 64, 44);
+        crossEditButton.frame=CGRectMake(8, 20, 64, 44);
+        locationCrossButton.frame=CGRectMake(8, 20, 64, 44);
         if([SoclivityUtilities deviceType] & iPhone5){
             
-            tickEditButton.frame=CGRectMake(128, 421+88+20, 65, 39);
+            tickEditButton.frame=CGRectMake(128, 420+88+20, 65, 40);
             createActivityView.frame=CGRectMake(0, 64, 640, 464);
             bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
             pickALocationButton.frame=CGRectMake(88,441+88, 149, 39);
@@ -77,7 +76,7 @@
             locationTextLabel.frame=CGRectMake(39,450+88, 252, 21);
         }
         else{
-            tickEditButton.frame=CGRectMake(128, 421+20, 65, 39);
+            tickEditButton.frame=CGRectMake(128, 420+20, 65, 40);
             createActivityView.frame=CGRectMake(0, 64, 640, 376);
             bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
             pickALocationButton.frame=CGRectMake(88,441, 149, 39);
@@ -120,7 +119,6 @@
     else{
         pickALocationButton.hidden=YES;
         crossButton.hidden=YES;
-        step1_of2Label.hidden=YES;
         crossEditButton.hidden=NO;
         tickEditButton.hidden=NO;
         deleteActivityButton.hidden=NO;
@@ -152,10 +150,25 @@
     createActivtyStaticLabel.textColor=[UIColor whiteColor];
     createActivtyStaticLabel.backgroundColor=[UIColor clearColor];
     
-    step1_of2Label.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
-    step1_of2Label.textColor=[UIColor whiteColor];
-    step1_of2Label.backgroundColor=[UIColor clearColor];
-    step1_of2Label.text=@"Step 1 of 2";
+    crossButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:18];
+    crossButton.titleLabel.textColor=[UIColor whiteColor];
+    crossButton.backgroundColor=[UIColor clearColor];
+    
+    crossEditButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:18];
+    crossEditButton.titleLabel.textColor=[UIColor whiteColor];
+    crossEditButton.backgroundColor=[UIColor clearColor];
+    
+    locationCrossButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:18];
+    locationCrossButton.titleLabel.textColor=[UIColor whiteColor];
+    locationCrossButton.backgroundColor=[UIColor clearColor];
+    
+    deleteActivityButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:18];
+    deleteActivityButton.titleLabel.textColor=[UIColor whiteColor];
+    deleteActivityButton.backgroundColor=[UIColor clearColor];
+    
+    tickEditButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:18];
+    tickEditButton.titleLabel.textColor=[UIColor whiteColor];
+    tickEditButton.backgroundColor=[SoclivityUtilities returnBackgroundColor:15];
     
     locationTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
     locationTextLabel.textColor=[UIColor whiteColor];
@@ -429,13 +442,9 @@
         [prefixDateFormatter setDateFormat:@"EEEE, MMMM d, YYYY"];
         NSString *prefixDateString = [prefixDateFormatter stringFromDate:date];
         
-        
-        
         [prefixDateFormatter setDateFormat:@"h:mm a"];
         
         NSString *prefixTimeString = [prefixDateFormatter stringFromDate:date];
-        
-        
         
         int yOrigin;
         if([SoclivityUtilities deviceType] & iPhone5){
@@ -1068,7 +1077,6 @@
         
         backButton.hidden=NO;
         crossButton.hidden=YES;
-       step1_of2Label.text=@"Step 2 of 2";
         pickALocationButton.hidden=YES;
         createActivtyStaticLabel.text=@"Pick Location";
         centerLocationButton.hidden=NO;
@@ -1207,7 +1215,6 @@
         
         backButton.hidden=YES;
         crossButton.hidden=NO;
-        step1_of2Label.text=@"Step 1 of 2";
         pickALocationButton.hidden=NO;
         createActivtyStaticLabel.text=@"Create Activity";
         centerLocationButton.hidden=YES;

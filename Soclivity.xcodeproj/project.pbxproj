@@ -169,8 +169,6 @@
 		686E7A9E15B5E3A800A05C7C /* S05_calendarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 686E7A0215B5E3A800A05C7C /* S05_calendarIcon@2x.png */; };
 		686E7A9F15B5E3A800A05C7C /* S05_clockIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 686E7A0315B5E3A800A05C7C /* S05_clockIcon.png */; };
 		686E7AA015B5E3A800A05C7C /* S05_clockIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 686E7A0415B5E3A800A05C7C /* S05_clockIcon@2x.png */; };
-		686E7AA115B5E3A800A05C7C /* S05_descriptionLine.png in Resources */ = {isa = PBXBuildFile; fileRef = 686E7A0515B5E3A800A05C7C /* S05_descriptionLine.png */; };
-		686E7AA215B5E3A800A05C7C /* S05_descriptionLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 686E7A0615B5E3A800A05C7C /* S05_descriptionLine@2x.png */; };
 		686E7AA315B5E3A800A05C7C /* S05_detailsLine.png in Resources */ = {isa = PBXBuildFile; fileRef = 686E7A0715B5E3A800A05C7C /* S05_detailsLine.png */; };
 		686E7AA415B5E3A800A05C7C /* S05_detailsLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 686E7A0815B5E3A800A05C7C /* S05_detailsLine@2x.png */; };
 		686E7AA515B5E3A800A05C7C /* S05_dos1.png in Resources */ = {isa = PBXBuildFile; fileRef = 686E7A0915B5E3A800A05C7C /* S05_dos1.png */; };
@@ -446,9 +444,7 @@
 		EA8D609B1599C122000A099C /* S04.1_clearPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8D60971599C122000A099C /* S04.1_clearPressed@2x.png */; };
 		EA8D609C1599C122000A099C /* S04.1_clear.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8D60981599C122000A099C /* S04.1_clear.png */; };
 		EA8D609D1599C122000A099C /* S04.1_clear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8D60991599C122000A099C /* S04.1_clear@2x.png */; };
-		EA8DF42215BFCD5A0081E612 /* S05_editIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8DF41E15BFCD5A0081E612 /* S05_editIcon.png */; };
 		EA8DF42315BFCD5A0081E612 /* S05_deleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8DF41F15BFCD5A0081E612 /* S05_deleteButton.png */; };
-		EA8DF42415BFCD5A0081E612 /* S05_editIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8DF42015BFCD5A0081E612 /* S05_editIcon@2x.png */; };
 		EA8DF42515BFCD5A0081E612 /* S05_deleteButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8DF42115BFCD5A0081E612 /* S05_deleteButton@2x.png */; };
 		EA8F65AB1574CF2F00EFAE8A /* EventsMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8F65AA1574CF2F00EFAE8A /* EventsMapView.m */; };
 		EA8F65AD1574D4CB00EFAE8A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8F65AC1574D4CA00EFAE8A /* MapKit.framework */; };
@@ -641,10 +637,6 @@
 		EADC51DE16253C4600772D41 /* MJDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EADC51DC16253C4600772D41 /* MJDetailViewController.xib */; };
 		EADC51E116253D2300772D41 /* PickADateView.m in Sources */ = {isa = PBXBuildFile; fileRef = EADC51E016253D2300772D41 /* PickADateView.m */; };
 		EADC51EC162579A800772D41 /* PickATimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = EADC51EB162579A500772D41 /* PickATimeView.m */; };
-		EADC51F5162581ED00772D41 /* S05_editCal.png in Resources */ = {isa = PBXBuildFile; fileRef = EADC51ED162581ED00772D41 /* S05_editCal.png */; };
-		EADC51F6162581ED00772D41 /* S05_editCal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EADC51EE162581ED00772D41 /* S05_editCal@2x.png */; };
-		EADC51F7162581ED00772D41 /* S05_editClock.png in Resources */ = {isa = PBXBuildFile; fileRef = EADC51EF162581ED00772D41 /* S05_editClock.png */; };
-		EADC51F8162581ED00772D41 /* S05_editClock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EADC51F0162581ED00772D41 /* S05_editClock@2x.png */; };
 		EADC51F9162581ED00772D41 /* S05_smallDOS1.png in Resources */ = {isa = PBXBuildFile; fileRef = EADC51F1162581ED00772D41 /* S05_smallDOS1.png */; };
 		EADC51FA162581ED00772D41 /* S05_smallDOS1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EADC51F2162581ED00772D41 /* S05_smallDOS1@2x.png */; };
 		EADC51FB162581ED00772D41 /* S05_smallDOS2.png in Resources */ = {isa = PBXBuildFile; fileRef = EADC51F3162581ED00772D41 /* S05_smallDOS2.png */; };
@@ -1021,8 +1013,6 @@
 		686E7A0215B5E3A800A05C7C /* S05_calendarIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_calendarIcon@2x.png"; sourceTree = "<group>"; };
 		686E7A0315B5E3A800A05C7C /* S05_clockIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_clockIcon.png; sourceTree = "<group>"; };
 		686E7A0415B5E3A800A05C7C /* S05_clockIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_clockIcon@2x.png"; sourceTree = "<group>"; };
-		686E7A0515B5E3A800A05C7C /* S05_descriptionLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_descriptionLine.png; sourceTree = "<group>"; };
-		686E7A0615B5E3A800A05C7C /* S05_descriptionLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_descriptionLine@2x.png"; sourceTree = "<group>"; };
 		686E7A0715B5E3A800A05C7C /* S05_detailsLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_detailsLine.png; sourceTree = "<group>"; };
 		686E7A0815B5E3A800A05C7C /* S05_detailsLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_detailsLine@2x.png"; sourceTree = "<group>"; };
 		686E7A0915B5E3A800A05C7C /* S05_dos1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_dos1.png; sourceTree = "<group>"; };
@@ -1362,9 +1352,7 @@
 		EA8D60971599C122000A099C /* S04.1_clearPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S04.1_clearPressed@2x.png"; sourceTree = "<group>"; };
 		EA8D60981599C122000A099C /* S04.1_clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S04.1_clear.png; sourceTree = "<group>"; };
 		EA8D60991599C122000A099C /* S04.1_clear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S04.1_clear@2x.png"; sourceTree = "<group>"; };
-		EA8DF41E15BFCD5A0081E612 /* S05_editIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_editIcon.png; sourceTree = "<group>"; };
 		EA8DF41F15BFCD5A0081E612 /* S05_deleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_deleteButton.png; sourceTree = "<group>"; };
-		EA8DF42015BFCD5A0081E612 /* S05_editIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_editIcon@2x.png"; sourceTree = "<group>"; };
 		EA8DF42115BFCD5A0081E612 /* S05_deleteButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_deleteButton@2x.png"; sourceTree = "<group>"; };
 		EA8F65A91574CF2F00EFAE8A /* EventsMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsMapView.h; sourceTree = "<group>"; };
 		EA8F65AA1574CF2F00EFAE8A /* EventsMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsMapView.m; sourceTree = "<group>"; };
@@ -1629,10 +1617,6 @@
 		EADC51E016253D2300772D41 /* PickADateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickADateView.m; sourceTree = "<group>"; };
 		EADC51EA162579A400772D41 /* PickATimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickATimeView.h; sourceTree = "<group>"; };
 		EADC51EB162579A500772D41 /* PickATimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickATimeView.m; sourceTree = "<group>"; };
-		EADC51ED162581ED00772D41 /* S05_editCal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_editCal.png; sourceTree = "<group>"; };
-		EADC51EE162581ED00772D41 /* S05_editCal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_editCal@2x.png"; sourceTree = "<group>"; };
-		EADC51EF162581ED00772D41 /* S05_editClock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_editClock.png; sourceTree = "<group>"; };
-		EADC51F0162581ED00772D41 /* S05_editClock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_editClock@2x.png"; sourceTree = "<group>"; };
 		EADC51F1162581ED00772D41 /* S05_smallDOS1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_smallDOS1.png; sourceTree = "<group>"; };
 		EADC51F2162581ED00772D41 /* S05_smallDOS1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05_smallDOS1@2x.png"; sourceTree = "<group>"; };
 		EADC51F3162581ED00772D41 /* S05_smallDOS2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05_smallDOS2.png; sourceTree = "<group>"; };
@@ -2219,10 +2203,6 @@
 			children = (
 				6838A96717E5159400508D6D /* S05_warning.png */,
 				6838A96817E5159400508D6D /* S05_warning@2x.png */,
-				EADC51ED162581ED00772D41 /* S05_editCal.png */,
-				EADC51EE162581ED00772D41 /* S05_editCal@2x.png */,
-				EADC51EF162581ED00772D41 /* S05_editClock.png */,
-				EADC51F0162581ED00772D41 /* S05_editClock@2x.png */,
 				EADC51F1162581ED00772D41 /* S05_smallDOS1.png */,
 				EADC51F2162581ED00772D41 /* S05_smallDOS1@2x.png */,
 				EADC51F3162581ED00772D41 /* S05_smallDOS2.png */,
@@ -2237,9 +2217,7 @@
 				EAAEF87F15DA281B0085DBE5 /* S05_chatButton@2x.png */,
 				EAAEF88015DA281B0085DBE5 /* S05_miniMap.png */,
 				EAAEF88115DA281B0085DBE5 /* S05_miniMap@2x.png */,
-				EA8DF41E15BFCD5A0081E612 /* S05_editIcon.png */,
 				EA8DF41F15BFCD5A0081E612 /* S05_deleteButton.png */,
-				EA8DF42015BFCD5A0081E612 /* S05_editIcon@2x.png */,
 				EA8DF42115BFCD5A0081E612 /* S05_deleteButton@2x.png */,
 				EA86028A15BD68B4004C39F7 /* S05_cancelRequestButton.png */,
 				EA86028B15BD68B4004C39F7 /* S05_cancelRequestButton@2x.png */,
@@ -2263,8 +2241,6 @@
 				686E7A0215B5E3A800A05C7C /* S05_calendarIcon@2x.png */,
 				686E7A0315B5E3A800A05C7C /* S05_clockIcon.png */,
 				686E7A0415B5E3A800A05C7C /* S05_clockIcon@2x.png */,
-				686E7A0515B5E3A800A05C7C /* S05_descriptionLine.png */,
-				686E7A0615B5E3A800A05C7C /* S05_descriptionLine@2x.png */,
 				686E7A0715B5E3A800A05C7C /* S05_detailsLine.png */,
 				686E7A0815B5E3A800A05C7C /* S05_detailsLine@2x.png */,
 				686E7A0915B5E3A800A05C7C /* S05_dos1.png */,
@@ -3922,8 +3898,6 @@
 				686E7A9E15B5E3A800A05C7C /* S05_calendarIcon@2x.png in Resources */,
 				686E7A9F15B5E3A800A05C7C /* S05_clockIcon.png in Resources */,
 				686E7AA015B5E3A800A05C7C /* S05_clockIcon@2x.png in Resources */,
-				686E7AA115B5E3A800A05C7C /* S05_descriptionLine.png in Resources */,
-				686E7AA215B5E3A800A05C7C /* S05_descriptionLine@2x.png in Resources */,
 				686E7AA315B5E3A800A05C7C /* S05_detailsLine.png in Resources */,
 				686E7AA415B5E3A800A05C7C /* S05_detailsLine@2x.png in Resources */,
 				686E7AA515B5E3A800A05C7C /* S05_dos1.png in Resources */,
@@ -3980,9 +3954,7 @@
 				EA8602AF15BD68B6004C39F7 /* S05_participantRemove@2x.png in Resources */,
 				EA8602B015BD68B6004C39F7 /* S05_sectionLine.png in Resources */,
 				EA8602B115BD68B6004C39F7 /* S05_sectionLine@2x.png in Resources */,
-				EA8DF42215BFCD5A0081E612 /* S05_editIcon.png in Resources */,
 				EA8DF42315BFCD5A0081E612 /* S05_deleteButton.png in Resources */,
-				EA8DF42415BFCD5A0081E612 /* S05_editIcon@2x.png in Resources */,
 				EA8DF42515BFCD5A0081E612 /* S05_deleteButton@2x.png in Resources */,
 				EA863A1615C1585E0072C005 /* S05.1_compose-button.png in Resources */,
 				EA863A1715C1585E0072C005 /* S05.1_compose-button@2x.png in Resources */,
@@ -4114,10 +4086,6 @@
 				EABEC73D1622F4E200DB179E /* S06_see.png in Resources */,
 				EABEC73E1622F4E200DB179E /* S06_see@2x.png in Resources */,
 				EADC51DE16253C4600772D41 /* MJDetailViewController.xib in Resources */,
-				EADC51F5162581ED00772D41 /* S05_editCal.png in Resources */,
-				EADC51F6162581ED00772D41 /* S05_editCal@2x.png in Resources */,
-				EADC51F7162581ED00772D41 /* S05_editClock.png in Resources */,
-				EADC51F8162581ED00772D41 /* S05_editClock@2x.png in Resources */,
 				EADC51F9162581ED00772D41 /* S05_smallDOS1.png in Resources */,
 				EADC51FA162581ED00772D41 /* S05_smallDOS1@2x.png in Resources */,
 				EADC51FB162581ED00772D41 /* S05_smallDOS2.png in Resources */,

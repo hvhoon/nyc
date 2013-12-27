@@ -73,8 +73,7 @@
     activityorganizerTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     activityorganizerTextLabel.text=[NSString stringWithFormat:@"%@",info.organizerName];
     CGSize  size = [info.organizerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15]];
-    NSLog(@"width=%f",size.width);
-    activityorganizerTextLabel.frame=CGRectMake(104, 24, size.width, 16);
+    activityorganizerTextLabel.frame=CGRectMake(104, 24, size.width, 17);
     
     // Activity organizer DOS
     DOSConnectionImgView.frame=CGRectMake(104+6+size.width, 24, 21, 12);
@@ -119,13 +118,6 @@
     
     const int descriptionBuffer = 42; // buffer in the description box
     
-    // Adding line at the top of the description box
-    UIImageView *topLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_descriptionLine.png"]];
-    topLine.frame = CGRectMake(26, 64, 294, 1);
-    topLine.tag=kTopLineDescriptionView;
-    [self addSubview:topLine];
-    
-    
     // Checking to see if the description is empty first.
     if((info.what==(NSString*)[NSNull null])||([info.what isEqualToString:@""]||info.what==nil)||([info.what isEqualToString:@"(null)"]))
         activityTextLabel.text=@"No description given.";
@@ -147,7 +139,7 @@
         labelSize.height=72;
     }
     
-    CGRect descriptionBox=CGRectMake(26, 65, 294, labelSize.height+descriptionBuffer);
+    CGRect descriptionBox=CGRectMake(26, 66, 294, labelSize.height+descriptionBuffer);
     UIView *description = [[UIView alloc] initWithFrame:descriptionBox];
     
     // Change the description box and activity bar color based on the activity type
@@ -185,18 +177,6 @@
     [activityTextLabel setTag:kActivityDescTextLabel];
     [description addSubview:activityTextLabel];
     
-    
-    
-    
-    
-        
-    // Adding line at the bottom of the description box
-    UIImageView *bottomLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_descriptionLine.png"]];
-    bottomLine.frame = CGRectMake(26, 65+labelSize.height+descriptionBuffer, 294, 1);
-    bottomLine.tag=kBottomLineImageView;
-    [self addSubview:bottomLine];
-
-    
     // Setting up the bottom view which includes all the date, time and location info.
     
     // Fist lets add up what our Y starting point is
@@ -226,7 +206,7 @@
     
     calendarDateLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     calendarDateLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-    calendarDateLabel.frame = CGRectMake(84, 12+4, 200, 15);
+    calendarDateLabel.frame = CGRectMake(84, 12+4, 200, 16);
     calendarDateLabel.tag=kCalendarDateLabelTag;
     
     //calendarDateEditArrow.frame=CGRectMake(291, 12+4, 9, 14);
@@ -243,20 +223,17 @@
     calendarDateLabel.text=prefixDateString;
     [prefixDateFormatter setDateFormat:@"h:mm a"];
     
-    
-
     NSString *prefixTimeString = [prefixDateFormatter stringFromDate:date];
     activityTimeLabel.text=prefixTimeString;
     activityTimeLabel.tag=kActivityTimeLabel;
     
-
 
     clockIcon.image = [UIImage imageNamed:@"S05_clockIcon.png"];
     clockIcon.frame = CGRectMake(50, 57, 20, 20);
     clockIcon.tag=kClockIconImageView;
     activityTimeLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     activityTimeLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-    activityTimeLabel.frame = CGRectMake(84, 57+4, 200, 15);
+    activityTimeLabel.frame = CGRectMake(84, 57+4, 200, 16);
     //timeEditArrow.frame=CGRectMake(291, 57+4, 9, 14);
 
 
@@ -266,8 +243,6 @@
     detailsLineTime.tag=kDetailLineTimeImageView;
     [bottomView addSubview:detailsLineTime];
     [detailsLineTime release];
-    
-    
 
     
     // Location
@@ -275,26 +250,21 @@
     locationIcon.frame = CGRectMake(50, 103, 19, 18);
     locationIcon.tag=kLocationIcomImageview;
     
-    
     locationInfoLabel1.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     locationInfoLabel1.textColor=[SoclivityUtilities returnTextFontColor:5];
     locationInfoLabel1.tag=kLocationInfolabel1;
     
     locationTapRect=CGRectMake(84,fromTheTop+103+1, 175, 15+19);
-    locationInfoLabel1.frame = CGRectMake(84, 103+1, 175, 15);
-    
-
+    locationInfoLabel1.frame = CGRectMake(84, 103+1, 175, 16);
 
     locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
-    locationInfoLabel2.frame = CGRectMake(84, 124, 175, 15);
+    locationInfoLabel2.frame = CGRectMake(84, 124, 175, 16);
     
     locationInfoLabel2.tag=kLocationInfolabel2;
     
     // Deciding whether to show the mini map or not
     [self decideToShowMapView:info.activityRelationType];
-    
-    
 
     // Privacy settings
     // Add an extra privacy row with the privacy settings for the larger iPhone 5 screen
@@ -322,7 +292,7 @@
         detailsLineMap.tag=kDetailLineMap;
         // Framing based on whether the mini Map is showing or not
         detailsLineMap.frame = CGRectMake(26, 148, 272, 1);
-        privacySetting.frame = CGRectMake(84, 166, 190, 15);
+        privacySetting.frame = CGRectMake(84, 166, 190, 16);
         privacyImage.frame = CGRectMake(50, 162, privacyImage.image.size.width, privacyImage.image.size.height);
         
         // Add to the view
@@ -355,8 +325,6 @@
         // Adding privacy settings to the description view
         [description addSubview:activityAccessStatusImgView];
     }
-
-    
     
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
             self.searchBarIOS7=[[UISearchBar alloc]initWithFrame:CGRectMake(320,0, 320, 44)];
