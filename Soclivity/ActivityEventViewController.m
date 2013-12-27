@@ -138,8 +138,6 @@
 
     }
     
-   
-    
 }
 
 - (void)viewDidLoad{
@@ -353,15 +351,7 @@
                 // Friends going section in the participant bar
                 DOS1Button=[UIButton buttonWithType:UIButtonTypeCustom];
                 
-                // Highlight for the DOS1 button
-                DOS1ButtonHighlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_sectionHighlighted"]];
-                DOS1ButtonHighlight.frame = CGRectMake(98, delta, 72, 47);
-                DOS1ButtonHighlight.hidden = YES;
-                [headerView addSubview:DOS1ButtonHighlight];
-                
                 DOS1Button.frame=CGRectMake(95,delta,75,47);
-                [DOS1Button addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-                DOS1Button.tag=105;
                 DOS1Button.backgroundColor = [UIColor clearColor];
                 [headerView addSubview:DOS1Button];
                 
@@ -396,15 +386,7 @@
                 // People you may know section in the participant bar
                 DOS2Button=[UIButton buttonWithType:UIButtonTypeCustom];
                 
-                // Highlight for the DOS2 button
-                DOS2ButtonHighlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_sectionHighlighted"]];
-                DOS2ButtonHighlight.frame = CGRectMake(176, delta, 72, 47);
-                DOS2ButtonHighlight.hidden = YES;
-                [headerView addSubview:DOS2ButtonHighlight];
-                
                 DOS2Button.frame=CGRectMake(174,delta,75,47);
-                [DOS2Button addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-                DOS2Button.tag=106;
                 DOS2Button.backgroundColor = [UIColor clearColor];
                 [headerView addSubview:DOS2Button];
                 
@@ -440,15 +422,7 @@
                 // Other section in the participant bar
                 DOS3Button=[UIButton buttonWithType:UIButtonTypeCustom];
                 
-                // Highlight for the DOS1 button
-                DOS3ButtonHighlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_sectionHighlighted"]];
-                DOS3ButtonHighlight.frame = CGRectMake(248, delta, 72, 47);
-                DOS3ButtonHighlight.hidden = YES;
-                [headerView addSubview:DOS3ButtonHighlight];
-                
                 DOS3Button.frame=CGRectMake(248,delta,72,47);
-                [DOS3Button addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-                DOS3Button.tag=107;
                 DOS3Button.backgroundColor = [UIColor clearColor];
                 [headerView addSubview:DOS3Button];
                 
@@ -1107,8 +1081,6 @@ switch ([notIdObject.notificationType integerValue]) {
     
     //int tag=sender.tag;
     if(page==0){
-        
-        
         if(activityInfo.activityRelationType==6){
             
             if(activityInfo.pendingRequestCount==0 && [activityInfo.goingCount intValue]==1){//0
@@ -1120,22 +1092,19 @@ switch ([notIdObject.notificationType integerValue]) {
             }
         }
         else{
-        if([activityInfo.goingCount intValue]==1)//0
+            if([activityInfo.goingCount intValue]==1)//0
                 return;
             
-        else if([activityInfo.goingCount intValue]==2 && (activityInfo.activityRelationType==5))//0
+            else if([activityInfo.goingCount intValue]==2 && (activityInfo.activityRelationType==5))//0
                 return;
-
-        else{
-            [self scrollViewToTheTopOrBottom];
-        }
-        
+            
+            else{
+                [self scrollViewToTheTopOrBottom];
+            }
+            
         }
         
     }
-        
-    
-    
     
     switch (sender.tag) {
         case 103:
@@ -1147,140 +1116,17 @@ switch ([notIdObject.notificationType integerValue]) {
             break;
         case 104:
         {
-             [self highlightSelection:0];
-             if(lastIndex!=-1){
-                           
-               
+            if(lastIndex!=-1){
+                
+                
                 participantListTableView.noLine=FALSE;
-                 [participantListTableView openAllSectionsExceptOne];
+                [participantListTableView openAllSectionsExceptOne];
                 toggleFriends=TRUE;
                 lastIndex=-1;
             }
             
         }
             break;
-        case 105:
-        {
-            int section_105;
-            if(lastIndex!=0){
-           //this section may be zero or one 
-                if(activityInfo.DOS1!=0)
-                {
-                    [self highlightSelection:1];
-                    
-                    if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount!=0){
-                        //we need to check the pending Requests
-                        section_105=1;
-                        
-                    }
-                    else{
-                        section_105=0;
-                    }
-                    if(toggleFriends){
-                        toggleFriends=FALSE;
-                         [participantListTableView collapseSectionsExceptOne:section_105];
-                         lastIndex=0;
-                    }
-                    
-                    else{
-                        [participantListTableView alternateBetweenSectionsWithCollapseOrExpand:section_105];
-                        lastIndex=0;
-
-                    }
-                }
-            
-            }
-        }
-            break;
-        case 107:
-        {
-            int section_107;
-            if(activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5){
-            if(lastIndex!=2){  
-                
-                if(activityInfo.DOS3!=0)
-                {
-                    [self highlightSelection:3];
-                    if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1!=0 && activityInfo.DOS2!=0){
-                        //we need to check the pending Requests
-                        section_107=3;
-                        
-                    }
-                    else if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1!=0 && activityInfo.DOS2==0){
-                        section_107=2;
-                    }
-                    else if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1==0 && activityInfo.DOS2!=0){
-                        section_107=2;
-                    }
-                    else if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount==0 && activityInfo.DOS1!=0 && activityInfo.DOS2!=0){
-                        section_107=2;
-                    }
-                    else if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount==0 && activityInfo.DOS1!=0 && activityInfo.DOS2==0){
-                        section_107=1;
-                    }
-                    else if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount==0 && activityInfo.DOS1==0 && activityInfo.DOS2!=0){
-                        section_107=1;
-                    }
-                    else if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1==0 && activityInfo.DOS2==0){
-                        section_107=1;
-                    }
-                    else {
-                        section_107=0;
-                    }
-                    if(toggleFriends){
-                        toggleFriends=FALSE;
-                        [participantListTableView collapseSectionsExceptOne:section_107];
-                        lastIndex=2;
-                    }
-                    
-                    else{
-                        [participantListTableView alternateBetweenSectionsWithCollapseOrExpand:section_107];
-                        lastIndex=2;
-                    }
-                }
-            }
-            }
-        }
-            break;
-        case 106:
-        {
-            int section_106;
-            if(lastIndex!=1){  
-            
-                if(activityInfo.DOS2!=0)
-                {
-                    [self highlightSelection:2];
-                    if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1!=0){
-                        //we need to check the pending Requests
-                        section_106=2;
-                        
-                    }
-                    else if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1==0){
-                        section_106=1;
-                    }
-                    else if(activityInfo.DOS1==0){
-                         section_106=0;
-                    }
-                    else if(activityInfo.DOS1!=0){
-                        section_106=1;
-                    }
-                    if(toggleFriends){
-                        toggleFriends=FALSE;
-                        [participantListTableView collapseSectionsExceptOne:section_106];
-                        lastIndex=1;
-                    }
-                    
-                    else{
-                        [participantListTableView alternateBetweenSectionsWithCollapseOrExpand:section_106];
-                        lastIndex=1;
-                    }
-                }
-            
-            }
-        }
-            break;
-
-            
         default:
             break;
     }
@@ -2002,30 +1848,6 @@ switch ([notIdObject.notificationType integerValue]) {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)highlightSelection:(int)selection {
-    
-    // Highlight only the item selected and remove highlights from the other areas
-    
-    // Unhighlight all the other selections
-    DOS1ButtonHighlight.hidden = YES;
-    DOS2ButtonHighlight.hidden = YES;
-    DOS3ButtonHighlight.hidden = YES;
-
-    
-    // Highlight just the 'Going' or 'Requests' section
-    switch (selection) {
-        case 1:
-            DOS1ButtonHighlight.hidden = NO;
-            break;
-        case 2:
-            DOS2ButtonHighlight.hidden = NO;
-            break;
-        case 3:
-            DOS3ButtonHighlight.hidden = NO;
-        default:
-            break;
-    }    
-}
 -(void)slideInTransitionToLocationView{
     
     inTransition=TRUE;
