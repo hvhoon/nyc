@@ -476,10 +476,10 @@
     [activityNameLabel setLineBreakMode:NSLineBreakByTruncatingTail];
     activityNameLabel.adjustsFontSizeToFitWidth=NO;//This is main for shrinking font
     
-    leaveActivityButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:18];
-    organizerEditButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:18];
-    editButtonForMapView.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:18];
-    locationEditLeftCrossButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:18];
+    leaveActivityButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
+    organizerEditButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
+    editButtonForMapView.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
+    locationEditLeftCrossButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     
     if([SoclivityUtilities deviceType] & iPhone5)
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,940);

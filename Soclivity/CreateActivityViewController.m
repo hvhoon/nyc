@@ -150,23 +150,23 @@
     createActivtyStaticLabel.textColor=[UIColor whiteColor];
     createActivtyStaticLabel.backgroundColor=[UIColor clearColor];
     
-    crossButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:18];
+    crossButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     crossButton.titleLabel.textColor=[UIColor whiteColor];
     crossButton.backgroundColor=[UIColor clearColor];
     
-    crossEditButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:18];
+    crossEditButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     crossEditButton.titleLabel.textColor=[UIColor whiteColor];
     crossEditButton.backgroundColor=[UIColor clearColor];
     
-    locationCrossButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:18];
+    locationCrossButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     locationCrossButton.titleLabel.textColor=[UIColor whiteColor];
     locationCrossButton.backgroundColor=[UIColor clearColor];
     
-    deleteActivityButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:18];
+    deleteActivityButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     deleteActivityButton.titleLabel.textColor=[UIColor whiteColor];
     deleteActivityButton.backgroundColor=[UIColor clearColor];
     
-    tickEditButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:18];
+    tickEditButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     tickEditButton.titleLabel.textColor=[UIColor whiteColor];
     tickEditButton.backgroundColor=[SoclivityUtilities returnBackgroundColor:15];
     
