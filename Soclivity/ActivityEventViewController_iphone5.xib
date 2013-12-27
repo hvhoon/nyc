@@ -153,7 +153,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="59">
-                    <rect key="frame" x="121" y="509" width="79" height="39"/>
+                    <rect key="frame" x="120" y="508" width="78" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" backgroundImage="S05_joinButton.png">
@@ -220,7 +220,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="54">
-                    <rect key="frame" x="89" y="509" width="143" height="39"/>
+                    <rect key="frame" x="89" y="508" width="142" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" backgroundImage="S05_cancelRequestButton.png">
@@ -250,7 +250,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="52">
-                    <rect key="frame" x="73" y="508" width="90" height="40"/>
+                    <rect key="frame" x="71" y="508" width="89" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" backgroundImage="S05_goingButton.png">
@@ -265,7 +265,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="51">
-                    <rect key="frame" x="161" y="508" width="90" height="40"/>
+                    <rect key="frame" x="160" y="508" width="89" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" backgroundImage="S05_notGoingButton.png">
@@ -649,16 +649,16 @@
         <image name="S05.3_addImage.png" width="40" height="40"/>
         <image name="S05.3_addPost.png" width="104" height="39"/>
         <image name="S05_calendarIcon.png" width="19" height="20"/>
-        <image name="S05_cancelRequestButton.png" width="143" height="39"/>
+        <image name="S05_cancelRequestButton.png" width="142" height="40"/>
         <image name="S05_chatButton.png" width="40" height="40"/>
         <image name="S05_clockIcon.png" width="20" height="20"/>
         <image name="S05_edit.png" width="40" height="40"/>
-        <image name="S05_goingButton.png" width="90" height="40"/>
+        <image name="S05_goingButton.png" width="89" height="40"/>
         <image name="S05_inviteButton.png" width="40" height="40"/>
-        <image name="S05_joinButton.png" width="79" height="39"/>
+        <image name="S05_joinButton.png" width="78" height="40"/>
         <image name="S05_locationIcon.png" width="19" height="18"/>
         <image name="S05_miniMap.png" width="35" height="36"/>
-        <image name="S05_notGoingButton.png" width="90" height="40"/>
+        <image name="S05_notGoingButton.png" width="89" height="40"/>
         <image name="S05_warning.png" width="40" height="40"/>
         <image name="S5_DOS-1.png" width="16" height="16"/>
         <image name="acceptButton.png" width="65" height="39"/>
