@@ -152,12 +152,12 @@
         topBarImageView.image=[UIImage imageNamed:@"topbarIOS7.png"];
         activityNameLabel.frame=CGRectMake(56, 27, 209, 29);
         resignTextDoneButton.frame=CGRectMake(275, 20, 40, 40);
-        leaveActivityButton.frame=CGRectMake(275, 20, 40, 40);
-        organizerEditButton.frame=CGRectMake(275, 20, 40, 40);
-        editButtonForMapView.frame=CGRectMake(275, 20, 40, 40);
+        leaveActivityButton.frame=CGRectMake(262, 20, 50, 44);
+        organizerEditButton.frame=CGRectMake(262, 20, 50, 44);
+        editButtonForMapView.frame=CGRectMake(262, 20, 50, 44);
         backButton.frame=CGRectMake(5, 20, 40, 40);
         backToActivityFromMapButton.frame=CGRectMake(5, 20, 40, 40);
-        locationEditLeftCrossButton.frame=CGRectMake(5, 20, 40, 40);
+        locationEditLeftCrossButton.frame=CGRectMake(8, 20, 50, 44);
         if([SoclivityUtilities deviceType] & iPhone5){
             
             locationEditRightCheckButton.frame=CGRectMake(128, 421+88+20, 65, 39);
@@ -216,7 +216,6 @@
     [spinnerView stopAnimating];
     [spinnerView setHidden:YES];
     
-    
     commentChatLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     commentChatLabel.textColor=[UIColor whiteColor];
     commentChatLabel.backgroundColor=[UIColor clearColor];
@@ -229,8 +228,6 @@
     
     chatView.delegate=self;
     [self startUpdatingChat];
-
-    
     
 #if 0
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,464)];
@@ -470,15 +467,19 @@
     activityNameLabel.backgroundColor=[UIColor clearColor];
     activityNameLabel.tag=kActivityLabel;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-    activityNameLabel.frame=CGRectMake(40, 20, 240, 44);
+    activityNameLabel.frame=CGRectMake(50, 20, 220, 44);
     }else{
-    activityNameLabel.frame=CGRectMake(40, 0, 240, 44);
+    activityNameLabel.frame=CGRectMake(50, 0, 220, 44);
     }
     
     [activityNameLabel setContentMode:UIViewContentModeScaleAspectFill];
     [activityNameLabel setLineBreakMode:NSLineBreakByTruncatingTail];
     activityNameLabel.adjustsFontSizeToFitWidth=NO;//This is main for shrinking font
-
+    
+    leaveActivityButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:18];
+    organizerEditButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:18];
+    editButtonForMapView.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:18];
+    locationEditLeftCrossButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:18];
     
     if([SoclivityUtilities deviceType] & iPhone5)
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,940);
