@@ -467,9 +467,9 @@
     activityNameLabel.backgroundColor=[UIColor clearColor];
     activityNameLabel.tag=kActivityLabel;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-    activityNameLabel.frame=CGRectMake(50, 20, 220, 44);
+    activityNameLabel.frame=CGRectMake(55, 20, 210, 44);
     }else{
-    activityNameLabel.frame=CGRectMake(50, 0, 220, 44);
+    activityNameLabel.frame=CGRectMake(55, 0, 210, 44);
     }
     
     [activityNameLabel setContentMode:UIViewContentModeScaleAspectFill];
@@ -510,6 +510,7 @@
         commentChatLabel.hidden=NO;
         postChatImageButton.hidden=NO;
         imagePostChatlabel.hidden=NO;
+        backButton.hidden = YES;
         if(activityInfo.activityRelationType==6){
             organizerEditButton.hidden=YES;
             inviteUsersToActivityButton.hidden=YES;
@@ -1610,6 +1611,7 @@ switch ([notIdObject.notificationType integerValue]) {
        postChatImageButton.hidden=NO;
        imagePostChatlabel.hidden=NO;
        reportButton.hidden=YES;
+       backButton.hidden=YES;
 
        if(activityInfo.activityRelationType==6){
            organizerEditButton.hidden=YES;
@@ -1656,6 +1658,7 @@ switch ([notIdObject.notificationType integerValue]) {
         commentChatLabel.hidden=YES;
         postChatImageButton.hidden=YES;
         imagePostChatlabel.hidden=YES;
+        backButton.hidden=NO;
         
         newActivityButton.hidden=NO;
         resignTextDoneButton.hidden=YES;
@@ -1920,7 +1923,7 @@ switch ([notIdObject.notificationType integerValue]) {
         commentChatLabel.hidden=YES;
         postChatImageButton.hidden=YES;
         imagePostChatlabel.hidden=YES;
-
+        backButton.hidden=NO;
         scrollView.hidden=NO;
     }
     scrollView.scrollEnabled=YES;
