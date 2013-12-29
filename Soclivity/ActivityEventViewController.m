@@ -151,7 +151,7 @@
         topBarImageView.frame=CGRectMake(0, 0, 320, 64);
         topBarImageView.image=[UIImage imageNamed:@"topbarIOS7.png"];
         activityNameLabel.frame=CGRectMake(56, 27, 209, 29);
-        resignTextDoneButton.frame=CGRectMake(275, 20, 40, 40);
+        resignTextDoneButton.frame=CGRectMake(262, 20, 50, 44);
         leaveActivityButton.frame=CGRectMake(262, 20, 50, 44);
         organizerEditButton.frame=CGRectMake(262, 20, 50, 44);
         editButtonForMapView.frame=CGRectMake(262, 20, 50, 44);
@@ -480,6 +480,7 @@
     organizerEditButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     editButtonForMapView.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     locationEditLeftCrossButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
+    resignTextDoneButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     
     if([SoclivityUtilities deviceType] & iPhone5)
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,940);
@@ -1619,8 +1620,7 @@ switch ([notIdObject.notificationType integerValue]) {
        }
        
        
-           newActivityButton.hidden=YES;
-       //resignTextDoneButton.hidden=NO;
+        newActivityButton.hidden=YES;
        
         [UIView commitAnimations];
         [editButtonForMapView setHidden:YES];
