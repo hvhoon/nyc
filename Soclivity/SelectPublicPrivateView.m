@@ -35,6 +35,16 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+    if(editActivity){
+        privacyTextLabel.text=@"Change visibility";
+    }
+    else
+    privacyTextLabel.text=@"Pick visibility";
+    
+    privacyTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17];
+    privacyTextLabel.textColor=[UIColor whiteColor];
+    privacyTextLabel.backgroundColor=[UIColor clearColor];
+    
     switch (rowSelected) {
         case 0:
         {
@@ -151,10 +161,4 @@
 
 #endif
 
-- (void)dealloc {
-    [selectButton release];
-    [cancelButton release];
-    [cancelButton release];
-    [super dealloc];
-}
 @end

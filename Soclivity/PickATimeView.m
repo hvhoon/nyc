@@ -25,8 +25,19 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+    if(editActivity){
+        pickATimeLabel.text=@"Change time";
+    }
+    else
+        pickATimeLabel.text=@"Pick a time";
+    
     [timePicker setDate:activityDate animated:YES];
+    
     [timePicker setMinimumDate:[NSDate date]];
+    
+    pickATimeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17];
+    pickATimeLabel.textColor=[UIColor whiteColor];
+    pickATimeLabel.backgroundColor=[UIColor clearColor];    
 
 }
 

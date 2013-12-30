@@ -60,29 +60,30 @@
         topBarImageView.frame=CGRectMake(0, 0, 320, 64);
         topBarImageView.image=[UIImage imageNamed:@"topbarIOS7.png"];
         createActivtyStaticLabel.frame=CGRectMake(87, 31, 146, 21);
-        deleteActivityButton.frame=CGRectMake(262, 20, 50, 44);
         backButton.frame=CGRectMake(5, 20, 40, 40);
-        crossButton.frame=CGRectMake(8, 20, 64, 44);
-        crossEditButton.frame=CGRectMake(8, 20, 64, 44);
+        crossButton.frame=CGRectMake(262, 20, 50, 44);
+        crossEditButton.frame=CGRectMake(262, 20, 50, 44);
         locationCrossButton.frame=CGRectMake(262, 20, 50, 44);
         if([SoclivityUtilities deviceType] & iPhone5){
             
             tickEditButton.frame=CGRectMake(128, 420+88+20, 65, 40);
             createActivityView.frame=CGRectMake(0, 64, 640, 464);
             bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
-            pickALocationButton.frame=CGRectMake(88,441+88, 149, 39);
+            pickALocationButton.frame=CGRectMake(88,440+88, 142, 40);
             centerLocationButton.frame=CGRectMake(5,440+88, 40, 40);
             createActivityButton.frame=CGRectMake(115,440+88, 90, 40);
             locationTextLabel.frame=CGRectMake(39,450+88, 252, 21);
+            deleteActivityButton.frame=CGRectMake(8, 440+88, 50, 40);
         }
         else{
             tickEditButton.frame=CGRectMake(128, 420+20, 65, 40);
             createActivityView.frame=CGRectMake(0, 64, 640, 376);
             bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
-            pickALocationButton.frame=CGRectMake(88,441, 149, 39);
+            pickALocationButton.frame=CGRectMake(88,440, 142, 40);
             centerLocationButton.frame=CGRectMake(5,440, 40, 40);
             createActivityButton.frame=CGRectMake(115,440, 90, 40);
             locationTextLabel.frame=CGRectMake(39,450, 252, 21);
+            deleteActivityButton.frame=CGRectMake(8, 440, 50, 40);
         }
         
     }

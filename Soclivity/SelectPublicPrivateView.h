@@ -19,9 +19,10 @@
 @interface SelectPublicPrivateView : UIView<UIPickerViewDelegate,UIPickerViewDataSource>{
     id <PrivacyViewDelegate>delegate;
     IBOutlet UIPickerView *privacyPicker;
+    IBOutlet UILabel *privacyTextLabel;
     BOOL editActivity;
     int rowSelected;
-    
+
 }
 @property (nonatomic,retain)id <PrivacyViewDelegate>delegate;
 @property (nonatomic,assign)BOOL editActivity;

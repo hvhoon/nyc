@@ -18,6 +18,7 @@
 
 @interface PickATimeView : UIView{
     IBOutlet UIDatePicker *timePicker;
+    IBOutlet UILabel *pickATimeLabel;
     id<PickTimeViewDelegate>delegate;
     BOOL editActivity;
     NSDate *activityDate;
