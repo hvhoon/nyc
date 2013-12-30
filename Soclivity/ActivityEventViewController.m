@@ -160,7 +160,7 @@
         locationEditLeftCrossButton.frame=CGRectMake(8, 20, 50, 44);
         if([SoclivityUtilities deviceType] & iPhone5){
             
-            locationEditRightCheckButton.frame=CGRectMake(128, 421+88+20, 65, 39);
+            locationEditRightCheckButton.frame=CGRectMake(127, 420+88+20, 65, 40);
             staticView.frame=CGRectMake(0, 64, 320, 436);
             bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
             addEventButton.frame=CGRectMake(121,441+88, 79, 39);
@@ -176,7 +176,7 @@
             reportButton.frame=CGRectMake(5,440+88, 40, 40);
         }
         else{
-             locationEditRightCheckButton.frame=CGRectMake(128, 421+20, 65, 39);
+             locationEditRightCheckButton.frame=CGRectMake(127, 420+20, 65, 40);
             staticView.frame=CGRectMake(0, 64, 320, 396);
             bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
             addEventButton.frame=CGRectMake(121,441, 79, 39);
@@ -481,6 +481,7 @@
     editButtonForMapView.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     locationEditLeftCrossButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     resignTextDoneButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
+    locationEditRightCheckButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     
     if([SoclivityUtilities deviceType] & iPhone5)
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,940);
