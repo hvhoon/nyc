@@ -567,15 +567,13 @@
     
     [self gotoLocation];
     
+    /* Disabling for now as it's causing the app to crash.
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(didLongPress:)];
     lpgr.minimumPressDuration = 1.0; //user needs to press for 2 seconds
     [self.mapView addGestureRecognizer:lpgr];
     [lpgr release];
-
-
-
-    
+     */
     
     if([SoclivityUtilities deviceType] & iPhone5)
         rect=CGRectMake(320, 316+88, 320, 60);

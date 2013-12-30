@@ -157,7 +157,7 @@
         editButtonForMapView.frame=CGRectMake(262, 20, 50, 44);
         backButton.frame=CGRectMake(5, 20, 40, 40);
         backToActivityFromMapButton.frame=CGRectMake(5, 20, 40, 40);
-        locationEditLeftCrossButton.frame=CGRectMake(8, 20, 50, 44);
+        locationEditLeftCrossButton.frame=CGRectMake(262, 20, 50, 44);
         if([SoclivityUtilities deviceType] & iPhone5){
             
             locationEditRightCheckButton.frame=CGRectMake(127, 420+88+20, 65, 40);

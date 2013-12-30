@@ -1179,12 +1179,14 @@ else {
     
     [self CurrentMapZoomUpdate:currentPlacemark];
     
-    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] 
+    /* Disabling long press as it's causing a crash.
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(didLongPress:)];
     lpgr.minimumPressDuration = 1.0; //user needs to press for 2 seconds
     [self.mapView addGestureRecognizer:lpgr];
     [lpgr release];
-
+    */
+    
     [delegate slideInTransitionToLocationView];
 #if 0
     
@@ -3059,65 +3061,24 @@ if(selectionType==1){
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
 	
-    [searchBar setShowsCancelButton:YES animated:YES];
+    [searchBar setShowsCancelButton:NO animated:YES];
+
 }
 
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
     NSLog(@"searchBarTextDidEndEditing=%@",searchBar.text);
 }
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    
-    
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-        if([self.searchBarIOS7.text isEqualToString:@""]){
-            
-            [searchBar setShowsCancelButton:NO animated:YES];
-            
-        }
-        else{
-            [searchBar setShowsCancelButton:NO animated:NO];
-            
-        }
-    }else{
-    if([self.addressSearchBar.text isEqualToString:@""]){
-        
-        [searchBar setShowsCancelButton:NO animated:YES];
-        self.addressSearchBar.showClearButton=NO;
-        
-    }
-    else{
-        [searchBar setShowsCancelButton:NO animated:NO];
-        self.addressSearchBar.showClearButton=YES;
-        
-    }
-    }
-    [searchBar setShowsCancelButton:YES animated:NO];
-    
-}
-- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar{
-    
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-        self.searchBarIOS7.text=@"";
-        searching=FALSE;
-        [self setUpLabelViewElements:YES];
-        [delegate enableDisableTickOnTheTopRight:NO];
 
-    }
-    else{
-    self.addressSearchBar.text=@"";
-    }
     [searchBar setShowsCancelButton:NO animated:YES];
-    
-    [searchBar resignFirstResponder];
+
 }
 // called when keyboard search button pressed
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     
     
     [searchBar resignFirstResponder];
-    [searchBar setShowsCancelButton:YES animated:YES];
-    
-    
+    [searchBar setShowsCancelButton:NO animated:YES];
     
 #if FOURSQUARE
     
