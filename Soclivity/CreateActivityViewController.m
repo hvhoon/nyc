@@ -64,7 +64,7 @@
         backButton.frame=CGRectMake(5, 20, 40, 40);
         crossButton.frame=CGRectMake(8, 20, 64, 44);
         crossEditButton.frame=CGRectMake(8, 20, 64, 44);
-        locationCrossButton.frame=CGRectMake(8, 20, 64, 44);
+        locationCrossButton.frame=CGRectMake(262, 20, 50, 44);
         if([SoclivityUtilities deviceType] & iPhone5){
             
             tickEditButton.frame=CGRectMake(128, 420+88+20, 65, 40);
@@ -157,7 +157,7 @@
     crossEditButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     crossEditButton.titleLabel.textColor=[UIColor whiteColor];
     crossEditButton.backgroundColor=[UIColor clearColor];
-    
+  
     locationCrossButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     locationCrossButton.titleLabel.textColor=[UIColor whiteColor];
     locationCrossButton.backgroundColor=[UIColor clearColor];
@@ -169,6 +169,9 @@
     tickEditButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     tickEditButton.titleLabel.textColor=[UIColor whiteColor];
     tickEditButton.backgroundColor=[SoclivityUtilities returnBackgroundColor:15];
+    
+    createActivityButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
+    createActivityButton.backgroundColor=[UIColor colorWithRed:78.0/255.0 green:132.0/255.0 blue:78.0/255 alpha:1.0];
     
     locationTextLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
     locationTextLabel.textColor=[UIColor whiteColor];
@@ -2549,64 +2552,23 @@
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
 	
-    [searchBar setShowsCancelButton:YES animated:YES];
+    [searchBar setShowsCancelButton:NO animated:YES];
+    locationCrossButton.hidden=NO;
+    backButton.hidden=YES;
 }
 
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
     NSLog(@"searchBarTextDidEndEditing=%@",searchBar.text);
 }
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    
-    
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-        if([self.ios7SearchBar.text isEqualToString:@""]){
-            
-            [searchBar setShowsCancelButton:NO animated:YES];
-            
-        }
-        else{
-            [searchBar setShowsCancelButton:NO animated:NO];
-            
-        }
-        [searchBar setShowsCancelButton:YES animated:NO];
-    }
-    else{
-    if([self.addressSearchBar.text isEqualToString:@""]){
-        
-        [searchBar setShowsCancelButton:NO animated:YES];
-        self.addressSearchBar.showClearButton=NO;
-        
-    }
-    else{
-        [searchBar setShowsCancelButton:NO animated:NO];
-        self.addressSearchBar.showClearButton=YES;
-        
-    }
-    [searchBar setShowsCancelButton:YES animated:NO];
-    }
-    
-    
-}
-- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar{
-    
-if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-    self.ios7SearchBar.text=@"";
-    searching=FALSE;
-    [self showFourSquareComponents:NO];
-    [self setUpLabelViewElements:YES];
-    createActivityButton.hidden=YES;
-}else{
-    self.addressSearchBar.text=@"";
-}
     [searchBar setShowsCancelButton:NO animated:YES];
     
-    [searchBar resignFirstResponder];
 }
 // called when keyboard search button pressed
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     
     [searchBar resignFirstResponder];
-    [searchBar setShowsCancelButton:YES animated:YES];
+    [searchBar setShowsCancelButton:NO animated:YES];
     
 #if FOURSQUARE
     NSString *query=nil;
@@ -2678,7 +2640,6 @@ if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
 
 -(void)customCancelButtonHit{
     
-    
     searching=FALSE;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
     self.ios7SearchBar.text=@"";
@@ -2705,8 +2666,8 @@ if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
     locationTextLabel.hidden=NO;
     createActivityButton.hidden=YES;
     locationCrossButton.hidden=YES;
-    
     backButton.hidden=NO;
+    
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
     [self.ios7SearchBar resignFirstResponder];
         self.ios7SearchBar.text=@"";
@@ -2715,7 +2676,6 @@ if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
      else{
     [self.addressSearchBar resignFirstResponder];
          self.addressSearchBar.text=@"";
-
      }
     
     self.mapView.showsUserLocation=YES;
@@ -2770,12 +2730,12 @@ if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
             annotationView.opaque = NO;
             
             if(location.pinDrop){
-                CGRect pinDropLabelRect=CGRectMake(10,0,80,16);
+                CGRect pinDropLabelRect=CGRectMake(10,0,80,17);
                 UILabel *pinDropLabel=[[UILabel alloc] initWithFrame:pinDropLabelRect];
                 pinDropLabel.textAlignment=NSTextAlignmentCenter;
                 pinDropLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
                 if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-                    pinDropLabel.textColor=[UIColor blackColor];
+                    pinDropLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
                 }else
                 pinDropLabel.textColor=[UIColor whiteColor];
                 pinDropLabel.backgroundColor=[UIColor clearColor];
@@ -2792,7 +2752,7 @@ if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
                     rightView.backgroundColor=[UIColor clearColor];
                     disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
                     disclosureButton.frame = CGRectMake(0.0, 0.0, 29.0, 30.0);
-                    [disclosureButton setImage:[UIImage imageNamed:@"S02.1_rightarrow.png"] forState:UIControlStateNormal];
+                    [disclosureButton setImage:[UIImage imageNamed:@"S04_moreinfoarrow.png"] forState:UIControlStateNormal];
                     disclosureButton.tag=location.annotTag;
                     [disclosureButton addTarget:self action:@selector(moreInfoUrlToSafariBrowser:) forControlEvents:UIControlEventTouchUpInside];
                     [rightView addSubview:disclosureButton];
@@ -2958,7 +2918,7 @@ if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
         case 1:
         case 2:
         {
-            CGRect categoryLabelRect=CGRectMake(5,18,size.width,12);
+            CGRect categoryLabelRect=CGRectMake(5,16,size.width,14);
             categoryTextLabel=[[UILabel alloc] initWithFrame:categoryLabelRect];
             categoryTextLabel.textAlignment=NSTextAlignmentLeft;
             categoryTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
@@ -2967,7 +2927,7 @@ if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
             categoryTextLabel.text=locObject.annotation.category;
             categoryTextLabel.tag=345;
             if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-                categoryTextLabel.textColor=[UIColor blackColor];
+                categoryTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
             }
             [mapLeftView addSubview:categoryTextLabel];
             
@@ -2990,7 +2950,7 @@ if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
 	nameLabel.backgroundColor=[UIColor clearColor];
 	nameLabel.text=locObject.annotation.formattedAddress;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-        nameLabel.textColor=[UIColor blackColor];
+        nameLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     }
 
 	[mapLeftView addSubview:nameLabel];
@@ -3142,12 +3102,8 @@ if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
                 
         }
 
-        locationCrossButton.hidden=NO;
         locationTextLabel.hidden=YES;
-       
-        backButton.hidden=YES;
         activityInfoButton.hidden=NO;
-        
         
     }
     else if(pinDrop){
@@ -3212,9 +3168,7 @@ if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
         secondLineAddressLabel.text=@"Select a pin above to see it's full address";
         
         createActivityButton.hidden=YES;
-        backButton.hidden=NO;
         locationTextLabel.hidden=NO;
-        locationCrossButton.hidden=YES;
         activityInfoButton.hidden=YES;
         
         

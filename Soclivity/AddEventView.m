@@ -1196,6 +1196,7 @@ else {
      
 }
 -(void)CurrentMapZoomUpdate:(PlacemarkClass*)mapAnnot{
+    
     CLLocation* avgLoc = [self avgLocation];
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(avgLoc.coordinate.latitude, avgLoc.coordinate.longitude), [self maxDistanceBetweenPoints:avgLoc], [self maxDistanceBetweenPoints:avgLoc]);
     adjustedRegion = [mapView regionThatFits:viewRegion];                
@@ -1212,7 +1213,6 @@ else {
     theCoordinate.longitude = [activityObject.where_lng doubleValue];
     
     ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithAnnotation:mapAnnot  tag:0 pin:NO]autorelease];
-
     
     [self.mapAnnotations insertObject:sfAnnotation atIndex:0];
     
@@ -1292,13 +1292,13 @@ else {
             annotationView.opaque = NO;
             
             if(location.pinDrop){
-                CGRect pinDropLabelRect=CGRectMake(10,0,80,16);
+                CGRect pinDropLabelRect=CGRectMake(10,0,80,17);
                 UILabel *pinDropLabel=[[UILabel alloc] initWithFrame:pinDropLabelRect];
                 pinDropLabel.textAlignment=NSTextAlignmentCenter;
                 pinDropLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
                 pinDropLabel.textColor=[UIColor whiteColor];
                 if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-                    pinDropLabel.textColor=[UIColor blackColor];
+                    pinDropLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
                 }
                 pinDropLabel.backgroundColor=[UIColor clearColor];
                 pinDropLabel.text=@"Dropped Pin";
@@ -1314,7 +1314,7 @@ else {
                 rightView.backgroundColor=[UIColor clearColor];
                 disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
                 disclosureButton.frame = CGRectMake(0.0, 0.0, 29.0, 30.0);
-                [disclosureButton setImage:[UIImage imageNamed:@"S02.1_rightarrow.png"] forState:UIControlStateNormal];
+                [disclosureButton setImage:[UIImage imageNamed:@"S04_moreinfoarrow.png"] forState:UIControlStateNormal];
                 disclosureButton.tag=location.annotTag;
                 [disclosureButton addTarget:self action:@selector(moreInfoUrlToSafariBrowser:) forControlEvents:UIControlEventTouchUpInside];
                 [rightView addSubview:disclosureButton];
@@ -1482,13 +1482,13 @@ else {
         case 1:
         case 2:
         {
-            CGRect categoryLabelRect=CGRectMake(5,18,size.width,12);
+            CGRect categoryLabelRect=CGRectMake(5,16,size.width,14);
             categoryTextLabel=[[UILabel alloc] initWithFrame:categoryLabelRect];
             categoryTextLabel.textAlignment=NSTextAlignmentLeft;
             categoryTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
             categoryTextLabel.textColor=[UIColor whiteColor];
             if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-                 categoryTextLabel.textColor=[UIColor blackColor];
+                 categoryTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
             }
             categoryTextLabel.backgroundColor=[UIColor clearColor];
             categoryTextLabel.text=locObject.annotation.category;
@@ -1506,13 +1506,13 @@ else {
         size.width=300;
     }
 	
-    CGRect nameLabelRect=CGRectMake(5,0,size.width,15);
+    CGRect nameLabelRect=CGRectMake(5,0,size.width,16);
 	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
 	nameLabel.textAlignment=NSTextAlignmentLeft;
 	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
 	nameLabel.textColor=[UIColor whiteColor];
     if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-        nameLabel.textColor=[UIColor blackColor];
+        nameLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     }
 	nameLabel.backgroundColor=[UIColor clearColor];
 	nameLabel.text=locObject.annotation.formattedAddress;
@@ -3435,6 +3435,7 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
         [UIView commitAnimations];
 		footerActivated = NO;
 	}
+    
     self.mapView.showsUserLocation=YES;
     searching=FALSE;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
