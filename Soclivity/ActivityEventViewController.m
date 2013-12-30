@@ -1852,32 +1852,30 @@ switch ([notIdObject.notificationType integerValue]) {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+// Start of the transition from the Activity Event Details page to the Activity Event map view.
 -(void)slideInTransitionToLocationView{
     
     inTransition=TRUE;
     
+    // Turning the buttons on and off.
     
-    
+    // Check if the user is the organizer
     if(activityInfo.activityRelationType==6)
-      editButtonForMapView.hidden=NO;//check for organizer
+      editButtonForMapView.hidden=NO; //Show the EDIT button
     
-    
+    // Check if the user is a participant
     if(activityInfo.activityRelationType==5)
-        leaveActivityButton.hidden=YES;
+        leaveActivityButton.hidden=YES; //Show the LEAVE button
     
-    currentLocationInMap.hidden=NO;
+    // Show these buttons regardless of whether the user is an organizer or a participant
+    currentLocationInMap.hidden=NO; //Show the current location button
+    scrollView.scrollEnabled=NO; //Cannot scroll
+    backToActivityFromMapButton.hidden=NO; //Show the
     
-    scrollView.scrollEnabled=NO;
-    backButton.hidden=YES;
-    [participantListTableView setHidden:YES];
-    backToActivityFromMapButton.hidden=NO;
-    
-    if(activityInfo.activityRelationType==4)
-            chatButton.hidden=YES;
-    
-    else
-        chatButton.hidden=NO;
-    
+    // Hide these buttons
+    backButton.hidden=YES; //Back button to the main map/list view is disabled.
+    [participantListTableView setHidden:YES]; //Can't scroll down to see the participants
+    chatButton.hidden = YES;
     newActivityButton.hidden=YES;
     organizerEditButton.hidden=YES;
     reportButton.hidden=YES;
@@ -1908,6 +1906,7 @@ switch ([notIdObject.notificationType integerValue]) {
     inviteUsersToActivityButton.hidden=YES;
     inTransition=FALSE;
     
+    // If the user is a participant show these buttons
     if(activityInfo.activityRelationType==5)
     {
         leaveActivityButton.hidden=NO;
@@ -1933,6 +1932,7 @@ switch ([notIdObject.notificationType integerValue]) {
     activityButton.hidden=YES;
     reportButton.hidden=NO;
     
+    // If the user is the organizer show these buttons
     if(activityInfo.activityRelationType==6){
         editButtonForMapView.hidden=YES;//check for organizer
         organizerEditButton.hidden=NO;
@@ -1963,7 +1963,7 @@ switch ([notIdObject.notificationType integerValue]) {
     locationEditLeftCrossButton.hidden=YES;
     locationEditRightCheckButton.hidden=YES;
     backToActivityFromMapButton.hidden=NO;
-    chatButton.hidden=NO;
+
      if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
     [eventView.searchBarIOS7 resignFirstResponder];
     [eventView.searchBarIOS7 setHidden:YES];
@@ -1990,10 +1990,6 @@ switch ([notIdObject.notificationType integerValue]) {
 
         [eventView.secondLineAddressLabel setHidden:YES];
     }
-
-    eventView.activityInfoButton.hidden=NO;
-
-    
 }
 -(IBAction)tickClickedInLocationEdit:(id)sender{
     
@@ -2140,13 +2136,9 @@ switch ([notIdObject.notificationType integerValue]) {
                 
             }
             [eventView hideSearchBarAndAnimateWithListViewInMiddle];
-
-            eventView.activityInfoButton.hidden=NO;
             eventView.editMode=FALSE;
             
-            
             [SOC deltaUpdateSyncCalendar:activityInfo];
-
 
         }
             break;
@@ -2174,27 +2166,25 @@ switch ([notIdObject.notificationType integerValue]) {
 }
 
 -(IBAction)editViewToChangeActivityLocation:(id)sender{
-    locationEditLeftCrossButton.hidden=NO;
-   
-    backToActivityFromMapButton.hidden=YES;
-    chatButton.hidden=YES;
-    editButtonForMapView.hidden=YES;
     
+    locationEditLeftCrossButton.hidden=NO;
+    backToActivityFromMapButton.hidden=YES;
+    editButtonForMapView.hidden=YES;
     eventView.editMode=TRUE;
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-    eventView.searchBarIOS7.text=@"";
-    [eventView.searchBarIOS7 setHidden:NO];
-    }else{
+    
+        eventView.searchBarIOS7.text=@"";
+        [eventView.searchBarIOS7 setHidden:NO];
+    }
+    
+    else{
         eventView.addressSearchBar.text=@"";
         [eventView.addressSearchBar setHidden:NO];
-        
     }
     
     [eventView setUpLabelViewElements:YES];
-
     [eventView showSearchBarAndAnimateWithListViewInMiddle];
-    eventView.activityInfoButton.hidden=YES;
     
     
 }

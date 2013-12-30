@@ -1086,43 +1086,23 @@ else {
         firstALineddressLabel.frame=CGRectMake(16, 7, 228+30, 21);
         
     }
-    //40.75 ,-74
 }
 -(void)ActivityEventOnMap{
     
-
-   // self.labelView=[[UIView alloc]initWithFrame:CGRectMake(320, 404, 320, 60)];
-   // [self addSubview:self.labelView];
     if([SoclivityUtilities deviceType] & iPhone5){
-    self.labelView.frame=CGRectMake(320, 404, 320, 60);
+        self.labelView.frame=CGRectMake(320, 404, 320, 60);
     }
     else{
-    self.labelView.frame=CGRectMake(320, 316, 320, 60);
+        self.labelView.frame=CGRectMake(320, 316, 320, 60);
     }
-    activityInfoButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    
-    if([SoclivityUtilities deviceType] & iPhone5){
-    activityInfoButton.frame = CGRectMake(320+285,404+15,28,27);
-      }else
-        activityInfoButton.frame = CGRectMake(320+285,316+15,28,27);
-    [activityInfoButton setImage:[UIImage imageNamed:@"S05.1_drivingDirectionsIcon.png"] forState:UIControlStateNormal];
-    [activityInfoButton setImage:[UIImage imageNamed:@"S05.1_drivingDirectionsIcon.png"] forState:UIControlStateHighlighted];
-
     
     [activityInfoButton addTarget:self action:@selector(activityInfoButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:activityInfoButton];
-    
-    
     
     phoneButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     phoneButton.frame = CGRectMake(16,33,164,21);
     [phoneButton addTarget:self action:@selector(phoneButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.labelView addSubview:phoneButton];
-    
-    
     phoneButton.enabled=NO;
-
-
     
     currentPlacemark.latitude=[activityObject.where_lat floatValue];
     currentPlacemark.longitude=[activityObject.where_lng floatValue];
@@ -1764,7 +1744,6 @@ else {
          [self showFourSquareComponents:NO];
         secondLineAddressLabel.text=@"Select a pin above to see it's full address";
         [delegate enableDisableTickOnTheTopRight:NO];
-         activityInfoButton.hidden=YES;
         
 #if LISTVIEWREMOVE
         NSIndexPath *indexPath=[NSIndexPath indexPathForRow:pointTag inSection:0];
@@ -1784,7 +1763,6 @@ else {
         pinDrop=FALSE;
         [self setUpLabelViewElements:YES];
         [delegate enableDisableTickOnTheTopRight:NO];
-        activityInfoButton.hidden=YES;
     }
     
 }
@@ -2245,8 +2223,6 @@ else {
         
         secondLineAddressLabel.text=@"Select a pin above to see it's full address";
         
-         activityInfoButton.hidden=YES;
-        
     }
     
 #if LISTVIEWREMOVE
@@ -2683,9 +2659,6 @@ else {
             [secondLineAddressLabel setHidden:NO];
             [self showFourSquareComponents:NO];
             secondLineAddressLabel.text=@"Select a pin above to see it's full address";
-            
-             activityInfoButton.hidden=YES;
-            
             
         }
         else{
@@ -3128,7 +3101,6 @@ if(selectionType==1){
         searching=FALSE;
         [self setUpLabelViewElements:YES];
         [delegate enableDisableTickOnTheTopRight:NO];
-        activityInfoButton.hidden=YES;
 
     }
     else{
@@ -3220,7 +3192,6 @@ if(selectionType==1){
 
     [self setUpLabelViewElements:YES];
     [delegate enableDisableTickOnTheTopRight:NO];
-    activityInfoButton.hidden=YES;
 
 }
 
@@ -3478,6 +3449,7 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
 
 
 - (void)dealloc {
+    [activityInfoButton release];
     [super dealloc];
 
     [calendarIcon release];
