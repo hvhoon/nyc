@@ -2126,7 +2126,7 @@ switch ([notIdObject.notificationType integerValue]) {
             locationEditLeftCrossButton.hidden=YES;
             locationEditRightCheckButton.hidden=YES;
             backToActivityFromMapButton.hidden=NO;
-            chatButton.hidden=NO;
+
             if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
             [eventView.searchBarIOS7 resignFirstResponder];
             [eventView.searchBarIOS7 setHidden:YES];
