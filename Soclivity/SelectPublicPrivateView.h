@@ -21,8 +21,6 @@
     IBOutlet UIPickerView *privacyPicker;
     BOOL editActivity;
     int rowSelected;
-    IBOutlet UIButton *cancelButton;
-    IBOutlet UIButton *selectButton;
     
 }
 @property (nonatomic,retain)id <PrivacyViewDelegate>delegate;

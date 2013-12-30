@@ -51,17 +51,6 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-    if(editActivity){
-        pickADateLabel.text=@"Change date";
-    }
-    else
-
-    pickADateLabel.text=@"Pick a date";
-    
-    pickADateLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17];
-    pickADateLabel.textColor=[UIColor whiteColor];
-    pickADateLabel.backgroundColor=[UIColor clearColor];
-    
     calendarDate=[[CalendarDateView alloc]initWithFrame:CGRectMake(0, 40, 320,304)editActivityDate:activityDate];
     calendarDate.KALDelegate=self;
     calendarDate.pickADateForActivity=TRUE;

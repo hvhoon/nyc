@@ -35,9 +35,6 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-    cancelButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
-    selectButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17];
-    
     switch (rowSelected) {
         case 0:
         {

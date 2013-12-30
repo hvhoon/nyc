@@ -19,7 +19,6 @@
 
 @interface PickADateView : UIView<CalendarDateViewDelegate>{
     
-    IBOutlet UILabel *pickADateLabel;
     id<PickDateViewDelegate>delegate;
     CalendarDateView *calendarDate;
     BOOL editActivity;
