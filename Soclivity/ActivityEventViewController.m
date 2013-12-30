@@ -482,6 +482,7 @@
     locationEditLeftCrossButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     resignTextDoneButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
     locationEditRightCheckButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
+    locationEditRightCheckButton.backgroundColor=[SoclivityUtilities returnBackgroundColor:15];
     
     if([SoclivityUtilities deviceType] & iPhone5)
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,940);
