@@ -78,7 +78,7 @@
                         <action selector="backToActivityAnimateTransition:" destination="-1" eventType="touchUpInside" id="178"/>
                     </connections>
                 </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="184">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="184">
                     <rect key="frame" x="262" y="0.0" width="50" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -654,7 +654,7 @@
         <image name="S5_DOS-1.png" width="16" height="16"/>
         <image name="back-button.png" width="39" height="40"/>
         <image name="bottom-bar.png" width="320" height="40"/>
-        <image name="currentButton.png" width="40" height="39"/>
+        <image name="currentButton.png" width="20" height="20"/>
         <image name="topbar.png" width="320" height="44"/>
     </resources>
 </document>
