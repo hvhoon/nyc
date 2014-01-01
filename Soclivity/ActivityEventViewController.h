@@ -45,9 +45,6 @@
     UIButton *DOS1Button;
     UIButton *DOS3Button;
     UIButton *DOS2Button;
-    UIImageView *DOS1ButtonHighlight;
-    UIImageView *DOS2ButtonHighlight;
-    UIImageView *DOS3ButtonHighlight;
     BOOL pageControlBeingUsed;
     int page;
     BOOL toggleFriends;
@@ -101,7 +98,6 @@
 -(IBAction)chatButtonPressed:(id)sender;
 -(IBAction)cancelRequestButtonPressed:(id)sender;
 -(void)scrollViewToTheTopOrBottom;
--(void)highlightSelection:(int)selection;
 -(void)BottonBarButtonHideAndShow:(NSInteger)type;
 -(IBAction)backToActivityAnimateTransition:(id)sender;
 -(IBAction)crossClickedInLocationEdit:(id)sender;

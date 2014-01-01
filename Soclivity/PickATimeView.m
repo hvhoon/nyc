@@ -35,12 +35,9 @@
     
     [timePicker setMinimumDate:[NSDate date]];
     
-    pickATimeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
+    pickATimeLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17];
     pickATimeLabel.textColor=[UIColor whiteColor];
-    pickATimeLabel.backgroundColor=[UIColor clearColor];
-    pickATimeLabel.shadowColor = [UIColor blackColor];
-    pickATimeLabel.shadowOffset = CGSizeMake(0,-1);
-    
+    pickATimeLabel.backgroundColor=[UIColor clearColor];    
 
 }
 

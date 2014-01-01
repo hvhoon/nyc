@@ -27,7 +27,6 @@
 @interface CreateActivityViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate,PickerDetailViewDelegate,SoclivitySearchBarDelegate,UISearchBarDelegate,MKMapViewDelegate,NotifyAnimationViewDelegate,UIAlertViewDelegate,UIViewControllerRestoration>{
     id<NewActivityViewDelegate>delegate;
     IBOutlet UILabel *createActivtyStaticLabel;
-    IBOutlet UILabel *step1_of2Label;
     NSInteger activityType;
     IBOutlet UIView *createActivityView;
     IBOutlet UITextField *activityNameTextField;

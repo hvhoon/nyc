@@ -57,7 +57,8 @@
     IBOutlet UIImageView *rightPinImageView;
     IBOutlet UILabel *dropPinLabel;
     IBOutlet UILabel *touchAndHoldMapLabel;
-    UIButton *activityInfoButton;
+    
+    IBOutlet UIButton *activityInfoButton;
     MKMapView *mapView;
     CGRect locationTapRect;
     NSMutableArray *mapAnnotations;

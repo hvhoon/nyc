@@ -138,8 +138,6 @@
 
     }
     
-   
-    
 }
 
 - (void)viewDidLoad{
@@ -153,16 +151,16 @@
         topBarImageView.frame=CGRectMake(0, 0, 320, 64);
         topBarImageView.image=[UIImage imageNamed:@"topbarIOS7.png"];
         activityNameLabel.frame=CGRectMake(56, 27, 209, 29);
-        resignTextDoneButton.frame=CGRectMake(275, 20, 40, 40);
-        leaveActivityButton.frame=CGRectMake(275, 20, 40, 40);
-        organizerEditButton.frame=CGRectMake(275, 20, 40, 40);
-        editButtonForMapView.frame=CGRectMake(275, 20, 40, 40);
+        resignTextDoneButton.frame=CGRectMake(262, 20, 50, 44);
+        leaveActivityButton.frame=CGRectMake(262, 20, 50, 44);
+        organizerEditButton.frame=CGRectMake(262, 20, 50, 44);
+        editButtonForMapView.frame=CGRectMake(262, 20, 50, 44);
         backButton.frame=CGRectMake(5, 20, 40, 40);
         backToActivityFromMapButton.frame=CGRectMake(5, 20, 40, 40);
-        locationEditLeftCrossButton.frame=CGRectMake(5, 20, 40, 40);
+        locationEditLeftCrossButton.frame=CGRectMake(262, 20, 50, 44);
         if([SoclivityUtilities deviceType] & iPhone5){
             
-            locationEditRightCheckButton.frame=CGRectMake(128, 421+88+20, 65, 39);
+            locationEditRightCheckButton.frame=CGRectMake(127, 420+88+20, 65, 40);
             staticView.frame=CGRectMake(0, 64, 320, 436);
             bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
             addEventButton.frame=CGRectMake(121,441+88, 79, 39);
@@ -178,7 +176,7 @@
             reportButton.frame=CGRectMake(5,440+88, 40, 40);
         }
         else{
-             locationEditRightCheckButton.frame=CGRectMake(128, 421+20, 65, 39);
+             locationEditRightCheckButton.frame=CGRectMake(127, 420+20, 65, 40);
             staticView.frame=CGRectMake(0, 64, 320, 396);
             bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
             addEventButton.frame=CGRectMake(121,441, 79, 39);
@@ -218,25 +216,18 @@
     [spinnerView stopAnimating];
     [spinnerView setHidden:YES];
     
-    
     commentChatLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     commentChatLabel.textColor=[UIColor whiteColor];
     commentChatLabel.backgroundColor=[UIColor clearColor];
-    commentChatLabel.shadowColor=[UIColor blackColor];
-    commentChatLabel.shadowOffset=CGSizeMake(0,-1);
     commentChatLabel.text=@"Comment";
     
     imagePostChatlabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     imagePostChatlabel.textColor=[UIColor whiteColor];
     imagePostChatlabel.backgroundColor=[UIColor clearColor];
-    imagePostChatlabel.shadowColor=[UIColor blackColor];
-    imagePostChatlabel.shadowOffset=CGSizeMake(0,-1);
     imagePostChatlabel.text=@"Image";
     
     chatView.delegate=self;
     [self startUpdatingChat];
-
-    
     
 #if 0
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,464)];
@@ -303,11 +294,8 @@
             {
                 int delta=0;
 
-                UIView *headerView=[[UIView alloc]initWithFrame:CGRectMake(0, delta, 320, 47)];
-                headerView.backgroundColor=[UIColor clearColor];
-                UIImageView *participantBarImgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05_participantBar.png"]];
-                participantBarImgView.frame=CGRectMake(0, delta, 320, 47);
-                [headerView addSubview:participantBarImgView];
+                UIView *headerView=[[UIView alloc]initWithFrame:CGRectMake(0, delta, 320, 48)];
+                headerView.backgroundColor=[SoclivityUtilities returnBackgroundColor:6];
                 
                 UIButton *pArrowButton=[UIButton buttonWithType:UIButtonTypeCustom];
                 pArrowButton.frame=CGRectMake(2,delta+4,33,40);
@@ -315,9 +303,6 @@
                 [pArrowButton addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
                 pArrowButton.tag=103;
                 [headerView addSubview:pArrowButton];
-                
-                
-                
                 
                 // People going section in the participant bar
                 goingButton=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -363,15 +348,7 @@
                 // Friends going section in the participant bar
                 DOS1Button=[UIButton buttonWithType:UIButtonTypeCustom];
                 
-                // Highlight for the DOS1 button
-                DOS1ButtonHighlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_sectionHighlighted"]];
-                DOS1ButtonHighlight.frame = CGRectMake(98, delta, 72, 47);
-                DOS1ButtonHighlight.hidden = YES;
-                [headerView addSubview:DOS1ButtonHighlight];
-                
                 DOS1Button.frame=CGRectMake(95,delta,75,47);
-                [DOS1Button addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-                DOS1Button.tag=105;
                 DOS1Button.backgroundColor = [UIColor clearColor];
                 [headerView addSubview:DOS1Button];
                 
@@ -406,15 +383,7 @@
                 // People you may know section in the participant bar
                 DOS2Button=[UIButton buttonWithType:UIButtonTypeCustom];
                 
-                // Highlight for the DOS2 button
-                DOS2ButtonHighlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_sectionHighlighted"]];
-                DOS2ButtonHighlight.frame = CGRectMake(176, delta, 72, 47);
-                DOS2ButtonHighlight.hidden = YES;
-                [headerView addSubview:DOS2ButtonHighlight];
-                
                 DOS2Button.frame=CGRectMake(174,delta,75,47);
-                [DOS2Button addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-                DOS2Button.tag=106;
                 DOS2Button.backgroundColor = [UIColor clearColor];
                 [headerView addSubview:DOS2Button];
                 
@@ -450,15 +419,7 @@
                 // Other section in the participant bar
                 DOS3Button=[UIButton buttonWithType:UIButtonTypeCustom];
                 
-                // Highlight for the DOS1 button
-                DOS3ButtonHighlight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_sectionHighlighted"]];
-                DOS3ButtonHighlight.frame = CGRectMake(248, delta, 72, 47);
-                DOS3ButtonHighlight.hidden = YES;
-                [headerView addSubview:DOS3ButtonHighlight];
-                
                 DOS3Button.frame=CGRectMake(248,delta,72,47);
-                [DOS3Button addTarget:self action:@selector(ButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-                DOS3Button.tag=107;
                 DOS3Button.backgroundColor = [UIColor clearColor];
                 [headerView addSubview:DOS3Button];
                 
@@ -504,23 +465,24 @@
     activityNameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18];
     activityNameLabel.textColor=[UIColor whiteColor];
     activityNameLabel.backgroundColor=[UIColor clearColor];
-    activityNameLabel.shadowColor = [UIColor blackColor];
-    activityNameLabel.shadowOffset = CGSizeMake(0,-1);
     activityNameLabel.tag=kActivityLabel;
-    CGSize textSize = [[NSString stringWithFormat:@"%@",activityInfo.activityName] sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:18]];
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-    activityNameLabel.frame=CGRectMake(56, 27, 200, textSize.height);
+    activityNameLabel.frame=CGRectMake(55, 20, 210, 44);
     }else{
-    activityNameLabel.frame=CGRectMake(56, 7, 200, textSize.height);
+    activityNameLabel.frame=CGRectMake(55, 0, 210, 44);
     }
     
     [activityNameLabel setContentMode:UIViewContentModeScaleAspectFill];
     [activityNameLabel setLineBreakMode:NSLineBreakByTruncatingTail];
     activityNameLabel.adjustsFontSizeToFitWidth=NO;//This is main for shrinking font
-
     
-
-
+    leaveActivityButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
+    organizerEditButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
+    editButtonForMapView.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
+    locationEditLeftCrossButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
+    resignTextDoneButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
+    locationEditRightCheckButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
+    locationEditRightCheckButton.backgroundColor=[SoclivityUtilities returnBackgroundColor:15];
     
     if([SoclivityUtilities deviceType] & iPhone5)
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width,940);
@@ -551,6 +513,7 @@
         commentChatLabel.hidden=NO;
         postChatImageButton.hidden=NO;
         imagePostChatlabel.hidden=NO;
+        backButton.hidden = YES;
         if(activityInfo.activityRelationType==6){
             organizerEditButton.hidden=YES;
             inviteUsersToActivityButton.hidden=YES;
@@ -1123,8 +1086,6 @@ switch ([notIdObject.notificationType integerValue]) {
     
     //int tag=sender.tag;
     if(page==0){
-        
-        
         if(activityInfo.activityRelationType==6){
             
             if(activityInfo.pendingRequestCount==0 && [activityInfo.goingCount intValue]==1){//0
@@ -1136,22 +1097,19 @@ switch ([notIdObject.notificationType integerValue]) {
             }
         }
         else{
-        if([activityInfo.goingCount intValue]==1)//0
+            if([activityInfo.goingCount intValue]==1)//0
                 return;
             
-        else if([activityInfo.goingCount intValue]==2 && (activityInfo.activityRelationType==5))//0
+            else if([activityInfo.goingCount intValue]==2 && (activityInfo.activityRelationType==5))//0
                 return;
-
-        else{
-            [self scrollViewToTheTopOrBottom];
-        }
-        
+            
+            else{
+                [self scrollViewToTheTopOrBottom];
+            }
+            
         }
         
     }
-        
-    
-    
     
     switch (sender.tag) {
         case 103:
@@ -1163,140 +1121,17 @@ switch ([notIdObject.notificationType integerValue]) {
             break;
         case 104:
         {
-             [self highlightSelection:0];
-             if(lastIndex!=-1){
-                           
-               
+            if(lastIndex!=-1){
+                
+                
                 participantListTableView.noLine=FALSE;
-                 [participantListTableView openAllSectionsExceptOne];
+                [participantListTableView openAllSectionsExceptOne];
                 toggleFriends=TRUE;
                 lastIndex=-1;
             }
             
         }
             break;
-        case 105:
-        {
-            int section_105;
-            if(lastIndex!=0){
-           //this section may be zero or one 
-                if(activityInfo.DOS1!=0)
-                {
-                    [self highlightSelection:1];
-                    
-                    if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount!=0){
-                        //we need to check the pending Requests
-                        section_105=1;
-                        
-                    }
-                    else{
-                        section_105=0;
-                    }
-                    if(toggleFriends){
-                        toggleFriends=FALSE;
-                         [participantListTableView collapseSectionsExceptOne:section_105];
-                         lastIndex=0;
-                    }
-                    
-                    else{
-                        [participantListTableView alternateBetweenSectionsWithCollapseOrExpand:section_105];
-                        lastIndex=0;
-
-                    }
-                }
-            
-            }
-        }
-            break;
-        case 107:
-        {
-            int section_107;
-            if(activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5){
-            if(lastIndex!=2){  
-                
-                if(activityInfo.DOS3!=0)
-                {
-                    [self highlightSelection:3];
-                    if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1!=0 && activityInfo.DOS2!=0){
-                        //we need to check the pending Requests
-                        section_107=3;
-                        
-                    }
-                    else if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1!=0 && activityInfo.DOS2==0){
-                        section_107=2;
-                    }
-                    else if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1==0 && activityInfo.DOS2!=0){
-                        section_107=2;
-                    }
-                    else if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount==0 && activityInfo.DOS1!=0 && activityInfo.DOS2!=0){
-                        section_107=2;
-                    }
-                    else if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount==0 && activityInfo.DOS1!=0 && activityInfo.DOS2==0){
-                        section_107=1;
-                    }
-                    else if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount==0 && activityInfo.DOS1==0 && activityInfo.DOS2!=0){
-                        section_107=1;
-                    }
-                    else if((activityInfo.activityRelationType==6 || activityInfo.activityRelationType==5) && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1==0 && activityInfo.DOS2==0){
-                        section_107=1;
-                    }
-                    else {
-                        section_107=0;
-                    }
-                    if(toggleFriends){
-                        toggleFriends=FALSE;
-                        [participantListTableView collapseSectionsExceptOne:section_107];
-                        lastIndex=2;
-                    }
-                    
-                    else{
-                        [participantListTableView alternateBetweenSectionsWithCollapseOrExpand:section_107];
-                        lastIndex=2;
-                    }
-                }
-            }
-            }
-        }
-            break;
-        case 106:
-        {
-            int section_106;
-            if(lastIndex!=1){  
-            
-                if(activityInfo.DOS2!=0)
-                {
-                    [self highlightSelection:2];
-                    if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1!=0){
-                        //we need to check the pending Requests
-                        section_106=2;
-                        
-                    }
-                    else if(activityInfo.activityRelationType==6 && activityInfo.pendingRequestCount!=0 && activityInfo.DOS1==0){
-                        section_106=1;
-                    }
-                    else if(activityInfo.DOS1==0){
-                         section_106=0;
-                    }
-                    else if(activityInfo.DOS1!=0){
-                        section_106=1;
-                    }
-                    if(toggleFriends){
-                        toggleFriends=FALSE;
-                        [participantListTableView collapseSectionsExceptOne:section_106];
-                        lastIndex=1;
-                    }
-                    
-                    else{
-                        [participantListTableView alternateBetweenSectionsWithCollapseOrExpand:section_106];
-                        lastIndex=1;
-                    }
-                }
-            
-            }
-        }
-            break;
-
-            
         default:
             break;
     }
@@ -1779,6 +1614,7 @@ switch ([notIdObject.notificationType integerValue]) {
        postChatImageButton.hidden=NO;
        imagePostChatlabel.hidden=NO;
        reportButton.hidden=YES;
+       backButton.hidden=YES;
 
        if(activityInfo.activityRelationType==6){
            organizerEditButton.hidden=YES;
@@ -1786,8 +1622,7 @@ switch ([notIdObject.notificationType integerValue]) {
        }
        
        
-           newActivityButton.hidden=YES;
-       //resignTextDoneButton.hidden=NO;
+        newActivityButton.hidden=YES;
        
         [UIView commitAnimations];
         [editButtonForMapView setHidden:YES];
@@ -1825,6 +1660,7 @@ switch ([notIdObject.notificationType integerValue]) {
         commentChatLabel.hidden=YES;
         postChatImageButton.hidden=YES;
         imagePostChatlabel.hidden=YES;
+        backButton.hidden=NO;
         
         newActivityButton.hidden=NO;
         resignTextDoneButton.hidden=YES;
@@ -2018,56 +1854,30 @@ switch ([notIdObject.notificationType integerValue]) {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)highlightSelection:(int)selection {
-    
-    // Highlight only the item selected and remove highlights from the other areas
-    
-    // Unhighlight all the other selections
-    DOS1ButtonHighlight.hidden = YES;
-    DOS2ButtonHighlight.hidden = YES;
-    DOS3ButtonHighlight.hidden = YES;
-
-    
-    // Highlight just the 'Going' or 'Requests' section
-    switch (selection) {
-        case 1:
-            DOS1ButtonHighlight.hidden = NO;
-            break;
-        case 2:
-            DOS2ButtonHighlight.hidden = NO;
-            break;
-        case 3:
-            DOS3ButtonHighlight.hidden = NO;
-        default:
-            break;
-    }    
-}
+// Start of the transition from the Activity Event Details page to the Activity Event map view.
 -(void)slideInTransitionToLocationView{
     
     inTransition=TRUE;
     
+    // Turning the buttons on and off.
     
-    
+    // Check if the user is the organizer
     if(activityInfo.activityRelationType==6)
-      editButtonForMapView.hidden=NO;//check for organizer
+      editButtonForMapView.hidden=NO; //Show the EDIT button
     
-    
+    // Check if the user is a participant
     if(activityInfo.activityRelationType==5)
-        leaveActivityButton.hidden=YES;
+        leaveActivityButton.hidden=YES; //Show the LEAVE button
     
-    currentLocationInMap.hidden=NO;
+    // Show these buttons regardless of whether the user is an organizer or a participant
+    currentLocationInMap.hidden=NO; //Show the current location button
+    scrollView.scrollEnabled=NO; //Cannot scroll
+    backToActivityFromMapButton.hidden=NO; //Show the
     
-    scrollView.scrollEnabled=NO;
-    backButton.hidden=YES;
-    [participantListTableView setHidden:YES];
-    backToActivityFromMapButton.hidden=NO;
-    
-    if(activityInfo.activityRelationType==4)
-            chatButton.hidden=YES;
-    
-    else
-        chatButton.hidden=NO;
-    
+    // Hide these buttons
+    backButton.hidden=YES; //Back button to the main map/list view is disabled.
+    [participantListTableView setHidden:YES]; //Can't scroll down to see the participants
+    chatButton.hidden = YES;
     newActivityButton.hidden=YES;
     organizerEditButton.hidden=YES;
     reportButton.hidden=YES;
@@ -2098,6 +1908,7 @@ switch ([notIdObject.notificationType integerValue]) {
     inviteUsersToActivityButton.hidden=YES;
     inTransition=FALSE;
     
+    // If the user is a participant show these buttons
     if(activityInfo.activityRelationType==5)
     {
         leaveActivityButton.hidden=NO;
@@ -2113,7 +1924,7 @@ switch ([notIdObject.notificationType integerValue]) {
         commentChatLabel.hidden=YES;
         postChatImageButton.hidden=YES;
         imagePostChatlabel.hidden=YES;
-
+        backButton.hidden=NO;
         scrollView.hidden=NO;
     }
     scrollView.scrollEnabled=YES;
@@ -2123,6 +1934,7 @@ switch ([notIdObject.notificationType integerValue]) {
     activityButton.hidden=YES;
     reportButton.hidden=NO;
     
+    // If the user is the organizer show these buttons
     if(activityInfo.activityRelationType==6){
         editButtonForMapView.hidden=YES;//check for organizer
         organizerEditButton.hidden=NO;
@@ -2153,7 +1965,7 @@ switch ([notIdObject.notificationType integerValue]) {
     locationEditLeftCrossButton.hidden=YES;
     locationEditRightCheckButton.hidden=YES;
     backToActivityFromMapButton.hidden=NO;
-    chatButton.hidden=NO;
+
      if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
     [eventView.searchBarIOS7 resignFirstResponder];
     [eventView.searchBarIOS7 setHidden:YES];
@@ -2180,10 +1992,6 @@ switch ([notIdObject.notificationType integerValue]) {
 
         [eventView.secondLineAddressLabel setHidden:YES];
     }
-
-    eventView.activityInfoButton.hidden=NO;
-
-    
 }
 -(IBAction)tickClickedInLocationEdit:(id)sender{
     
@@ -2320,7 +2128,7 @@ switch ([notIdObject.notificationType integerValue]) {
             locationEditLeftCrossButton.hidden=YES;
             locationEditRightCheckButton.hidden=YES;
             backToActivityFromMapButton.hidden=NO;
-            chatButton.hidden=NO;
+
             if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
             [eventView.searchBarIOS7 resignFirstResponder];
             [eventView.searchBarIOS7 setHidden:YES];
@@ -2330,13 +2138,9 @@ switch ([notIdObject.notificationType integerValue]) {
                 
             }
             [eventView hideSearchBarAndAnimateWithListViewInMiddle];
-
-            eventView.activityInfoButton.hidden=NO;
             eventView.editMode=FALSE;
             
-            
             [SOC deltaUpdateSyncCalendar:activityInfo];
-
 
         }
             break;
@@ -2364,27 +2168,25 @@ switch ([notIdObject.notificationType integerValue]) {
 }
 
 -(IBAction)editViewToChangeActivityLocation:(id)sender{
-    locationEditLeftCrossButton.hidden=NO;
-   
-    backToActivityFromMapButton.hidden=YES;
-    chatButton.hidden=YES;
-    editButtonForMapView.hidden=YES;
     
+    locationEditLeftCrossButton.hidden=NO;
+    backToActivityFromMapButton.hidden=YES;
+    editButtonForMapView.hidden=YES;
     eventView.editMode=TRUE;
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-    eventView.searchBarIOS7.text=@"";
-    [eventView.searchBarIOS7 setHidden:NO];
-    }else{
+    
+        eventView.searchBarIOS7.text=@"";
+        [eventView.searchBarIOS7 setHidden:NO];
+    }
+    
+    else{
         eventView.addressSearchBar.text=@"";
         [eventView.addressSearchBar setHidden:NO];
-        
     }
     
     [eventView setUpLabelViewElements:YES];
-
     [eventView showSearchBarAndAnimateWithListViewInMiddle];
-    eventView.activityInfoButton.hidden=YES;
     
     
 }

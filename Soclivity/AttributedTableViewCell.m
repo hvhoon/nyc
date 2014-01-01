@@ -9,7 +9,7 @@
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 static CGFloat const kEspressoDescriptionTextFontSize = 14;
-static CGFloat const kAttributedTableViewCellVerticalMargin = 20.0f;
+static CGFloat const kAttributedTableViewCellVerticalMargin = 17.0f;
 
 static NSRegularExpression *__nameRegularExpression;
 static inline NSRegularExpression * NameRegularExpression() {
@@ -46,10 +46,10 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
     self.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     
     self.summaryLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
-     self.summaryLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
+    self.summaryLabel.textColor= [SoclivityUtilities returnTextFontColor:5];
     self.summaryLabel.numberOfLines = 0;
     
-    self.summaryLabel.highlightedTextColor = [UIColor whiteColor];
+    self.summaryLabel.highlightedTextColor = [SoclivityUtilities returnTextFontColor:5];
     self.summaryLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
     
     self.lbltime=[[UILabel alloc] init];
@@ -57,7 +57,7 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
     self.lbltime.font =[UIFont fontWithName:@"Helvetica-Condensed" size:12];
     self.lbltime.lineBreakMode = UILineBreakModeWordWrap;
     self.lbltime.numberOfLines = 0;
-    self.lbltime.highlightedTextColor = [UIColor whiteColor];
+    self.lbltime.highlightedTextColor = [SoclivityUtilities returnTextFontColor:5];
 
     [self.contentView addSubview:self.lbltime];
     [self.contentView addSubview:self.summaryLabel];
@@ -127,11 +127,11 @@ static inline NSRegularExpression * ParenthesisRegularExpression() {
     self.detailTextLabel.hidden = YES;
     
     CGRect rect1=CGRectMake(0, 10, 345, [AttributedTableViewCell heightForCellWithText:self.summaryText]-10);
-    self.summaryLabel.frame =  CGRectOffset(CGRectInset(rect1, 60, 5.0f), 0.0f, 0.0f);
+    self.summaryLabel.frame =  CGRectOffset(CGRectInset(rect1, 60, 5), 0.0f, 0.0f);
 
     CGRect rect2=CGRectMake(0, self.summaryLabel.frame.size.height+5, 345, 35);
     
-    self.lbltime.frame=CGRectOffset(CGRectInset(rect2, 60, 5.0f), 0.0f, 0.0f);
+    self.lbltime.frame=CGRectOffset(CGRectInset(rect2, 60, 5), 0.0f, 0.0f);
     
 }
 

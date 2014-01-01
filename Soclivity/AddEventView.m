@@ -73,8 +73,7 @@
     activityorganizerTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     activityorganizerTextLabel.text=[NSString stringWithFormat:@"%@",info.organizerName];
     CGSize  size = [info.organizerName sizeWithFont:[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15]];
-    NSLog(@"width=%f",size.width);
-    activityorganizerTextLabel.frame=CGRectMake(104, 24, size.width, 16);
+    activityorganizerTextLabel.frame=CGRectMake(104, 24, size.width, 17);
     
     // Activity organizer DOS
     DOSConnectionImgView.frame=CGRectMake(104+6+size.width, 24, 21, 12);
@@ -119,13 +118,6 @@
     
     const int descriptionBuffer = 42; // buffer in the description box
     
-    // Adding line at the top of the description box
-    UIImageView *topLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_descriptionLine.png"]];
-    topLine.frame = CGRectMake(26, 64, 294, 1);
-    topLine.tag=kTopLineDescriptionView;
-    [self addSubview:topLine];
-    
-    
     // Checking to see if the description is empty first.
     if((info.what==(NSString*)[NSNull null])||([info.what isEqualToString:@""]||info.what==nil)||([info.what isEqualToString:@"(null)"]))
         activityTextLabel.text=@"No description given.";
@@ -147,7 +139,7 @@
         labelSize.height=72;
     }
     
-    CGRect descriptionBox=CGRectMake(26, 65, 294, labelSize.height+descriptionBuffer);
+    CGRect descriptionBox=CGRectMake(26, 66, 294, labelSize.height+descriptionBuffer);
     UIView *description = [[UIView alloc] initWithFrame:descriptionBox];
     
     // Change the description box and activity bar color based on the activity type
@@ -185,18 +177,6 @@
     [activityTextLabel setTag:kActivityDescTextLabel];
     [description addSubview:activityTextLabel];
     
-    
-    
-    
-    
-        
-    // Adding line at the bottom of the description box
-    UIImageView *bottomLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"S05_descriptionLine.png"]];
-    bottomLine.frame = CGRectMake(26, 65+labelSize.height+descriptionBuffer, 294, 1);
-    bottomLine.tag=kBottomLineImageView;
-    [self addSubview:bottomLine];
-
-    
     // Setting up the bottom view which includes all the date, time and location info.
     
     // Fist lets add up what our Y starting point is
@@ -226,7 +206,7 @@
     
     calendarDateLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     calendarDateLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-    calendarDateLabel.frame = CGRectMake(84, 12+4, 200, 15);
+    calendarDateLabel.frame = CGRectMake(84, 12+4, 200, 16);
     calendarDateLabel.tag=kCalendarDateLabelTag;
     
     //calendarDateEditArrow.frame=CGRectMake(291, 12+4, 9, 14);
@@ -243,20 +223,17 @@
     calendarDateLabel.text=prefixDateString;
     [prefixDateFormatter setDateFormat:@"h:mm a"];
     
-    
-
     NSString *prefixTimeString = [prefixDateFormatter stringFromDate:date];
     activityTimeLabel.text=prefixTimeString;
     activityTimeLabel.tag=kActivityTimeLabel;
     
-
 
     clockIcon.image = [UIImage imageNamed:@"S05_clockIcon.png"];
     clockIcon.frame = CGRectMake(50, 57, 20, 20);
     clockIcon.tag=kClockIconImageView;
     activityTimeLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     activityTimeLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
-    activityTimeLabel.frame = CGRectMake(84, 57+4, 200, 15);
+    activityTimeLabel.frame = CGRectMake(84, 57+4, 200, 16);
     //timeEditArrow.frame=CGRectMake(291, 57+4, 9, 14);
 
 
@@ -266,8 +243,6 @@
     detailsLineTime.tag=kDetailLineTimeImageView;
     [bottomView addSubview:detailsLineTime];
     [detailsLineTime release];
-    
-    
 
     
     // Location
@@ -275,26 +250,21 @@
     locationIcon.frame = CGRectMake(50, 103, 19, 18);
     locationIcon.tag=kLocationIcomImageview;
     
-    
     locationInfoLabel1.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     locationInfoLabel1.textColor=[SoclivityUtilities returnTextFontColor:5];
     locationInfoLabel1.tag=kLocationInfolabel1;
     
     locationTapRect=CGRectMake(84,fromTheTop+103+1, 175, 15+19);
-    locationInfoLabel1.frame = CGRectMake(84, 103+1, 175, 15);
-    
-
+    locationInfoLabel1.frame = CGRectMake(84, 103+1, 175, 16);
 
     locationInfoLabel2.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     locationInfoLabel2.textColor=[SoclivityUtilities returnTextFontColor:5];
-    locationInfoLabel2.frame = CGRectMake(84, 124, 175, 15);
+    locationInfoLabel2.frame = CGRectMake(84, 124, 175, 16);
     
     locationInfoLabel2.tag=kLocationInfolabel2;
     
     // Deciding whether to show the mini map or not
     [self decideToShowMapView:info.activityRelationType];
-    
-    
 
     // Privacy settings
     // Add an extra privacy row with the privacy settings for the larger iPhone 5 screen
@@ -322,7 +292,7 @@
         detailsLineMap.tag=kDetailLineMap;
         // Framing based on whether the mini Map is showing or not
         detailsLineMap.frame = CGRectMake(26, 148, 272, 1);
-        privacySetting.frame = CGRectMake(84, 166, 190, 15);
+        privacySetting.frame = CGRectMake(84, 166, 190, 16);
         privacyImage.frame = CGRectMake(50, 162, privacyImage.image.size.width, privacyImage.image.size.height);
         
         // Add to the view
@@ -355,8 +325,6 @@
         // Adding privacy settings to the description view
         [description addSubview:activityAccessStatusImgView];
     }
-
-    
     
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
             self.searchBarIOS7=[[UISearchBar alloc]initWithFrame:CGRectMake(320,0, 320, 44)];
@@ -1118,43 +1086,23 @@ else {
         firstALineddressLabel.frame=CGRectMake(16, 7, 228+30, 21);
         
     }
-    //40.75 ,-74
 }
 -(void)ActivityEventOnMap{
     
-
-   // self.labelView=[[UIView alloc]initWithFrame:CGRectMake(320, 404, 320, 60)];
-   // [self addSubview:self.labelView];
     if([SoclivityUtilities deviceType] & iPhone5){
-    self.labelView.frame=CGRectMake(320, 404, 320, 60);
+        self.labelView.frame=CGRectMake(320, 404, 320, 60);
     }
     else{
-    self.labelView.frame=CGRectMake(320, 316, 320, 60);
+        self.labelView.frame=CGRectMake(320, 316, 320, 60);
     }
-    activityInfoButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    
-    if([SoclivityUtilities deviceType] & iPhone5){
-    activityInfoButton.frame = CGRectMake(320+285,404+15,28,27);
-      }else
-        activityInfoButton.frame = CGRectMake(320+285,316+15,28,27);
-    [activityInfoButton setImage:[UIImage imageNamed:@"S05.1_drivingDirectionsIcon.png"] forState:UIControlStateNormal];
-    [activityInfoButton setImage:[UIImage imageNamed:@"S05.1_drivingDirectionsIcon.png"] forState:UIControlStateHighlighted];
-
     
     [activityInfoButton addTarget:self action:@selector(activityInfoButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:activityInfoButton];
-    
-    
     
     phoneButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     phoneButton.frame = CGRectMake(16,33,164,21);
     [phoneButton addTarget:self action:@selector(phoneButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.labelView addSubview:phoneButton];
-    
-    
     phoneButton.enabled=NO;
-
-
     
     currentPlacemark.latitude=[activityObject.where_lat floatValue];
     currentPlacemark.longitude=[activityObject.where_lng floatValue];
@@ -1231,12 +1179,14 @@ else {
     
     [self CurrentMapZoomUpdate:currentPlacemark];
     
-    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] 
+    /* Disabling long press as it's causing a crash.
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(didLongPress:)];
     lpgr.minimumPressDuration = 1.0; //user needs to press for 2 seconds
     [self.mapView addGestureRecognizer:lpgr];
     [lpgr release];
-
+    */
+    
     [delegate slideInTransitionToLocationView];
 #if 0
     
@@ -1248,6 +1198,7 @@ else {
      
 }
 -(void)CurrentMapZoomUpdate:(PlacemarkClass*)mapAnnot{
+    
     CLLocation* avgLoc = [self avgLocation];
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(avgLoc.coordinate.latitude, avgLoc.coordinate.longitude), [self maxDistanceBetweenPoints:avgLoc], [self maxDistanceBetweenPoints:avgLoc]);
     adjustedRegion = [mapView regionThatFits:viewRegion];                
@@ -1264,7 +1215,6 @@ else {
     theCoordinate.longitude = [activityObject.where_lng doubleValue];
     
     ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithAnnotation:mapAnnot  tag:0 pin:NO]autorelease];
-
     
     [self.mapAnnotations insertObject:sfAnnotation atIndex:0];
     
@@ -1344,13 +1294,13 @@ else {
             annotationView.opaque = NO;
             
             if(location.pinDrop){
-                CGRect pinDropLabelRect=CGRectMake(10,0,80,16);
+                CGRect pinDropLabelRect=CGRectMake(10,0,80,17);
                 UILabel *pinDropLabel=[[UILabel alloc] initWithFrame:pinDropLabelRect];
                 pinDropLabel.textAlignment=NSTextAlignmentCenter;
                 pinDropLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:15];
                 pinDropLabel.textColor=[UIColor whiteColor];
                 if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-                    pinDropLabel.textColor=[UIColor blackColor];
+                    pinDropLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
                 }
                 pinDropLabel.backgroundColor=[UIColor clearColor];
                 pinDropLabel.text=@"Dropped Pin";
@@ -1366,7 +1316,7 @@ else {
                 rightView.backgroundColor=[UIColor clearColor];
                 disclosureButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
                 disclosureButton.frame = CGRectMake(0.0, 0.0, 29.0, 30.0);
-                [disclosureButton setImage:[UIImage imageNamed:@"S02.1_rightarrow.png"] forState:UIControlStateNormal];
+                [disclosureButton setImage:[UIImage imageNamed:@"S04_moreinfoarrow.png"] forState:UIControlStateNormal];
                 disclosureButton.tag=location.annotTag;
                 [disclosureButton addTarget:self action:@selector(moreInfoUrlToSafariBrowser:) forControlEvents:UIControlEventTouchUpInside];
                 [rightView addSubview:disclosureButton];
@@ -1534,13 +1484,13 @@ else {
         case 1:
         case 2:
         {
-            CGRect categoryLabelRect=CGRectMake(5,18,size.width,12);
+            CGRect categoryLabelRect=CGRectMake(5,16,size.width,14);
             categoryTextLabel=[[UILabel alloc] initWithFrame:categoryLabelRect];
             categoryTextLabel.textAlignment=NSTextAlignmentLeft;
             categoryTextLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:12];
             categoryTextLabel.textColor=[UIColor whiteColor];
             if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-                 categoryTextLabel.textColor=[UIColor blackColor];
+                 categoryTextLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
             }
             categoryTextLabel.backgroundColor=[UIColor clearColor];
             categoryTextLabel.text=locObject.annotation.category;
@@ -1558,13 +1508,13 @@ else {
         size.width=300;
     }
 	
-    CGRect nameLabelRect=CGRectMake(5,0,size.width,15);
+    CGRect nameLabelRect=CGRectMake(5,0,size.width,16);
 	UILabel *nameLabel=[[UILabel alloc] initWithFrame:nameLabelRect];
 	nameLabel.textAlignment=NSTextAlignmentLeft;
 	nameLabel.font=[UIFont fontWithName:@"Helvetica-Condensed-Bold" size:14];
 	nameLabel.textColor=[UIColor whiteColor];
     if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-        nameLabel.textColor=[UIColor blackColor];
+        nameLabel.textColor=[SoclivityUtilities returnTextFontColor:5];
     }
 	nameLabel.backgroundColor=[UIColor clearColor];
 	nameLabel.text=locObject.annotation.formattedAddress;
@@ -1796,7 +1746,6 @@ else {
          [self showFourSquareComponents:NO];
         secondLineAddressLabel.text=@"Select a pin above to see it's full address";
         [delegate enableDisableTickOnTheTopRight:NO];
-         activityInfoButton.hidden=YES;
         
 #if LISTVIEWREMOVE
         NSIndexPath *indexPath=[NSIndexPath indexPathForRow:pointTag inSection:0];
@@ -1816,7 +1765,6 @@ else {
         pinDrop=FALSE;
         [self setUpLabelViewElements:YES];
         [delegate enableDisableTickOnTheTopRight:NO];
-        activityInfoButton.hidden=YES;
     }
     
 }
@@ -2277,8 +2225,6 @@ else {
         
         secondLineAddressLabel.text=@"Select a pin above to see it's full address";
         
-         activityInfoButton.hidden=YES;
-        
     }
     
 #if LISTVIEWREMOVE
@@ -2716,9 +2662,6 @@ else {
             [self showFourSquareComponents:NO];
             secondLineAddressLabel.text=@"Select a pin above to see it's full address";
             
-             activityInfoButton.hidden=YES;
-            
-            
         }
         else{
             //firstTime
@@ -3118,66 +3061,24 @@ if(selectionType==1){
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
 	
-    [searchBar setShowsCancelButton:YES animated:YES];
+    [searchBar setShowsCancelButton:NO animated:YES];
+
 }
 
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
     NSLog(@"searchBarTextDidEndEditing=%@",searchBar.text);
 }
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    
-    
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-        if([self.searchBarIOS7.text isEqualToString:@""]){
-            
-            [searchBar setShowsCancelButton:NO animated:YES];
-            
-        }
-        else{
-            [searchBar setShowsCancelButton:NO animated:NO];
-            
-        }
-    }else{
-    if([self.addressSearchBar.text isEqualToString:@""]){
-        
-        [searchBar setShowsCancelButton:NO animated:YES];
-        self.addressSearchBar.showClearButton=NO;
-        
-    }
-    else{
-        [searchBar setShowsCancelButton:NO animated:NO];
-        self.addressSearchBar.showClearButton=YES;
-        
-    }
-    }
-    [searchBar setShowsCancelButton:YES animated:NO];
-    
-}
-- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar{
-    
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-        self.searchBarIOS7.text=@"";
-        searching=FALSE;
-        [self setUpLabelViewElements:YES];
-        [delegate enableDisableTickOnTheTopRight:NO];
-        activityInfoButton.hidden=YES;
 
-    }
-    else{
-    self.addressSearchBar.text=@"";
-    }
     [searchBar setShowsCancelButton:NO animated:YES];
-    
-    [searchBar resignFirstResponder];
+
 }
 // called when keyboard search button pressed
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     
     
     [searchBar resignFirstResponder];
-    [searchBar setShowsCancelButton:YES animated:YES];
-    
-    
+    [searchBar setShowsCancelButton:NO animated:YES];
     
 #if FOURSQUARE
     
@@ -3252,7 +3153,6 @@ if(selectionType==1){
 
     [self setUpLabelViewElements:YES];
     [delegate enableDisableTickOnTheTopRight:NO];
-    activityInfoButton.hidden=YES;
 
 }
 
@@ -3496,6 +3396,7 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
         [UIView commitAnimations];
 		footerActivated = NO;
 	}
+    
     self.mapView.showsUserLocation=YES;
     searching=FALSE;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
@@ -3510,6 +3411,7 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
 
 
 - (void)dealloc {
+    [activityInfoButton release];
     [super dealloc];
 
     [calendarIcon release];
