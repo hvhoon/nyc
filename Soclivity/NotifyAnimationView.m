@@ -12,6 +12,7 @@
 #import "NotificationClass.h"
 #import "SoclivityManager.h"
 #import "GetPlayersClass.h"
+#import "InfoActivityClass.h"
 static NSRegularExpression *__nameRegularExpression;
 static inline NSRegularExpression * NameRegularExpression() {
     if (!__nameRegularExpression) {
@@ -146,6 +147,15 @@ static inline NSRegularExpression * NameRegularExpression() {
             CGRect popupEndRect=CGRectMake(0,0, 320, 64);
             self.frame = popupStartRect;
             self.alpha = 1.0f;
+            
+            
+            if(([andNotif.notificationType integerValue]==1||[andNotif.notificationType integerValue]==2||[andNotif.notificationType integerValue]==3||[andNotif.notificationType integerValue]==4||[andNotif.notificationType integerValue]==15)){
+                InfoActivityClass *notifAct=[[InfoActivityClass alloc]init];
+                notifAct.activityId=notifAct.activityId;
+                SoclivityManager *soc=[SoclivityManager SharedInstance];
+                [soc deltaUpdateSyncCalendar:notifAct];
+            }
+
             
             
             [UIView animateWithDuration:0.35 delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
