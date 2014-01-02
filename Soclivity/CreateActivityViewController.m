@@ -43,7 +43,6 @@
     return self;
 }
 
-
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
@@ -763,8 +762,12 @@
     
     if(show){
         
-        [self.mapView removeAnnotations:self.mapView.annotations];
-        
+        for (id<MKAnnotation> currentAnnotation in self.mapView.annotations)
+        {
+        if ([currentAnnotation isKindOfClass:[ActivityAnnotation class]]) {
+            [self.mapView removeAnnotation:currentAnnotation];
+          }
+        }
         firstALineddressLabel.hidden=YES;
         secondLineAddressLabel.hidden=YES;
         leftPinImageView.hidden=YES;
@@ -2162,7 +2165,7 @@
         NSString*tryIndex=[NSString stringWithFormat:@"777%d",i];
         
         
-        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithAnnotation:placemark  tag:[tryIndex intValue] pin:droppedStatus]autorelease];
+        ActivityAnnotation *sfAnnotation =[[ActivityAnnotation alloc] initWithAnnotation:placemark  tag:[tryIndex intValue] pin:droppedStatus];
         
         [self.mapView addAnnotation:sfAnnotation];
         
@@ -2701,8 +2704,8 @@
         (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:SFAnnotationIdentifier];
         //if (!pinView)
         {
-            MKAnnotationView *annotationView = [[[MKAnnotationView alloc] initWithAnnotation:annotation
-                                                                             reuseIdentifier:ActivityAnnotationIdentifier] autorelease];
+            MKAnnotationView *annotationView =[[MKAnnotationView alloc] initWithAnnotation:annotation
+                                                                             reuseIdentifier:ActivityAnnotationIdentifier];
 #if 0
             UIImage *flagImage=[UIImage imageNamed:@"S05.1_pinUnselected.png"];
             
@@ -3228,9 +3231,9 @@
     
     phoneButton.enabled=NO;
     
-    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithAnnotation:touchPin  tag:7770 pin:YES]autorelease];
+    ActivityAnnotation *sfAnnotation =[[ActivityAnnotation alloc] initWithAnnotation:touchPin  tag:7770 pin:YES];
 
-    
+
     
     [self.mapView addAnnotation:sfAnnotation];
     
