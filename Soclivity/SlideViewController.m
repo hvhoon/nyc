@@ -771,7 +771,7 @@
     else{
         UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectMake(189, 8, 50, 50)];
         switchView.transform = CGAffineTransformMakeScale(0.75, 0.75);
-        [switchView setTintColor:[UIColor grayColor]];
+        [switchView setTintColor:[UIColor clearColor]];
         [switchView setOnTintColor:[UIColor grayColor]];
         
         [cell.contentView addSubview:switchView];
@@ -1106,7 +1106,7 @@
     
     if([tapAndDrawerEffect isEqualToString:@"TRUE"] && [tagNumber integerValue]==kSendUsFeedback){
         if ([[FeedbackBugReport sharedInstance] canSendFeedback]) {
-            UINavigationController* tellAFriendController = [[FeedbackBugReport sharedInstance] sendFeedbackController];
+            MFMailComposeViewController* tellAFriendController = [[FeedbackBugReport sharedInstance] sendFeedbackController];
              [self presentViewController:tellAFriendController animated:YES completion:Nil];
             
             

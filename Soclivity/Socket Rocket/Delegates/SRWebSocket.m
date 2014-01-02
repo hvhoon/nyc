@@ -593,9 +593,14 @@ static NSData *CRLFCRLF;
         }
     });
 }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 
 - (void)_writeData:(NSData *)data;
-{    
+{
+    
+    
     assert(dispatch_get_current_queue() == _workQueue);
 
     if (_closeWhenFinishedWriting) {

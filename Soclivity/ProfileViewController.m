@@ -115,7 +115,7 @@
             
             activityTypesView.frame=CGRectMake(0, 64, 320, 464);
             bottomBarImageView.frame=CGRectMake(0, 568-40, 320, 40);
-            getStartedButton.frame=CGRectMake(102, 425+20+88, 115, 30);
+            getStartedButton.frame=CGRectMake(102, 420+20+88, 115, 40);
             profileButton.frame=CGRectMake(5, 420+20+88, 40, 40);
             btnnotify.frame=CGRectMake(35, 537, 32, 21);
             
@@ -123,7 +123,7 @@
         else{
             activityTypesView.frame=CGRectMake(0, 64, 320, 464-88);
             bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
-            getStartedButton.frame=CGRectMake(102, 425+20, 115, 30);
+            getStartedButton.frame=CGRectMake(102, 420+20, 115, 40);
             profileButton.frame=CGRectMake(5, 420+20, 40, 40);
             btnnotify.frame=CGRectMake(35, 449, 32, 21);
         }
@@ -150,6 +150,9 @@
     updateActivityLabel.backgroundColor=[UIColor clearColor];
     updateActivityLabel.textAlignment = NSTextAlignmentCenter;
     btnnotify.hidden=FALSE;
+    
+    getStartedButton.titleLabel.font=[UIFont fontWithName:@"Helvetica-Condensed" size:17];
+    getStartedButton.backgroundColor=[SoclivityUtilities returnBackgroundColor:15];
 
     activityTypesView.delegate=self;
     homeButton.hidden=YES;

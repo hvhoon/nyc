@@ -16,7 +16,7 @@
 
 + (FeedbackBugReport *)sharedInstance;
 - (BOOL)canSendFeedback;
-- (UINavigationController *)sendFeedbackController;
+- (MFMailComposeViewController *)sendFeedbackController;
 -(UINavigationController *)sendBugAlertController;
 -(UINavigationController *)reportActivityController:(NSString *)message;
 @end

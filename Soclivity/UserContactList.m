@@ -21,8 +21,20 @@
 
 
 -(int)GetAddressBookcount{
-	ABAddressBookRef addressBook = ABAddressBookCreate();
-	CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
+    
+        ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
+        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+        ABAddressBookRequestAccessWithCompletion(addressBook,
+                                                 ^(bool granted, CFErrorRef error){
+                                                     dispatch_semaphore_signal(sema);
+                                                 });
+        
+        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+        dispatch_release(sema);
+    
+    
+    CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
+
 	return nPeople;
 	
 }
@@ -153,7 +165,16 @@
         });
     } else {
         NSLog(@"IOS 4/5");
-        addressBook = ABAddressBookCreate();
+        addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
+        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+        ABAddressBookRequestAccessWithCompletion(addressBook,
+                                                 ^(bool granted, CFErrorRef error){
+                                                     dispatch_semaphore_signal(sema);
+                                                 });
+        
+        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+        dispatch_release(sema);
+
         [delegate AddressBookSuccessful:[self GetAddressBook:addressBook]];
     }
 }

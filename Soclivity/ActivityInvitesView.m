@@ -39,17 +39,18 @@ NSString * const kSearchTextKey = @"Search Text";
         
         
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
-            UISearchBar *searchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(0,0, 320, 44)];
-            searchBar.delegate=self;
-            if(searchBar.text!=nil){
-                searchBar.showsCancelButton = YES;
-            }
-            
-            searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-            searchBar.placeholder=@"Search for people on Soclivity";
-            [self addSubview:searchBar];
             
             
+                UISearchBar *searchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(0,0, 320, 44)];
+                searchBar.delegate=self;
+                searchBar.tag=1234;
+                [searchBar setShowsCancelButton:NO animated:YES];
+                searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+                [searchBar setTintColor:[SoclivityUtilities returnTextFontColor:5]];
+                [searchBar setBarTintColor:[SoclivityUtilities returnBackgroundColor:6]];
+                searchBar.placeholder=@"Search for people on Soclivity";
+                [self addSubview:searchBar];
+                
         }
         else{
         self.searchBarForInvites = [[[CustomSearchbar alloc] initWithFrame:CGRectMake(0,0, 320, 44)] autorelease];
@@ -138,7 +139,13 @@ NSString * const kSearchTextKey = @"Search Text";
     [spinner startAnimating];
     [self setUserInteractionEnabled:NO];
     
-    [self searchSoclivityNetwork:searchBarForInvites.text];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+               UISearchBar *searchBar=(UISearchBar*)[self viewWithTag:1234];
+        [self searchSoclivityNetwork:searchBar.text];
+    }
+            else{
+    [self searchSoclivityNetwork:searchBarForInvites.text];                
+            }
 }
 
 -(UIView*)SetupHeaderView{
@@ -865,19 +872,20 @@ NSString * const kSearchTextKey = @"Search Text";
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     
     
-    if([self.searchBarForInvites.text isEqualToString:@""]){
+     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+    
+    if([searchBar.text isEqualToString:@""]){
         
         [searchBar setShowsCancelButton:NO animated:YES];
-        self.searchBarForInvites.showClearButton=NO;
         searching=NO;
-            [self refreshTableView];
+        [self refreshTableView];
        // inviteUserTableView.tableHeaderView=[self SetupHeaderView];
         [inviteUserTableView reloadData];
  
     }
     else{
         [searchBar setShowsCancelButton:NO animated:NO];
-        self.searchBarForInvites.showClearButton=YES;
+       
         searching=YES;
         //inviteUserTableView.tableHeaderView=nil;
         [self filterContentForSearchText:searchBar.text];
@@ -885,21 +893,50 @@ NSString * const kSearchTextKey = @"Search Text";
         
     }
     
-
+     }else{
+         
+         if([self.searchBarForInvites.text isEqualToString:@""]){
+             
+             [searchBar setShowsCancelButton:NO animated:YES];
+             self.searchBarForInvites.showClearButton=NO;
+             searching=NO;
+             [self refreshTableView];
+             // inviteUserTableView.tableHeaderView=[self SetupHeaderView];
+             [inviteUserTableView reloadData];
+             
+         }
+         else{
+             [searchBar setShowsCancelButton:NO animated:NO];
+             self.searchBarForInvites.showClearButton=YES;
+             searching=YES;
+             //inviteUserTableView.tableHeaderView=nil;
+             [self filterContentForSearchText:searchBar.text];
+             
+             
+         }
+         
+     }
     [searchBar setShowsCancelButton:YES animated:NO];
     
 }
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar{
-    
+    searchBar.text=@"";
     self.searchBarForInvites.text=@"";
     searching=NO;
     //inviteUserTableView.tableHeaderView=[self SetupHeaderView];
-    [inviteUserTableView reloadData];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        
+        [self refreshTableView];
+    }
+    //inviteUserTableView.tableHeaderView=[self SetupHeaderView];
+     [inviteUserTableView reloadData];
 
     [searchBar setShowsCancelButton:NO animated:YES];
     
     [self.searchBarForInvites resignFirstResponder];
     [searchBar resignFirstResponder];
+    
+    
 }
 // called when keyboard search button pressed
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
@@ -931,6 +968,18 @@ NSString * const kSearchTextKey = @"Search Text";
     [self.searchBarForInvites resignFirstResponder];
     [searchBar resignFirstResponder];
     [searchBar setShowsCancelButton:YES animated:YES];
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        for (UIView *possibleButton in [[searchBar.subviews objectAtIndex:0]subviews])
+        {
+            if ([possibleButton isKindOfClass:[UIButton class]])
+            {
+                UIButton *cancelButton = (UIButton*)possibleButton;
+                cancelButton.enabled = YES;
+                break;
+            }
+        }
+    }
     
 }
 

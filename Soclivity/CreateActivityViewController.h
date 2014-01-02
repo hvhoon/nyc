@@ -27,7 +27,6 @@
 @interface CreateActivityViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate,PickerDetailViewDelegate,SoclivitySearchBarDelegate,UISearchBarDelegate,MKMapViewDelegate,NotifyAnimationViewDelegate,UIAlertViewDelegate,UIViewControllerRestoration>{
     id<NewActivityViewDelegate>delegate;
     IBOutlet UILabel *createActivtyStaticLabel;
-    IBOutlet UILabel *step1_of2Label;
     NSInteger activityType;
     IBOutlet UIView *createActivityView;
     IBOutlet UITextField *activityNameTextField;
@@ -111,6 +110,7 @@
 @property (nonatomic,retain)NSMutableArray *_geocodingResults;
 @property (nonatomic,retain)id<NewActivityViewDelegate>delegate;
 @property (nonatomic,retain)CustomSearchbar *addressSearchBar;
+@property(nonatomic,retain)UISearchBar*ios7SearchBar;
 @property (nonatomic,retain)InfoActivityClass *activityObject;
 @property (nonatomic,assign) BOOL newActivity;
 -(IBAction)crossClicked:(id)sender;

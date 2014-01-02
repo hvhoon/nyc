@@ -118,6 +118,7 @@ static NSString* kAppId = @"160726900680967";//kanav
     if ([NavBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)])
     {
         // set globablly for all UINavBars
+        if (!SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0))
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed: @"S01.2_blackbar.png"] forBarMetrics:UIBarMetricsDefault];
         // could optionally set for just this navBar
         //[navBar setBackgroundImage:...
@@ -367,8 +368,7 @@ static NSString* kAppId = @"160726900680967";//kanav
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-        NSLog(@"applicationDidEnterBackground");
-    
+    NSLog(@"applicationDidEnterBackground");
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
     NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
@@ -420,7 +420,6 @@ static NSString* kAppId = @"160726900680967";//kanav
     NSLog(@"SOC.loggedInUser.badgeCount=%d",SOC.loggedInUser.badgeCount);
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WaitingOnYou_Count" object:self userInfo:nil];
 
-    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ChatDeltaUpdate" object:self userInfo:nil];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"RandomFetch" object:self userInfo:nil];
@@ -455,11 +454,11 @@ static NSString* kAppId = @"160726900680967";//kanav
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    //[[self facebook] extendAccessTokenIfNeeded];
+    [[self facebook] extendAccessTokenIfNeeded];
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"FacebookLogin"]){
         
-        [self extendToken];
-//    [NSThread detachNewThreadSelector:@selector(extendToken) toTarget:self withObject:nil];
+//        [self extendToken];
+   // [NSThread detachNewThreadSelector:@selector(extendToken) toTarget:self withObject:nil];
     }
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
@@ -476,7 +475,7 @@ static NSString* kAppId = @"160726900680967";//kanav
     NSLog(@"Test in app Delegate");
 }
 -(void)sessionLogout{
-        NSLog(@"sessionLogout");
+    NSLog(@"sessionLogout");
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"FacebookLogin"];
     [[self facebook] logout];
 

@@ -59,7 +59,11 @@
 - (void)handleDrag:(UIPanGestureRecognizer *)sender {
     
     
-    SoclivityManager *SOC=[SoclivityManager SharedInstance];   
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+        
+        return;
+    }
+    SoclivityManager *SOC=[SoclivityManager SharedInstance];
     if(SOC.AllowTapAndDrag){
         filterPaneView.transform = CGAffineTransformIdentity;
 
@@ -161,6 +165,10 @@
 
 - (void)handleTap:(UITapGestureRecognizer *)sender {
     SoclivityManager *SOC=[SoclivityManager SharedInstance];
+    
+    if(opened && !SOC.AllowTapAndDrag && (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0))){
+        return;
+    }
     
     if(!opened){
         if(!SOC.AllowTapAndDrag){
@@ -301,6 +309,13 @@
     }
     }
     else{
+        CGRect tapHandleSearchRect;
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
+            tapHandleSearchRect =CGRectMake(5, 402+20, 40, 40);
+            
+        }
+
+        
         CGRect tapNewActivityRect;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
          tapNewActivityRect =CGRectMake(275, 408+20, 39, 31);
@@ -311,6 +326,11 @@
          tapNewActivityRect =CGRectMake(275, 408, 39, 31);
         
     }
+        if(CGRectContainsPoint(tapHandleSearchRect,startPoint)){
+            [self setOpened:YES animated:YES];
+        }
+
+        
         if(CGRectContainsPoint(tapNewActivityRect,startPoint)){
          [delegate newActivityButtonPressed];
         }
