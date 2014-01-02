@@ -1054,6 +1054,8 @@ else {
     if(show){
         
     [self.mapView removeAnnotations:self.mapView.annotations];
+        
+        
     [self showFourSquareComponents:NO];
 
     firstALineddressLabel.hidden=YES;
@@ -1179,13 +1181,14 @@ else {
     
     [self CurrentMapZoomUpdate:currentPlacemark];
     
-    /* Disabling long press as it's causing a crash.
+    /* Disabling long press as it's causing a crash.*/
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(didLongPress:)];
+    lpgr.delegate=self;
     lpgr.minimumPressDuration = 1.0; //user needs to press for 2 seconds
     [self.mapView addGestureRecognizer:lpgr];
     [lpgr release];
-    */
+    
     
     [delegate slideInTransitionToLocationView];
 #if 0
@@ -1763,7 +1766,32 @@ else {
         pointTag=pointTag%777;
         
         pinDrop=FALSE;
-        [self setUpLabelViewElements:YES];
+        
+        if(!redirection){
+            for(id<MKAnnotation>currentAnnotation in self.mapView.annotations){
+                if([currentAnnotation isKindOfClass:[ActivityAnnotation class]])
+                    [self.mapView removeAnnotation:currentAnnotation];
+            }
+        }
+        else{
+            redirection=FALSE;
+        }
+        
+        [self showFourSquareComponents:NO];
+        
+        firstALineddressLabel.hidden=YES;
+        secondLineAddressLabel.hidden=YES;
+        leftPinImageView.hidden=YES;
+        searchTextLabel.hidden=NO;
+        placeAndAddressLabel.hidden=NO;
+        
+        dropPinLabel.hidden=NO;
+        touchAndHoldMapLabel.hidden=NO;
+        verticalMiddleLine.hidden=NO;
+        leftMagifyImageView.hidden=NO;
+        rightPinImageView.hidden=NO;
+        firstALineddressLabel.frame=CGRectMake(54, 10, 228, 21);
+        
         [delegate enableDisableTickOnTheTopRight:NO];
     }
     
@@ -3397,7 +3425,7 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
 		footerActivated = NO;
 	}
     
-    self.mapView.showsUserLocation=YES;
+    //self.mapView.showsUserLocation=YES;
     searching=FALSE;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
     self.searchBarIOS7.text=@"";
@@ -3405,6 +3433,11 @@ CLPlacemark * selectedPlacemark = [_geocodingResults objectAtIndex:pointTag];
     self.addressSearchBar.text=@"";
     }
     
+    redirection=TRUE;
+//    for(id<MKAnnotation>currentAnnotation in self.mapView.annotations){
+//        if([currentAnnotation isKindOfClass:[ActivityAnnotation class]])
+//            [self.mapView removeAnnotation:currentAnnotation];
+//    }
     [self CurrentMapZoomUpdate:currentPlacemark];
 
 }

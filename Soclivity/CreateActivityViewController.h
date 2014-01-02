@@ -24,7 +24,7 @@
 @end
 
 
-@interface CreateActivityViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate,PickerDetailViewDelegate,SoclivitySearchBarDelegate,UISearchBarDelegate,MKMapViewDelegate,NotifyAnimationViewDelegate,UIAlertViewDelegate,UIViewControllerRestoration>{
+@interface CreateActivityViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate,PickerDetailViewDelegate,SoclivitySearchBarDelegate,UISearchBarDelegate,MKMapViewDelegate,NotifyAnimationViewDelegate,UIAlertViewDelegate,UIViewControllerRestoration,UIGestureRecognizerDelegate>{
     id<NewActivityViewDelegate>delegate;
     IBOutlet UILabel *createActivtyStaticLabel;
     NSInteger activityType;
@@ -39,7 +39,7 @@
     UILabel *placeholderLabel;
     IBOutlet UIButton*pickADayImageButton;
     IBOutlet UIButton*pickATimeImageButton;
-
+    BOOL redirection;
     IBOutlet UILabel *capacityLabel;
     IBOutlet UIButton*pickADayButton;
     IBOutlet UIButton*pickATimeButton;

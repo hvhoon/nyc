@@ -22,7 +22,7 @@
 @end
 
 
-@interface AddEventView : UIView<MKMapViewDelegate,UISearchBarDelegate,SoclivitySearchBarDelegate,UIAlertViewDelegate>{
+@interface AddEventView : UIView<MKMapViewDelegate,UISearchBarDelegate,SoclivitySearchBarDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate>{
     InfoActivityClass *activityObject;
     IBOutlet UIImageView *activityBarImgView;
     IBOutlet UIImageView *activityAccessStatusImgView;
@@ -44,7 +44,7 @@
     IBOutlet UIImageView *privacyImage;
     
     MKCoordinateRegion adjustedRegion; 
-    
+    BOOL redirection;
     IBOutlet UIImageView *leftPinImageView;
     IBOutlet UIImageView *leftMagifyImageView;
     IBOutlet UILabel *firstALineddressLabel;

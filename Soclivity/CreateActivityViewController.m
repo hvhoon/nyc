@@ -43,6 +43,7 @@
     return self;
 }
 
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
@@ -566,13 +567,14 @@
     
     [self gotoLocation];
     
-    /* Disabling for now as it's causing the app to crash.
+     //Disabling for now as it's causing the app to crash.
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(didLongPress:)];
+    lpgr.delegate=self;
     lpgr.minimumPressDuration = 1.0; //user needs to press for 2 seconds
     [self.mapView addGestureRecognizer:lpgr];
     [lpgr release];
-     */
+    
     
     if([SoclivityUtilities deviceType] & iPhone5)
         rect=CGRectMake(320, 316+88, 320, 60);
@@ -724,6 +726,7 @@
     // Do any additional setup after loading the view from its nib.
 }
 
+
 +(UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
 {
     
@@ -761,12 +764,9 @@
     
     
     if(show){
-        
-        for (id<MKAnnotation> currentAnnotation in self.mapView.annotations)
-        {
-        if ([currentAnnotation isKindOfClass:[ActivityAnnotation class]]) {
+        for(id<MKAnnotation>currentAnnotation in self.mapView.annotations){
+        if([currentAnnotation isKindOfClass:[ActivityAnnotation class]])
             [self.mapView removeAnnotation:currentAnnotation];
-          }
         }
         firstALineddressLabel.hidden=YES;
         secondLineAddressLabel.hidden=YES;
@@ -2165,7 +2165,7 @@
         NSString*tryIndex=[NSString stringWithFormat:@"777%d",i];
         
         
-        ActivityAnnotation *sfAnnotation =[[ActivityAnnotation alloc] initWithAnnotation:placemark  tag:[tryIndex intValue] pin:droppedStatus];
+        ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithAnnotation:placemark  tag:[tryIndex intValue] pin:droppedStatus]autorelease];
         
         [self.mapView addAnnotation:sfAnnotation];
         
@@ -2680,11 +2680,18 @@
          self.addressSearchBar.text=@"";
      }
     
-    self.mapView.showsUserLocation=YES;
+    //self.mapView.showsUserLocation=YES;
+    
+    redirection=TRUE;
     searching=FALSE;
     [self gotoLocation];
     [self showFourSquareComponents:NO];
-    [self setUpLabelViewElements:YES];
+    
+    for(id<MKAnnotation>currentAnnotation in self.mapView.annotations){
+        if([currentAnnotation isKindOfClass:[ActivityAnnotation class]])
+            [self.mapView removeAnnotation:currentAnnotation];
+    }
+//    [self setUpLabelViewElements:YES];
 
 }
 
@@ -2704,8 +2711,8 @@
         (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:SFAnnotationIdentifier];
         //if (!pinView)
         {
-            MKAnnotationView *annotationView =[[MKAnnotationView alloc] initWithAnnotation:annotation
-                                                                             reuseIdentifier:ActivityAnnotationIdentifier];
+            MKAnnotationView *annotationView = [[[MKAnnotationView alloc] initWithAnnotation:annotation
+                                                                             reuseIdentifier:ActivityAnnotationIdentifier] autorelease];
 #if 0
             UIImage *flagImage=[UIImage imageNamed:@"S05.1_pinUnselected.png"];
             
@@ -3182,8 +3189,29 @@
         
         pinDrop=FALSE;
         [self showFourSquareComponents:NO];
+        
+        if(!redirection){
+        for(id<MKAnnotation>currentAnnotation in self.mapView.annotations){
+            if([currentAnnotation isKindOfClass:[ActivityAnnotation class]])
+                [self.mapView removeAnnotation:currentAnnotation];
+        }
+        }
+        else{
+            redirection=FALSE;
+        }
+        firstALineddressLabel.hidden=YES;
+        secondLineAddressLabel.hidden=YES;
+        leftPinImageView.hidden=YES;
+        searchTextLabel.hidden=NO;
+        placeAndAddressLabel.hidden=NO;
+        
+        dropPinLabel.hidden=NO;
+        touchAndHoldMapLabel.hidden=NO;
+        verticalMiddleLine.hidden=NO;
+        leftMagifyImageView.hidden=NO;
+        rightPinImageView.hidden=NO;
 
-        [self setUpLabelViewElements:YES];
+//        [self setUpLabelViewElements:YES];
         createActivityButton.hidden=YES;
         backButton.hidden=NO;
         locationTextLabel.hidden=NO;
@@ -3231,9 +3259,9 @@
     
     phoneButton.enabled=NO;
     
-    ActivityAnnotation *sfAnnotation =[[ActivityAnnotation alloc] initWithAnnotation:touchPin  tag:7770 pin:YES];
+    ActivityAnnotation *sfAnnotation = [[[ActivityAnnotation alloc] initWithAnnotation:touchPin  tag:7770 pin:YES]autorelease];
 
-
+    
     
     [self.mapView addAnnotation:sfAnnotation];
     
