@@ -570,7 +570,6 @@
      //Disabling for now as it's causing the app to crash.
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(didLongPress:)];
-    lpgr.delegate=self;
     lpgr.minimumPressDuration = 1.0; //user needs to press for 2 seconds
     [self.mapView addGestureRecognizer:lpgr];
     [lpgr release];
@@ -725,7 +724,6 @@
 
     // Do any additional setup after loading the view from its nib.
 }
-
 
 +(UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
 {
@@ -2683,14 +2681,20 @@
     //self.mapView.showsUserLocation=YES;
     
     redirection=TRUE;
-    searching=FALSE;
     [self gotoLocation];
     [self showFourSquareComponents:NO];
-    
+
+    if(searching){
+        [self setUpLabelViewElements:YES];
+    }
+    else{
     for(id<MKAnnotation>currentAnnotation in self.mapView.annotations){
         if([currentAnnotation isKindOfClass:[ActivityAnnotation class]])
             [self.mapView removeAnnotation:currentAnnotation];
     }
+    }
+    searching=FALSE;
+
 //    [self setUpLabelViewElements:YES];
 
 }
@@ -3180,7 +3184,7 @@
         locationTextLabel.hidden=NO;
         activityInfoButton.hidden=YES;
         
-        
+        redirection=FALSE;
     }
     else if(pinDrop){
         ActivityAnnotation *loc=view.annotation;
