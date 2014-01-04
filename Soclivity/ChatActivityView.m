@@ -58,7 +58,6 @@
     
     if([holdHistoryArray count]>0){
         [self loadTableHeader];
-        //bubbleTable.contentInset = UIEdgeInsetsMake(-52.0f, 0, 0, 0);
     }
     
     bubbleTable.bubbleDataSource = self;
@@ -66,7 +65,7 @@
 
 	[self addSubview:self.bubbleTable];
     
-    bubbleTable.contentInset = UIEdgeInsetsMake(5.0, 0, 0, 0);
+    bubbleTable.contentInset = UIEdgeInsetsMake(5.0, 0, 10.0, 0);
     
     CGRect inputFrame = CGRectMake(0.0f, size.height + INPUT_HEIGHT, size.width, INPUT_HEIGHT);
     self.inputView = [[MessageInputView alloc] initWithFrame:inputFrame];
@@ -424,7 +423,7 @@
     }
     UIEdgeInsets insets = UIEdgeInsetsMake(5.0,
                                            0.0f,
-                                           self.frame.size.height - keyboardY,
+                                           (self.frame.size.height - keyboardY)+10.0,
                                            0.0f);
 	self.bubbleTable.contentInset = insets;
 	self.bubbleTable.scrollIndicatorInsets = insets;
@@ -493,7 +492,7 @@
         
         UIEdgeInsets insets = UIEdgeInsetsMake(0.0f,
                                                0.0f,
-                                               self.frame.size.height - keyboardY,
+                                               (self.frame.size.height - keyboardY)+10,
                                                0.0f);
         self.bubbleTable.contentInset = insets;
         self.bubbleTable.scrollIndicatorInsets = insets;
@@ -535,13 +534,13 @@
 
     
     if([holdHistoryArray count]==0){
-        self.bubbleTable.contentInset = UIEdgeInsetsMake(5.0, 0, 0, 0);
+        self.bubbleTable.contentInset = UIEdgeInsetsMake(5.0, 0, 10.0, 0);
            [loadPrevMessagesView setHidden:YES];
 
 
     }
     else{
-        self.bubbleTable.contentInset = UIEdgeInsetsMake(5.0, 0, 0, 0);
+        self.bubbleTable.contentInset = UIEdgeInsetsMake(5.0, 0, 10.0, 0);
         bubbleTable.isLoading=FALSE;
     }
     [self.bubbleTable endUpdates];
