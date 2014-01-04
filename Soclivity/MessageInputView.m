@@ -54,7 +54,7 @@
     self.textView.scrollEnabled = YES;
     self.textView.scrollsToTop = NO;
     self.textView.userInteractionEnabled = YES;
-    self.textView.font = [UIFont fontWithName:@"Helvetica-Condensed" size:16.0f];
+    self.textView.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0f];
 
     self.textView.textColor = [SoclivityUtilities returnTextFontColor:4];
     self.textView.backgroundColor = [UIColor whiteColor];
