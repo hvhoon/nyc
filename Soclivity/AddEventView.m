@@ -2462,6 +2462,7 @@ else {
     }
     
     [_geocodingResults removeAllObjects];
+    redirection=TRUE;
     [self.mapView removeAnnotations:self.mapView.annotations];
     
     searching=FALSE;
