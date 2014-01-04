@@ -42,8 +42,8 @@
 
 #pragma mark - Text bubble
 
-const UIEdgeInsets textInsetsMine = {10, 10, 7, 17};//5//11
-const UIEdgeInsets textInsetsSomeone = {5, 15, 11, 10};
+const UIEdgeInsets textInsetsMine = {15, 15, 7.5, 23};//5//11
+const UIEdgeInsets textInsetsSomeone = {10, 17.5, 12.5, 15};
 
 
 + (id)dataWithText:(NSString *)text date:(NSDate *)date name:(NSString*)name type:(NSBubbleType)type 
@@ -54,7 +54,7 @@ const UIEdgeInsets textInsetsSomeone = {5, 15, 11, 10};
 - (id)initWithText:(NSString *)text date:(NSDate *)date name:(NSString*)name type:(NSBubbleType)type 
 {
 
-    UIFont *font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
+    UIFont *font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
     CGSize size = [(text ? text : @"") sizeWithFont:font constrainedToSize:CGSizeMake(220, 9999) lineBreakMode:NSLineBreakByWordWrapping];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
@@ -63,7 +63,12 @@ const UIEdgeInsets textInsetsSomeone = {5, 15, 11, 10};
     label.text = (text ? text : @"");
     label.font = font;
     label.backgroundColor = [UIColor clearColor];
-    label.textColor=[SoclivityUtilities returnTextFontColor:9];
+    
+    if (type == BubbleTypeMine)
+        label.textColor=[UIColor whiteColor];
+    else
+        label.textColor=[SoclivityUtilities returnTextFontColor:9];
+    
     [label autorelease];
     
     UIEdgeInsets insets = (type == BubbleTypeMine ? textInsetsMine : textInsetsSomeone);
@@ -72,8 +77,8 @@ const UIEdgeInsets textInsetsSomeone = {5, 15, 11, 10};
 
 #pragma mark - Image bubble
 
-const UIEdgeInsets imageInsetsMine = {16, 13, 12, 22};//11//16
-const UIEdgeInsets imageInsetsSomeone = {11, 18, 16, 14};
+const UIEdgeInsets imageInsetsMine = {20, 15, 10, 21};//11//16
+const UIEdgeInsets imageInsetsSomeone = {15, 21, 15, 15};
 
 + (id)dataWithImage:(UIImage *)image date:(NSDate *)date name:(NSString*)name type:(NSBubbleType)type 
 {

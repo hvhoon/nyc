@@ -68,10 +68,12 @@
     _imageView.bounds = CGRectMake(0, 0, imgWidth / _scalingFactor, imgHeight/_scalingFactor);
     _imageView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
     
+    /*
     _imageView.layer.shadowColor = [UIColor blackColor].CGColor;
     _imageView.layer.shadowOffset = CGSizeMake(3, 3);
     _imageView.layer.shadowOpacity = 0.6;
     _imageView.layer.shadowRadius = 1.0;
+     */
 }
 
 
@@ -211,14 +213,21 @@
     self.customView.frame = CGRectMake(x + self.data.insets.left, y + self.data.insets.top, width, height);
     [self.contentView addSubview:self.customView];
     
+    // Specifying the insets
+    UIEdgeInsets chatBubbleGrayInsets = UIEdgeInsetsMake(32, 22, 10, 10);
+    UIEdgeInsets chatBubbleBlueInsets = UIEdgeInsetsMake(32, 10, 10, 22);
+
+    
     if (type == BubbleTypeSomeoneElse)
     {
-        self.bubbleImage.image = [[UIImage imageNamed:@"S05.3_chatBubbleGray.png"] stretchableImageWithLeftCapWidth:21 topCapHeight:19];//8
+        self.bubbleImage.image = [[UIImage imageNamed:@"S05.3_chatBubbleGray.png"] resizableImageWithCapInsets:chatBubbleGrayInsets resizingMode:UIImageResizingModeStretch];
+        //self.bubbleImage.image = [[UIImage imageNamed:@"S05.3_chatBubbleGray.png"] stretchableImageWithLeftCapWidth:21 topCapHeight:19];//8
         
     }
     else {
         y=y+5;
-        self.bubbleImage.image = [[UIImage imageNamed:@"S05.3_chatBubbleBlue.png"] stretchableImageWithLeftCapWidth:15 topCapHeight:19];//8
+        self.bubbleImage.image = [[UIImage imageNamed:@"S05.3_chatBubbleBlue.png"] resizableImageWithCapInsets:chatBubbleBlueInsets resizingMode:UIImageResizingModeStretch];
+        //self.bubbleImage.image = [[UIImage imageNamed:@"S05.3_chatBubbleBlue.png"] stretchableImageWithLeftCapWidth:15 topCapHeight:19];//8
     }
     
     self.bubbleImage.frame = CGRectMake(x, y, width + self.data.insets.left + self.data.insets.right, height + self.data.insets.top + self.data.insets.bottom);

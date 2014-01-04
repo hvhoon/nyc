@@ -54,9 +54,6 @@
     self.label.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
     self.label.textColor=[SoclivityUtilities returnTextFontColor:4];
     self.label.textAlignment = NSTextAlignmentCenter;
-    self.label.shadowOffset = CGSizeMake(0, 1);
-    self.label.shadowColor = [UIColor whiteColor];
-    self.label.backgroundColor = [UIColor clearColor];
     [self addSubview:self.label];
 }
 
@@ -73,11 +70,7 @@
     self.label.text = value;
     self.label.font = [UIFont fontWithName:@"Helvetica-Condensed" size:12];
     self.label.textColor=[SoclivityUtilities returnTextFontColor:5];
-
     self.label.textAlignment = NSTextAlignmentLeft;
-    self.label.shadowOffset = CGSizeMake(0, 1);
-    self.label.shadowColor = [UIColor whiteColor];
-    self.label.backgroundColor = [UIColor clearColor];
     [self addSubview:self.label];
 }
 
