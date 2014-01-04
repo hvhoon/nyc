@@ -11,6 +11,7 @@
 
 @interface MessageInputView : UIImageView<UITextViewDelegate>
 @property (strong, nonatomic) UITextView *textView;
+@property (strong, nonatomic) UIView *backdrop;
 @property (strong, nonatomic) UIButton *sendButton;
 @property (strong,nonatomic) UILabel *placeholderLabel;
 

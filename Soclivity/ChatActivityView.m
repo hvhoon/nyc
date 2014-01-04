@@ -68,13 +68,11 @@
     bubbleTable.contentInset = UIEdgeInsetsMake(5.0, 0, 10.0, 0);
     
     CGRect inputFrame = CGRectMake(0.0f, size.height + INPUT_HEIGHT, size.width, INPUT_HEIGHT);
+    
     self.inputView = [[MessageInputView alloc] initWithFrame:inputFrame];
     self.inputView.textView.delegate = self;
     [self.inputView.sendButton addTarget:self action:@selector(sendPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.inputView];
-
-    
-    
     
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(handleWillShowKeyboard:)
@@ -85,8 +83,6 @@
 											 selector:@selector(handleWillHideKeyboard:)
 												 name:UIKeyboardWillHideNotification
                                                object:nil];
-    
-    
     [self.inputView setHidden:YES];
     
     if([bubbleData count]==0){
@@ -281,6 +277,7 @@
     [self.bubbleTable setHidden:NO];
     [self sendPressed:sender
              withText:[self.inputView.textView.text trimWhitespace]];
+
 }
 
 
@@ -345,34 +342,6 @@
         self.inputView.placeholderLabel.hidden = YES;
     }
 
-    CGFloat maxHeight = [MessageInputView maxHeight];
-    CGFloat textViewContentHeight = textView.contentSize.height;
-    CGFloat changeInHeight = textViewContentHeight - self.previousTextViewContentHeight;
-    
-    changeInHeight = (textViewContentHeight + changeInHeight >= maxHeight) ? 0.0f : changeInHeight;
-    
-    if(changeInHeight != 0.0f) {
-        [UIView animateWithDuration:0.25f animations:^{
-            
-            UIEdgeInsets insets = UIEdgeInsetsMake(0.0f, 0.0f, self.bubbleTable.contentInset.bottom + changeInHeight, 0.0f);
-            self.bubbleTable.contentInset = insets;
-            self.bubbleTable.scrollIndicatorInsets = insets;
-            
-            [self scrollToBottomAnimated:NO];
-            
-            CGRect inputViewFrame = self.inputView.frame;
-            self.inputView.frame = CGRectMake(0.0f,
-                                              inputViewFrame.origin.y - changeInHeight,
-                                              inputViewFrame.size.width,
-                                              inputViewFrame.size.height + changeInHeight);
-        } completion:^(BOOL finished) {
-            
-        }];
-        
-        self.previousTextViewContentHeight = MIN(textViewContentHeight, maxHeight);
-        NSLog(@"self.previousTextViewContentHeight=%f",self.previousTextViewContentHeight);
-    }
-    
     self.inputView.sendButton.enabled = ([textView.text trimWhitespace].length > 0);
 }
 
@@ -416,17 +385,16 @@
                                       inputViewFrame.size.height);
     
     if(!isKeyboardInView){
-        [inputView setHidden:YES];
+        [self.inputView setHidden:YES];
     }
     else{
-        [inputView setHidden:NO];
+        [self.inputView setHidden:NO];
     }
     UIEdgeInsets insets = UIEdgeInsetsMake(5.0,
                                            0.0f,
                                            (self.frame.size.height - keyboardY)+10.0,
                                            0.0f);
 	self.bubbleTable.contentInset = insets;
-	self.bubbleTable.scrollIndicatorInsets = insets;
     [UIView commitAnimations];
 }
 
@@ -495,7 +463,6 @@
                                                (self.frame.size.height - keyboardY)+10,
                                                0.0f);
         self.bubbleTable.contentInset = insets;
-        self.bubbleTable.scrollIndicatorInsets = insets;
 
     }
 

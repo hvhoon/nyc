@@ -663,7 +663,6 @@ switch ([notIdObject.notificationType integerValue]) {
 }
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
-    
     if([chatView.inputView.textView isFirstResponder] && !enable){
         
         tapType=-1;

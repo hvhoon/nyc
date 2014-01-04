@@ -42,8 +42,8 @@
 
 #pragma mark - Text bubble
 
-const UIEdgeInsets textInsetsMine = {15, 15, 7.5, 23};
-const UIEdgeInsets textInsetsSomeone = {11, 17.5, 12.5, 15};
+const UIEdgeInsets textInsetsMine = {13, 13, 4.5, 20};
+const UIEdgeInsets textInsetsSomeone = {8, 16, 10, 12};
 
 
 + (id)dataWithText:(NSString *)text date:(NSDate *)date name:(NSString*)name type:(NSBubbleType)type 
@@ -54,7 +54,7 @@ const UIEdgeInsets textInsetsSomeone = {11, 17.5, 12.5, 15};
 - (id)initWithText:(NSString *)text date:(NSDate *)date name:(NSString*)name type:(NSBubbleType)type 
 {
 
-    UIFont *font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
+    UIFont *font = [UIFont fontWithName:@"Helvetica-Condensed" size:14];
     CGSize size = [(text ? text : @"") sizeWithFont:font constrainedToSize:CGSizeMake(220, 9999) lineBreakMode:NSLineBreakByWordWrapping];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];

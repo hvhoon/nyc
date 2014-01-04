@@ -8,6 +8,10 @@
 
 #import "MessageInputView.h"
 #import "SoclivityUtilities.h"
+
+#define INPUT_HEIGHT 40.0f
+#define INPUT_WIDTH 270.0f
+
 @interface MessageInputView ()
 
 - (void)setup;
@@ -39,32 +43,24 @@
 
 - (void)setupTextView
 {
-    CGFloat width = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ? 246.0f : 690.0f;
-    CGFloat height = [MessageInputView textViewLineHeight] * [MessageInputView maxLines];
+    self.backdrop = [[UIView alloc] initWithFrame:CGRectMake(0, 0, INPUT_WIDTH, INPUT_HEIGHT)];
+    self.backdrop.backgroundColor = [UIColor whiteColor];
+    [self addSubview:self.backdrop];
     
-    self.textView = [[UITextView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, width, height)];
-    self.textView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.textView = [[UITextView alloc] initWithFrame:CGRectMake(5.0f, 4.0f, INPUT_WIDTH-10.0, INPUT_HEIGHT-8.0)];
     self.textView.backgroundColor = [UIColor whiteColor];
-    self.textView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
-    self.textView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
     self.textView.scrollEnabled = YES;
     self.textView.scrollsToTop = NO;
     self.textView.userInteractionEnabled = YES;
-    self.textView.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15.0f];
+    self.textView.showsHorizontalScrollIndicator = NO;
+    
+    self.textView.font = [UIFont fontWithName:@"Helvetica-Condensed" size:14.0f];
 
     self.textView.textColor = [SoclivityUtilities returnTextFontColor:9];
     self.textView.keyboardAppearance = UIKeyboardAppearanceDefault;
     self.textView.keyboardType = UIKeyboardTypeDefault;
     self.textView.returnKeyType = UIReturnKeyDefault;
-    [self addSubview:self.textView];
-    
-    self.placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.textView.frame.size.width - 20.0, 34.0f)];
-    [self.placeholderLabel setText:@"Entering text here!"];
-    [self.placeholderLabel setBackgroundColor:[UIColor clearColor]];
-    self.placeholderLabel.font = [UIFont fontWithName:@"Helvetica-Condensed" size:15];
-    self.placeholderLabel.textColor=[UIColor lightGrayColor];
-    
-    [self.textView addSubview:self.placeholderLabel];
+    [self.backdrop addSubview:self.textView];
 
 }
 
@@ -72,13 +68,18 @@
 {
     self.sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    self.sendButton.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin);
+    self.sendButton.frame=CGRectMake(INPUT_WIDTH, 0, 50, INPUT_HEIGHT);
+    self.sendButton.backgroundColor = [UIColor whiteColor];
     
-    self.sendButton.frame=CGRectMake(self.frame.size.width - 65.0f, 5, 56, 30);
+    [self.sendButton setTitle:@"Send" forState:UIControlStateNormal];
+    [self.sendButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+    [self.sendButton setTitleColor:[SoclivityUtilities returnTextFontColor:10] forState:UIControlStateNormal];
+    [self.sendButton setTitleColor:[SoclivityUtilities returnTextFontColor:10] forState:UIControlStateHighlighted];
+    [self.sendButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+    self.sendButton.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
     
-    [self.sendButton setBackgroundImage:[UIImage imageNamed:@"S05.3_sendActive.png"] forState:UIControlStateNormal];
-    [self.sendButton setBackgroundImage:[UIImage imageNamed:@"S05.3_sendInactive.png"] forState:UIControlStateDisabled];
-    [self.sendButton setBackgroundImage:[UIImage imageNamed:@"S05.3_sendActive.png"] forState:UIControlStateHighlighted];
+    self.sendButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Condensed-Bold" size:17];
+    
 
     self.sendButton.enabled = NO;
     [self addSubview:self.sendButton];
@@ -103,7 +104,7 @@
 #pragma mark - Message input view
 + (CGFloat)textViewLineHeight
 {
-    return 35.0f; // for fontSize 15.0f
+    return INPUT_HEIGHT; // for fontSize 15.0f
 }
 
 - (void)paste:(id)sender {
@@ -111,7 +112,6 @@
     NSString* copyCode = pasteboard.string;
     NSLog(@"copyCode=%@",copyCode);
     
-    //[self.delegate tellToStopInteraction:YES];
 }
 
 - (void)copy:(id)sender {
@@ -119,17 +119,18 @@
     NSString* copyCode = pasteboard.string;
     NSLog(@"copyCode=%@",copyCode);
     
-    //[self.delegate tellToStopInteraction:YES];
 }
 
 + (CGFloat)maxLines
 {
-    return ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ? 4.0f : 8.0f;
+    //return ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ? 4.0f : 8.0f;
+    return 1;
 }
 
 + (CGFloat)maxHeight
 {
-    return ([MessageInputView maxLines] + 1.0f) * [MessageInputView textViewLineHeight];
+    //return ([MessageInputView maxLines] + 1.0f) * [MessageInputView textViewLineHeight];
+    return [MessageInputView textViewLineHeight];
 }
 
 /*
