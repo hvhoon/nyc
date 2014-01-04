@@ -73,7 +73,6 @@
 		18C2BA281789B91C00B281B2 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C2BA271789B91C00B281B2 /* Icon.png */; };
 		18C2BA2A1789B93000B281B2 /* User.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18C2BA291789B93000B281B2 /* User.plist */; };
 		18C48364178329F70029FBAC /* AutoSessionClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C48363178329F70029FBAC /* AutoSessionClass.m */; };
-		18D5AD6716EF8BBA002C5430 /* notification.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D5AD6216EF8BBA002C5430 /* notification.png */; };
 		18D5AD6816EF8BBA002C5430 /* S05.3_inputTextBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D5AD6316EF8BBA002C5430 /* S05.3_inputTextBar.png */; };
 		18D5AD6916EF8BBA002C5430 /* S05.3_inputTextBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D5AD6416EF8BBA002C5430 /* S05.3_inputTextBar@2x.png */; };
 		18EC4F3D16E6643A00759D50 /* ActivityChatData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC4F3C16E6643A00759D50 /* ActivityChatData.m */; };
@@ -877,7 +876,6 @@
 		18C2BA291789B93000B281B2 /* User.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = User.plist; sourceTree = "<group>"; };
 		18C48362178329F70029FBAC /* AutoSessionClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoSessionClass.h; sourceTree = "<group>"; };
 		18C48363178329F70029FBAC /* AutoSessionClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoSessionClass.m; sourceTree = "<group>"; };
-		18D5AD6216EF8BBA002C5430 /* notification.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notification.png; sourceTree = "<group>"; };
 		18D5AD6316EF8BBA002C5430 /* S05.3_inputTextBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = S05.3_inputTextBar.png; sourceTree = "<group>"; };
 		18D5AD6416EF8BBA002C5430 /* S05.3_inputTextBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "S05.3_inputTextBar@2x.png"; sourceTree = "<group>"; };
 		18EC4F3B16E6643A00759D50 /* ActivityChatData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityChatData.h; sourceTree = "<group>"; };
@@ -1902,7 +1900,6 @@
 		3C2B539016C529BF00C2C01D /* S05 .3 Chat */ = {
 			isa = PBXGroup;
 			children = (
-				18D5AD6216EF8BBA002C5430 /* notification.png */,
 				18D5AD6316EF8BBA002C5430 /* S05.3_inputTextBar.png */,
 				18D5AD6416EF8BBA002C5430 /* S05.3_inputTextBar@2x.png */,
 				18C27CAE16D91F0E00754EA6 /* S05.3_addImage.png */,
@@ -4145,7 +4142,6 @@
 				18EC4F6416E67CE000759D50 /* send-highlighted@2x.png in Resources */,
 				18EC4F6516E67CE000759D50 /* send.png in Resources */,
 				18EC4F6616E67CE000759D50 /* send@2x.png in Resources */,
-				18D5AD6716EF8BBA002C5430 /* notification.png in Resources */,
 				18D5AD6816EF8BBA002C5430 /* S05.3_inputTextBar.png in Resources */,
 				18D5AD6916EF8BBA002C5430 /* S05.3_inputTextBar@2x.png in Resources */,
 				18BE4F271713327400957464 /* S05.4_globalSearch.png in Resources */,

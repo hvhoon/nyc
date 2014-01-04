@@ -2664,7 +2664,6 @@
 -(IBAction)crossLocationButtonClicked:(id)sender{
     
     
-    locationTextLabel.hidden=NO;
     createActivityButton.hidden=YES;
     locationCrossButton.hidden=YES;
     backButton.hidden=NO;
@@ -2683,8 +2682,7 @@
     
     redirection=TRUE;
     [self gotoLocation];
-    [self showFourSquareComponents:NO];
-
+    
     if(searching){
         [self setUpLabelViewElements:YES];
     }

@@ -410,7 +410,7 @@
         <image name="S06_pickLocationButton.png" width="142" height="40"/>
         <image name="back-button.png" width="39" height="40"/>
         <image name="bottom-bar.png" width="320" height="40"/>
-        <image name="currentButton.png" width="40" height="39"/>
+        <image name="currentButton.png" width="40" height="40"/>
         <image name="topbar.png" width="320" height="44"/>
     </resources>
 </document>
