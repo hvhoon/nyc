@@ -99,7 +99,6 @@
             
             CGRect fadedRect;
             CGRect noChatRect;
-            UIImageView *logoFadedImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S11_logoFaded.png"]];
             UIImageView *noChatImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"S05.3_chatBlankImage.png"]];
             
             
@@ -121,8 +120,6 @@
             noChatImageView.frame=noChatRect;
             [chatBackgroundView addSubview:noChatImageView];
             
-            logoFadedImageView.frame=fadedRect;
-            [chatBackgroundView addSubview:logoFadedImageView];
             [self addSubview:chatBackgroundView];
             
             
