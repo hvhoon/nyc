@@ -1692,7 +1692,7 @@ else {
         //pinDrop=FALSE;
     }
 
-    
+    redirection=FALSE;
 }
 
 -(void)phoneButtonPressed:(id)sender{
@@ -1760,6 +1760,8 @@ else {
          [self showFourSquareComponents:NO];
         secondLineAddressLabel.text=@"Select a pin above to see it's full address";
         [delegate enableDisableTickOnTheTopRight:NO];
+        
+        redirection=FALSE;
         
 #if LISTVIEWREMOVE
         NSIndexPath *indexPath=[NSIndexPath indexPathForRow:pointTag inSection:0];
@@ -1886,7 +1888,11 @@ else {
     CLLocation * location = [[CLLocation alloc] initWithLatitude:coord.latitude 
                                                        longitude:coord.longitude];
     
-    [self.mapView removeAnnotations:self.mapView.annotations];
+    redirection=YES;
+    for(id<MKAnnotation>currentAnnotation in self.mapView.annotations){
+        if([currentAnnotation isKindOfClass:[ActivityAnnotation class]])
+            [self.mapView removeAnnotation:currentAnnotation];
+    }
 
     searching=FALSE;
     pinDrop=TRUE;

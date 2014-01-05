@@ -3136,7 +3136,7 @@
         
     }
     
-    
+    redirection=FALSE;
 }
 
 
@@ -3247,7 +3247,13 @@
     CLLocation * location = [[CLLocation alloc] initWithLatitude:coord.latitude
                                                        longitude:coord.longitude];
     
-    [self.mapView removeAnnotations:self.mapView.annotations];
+    redirection=YES;
+    for(id<MKAnnotation>currentAnnotation in self.mapView.annotations){
+        if([currentAnnotation isKindOfClass:[ActivityAnnotation class]])
+            [self.mapView removeAnnotation:currentAnnotation];
+    }
+
+//    [self.mapView removeAnnotations:self.mapView.annotations];
     
     searching=FALSE;
     pinDrop=TRUE;
