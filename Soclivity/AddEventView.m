@@ -837,10 +837,21 @@ else {
         case 2:
         case 3:
         case 4:
-
         {
             locationInfoLabel1.text=[NSString stringWithFormat:@"%@ miles away",activityObject.distance];
-            locationInfoLabel2.text=[NSString stringWithFormat:@"%@, %@", activityObject.where_city, activityObject.where_state];
+            
+            // Handling if the City or State or both are blank
+            if ((activityObject.where_state==nil || [activityObject.where_state isEqualToString:@""]) && (activityObject.where_city==nil || [activityObject.where_city isEqualToString:@""])){
+                locationInfoLabel2.text=[NSString stringWithFormat:@"No city or state provided."];
+            }
+            else if (activityObject.where_state==nil || activityObject.where_city==nil || [activityObject.where_state isEqualToString:@""] || [activityObject.where_city isEqualToString:@""]) {
+                if (activityObject.where_state==nil || [activityObject.where_state isEqualToString:@""])
+                    locationInfoLabel2.text=[NSString stringWithFormat:@"%@", activityObject.where_city];
+                else
+                    locationInfoLabel2.text=[NSString stringWithFormat:@"%@", activityObject.where_state];
+            }
+            else
+                locationInfoLabel2.text=[NSString stringWithFormat:@"%@, %@", activityObject.where_city, activityObject.where_state];
         }
             break;
             

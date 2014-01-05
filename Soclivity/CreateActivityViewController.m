@@ -653,7 +653,7 @@
 
     
     activityInfoButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    activityInfoButton.frame = CGRectMake(285,15,28,27);
+    activityInfoButton.frame = CGRectMake(282,20,25,22);
     [activityInfoButton setImage:[UIImage imageNamed:@"S05.1_drivingDirectionsIcon.png"] forState:UIControlStateNormal];
     
     [activityInfoButton addTarget:self action:@selector(activityInfoButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
