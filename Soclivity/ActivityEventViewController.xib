@@ -372,11 +372,11 @@
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
         </view>
         <view contentMode="scaleToFill" id="116" customClass="ParticipantListTableView">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="430"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="27" sectionFooterHeight="27" id="117">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="410"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="380"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>

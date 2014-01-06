@@ -186,7 +186,7 @@
             notGoingActivityButton.frame=CGRectMake(160,440+88, 90, 40);
             inviteUsersToActivityButton.frame=CGRectMake(5,440, 40, 40);
             currentLocationInMap.frame=CGRectMake(5,440, 40, 40);
-            spinnerView.frame=CGRectMake(15,430, 20, 20);
+            spinnerView.frame=CGRectMake(15,450, 20, 20);
             enterChatTextButton.frame=CGRectMake(108,441, 104, 39);
             postChatImageButton.frame=CGRectMake(5,440, 40, 40);
             reportButton.frame=CGRectMake(5,440, 40, 40);
