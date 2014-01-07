@@ -345,7 +345,7 @@
             if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
                 [self.view addSubview:[self commonFriendsView:147]];
 
-                delta=93;//+20
+                delta=93;
             }
             else{
                 [self.view addSubview:[self commonFriendsView:127]];
@@ -355,11 +355,11 @@
             
             
         }
-        if(playerObject.DOS!=1){
+        else if(playerObject.DOS!=1){
             if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
                 [self.view addSubview:[self commonFriendsView:147]];
                 
-                delta=93+20;
+                delta=93;
             }
             else{
                 [self.view addSubview:[self commonFriendsView:127]];
