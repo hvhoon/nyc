@@ -340,7 +340,6 @@
 
            }
       }
-      
         else if(playerObject.DOS==1){
             if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(IOS_VERSION_7_0)){
                 [self.view addSubview:[self commonFriendsView:147]];
