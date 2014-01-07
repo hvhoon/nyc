@@ -131,7 +131,7 @@
             
         }
         else{
-            bottomBarImageView.frame=CGRectMake(0, 568-40-88, 320, 40);
+            bottomBarImageView.frame=CGRectMake(0, 440, 320, 40);
             openSlotsNoLabel.frame=CGRectMake(58, 450, 202, 21);
             settingsButton.frame=CGRectMake(5, 420+20, 40, 40);
             btnnotify.frame=CGRectMake(35, 449, 32, 21);
@@ -183,7 +183,7 @@
                 activityRect=CGRectMake(0, 64, 320,377+88);
             }
             else{
-                activityRect=CGRectMake(0, 64, 320, 357);
+                activityRect=CGRectMake(0, 64, 320, 377);
             }
             
         }
@@ -519,6 +519,16 @@ if([SoclivityUtilities hasNetworkConnection]){
 
 -(void)sendInviteOnFacebookPrivateMessage:(int)fbUId{
  
+#if PRIVATE_BETA
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry, invites are closed during the private beta. Really want your friend to use the app? Send an email to help@soclivity.com" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    [alert show];
+    [alert release];
+    return;
+    
+#else
+
     if([SoclivityUtilities hasNetworkConnection]){
         [self startAnimation:0];
         [devServer postActivityRequestInvocation:12 playerId:fbUId actId:activityId delegate:self];
@@ -531,11 +541,24 @@ if([SoclivityUtilities hasNetworkConnection]){
         [alert show];
         [alert release];
         return;
+        
+        
     }
+#endif
 }
 
 -(void)askUserToJoinSoclivityOnFacebook:(NSInteger)facebookId{
     
+    
+#if PRIVATE_BETA
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry, invites are closed during the private beta. Really want your friend to use the app? Send an email to help@soclivity.com" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    [alert show];
+    [alert release];
+    return;
+
+#else
     if([SoclivityUtilities hasNetworkConnection]){
         [self startAnimation:0];
         [devServer postActivityRequestInvocation:16 playerId:facebookId actId:0 delegate:self];
@@ -548,7 +571,14 @@ if([SoclivityUtilities hasNetworkConnection]){
         [alert show];
         [alert release];
         return;
+        
+        
     }
+    
+#endif
+    
+
+    
 }
 
 
