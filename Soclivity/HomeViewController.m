@@ -147,7 +147,9 @@
 }
 
 #if 0
-- (UIStatusBarStyle)preferredStatusBarStyle{return UIStatusBarStyleLightContent;}
+- (UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
 #endif
 - (void)viewDidLoad
 {
@@ -975,7 +977,9 @@
 #define REFRESH_HEADER_HEIGHT 52.0f
 -(void)StartGettingActivities{
     if(!doublePushStop){
-    activityTableView.tableView.contentOffset = CGPointMake(0, -REFRESH_HEADER_HEIGHT);
+    activityTableView.tableView.contentOffset = CGPointMake(0, -1.5*REFRESH_HEADER_HEIGHT);
+        
+   // activityTableView.tableView.contentInset = UIEdgeInsetsMake(0, -REFRESH_HEADER_HEIGHT, 0, 0);
     [activityTableView pullToRefreshMannually];
     }
 
